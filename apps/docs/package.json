@@ -1,0 +1,22 @@
+{
+  "name": "@wayglass/docs",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vitepress build",
+    "dev": "vitepress dev",
+    "test": "vitest run --passWithNoTests",
+    "test:coverage": "vitest run --coverage --passWithNoTests",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@wayglass/core": "workspace:*",
+    "@wayglass/tokens": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "6.0.3",
+    "vitepress": "1.6.4",
+    "vitest": "4.1.10"
+  }
+}

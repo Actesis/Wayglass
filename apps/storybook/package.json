@@ -1,0 +1,26 @@
+{
+  "name": "@wayglass/storybook",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "storybook build --disable-telemetry",
+    "dev": "storybook dev -p 6006 --disable-telemetry",
+    "test": "vitest run --passWithNoTests",
+    "test:coverage": "vitest run --coverage --passWithNoTests",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@wayglass/core": "workspace:*",
+    "@wayglass/tokens": "workspace:*",
+    "lit": "3.3.3"
+  },
+  "devDependencies": {
+    "@storybook/addon-a11y": "10.5.5",
+    "@storybook/addon-docs": "10.5.5",
+    "@storybook/web-components-vite": "10.5.5",
+    "storybook": "10.5.5",
+    "typescript": "6.0.3",
+    "vitest": "4.1.10"
+  }
+}

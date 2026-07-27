@@ -1,0 +1,19 @@
+.wg-foundation-story {
+  box-sizing: border-box;
+  min-block-size: var(--wg-size-touch-minimum);
+  padding: var(--wg-space-reference-6);
+  color: var(--wg-color-semantic-text-primary);
+  background: var(--wg-color-semantic-surface-canvas);
+  font-family: var(--wg-typography-family-body);
+}
+
+.wg-foundation-story table {
+  border-collapse: collapse;
+}
+
+.wg-foundation-story th,
+.wg-foundation-story td {
+  padding: var(--wg-space-reference-2) var(--wg-space-reference-4);
+  border: var(--wg-border-width-standard) solid var(--wg-color-semantic-state-unknown);
+  text-align: start;
+}
