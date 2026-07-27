@@ -1,0 +1,16 @@
+packages:
+  - apps/*
+  - packages/*
+storeDir: .pnpm-store
+allowBuilds:
+  esbuild: true
+minimumReleaseAgeExclude:
+  - '@storybook/addon-a11y@10.5.5'
+  - '@storybook/addon-docs@10.5.5'
+  - '@storybook/builder-vite@10.5.5'
+  - '@storybook/csf-plugin@10.5.5'
+  - '@storybook/react-dom-shim@10.5.5'
+  - '@storybook/web-components-vite@10.5.5'
+  - '@storybook/web-components@10.5.5'
+  - globals@17.8.0
+  - storybook@10.5.5

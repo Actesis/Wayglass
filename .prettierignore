@@ -1,0 +1,13 @@
+dist
+coverage
+node_modules
+.pnpm-store
+**/.vitepress/cache
+**/.vitepress/dist
+pnpm-lock.yaml
+playwright-report
+storybook-static
+test-results
+DESIGN_PRINCIPLES.md
+SPEC.md
+VISION.md
