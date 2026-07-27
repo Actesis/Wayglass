@@ -30,6 +30,11 @@ export const tokens = {
     type: 'color',
     description: 'Provisional elevated neutral reference.',
   },
+  'color.reference.ink.500': {
+    value: '#6f7c8f',
+    type: 'color',
+    description: 'Provisional inactive and secondary neutral reference.',
+  },
   'color.reference.white': {
     value: '#f7f9fc',
     type: 'color',
@@ -75,35 +80,60 @@ export const tokens = {
     type: 'color',
     description: 'Primary interactive emphasis.',
   },
-  'color.semantic.state.informational': {
+  'color.semantic.condition.informational': {
     value: '{color.reference.blue.500}',
     type: 'color',
     description: 'Informational condition reinforcement.',
   },
-  'color.semantic.state.positive': {
+  'color.semantic.condition.positive': {
     value: '{color.reference.green.500}',
     type: 'color',
-    description: 'Positive condition reinforcement.',
+    description: 'Normal, healthy, or positive condition reinforcement.',
   },
-  'color.semantic.state.caution': {
+  'color.semantic.condition.caution': {
     value: '{color.reference.amber.500}',
     type: 'color',
     description: 'Caution condition reinforcement.',
   },
-  'color.semantic.state.critical': {
+  'color.semantic.condition.critical': {
     value: '{color.reference.red.500}',
     type: 'color',
     description: 'Critical condition reinforcement.',
   },
-  'color.semantic.state.unknown': {
-    value: '{color.reference.white}',
+  'color.semantic.knowledge.unknown': {
+    value: '{color.reference.ink.500}',
     type: 'color',
     description: 'Unknown knowledge-state reinforcement.',
   },
+  'color.semantic.knowledge.stale': {
+    value: '{color.reference.amber.500}',
+    type: 'color',
+    description: 'Stale knowledge-state reinforcement when freshness matters.',
+  },
+  'color.semantic.activity.pending': {
+    value: '{color.reference.blue.500}',
+    type: 'color',
+    description: 'Pending activity reinforcement without implying a problem.',
+  },
+  'color.semantic.value.asserted': {
+    value: '{color.reference.blue.500}',
+    type: 'color',
+    description: 'Lit or filled Boolean value without health meaning.',
+  },
+  'color.semantic.value.not-asserted': {
+    value: '{color.reference.ink.500}',
+    type: 'color',
+    description: 'Unlit or outlined Boolean value without health meaning.',
+  },
   'typography.family.body': {
-    value: 'Inter, system-ui, sans-serif',
+    value: 'ui-rounded, Inter, system-ui, sans-serif',
     type: 'fontFamily',
-    description: 'Provisional body type stack.',
+    description: 'Provisional humanist body type stack.',
+  },
+  'typography.family.display': {
+    value: 'ui-rounded, Inter, system-ui, sans-serif',
+    type: 'fontFamily',
+    description: 'Provisional humanist display type stack.',
   },
   'typography.family.numeric': {
     value: 'ui-monospace, SFMono-Regular, monospace',
@@ -150,6 +180,16 @@ export const tokens = {
     type: 'dimension',
     description: 'Inline spacing inside controls.',
   },
+  'space.semantic.section.compact': {
+    value: '{space.reference.2}',
+    type: 'dimension',
+    description: 'Compact section rhythm without reducing interactive targets.',
+  },
+  'space.semantic.function.gutter': {
+    value: '{space.reference.4}',
+    type: 'dimension',
+    description: 'Visible separation between independent functional zones.',
+  },
   'size.touch.minimum': {
     value: '2.75rem',
     type: 'dimension',
@@ -180,10 +220,35 @@ export const tokens = {
     type: 'dimension',
     description: 'Provisional panel radius.',
   },
+  'shape.radius.signal': {
+    value: '0.5rem',
+    type: 'dimension',
+    description: 'Rounded-square radius for value and condition signals.',
+  },
   'border.width.standard': {
     value: '0.0625rem',
     type: 'dimension',
     description: 'Standard visible boundary width.',
+  },
+  'border.width.band': {
+    value: '0.1875rem',
+    type: 'dimension',
+    description: 'Banded structural boundary for function or section identity.',
+  },
+  'border.width.value-rail': {
+    value: '0.25rem',
+    type: 'dimension',
+    description: 'Compact asserted or not-asserted value rail.',
+  },
+  'size.signal.compact': {
+    value: '0.625rem',
+    type: 'dimension',
+    description: 'Compact status-light or value-signal size.',
+  },
+  'size.signal.prominent': {
+    value: '3.5rem',
+    type: 'dimension',
+    description: 'Prominent glanceable value-field signal size.',
   },
   'elevation.panel': {
     value: '0 0.5rem 1.5rem rgb(0 0 0 / 20%)',

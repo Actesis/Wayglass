@@ -11,5 +11,5 @@ hero:
       link: /foundations/
 ---
 
-Wayglass is in Phase 0. The documentation site currently proves the authored documentation and token
-pipeline; production components begin with the Phase 1 vertical slice.
+The Phase 0 repository, architecture, semantic, and visual foundations are complete. Production
+components begin with the Phase 1 domain-neutral vertical slice.

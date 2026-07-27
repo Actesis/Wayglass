@@ -1,6 +1,14 @@
-# Known-state model
+# Semantic model
 
-Operational state has three independent axes:
+Wayglass separates domain value, known state, and section purpose.
+
+## Domain value
+
+A domain value answers a domain question such as `on`/`off`, `open`/`closed`, or
+`verified`/`unverified`. Genuinely Boolean values map to `asserted` and `not-asserted`; neither role
+implies health. Richer finite values must not be flattened into a Boolean.
+
+## Known state
 
 | Axis      | Question                           | Values                                                        |
 | --------- | ---------------------------------- | ------------------------------------------------------------- |
@@ -8,7 +16,17 @@ Operational state has three independent axes:
 | Knowledge | How well is it known?              | confirmed, inferred, stale, unknown, conflicting, unavailable |
 | Activity  | Is a transition underway?          | idle, pending                                                 |
 
-These axes must remain independent. For example, a critical condition may be based on stale
-telemetry, while a positive condition may still have a requested action pending.
-
 Color may reinforce these meanings but must never be the only way they are communicated.
+
+Domain value is not a fourth known-state axis. A lamp may be off with a positive condition, or last
+known as on with stale knowledge.
+
+## Section purpose
+
+| Purpose     | Responsibility                                         |
+| ----------- | ------------------------------------------------------ |
+| Information | Explain or provide reference and contextual content    |
+| Monitor     | Present current or changing state                      |
+| Control     | Offer actions that can change a system or domain value |
+
+Function ownership and section purpose remain independent.

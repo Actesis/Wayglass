@@ -14,7 +14,8 @@ export default defineConfig({
         text: 'Foundations',
         items: [
           { text: 'Introduction', link: '/foundations/' },
-          { text: 'Known-state model', link: '/foundations/state-model' },
+          { text: 'Semantic model', link: '/foundations/state-model' },
+          { text: 'Visual foundations', link: '/foundations/visual-language' },
         ],
       },
     ],

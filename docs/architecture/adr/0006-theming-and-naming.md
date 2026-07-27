@@ -13,8 +13,8 @@ meaning.
 
 Use `@wayglass/*`, `wg-`, and `--wg-` provisionally and keep every package private. Centralize names
 so a future rename is mechanical. Themes may replace reference values and adapt semantic and
-component presentation while preserving state meaning, focus visibility, accessibility, and
-interaction behavior.
+component presentation while preserving value roles, state meaning, functional boundaries, focus
+visibility, accessibility, and interaction behavior.
 
 No software license is selected during Phase 0.
 
