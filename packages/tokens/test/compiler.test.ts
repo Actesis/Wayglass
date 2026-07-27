@@ -9,7 +9,8 @@ describe('token compiler', () => {
     const secondBuild = createCss(tokens);
 
     expect(firstBuild).toBe(secondBuild);
-    expect(firstBuild).toContain('--wg-color-semantic-state-critical');
+    expect(firstBuild).toContain('--wg-color-semantic-condition-critical');
+    expect(firstBuild).toContain('--wg-color-semantic-value-asserted');
     expect(firstBuild).toContain('var(--wg-color-reference-red-500)');
   });
 

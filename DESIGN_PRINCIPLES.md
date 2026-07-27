@@ -42,6 +42,15 @@ Wayglass may present many values, controls, and signals at once when:
 
 Do not remove information merely to create empty space. Do not add information merely because it is available.
 
+Every section has a purpose:
+
+- information explains or provides reference and context;
+- monitor presents current or changing state;
+- control offers actions that can change a system.
+
+Function ownership and section purpose are independent. Informational sections must not be styled as
+healthy or actionable merely because they are present.
+
 ### Test
 
 Does every visible item help the user understand, decide, or act?
@@ -139,6 +148,13 @@ Shapes may express:
 
 Decorative shapes that do not communicate meaning should be removed.
 
+Use shape and space to create obvious functional zones. Each function's identity, scope,
+information, state, and actions must remain visually local to it. Internal dividers organize a
+function; stronger neutral boundaries and gutters separate different functions.
+
+Do not use an unlabeled colored rail as a generic function boundary. A value rail must remain
+attached to the labeled value it represents.
+
 ### Test
 
 Would removing the shape make the structure less understandable?
@@ -164,6 +180,16 @@ Color roles should describe intent rather than hue:
 Themes may change hues while preserving semantic roles.
 
 Do not assign arbitrary colors to unrelated panels merely for variety. Do not force users to memorize a large palette.
+
+Domain value is not condition. `On`/`Off`, `Open`/`Closed`, and `Verified`/`Unverified` describe
+values, not health. Genuinely Boolean values may share asserted and not-asserted visual roles:
+asserted is lit or filled; not asserted is unlit, outlined, or subdued. Neither role means good or
+bad.
+
+Reserve green, amber, and red for condition or attention meaning. Blue may reinforce action,
+selection, information, pending activity, or an asserted value, but it does not mean healthy.
+
+Icons may reinforce value or condition but must never be required for the visual language to work.
 
 ### Test
 
@@ -424,6 +450,9 @@ Before approving any component, page, or flow, answer:
 13. Is the language understandable to the intended user?
 14. Would a new user understand the most important state within five seconds?
 15. Does this feel like an instrument rather than a themed dashboard?
+16. Are different functions unmistakably separated?
+17. Is a domain value being confused with condition?
+18. Does the section look informational, monitored, or controllable for the right reason?
 
 ## 21. Anti-Goals
 

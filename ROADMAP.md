@@ -5,23 +5,26 @@ scope.
 
 ## Phase 0 — Repository foundation
 
-Status: in progress.
+Status: complete.
 
 - [x] Establish governing documents.
 - [x] Record foundational architecture decisions.
 - [x] Create the monorepo and package boundaries.
 - [x] Configure formatting, linting, type checking, testing, and builds.
 - [x] Establish deterministic design-token generation.
-- [x] Establish the shared known-state model.
+- [x] Establish the shared semantic model for domain value, condition, knowledge, activity, and
+      section purpose.
 - [x] Establish Storybook and the dedicated documentation site.
 - [x] Validate formatting, linting, type checking, unit tests, builds, and cross-browser
       accessibility locally.
-- [ ] Perform visual-direction exploration before finalizing visual tokens.
+- [x] Perform visual-direction exploration before finalizing visual tokens.
+- [x] Codify the accepted humanist, compact, banded visual grammar and functional zoning rules.
 
 ## Phase 1 — Vertical slice
 
 Build a domain-neutral operational-awareness slice using the component set defined in `SPEC.md`. It
-must demonstrate the complete state, accessibility, responsive, theme, and framework contracts.
+must demonstrate multiple functions, mixed section purposes, icon-free Boolean values, and the
+complete state, accessibility, responsive, theme, and framework contracts.
 
 ## Later phases
 

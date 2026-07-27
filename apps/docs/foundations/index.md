@@ -11,3 +11,10 @@ accessible, responsive, and honest about uncertainty.
 
 The governing source documents remain `VISION.md`, `DESIGN_PRINCIPLES.md`, and `SPEC.md` in the
 repository root.
+
+Phase 0 establishes two supporting foundations:
+
+- the [semantic model](/foundations/state-model), which separates domain value from condition,
+  knowledge, activity, and section purpose;
+- the [visual foundations](/foundations/visual-language), which define functional zoning, humanist
+  compact banded composition, semantic color, and icon-free value signals.

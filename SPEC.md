@@ -156,6 +156,12 @@ Components MAY manage local interaction state such as:
 
 Components MUST NOT own application-domain state unless the component is explicitly designed as a self-contained domain control.
 
+Domain values MUST remain separate from condition, knowledge, and activity. Components MUST NOT
+infer that a Boolean `false` value is a failure or that `true` is healthy.
+
+Genuinely Boolean values MAY map to the shared presentation roles `asserted` and `not-asserted`.
+Unknown MUST remain a knowledge state and MUST NOT be coerced to `false`.
+
 ## 6. Repository Structure
 
 The project SHOULD use a monorepo.
@@ -304,9 +310,11 @@ color.surface.canvas
 color.surface.panel
 color.text.primary
 color.text.muted
-color.state.positive
-color.state.caution
-color.state.critical
+color.condition.positive
+color.condition.caution
+color.condition.critical
+color.value.asserted
+color.value.not-asserted
 color.action.primary
 ```
 
@@ -357,6 +365,9 @@ The initial token package MUST include:
 - touch targets;
 - focus indicators;
 - data visualization roles.
+- Boolean value roles;
+- condition, knowledge, and activity roles;
+- functional zoning and section-purpose roles.
 
 ### 8.3 Naming
 
@@ -365,7 +376,8 @@ Token names MUST describe semantic purpose, not visual appearance, outside the r
 Good:
 
 ```text
---wg-color-state-critical
+--wg-color-condition-critical
+--wg-color-value-asserted
 --wg-color-surface-elevated
 --wg-space-control-inline
 ```
@@ -425,9 +437,32 @@ Required state roles:
 - pending;
 - unknown.
 
-State MUST be communicated with text or iconography in addition to color.
+State MUST be communicated with text, geometry, or iconography in addition to color. Icons MUST NOT
+be required for core semantic recognition.
 
-### 10.2 Decorative Color
+Condition colors MUST NOT be assigned directly to domain values. Green, amber, and red are reserved
+for normal or positive, cautionary, and critical condition or attention meaning.
+
+### 10.2 Boolean Value Roles
+
+Required Boolean value roles:
+
+- asserted;
+- not asserted.
+
+Asserted values SHOULD be lit, filled, or otherwise emphasized. Not-asserted values SHOULD be
+unlit, outlined, or subdued. Neither role carries health meaning.
+
+Components MUST use domain labels such as `On`/`Off`, `Open`/`Closed`, or
+`Verified`/`Unverified` when those terms are known. Icons MUST be optional reinforcement.
+
+Supported visual scales SHOULD include:
+
+- a compact value rail attached to a labeled field;
+- a prominent value field for at-a-distance reading;
+- supplementary value-text emphasis.
+
+### 10.3 Decorative Color
 
 Decorative color is discouraged.
 
@@ -438,7 +473,7 @@ Distinct accent colors MAY identify stable regions or domains when:
 - contrast requirements are met;
 - they do not compete with state colors.
 
-### 10.3 Contrast
+### 10.4 Contrast
 
 Text and interactive controls MUST meet WCAG 2.2 AA contrast requirements.
 
@@ -515,7 +550,30 @@ Initial layout primitives:
 - `wg-divider`
 - `wg-scroll-region`
 
-### 14.2 Responsive Behavior
+### 14.2 Functional Zoning
+
+Multiple functions MAY appear on one screen. Each function MUST have an obvious identity and
+boundary, and its scope, state, information, and actions MUST remain visually local.
+
+Neutral boundaries, gutters, headings, and containment SHOULD separate functions. Condition colors
+MUST NOT be used merely to distinguish neighboring functions. Consequential actions MUST repeat the
+owning function and target scope.
+
+### 14.3 Section Purpose
+
+Sections MUST identify one of three purposes:
+
+- information;
+- monitor;
+- control.
+
+Informational sections MUST NOT imply operational condition or action. Monitor sections MAY present
+applicable known-state signals. Control sections MUST expose explicit function and target scope,
+feedback, and proportionate safeguards.
+
+Function ownership and section purpose are independent.
+
+### 14.4 Responsive Behavior
 
 Components MUST be container-query compatible where practical.
 
@@ -532,7 +590,7 @@ Responsive changes SHOULD recompose content rather than merely scale it.
 
 Critical state and primary actions MUST remain available at every supported size.
 
-### 14.3 Stable Layout
+### 14.5 Stable Layout
 
 Live updates MUST avoid unnecessary layout shift.
 
@@ -647,6 +705,8 @@ Public parts become API and require stability.
 ### 16.5 Feedback and State
 
 - status indicator;
+- Boolean value indicator;
+- finite-value indicator;
 - badge;
 - alert;
 - toast;
@@ -666,6 +726,7 @@ Public parts become API and require stability.
 - timeline;
 - event log;
 - status list;
+- value tile;
 - key-value display;
 - data table;
 - filter bar;
@@ -1042,6 +1103,7 @@ Deliver:
 - token compiler;
 - contribution workflow;
 - architecture decision process.
+- accepted semantic and visual foundations.
 
 ### Phase 1: Vertical Slice
 
@@ -1055,8 +1117,9 @@ Deliver a small but complete application slice using:
 - panel;
 - button;
 - status indicator;
+- Boolean value indicator;
 - metric;
-- device tile.
+- value tile.
 
 The vertical slice MUST demonstrate:
 
@@ -1066,6 +1129,9 @@ The vertical slice MUST demonstrate:
 - screen-reader support;
 - reduced motion;
 - loading, normal, warning, critical, stale, and unavailable states;
+- independent domain value, condition, knowledge, and activity combinations;
+- multiple functional zones and information, monitor, and control sections;
+- icon-free asserted and not-asserted values;
 - vanilla Web Component use;
 - React wrapper use.
 
@@ -1115,7 +1181,13 @@ Explore:
 
 The first AI-agent assignment SHOULD be:
 
-> Create the Wayglass monorepo foundation and implement the initial vertical slice. Build tokens, theme switching, `wg-canvas`, `wg-rail`, `wg-elbow`, `wg-panel`, `wg-button`, `wg-status-indicator`, `wg-metric`, and `wg-device-tile`. Provide React bindings, documentation, tests, accessibility validation, and responsive examples for phone, desktop, and wall display. Use no franchise-specific assets or terminology.
+> Create the Wayglass monorepo foundation and implement the initial domain-neutral vertical slice.
+> Build tokens, theme switching, `wg-canvas`, `wg-rail`, `wg-elbow`, `wg-panel`, `wg-button`,
+> `wg-status-indicator`, `wg-boolean-value`, `wg-metric`, and `wg-value-tile`. Demonstrate multiple
+> functional zones, mixed section purposes, independent value and known state, and icon-free Boolean
+> recognition. Provide React bindings, documentation, tests, accessibility validation, and
+> responsive examples for phone, desktop, and wall display. Use no franchise-specific assets or
+> terminology.
 
 Acceptance criteria:
 

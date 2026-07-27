@@ -20,10 +20,15 @@ Use three orthogonal state axes:
 Shared types live in `@wayglass/core`. Components may constrain applicable values but must not
 redefine their meaning.
 
+Domain values remain separate from known state. A Boolean domain value may map to the presentation
+roles `asserted` and `not-asserted`, but neither role implies condition. Unknown is represented by
+the knowledge axis and must not be coerced to a false value.
+
 ## Consequences
 
 Components can communicate known state honestly without proliferating combined enum members. Visual
 presentation must consider the axes together and must retain non-color labels or iconography.
+Components can also present domain values without borrowing stoplight condition semantics.
 
 ## Alternatives considered
 
