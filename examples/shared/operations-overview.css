@@ -14,6 +14,15 @@
   inline-size: 120rem;
 }
 
+.wg-overview-viewport--responsive {
+  inline-size: 100%;
+  max-inline-size: 120rem;
+}
+
+.wg-overview-example {
+  margin: 0;
+}
+
 .wg-overview-viewport wg-canvas,
 .wg-overview-state-viewport wg-canvas {
   min-block-size: 100vh;

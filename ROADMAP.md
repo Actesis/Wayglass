@@ -34,7 +34,7 @@ complete state, accessibility, responsive, theme, and framework contracts.
 - [x] Implement semantic display components.
 - [x] Add typed React wrappers.
 - [x] Compose the production-backed Storybook reference slice.
-- [ ] Add vanilla and React examples.
+- [x] Add vanilla and React examples.
 - [ ] Validate accessibility, responsive behavior, visual states, and supported browsers.
 
 ## Later phases

@@ -134,6 +134,9 @@ The Storybook stories and cross-browser test harness import the same canonical r
 `apps/storybook/stories/operations-overview.fixture.ts`. This keeps visual review, responsive tests,
 and accessibility checks on the production elements instead of a parallel mock.
 
+The runnable [framework examples](./framework-examples.md) apply the same screen contract through
+plain Custom Element registration and the typed React wrappers.
+
 ## Implementation boundary
 
 The executable fixture must use production exports from `@wayglass/elements`; the React fixture must

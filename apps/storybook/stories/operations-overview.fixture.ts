@@ -10,7 +10,7 @@ import { defineWgThemeProvider } from '@wayglass/elements/theme-provider';
 import { defineWgValueTile } from '@wayglass/elements/value-tile';
 import { html } from 'lit';
 
-import './operations-overview.css';
+import '../../../examples/shared/operations-overview.css';
 
 defineWgThemeProvider();
 defineWgCanvas();

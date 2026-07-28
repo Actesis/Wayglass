@@ -53,6 +53,10 @@ export default defineConfig({
             text: 'Operations Overview',
             link: '/examples/operations-overview',
           },
+          {
+            text: 'Framework examples',
+            link: '/examples/framework-examples',
+          },
         ],
       },
     ],
