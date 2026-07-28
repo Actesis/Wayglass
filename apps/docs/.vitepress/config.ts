@@ -43,6 +43,10 @@ export default defineConfig({
         items: [{ text: 'Function Deck', link: '/patterns/function-deck' }],
       },
       {
+        text: 'Frameworks',
+        items: [{ text: 'React', link: '/frameworks/react' }],
+      },
+      {
         text: 'Examples',
         items: [
           {

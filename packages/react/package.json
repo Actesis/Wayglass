@@ -11,13 +11,53 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
+    },
+    "./boolean-value": {
+      "types": "./dist/boolean-value.d.ts",
+      "import": "./dist/boolean-value.js"
+    },
+    "./button": {
+      "types": "./dist/button.d.ts",
+      "import": "./dist/button.js"
+    },
+    "./canvas": {
+      "types": "./dist/canvas.d.ts",
+      "import": "./dist/canvas.js"
+    },
+    "./elbow": {
+      "types": "./dist/elbow.d.ts",
+      "import": "./dist/elbow.js"
+    },
+    "./metric": {
+      "types": "./dist/metric.d.ts",
+      "import": "./dist/metric.js"
+    },
+    "./panel": {
+      "types": "./dist/panel.d.ts",
+      "import": "./dist/panel.js"
+    },
+    "./rail": {
+      "types": "./dist/rail.d.ts",
+      "import": "./dist/rail.js"
+    },
+    "./status-indicator": {
+      "types": "./dist/status-indicator.d.ts",
+      "import": "./dist/status-indicator.js"
+    },
+    "./theme-provider": {
+      "types": "./dist/theme-provider.d.ts",
+      "import": "./dist/theme-provider.js"
+    },
+    "./value-tile": {
+      "types": "./dist/value-tile.d.ts",
+      "import": "./dist/value-tile.js"
     }
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
-    "test": "vitest run --passWithNoTests",
-    "test:coverage": "vitest run --coverage --passWithNoTests",
-    "typecheck": "tsc --noEmit -p tsconfig.json"
+    "test": "vitest run --root ../.. packages/react/test",
+    "test:coverage": "vitest run --root ../.. --coverage packages/react/test",
+    "typecheck": "tsc --noEmit -p tsconfig.json && tsc -p tsconfig.type-tests.json"
   },
   "dependencies": {
     "@lit/react": "1.0.8"
@@ -28,8 +68,10 @@
   },
   "devDependencies": {
     "@types/react": "19.2.17",
+    "@types/react-dom": "19.2.3",
     "@wayglass/elements": "workspace:*",
     "react": "19.2.8",
+    "react-dom": "19.2.8",
     "typescript": "6.0.3",
     "vitest": "4.1.10"
   }
