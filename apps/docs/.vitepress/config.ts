@@ -39,6 +39,19 @@ export default defineConfig({
         ],
       },
       {
+        text: 'Phase 2 selection',
+        items: [{ text: 'Tabs (proposed)', link: '/components/tabs' }],
+      },
+      {
+        text: 'Architecture',
+        items: [
+          {
+            text: 'ADR 0009: Tabs architecture',
+            link: '/architecture/adr/0009-tabs-architecture',
+          },
+        ],
+      },
+      {
         text: 'Patterns',
         items: [{ text: 'Function Deck', link: '/patterns/function-deck' }],
       },
