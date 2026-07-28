@@ -4,8 +4,9 @@ Wayglass uses a humanist, compact, and banded visual grammar. The visual languag
 structure, value, condition, knowledge, activity, and action understandable at a glance. It must not
 depend on decorative science-fiction styling or domain-specific iconography.
 
-All values in the Phase 0 token set remain provisional. The semantic relationships in this document
-are the accepted foundation.
+The Phase 0 token values were provisional. The [Phase 1 design-token contract](./tokens.md) now
+locks the values needed by the initial vertical slice; the semantic relationships in this document
+remain the accepted foundation.
 
 ## Visual grammar
 

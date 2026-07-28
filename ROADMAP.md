@@ -26,6 +26,17 @@ Build a domain-neutral operational-awareness slice using the component set defin
 must demonstrate multiple functions, mixed section purposes, icon-free Boolean values, and the
 complete state, accessibility, responsive, theme, and framework contracts.
 
+- [x] Define the Operations Overview reference composition.
+- [x] Specify the public contracts for the initial component set.
+- [x] Lock the Phase 1 reference, semantic, and component token values.
+- [ ] Implement dark and light themes and the theme provider.
+- [ ] Implement structural and action primitives.
+- [ ] Implement semantic display components.
+- [ ] Add typed React wrappers.
+- [ ] Compose the production-backed Storybook reference slice.
+- [ ] Add vanilla and React examples.
+- [ ] Validate accessibility, responsive behavior, visual states, and supported browsers.
+
 ## Later phases
 
 Phases 2–5 remain as defined in `SPEC.md`. Their scope will be refined through proposals or
