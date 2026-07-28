@@ -77,6 +77,10 @@ export class WgRail extends WayglassElement {
     super();
     this.orientation = 'block';
     this.weight = 'standard';
+  }
+
+  override connectedCallback(): void {
+    super.connectedCallback();
     this.setAttribute('aria-hidden', 'true');
   }
 
