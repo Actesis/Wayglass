@@ -5,8 +5,9 @@ doing, what changed, what needs attention, and what they can do next.
 
 The Phase 0 repository, architecture, semantic, and visual foundations are complete. Phase 1 is
 underway with a domain-neutral reference composition, initial component contracts, and locked
-development tokens. Wayglass is a working name, all packages are private, and no software license
-has been selected yet.
+development tokens. Dark and light theme contexts and the first production element,
+`wg-theme-provider`, are implemented. Wayglass is a working name, all packages are private, and no
+software license has been selected yet.
 
 ## Governing documents
 

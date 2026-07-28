@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest';
 
-import { createCss, createJson, validateTokens } from '../src/compiler.js';
+import {
+  createCss,
+  createJson,
+  tokenNameToCssCustomProperty,
+  validateTokens,
+} from '../src/compiler.js';
 import { tokens } from '../src/definitions.js';
 
 function relativeLuminance(hex: string): number {
@@ -34,6 +39,12 @@ function referenceColor(name: keyof typeof tokens): string {
 }
 
 describe('token compiler', () => {
+  it('converts token paths to public CSS custom-property names', () => {
+    expect(tokenNameToCssCustomProperty('color.semantic.condition.critical')).toBe(
+      '--wg-color-semantic-condition-critical',
+    );
+  });
+
   it('produces deterministic, prefixed CSS custom properties', () => {
     const firstBuild = createCss(tokens);
     const secondBuild = createCss(tokens);

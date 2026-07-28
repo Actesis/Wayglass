@@ -6,17 +6,20 @@
   "files": [
     "dist"
   ],
-  "sideEffects": false,
+  "sideEffects": [
+    "**/*.css"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
-    }
+    },
+    "./themes.css": "./dist/themes.css"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
-    "test": "vitest run --passWithNoTests",
-    "test:coverage": "vitest run --coverage --passWithNoTests",
+    "build": "tsc -p tsconfig.build.json && node scripts/build.mjs",
+    "test": "vitest run --root ../.. packages/themes/test",
+    "test:coverage": "vitest run --coverage --root ../.. packages/themes/test",
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {

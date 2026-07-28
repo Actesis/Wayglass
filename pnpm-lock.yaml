@@ -81,6 +81,12 @@ importers:
       '@wayglass/core':
         specifier: workspace:*
         version: link:../../packages/core
+      '@wayglass/elements':
+        specifier: workspace:*
+        version: link:../../packages/elements
+      '@wayglass/themes':
+        specifier: workspace:*
+        version: link:../../packages/themes
       '@wayglass/tokens':
         specifier: workspace:*
         version: link:../../packages/tokens
@@ -121,6 +127,9 @@ importers:
       '@wayglass/core':
         specifier: workspace:*
         version: link:../core
+      '@wayglass/themes':
+        specifier: workspace:*
+        version: link:../themes
       lit:
         specifier: 3.3.3
         version: 3.3.3

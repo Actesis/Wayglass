@@ -32,9 +32,13 @@ component-specific role exists. They do not consume reference palette values dir
 
 ## Themes
 
-The generated `:root` values form the Wayglass Dark baseline. Wayglass Light will override semantic
-and component aliases rather than change component CSS. Both themes must preserve contrast,
-functional boundaries, asserted-value luminance, focus visibility, and state meaning.
+The generated `:root` values form the Wayglass Dark baseline. `@wayglass/themes/themes.css` provides
+explicit Wayglass Dark and Wayglass Light selectors plus compact and comfortable density overrides.
+Themes replace semantic and component aliases rather than component CSS. Both implemented themes
+preserve tested contrast, functional boundaries, asserted-value luminance, focus visibility, and
+state meaning.
+
+Wayglass High Contrast and Wayglass Dim remain planned; they are not reported as implemented themes.
 
 ## CSS names
 
