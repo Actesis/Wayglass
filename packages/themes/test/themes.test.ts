@@ -102,6 +102,10 @@ describe('Phase 1 themes', () => {
     expect(first).toContain(
       '--wg-component-panel-color-text: var(--wg-color-semantic-text-primary)',
     );
+    expect(first).toContain('@media (forced-colors: active)');
+    expect(first).toContain('--wg-color-semantic-surface-canvas: Canvas');
+    expect(first).toContain('--wg-color-semantic-text-primary: CanvasText');
+    expect(first).toContain('--wg-color-semantic-focus-ring: Highlight');
     expect(first).not.toContain('wayglass-high-contrast');
     expect(first).not.toContain('wayglass-dim');
   });

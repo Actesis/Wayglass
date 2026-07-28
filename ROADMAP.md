@@ -22,6 +22,8 @@ Status: complete.
 
 ## Phase 1 — Vertical slice
 
+Status: complete.
+
 Build a domain-neutral operational-awareness slice using the component set defined in `SPEC.md`. It
 must demonstrate multiple functions, mixed section purposes, icon-free Boolean values, and the
 complete state, accessibility, responsive, theme, and framework contracts.
@@ -35,7 +37,7 @@ complete state, accessibility, responsive, theme, and framework contracts.
 - [x] Add typed React wrappers.
 - [x] Compose the production-backed Storybook reference slice.
 - [x] Add vanilla and React examples.
-- [ ] Validate accessibility, responsive behavior, visual states, and supported browsers.
+- [x] Validate accessibility, responsive behavior, visual states, and supported browsers.
 
 ## Later phases
 
