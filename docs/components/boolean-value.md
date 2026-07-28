@@ -110,8 +110,23 @@ None.
 
 ## Examples
 
-On/Off, Open/Closed, Verified/Unverified, both roles with positive condition in surrounding context,
-stale asserted, unavailable not asserted, unknown, loading, rail, and field.
+The production Storybook catalog covers On/Off, Open/Closed, Verified/Unverified, stale and
+unavailable knowledge, loading, rail, and field presentations.
+
+```ts
+import { defineWgBooleanValue } from '@wayglass/elements/boolean-value';
+
+defineWgBooleanValue();
+```
+
+```html
+<wg-boolean-value
+  label="Email address"
+  asserted
+  asserted-label="Verified"
+  not-asserted-label="Unverified"
+></wg-boolean-value>
+```
 
 ## Testing Requirements
 

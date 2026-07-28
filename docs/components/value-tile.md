@@ -106,8 +106,24 @@ None.
 
 ## Examples
 
-Boolean rail, Boolean field, metric, mixed caution and stale, critical asserted value, loading with
-stable layout, unavailable, action pending, phone, desktop, and wall panel.
+The production Storybook composition covers Boolean rails and fields, metrics, mixed condition and
+knowledge, pending actions, and phone, desktop, and wall-panel widths.
+
+```ts
+import { defineWgValueTile } from '@wayglass/elements/value-tile';
+
+defineWgValueTile();
+```
+
+```html
+<wg-value-tile>
+  <h2 slot="heading">Communications primary link</h2>
+  <wg-status-indicator slot="status" label="Primary link" condition="caution">
+  </wg-status-indicator>
+  <wg-metric slot="value" label="Latency" value="184" unit="ms"></wg-metric>
+  <p>The primary link remains connected.</p>
+</wg-value-tile>
+```
 
 ## Testing Requirements
 
@@ -116,5 +132,5 @@ order, stable loading layout, responsive actions, 200% zoom, forced colors, and 
 
 ## Open Questions
 
-Whether to enforce supported value elements at runtime should be decided during implementation;
-documentation-only composition may be more extensible and less surprising.
+None. Phase 1 documents preferred value elements but does not enforce tag names at runtime.
+Compatible value components remain composable without creating a closed allowlist.

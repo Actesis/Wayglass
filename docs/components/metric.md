@@ -108,8 +108,18 @@ None.
 
 ## Examples
 
-Count, duration, percentage, decimal measurement, loading, caution, critical, stale, unavailable,
-pending, compact, and prominent.
+The production Storybook catalog covers counts, durations, loading, caution, critical, stale,
+unavailable, pending, compact, and prominent presentations.
+
+```ts
+import { defineWgMetric } from '@wayglass/elements/metric';
+
+defineWgMetric();
+```
+
+```html
+<wg-metric label="Latency" value="184" unit="ms" condition="caution" knowledge="stale"></wg-metric>
+```
 
 ## Testing Requirements
 

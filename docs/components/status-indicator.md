@@ -103,8 +103,23 @@ None.
 
 ## Examples
 
-Every condition, every knowledge state, pending activity, mixed axes, icon-free compact cluster,
-prominent wall display, and live-region host.
+The production Storybook catalog covers every condition and knowledge state, pending activity, mixed
+axes, compact clusters, and prominent wall displays.
+
+```ts
+import { defineWgStatusIndicator } from '@wayglass/elements/status-indicator';
+
+defineWgStatusIndicator();
+```
+
+```html
+<wg-status-indicator
+  label="Primary link"
+  condition="caution"
+  knowledge="stale"
+  activity="pending"
+></wg-status-indicator>
+```
 
 ## Testing Requirements
 
