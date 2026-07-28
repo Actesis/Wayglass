@@ -1,0 +1,162 @@
+.wg-overview-viewport {
+  inline-size: 72rem;
+  min-inline-size: 0;
+  margin-inline: auto;
+  container-name: wg-overview-fixture;
+  container-type: inline-size;
+}
+
+.wg-overview-viewport--phone {
+  inline-size: 20rem;
+}
+
+.wg-overview-viewport--wall {
+  inline-size: 120rem;
+}
+
+.wg-overview-viewport wg-canvas,
+.wg-overview-state-viewport wg-canvas {
+  min-block-size: 100vh;
+}
+
+.wg-overview-header {
+  max-inline-size: var(--wg-size-content-measure);
+}
+
+.wg-overview-header h1,
+.wg-overview-header p,
+.wg-overview-function h2,
+.wg-overview-function h3,
+.wg-overview-function p,
+.wg-overview-state-grid h2,
+.wg-overview-state-grid p,
+.wg-overview-facts {
+  margin-block-start: 0;
+}
+
+.wg-overview-header h1 {
+  margin-block-end: var(--wg-space-reference-2);
+  font-family: var(--wg-typography-family-display);
+  font-size: var(--wg-typography-size-page-title);
+}
+
+.wg-overview-header p:last-child {
+  margin-block-end: 0;
+  color: var(--wg-color-semantic-text-secondary);
+}
+
+.wg-overview-eyebrow {
+  margin-block-end: var(--wg-space-reference-2);
+  color: var(--wg-color-semantic-text-secondary);
+  font-size: var(--wg-typography-size-label);
+  font-weight: var(--wg-typography-weight-medium);
+  text-transform: uppercase;
+}
+
+.wg-overview-functions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  gap: var(--wg-space-semantic-function-gutter);
+}
+
+.wg-overview-function {
+  min-inline-size: 0;
+}
+
+.wg-overview-function h2,
+.wg-overview-function h3 {
+  margin-block-end: 0;
+  font: inherit;
+}
+
+.wg-overview-function__body {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+}
+
+.wg-overview-function__sections {
+  display: grid;
+  align-content: start;
+  min-inline-size: 0;
+  gap: var(--wg-component-panel-space-section);
+  padding-block-start: var(--wg-component-panel-space-section);
+  padding-inline-start: var(--wg-space-reference-2);
+}
+
+.wg-overview-function p,
+.wg-overview-state-grid p {
+  margin-block-end: 0;
+  color: var(--wg-color-semantic-text-secondary);
+}
+
+.wg-overview-facts {
+  margin-block-end: 0;
+}
+
+.wg-overview-facts div {
+  display: grid;
+  gap: var(--wg-space-reference-1);
+}
+
+.wg-overview-facts dt {
+  color: var(--wg-color-semantic-text-secondary);
+  font-size: var(--wg-typography-size-label);
+}
+
+.wg-overview-facts dd {
+  margin-inline-start: 0;
+  font-weight: var(--wg-typography-weight-medium);
+}
+
+.wg-overview-supporting-value {
+  display: grid;
+  gap: var(--wg-space-reference-4);
+}
+
+.wg-overview-function wg-button,
+.wg-overview-state-grid wg-button {
+  inline-size: 100%;
+}
+
+.wg-overview-function wg-button::part(button),
+.wg-overview-state-grid wg-button::part(button) {
+  inline-size: 100%;
+}
+
+.wg-overview-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--wg-space-reference-2);
+  color: var(--wg-color-semantic-text-secondary);
+  font-size: var(--wg-typography-size-label);
+}
+
+.wg-overview-state-viewport {
+  inline-size: 72rem;
+  max-inline-size: 100%;
+  margin-inline: auto;
+}
+
+.wg-overview-state-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--wg-space-semantic-function-gutter);
+}
+
+.wg-overview-state-grid h2 {
+  margin-block-end: 0;
+  font: inherit;
+}
+
+/* Mirrors breakpoint.phone.wide because custom properties are invalid in container conditions. */
+@container wg-overview-fixture (inline-size < 40rem) {
+  .wg-overview-functions {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .wg-overview-header {
+    max-inline-size: none;
+  }
+}

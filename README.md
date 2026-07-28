@@ -8,8 +8,9 @@ underway with a domain-neutral reference composition, initial component contract
 development tokens. Dark and light theme contexts, `wg-theme-provider`, and the Phase 1 structural
 and action primitives (`wg-canvas`, `wg-rail`, `wg-elbow`, `wg-panel`, and `wg-button`) are
 implemented. The semantic display set (`wg-status-indicator`, `wg-boolean-value`, `wg-metric`, and
-`wg-value-tile`) is also available with production-backed Storybook fixtures. Wayglass is a working
-name, all packages are private, and no software license has been selected yet.
+`wg-value-tile`) is also available. A production-backed Operations Overview now composes the full
+set across dark and light desktop, phone, wall-panel, and edge-state Storybook fixtures. Wayglass is
+a working name, all packages are private, and no software license has been selected yet.
 
 ## Governing documents
 
