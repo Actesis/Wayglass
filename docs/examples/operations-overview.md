@@ -120,6 +120,20 @@ not-asserted luminance.
 - No live update reorders functions or moves an available control.
 - Reduced motion removes nonessential transitions without delaying state updates.
 
+## Executable fixtures
+
+Storybook exposes the production composition under **Examples / Operations Overview**:
+
+- Desktop Dark and Desktop Light keep all three function zones visible.
+- Phone recomposes the same content into a single ordered column.
+- Wall Panel enlarges glanceable status and Boolean signals without changing their semantics.
+- Required Edge States covers healthy not-asserted, retained unavailable, loading-before-known, and
+  rejected-request cases.
+
+The Storybook stories and cross-browser test harness import the same canonical renderer from
+`apps/storybook/stories/operations-overview.fixture.ts`. This keeps visual review, responsive tests,
+and accessibility checks on the production elements instead of a parallel mock.
+
 ## Implementation boundary
 
 The executable fixture must use production exports from `@wayglass/elements`; the React fixture must

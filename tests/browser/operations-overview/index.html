@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wayglass Operations Overview fixture</title>
+    <link rel="stylesheet" href="/packages/tokens/dist/tokens.css" />
+    <link rel="stylesheet" href="/packages/themes/dist/themes.css" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module">
+      import { render } from 'lit';
+      import {
+        renderOperationsOverview,
+        renderOperationsStateCoverage,
+      } from '/apps/storybook/stories/operations-overview.fixture.ts';
+
+      const parameters = new URLSearchParams(window.location.search);
+      const width = parameters.get('width') ?? 'desktop';
+      const theme = parameters.get('theme') ?? 'wayglass-dark';
+      const fixture = parameters.get('fixture') ?? 'overview';
+      const root = document.querySelector('#root');
+
+      render(
+        fixture === 'states'
+          ? renderOperationsStateCoverage(theme)
+          : renderOperationsOverview({ width, theme }),
+        root,
+      );
+    </script>
+  </body>
+</html>
