@@ -2,7 +2,7 @@ import type { TokenDefinition, TokenPrimitive } from './definitions.js';
 
 const referencePattern = /^\{([^}]+)\}$/;
 
-function cssName(name: string): string {
+export function tokenNameToCssCustomProperty(name: string): `--wg-${string}` {
   return `--wg-${name.replaceAll('.', '-')}`;
 }
 
@@ -16,7 +16,7 @@ function cssValue(value: TokenPrimitive): string {
   }
 
   const reference = referencePattern.exec(value);
-  return reference ? `var(${cssName(reference[1] ?? '')})` : value;
+  return reference ? `var(${tokenNameToCssCustomProperty(reference[1] ?? '')})` : value;
 }
 
 export function validateTokens(definitions: Readonly<Record<string, TokenDefinition>>): void {
@@ -46,7 +46,10 @@ export function createCss(definitions: Readonly<Record<string, TokenDefinition>>
 
   const declarations = Object.entries(definitions)
     .sort(([left], [right]) => left.localeCompare(right))
-    .map(([name, definition]) => `    ${cssName(name)}: ${cssValue(definition.value)};`)
+    .map(
+      ([name, definition]) =>
+        `    ${tokenNameToCssCustomProperty(name)}: ${cssValue(definition.value)};`,
+    )
     .join('\n');
 
   return `@layer wayglass.tokens {\n  :root {\n${declarations}\n  }\n}\n`;

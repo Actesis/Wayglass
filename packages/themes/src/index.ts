@@ -1,13 +1,20 @@
-export const officialThemeNames = [
-  'wayglass-dark',
-  'wayglass-light',
-  'wayglass-high-contrast',
-  'wayglass-dim',
-] as const;
-
-export type OfficialThemeName = (typeof officialThemeNames)[number];
-
-export interface ThemeSelection {
-  readonly name: OfficialThemeName | (string & {});
-  readonly density: 'comfortable' | 'compact';
-}
+export { createThemeCss } from './css.js';
+export {
+  densityNames,
+  densityTokenOverrides,
+  isDensityName,
+  isPhase1ThemeName,
+  isThemeSelectionName,
+  phase1ThemeNames,
+  plannedThemeNames,
+  resolveSystemTheme,
+  themeSelectionNames,
+  themeTokenOverrides,
+} from './definitions.js';
+export type {
+  DensityName,
+  Phase1ThemeName,
+  PlannedThemeName,
+  ThemeSelection,
+  ThemeSelectionName,
+} from './definitions.js';

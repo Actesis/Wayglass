@@ -1,4 +1,5 @@
 import '@wayglass/tokens/tokens.css';
+import '@wayglass/themes/themes.css';
 
 import type { Preview } from '@storybook/web-components-vite';
 
@@ -14,7 +15,7 @@ const preview: Preview = {
     },
     options: {
       storySort: {
-        order: ['Foundations'],
+        order: ['Foundations', 'Components'],
       },
     },
   },

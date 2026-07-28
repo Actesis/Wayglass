@@ -29,7 +29,7 @@ complete state, accessibility, responsive, theme, and framework contracts.
 - [x] Define the Operations Overview reference composition.
 - [x] Specify the public contracts for the initial component set.
 - [x] Lock the Phase 1 reference, semantic, and component token values.
-- [ ] Implement dark and light themes and the theme provider.
+- [x] Implement dark and light themes and the theme provider.
 - [ ] Implement structural and action primitives.
 - [ ] Implement semantic display components.
 - [ ] Add typed React wrappers.

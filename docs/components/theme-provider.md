@@ -30,7 +30,23 @@ Theme resolution is synchronous. Invalid names fall back to `system`; invalid de
 ## Behavior
 
 The provider reflects resolved theme and density to data attributes on its host. `system` follows
-`prefers-color-scheme` without changing consumer attributes.
+`prefers-color-scheme` without changing the `theme` attribute. Resolution occurs synchronously when
+the provider connects. The nearest nested provider supplies inherited variables to its descendants.
+
+Applications import both the generated tokens and theme overrides once:
+
+```css
+@import '@wayglass/tokens/tokens.css';
+@import '@wayglass/themes/themes.css';
+```
+
+Element import remains side-effect free:
+
+```ts
+import { defineWgThemeProvider } from '@wayglass/elements/theme-provider';
+
+defineWgThemeProvider();
+```
 
 ## Keyboard Interaction
 
@@ -86,7 +102,14 @@ None.
 
 ## Examples
 
-System theme, explicit dark, explicit light, nested preview, compact, and comfortable.
+```html
+<wg-theme-provider theme="system" density="compact">
+  <main>Application content</main>
+</wg-theme-provider>
+```
+
+Storybook includes system theme, explicit dark, explicit light, nested preview, compact, and
+comfortable fixtures backed by the production provider.
 
 ## Testing Requirements
 
@@ -95,4 +118,5 @@ sizes, and no flash caused by asynchronous resolution.
 
 ## Open Questions
 
-High-contrast and dim themes remain compatible future additions but are not Phase 1 deliverables.
+Wayglass High Contrast and Wayglass Dim remain planned compatible additions. They are not included
+in `Phase1ThemeName` and cannot be selected by this provider yet.
