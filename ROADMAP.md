@@ -30,7 +30,7 @@ complete state, accessibility, responsive, theme, and framework contracts.
 - [x] Specify the public contracts for the initial component set.
 - [x] Lock the Phase 1 reference, semantic, and component token values.
 - [x] Implement dark and light themes and the theme provider.
-- [ ] Implement structural and action primitives.
+- [x] Implement structural and action primitives.
 - [ ] Implement semantic display components.
 - [ ] Add typed React wrappers.
 - [ ] Compose the production-backed Storybook reference slice.
@@ -41,6 +41,17 @@ complete state, accessibility, responsive, theme, and framework contracts.
 
 Phases 2–5 remain as defined in `SPEC.md`. Their scope will be refined through proposals or
 architecture decisions before implementation.
+
+### Recorded Phase 2 composition work
+
+- Implement the tabs and selection primitives with native-equivalent keyboard and accessibility
+  behavior.
+- Implement the focused Function Deck as a composition of those primitives rather than adding
+  interaction to `wg-elbow`.
+- Provide overview and focused-deck fixtures for phone, desktop, and wall displays.
+- Preserve labeled summaries for hidden caution, critical, stale, unavailable, and pending state.
+- Validate stable selection, focus, per-function context, reduced motion, zoom, and supported
+  browsers.
 
 ## Deferred decisions
 

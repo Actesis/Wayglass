@@ -29,6 +29,14 @@ Rail has no domain, selection, or interaction states.
 
 The rail is hidden from the accessibility tree and stretches along its assigned layout axis.
 
+Importing the module does not register the element:
+
+```ts
+import { defineWgRail } from '@wayglass/elements/rail';
+
+defineWgRail();
+```
+
 ## Keyboard Interaction
 
 None.
@@ -83,7 +91,14 @@ None.
 
 ## Examples
 
-Function boundary, horizontal recomposition, standard, and strong.
+```html
+<section class="function-layout" aria-labelledby="communications-heading">
+  <wg-rail weight="strong"></wg-rail>
+  <div>Communications content</div>
+</section>
+```
+
+Storybook includes function-boundary, horizontal-recomposition, standard, and strong fixtures.
 
 ## Testing Requirements
 

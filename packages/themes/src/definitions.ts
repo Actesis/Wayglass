@@ -51,6 +51,7 @@ export const themeTokenOverrides = {
     'color.semantic.focus.ring': 'color.reference.blue.400',
     'color.semantic.data.series.1': 'color.reference.blue.500',
     'color.semantic.data.series.2': 'color.reference.green.500',
+    'component.button.color.critical': 'color.reference.red.500',
   },
   'wayglass-light': {
     'color.semantic.surface.canvas': 'color.reference.paper.50',
@@ -85,6 +86,7 @@ export const themeTokenOverrides = {
     'color.semantic.focus.ring': 'color.reference.blue.600',
     'color.semantic.data.series.1': 'color.reference.blue.600',
     'color.semantic.data.series.2': 'color.reference.green.700',
+    'component.button.color.critical': 'color.reference.red.500',
   },
 } as const satisfies Readonly<Record<Phase1ThemeName, TokenOverrides>>;
 

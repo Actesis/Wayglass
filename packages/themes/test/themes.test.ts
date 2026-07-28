@@ -74,11 +74,13 @@ describe('Phase 1 themes', () => {
     const secondaryText = themeColor(theme, 'color.semantic.text.secondary');
     const inverseText = themeColor(theme, 'color.semantic.text.inverse');
     const action = themeColor(theme, 'color.semantic.action.primary');
+    const criticalAction = themeColor(theme, 'component.button.color.critical');
     const strongBoundary = themeColor(theme, 'color.semantic.border.strong');
 
     expect(contrastRatio(primaryText, canvas)).toBeGreaterThanOrEqual(7);
     expect(contrastRatio(secondaryText, panel)).toBeGreaterThanOrEqual(4.5);
     expect(contrastRatio(inverseText, action)).toBeGreaterThanOrEqual(4.5);
+    expect(contrastRatio(inverseText, criticalAction)).toBeGreaterThanOrEqual(4.5);
     expect(contrastRatio(strongBoundary, panel)).toBeGreaterThanOrEqual(3);
   });
 
@@ -93,6 +95,12 @@ describe('Phase 1 themes', () => {
     expect(first).toContain("[data-wg-density='comfortable']");
     expect(first).toContain(
       '--wg-color-semantic-condition-critical: var(--wg-color-reference-red-700)',
+    );
+    expect(first).toContain(
+      '--wg-component-canvas-color-background: var(--wg-color-semantic-surface-canvas)',
+    );
+    expect(first).toContain(
+      '--wg-component-panel-color-text: var(--wg-color-semantic-text-primary)',
     );
     expect(first).not.toContain('wayglass-high-contrast');
     expect(first).not.toContain('wayglass-dim');

@@ -559,6 +559,29 @@ Neutral boundaries, gutters, headings, and containment SHOULD separate functions
 MUST NOT be used merely to distinguish neighboring functions. Consequential actions MUST repeat the
 owning function and target scope.
 
+Wayglass supports two complementary function-composition modes:
+
+- **Overview:** multiple functions remain simultaneously visible for scanning, comparison, and
+  cross-function awareness.
+- **Focused deck:** selectors bring one peer function into a shared working surface for focused work
+  or constrained space.
+
+A focused deck MUST use established tabs semantics and keyboard behavior. Selection MUST be
+communicated without color alone. Hidden functions with caution, critical, stale, unavailable, or
+pending state MUST retain a concise labeled summary in their selector or in an equally persistent
+summary surface. Critical state and its primary response MUST NOT become undiscoverable merely
+because another function is selected.
+
+Deck selection MUST preserve stable function order, focus behavior, and relevant per-function
+context. Consequential actions inside the active surface MUST continue to repeat their owning
+function and target.
+
+Static structural headings such as `wg-elbow` MUST NOT expose hover, focus, selected, or tab
+semantics. Folder-like selector geometry is reserved for an actual interactive selection pattern.
+Information, monitor, and control section purposes SHOULD remain visible together when their
+relationship supports understanding and action; they SHOULD NOT be turned into tabs merely to
+reduce visible content.
+
 ### 14.3 Section Purpose
 
 Sections MUST identify one of three purposes:
@@ -1142,6 +1165,7 @@ Deliver:
 - foundation primitives;
 - layout primitives;
 - controls;
+- tabs and the focused function-deck composition;
 - forms;
 - feedback;
 - documentation and testing coverage.

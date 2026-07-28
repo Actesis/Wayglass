@@ -155,6 +155,15 @@ function; stronger neutral boundaries and gutters separate different functions.
 Do not use an unlabeled colored rail as a generic function boundary. A value rail must remain
 attached to the labeled value it represents.
 
+Similar geometry must not blur interaction. A static function heading may connect to a rail, but it
+must not acquire hover, focus, selected, or layered-tab cues. An interactive function selector must
+use familiar selection behavior and remain visibly distinguishable from inert structure.
+
+Wayglass may offer both simultaneous overview compositions and focused, folder-like function decks.
+The overview preserves cross-function awareness; the deck brings one peer function forward for
+focused work. A deck must retain labeled summaries of consequential hidden state and must never
+make critical information disappear without a visible path back to it.
+
 ### Test
 
 Would removing the shape make the structure less understandable?

@@ -1,0 +1,135 @@
+.wg-structure-viewport {
+  inline-size: 72rem;
+  min-inline-size: 0;
+  margin-inline: auto;
+  container-name: wg-structure-fixture;
+  container-type: inline-size;
+}
+
+.wg-structure-viewport--phone {
+  inline-size: 20rem;
+}
+
+.wg-structure-viewport--wall {
+  inline-size: 120rem;
+}
+
+.wg-structure-viewport wg-canvas {
+  min-block-size: 100vh;
+}
+
+.wg-structure-header h1,
+.wg-structure-header p,
+.wg-function-zone h2,
+.wg-function-zone h3,
+.wg-function-zone p,
+.wg-primitive-catalog h2,
+.wg-primitive-catalog h3,
+.wg-primitive-catalog p {
+  margin-block-start: 0;
+}
+
+.wg-structure-header {
+  max-inline-size: var(--wg-size-content-measure);
+}
+
+.wg-structure-header h1 {
+  margin-block-end: var(--wg-space-reference-2);
+  font-family: var(--wg-typography-family-display);
+  font-size: var(--wg-typography-size-page-title);
+}
+
+.wg-structure-header p:last-child {
+  margin-block-end: 0;
+  color: var(--wg-color-semantic-text-secondary);
+}
+
+.wg-structure-eyebrow {
+  margin-block-end: var(--wg-space-reference-2);
+  color: var(--wg-color-semantic-text-secondary);
+  font-size: var(--wg-typography-size-label);
+  font-weight: var(--wg-typography-weight-medium);
+}
+
+.wg-function-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--wg-space-semantic-function-gutter);
+}
+
+.wg-function-zone {
+  min-inline-size: 0;
+}
+
+.wg-function-zone h2,
+.wg-function-zone h3 {
+  margin-block-end: 0;
+  font: inherit;
+}
+
+.wg-function-zone__body {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+}
+
+.wg-function-zone__sections {
+  display: grid;
+  align-content: start;
+  min-inline-size: 0;
+  gap: var(--wg-component-panel-space-section);
+  padding-block-start: var(--wg-component-panel-space-section);
+  padding-inline-start: var(--wg-space-reference-2);
+}
+
+.wg-function-zone p {
+  margin-block-end: 0;
+  color: var(--wg-color-semantic-text-secondary);
+  font-size: var(--wg-typography-size-body);
+}
+
+.wg-function-zone wg-button {
+  inline-size: 100%;
+}
+
+.wg-function-zone wg-button::part(button) {
+  inline-size: 100%;
+}
+
+.wg-primitive-catalog {
+  display: grid;
+  gap: var(--wg-space-reference-8);
+}
+
+.wg-rail-catalog,
+.wg-elbow-catalog,
+.wg-panel-catalog,
+.wg-button-catalog {
+  display: grid;
+  gap: var(--wg-space-reference-4);
+}
+
+.wg-rail-catalog {
+  grid-template-columns: auto auto minmax(0, 1fr);
+  min-block-size: var(--wg-size-touch-minimum);
+}
+
+.wg-rail-catalog wg-rail[orientation='inline'] {
+  grid-column: 3;
+}
+
+.wg-panel-catalog {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.wg-button-catalog {
+  grid-template-columns: repeat(2, minmax(0, max-content));
+}
+
+/* Mirrors breakpoint.phone.wide because custom properties are invalid in container conditions. */
+@container wg-structure-fixture (inline-size < 40rem) {
+  .wg-function-grid,
+  .wg-panel-catalog,
+  .wg-button-catalog {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
