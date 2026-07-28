@@ -32,7 +32,7 @@ complete state, accessibility, responsive, theme, and framework contracts.
 - [x] Implement dark and light themes and the theme provider.
 - [x] Implement structural and action primitives.
 - [x] Implement semantic display components.
-- [ ] Add typed React wrappers.
+- [x] Add typed React wrappers.
 - [ ] Compose the production-backed Storybook reference slice.
 - [ ] Add vanilla and React examples.
 - [ ] Validate accessibility, responsive behavior, visual states, and supported browsers.

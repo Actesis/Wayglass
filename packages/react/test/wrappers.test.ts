@@ -1,0 +1,76 @@
+import type { WgMetric as WgMetricElement } from '@wayglass/elements/metric';
+import { createElement, createRef, isValidElement } from 'react';
+import { describe, expect, it } from 'vitest';
+
+import {
+  WgBooleanValue,
+  WgButton,
+  WgCanvas,
+  WgElbow,
+  WgMetric,
+  WgPanel,
+  WgRail,
+  WgStatusIndicator,
+  WgThemeProvider,
+  WgValueTile,
+} from '../src/index.js';
+import type { WgThemeProviderProps } from '../src/index.js';
+
+describe('Wayglass React wrappers', () => {
+  it('exports named wrappers for every Phase 1 element', () => {
+    const wrappers = [
+      WgThemeProvider,
+      WgCanvas,
+      WgRail,
+      WgElbow,
+      WgPanel,
+      WgButton,
+      WgStatusIndicator,
+      WgBooleanValue,
+      WgMetric,
+      WgValueTile,
+    ];
+
+    expect(wrappers.map((wrapper) => wrapper.displayName)).toEqual([
+      'WgThemeProvider',
+      'WgCanvas',
+      'WgRail',
+      'WgElbow',
+      'WgPanel',
+      'WgButton',
+      'WgStatusIndicator',
+      'WgBooleanValue',
+      'WgMetric',
+      'WgValueTile',
+    ]);
+  });
+
+  it('creates valid React elements with element properties and refs', () => {
+    const ref = createRef<WgMetricElement>();
+    const metric = createElement(WgMetric, {
+      ref,
+      label: 'Latency',
+      value: '184',
+      unit: 'ms',
+      condition: 'caution',
+      knowledge: 'stale',
+    });
+
+    expect(isValidElement(metric)).toBe(true);
+    expect(metric.props.condition).toBe('caution');
+    expect(metric.props.knowledge).toBe('stale');
+    expect(metric.props.ref).toBe(ref);
+  });
+
+  it('preserves the typed theme-change callback prop', () => {
+    const onWgThemeChange: NonNullable<WgThemeProviderProps['onWgThemeChange']> = (event) => {
+      expect(event.detail.resolvedTheme).toMatch(/^wayglass-/);
+    };
+    const provider = createElement(WgThemeProvider, {
+      theme: 'wayglass-dark',
+      onWgThemeChange,
+    });
+
+    expect(provider.props.onWgThemeChange).toBe(onWgThemeChange);
+  });
+});

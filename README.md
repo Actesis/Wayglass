@@ -31,6 +31,8 @@ Supporting foundations:
   layers and change policy.
 - [`docs/components/phase-1.md`](./docs/components/phase-1.md) defines the initial public component
   contracts.
+- [`docs/frameworks/react.md`](./docs/frameworks/react.md) documents the typed React wrapper
+  contract and client-only fallback.
 - [`docs/examples/operations-overview.md`](./docs/examples/operations-overview.md) defines the Phase
   1 reference composition.
 
