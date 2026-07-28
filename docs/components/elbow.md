@@ -13,7 +13,8 @@ strongly enough.
 ## When Not to Use
 
 Do not recreate franchise-specific framing, use an elbow without a function label, or assign
-condition color to it.
+condition color to it. Do not use `wg-elbow` as a tab, selector, button, or substitute for the
+planned Function Deck.
 
 ## Anatomy
 
@@ -29,7 +30,10 @@ Elbow has no domain or interaction states.
 
 ## Behavior
 
-The label remains normal slotted content; the joining geometry is decorative.
+The label remains normal slotted content; the joining geometry is decorative. The component never
+acquires hover, focus, pressed, selected, or pointer behavior. Its continuous heading-to-rail
+geometry distinguishes static ownership from the discrete selectors of an interactive
+[Function Deck](../patterns/function-deck.md).
 
 Importing the module does not register the element:
 

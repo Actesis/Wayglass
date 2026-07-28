@@ -8,6 +8,7 @@ export default defineConfig({
     nav: [
       { text: 'Foundations', link: '/foundations/' },
       { text: 'Components', link: '/components/' },
+      { text: 'Patterns', link: '/patterns/function-deck' },
       { text: 'Examples', link: '/examples/operations-overview' },
       { text: 'Repository', link: 'https://github.com/Actesis/Wayglass' },
     ],
@@ -36,6 +37,10 @@ export default defineConfig({
           { text: 'Metric', link: '/components/metric' },
           { text: 'Value tile', link: '/components/value-tile' },
         ],
+      },
+      {
+        text: 'Patterns',
+        items: [{ text: 'Function Deck', link: '/patterns/function-deck' }],
       },
       {
         text: 'Examples',

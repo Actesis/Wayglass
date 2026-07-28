@@ -85,6 +85,18 @@ Communications, then Processing. Critical state and its related action remain vi
 horizontal scrolling. The wall-panel fixture uses prominent value fields while preserving the same
 accessible names and semantic roles.
 
+### Relationship to the focused function deck
+
+Operations Overview remains the canonical simultaneous **overview** composition for Phase 1. Its
+purpose is to prove that Access, Communications, and Processing can be scanned together without
+confusing ownership or section purpose.
+
+The planned [Function Deck](../patterns/function-deck.md) is a compatible focused composition, not a
+replacement. It may present the same peer functions through selectors attached to one shared work
+surface on phones, desktops, or wall displays. Its selectors must summarize consequential hidden
+state, and critical state and its primary response must remain discoverable when another function is
+selected.
+
 ## Theme and density fixtures
 
 Phase 1 requires:

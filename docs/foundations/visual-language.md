@@ -30,6 +30,27 @@ Neutral boundaries, gutters, headings, and containment separate functions. Stopl
 colors must not be used merely to distinguish neighboring functions. A colored rail must not float
 at a function boundary without an explicit, stable meaning.
 
+### Composition modes
+
+Wayglass supports two complementary ways to compose peer functions:
+
+| Mode         | Primary use                                                | Visibility contract                         |
+| ------------ | ---------------------------------------------------------- | ------------------------------------------- |
+| Overview     | Monitoring, comparison, and cross-function awareness       | Multiple functions remain visible together  |
+| Focused deck | Focused work, constrained space, or deliberate progression | One function occupies a shared work surface |
+
+The overview is the default when the user needs to understand several functions within seconds. A
+focused deck uses restrained folder-like selectors to bring one peer function forward. It is an
+interaction pattern, not a decorative arrangement of panel headers.
+
+A deck must preserve consequential hidden state through concise labeled summaries. Caution,
+critical, stale, unavailable, and pending state cannot disappear simply because another function is
+selected. Selection uses shape, position, text, and contrast in addition to color.
+
+Static elbow headings remain inert structure. They have no hover, focus, selected, cursor, or tab
+behavior. Interactive folder-like geometry belongs to the planned
+[Function Deck](../patterns/function-deck.md), built on the future tabs primitive.
+
 ## Section purpose
 
 Function ownership and section purpose are independent. A function may contain any combination of:
