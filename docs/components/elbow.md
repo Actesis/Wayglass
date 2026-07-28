@@ -31,6 +31,14 @@ Elbow has no domain or interaction states.
 
 The label remains normal slotted content; the joining geometry is decorative.
 
+Importing the module does not register the element:
+
+```ts
+import { defineWgElbow } from '@wayglass/elements/elbow';
+
+defineWgElbow();
+```
+
 ## Keyboard Interaction
 
 None.
@@ -88,7 +96,13 @@ None.
 
 ## Examples
 
-Start, end, narrow-container flattening, and long function labels.
+```html
+<wg-elbow weight="strong">
+  <h2>Communications</h2>
+</wg-elbow>
+```
+
+Storybook includes start, end, narrow-container flattening, and long-label production fixtures.
 
 ## Testing Requirements
 

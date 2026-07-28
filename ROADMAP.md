@@ -30,7 +30,7 @@ complete state, accessibility, responsive, theme, and framework contracts.
 - [x] Specify the public contracts for the initial component set.
 - [x] Lock the Phase 1 reference, semantic, and component token values.
 - [x] Implement dark and light themes and the theme provider.
-- [ ] Implement structural and action primitives.
+- [x] Implement structural and action primitives.
 - [ ] Implement semantic display components.
 - [ ] Add typed React wrappers.
 - [ ] Compose the production-backed Storybook reference slice.

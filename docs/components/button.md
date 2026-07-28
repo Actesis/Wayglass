@@ -33,6 +33,14 @@ Click and keyboard activation use the internal native button with `type="button"
 suppresses repeat activation and preserves the label and width. The component reports user intent;
 it does not optimistically change domain state.
 
+Importing the module does not register the element:
+
+```ts
+import { defineWgButton } from '@wayglass/elements/button';
+
+defineWgButton();
+```
+
 ## Keyboard Interaction
 
 Enter and Space activate according to native button behavior. Disabled and pending buttons do not
@@ -104,8 +112,12 @@ Native `click` from user activation. No separate Wayglass event duplicates it.
 
 ## Examples
 
-All appearances, pending, disabled, long scoped label, keyboard activation, compact, and comfortable
-density.
+```html
+<wg-button appearance="secondary"> Retry Communications primary link </wg-button>
+```
+
+Storybook includes all appearances, pending, disabled, long scoped labels, keyboard activation,
+compact density, and comfortable density.
 
 ## Testing Requirements
 

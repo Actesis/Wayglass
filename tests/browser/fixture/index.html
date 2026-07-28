@@ -14,24 +14,98 @@
       main {
         min-block-size: 100vh;
         box-sizing: border-box;
-        padding: var(--wg-component-canvas-space-block) var(--wg-component-canvas-space-inline);
         color: var(--wg-color-semantic-text-primary);
         background: var(--wg-color-semantic-surface-canvas);
         font-family: var(--wg-typography-family-body);
+      }
+
+      .fixture-stack {
+        display: grid;
+        gap: var(--wg-space-reference-4);
+      }
+
+      .fixture-function {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+      }
+
+      .fixture-function__content {
+        display: grid;
+        gap: var(--wg-space-reference-2);
+        padding-inline-start: var(--wg-space-reference-2);
+      }
+
+      .fixture-function wg-rail[orientation='inline'] {
+        grid-column: 1 / -1;
+      }
+
+      .fixture-narrow {
+        inline-size: 20rem;
+        max-inline-size: 100%;
       }
     </style>
   </head>
   <body>
     <wg-theme-provider id="provider" theme="system" density="compact">
-      <main>
-        <h1>Theme provider fixture</h1>
-        <p>Production-backed browser validation.</p>
-      </main>
+      <wg-theme-provider theme="wayglass-dark" density="compact">
+        <wg-canvas id="canvas">
+          <header slot="header">
+            <h1>Wayglass production fixture</h1>
+            <p>Production-backed browser validation.</p>
+          </header>
+          <main class="fixture-stack">
+            <wg-elbow id="elbow"><h2>Communications</h2></wg-elbow>
+            <section class="fixture-function" aria-label="Communications function">
+              <wg-rail id="rail" weight="strong"></wg-rail>
+              <div class="fixture-function__content">
+                <wg-panel id="panel" purpose="monitor" busy>
+                  <h3 slot="heading">Primary link monitor</h3>
+                  <p slot="description">Current link information</p>
+                  <p>Confirmed content remains visible while busy.</p>
+                  <span slot="progress">Refreshing link state</span>
+                </wg-panel>
+                <wg-panel id="fallback-panel" purpose="control" label="Recovery control">
+                  <p>Request a connection retry.</p>
+                  <wg-button id="primary-button" slot="actions" appearance="primary">
+                    Retry Communications link
+                  </wg-button>
+                </wg-panel>
+                <wg-panel id="unlabelled-panel" purpose="information">
+                  <p>Context without region semantics.</p>
+                </wg-panel>
+                <div class="fixture-narrow">
+                  <wg-panel id="narrow-panel" purpose="control">
+                    <h3 slot="heading">Narrow control</h3>
+                    <p>Description precedes the action at narrow widths.</p>
+                    <wg-button slot="actions">Review narrow control</wg-button>
+                  </wg-panel>
+                </div>
+                <wg-button id="pending-button" pending>
+                  Retry primary route
+                  <span slot="pending-label">Retrying</span>
+                </wg-button>
+                <wg-button id="disabled-button" disabled>Disabled action</wg-button>
+              </div>
+            </section>
+          </main>
+          <footer slot="footer">Fixture footer</footer>
+        </wg-canvas>
+      </wg-theme-provider>
     </wg-theme-provider>
     <script type="module">
+      import { defineWgButton } from '/packages/elements/dist/button.js';
+      import { defineWgCanvas } from '/packages/elements/dist/canvas.js';
+      import { defineWgElbow } from '/packages/elements/dist/elbow.js';
+      import { defineWgPanel } from '/packages/elements/dist/panel.js';
+      import { defineWgRail } from '/packages/elements/dist/rail.js';
       import { defineWgThemeProvider } from '/packages/elements/dist/theme-provider.js';
 
       defineWgThemeProvider();
+      defineWgCanvas();
+      defineWgRail();
+      defineWgElbow();
+      defineWgPanel();
+      defineWgButton();
     </script>
   </body>
 </html>

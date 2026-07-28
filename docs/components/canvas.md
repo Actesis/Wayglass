@@ -30,6 +30,14 @@ Canvas has no domain or interaction states.
 Canvas supplies page padding and a named container. It does not scroll-lock, route, or manage
 application state.
 
+Importing the module does not register the element:
+
+```ts
+import { defineWgCanvas } from '@wayglass/elements/canvas';
+
+defineWgCanvas();
+```
+
 ## Keyboard Interaction
 
 None.
@@ -85,7 +93,15 @@ None.
 
 ## Examples
 
-Phone, desktop, wall panel, contained, and full width.
+```html
+<wg-canvas width="contained">
+  <header slot="header"><h1>Operations Overview</h1></header>
+  <main>Application composition</main>
+  <footer slot="footer">Supporting context</footer>
+</wg-canvas>
+```
+
+Storybook includes phone, desktop, wall-panel, contained, and full-width production fixtures.
 
 ## Testing Requirements
 

@@ -16,4 +16,5 @@ hero:
 
 The Phase 0 repository, architecture, semantic, and visual foundations are complete. Phase 1 is
 underway with the domain-neutral [Operations Overview](/examples/operations-overview), initial
-[component contracts](/components/), and locked development tokens.
+[component contracts](/components/), locked development tokens, production theme contexts, and the
+first structural and action primitives.

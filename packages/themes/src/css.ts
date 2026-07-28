@@ -1,4 +1,4 @@
-import { tokenNameToCssCustomProperty } from '@wayglass/tokens';
+import { tokenNameToCssCustomProperty, tokens } from '@wayglass/tokens';
 
 import {
   densityNames,
@@ -17,13 +17,28 @@ function declarations(overrides: Readonly<Record<string, string>>): string {
     .join('\n');
 }
 
+function contextualAliases(): Readonly<Record<string, string>> {
+  return Object.fromEntries(
+    Object.entries(tokens).flatMap(([target, definition]) => {
+      if (typeof definition.value !== 'string') {
+        return [];
+      }
+
+      const reference = /^\{([^}]+)\}$/.exec(definition.value)?.[1];
+      return reference ? [[target, reference]] : [];
+    }),
+  );
+}
+
 function themeRule(themeName: (typeof phase1ThemeNames)[number]): string {
   const rootSelector = themeName === 'wayglass-dark' ? ':root,\n  ' : '';
   const colorScheme = themeName === 'wayglass-dark' ? 'dark' : 'light';
+  const contextualThemeTokens = {
+    ...contextualAliases(),
+    ...themeTokenOverrides[themeName],
+  };
 
-  return `${rootSelector}:where([data-wg-theme='${themeName}']) {\n    color-scheme: ${colorScheme};\n${declarations(
-    themeTokenOverrides[themeName],
-  )}\n  }`;
+  return `${rootSelector}:where([data-wg-theme='${themeName}']) {\n    color-scheme: ${colorScheme};\n${declarations(contextualThemeTokens)}\n  }`;
 }
 
 function densityRule(densityName: (typeof densityNames)[number]): string {

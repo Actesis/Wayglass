@@ -700,6 +700,11 @@ export const tokens = {
     type: 'color',
     description: 'Secondary button boundary.',
   },
+  'component.button.color.critical': {
+    value: '{color.semantic.action.critical}',
+    type: 'color',
+    description: 'Filled critical-action background with accessible inverse-text contrast.',
+  },
   'component.button.radius': {
     value: '{shape.radius.control}',
     type: 'dimension',

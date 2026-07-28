@@ -32,6 +32,14 @@ condition belongs to contained state components.
 The heading labels the panel region. A busy panel retains its previous layout and exposes progress
 text supplied by the consumer.
 
+Importing the module does not register the element:
+
+```ts
+import { defineWgPanel } from '@wayglass/elements/panel';
+
+defineWgPanel();
+```
+
 ## Keyboard Interaction
 
 The panel itself is not focusable. Slotted controls keep native behavior and reading order.
@@ -56,7 +64,8 @@ copy is neutral; monitor copy states freshness; control copy identifies target a
 
 ### Attributes
 
-- `purpose`: `information | monitor | control`; required.
+- `purpose`: `information | monitor | control`; required in authored markup. Missing or invalid
+  values render with the neutral `information` fallback.
 - `emphasis`: `standard | strong`; default `standard`.
 - `busy`: Boolean.
 - `disabled`: Boolean.
@@ -107,8 +116,17 @@ None.
 
 ## Examples
 
-All three purposes, strong emphasis, busy with retained content, disabled controls, long content,
-phone, and wall panel.
+```html
+<wg-panel purpose="control" busy>
+  <h3 slot="heading">Communications recovery</h3>
+  <p>The confirmed state remains visible while the request is pending.</p>
+  <wg-button slot="actions" pending>Retry primary link</wg-button>
+  <span slot="progress">Retry request in progress</span>
+</wg-panel>
+```
+
+Storybook includes all three purposes, strong emphasis, busy retained content, disabled guidance,
+long content, phone, and wall-panel production fixtures.
 
 ## Testing Requirements
 

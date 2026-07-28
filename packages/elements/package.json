@@ -12,6 +12,26 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
+    "./button": {
+      "types": "./dist/button.d.ts",
+      "import": "./dist/button.js"
+    },
+    "./canvas": {
+      "types": "./dist/canvas.d.ts",
+      "import": "./dist/canvas.js"
+    },
+    "./elbow": {
+      "types": "./dist/elbow.d.ts",
+      "import": "./dist/elbow.js"
+    },
+    "./panel": {
+      "types": "./dist/panel.d.ts",
+      "import": "./dist/panel.js"
+    },
+    "./rail": {
+      "types": "./dist/rail.d.ts",
+      "import": "./dist/rail.js"
+    },
     "./theme-provider": {
       "types": "./dist/theme-provider.d.ts",
       "import": "./dist/theme-provider.js"
