@@ -16,6 +16,10 @@
       "types": "./dist/button.d.ts",
       "import": "./dist/button.js"
     },
+    "./boolean-value": {
+      "types": "./dist/boolean-value.d.ts",
+      "import": "./dist/boolean-value.js"
+    },
     "./canvas": {
       "types": "./dist/canvas.d.ts",
       "import": "./dist/canvas.js"
@@ -23,6 +27,10 @@
     "./elbow": {
       "types": "./dist/elbow.d.ts",
       "import": "./dist/elbow.js"
+    },
+    "./metric": {
+      "types": "./dist/metric.d.ts",
+      "import": "./dist/metric.js"
     },
     "./panel": {
       "types": "./dist/panel.d.ts",
@@ -32,9 +40,17 @@
       "types": "./dist/rail.d.ts",
       "import": "./dist/rail.js"
     },
+    "./status-indicator": {
+      "types": "./dist/status-indicator.d.ts",
+      "import": "./dist/status-indicator.js"
+    },
     "./theme-provider": {
       "types": "./dist/theme-provider.d.ts",
       "import": "./dist/theme-provider.js"
+    },
+    "./value-tile": {
+      "types": "./dist/value-tile.d.ts",
+      "import": "./dist/value-tile.js"
     }
   },
   "scripts": {

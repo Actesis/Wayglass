@@ -85,6 +85,59 @@
                   <span slot="pending-label">Retrying</span>
                 </wg-button>
                 <wg-button id="disabled-button" disabled>Disabled action</wg-button>
+                <wg-status-indicator
+                  id="status-mixed"
+                  label="Primary link"
+                  condition="caution"
+                  knowledge="stale"
+                  activity="pending"
+                ></wg-status-indicator>
+                <wg-boolean-value
+                  id="boolean-asserted"
+                  label="Email"
+                  asserted
+                  asserted-label="Verified"
+                  not-asserted-label="Unverified"
+                  knowledge="stale"
+                ></wg-boolean-value>
+                <wg-boolean-value
+                  id="boolean-unknown"
+                  label="Access"
+                  asserted-label="Open"
+                  not-asserted-label="Closed"
+                  knowledge="unknown"
+                ></wg-boolean-value>
+                <wg-boolean-value
+                  id="boolean-loading"
+                  label="Connection"
+                  asserted-label="Connected"
+                  not-asserted-label="Disconnected"
+                  loading
+                ></wg-boolean-value>
+                <wg-metric
+                  id="metric"
+                  label="Latency"
+                  value="184"
+                  unit="ms"
+                  condition="caution"
+                  knowledge="stale"
+                ></wg-metric>
+                <wg-metric id="metric-loading" label="Throughput" unit="Mb/s" loading></wg-metric>
+                <div class="fixture-narrow">
+                  <wg-value-tile id="value-tile" busy>
+                    <h3 slot="heading">Connection overview</h3>
+                    <wg-status-indicator
+                      slot="status"
+                      label="Primary link"
+                      condition="positive"
+                    ></wg-status-indicator>
+                    <wg-metric slot="value" label="Latency" value="184" unit="ms"></wg-metric>
+                    <p>Confirmed values remain visible while refreshing.</p>
+                    <span slot="metadata">Updated 12 seconds ago</span>
+                    <wg-button id="tile-action" slot="actions">Inspect connection</wg-button>
+                    <span slot="progress">Refreshing connection</span>
+                  </wg-value-tile>
+                </div>
               </div>
             </section>
           </main>
@@ -94,11 +147,15 @@
     </wg-theme-provider>
     <script type="module">
       import { defineWgButton } from '/packages/elements/dist/button.js';
+      import { defineWgBooleanValue } from '/packages/elements/dist/boolean-value.js';
       import { defineWgCanvas } from '/packages/elements/dist/canvas.js';
       import { defineWgElbow } from '/packages/elements/dist/elbow.js';
+      import { defineWgMetric } from '/packages/elements/dist/metric.js';
       import { defineWgPanel } from '/packages/elements/dist/panel.js';
       import { defineWgRail } from '/packages/elements/dist/rail.js';
+      import { defineWgStatusIndicator } from '/packages/elements/dist/status-indicator.js';
       import { defineWgThemeProvider } from '/packages/elements/dist/theme-provider.js';
+      import { defineWgValueTile } from '/packages/elements/dist/value-tile.js';
 
       defineWgThemeProvider();
       defineWgCanvas();
@@ -106,6 +163,10 @@
       defineWgElbow();
       defineWgPanel();
       defineWgButton();
+      defineWgStatusIndicator();
+      defineWgBooleanValue();
+      defineWgMetric();
+      defineWgValueTile();
     </script>
   </body>
 </html>
