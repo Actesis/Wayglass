@@ -3,13 +3,13 @@
   --vp-c-bg-alt: var(--wg-color-semantic-surface-panel);
   --vp-c-bg-elv: var(--wg-color-semantic-surface-panel);
   --vp-c-brand-1: var(--wg-color-semantic-action-primary);
-  --vp-c-brand-2: var(--wg-color-semantic-state-informational);
+  --vp-c-brand-2: var(--wg-color-semantic-condition-informational);
   --vp-c-text-1: var(--wg-color-semantic-text-primary);
   --vp-font-family-base: var(--wg-typography-family-body);
   --vp-font-family-mono: var(--wg-typography-family-numeric);
 }
 
 :focus-visible {
-  outline: var(--wg-focus-width) solid var(--wg-color-semantic-action-primary);
+  outline: var(--wg-focus-width) solid var(--wg-color-semantic-focus-ring);
   outline-offset: var(--wg-focus-offset);
 }

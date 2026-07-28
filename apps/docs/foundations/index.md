@@ -18,3 +18,5 @@ Phase 0 establishes two supporting foundations:
   knowledge, activity, and section purpose;
 - the [visual foundations](/foundations/visual-language), which define functional zoning, humanist
   compact banded composition, semantic color, and icon-free value signals.
+- the [Phase 1 design tokens](/foundations/tokens), which lock the implementation vocabulary for
+  themes and initial components.

@@ -23,62 +23,182 @@ export const tokens = {
   'color.reference.ink.950': {
     value: '#090d14',
     type: 'color',
-    description: 'Provisional deepest neutral reference.',
+    description: 'Deepest operational neutral.',
+  },
+  'color.reference.ink.900': {
+    value: '#101722',
+    type: 'color',
+    description: 'Dark canvas neutral.',
   },
   'color.reference.ink.800': {
     value: '#182231',
     type: 'color',
-    description: 'Provisional elevated neutral reference.',
+    description: 'Dark contained-surface neutral.',
+  },
+  'color.reference.ink.700': {
+    value: '#273548',
+    type: 'color',
+    description: 'Dark strong-boundary neutral.',
   },
   'color.reference.ink.500': {
     value: '#6f7c8f',
     type: 'color',
-    description: 'Provisional inactive and secondary neutral reference.',
+    description: 'Inactive and secondary neutral.',
   },
-  'color.reference.white': {
+  'color.reference.ink.300': {
+    value: '#aeb8c6',
+    type: 'color',
+    description: 'Muted text neutral on dark surfaces.',
+  },
+  'color.reference.paper.50': {
     value: '#f7f9fc',
     type: 'color',
-    description: 'Provisional light neutral reference.',
+    description: 'Light canvas and high-contrast text neutral.',
+  },
+  'color.reference.paper.100': {
+    value: '#edf1f6',
+    type: 'color',
+    description: 'Light contained-surface neutral.',
+  },
+  'color.reference.paper.200': {
+    value: '#d8dee8',
+    type: 'color',
+    description: 'Light strong-boundary neutral.',
+  },
+  'color.reference.blue.400': {
+    value: '#73a5ff',
+    type: 'color',
+    description: 'Bright action, informational, pending, and asserted-value reference.',
   },
   'color.reference.blue.500': {
     value: '#4f8cff',
     type: 'color',
-    description: 'Provisional informational reference.',
+    description: 'Primary action, informational, pending, and asserted-value reference.',
+  },
+  'color.reference.blue.600': {
+    value: '#326fdd',
+    type: 'color',
+    description: 'Pressed or high-contrast action reference.',
   },
   'color.reference.green.500': {
     value: '#3fcf8e',
     type: 'color',
-    description: 'Provisional positive reference.',
+    description: 'Positive condition reference.',
+  },
+  'color.reference.green.700': {
+    value: '#147a50',
+    type: 'color',
+    description: 'Positive condition reference on light surfaces.',
   },
   'color.reference.amber.500': {
     value: '#f4b942',
     type: 'color',
-    description: 'Provisional caution reference.',
+    description: 'Caution and attention reference.',
+  },
+  'color.reference.amber.700': {
+    value: '#925c00',
+    type: 'color',
+    description: 'Caution and attention reference on light surfaces.',
   },
   'color.reference.red.500': {
     value: '#ff5d6c',
     type: 'color',
-    description: 'Provisional critical reference.',
+    description: 'Critical condition reference.',
+  },
+  'color.reference.red.700': {
+    value: '#b42335',
+    type: 'color',
+    description: 'Critical condition reference on light surfaces.',
   },
   'color.semantic.surface.canvas': {
     value: '{color.reference.ink.950}',
     type: 'color',
-    description: 'Primary application canvas.',
+    description: 'Primary application canvas in the default dark theme.',
   },
   'color.semantic.surface.panel': {
     value: '{color.reference.ink.800}',
     type: 'color',
-    description: 'Primary contained surface.',
+    description: 'Primary contained surface in the default dark theme.',
+  },
+  'color.semantic.surface.inset': {
+    value: '{color.reference.ink.900}',
+    type: 'color',
+    description: 'Recessed content surface in the default dark theme.',
+  },
+  'color.semantic.surface.raised': {
+    value: '{color.reference.ink.700}',
+    type: 'color',
+    description: 'Raised or strongly separated surface in the default dark theme.',
   },
   'color.semantic.text.primary': {
-    value: '{color.reference.white}',
+    value: '{color.reference.paper.50}',
     type: 'color',
-    description: 'Primary text on dark operational surfaces.',
+    description: 'Primary text in the default dark theme.',
+  },
+  'color.semantic.text.secondary': {
+    value: '{color.reference.ink.300}',
+    type: 'color',
+    description: 'Supporting text in the default dark theme.',
+  },
+  'color.semantic.text.inverse': {
+    value: '{color.reference.ink.950}',
+    type: 'color',
+    description: 'Text on bright filled controls and signals.',
+  },
+  'color.semantic.border.subtle': {
+    value: '{color.reference.ink.700}',
+    type: 'color',
+    description: 'Routine internal boundary.',
+  },
+  'color.semantic.border.strong': {
+    value: '{color.reference.ink.500}',
+    type: 'color',
+    description: 'Strong functional or interactive boundary.',
+  },
+  'color.semantic.structure.band': {
+    value: '{color.reference.ink.500}',
+    type: 'color',
+    description: 'Neutral structural rail and elbow color.',
+  },
+  'color.semantic.section.information': {
+    value: '{color.semantic.border.subtle}',
+    type: 'color',
+    description: 'Neutral informational-section boundary.',
+  },
+  'color.semantic.section.monitor': {
+    value: '{color.semantic.border.strong}',
+    type: 'color',
+    description: 'Monitor-section boundary without implied condition.',
+  },
+  'color.semantic.section.control': {
+    value: '{color.semantic.action.primary}',
+    type: 'color',
+    description: 'Control-section action association without implied condition.',
   },
   'color.semantic.action.primary': {
     value: '{color.reference.blue.500}',
     type: 'color',
     description: 'Primary interactive emphasis.',
+  },
+  'color.semantic.action.hover': {
+    value: '{color.reference.blue.400}',
+    type: 'color',
+    description: 'Primary interactive hover emphasis.',
+  },
+  'color.semantic.action.active': {
+    value: '{color.reference.blue.600}',
+    type: 'color',
+    description: 'Primary interactive active emphasis.',
+  },
+  'color.semantic.action.critical': {
+    value: '{color.reference.red.500}',
+    type: 'color',
+    description: 'Destructive or high-impact action emphasis.',
+  },
+  'color.semantic.condition.neutral': {
+    value: '{color.reference.ink.500}',
+    type: 'color',
+    description: 'Condition with no positive or negative interpretation.',
   },
   'color.semantic.condition.informational': {
     value: '{color.reference.blue.500}',
@@ -100,15 +220,40 @@ export const tokens = {
     type: 'color',
     description: 'Critical condition reinforcement.',
   },
+  'color.semantic.knowledge.confirmed': {
+    value: '{color.reference.ink.300}',
+    type: 'color',
+    description: 'Confirmed knowledge metadata.',
+  },
+  'color.semantic.knowledge.inferred': {
+    value: '{color.reference.blue.400}',
+    type: 'color',
+    description: 'Inferred knowledge metadata without confirmed meaning.',
+  },
+  'color.semantic.knowledge.stale': {
+    value: '{color.reference.amber.500}',
+    type: 'color',
+    description: 'Stale knowledge reinforcement when freshness needs attention.',
+  },
   'color.semantic.knowledge.unknown': {
     value: '{color.reference.ink.500}',
     type: 'color',
     description: 'Unknown knowledge-state reinforcement.',
   },
-  'color.semantic.knowledge.stale': {
+  'color.semantic.knowledge.conflicting': {
     value: '{color.reference.amber.500}',
     type: 'color',
-    description: 'Stale knowledge-state reinforcement when freshness matters.',
+    description: 'Conflicting knowledge reinforcement.',
+  },
+  'color.semantic.knowledge.unavailable': {
+    value: '{color.reference.ink.500}',
+    type: 'color',
+    description: 'Unavailable knowledge reinforcement.',
+  },
+  'color.semantic.activity.idle': {
+    value: '{color.reference.ink.500}',
+    type: 'color',
+    description: 'Quiet idle activity metadata.',
   },
   'color.semantic.activity.pending': {
     value: '{color.reference.blue.500}',
@@ -125,70 +270,160 @@ export const tokens = {
     type: 'color',
     description: 'Unlit or outlined Boolean value without health meaning.',
   },
+  'color.semantic.focus.ring': {
+    value: '{color.reference.blue.400}',
+    type: 'color',
+    description: 'Visible keyboard focus indicator.',
+  },
+  'color.semantic.data.series.1': {
+    value: '{color.reference.blue.500}',
+    type: 'color',
+    description: 'First operational data-series role.',
+  },
+  'color.semantic.data.series.2': {
+    value: '{color.reference.green.500}',
+    type: 'color',
+    description: 'Second operational data-series role.',
+  },
   'typography.family.body': {
-    value: 'ui-rounded, Inter, system-ui, sans-serif',
+    value: 'ui-rounded, "Avenir Next", Avenir, Inter, system-ui, sans-serif',
     type: 'fontFamily',
-    description: 'Provisional humanist body type stack.',
+    description: 'Humanist body and interface type stack.',
   },
   'typography.family.display': {
-    value: 'ui-rounded, Inter, system-ui, sans-serif',
+    value: 'ui-rounded, "Avenir Next", Avenir, Inter, system-ui, sans-serif',
     type: 'fontFamily',
-    description: 'Provisional humanist display type stack.',
+    description: 'Humanist display type stack.',
   },
   'typography.family.numeric': {
-    value: 'ui-monospace, SFMono-Regular, monospace',
+    value: 'ui-monospace, "SFMono-Regular", "Roboto Mono", monospace',
     type: 'fontFamily',
-    description: 'Provisional numeric and identifier type stack.',
+    description: 'Numeric and identifier type stack.',
+  },
+  'typography.size.metadata': {
+    value: '0.75rem',
+    type: 'fontSize',
+    description: 'Supporting metadata text size.',
+  },
+  'typography.size.label': {
+    value: '0.875rem',
+    type: 'fontSize',
+    description: 'Control and compact field label size.',
   },
   'typography.size.body': {
     value: '1rem',
     type: 'fontSize',
     description: 'Default body text size.',
   },
+  'typography.size.section': {
+    value: '1.125rem',
+    type: 'fontSize',
+    description: 'Section heading size.',
+  },
+  'typography.size.title': {
+    value: '1.5rem',
+    type: 'fontSize',
+    description: 'Page and function title size.',
+  },
+  'typography.size.value.compact': {
+    value: '1.25rem',
+    type: 'fontSize',
+    description: 'Compact primary value size.',
+  },
+  'typography.size.value.prominent': {
+    value: '2rem',
+    type: 'fontSize',
+    description: 'Prominent wall-panel value size.',
+  },
+  'typography.line-height.compact': {
+    value: 1.2,
+    type: 'number',
+    description: 'Compact heading and value line height.',
+  },
+  'typography.line-height.body': {
+    value: 1.5,
+    type: 'number',
+    description: 'Readable body line height.',
+  },
   'typography.weight.regular': {
     value: 400,
     type: 'fontWeight',
     description: 'Regular text weight.',
   },
+  'typography.weight.medium': {
+    value: 550,
+    type: 'fontWeight',
+    description: 'Label and control text weight.',
+  },
   'typography.weight.emphasis': {
     value: 650,
     type: 'fontWeight',
-    description: 'Emphasized text weight.',
+    description: 'Emphasized heading and value weight.',
   },
   'space.reference.1': {
     value: '0.25rem',
     type: 'dimension',
-    description: 'Smallest provisional spacing step.',
+    description: 'Smallest spacing step.',
   },
   'space.reference.2': {
     value: '0.5rem',
     type: 'dimension',
-    description: 'Compact provisional spacing step.',
+    description: 'Compact spacing step.',
+  },
+  'space.reference.3': {
+    value: '0.75rem',
+    type: 'dimension',
+    description: 'Intermediate spacing step.',
   },
   'space.reference.4': {
     value: '1rem',
     type: 'dimension',
-    description: 'Base provisional spacing step.',
+    description: 'Base spacing step.',
   },
   'space.reference.6': {
     value: '1.5rem',
     type: 'dimension',
-    description: 'Large provisional spacing step.',
+    description: 'Large spacing step.',
+  },
+  'space.reference.8': {
+    value: '2rem',
+    type: 'dimension',
+    description: 'Extra-large spacing step.',
+  },
+  'space.semantic.control.block': {
+    value: '{space.reference.3}',
+    type: 'dimension',
+    description: 'Block spacing inside controls.',
   },
   'space.semantic.control.inline': {
-    value: '{space.reference.2}',
+    value: '{space.reference.4}',
     type: 'dimension',
     description: 'Inline spacing inside controls.',
   },
   'space.semantic.section.compact': {
     value: '{space.reference.2}',
     type: 'dimension',
-    description: 'Compact section rhythm without reducing interactive targets.',
+    description: 'Compact internal section rhythm.',
+  },
+  'space.semantic.section.comfortable': {
+    value: '{space.reference.4}',
+    type: 'dimension',
+    description: 'Comfortable internal section rhythm.',
   },
   'space.semantic.function.gutter': {
     value: '{space.reference.4}',
     type: 'dimension',
     description: 'Visible separation between independent functional zones.',
+  },
+  'space.semantic.page.compact': {
+    value: '{space.reference.4}',
+    type: 'dimension',
+    description: 'Phone and compact page edge spacing.',
+  },
+  'space.semantic.page.comfortable': {
+    value: '{space.reference.6}',
+    type: 'dimension',
+    description: 'Desktop and comfortable page edge spacing.',
   },
   'size.touch.minimum': {
     value: '2.75rem',
@@ -198,7 +433,22 @@ export const tokens = {
   'size.content.measure': {
     value: '72rem',
     type: 'dimension',
-    description: 'Maximum readable documentation measure.',
+    description: 'Standard contained application and documentation measure.',
+  },
+  'size.signal.compact': {
+    value: '0.625rem',
+    type: 'dimension',
+    description: 'Compact status-light or value-signal size.',
+  },
+  'size.signal.prominent': {
+    value: '3.5rem',
+    type: 'dimension',
+    description: 'Prominent glanceable value-field signal size.',
+  },
+  'size.metric.value-minimum': {
+    value: '4ch',
+    type: 'dimension',
+    description: 'Reserved compact metric value width.',
   },
   'density.comfortable.scale': {
     value: 1,
@@ -213,47 +463,57 @@ export const tokens = {
   'shape.radius.control': {
     value: '0.5rem',
     type: 'dimension',
-    description: 'Provisional control radius.',
+    description: 'Rounded-square control radius.',
   },
   'shape.radius.panel': {
     value: '0.75rem',
     type: 'dimension',
-    description: 'Provisional panel radius.',
+    description: 'Contained panel radius.',
   },
   'shape.radius.signal': {
+    value: '0.375rem',
+    type: 'dimension',
+    description: 'Rounded-square value and condition signal radius.',
+  },
+  'shape.radius.band': {
     value: '0.5rem',
     type: 'dimension',
-    description: 'Rounded-square radius for value and condition signals.',
+    description: 'Structural band and elbow radius.',
   },
   'border.width.standard': {
     value: '0.0625rem',
     type: 'dimension',
     description: 'Standard visible boundary width.',
   },
+  'border.width.strong': {
+    value: '0.125rem',
+    type: 'dimension',
+    description: 'Strong visible boundary width.',
+  },
   'border.width.band': {
     value: '0.1875rem',
     type: 'dimension',
-    description: 'Banded structural boundary for function or section identity.',
+    description: 'Banded structural boundary for function identity.',
   },
   'border.width.value-rail': {
     value: '0.25rem',
     type: 'dimension',
     description: 'Compact asserted or not-asserted value rail.',
   },
-  'size.signal.compact': {
-    value: '0.625rem',
+  'border.semantic.function': {
+    value: '{border.width.strong}',
     type: 'dimension',
-    description: 'Compact status-light or value-signal size.',
+    description: 'Independent functional-zone boundary width.',
   },
-  'size.signal.prominent': {
-    value: '3.5rem',
+  'border.semantic.section': {
+    value: '{border.width.standard}',
     type: 'dimension',
-    description: 'Prominent glanceable value-field signal size.',
+    description: 'Internal section boundary width.',
   },
   'elevation.panel': {
     value: '0 0.5rem 1.5rem rgb(0 0 0 / 20%)',
     type: 'shadow',
-    description: 'Provisional panel elevation.',
+    description: 'Contained panel elevation in themes that use depth.',
   },
   'motion.duration.instant': {
     value: '0ms',
@@ -288,12 +548,17 @@ export const tokens = {
   'breakpoint.phone.wide': {
     value: '40rem',
     type: 'dimension',
-    description: 'Provisional wide-phone container threshold.',
+    description: 'Wide-phone container threshold.',
   },
   'breakpoint.desktop': {
     value: '64rem',
     type: 'dimension',
-    description: 'Provisional desktop container threshold.',
+    description: 'Desktop container threshold.',
+  },
+  'breakpoint.wall': {
+    value: '96rem',
+    type: 'dimension',
+    description: 'Wall-panel container threshold.',
   },
   'focus.width': {
     value: '0.1875rem',
@@ -305,15 +570,275 @@ export const tokens = {
     type: 'dimension',
     description: 'Visible focus indicator offset.',
   },
-  'color.data.series.1': {
-    value: '{color.reference.blue.500}',
+  'component.canvas.color.background': {
+    value: '{color.semantic.surface.canvas}',
     type: 'color',
-    description: 'First operational data-series role.',
+    description: 'Canvas background.',
   },
-  'color.data.series.2': {
-    value: '{color.reference.green.500}',
+  'component.canvas.size.content': {
+    value: '{size.content.measure}',
+    type: 'dimension',
+    description: 'Contained canvas content measure.',
+  },
+  'component.canvas.space.block': {
+    value: '{space.semantic.page.comfortable}',
+    type: 'dimension',
+    description: 'Default canvas block padding.',
+  },
+  'component.canvas.space.inline': {
+    value: '{space.semantic.page.comfortable}',
+    type: 'dimension',
+    description: 'Default canvas inline padding.',
+  },
+  'component.rail.color': {
+    value: '{color.semantic.structure.band}',
     type: 'color',
-    description: 'Second operational data-series role.',
+    description: 'Neutral structural rail fill.',
+  },
+  'component.rail.size.standard': {
+    value: '{border.width.band}',
+    type: 'dimension',
+    description: 'Standard structural rail thickness.',
+  },
+  'component.rail.size.strong': {
+    value: '{space.reference.2}',
+    type: 'dimension',
+    description: 'Strong structural rail thickness.',
+  },
+  'component.rail.radius': {
+    value: '{shape.radius.band}',
+    type: 'dimension',
+    description: 'Structural rail radius.',
+  },
+  'component.elbow.color.background': {
+    value: '{color.semantic.surface.raised}',
+    type: 'color',
+    description: 'Function-heading elbow background.',
+  },
+  'component.elbow.color.text': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'Function-heading elbow text.',
+  },
+  'component.elbow.size.band': {
+    value: '{component.rail.size.strong}',
+    type: 'dimension',
+    description: 'Function-heading elbow joining-band thickness.',
+  },
+  'component.elbow.radius': {
+    value: '{shape.radius.band}',
+    type: 'dimension',
+    description: 'Function-heading elbow radius.',
+  },
+  'component.elbow.space.inline': {
+    value: '{space.reference.4}',
+    type: 'dimension',
+    description: 'Function-heading elbow inline padding.',
+  },
+  'component.panel.color.background': {
+    value: '{color.semantic.surface.panel}',
+    type: 'color',
+    description: 'Panel background.',
+  },
+  'component.panel.color.border': {
+    value: '{color.semantic.border.subtle}',
+    type: 'color',
+    description: 'Panel boundary.',
+  },
+  'component.panel.color.information': {
+    value: '{color.semantic.section.information}',
+    type: 'color',
+    description: 'Informational panel purpose accent.',
+  },
+  'component.panel.color.monitor': {
+    value: '{color.semantic.section.monitor}',
+    type: 'color',
+    description: 'Monitor panel purpose accent.',
+  },
+  'component.panel.color.control': {
+    value: '{color.semantic.section.control}',
+    type: 'color',
+    description: 'Control panel purpose accent.',
+  },
+  'component.panel.color.text': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'Panel primary text.',
+  },
+  'component.panel.radius': {
+    value: '{shape.radius.panel}',
+    type: 'dimension',
+    description: 'Panel radius.',
+  },
+  'component.panel.space': {
+    value: '{space.reference.4}',
+    type: 'dimension',
+    description: 'Panel edge padding.',
+  },
+  'component.panel.space.section': {
+    value: '{space.semantic.section.compact}',
+    type: 'dimension',
+    description: 'Panel internal section spacing.',
+  },
+  'component.button.color.background': {
+    value: '{color.semantic.action.primary}',
+    type: 'color',
+    description: 'Primary button background.',
+  },
+  'component.button.color.background-hover': {
+    value: '{color.semantic.action.hover}',
+    type: 'color',
+    description: 'Primary button hover background.',
+  },
+  'component.button.color.text': {
+    value: '{color.semantic.text.inverse}',
+    type: 'color',
+    description: 'Filled button text.',
+  },
+  'component.button.color.border': {
+    value: '{color.semantic.border.strong}',
+    type: 'color',
+    description: 'Secondary button boundary.',
+  },
+  'component.button.radius': {
+    value: '{shape.radius.control}',
+    type: 'dimension',
+    description: 'Button radius.',
+  },
+  'component.button.space.block': {
+    value: '{space.semantic.control.block}',
+    type: 'dimension',
+    description: 'Button block padding.',
+  },
+  'component.button.space.inline': {
+    value: '{space.semantic.control.inline}',
+    type: 'dimension',
+    description: 'Button inline padding.',
+  },
+  'component.button.size.minimum': {
+    value: '{size.touch.minimum}',
+    type: 'dimension',
+    description: 'Button minimum target size.',
+  },
+  'component.status-indicator.color.border': {
+    value: '{color.semantic.border.strong}',
+    type: 'color',
+    description: 'Status signal redundant boundary.',
+  },
+  'component.status-indicator.color.condition': {
+    value: '{color.semantic.condition.neutral}',
+    type: 'color',
+    description: 'Status signal condition fill before the selected condition override.',
+  },
+  'component.status-indicator.size.compact': {
+    value: '{size.signal.compact}',
+    type: 'dimension',
+    description: 'Compact status signal size.',
+  },
+  'component.status-indicator.size.prominent': {
+    value: '{size.signal.prominent}',
+    type: 'dimension',
+    description: 'Prominent status signal size.',
+  },
+  'component.status-indicator.radius': {
+    value: '{shape.radius.signal}',
+    type: 'dimension',
+    description: 'Status signal radius.',
+  },
+  'component.status-indicator.space': {
+    value: '{space.reference.2}',
+    type: 'dimension',
+    description: 'Status indicator internal spacing.',
+  },
+  'component.boolean-value.color.asserted': {
+    value: '{color.semantic.value.asserted}',
+    type: 'color',
+    description: 'Asserted Boolean signal fill.',
+  },
+  'component.boolean-value.color.not-asserted': {
+    value: '{color.semantic.value.not-asserted}',
+    type: 'color',
+    description: 'Not-asserted Boolean signal fill or outline.',
+  },
+  'component.boolean-value.color.text': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'Boolean value text.',
+  },
+  'component.boolean-value.size.rail': {
+    value: '{border.width.value-rail}',
+    type: 'dimension',
+    description: 'Boolean value rail thickness.',
+  },
+  'component.boolean-value.size.field': {
+    value: '{size.signal.prominent}',
+    type: 'dimension',
+    description: 'Boolean value field minimum size.',
+  },
+  'component.boolean-value.radius': {
+    value: '{shape.radius.signal}',
+    type: 'dimension',
+    description: 'Boolean signal radius.',
+  },
+  'component.boolean-value.space': {
+    value: '{space.reference.2}',
+    type: 'dimension',
+    description: 'Boolean value internal spacing.',
+  },
+  'component.metric.color.value': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'Metric primary value text.',
+  },
+  'component.metric.color.label': {
+    value: '{color.semantic.text.secondary}',
+    type: 'color',
+    description: 'Metric label text.',
+  },
+  'component.metric.font-size.compact': {
+    value: '{typography.size.value.compact}',
+    type: 'fontSize',
+    description: 'Compact metric value size.',
+  },
+  'component.metric.font-size.prominent': {
+    value: '{typography.size.value.prominent}',
+    type: 'fontSize',
+    description: 'Prominent metric value size.',
+  },
+  'component.metric.space': {
+    value: '{space.reference.2}',
+    type: 'dimension',
+    description: 'Metric internal spacing.',
+  },
+  'component.metric.size.value-minimum': {
+    value: '{size.metric.value-minimum}',
+    type: 'dimension',
+    description: 'Reserved metric value width.',
+  },
+  'component.value-tile.color.background': {
+    value: '{color.semantic.surface.panel}',
+    type: 'color',
+    description: 'Value tile background.',
+  },
+  'component.value-tile.color.border': {
+    value: '{color.semantic.border.strong}',
+    type: 'color',
+    description: 'Value tile boundary.',
+  },
+  'component.value-tile.radius': {
+    value: '{shape.radius.panel}',
+    type: 'dimension',
+    description: 'Value tile radius.',
+  },
+  'component.value-tile.space': {
+    value: '{space.reference.4}',
+    type: 'dimension',
+    description: 'Value tile edge padding.',
+  },
+  'component.value-tile.space.section': {
+    value: '{space.semantic.section.compact}',
+    type: 'dimension',
+    description: 'Value tile internal section spacing.',
   },
 } as const satisfies Record<string, TokenDefinition>;
 

@@ -14,6 +14,6 @@
 .wg-foundation-story th,
 .wg-foundation-story td {
   padding: var(--wg-space-reference-2) var(--wg-space-reference-4);
-  border: var(--wg-border-width-standard) solid var(--wg-color-semantic-state-unknown);
+  border: var(--wg-border-width-standard) solid var(--wg-color-semantic-knowledge-unknown);
   text-align: start;
 }

@@ -7,6 +7,8 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: 'Foundations', link: '/foundations/' },
+      { text: 'Components', link: '/components/' },
+      { text: 'Examples', link: '/examples/operations-overview' },
       { text: 'Repository', link: 'https://github.com/Actesis/Wayglass' },
     ],
     sidebar: [
@@ -16,6 +18,32 @@ export default defineConfig({
           { text: 'Introduction', link: '/foundations/' },
           { text: 'Semantic model', link: '/foundations/state-model' },
           { text: 'Visual foundations', link: '/foundations/visual-language' },
+          { text: 'Design tokens', link: '/foundations/tokens' },
+        ],
+      },
+      {
+        text: 'Phase 1 components',
+        items: [
+          { text: 'Overview', link: '/components/' },
+          { text: 'Theme provider', link: '/components/theme-provider' },
+          { text: 'Canvas', link: '/components/canvas' },
+          { text: 'Rail', link: '/components/rail' },
+          { text: 'Elbow', link: '/components/elbow' },
+          { text: 'Panel', link: '/components/panel' },
+          { text: 'Button', link: '/components/button' },
+          { text: 'Status indicator', link: '/components/status-indicator' },
+          { text: 'Boolean value', link: '/components/boolean-value' },
+          { text: 'Metric', link: '/components/metric' },
+          { text: 'Value tile', link: '/components/value-tile' },
+        ],
+      },
+      {
+        text: 'Examples',
+        items: [
+          {
+            text: 'Operations Overview',
+            link: '/examples/operations-overview',
+          },
         ],
       },
     ],
