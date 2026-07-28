@@ -3,15 +3,13 @@
 Wayglass is a design language for operational awareness. It helps people understand what a system is
 doing, what changed, what needs attention, and what they can do next.
 
-The Phase 0 repository, architecture, semantic, and visual foundations are complete. Phase 1 is
-underway with a domain-neutral reference composition, initial component contracts, and locked
-development tokens. Dark and light theme contexts, `wg-theme-provider`, and the Phase 1 structural
-and action primitives (`wg-canvas`, `wg-rail`, `wg-elbow`, `wg-panel`, and `wg-button`) are
-implemented. The semantic display set (`wg-status-indicator`, `wg-boolean-value`, `wg-metric`, and
-`wg-value-tile`) is also available. A production-backed Operations Overview now composes the full
-set across dark and light desktop, phone, wall-panel, and edge-state Storybook fixtures, with
-runnable vanilla Custom Element and typed React integration examples. Wayglass is a working name,
-all packages are private, and no software license has been selected yet.
+The Phase 0 foundations and Phase 1 domain-neutral vertical slice are complete. Dark and light theme
+contexts, the initial structural, action, and semantic display components, and typed React wrappers
+are available. A production-backed Operations Overview composes the full set across desktop, phone,
+wall-panel, and edge-state Storybook fixtures, with runnable vanilla Custom Element and React
+examples. Phase 1 accessibility, responsive behavior, visual states, and supported-browser behavior
+are recorded in the validation matrix. Wayglass is a working name, all packages are private, and no
+software license has been selected yet.
 
 ## Governing documents
 
@@ -37,6 +35,8 @@ Supporting foundations:
   contract and client-only fallback.
 - [`docs/examples/operations-overview.md`](./docs/examples/operations-overview.md) defines the Phase
   1 reference composition.
+- [`docs/accessibility/phase-1-validation.md`](./docs/accessibility/phase-1-validation.md) records
+  the Phase 1 accessibility, responsive, state, framework, and browser validation evidence.
 
 ## Local development
 

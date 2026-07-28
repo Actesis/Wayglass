@@ -47,6 +47,15 @@ export default defineConfig({
         items: [{ text: 'React', link: '/frameworks/react' }],
       },
       {
+        text: 'Accessibility',
+        items: [
+          {
+            text: 'Phase 1 validation',
+            link: '/accessibility/phase-1-validation',
+          },
+        ],
+      },
+      {
         text: 'Examples',
         items: [
           {

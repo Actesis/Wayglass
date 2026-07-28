@@ -14,7 +14,7 @@ hero:
       link: /components/
 ---
 
-The Phase 0 repository, architecture, semantic, and visual foundations are complete. Phase 1 is
-underway with the domain-neutral [Operations Overview](/examples/operations-overview), initial
-[component contracts](/components/), locked development tokens, production theme contexts, and the
-first structural and action primitives.
+The Phase 0 foundations and Phase 1 domain-neutral vertical slice are complete. Explore the
+[Operations Overview](/examples/operations-overview), review the initial
+[component contracts](/components/), or inspect the
+[Phase 1 validation record](/accessibility/phase-1-validation).
