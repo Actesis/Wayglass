@@ -61,6 +61,36 @@ test('keeps explicit consequential state labels visible for hidden functions', a
   await expect(page.getByRole('region', { name: 'Processing', exact: true })).toBeHidden();
 });
 
+test('keeps a critical response path available outside the tablist', async ({ page }) => {
+  const tabs = page.locator('wg-tabs');
+  const processing = page.getByRole('tab', {
+    name: /Processing Critical · Pause pending/,
+  });
+  const criticalResponse = page.locator('.wg-function-deck__critical-response');
+
+  await expect(criticalResponse).toContainText('Critical response · Processing intake');
+  await expect(criticalResponse).toContainText('Critical · Pause request pending');
+  await expect(criticalResponse).toContainText('Confirmed gate remains Open');
+  await expect(processing).toHaveAttribute('aria-selected', 'false');
+
+  await tabs.evaluate((element) => {
+    element.setAttribute('data-change-count', '0');
+    element.addEventListener('wg-tab-change', () => {
+      const count = Number(element.getAttribute('data-change-count') ?? '0');
+      element.setAttribute('data-change-count', String(count + 1));
+    });
+  });
+
+  await criticalResponse.getByRole('button', { name: 'Open Processing response' }).click();
+
+  await expect(tabs).toHaveAttribute('value', 'processing');
+  await expect(tabs).toHaveAttribute('data-change-count', '0');
+  await expect(processing).toHaveAttribute('aria-selected', 'true');
+  await expect(processing).toBeFocused();
+  await expect(page.getByRole('region', { name: 'Processing', exact: true })).toBeVisible();
+  await expect(page.getByText('Selected function: Processing', { exact: true })).toBeVisible();
+});
+
 test('keeps function identity and order aligned with the overview composition', async ({
   page,
 }) => {

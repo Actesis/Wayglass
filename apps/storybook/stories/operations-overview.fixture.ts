@@ -32,6 +32,14 @@ interface OperationsFunctionMetadata {
   readonly value: OperationsFunctionValue;
   readonly label: string;
   readonly selectorSummary: string;
+  readonly criticalResponse?: OperationsCriticalResponse;
+}
+
+export interface OperationsCriticalResponse {
+  readonly heading: string;
+  readonly stateSummary: string;
+  readonly detail: string;
+  readonly actionLabel: string;
 }
 
 export interface OperationsFunctionFixture extends OperationsFunctionMetadata {
@@ -58,6 +66,12 @@ const processingMetadata = {
   value: 'processing',
   label: 'Processing',
   selectorSummary: 'Critical · Pause pending',
+  criticalResponse: {
+    heading: 'Critical response · Processing intake',
+    stateSummary: 'Critical · Pause request pending',
+    detail: 'Confirmed gate remains Open until the pause request is acknowledged.',
+    actionLabel: 'Open Processing response',
+  },
 } as const satisfies OperationsFunctionMetadata;
 
 export interface OperationsOverviewOptions {

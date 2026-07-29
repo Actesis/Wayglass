@@ -14,6 +14,27 @@
   min-inline-size: 0;
 }
 
+.wg-function-deck__critical-response {
+  display: block;
+  margin-block-end: var(--wg-space-reference-3);
+}
+
+.wg-function-deck__critical-state {
+  display: flex;
+  align-items: start;
+  gap: var(--wg-space-reference-2);
+}
+
+.wg-function-deck__critical-state p {
+  display: grid;
+  gap: var(--wg-space-reference-1);
+  margin: 0;
+}
+
+.wg-function-deck__critical-state strong {
+  color: var(--wg-color-semantic-condition-critical);
+}
+
 .wg-function-deck__surface {
   min-inline-size: 0;
 }

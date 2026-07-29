@@ -127,7 +127,7 @@ The application-owned function model must provide, at minimum:
 - the function's information, monitor, and control content;
 - any critical-response path required while the function is hidden.
 
-This is a content contract, not a library-owned TypeScript model. Phase 2B fixtures will define one
+This is a content contract, not a library-owned TypeScript model. Phase 2B fixtures define one
 domain-neutral reference model and render it into both overview and focused compositions. That
 fixture model is test data, not an additional public selection API.
 
@@ -168,6 +168,12 @@ place a button or link inside `wg-tab`.
 When an external persistent action opens a function, it sets the existing `wg-tabs.value` and may
 call `focusSelected()` so the user's explicit navigation action has a predictable destination. It
 does not synthesize `wg-tab-change`; the external action is already the user-intent event.
+
+The reference deck applies this safeguard to Processing intake. A named critical-response panel
+remains visible while Access or Communications is selected, states that the pause request is pending
+while the confirmed gate remains open, and provides an “Open Processing response” action. That
+action selects and focuses the existing Processing tab; it does not duplicate the pending control or
+create another selection owner.
 
 ## Interaction and accessibility
 
@@ -210,8 +216,9 @@ not a public Wayglass schema, and deliberately does not prescribe fields such as
 Browser coverage confirms that both compositions retain the same function identity and order, tabs
 remain the only selection owner, and the focused surface does not introduce a nested elbow-shaped
 selector layer. Hidden peer selectors retain explicit caution, critical, stale, unavailable, and
-pending language while their panels are not visible. Critical-response policy, responsive variants,
-and broader accessibility validation remain the next Phase 2B work.
+pending language while their panels are not visible. The persistent Processing response path remains
+available without becoming a second selection owner. Responsive variants and broader accessibility
+validation remain the next Phase 2B work.
 
 Phase 2 will:
 
