@@ -19,6 +19,8 @@ for (const example of examples) {
       await page.waitForFunction(
         () =>
           customElements.get('wg-value-tile') !== undefined &&
+          customElements.get('wg-tabs') !== undefined &&
+          document.querySelector('[data-tabs-example]') !== null &&
           document.querySelectorAll('[data-function]').length === 3,
       );
     });
@@ -32,6 +34,25 @@ for (const example of examples) {
 
       await expect(page.locator('wg-theme-provider')).toHaveAttribute('theme', 'system');
       await expect(page.locator('wg-value-tile')).toHaveCount(3);
+    });
+
+    test('composes the shared tabs model and reflects user selection', async ({ page }) => {
+      const tabsExample = page.locator('[data-tabs-example]');
+      const access = page.getByRole('tab', { name: /Access 1 invitation pending/ });
+
+      await expect(page.getByRole('tablist', { name: 'Workspace views' })).toBeVisible();
+      await expect(
+        page.getByRole('tab', { name: /Overview 3 active workstreams/ }),
+      ).toHaveAttribute('aria-selected', 'true');
+      await expect(access.getByText('1 invitation pending')).toBeVisible();
+
+      await access.click();
+      await expect(tabsExample).toHaveAttribute('data-selected-view', 'access');
+      await expect(access).toHaveAttribute('aria-selected', 'true');
+      await expect(page.getByRole('tabpanel', { name: /Access/ })).toContainText(
+        'Pending invitations',
+      );
+      await expect(tabsExample.getByText('Selected view: Access', { exact: true })).toBeVisible();
     });
 
     test('keeps confirmed state separate when a retry is requested', async ({ page }) => {

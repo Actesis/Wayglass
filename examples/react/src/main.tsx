@@ -1,9 +1,11 @@
 import '@wayglass/tokens/tokens.css';
 import '@wayglass/themes/themes.css';
 import '../../shared/operations-overview.css';
+import '../../shared/tabs-example.css';
 
 import { StrictMode, useState } from 'react';
 import { createRoot } from 'react-dom/client';
+import { tabsExampleViews } from '../../shared/tabs-example.js';
 import {
   WgBooleanValue,
   WgButton,
@@ -13,6 +15,10 @@ import {
   WgPanel,
   WgRail,
   WgStatusIndicator,
+  WgTab,
+  WgTabList,
+  WgTabPanel,
+  WgTabs,
   WgThemeProvider,
   WgValueTile,
 } from '@wayglass/react';
@@ -45,6 +51,7 @@ function FunctionZone({
 
 function App() {
   const [retryPending, setRetryPending] = useState(false);
+  const [selectedView, setSelectedView] = useState('overview');
 
   return (
     <div className="wg-overview-viewport wg-overview-viewport--responsive" data-example="react">
@@ -165,6 +172,55 @@ function App() {
               </WgPanel>
             </FunctionZone>
           </main>
+          <section
+            className="wg-tabs-example"
+            data-tabs-example
+            data-selected-view={selectedView}
+            aria-labelledby="react-tabs-heading"
+          >
+            <header className="wg-tabs-example__header">
+              <p className="wg-tabs-example__eyebrow">Selection foundation</p>
+              <h2 id="react-tabs-heading">Workspace views</h2>
+              <p>Production tabs composed through typed React wrappers.</p>
+            </header>
+            <WgTabs
+              value={selectedView}
+              activation="automatic"
+              orientation="horizontal"
+              onWgTabChange={(event) => setSelectedView(event.detail.value)}
+            >
+              <WgTabList aria-label="Workspace views">
+                {tabsExampleViews.map((view) => (
+                  <WgTab key={view.value} value={view.value}>
+                    {view.label}
+                    <span slot="summary">{view.summary}</span>
+                  </WgTab>
+                ))}
+              </WgTabList>
+              {tabsExampleViews.map((view) => (
+                <WgTabPanel key={view.value} value={view.value}>
+                  <section
+                    className="wg-tabs-example__panel"
+                    aria-labelledby={`react-tabs-${view.value}-heading`}
+                  >
+                    <h3 id={`react-tabs-${view.value}-heading`}>{view.heading}</h3>
+                    <p>{view.description}</p>
+                    <dl className="wg-tabs-example__facts">
+                      {view.facts.map((fact) => (
+                        <div key={fact.label}>
+                          <dt>{fact.label}</dt>
+                          <dd>{fact.value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </section>
+                </WgTabPanel>
+              ))}
+            </WgTabs>
+            <p className="wg-tabs-example__selection" data-tabs-selection aria-live="polite">
+              Selected view: {tabsExampleViews.find((view) => view.value === selectedView)?.label}
+            </p>
+          </section>
           <footer slot="footer" className="wg-overview-footer">
             <span>React integration example</span>
             <span>Theme follows the operating system</span>

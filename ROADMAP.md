@@ -56,7 +56,7 @@ can be validated before later components depend on it.
 - [x] Lock the required selection and tab tokens.
 - [x] Implement the tabs compound elements and framework-neutral interaction model.
 - [x] Add typed React wrappers without duplicating behavior.
-- [ ] Add production-backed stories and examples.
+- [x] Add production-backed stories and examples.
 - [ ] Validate keyboard behavior, focus, accessible relationships, touch targets, forced colors,
       reduced motion, zoom, dynamic selection, and supported browser engines.
 

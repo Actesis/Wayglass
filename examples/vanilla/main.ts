@@ -10,10 +10,14 @@ import { defineWgMetric } from '@wayglass/elements/metric';
 import { defineWgPanel } from '@wayglass/elements/panel';
 import { defineWgRail } from '@wayglass/elements/rail';
 import { defineWgStatusIndicator } from '@wayglass/elements/status-indicator';
+import { defineWgTabs } from '@wayglass/elements/tabs';
+import type { WgTabs } from '@wayglass/elements/tabs';
 import { defineWgThemeProvider } from '@wayglass/elements/theme-provider';
 import { defineWgValueTile } from '@wayglass/elements/value-tile';
 
 import '../shared/operations-overview.css';
+import '../shared/tabs-example.css';
+import { tabsExampleViews } from '../shared/tabs-example.js';
 
 defineWgThemeProvider();
 defineWgCanvas();
@@ -25,12 +29,72 @@ defineWgStatusIndicator();
 defineWgBooleanValue();
 defineWgMetric();
 defineWgValueTile();
+defineWgTabs();
 
 const app = document.querySelector<HTMLDivElement>('#app');
 
 if (!app) {
   throw new Error('Vanilla example root was not found.');
 }
+
+const tabsMarkup = `
+  <section
+    class="wg-tabs-example"
+    data-tabs-example
+    data-selected-view="overview"
+    aria-labelledby="vanilla-tabs-heading"
+  >
+    <header class="wg-tabs-example__header">
+      <p class="wg-tabs-example__eyebrow">Selection foundation</p>
+      <h2 id="vanilla-tabs-heading">Workspace views</h2>
+      <p>Production tabs composed with platform markup and a typed Custom Event.</p>
+    </header>
+    <wg-tabs value="overview" activation="automatic" orientation="horizontal">
+      <wg-tab-list aria-label="Workspace views">
+        ${tabsExampleViews
+          .map(
+            (view) => `
+              <wg-tab value="${view.value}">
+                ${view.label}
+                <span slot="summary">${view.summary}</span>
+              </wg-tab>
+            `,
+          )
+          .join('')}
+      </wg-tab-list>
+      ${tabsExampleViews
+        .map(
+          (view) => `
+            <wg-tab-panel value="${view.value}">
+              <section
+                class="wg-tabs-example__panel"
+                aria-labelledby="vanilla-tabs-${view.value}-heading"
+              >
+                <h3 id="vanilla-tabs-${view.value}-heading">${view.heading}</h3>
+                <p>${view.description}</p>
+                <dl class="wg-tabs-example__facts">
+                  ${view.facts
+                    .map(
+                      (fact) => `
+                        <div>
+                          <dt>${fact.label}</dt>
+                          <dd>${fact.value}</dd>
+                        </div>
+                      `,
+                    )
+                    .join('')}
+                </dl>
+              </section>
+            </wg-tab-panel>
+          `,
+        )
+        .join('')}
+    </wg-tabs>
+    <p class="wg-tabs-example__selection" data-tabs-selection aria-live="polite">
+      Selected view: Overview
+    </p>
+  </section>
+`;
 
 app.innerHTML = `
   <div class="wg-overview-viewport wg-overview-viewport--responsive" data-example="vanilla">
@@ -118,6 +182,7 @@ app.innerHTML = `
             </div>
           </section>
         </main>
+        ${tabsMarkup}
         <footer slot="footer" class="wg-overview-footer">
           <span>Vanilla integration example</span>
           <span>Theme follows the operating system</span>
@@ -130,6 +195,9 @@ app.innerHTML = `
 const retryButton = document.querySelector<WgButton>('#vanilla-retry');
 const recoveryPanel = document.querySelector<HTMLElement & { busy: boolean }>('#vanilla-recovery');
 const retryStatus = document.querySelector<HTMLElement>('#vanilla-retry-status');
+const tabs = document.querySelector<WgTabs>('[data-tabs-example] wg-tabs');
+const tabsExample = document.querySelector<HTMLElement>('[data-tabs-example]');
+const tabsSelection = document.querySelector<HTMLElement>('[data-tabs-selection]');
 
 retryButton?.addEventListener('click', () => {
   retryButton.pending = true;
@@ -138,5 +206,16 @@ retryButton?.addEventListener('click', () => {
   }
   if (retryStatus) {
     retryStatus.textContent = 'Retry requested; confirmed state remains Connected.';
+  }
+});
+
+tabs?.addEventListener('wg-tab-change', (event) => {
+  const selected = tabsExampleViews.find((view) => view.value === event.detail.value);
+
+  if (tabsExample) {
+    tabsExample.dataset.selectedView = event.detail.value;
+  }
+  if (tabsSelection && selected) {
+    tabsSelection.textContent = `Selected view: ${selected.label}`;
   }
 });
