@@ -1,6 +1,6 @@
 # Phase 2C foundation contracts
 
-**Status:** Proposed for Phase 2C review on July 29, 2026. The delivery model is recorded in
+**Status:** Accepted for Phase 2C on July 29, 2026. The delivery model is recorded in
 [ADR 0011](../architecture/adr/0011-foundation-delivery-model.md).
 
 These contracts cover the remaining behaviorless or near-behaviorless foundations: typography,

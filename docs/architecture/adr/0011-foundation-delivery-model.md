@@ -1,6 +1,6 @@
 # ADR 0011: Match each foundation to the smallest semantic delivery mechanism
 
-- Status: proposed
+- Status: accepted
 - Date: 2026-07-29
 
 ## Context

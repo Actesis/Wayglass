@@ -44,6 +44,10 @@ export default defineConfig({
         items: [{ text: 'Tabs', link: '/components/tabs' }],
       },
       {
+        text: 'Phase 2 layout',
+        items: [{ text: 'Layout contracts', link: '/layout/' }],
+      },
+      {
         text: 'Architecture',
         items: [
           {
@@ -57,6 +61,10 @@ export default defineConfig({
           {
             text: 'ADR 0011: Foundation delivery',
             link: '/architecture/adr/0011-foundation-delivery-model',
+          },
+          {
+            text: 'ADR 0012: Responsive layout',
+            link: '/architecture/adr/0012-layout-primitives-and-container-responsiveness',
           },
         ],
       },
