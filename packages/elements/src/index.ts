@@ -15,6 +15,16 @@ export {
 } from './canvas.js';
 export type { CanvasWidth } from './canvas.js';
 export {
+  clusterAlignments,
+  clusterJustifications,
+  defineWgCluster,
+  isClusterAlignment,
+  isClusterJustification,
+  WgCluster,
+  wgClusterTagName,
+} from './cluster.js';
+export type { ClusterAlignment, ClusterJustification } from './cluster.js';
+export {
   defineWgDivider,
   dividerOrientations,
   dividerWeights,
@@ -34,6 +44,17 @@ export {
   wgElbowTagName,
 } from './elbow.js';
 export type { ElbowPlacement, ElbowWeight } from './elbow.js';
+export {
+  defineWgFrame,
+  frameBoundaries,
+  framePaddings,
+  isFrameBoundary,
+  isFramePadding,
+  WgFrame,
+  wgFrameTagName,
+} from './frame.js';
+export type { FrameBoundary, FramePadding } from './frame.js';
+export { defineWgGrid, WgGrid, wgGridTagName } from './grid.js';
 export { defineWgMetric, isMetricSize, metricSizes, WgMetric, wgMetricTagName } from './metric.js';
 export type { MetricSize } from './metric.js';
 export { defineWgPanel, isPanelEmphasis, panelEmphases, WgPanel, wgPanelTagName } from './panel.js';
@@ -49,6 +70,27 @@ export {
 } from './rail.js';
 export type { RailOrientation, RailWeight } from './rail.js';
 export { defineElement } from './registration.js';
+export {
+  defineWgScrollRegion,
+  isScrollRegionAxis,
+  isScrollRegionLabel,
+  scrollRegionAxes,
+  WgScrollRegion,
+  wgScrollRegionTagName,
+} from './scroll-region.js';
+export type { ScrollRegionAxis } from './scroll-region.js';
+export { defineWgSplit, isSplitRatio, splitRatios, WgSplit, wgSplitTagName } from './split.js';
+export type { SplitRatio } from './split.js';
+export { defineWgStack, WgStack, wgStackTagName } from './stack.js';
+export {
+  isLayoutAlignment,
+  isLayoutMinimum,
+  isLayoutSpace,
+  layoutAlignments,
+  layoutMinimums,
+  layoutSpaces,
+} from './layout-values.js';
+export type { LayoutAlignment, LayoutMinimum, LayoutSpace } from './layout-values.js';
 export {
   defineWgStatusIndicator,
   isStatusIndicatorSize,

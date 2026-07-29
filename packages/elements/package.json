@@ -26,6 +26,10 @@
       "types": "./dist/canvas.d.ts",
       "import": "./dist/canvas.js"
     },
+    "./cluster": {
+      "types": "./dist/cluster.d.ts",
+      "import": "./dist/cluster.js"
+    },
     "./divider": {
       "types": "./dist/divider.d.ts",
       "import": "./dist/divider.js"
@@ -35,6 +39,14 @@
       "import": "./dist/elbow.js"
     },
     "./foundations.css": "./dist/foundations.css",
+    "./frame": {
+      "types": "./dist/frame.d.ts",
+      "import": "./dist/frame.js"
+    },
+    "./grid": {
+      "types": "./dist/grid.d.ts",
+      "import": "./dist/grid.js"
+    },
     "./metric": {
       "types": "./dist/metric.d.ts",
       "import": "./dist/metric.js"
@@ -46,6 +58,18 @@
     "./rail": {
       "types": "./dist/rail.d.ts",
       "import": "./dist/rail.js"
+    },
+    "./scroll-region": {
+      "types": "./dist/scroll-region.d.ts",
+      "import": "./dist/scroll-region.js"
+    },
+    "./split": {
+      "types": "./dist/split.d.ts",
+      "import": "./dist/split.js"
+    },
+    "./stack": {
+      "types": "./dist/stack.d.ts",
+      "import": "./dist/stack.js"
     },
     "./status-indicator": {
       "types": "./dist/status-indicator.d.ts",

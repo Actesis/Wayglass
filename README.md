@@ -48,9 +48,11 @@ Supporting foundations:
   [`delivery-model decision`](./docs/architecture/adr/0011-foundation-delivery-model.md).
   Implementation evidence is recorded in the
   [`foundation substrate validation`](./docs/accessibility/phase-2c-foundations-validation.md).
-- [`docs/layout/layout-contracts.md`](./docs/layout/layout-contracts.md) proposes the remaining
-  Phase 2C layout APIs and their
+- [`docs/layout/layout-contracts.md`](./docs/layout/layout-contracts.md) defines the accepted and
+  implemented Phase 2C layout APIs and their
   [`container-responsive architecture decision`](./docs/architecture/adr/0012-layout-primitives-and-container-responsiveness.md).
+  Implementation evidence is recorded in the
+  [`layout-primitives validation`](./docs/accessibility/phase-2c-layout-validation.md).
 
 ## Local development
 

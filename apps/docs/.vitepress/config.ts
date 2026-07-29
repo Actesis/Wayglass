@@ -95,6 +95,10 @@ export default defineConfig({
             text: 'Phase 2C foundation validation',
             link: '/accessibility/phase-2c-foundations-validation',
           },
+          {
+            text: 'Phase 2C layout validation',
+            link: '/accessibility/phase-2c-layout-validation',
+          },
         ],
       },
       {

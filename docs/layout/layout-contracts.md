@@ -1,11 +1,49 @@
 # Phase 2C layout contracts
 
-**Status:** Proposed for Phase 2C review on July 29, 2026. The responsive delivery model is recorded
-in [ADR 0012](../architecture/adr/0012-layout-primitives-and-container-responsiveness.md).
+**Status:** Accepted and implemented for Phase 2C on July 29, 2026. The responsive delivery model is
+recorded in [ADR 0012](../architecture/adr/0012-layout-primitives-and-container-responsiveness.md),
+with cross-browser evidence in the
+[Phase 2C layout validation record](../accessibility/phase-2c-layout-validation.md).
 
 These contracts cover the remaining layout primitives: frame, stack, cluster, grid, split, and
 scroll region. They arrange consumer-authored content without taking ownership of its meaning,
 state, or interaction.
+
+## Implementation
+
+Each primitive ships as a side-effect-free package subpath with explicit registration:
+
+```ts
+import { defineWgFrame } from '@wayglass/elements/frame';
+import { defineWgStack } from '@wayglass/elements/stack';
+import { defineWgCluster } from '@wayglass/elements/cluster';
+import { defineWgGrid } from '@wayglass/elements/grid';
+import { defineWgSplit } from '@wayglass/elements/split';
+import { defineWgScrollRegion } from '@wayglass/elements/scroll-region';
+
+defineWgFrame();
+defineWgStack();
+defineWgCluster();
+defineWgGrid();
+defineWgSplit();
+defineWgScrollRegion();
+```
+
+Typed React wrappers use the same production element classes:
+
+```tsx
+import { WgFrame, WgGrid, WgStack } from '@wayglass/react';
+
+<WgGrid minimum="standard" space="function">
+  <WgFrame>
+    <WgStack space="section">{/* one named function */}</WgStack>
+  </WgFrame>
+</WgGrid>;
+```
+
+The split query constants at 26, 38, and 50 rem mirror the locked compact, standard, and wide
+threshold tokens. Tests hold those constants and tokens together because CSS custom properties
+cannot be substituted into container conditions.
 
 ## Shared layout model
 
