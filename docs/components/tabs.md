@@ -3,6 +3,10 @@
 **Status:** Accepted for Phase 2A on July 28, 2026, together with
 [ADR 0009](../architecture/adr/0009-tabs-architecture.md).
 
+**Implementation:** The framework-neutral Custom Elements interaction model is complete. Typed React
+wrappers, production-backed stories and examples, and the final assistive-technology review remain
+separate Phase 2A milestones.
+
 ## Purpose
 
 The tabs compound component lets people select one peer view from a stable, labeled set while
@@ -328,7 +332,6 @@ Repeated registration is safe and conflicting constructors throw, consistent wit
 
 - Confirm whether wrapping or horizontal scrolling is the safer default for long selector sets after
   testing the Function Deck fixtures.
-- Confirm the proposed CSS custom-property surface during token review.
 - Record the representative browser and assistive-technology matrix required to accept ADR 0009.
 
 ## References

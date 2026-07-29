@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wayglass tabs fixture</title>
+    <link rel="stylesheet" href="/packages/tokens/dist/tokens.css" />
+    <link rel="stylesheet" href="/packages/themes/dist/themes.css" />
+    <style>
+      body {
+        margin: 0;
+      }
+
+      main {
+        min-block-size: 100vh;
+        box-sizing: border-box;
+        padding: var(--wg-space-reference-4);
+        color: var(--wg-color-semantic-text-primary);
+        background: var(--wg-color-semantic-surface-canvas);
+        font-family: var(--wg-typography-family-body);
+      }
+
+      .fixture-stack {
+        display: grid;
+        gap: var(--wg-space-reference-8);
+      }
+
+      .fixture-narrow {
+        inline-size: 22rem;
+        max-inline-size: 100%;
+      }
+
+      h1,
+      h2,
+      p {
+        margin-block-start: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <wg-theme-provider theme="wayglass-dark" density="compact">
+      <main class="fixture-stack">
+        <section class="fixture-narrow">
+          <h1>Selection foundation</h1>
+          <wg-tabs id="automatic-tabs" value="access">
+            <wg-tab-list aria-label="Operational functions">
+              <wg-tab value="access">Access</wg-tab>
+              <wg-tab value="communications">
+                Communications
+                <span slot="summary">Caution · Data stale</span>
+              </wg-tab>
+              <wg-tab value="archive" disabled>Archive</wg-tab>
+              <wg-tab value="processing">
+                Processing
+                <span slot="summary">Critical · Pause pending</span>
+              </wg-tab>
+            </wg-tab-list>
+
+            <wg-tab-panel value="access">
+              <h2>Access workspace</h2>
+              <p>Operator verification follows the current policy.</p>
+              <wg-button>Review Access policy</wg-button>
+            </wg-tab-panel>
+            <wg-tab-panel value="communications">
+              <h2>Communications workspace</h2>
+              <p>The primary link remains connected with stale measurements.</p>
+              <wg-button>Retry Communications link</wg-button>
+            </wg-tab-panel>
+            <wg-tab-panel value="archive">
+              <h2>Archive workspace</h2>
+            </wg-tab-panel>
+            <wg-tab-panel value="processing">
+              <h2>Processing workspace</h2>
+              <p>The intake gate remains open while a pause is pending.</p>
+              <wg-button>Review Processing request</wg-button>
+            </wg-tab-panel>
+          </wg-tabs>
+        </section>
+
+        <section class="fixture-narrow">
+          <h2>Manual vertical selection</h2>
+          <wg-tabs id="manual-tabs" value="overview" activation="manual" orientation="vertical">
+            <wg-tab-list aria-label="Account views">
+              <wg-tab value="overview">Overview</wg-tab>
+              <wg-tab value="security">Security</wg-tab>
+              <wg-tab value="history">History</wg-tab>
+            </wg-tab-list>
+            <wg-tab-panel value="overview">Account overview</wg-tab-panel>
+            <wg-tab-panel value="security">Security settings</wg-tab-panel>
+            <wg-tab-panel value="history">Account history</wg-tab-panel>
+          </wg-tabs>
+        </section>
+      </main>
+    </wg-theme-provider>
+
+    <script type="module">
+      import { defineWgButton } from '/packages/elements/dist/button.js';
+      import { defineWgTabs } from '/packages/elements/dist/tabs.js';
+      import { defineWgThemeProvider } from '/packages/elements/dist/theme-provider.js';
+
+      defineWgThemeProvider();
+      defineWgButton();
+      defineWgTabs();
+    </script>
+  </body>
+</html>

@@ -48,6 +48,25 @@ export {
 } from './status-indicator.js';
 export type { StatusIndicatorSize } from './status-indicator.js';
 export {
+  defineWgTab,
+  defineWgTabList,
+  defineWgTabPanel,
+  defineWgTabs,
+  isTabActivation,
+  isTabOrientation,
+  tabActivations,
+  tabOrientations,
+  WgTab,
+  WgTabList,
+  WgTabPanel,
+  WgTabs,
+  wgTabListTagName,
+  wgTabPanelTagName,
+  wgTabsTagName,
+  wgTabTagName,
+} from './tabs.js';
+export type { TabActivation, TabChangeTrigger, TabOrientation, WgTabChangeDetail } from './tabs.js';
+export {
   defineWgThemeProvider,
   WgThemeProvider,
   wgThemeProviderTagName,

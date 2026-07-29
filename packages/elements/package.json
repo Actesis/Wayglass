@@ -44,6 +44,22 @@
       "types": "./dist/status-indicator.d.ts",
       "import": "./dist/status-indicator.js"
     },
+    "./tab": {
+      "types": "./dist/tab.d.ts",
+      "import": "./dist/tab.js"
+    },
+    "./tab-list": {
+      "types": "./dist/tab-list.d.ts",
+      "import": "./dist/tab-list.js"
+    },
+    "./tab-panel": {
+      "types": "./dist/tab-panel.d.ts",
+      "import": "./dist/tab-panel.js"
+    },
+    "./tabs": {
+      "types": "./dist/tabs.d.ts",
+      "import": "./dist/tabs.js"
+    },
     "./theme-provider": {
       "types": "./dist/theme-provider.d.ts",
       "import": "./dist/theme-provider.js"
