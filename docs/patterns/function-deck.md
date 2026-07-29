@@ -1,7 +1,10 @@
 # Function Deck
 
-**Status:** Planned for Phase 2B. The name describes the pattern and is not yet a public component
-name. Phase 2A first validates the proposed [tabs contract](../components/tabs.md).
+**Status:** Production composition contract proposed for Phase 2B on July 29, 2026, together with
+[ADR 0010](../architecture/adr/0010-function-deck-composition.md).
+
+Function Deck is a pattern name, not a Custom Element. Its public selection API is the accepted
+[tabs contract](../components/tabs.md).
 
 ## Intent
 
@@ -60,6 +63,91 @@ Selectors may use restrained folder-shoulder geometry. The selected selector vis
 the working surface. Static `wg-elbow` headings retain continuous heading-to-rail geometry and must
 not be repurposed as selectors.
 
+## Production composition API
+
+The production API is a declarative composition of the tabs compound elements. It introduces no
+`wg-function-deck` element, selected property, or change event:
+
+```html
+<section aria-labelledby="focused-functions-heading">
+  <h1 id="focused-functions-heading">Focused functions</h1>
+
+  <wg-tabs value="access" activation="automatic">
+    <wg-tab-list aria-label="Operational functions">
+      <wg-tab value="access">Access</wg-tab>
+      <wg-tab value="communications">
+        Communications
+        <span slot="summary">Caution · Data stale · Retry available</span>
+      </wg-tab>
+      <wg-tab value="processing">
+        Processing
+        <span slot="summary">Critical · Pause pending</span>
+      </wg-tab>
+    </wg-tab-list>
+
+    <wg-tab-panel value="access">
+      <section aria-labelledby="focused-access-heading">
+        <wg-elbow weight="strong">
+          <h2 id="focused-access-heading">Access</h2>
+        </wg-elbow>
+        <!-- Information, monitor, and control sections for Access -->
+      </section>
+    </wg-tab-panel>
+
+    <wg-tab-panel value="communications">
+      <section aria-labelledby="focused-communications-heading">
+        <wg-elbow weight="strong">
+          <h2 id="focused-communications-heading">Communications</h2>
+        </wg-elbow>
+        <!-- Information, monitor, and control sections for Communications -->
+      </section>
+    </wg-tab-panel>
+
+    <wg-tab-panel value="processing">
+      <section aria-labelledby="focused-processing-heading">
+        <wg-elbow weight="strong">
+          <h2 id="focused-processing-heading">Processing</h2>
+        </wg-elbow>
+        <!-- Information, monitor, and control sections for Processing -->
+      </section>
+    </wg-tab-panel>
+  </wg-tabs>
+</section>
+```
+
+The composition uses the `wg-tabs` properties, methods, and `wg-tab-change` event without proxying
+them. Application code owns the selected value and one stable function order. The reference
+composition uses automatic activation because every panel is present locally; delayed or fetched
+content uses manual activation or is preloaded as required by the tabs contract.
+
+The application-owned function model must provide, at minimum:
+
+- one stable, non-empty value;
+- one concise visible label;
+- consumer-authored selector summary content when hidden state is consequential;
+- one panel whose heading repeats function identity;
+- the function's information, monitor, and control content;
+- any critical-response path required while the function is hidden.
+
+This is a content contract, not a library-owned TypeScript model. Phase 2B fixtures will define one
+domain-neutral reference model and render it into both overview and focused compositions. That
+fixture model is test data, not an additional public selection API.
+
+### Composition ownership
+
+| Concern                            | Owner                                      |
+| ---------------------------------- | ------------------------------------------ |
+| Selection and roving focus         | `wg-tabs`                                  |
+| Selector and panel relationships   | `wg-tabs`, `wg-tab`, and `wg-tab-panel`    |
+| Function order and selected value  | Application function model                 |
+| Condition, knowledge, and activity | Application state model and content        |
+| Selector summary language          | Application content                        |
+| Critical-response policy           | Application composition                    |
+| Internal function structure        | Existing Wayglass structural components    |
+| React typing                       | Existing typed wrappers for composed parts |
+
+Viewport size does not change ownership, reorder functions, or select a different value.
+
 ## State safeguards
 
 Non-selected functions with consequential state must remain glanceable:
@@ -73,6 +161,15 @@ Non-selected functions with consequential state must remain glanceable:
 Critical state and its primary response must remain discoverable without cycling through every
 selector. Depending on consequence, the application may expose the summary in the selector, a
 persistent deck summary, or the surrounding overview.
+
+A critical selector summary must name the critical state and either name the response cue or make
+the directly associated panel unambiguous. If selecting the function is not a sufficient or timely
+path, the composition must add a named persistent summary or action outside the tablist. It must not
+place a button or link inside `wg-tab`.
+
+When an external persistent action opens a function, it sets the existing `wg-tabs.value` and may
+call `focusSelected()` so the user's explicit navigation action has a predictable destination. It
+does not synthesize `wg-tab-change`; the external action is already the user-intent event.
 
 ## Interaction and accessibility
 
@@ -109,9 +206,9 @@ sizes.
 
 Phase 2 will:
 
-1. review and implement the Phase 2A tabs and selection primitives;
-2. define the production composition API after those primitives are validated;
-3. reuse the same domain-neutral function fixtures in overview and focused modes;
+1. reuse the same domain-neutral function fixtures in overview and focused modes;
+2. compose the production deck directly from tabs;
+3. preserve all required hidden-state summaries and a critical-response path;
 4. add phone, desktop, and wall-panel stories;
 5. validate keyboard use, screen readers, zoom, forced colors, reduced motion, focus stability, and
    supported browser engines.

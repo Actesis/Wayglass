@@ -49,6 +49,10 @@ export default defineConfig({
             text: 'ADR 0009: Tabs architecture',
             link: '/architecture/adr/0009-tabs-architecture',
           },
+          {
+            text: 'ADR 0010: Function Deck composition',
+            link: '/architecture/adr/0010-function-deck-composition',
+          },
         ],
       },
       {
