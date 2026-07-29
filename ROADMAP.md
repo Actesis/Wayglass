@@ -54,7 +54,7 @@ can be validated before later components depend on it.
 - [x] Draft the tabs accessibility architecture decision.
 - [x] Review and accept the tabs contract and architecture decision.
 - [x] Lock the required selection and tab tokens.
-- [ ] Implement the tabs compound elements and framework-neutral interaction model.
+- [x] Implement the tabs compound elements and framework-neutral interaction model.
 - [ ] Add typed React wrappers without duplicating behavior.
 - [ ] Add production-backed stories and examples.
 - [ ] Validate keyboard behavior, focus, accessible relationships, touch targets, forced colors,
