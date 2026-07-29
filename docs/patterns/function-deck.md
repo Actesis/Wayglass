@@ -202,11 +202,15 @@ sizes.
 
 ## Implementation plan
 
-The initial production-backed desktop composition is implemented from `wg-tabs` and existing
-function surfaces. Browser coverage confirms that tabs remain the only selection owner and that the
-focused surface does not introduce a nested elbow-shaped selector layer. Reusing one function model,
-responsive variants, hidden-state safeguards, and broader accessibility validation remain the next
-Phase 2B work.
+The production-backed desktop composition is implemented from `wg-tabs` and existing function
+surfaces. Overview and focused fixtures now consume one ordered domain-neutral function model for
+stable values, visible labels, selector summaries, and content rendering. The model is fixture data,
+not a public Wayglass schema, and deliberately does not prescribe fields such as media URLs.
+
+Browser coverage confirms that both compositions retain the same function identity and order, tabs
+remain the only selection owner, and the focused surface does not introduce a nested elbow-shaped
+selector layer. Responsive variants, hidden-state safeguards, and broader accessibility validation
+remain the next Phase 2B work.
 
 Phase 2 will:
 

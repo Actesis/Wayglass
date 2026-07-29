@@ -4,35 +4,22 @@ import { html } from 'lit';
 
 import '../../../examples/shared/function-deck.css';
 import {
-  operationsFunctionValues,
+  getOperationsFunction,
+  operationsFunctions,
   renderOperationsFunction,
 } from './operations-overview.fixture.js';
-import type {
-  OperationsFunctionValue,
-  OperationsOverviewTheme,
-} from './operations-overview.fixture.js';
+import type { OperationsOverviewTheme } from './operations-overview.fixture.js';
 
 defineWgTabs();
-
-const functionLabels: Readonly<Record<OperationsFunctionValue, string>> = {
-  access: 'Access',
-  communications: 'Communications',
-  processing: 'Processing',
-};
-
-const functionSummaries: Readonly<Record<OperationsFunctionValue, string>> = {
-  access: 'Positive · Confirmed',
-  communications: 'Caution · Data stale · Retry available',
-  processing: 'Critical · Pause pending',
-};
 
 function handleFunctionChange(event: CustomEvent<WgTabChangeDetail>): void {
   const status = (event.currentTarget as HTMLElement)
     .closest('.wg-function-deck')
     ?.querySelector<HTMLElement>('[data-function-deck-selection]');
+  const functionFixture = getOperationsFunction(event.detail.value);
 
   if (status) {
-    status.textContent = `Selected function: ${functionLabels[event.detail.value as OperationsFunctionValue] ?? event.detail.value}`;
+    status.textContent = `Selected function: ${functionFixture?.label ?? event.detail.value}`;
   }
 }
 
@@ -53,21 +40,21 @@ export function renderFunctionDeck(theme: OperationsOverviewTheme = 'wayglass-da
           <main class="wg-function-deck" aria-label="Focused operational functions">
             <wg-tabs value="access" activation="automatic" @wg-tab-change=${handleFunctionChange}>
               <wg-tab-list aria-label="Operational functions">
-                ${operationsFunctionValues.map(
-                  (value) => html`
-                    <wg-tab value=${value}>
-                      ${functionLabels[value]}
-                      <span slot="summary">${functionSummaries[value]}</span>
+                ${operationsFunctions.map(
+                  (functionFixture) => html`
+                    <wg-tab value=${functionFixture.value}>
+                      ${functionFixture.label}
+                      <span slot="summary">${functionFixture.selectorSummary}</span>
                     </wg-tab>
                   `,
                 )}
               </wg-tab-list>
 
-              ${operationsFunctionValues.map(
-                (value) => html`
-                  <wg-tab-panel value=${value}>
+              ${operationsFunctions.map(
+                (functionFixture) => html`
+                  <wg-tab-panel value=${functionFixture.value}>
                     <div class="wg-function-deck__surface">
-                      ${renderOperationsFunction(value, 'desktop', 'focused', 'plain')}
+                      ${renderOperationsFunction(functionFixture, 'desktop', 'focused', 'plain')}
                     </div>
                   </wg-tab-panel>
                 `,
