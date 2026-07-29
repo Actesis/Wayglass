@@ -1,6 +1,6 @@
 # ADR 0010: Define Function Deck as a tabs composition
 
-- Status: proposed
+- Status: accepted
 - Date: 2026-07-29
 
 ## Context
@@ -61,6 +61,11 @@ Because there is no wrapper component, deck-specific presentation must use the e
 custom properties, and ordinary consumer layout around the compound component. If implementation
 reveals a structural styling need that cannot be satisfied without fragile selectors, a narrowly
 scoped presentation primitive may be proposed separately. It must not coordinate selection.
+
+Acceptance establishes the production starting point rather than freezing the pattern before field
+use. Evidence from real deployments may revise the summary, response-path, presentation, or
+composition guidance through a documented follow-up decision while preserving accessible tabs
+semantics and migration clarity.
 
 ## Alternatives considered
 

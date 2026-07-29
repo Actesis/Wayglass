@@ -1,6 +1,6 @@
 # Function Deck
 
-**Status:** Production composition contract proposed for Phase 2B on July 29, 2026, together with
+**Status:** Production composition contract accepted for Phase 2B on July 29, 2026, together with
 [ADR 0010](../architecture/adr/0010-function-deck-composition.md).
 
 Function Deck is a pattern name, not a Custom Element. Its public selection API is the accepted
