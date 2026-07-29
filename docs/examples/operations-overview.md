@@ -35,11 +35,11 @@ behavior.
 
 The canonical mixed-attention fixture uses these independent combinations:
 
-| Function       | Domain value | Value role | Condition | Knowledge | Activity | Why it matters                                       |
-| -------------- | ------------ | ---------- | --------- | --------- | -------- | ---------------------------------------------------- |
-| Access         | Verified     | asserted   | positive  | confirmed | idle     | Baseline Boolean value with healthy condition        |
-| Communications | Connected    | asserted   | caution   | stale     | idle     | Asserted does not mean healthy or current            |
-| Processing     | Open         | asserted   | critical  | confirmed | pending  | A value may remain asserted while action is underway |
+| Function       | Domain value | Value role | Condition | Knowledge | Activity | Why it matters                                          |
+| -------------- | ------------ | ---------- | --------- | --------- | -------- | ------------------------------------------------------- |
+| Access         | Verified     | asserted   | positive  | confirmed | idle     | Baseline Boolean value with healthy condition           |
+| Communications | Connected    | asserted   | caution   | stale     | idle     | Primary data may be stale while a backup is unavailable |
+| Processing     | Open         | asserted   | critical  | confirmed | pending  | A value may remain asserted while action is underway    |
 
 Additional fixtures must cover:
 
@@ -49,6 +49,10 @@ Additional fixtures must cover:
 - warning and critical condition without relying on color;
 - a failed or rejected action that leaves the confirmed value unchanged;
 - a pending action that distinguishes requested state from confirmed state.
+
+The Communications fixture also retains a last-known asserted backup value while its knowledge is
+unavailable. This keeps unavailable knowledge distinct from both the Boolean value and the stale
+primary-link measurement.
 
 Unknown knowledge must never be represented by changing an asserted value to not asserted.
 

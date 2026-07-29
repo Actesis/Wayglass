@@ -81,7 +81,7 @@ The production API is a declarative composition of the tabs compound elements. I
       <wg-tab value="access">Access</wg-tab>
       <wg-tab value="communications">
         Communications
-        <span slot="summary">Caution · Data stale · Retry available</span>
+        <span slot="summary"> Caution · Data stale · Backup unavailable · Retry available </span>
       </wg-tab>
       <wg-tab value="processing">
         Processing
@@ -209,8 +209,9 @@ not a public Wayglass schema, and deliberately does not prescribe fields such as
 
 Browser coverage confirms that both compositions retain the same function identity and order, tabs
 remain the only selection owner, and the focused surface does not introduce a nested elbow-shaped
-selector layer. Responsive variants, hidden-state safeguards, and broader accessibility validation
-remain the next Phase 2B work.
+selector layer. Hidden peer selectors retain explicit caution, critical, stale, unavailable, and
+pending language while their panels are not visible. Critical-response policy, responsive variants,
+and broader accessibility validation remain the next Phase 2B work.
 
 Phase 2 will:
 

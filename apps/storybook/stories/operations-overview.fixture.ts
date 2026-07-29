@@ -51,7 +51,7 @@ const accessMetadata = {
 const communicationsMetadata = {
   value: 'communications',
   label: 'Communications',
-  selectorSummary: 'Caution · Data stale · Retry available',
+  selectorSummary: 'Caution · Data stale · Backup unavailable · Retry available',
 } as const satisfies OperationsFunctionMetadata;
 
 const processingMetadata = {
@@ -186,6 +186,26 @@ function communicationsFunction(
               <p>The link remains connected; its latest measurement is stale.</p>
             </div>
             <span slot="metadata">Last confirmed 3 minutes ago</span>
+          </wg-value-tile>
+          <wg-value-tile label="Communications backup link">
+            <h3 slot="heading">Backup link</h3>
+            <wg-status-indicator
+              slot="status"
+              label="Backup link"
+              knowledge="unavailable"
+              size=${signalSize(width)}
+            ></wg-status-indicator>
+            <wg-boolean-value
+              slot="value"
+              label="Last known backup connection"
+              asserted
+              asserted-label="Connected"
+              not-asserted-label="Disconnected"
+              knowledge="unavailable"
+              presentation=${booleanPresentation(width)}
+            ></wg-boolean-value>
+            <p>The last known value is retained, but the backup source cannot currently report.</p>
+            <span slot="metadata">Current knowledge: Unavailable</span>
           </wg-value-tile>
           <wg-panel purpose="control">
             <h3 slot="heading">Connection recovery</h3>
