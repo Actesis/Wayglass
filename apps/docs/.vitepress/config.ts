@@ -74,6 +74,10 @@ export default defineConfig({
             text: 'Phase 2A tabs validation',
             link: '/accessibility/phase-2a-tabs-validation',
           },
+          {
+            text: 'Phase 2B Function Deck validation',
+            link: '/accessibility/phase-2b-function-deck-validation',
+          },
         ],
       },
       {

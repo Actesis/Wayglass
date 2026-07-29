@@ -1,3 +1,4 @@
+import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 
 async function openFunctionDeck(
@@ -193,4 +194,169 @@ test('provides a wall-display fixture with prominent semantic signals', async ({
     'presentation',
     'field',
   );
+});
+
+test('keeps keyboard selection, focus, and active function identity aligned', async ({ page }) => {
+  const tabs = page.locator('wg-tabs');
+  const access = page.getByRole('tab', { name: /Access Positive · Confirmed/ });
+  const communications = page.getByRole('tab', {
+    name: /Communications Caution · Data stale · Backup unavailable · Retry available/,
+  });
+  const communicationsPanel = page.getByRole('tabpanel', {
+    name: /Communications Caution · Data stale/,
+  });
+
+  await access.focus();
+  await page.keyboard.press('ArrowRight');
+
+  await expect(tabs).toHaveAttribute('value', 'communications');
+  await expect(communications).toBeFocused();
+  await expect(communications).toHaveAttribute('aria-selected', 'true');
+  await expect(communicationsPanel).toBeVisible();
+  await expect(communicationsPanel.getByRole('heading', { name: 'Communications' })).toBeVisible();
+  await expect(page.getByText('Selected function: Communications', { exact: true })).toBeVisible();
+
+  await page.keyboard.press('Tab');
+  await expect(communicationsPanel).toBeFocused();
+});
+
+test('preserves focus during peer updates and retains per-function context', async ({ page }) => {
+  const tabs = page.locator('wg-tabs');
+  const communications = page.getByRole('tab', {
+    name: /Communications Caution · Data stale · Backup unavailable · Retry available/,
+  });
+  const processing = page.getByRole('tab', {
+    name: /Processing Critical · Pause pending/,
+  });
+  const communicationsPanel = page.locator('wg-tab-panel[value="communications"]');
+  const processingPanel = page.locator('wg-tab-panel[value="processing"]');
+  const retry = communicationsPanel.getByRole('button', {
+    name: 'Retry Communications primary link',
+  });
+
+  await communications.click();
+  await communicationsPanel.evaluate((panel) => {
+    const context = document.createElement('p');
+    context.dataset.functionContext = 'communications';
+    context.textContent = 'Operator review context retained';
+    panel.append(context);
+  });
+  await retry.focus();
+
+  await processingPanel.evaluate((panel) => {
+    panel.append(document.createTextNode(' Processing state refreshed.'));
+  });
+
+  await expect(tabs).toHaveAttribute('value', 'communications');
+  await expect(retry).toBeFocused();
+  await expect(
+    communicationsPanel.locator('[data-function-context="communications"]'),
+  ).toBeVisible();
+
+  await processing.click();
+  await communications.click();
+  await expect(
+    communicationsPanel.locator('[data-function-context="communications"]'),
+  ).toBeVisible();
+});
+
+test('keeps the selected function discoverable at a 200% zoom-equivalent viewport', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 320, height: 900 });
+  await openFunctionDeck(page, 'width=phone&theme=wayglass-dark');
+
+  const access = page.getByRole('tab', { name: /Access Positive · Confirmed/ });
+  const processing = page.getByRole('tab', {
+    name: /Processing Critical · Pause pending/,
+  });
+
+  await access.focus();
+  await page.keyboard.press('End');
+  await expect(processing).toBeFocused();
+  await expect(processing).toHaveAttribute('aria-selected', 'true');
+
+  const layout = await processing.evaluate((tab) => {
+    const list = tab.closest('wg-tab-list')!;
+    const scroller = list.shadowRoot!.querySelector('[part="list"]')!;
+    const tabBounds = tab.getBoundingClientRect();
+    const scrollerBounds = scroller.getBoundingClientRect();
+
+    return {
+      documentClientWidth: document.documentElement.clientWidth,
+      documentScrollWidth: document.documentElement.scrollWidth,
+      selectedWithinScroller:
+        tabBounds.left >= scrollerBounds.left - 1 && tabBounds.right <= scrollerBounds.right + 1,
+    };
+  });
+
+  expect(layout.documentScrollWidth - layout.documentClientWidth).toBeLessThanOrEqual(1);
+  expect(layout.selectedWithinScroller).toBe(true);
+  await expect(
+    page.getByRole('complementary', { name: 'Critical response · Processing intake' }),
+  ).toBeVisible();
+});
+
+test('retains touch targets and removes tab motion in the phone composition', async ({ page }) => {
+  await openFunctionDeck(page, 'width=phone&theme=wayglass-dark');
+
+  const targets = await page.locator('wg-tab, wg-button').evaluateAll((elements) =>
+    elements
+      .map((element) => element.getBoundingClientRect())
+      .filter((bounds) => bounds.width > 0 && bounds.height > 0)
+      .map((bounds) => ({ height: bounds.height, width: bounds.width })),
+  );
+
+  expect(targets.length).toBeGreaterThan(0);
+  for (const target of targets) {
+    expect(target.height).toBeGreaterThanOrEqual(44);
+    expect(target.width).toBeGreaterThanOrEqual(44);
+  }
+
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.reload();
+  await page.waitForFunction(() => customElements.get('wg-tabs') !== undefined);
+
+  const durations = await page
+    .getByRole('tab', { name: /Access Positive · Confirmed/ })
+    .evaluate((tab) =>
+      getComputedStyle(tab.shadowRoot!.querySelector('[part="tab"]')!).transitionDuration.split(
+        ', ',
+      ),
+    );
+  expect(durations.every((duration) => duration === '0s')).toBe(true);
+});
+
+for (const theme of ['wayglass-dark', 'wayglass-light'] as const) {
+  test(`has no automated accessibility violations in the ${theme} theme`, async ({ page }) => {
+    await openFunctionDeck(page, `width=desktop&theme=${theme}`);
+
+    const results = await new AxeBuilder({ page }).analyze();
+    expect(results.violations).toEqual([]);
+  });
+}
+
+test('retains function boundaries and state language in forced colors', async ({ page }) => {
+  await page.emulateMedia({ forcedColors: 'active' });
+  await openFunctionDeck(page);
+
+  const selected = page.getByRole('tab', { name: /Access Positive · Confirmed/ });
+  const surface = page.getByRole('tabpanel', { name: /Access Positive · Confirmed/ });
+  const criticalResponse = page.getByRole('complementary', {
+    name: 'Critical response · Processing intake',
+  });
+
+  await selected.focus();
+  await expect(selected).toBeFocused();
+  await expect(selected).toHaveAttribute('aria-selected', 'true');
+  const boundaryStyle = await surface.evaluate(
+    (panel) =>
+      getComputedStyle(panel.shadowRoot!.querySelector('[part="panel"]')!).borderBlockStartStyle,
+  );
+  expect(boundaryStyle).toBe('solid');
+  await expect(criticalResponse.getByText('Critical', { exact: true })).toBeVisible();
+  await expect(criticalResponse.getByText('Pending', { exact: true })).toBeVisible();
+
+  const results = await new AxeBuilder({ page }).analyze();
+  expect(results.violations).toEqual([]);
 });

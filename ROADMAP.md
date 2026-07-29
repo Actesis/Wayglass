@@ -69,7 +69,7 @@ can be validated before later components depend on it.
       state.
 - [x] Keep critical state and its primary response discoverable while another function is selected.
 - [x] Add phone, desktop, and wall-display fixtures.
-- [ ] Validate stable selection, focus, per-function context, responsive behavior, and supported
+- [x] Validate stable selection, focus, per-function context, responsive behavior, and supported
       browser engines.
 
 ### Phase 2C — Foundation, layout, and media expansion

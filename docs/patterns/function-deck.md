@@ -1,7 +1,9 @@
 # Function Deck
 
-**Status:** Production composition contract accepted for Phase 2B on July 29, 2026, together with
-[ADR 0010](../architecture/adr/0010-function-deck-composition.md).
+**Status:** Production composition contract accepted and validated for Phase 2B on July 29, 2026,
+together with [ADR 0010](../architecture/adr/0010-function-deck-composition.md). Validation evidence
+is recorded in the
+[Phase 2B Function Deck validation record](../accessibility/phase-2b-function-deck-validation.md).
 
 Function Deck is a pattern name, not a Custom Element. Its public selection API is the accepted
 [tabs contract](../components/tabs.md).
@@ -177,7 +179,7 @@ create another selection owner.
 
 ## Interaction and accessibility
 
-The Function Deck will compose the Phase 2 tabs primitive and follow the established tabs pattern:
+The Function Deck composes the Phase 2 tabs primitive and follows the established tabs pattern:
 
 - one selector participates in the page tab order;
 - arrow keys move among peer selectors;
@@ -220,8 +222,10 @@ selector layer. Hidden peer selectors retain explicit caution, critical, stale, 
 pending language while their panels are not visible. The persistent Processing response path remains
 available without becoming a second selection owner. Phone keeps the selectors in one horizontally
 scrollable tab strip without page overflow, desktop uses compact density, and wall-display fixtures
-use comfortable density with prominent semantic signals. Broader accessibility validation remains
-the next Phase 2B work.
+use comfortable density with prominent semantic signals. Composition-level browser coverage
+validates keyboard and pointer selection, stable focus during peer updates, retained per-function
+context, touch targets, reduced motion, forced colors, 200% zoom-equivalent reflow, and Axe-clean
+dark and light themes.
 
 Phase 2 will:
 
