@@ -1,6 +1,6 @@
 # ADR 0009: Use semantic compound elements for tabs
 
-- Status: proposed
+- Status: accepted
 - Date: 2026-07-28
 
 ## Context

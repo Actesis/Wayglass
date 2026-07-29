@@ -1,8 +1,9 @@
-# Phase 1 design tokens
+# Design tokens
 
-The Phase 1 token set is locked as the implementation vocabulary for the first vertical slice. The
-lock means component work must consume these tokens and proposed changes require review, tests, and
-updated documentation. It is not yet a public compatibility promise.
+The Phase 1 token set is locked as the implementation vocabulary for the first vertical slice. Phase
+2 adds reviewed token groups before their components are implemented. A lock means component work
+must consume these tokens and proposed changes require review, tests, and updated documentation. It
+is not yet a public compatibility promise.
 
 ## Layers
 
@@ -29,6 +30,24 @@ component-specific role exists. They do not consume reference palette values dir
 - Functional separation uses boundary, spacing, and structure tokens rather than condition color.
 - Information, monitor, and control section roles receive purpose-specific neutral or action
   associations without borrowing condition meaning.
+- Selection has its own indicator, surface, and text roles. It does not borrow condition, Boolean
+  value, activity, or action meaning even when a theme maps roles to the same reference hue.
+
+## Phase 2A selection and tabs
+
+The Phase 2A selection roles are:
+
+- `color.semantic.selection.indicator`: redundant selected-view emphasis;
+- `color.semantic.selection.surface`: the shared surface joined to the selected view;
+- `color.semantic.selection.text`: selected-view text.
+
+The tabs contract locks component tokens for tab-list spacing; default and selected backgrounds;
+boundary, text, and selection colors; radius; density-aware padding; minimum target size; selection
+indicator thickness; and tab-panel background, boundary, radius, and padding.
+
+Dark and light themes may choose different selection-indicator references. Both preserve selection
+as blue selection emphasis rather than healthy condition. Forced-colors mode maps selection to
+system `Highlight`, `Canvas`, and `CanvasText` roles.
 
 ## Themes
 
@@ -57,7 +76,7 @@ whose defaults point to the generated component tokens.
 
 ## Change policy
 
-A Phase 1 token change must:
+A locked token change must:
 
 - preserve or deliberately amend its documented semantic role;
 - update compiler tests and generated artifacts;

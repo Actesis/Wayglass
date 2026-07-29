@@ -52,8 +52,8 @@ can be validated before later components depend on it.
 - [x] Define the Phase 2 milestone sequence.
 - [x] Draft the tabs public contract.
 - [x] Draft the tabs accessibility architecture decision.
-- [ ] Review and accept the tabs contract and architecture decision.
-- [ ] Lock the required selection and tab tokens.
+- [x] Review and accept the tabs contract and architecture decision.
+- [x] Lock the required selection and tab tokens.
 - [ ] Implement the tabs compound elements and framework-neutral interaction model.
 - [ ] Add typed React wrappers without duplicating behavior.
 - [ ] Add production-backed stories and examples.

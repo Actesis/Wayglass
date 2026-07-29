@@ -1,7 +1,7 @@
 # Tabs
 
-**Status:** Proposed for Phase 2A. This contract must be reviewed together with
-[ADR 0009](../architecture/adr/0009-tabs-architecture.md) before implementation.
+**Status:** Accepted for Phase 2A on July 28, 2026, together with
+[ADR 0009](../architecture/adr/0009-tabs-architecture.md).
 
 ## Purpose
 
@@ -284,10 +284,12 @@ The names are part of this draft; values are not locked until the Phase 2A token
 - `--wg-tab-color-border`
 - `--wg-tab-color-text`
 - `--wg-tab-color-text-selected`
+- `--wg-tab-color-selection`
 - `--wg-tab-radius`
 - `--wg-tab-space-block`
 - `--wg-tab-space-inline`
 - `--wg-tab-size-minimum`
+- `--wg-tab-size-selection`
 - `--wg-tab-panel-color-background`
 - `--wg-tab-panel-color-border`
 - `--wg-tab-panel-radius`

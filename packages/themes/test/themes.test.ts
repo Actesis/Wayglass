@@ -76,12 +76,14 @@ describe('Phase 1 themes', () => {
     const action = themeColor(theme, 'color.semantic.action.primary');
     const criticalAction = themeColor(theme, 'component.button.color.critical');
     const strongBoundary = themeColor(theme, 'color.semantic.border.strong');
+    const selectionIndicator = themeColor(theme, 'color.semantic.selection.indicator');
 
     expect(contrastRatio(primaryText, canvas)).toBeGreaterThanOrEqual(7);
     expect(contrastRatio(secondaryText, panel)).toBeGreaterThanOrEqual(4.5);
     expect(contrastRatio(inverseText, action)).toBeGreaterThanOrEqual(4.5);
     expect(contrastRatio(inverseText, criticalAction)).toBeGreaterThanOrEqual(4.5);
     expect(contrastRatio(strongBoundary, panel)).toBeGreaterThanOrEqual(3);
+    expect(contrastRatio(selectionIndicator, panel)).toBeGreaterThanOrEqual(3);
   });
 
   it('generates deterministic theme and density selectors from token aliases', () => {
@@ -106,6 +108,9 @@ describe('Phase 1 themes', () => {
     expect(first).toContain('--wg-color-semantic-surface-canvas: Canvas');
     expect(first).toContain('--wg-color-semantic-text-primary: CanvasText');
     expect(first).toContain('--wg-color-semantic-focus-ring: Highlight');
+    expect(first).toContain('--wg-color-semantic-selection-indicator: Highlight');
+    expect(first).toContain('--wg-color-semantic-selection-surface: Canvas');
+    expect(first).toContain('--wg-component-tab-space-inline: var(--wg-space-reference-6)');
     expect(first).not.toContain('wayglass-high-contrast');
     expect(first).not.toContain('wayglass-dim');
   });

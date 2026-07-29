@@ -195,6 +195,21 @@ export const tokens = {
     type: 'color',
     description: 'Destructive or high-impact action emphasis.',
   },
+  'color.semantic.selection.indicator': {
+    value: '{color.reference.blue.500}',
+    type: 'color',
+    description: 'Selected-view reinforcement without domain-state meaning.',
+  },
+  'color.semantic.selection.surface': {
+    value: '{color.semantic.surface.panel}',
+    type: 'color',
+    description: 'Surface visually joined to a selected peer view.',
+  },
+  'color.semantic.selection.text': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'Text for a selected peer view.',
+  },
   'color.semantic.condition.neutral': {
     value: '{color.reference.ink.500}',
     type: 'color',
@@ -724,6 +739,86 @@ export const tokens = {
     value: '{size.touch.minimum}',
     type: 'dimension',
     description: 'Button minimum target size.',
+  },
+  'component.tab-list.space': {
+    value: '{space.reference.1}',
+    type: 'dimension',
+    description: 'Gap between peer tab selectors.',
+  },
+  'component.tab.color.background': {
+    value: '{color.semantic.surface.raised}',
+    type: 'color',
+    description: 'Unselected tab background.',
+  },
+  'component.tab.color.background-selected': {
+    value: '{color.semantic.selection.surface}',
+    type: 'color',
+    description: 'Selected tab background joined to its panel.',
+  },
+  'component.tab.color.border': {
+    value: '{color.semantic.border.strong}',
+    type: 'color',
+    description: 'Tab boundary.',
+  },
+  'component.tab.color.text': {
+    value: '{color.semantic.text.secondary}',
+    type: 'color',
+    description: 'Unselected tab text.',
+  },
+  'component.tab.color.text-selected': {
+    value: '{color.semantic.selection.text}',
+    type: 'color',
+    description: 'Selected tab text.',
+  },
+  'component.tab.color.selection': {
+    value: '{color.semantic.selection.indicator}',
+    type: 'color',
+    description: 'Redundant selected-tab indicator.',
+  },
+  'component.tab.radius': {
+    value: '{shape.radius.band}',
+    type: 'dimension',
+    description: 'Tab selector radius.',
+  },
+  'component.tab.space.block': {
+    value: '{space.reference.2}',
+    type: 'dimension',
+    description: 'Tab block padding.',
+  },
+  'component.tab.space.inline': {
+    value: '{space.reference.4}',
+    type: 'dimension',
+    description: 'Tab inline padding.',
+  },
+  'component.tab.size.minimum': {
+    value: '{size.touch.minimum}',
+    type: 'dimension',
+    description: 'Tab minimum target size.',
+  },
+  'component.tab.size.selection': {
+    value: '{border.width.band}',
+    type: 'dimension',
+    description: 'Selected-tab indicator thickness.',
+  },
+  'component.tab-panel.color.background': {
+    value: '{color.semantic.selection.surface}',
+    type: 'color',
+    description: 'Active tab-panel background.',
+  },
+  'component.tab-panel.color.border': {
+    value: '{color.semantic.border.strong}',
+    type: 'color',
+    description: 'Active tab-panel boundary.',
+  },
+  'component.tab-panel.radius': {
+    value: '{shape.radius.panel}',
+    type: 'dimension',
+    description: 'Active tab-panel radius.',
+  },
+  'component.tab-panel.space': {
+    value: '{space.reference.4}',
+    type: 'dimension',
+    description: 'Active tab-panel edge padding.',
   },
   'component.status-indicator.color.border': {
     value: '{color.semantic.border.strong}',
