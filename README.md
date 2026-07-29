@@ -37,6 +37,9 @@ Supporting foundations:
   1 reference composition.
 - [`docs/accessibility/phase-1-validation.md`](./docs/accessibility/phase-1-validation.md) records
   the Phase 1 accessibility, responsive, state, framework, and browser validation evidence.
+- [`docs/components/tabs.md`](./docs/components/tabs.md) proposes the Phase 2A tabs contract and
+  links its
+  [`accessibility architecture decision`](./docs/architecture/adr/0009-tabs-architecture.md).
 
 ## Local development
 

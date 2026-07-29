@@ -1,7 +1,7 @@
 # Function Deck
 
-**Status:** Planned for Phase 2. The name describes the pattern and is not yet a public component
-name.
+**Status:** Planned for Phase 2B. The name describes the pattern and is not yet a public component
+name. Phase 2A first validates the proposed [tabs contract](../components/tabs.md).
 
 ## Intent
 
@@ -109,7 +109,7 @@ sizes.
 
 Phase 2 will:
 
-1. specify and implement the tabs and selection primitives;
+1. review and implement the Phase 2A tabs and selection primitives;
 2. define the production composition API after those primitives are validated;
 3. reuse the same domain-neutral function fixtures in overview and focused modes;
 4. add phone, desktop, and wall-panel stories;

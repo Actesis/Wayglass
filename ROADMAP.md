@@ -39,21 +39,70 @@ complete state, accessibility, responsive, theme, and framework contracts.
 - [x] Add vanilla and React examples.
 - [x] Validate accessibility, responsive behavior, visual states, and supported browsers.
 
+## Phase 2 — Core system
+
+Status: planned.
+
+Phase 2 expands the vertical slice into the generic foundations, layouts, controls, forms, and
+feedback required by `SPEC.md`. Work is divided into reviewable milestones so each interaction model
+can be validated before later components depend on it.
+
+### Phase 2A — Selection foundation
+
+- [x] Define the Phase 2 milestone sequence.
+- [x] Draft the tabs public contract.
+- [x] Draft the tabs accessibility architecture decision.
+- [ ] Review and accept the tabs contract and architecture decision.
+- [ ] Lock the required selection and tab tokens.
+- [ ] Implement the tabs compound elements and framework-neutral interaction model.
+- [ ] Add typed React wrappers without duplicating behavior.
+- [ ] Add production-backed stories and examples.
+- [ ] Validate keyboard behavior, focus, accessible relationships, touch targets, forced colors,
+      reduced motion, zoom, dynamic selection, and supported browser engines.
+
+### Phase 2B — Focused Function Deck
+
+- [ ] Define the production composition API after the tabs primitive is validated.
+- [ ] Compose the deck from tabs without adding selection behavior to `wg-elbow`.
+- [ ] Reuse one domain-neutral function model across overview and focused compositions.
+- [ ] Preserve labeled summaries for hidden caution, critical, stale, unavailable, and pending
+      state.
+- [ ] Keep critical state and its primary response discoverable while another function is selected.
+- [ ] Add phone, desktop, and wall-display fixtures.
+- [ ] Validate stable selection, focus, per-function context, responsive behavior, and supported
+      browser engines.
+
+### Phase 2C — Foundation and layout expansion
+
+- [ ] Specify the remaining foundation contracts: typography, icon, visually hidden content, focus
+      ring, surface, and divider.
+- [ ] Specify the remaining layout contracts: frame, stack, cluster, grid, split, and scroll region.
+- [ ] Implement, document, and validate the accepted foundation and layout primitives.
+
+### Phase 2D — Controls and forms
+
+- [ ] Specify and implement icon button, toggle, segmented control, navigation rail, menu, and
+      command item.
+- [ ] Specify and implement text field, number field, select, checkbox, radio, slider, field label,
+      field message, and form group.
+- [ ] Define form participation, validation, submission, and error-announcement behavior before
+      extending `wg-button`.
+- [ ] Document and validate keyboard, touch, zoom, forced-colors, reduced-motion, and framework
+      behavior.
+
+### Phase 2E — Feedback and closeout
+
+- [ ] Specify and implement badge, alert, toast, progress, skeleton, empty state, offline state,
+      stale-data marker, and confirmation dialog.
+- [ ] Complete Phase 2 documentation and production-backed examples.
+- [ ] Run the Phase 2 accessibility, responsive, visual-state, framework, and supported-browser
+      validation matrix.
+- [ ] Record deferred or revised component-roadmap decisions without widening Phase 3.
+
 ## Later phases
 
-Phases 2–5 remain as defined in `SPEC.md`. Their scope will be refined through proposals or
+Phases 3–5 remain as defined in `SPEC.md`. Their scope will be refined through proposals or
 architecture decisions before implementation.
-
-### Recorded Phase 2 composition work
-
-- Implement the tabs and selection primitives with native-equivalent keyboard and accessibility
-  behavior.
-- Implement the focused Function Deck as a composition of those primitives rather than adding
-  interaction to `wg-elbow`.
-- Provide overview and focused-deck fixtures for phone, desktop, and wall displays.
-- Preserve labeled summaries for hidden caution, critical, stale, unavailable, and pending state.
-- Validate stable selection, focus, per-function context, reduced motion, zoom, and supported
-  browsers.
 
 ## Deferred decisions
 
