@@ -20,3 +20,6 @@ Phase 0 establishes two supporting foundations:
   compact banded composition, semantic color, and icon-free value signals.
 - the [Phase 1 design tokens](/foundations/tokens), which lock the implementation vocabulary for
   themes and initial components.
+
+Phase 2C proposes the remaining [foundation contracts](/foundations/foundation-contracts) for
+typography, icons, visually hidden content, focus rings, neutral surfaces, and dividers.
