@@ -32,7 +32,7 @@ test('composes one focused function surface directly from tabs', async ({ page }
 test('uses wg-tabs as the only selection owner', async ({ page }) => {
   const tabs = page.locator('wg-tabs');
   const communications = page.getByRole('tab', {
-    name: /Communications Caution · Data stale · Retry available/,
+    name: /Communications Caution · Data stale · Backup unavailable · Retry available/,
   });
 
   await communications.click();
@@ -41,6 +41,24 @@ test('uses wg-tabs as the only selection owner', async ({ page }) => {
   await expect(communications).toHaveAttribute('aria-selected', 'true');
   await expect(page.getByRole('region', { name: 'Communications', exact: true })).toBeVisible();
   await expect(page.getByText('Selected function: Communications', { exact: true })).toBeVisible();
+});
+
+test('keeps explicit consequential state labels visible for hidden functions', async ({ page }) => {
+  const communications = page.getByRole('tab', {
+    name: /Communications Caution · Data stale · Backup unavailable · Retry available/,
+  });
+  const processing = page.getByRole('tab', {
+    name: /Processing Critical · Pause pending/,
+  });
+
+  await expect(communications).toContainText('Caution');
+  await expect(communications).toContainText('Data stale');
+  await expect(communications).toContainText('Backup unavailable');
+  await expect(processing).toContainText('Critical');
+  await expect(processing).toContainText('Pause pending');
+
+  await expect(page.getByRole('region', { name: 'Communications', exact: true })).toBeHidden();
+  await expect(page.getByRole('region', { name: 'Processing', exact: true })).toBeHidden();
 });
 
 test('keeps function identity and order aligned with the overview composition', async ({

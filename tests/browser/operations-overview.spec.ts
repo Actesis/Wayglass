@@ -45,9 +45,13 @@ test('renders independent value, condition, knowledge, and activity combinations
   await openOverview(page);
 
   const communications = page.locator('[data-function="communications"]');
-  await expect(communications.getByText('Connected', { exact: true })).toBeVisible();
+  await expect(
+    communications.locator('wg-boolean-value[label="Connection"]').getByText('Connected'),
+  ).toBeVisible();
   await expect(communications.getByText('Caution', { exact: true }).first()).toBeVisible();
   await expect(communications.getByText('Data stale', { exact: true }).first()).toBeVisible();
+  await expect(communications.getByText('Unavailable', { exact: true }).first()).toBeVisible();
+  await expect(communications.getByText('Current knowledge: Unavailable')).toBeVisible();
 
   const processing = page.locator('[data-function="processing"]');
   await expect(processing.getByText('Open', { exact: true })).toBeVisible();

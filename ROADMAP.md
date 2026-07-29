@@ -65,7 +65,7 @@ can be validated before later components depend on it.
 - [x] Define the production composition API after the tabs primitive is validated.
 - [x] Compose the deck from tabs without adding selection behavior to `wg-elbow`.
 - [x] Reuse one domain-neutral function model across overview and focused compositions.
-- [ ] Preserve labeled summaries for hidden caution, critical, stale, unavailable, and pending
+- [x] Preserve labeled summaries for hidden caution, critical, stale, unavailable, and pending
       state.
 - [ ] Keep critical state and its primary response discoverable while another function is selected.
 - [ ] Add phone, desktop, and wall-display fixtures.
