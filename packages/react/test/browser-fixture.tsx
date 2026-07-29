@@ -1,10 +1,20 @@
-import { WgButton, WgMetric, WgThemeProvider, WgValueTile } from '../src/index.js';
+import {
+  WgButton,
+  WgMetric,
+  WgTab,
+  WgTabList,
+  WgTabPanel,
+  WgTabs,
+  WgThemeProvider,
+  WgValueTile,
+} from '../src/index.js';
 import { useState } from 'react';
 import { createRoot } from 'react-dom/client';
 
 function ReactFixture() {
   const [theme, setTheme] = useState<'wayglass-dark' | 'wayglass-light'>('wayglass-dark');
   const [activationCount, setActivationCount] = useState(0);
+  const [selectedView, setSelectedView] = useState('overview');
 
   return (
     <WgThemeProvider
@@ -40,6 +50,27 @@ function ReactFixture() {
           </WgButton>
           <span id="activation-count">{activationCount}</span>
         </WgValueTile>
+        <WgTabs
+          id="react-tabs"
+          ref={(element) => {
+            document.documentElement.dataset.tabsRefTag = element?.localName ?? '';
+          }}
+          value={selectedView}
+          data-selected-view={selectedView}
+          activation="automatic"
+          orientation="horizontal"
+          onWgTabChange={(event) => {
+            document.documentElement.dataset.tabChange = JSON.stringify(event.detail);
+            setSelectedView(event.detail.value);
+          }}
+        >
+          <WgTabList aria-label="React account views">
+            <WgTab value="overview">Overview</WgTab>
+            <WgTab value="security">Security</WgTab>
+          </WgTabList>
+          <WgTabPanel value="overview">React overview content</WgTabPanel>
+          <WgTabPanel value="security">React security content</WgTabPanel>
+        </WgTabs>
       </main>
     </WgThemeProvider>
   );
