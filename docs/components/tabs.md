@@ -3,9 +3,9 @@
 **Status:** Accepted for Phase 2A on July 28, 2026, together with
 [ADR 0009](../architecture/adr/0009-tabs-architecture.md).
 
-**Implementation:** The framework-neutral Custom Elements interaction model is complete. Typed React
-wrappers, production-backed stories and examples, and the final assistive-technology review remain
-separate Phase 2A milestones.
+**Implementation:** The framework-neutral Custom Elements interaction model and typed React wrappers
+are complete. Production-backed stories and examples and the final assistive-technology review
+remain separate Phase 2A milestones.
 
 ## Purpose
 

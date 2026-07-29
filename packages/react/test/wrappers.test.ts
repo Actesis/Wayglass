@@ -11,10 +11,14 @@ import {
   WgPanel,
   WgRail,
   WgStatusIndicator,
+  WgTab,
+  WgTabList,
+  WgTabPanel,
+  WgTabs,
   WgThemeProvider,
   WgValueTile,
 } from '../src/index.js';
-import type { WgThemeProviderProps } from '../src/index.js';
+import type { WgTabsProps, WgThemeProviderProps } from '../src/index.js';
 
 describe('Wayglass React wrappers', () => {
   it('exports named wrappers for every Phase 1 element', () => {
@@ -29,6 +33,10 @@ describe('Wayglass React wrappers', () => {
       WgBooleanValue,
       WgMetric,
       WgValueTile,
+      WgTabs,
+      WgTabList,
+      WgTab,
+      WgTabPanel,
     ];
 
     expect(wrappers.map((wrapper) => wrapper.displayName)).toEqual([
@@ -42,6 +50,10 @@ describe('Wayglass React wrappers', () => {
       'WgBooleanValue',
       'WgMetric',
       'WgValueTile',
+      'WgTabs',
+      'WgTabList',
+      'WgTab',
+      'WgTabPanel',
     ]);
   });
 
@@ -72,5 +84,21 @@ describe('Wayglass React wrappers', () => {
     });
 
     expect(provider.props.onWgThemeChange).toBe(onWgThemeChange);
+  });
+
+  it('preserves the typed tab-change callback prop', () => {
+    const onWgTabChange: NonNullable<WgTabsProps['onWgTabChange']> = (event) => {
+      expect(event.detail.trigger).toMatch(/^(keyboard|pointer)$/);
+    };
+    const tabs = createElement(WgTabs, {
+      activation: 'manual',
+      orientation: 'vertical',
+      value: 'overview',
+      onWgTabChange,
+    });
+
+    expect(tabs.props.activation).toBe('manual');
+    expect(tabs.props.orientation).toBe('vertical');
+    expect(tabs.props.onWgTabChange).toBe(onWgTabChange);
   });
 });
