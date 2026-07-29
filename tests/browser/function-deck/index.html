@@ -13,7 +13,11 @@
       import { render } from 'lit';
       import { renderFunctionDeck } from '/apps/storybook/stories/function-deck.fixture.ts';
 
-      render(renderFunctionDeck('wayglass-dark'), document.querySelector('#root'));
+      const parameters = new URLSearchParams(window.location.search);
+      const width = parameters.get('width') ?? 'desktop';
+      const theme = parameters.get('theme') ?? 'wayglass-dark';
+
+      render(renderFunctionDeck({ width, theme }), document.querySelector('#root'));
     </script>
   </body>
 </html>

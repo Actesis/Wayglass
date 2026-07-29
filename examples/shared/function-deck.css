@@ -2,8 +2,19 @@
 
 .wg-function-deck-viewport {
   inline-size: 72rem;
+  min-inline-size: 0;
   max-inline-size: 100%;
   margin-inline: auto;
+  container-name: wg-function-deck-fixture;
+  container-type: inline-size;
+}
+
+.wg-function-deck-viewport--phone {
+  inline-size: 20rem;
+}
+
+.wg-function-deck-viewport--wall {
+  inline-size: 120rem;
 }
 
 .wg-function-deck-viewport wg-canvas {
@@ -12,6 +23,10 @@
 
 .wg-function-deck {
   min-inline-size: 0;
+}
+
+.wg-function-deck wg-tab {
+  flex: 0 0 auto;
 }
 
 .wg-function-deck__critical-response {
@@ -57,4 +72,20 @@
   margin-block: var(--wg-space-reference-2) 0;
   color: var(--wg-color-semantic-text-secondary);
   font-size: var(--wg-typography-size-label);
+}
+
+/* Mirrors breakpoint.phone.wide because custom properties are invalid in container conditions. */
+@container wg-function-deck-fixture (inline-size < 40rem) {
+  .wg-function-deck__critical-state {
+    display: grid;
+  }
+
+  .wg-function-deck__surface .wg-overview-function__sections {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .wg-function-deck__critical-response wg-button,
+  .wg-function-deck__critical-response wg-button::part(button) {
+    inline-size: 100%;
+  }
 }

@@ -208,17 +208,20 @@ sizes.
 
 ## Implementation plan
 
-The production-backed desktop composition is implemented from `wg-tabs` and existing function
-surfaces. Overview and focused fixtures now consume one ordered domain-neutral function model for
-stable values, visible labels, selector summaries, and content rendering. The model is fixture data,
-not a public Wayglass schema, and deliberately does not prescribe fields such as media URLs.
+The production-backed phone, desktop, and wall-display compositions are implemented from `wg-tabs`
+and existing function surfaces. Overview and focused fixtures consume one ordered domain-neutral
+function model for stable values, visible labels, selector summaries, and content rendering. The
+model is fixture data, not a public Wayglass schema, and deliberately does not prescribe fields such
+as media URLs.
 
 Browser coverage confirms that both compositions retain the same function identity and order, tabs
 remain the only selection owner, and the focused surface does not introduce a nested elbow-shaped
 selector layer. Hidden peer selectors retain explicit caution, critical, stale, unavailable, and
 pending language while their panels are not visible. The persistent Processing response path remains
-available without becoming a second selection owner. Responsive variants and broader accessibility
-validation remain the next Phase 2B work.
+available without becoming a second selection owner. Phone keeps the selectors in one horizontally
+scrollable tab strip without page overflow, desktop uses compact density, and wall-display fixtures
+use comfortable density with prominent semantic signals. Broader accessibility validation remains
+the next Phase 2B work.
 
 Phase 2 will:
 
