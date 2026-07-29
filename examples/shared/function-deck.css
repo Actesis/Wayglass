@@ -1,0 +1,39 @@
+@import './operations-overview.css';
+
+.wg-function-deck-viewport {
+  inline-size: 72rem;
+  max-inline-size: 100%;
+  margin-inline: auto;
+}
+
+.wg-function-deck-viewport wg-canvas {
+  min-block-size: 100vh;
+}
+
+.wg-function-deck {
+  min-inline-size: 0;
+}
+
+.wg-function-deck__surface {
+  min-inline-size: 0;
+}
+
+.wg-function-deck__surface .wg-overview-function > h2 {
+  margin: 0;
+  padding-block: var(--wg-space-reference-3);
+  padding-inline: var(--wg-space-reference-2);
+  border-block-end: var(--wg-border-semantic-section) solid var(--wg-color-semantic-border-strong);
+  font-family: var(--wg-typography-family-display);
+  font-size: var(--wg-typography-size-section-title);
+}
+
+.wg-function-deck__surface .wg-overview-function__sections {
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  align-items: start;
+}
+
+.wg-function-deck__selection {
+  margin-block: var(--wg-space-reference-2) 0;
+  color: var(--wg-color-semantic-text-secondary);
+  font-size: var(--wg-typography-size-label);
+}

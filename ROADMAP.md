@@ -63,7 +63,7 @@ can be validated before later components depend on it.
 ### Phase 2B — Focused Function Deck
 
 - [x] Define the production composition API after the tabs primitive is validated.
-- [ ] Compose the deck from tabs without adding selection behavior to `wg-elbow`.
+- [x] Compose the deck from tabs without adding selection behavior to `wg-elbow`.
 - [ ] Reuse one domain-neutral function model across overview and focused compositions.
 - [ ] Preserve labeled summaries for hidden caution, critical, stale, unavailable, and pending
       state.
@@ -72,12 +72,18 @@ can be validated before later components depend on it.
 - [ ] Validate stable selection, focus, per-function context, responsive behavior, and supported
       browser engines.
 
-### Phase 2C — Foundation and layout expansion
+### Phase 2C — Foundation, layout, and media expansion
 
 - [ ] Specify the remaining foundation contracts: typography, icon, visually hidden content, focus
       ring, surface, and divider.
 - [ ] Specify the remaining layout contracts: frame, stack, cluster, grid, split, and scroll region.
 - [ ] Implement, document, and validate the accepted foundation and layout primitives.
+- [ ] Specify a domain-neutral media-content pattern for consumer-authored images, pictures, and
+      figures without adding media URLs to the shared function state model.
+- [ ] Define responsive sizing and cropping, useful alternatives and captions, loading and
+      unavailable presentation, full-size inspection, and privacy guidance.
+- [ ] Add image-bearing information fixtures and validate that missing media never hides state,
+      instructions, or actions across phone, desktop, and wall displays.
 
 ### Phase 2D — Controls and forms
 

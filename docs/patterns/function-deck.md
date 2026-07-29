@@ -63,6 +63,10 @@ Selectors may use restrained folder-shoulder geometry. The selected selector vis
 the working surface. Static `wg-elbow` headings retain continuous heading-to-rail geometry and must
 not be repurposed as selectors.
 
+The reference focused composition uses a plain repeated function heading inside the working surface.
+Placing an elbow immediately beneath a folder-like selected tab creates a second selector-shaped
+layer even when the elbow is technically inert.
+
 ## Production composition API
 
 The production API is a declarative composition of the tabs compound elements. It introduces no
@@ -87,27 +91,21 @@ The production API is a declarative composition of the tabs compound elements. I
 
     <wg-tab-panel value="access">
       <section aria-labelledby="focused-access-heading">
-        <wg-elbow weight="strong">
-          <h2 id="focused-access-heading">Access</h2>
-        </wg-elbow>
+        <h2 id="focused-access-heading">Access</h2>
         <!-- Information, monitor, and control sections for Access -->
       </section>
     </wg-tab-panel>
 
     <wg-tab-panel value="communications">
       <section aria-labelledby="focused-communications-heading">
-        <wg-elbow weight="strong">
-          <h2 id="focused-communications-heading">Communications</h2>
-        </wg-elbow>
+        <h2 id="focused-communications-heading">Communications</h2>
         <!-- Information, monitor, and control sections for Communications -->
       </section>
     </wg-tab-panel>
 
     <wg-tab-panel value="processing">
       <section aria-labelledby="focused-processing-heading">
-        <wg-elbow weight="strong">
-          <h2 id="focused-processing-heading">Processing</h2>
-        </wg-elbow>
+        <h2 id="focused-processing-heading">Processing</h2>
         <!-- Information, monitor, and control sections for Processing -->
       </section>
     </wg-tab-panel>
@@ -203,6 +201,12 @@ Selection order, accessible names, state summaries, and function ownership remai
 sizes.
 
 ## Implementation plan
+
+The initial production-backed desktop composition is implemented from `wg-tabs` and existing
+function surfaces. Browser coverage confirms that tabs remain the only selection owner and that the
+focused surface does not introduce a nested elbow-shaped selector layer. Reusing one function model,
+responsive variants, hidden-state safeguards, and broader accessibility validation remain the next
+Phase 2B work.
 
 Phase 2 will:
 
