@@ -52,7 +52,10 @@ describe('token compiler', () => {
     expect(firstBuild).toBe(secondBuild);
     expect(firstBuild).toContain('--wg-color-semantic-condition-critical');
     expect(firstBuild).toContain('--wg-color-semantic-value-asserted');
+    expect(firstBuild).toContain('--wg-color-semantic-selection-indicator');
     expect(firstBuild).toContain('--wg-component-button-size-minimum');
+    expect(firstBuild).toContain('--wg-component-tab-size-minimum');
+    expect(firstBuild).toContain('--wg-component-tab-panel-color-background');
     expect(firstBuild).toContain('--wg-component-value-tile-space-section');
     expect(firstBuild).toContain('var(--wg-color-reference-red-500)');
   });
@@ -103,6 +106,26 @@ describe('token compiler', () => {
       ]),
     );
     expect(descriptions.some((description) => /provisional/i.test(description))).toBe(false);
+  });
+
+  it('contains the locked Phase 2A selection and tabs token layers', () => {
+    const names = Object.keys(tokens);
+
+    expect(names).toEqual(
+      expect.arrayContaining([
+        'color.semantic.selection.indicator',
+        'color.semantic.selection.surface',
+        'color.semantic.selection.text',
+        'component.tab-list.space',
+        'component.tab.color.background',
+        'component.tab.color.background-selected',
+        'component.tab.color.selection',
+        'component.tab.size.minimum',
+        'component.tab.size.selection',
+        'component.tab-panel.color.background',
+        'component.tab-panel.space',
+      ]),
+    );
   });
 
   it('provides accessible contrast for the default dark-theme foundations', () => {
