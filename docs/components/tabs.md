@@ -4,8 +4,8 @@
 [ADR 0009](../architecture/adr/0009-tabs-architecture.md).
 
 **Implementation:** The framework-neutral Custom Elements interaction model and typed React wrappers
-are complete. Production-backed stories and examples and the final assistive-technology review
-remain separate Phase 2A milestones.
+and production-backed stories and examples are complete. The final assistive-technology review
+remains a separate Phase 2A milestone.
 
 ## Purpose
 
