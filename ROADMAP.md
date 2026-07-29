@@ -68,8 +68,8 @@ can be validated before later components depend on it.
 - [x] Preserve labeled summaries for hidden caution, critical, stale, unavailable, and pending
       state.
 - [x] Keep critical state and its primary response discoverable while another function is selected.
-- [ ] Add phone, desktop, and wall-display fixtures.
-- [ ] Validate stable selection, focus, per-function context, responsive behavior, and supported
+- [x] Add phone, desktop, and wall-display fixtures.
+- [x] Validate stable selection, focus, per-function context, responsive behavior, and supported
       browser engines.
 
 ### Phase 2C — Foundation, layout, and media expansion

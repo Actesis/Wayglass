@@ -3,13 +3,13 @@
 Wayglass is a design language for operational awareness. It helps people understand what a system is
 doing, what changed, what needs attention, and what they can do next.
 
-The Phase 0 foundations and Phase 1 domain-neutral vertical slice are complete. Dark and light theme
-contexts, the initial structural, action, and semantic display components, and typed React wrappers
-are available. A production-backed Operations Overview composes the full set across desktop, phone,
-wall-panel, and edge-state Storybook fixtures, with runnable vanilla Custom Element and React
-examples. Phase 1 accessibility, responsive behavior, visual states, and supported-browser behavior
-are recorded in the validation matrix. Wayglass is a working name, all packages are private, and no
-software license has been selected yet.
+The Phase 0 foundations, Phase 1 domain-neutral vertical slice, and Phase 2 selection foundations
+are complete. Dark and light theme contexts, the initial structural, action, and semantic display
+components, typed React wrappers, compound tabs, and the Function Deck composition are available.
+Production-backed overview and focused fixtures cover desktop, phone, wall-display, and edge-state
+contexts. Accessibility, responsive behavior, visual states, and supported-browser behavior are
+recorded in phase-specific validation matrices. Wayglass is a working name, all packages are
+private, and no software license has been selected yet.
 
 ## Governing documents
 
@@ -40,6 +40,9 @@ Supporting foundations:
 - [`docs/components/tabs.md`](./docs/components/tabs.md) proposes the Phase 2A tabs contract and
   links its
   [`accessibility architecture decision`](./docs/architecture/adr/0009-tabs-architecture.md).
+- [`docs/patterns/function-deck.md`](./docs/patterns/function-deck.md) defines the Phase 2B focused
+  composition, with evidence in the
+  [`Function Deck validation record`](./docs/accessibility/phase-2b-function-deck-validation.md).
 
 ## Local development
 

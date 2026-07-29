@@ -14,7 +14,7 @@ hero:
       link: /components/
 ---
 
-The Phase 0 foundations and Phase 1 domain-neutral vertical slice are complete. Explore the
-[Operations Overview](/examples/operations-overview), review the initial
-[component contracts](/components/), or inspect the
-[Phase 1 validation record](/accessibility/phase-1-validation).
+The Phase 0 foundations, Phase 1 domain-neutral vertical slice, and Phase 2 selection foundations
+are complete. Explore the [Operations Overview](/examples/operations-overview), work through the
+[Function Deck](/patterns/function-deck), review the [component contracts](/components/), or inspect
+the [Phase 2B validation record](/accessibility/phase-2b-function-deck-validation).

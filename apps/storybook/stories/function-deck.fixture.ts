@@ -8,7 +8,10 @@ import {
   operationsFunctions,
   renderOperationsFunction,
 } from './operations-overview.fixture.js';
-import type { OperationsOverviewTheme } from './operations-overview.fixture.js';
+import type {
+  OperationsOverviewTheme,
+  OperationsOverviewWidth,
+} from './operations-overview.fixture.js';
 
 defineWgTabs();
 
@@ -45,15 +48,26 @@ async function handleOpenCriticalResponse(event: Event): Promise<void> {
   updateSelectionStatus(deck, value);
 }
 
-export function renderFunctionDeck(theme: OperationsOverviewTheme = 'wayglass-dark') {
+export interface FunctionDeckOptions {
+  readonly width: OperationsOverviewWidth;
+  readonly theme: OperationsOverviewTheme;
+}
+
+export function renderFunctionDeck({
+  width = 'desktop',
+  theme = 'wayglass-dark',
+}: Partial<FunctionDeckOptions> = {}) {
   const criticalFunction = operationsFunctions.find(
     (functionFixture) => functionFixture.criticalResponse !== undefined,
   );
   const criticalResponse = criticalFunction?.criticalResponse;
 
   return html`
-    <div class="wg-function-deck-viewport" data-function-deck-width="desktop">
-      <wg-theme-provider theme=${theme} density="compact">
+    <div
+      class="wg-function-deck-viewport wg-function-deck-viewport--${width}"
+      data-function-deck-width=${width}
+    >
+      <wg-theme-provider theme=${theme} density=${width === 'wall' ? 'comfortable' : 'compact'}>
         <wg-canvas width="full">
           <header slot="header" class="wg-overview-header">
             <p class="wg-overview-eyebrow">Focused operational work</p>
@@ -81,7 +95,7 @@ export function renderFunctionDeck(theme: OperationsOverviewTheme = 'wayglass-da
                             label=${criticalFunction.label}
                             condition="critical"
                             activity="pending"
-                            size="compact"
+                            size=${width === 'wall' ? 'prominent' : 'compact'}
                           ></wg-status-indicator>
                           <p>
                             <strong>${criticalResponse.stateSummary}</strong>
@@ -118,7 +132,7 @@ export function renderFunctionDeck(theme: OperationsOverviewTheme = 'wayglass-da
                 (functionFixture) => html`
                   <wg-tab-panel value=${functionFixture.value}>
                     <div class="wg-function-deck__surface">
-                      ${renderOperationsFunction(functionFixture, 'desktop', 'focused', 'plain')}
+                      ${renderOperationsFunction(functionFixture, width, 'focused', 'plain')}
                     </div>
                   </wg-tab-panel>
                 `,
@@ -132,7 +146,7 @@ export function renderFunctionDeck(theme: OperationsOverviewTheme = 'wayglass-da
 
           <footer slot="footer" class="wg-overview-footer">
             <span>Local fixture</span>
-            <span>Composition: Focused</span>
+            <span>Composition: Focused · ${width}</span>
           </footer>
         </wg-canvas>
       </wg-theme-provider>
