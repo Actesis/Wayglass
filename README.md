@@ -53,6 +53,9 @@ Supporting foundations:
   [`container-responsive architecture decision`](./docs/architecture/adr/0012-layout-primitives-and-container-responsiveness.md).
   Implementation evidence is recorded in the
   [`layout-primitives validation`](./docs/accessibility/phase-2c-layout-validation.md).
+- [`docs/media/media-content.md`](./docs/media/media-content.md) proposes the Phase 2C media-content
+  contract and its
+  [`native-media ownership decision`](./docs/architecture/adr/0013-native-media-ownership.md).
 
 ## Local development
 

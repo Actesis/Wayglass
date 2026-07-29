@@ -48,6 +48,10 @@ export default defineConfig({
         items: [{ text: 'Layout contracts', link: '/layout/' }],
       },
       {
+        text: 'Phase 2 media',
+        items: [{ text: 'Media-content contract', link: '/media/' }],
+      },
+      {
         text: 'Architecture',
         items: [
           {
@@ -65,6 +69,10 @@ export default defineConfig({
           {
             text: 'ADR 0012: Responsive layout',
             link: '/architecture/adr/0012-layout-primitives-and-container-responsiveness',
+          },
+          {
+            text: 'ADR 0013: Native media ownership',
+            link: '/architecture/adr/0013-native-media-ownership',
           },
         ],
       },
