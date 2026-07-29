@@ -1,0 +1,55 @@
+.wg-foundation-catalog {
+  display: grid;
+  gap: var(--wg-space-reference-6);
+  max-inline-size: var(--wg-size-content-measure);
+}
+
+.wg-foundation-catalog h1,
+.wg-foundation-catalog h2,
+.wg-foundation-catalog p,
+.wg-foundation-catalog dl,
+.wg-foundation-catalog dd {
+  margin-block: 0;
+}
+
+.wg-foundation-catalog section,
+.wg-foundation-catalog header,
+.wg-foundation-catalog wg-surface {
+  display: grid;
+  gap: var(--wg-space-reference-3);
+}
+
+.wg-foundation-kicker {
+  color: var(--wg-color-semantic-text-secondary);
+}
+
+.wg-foundation-type-samples,
+.wg-foundation-surfaces {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--wg-space-reference-4);
+}
+
+.wg-foundation-type-samples > div {
+  display: grid;
+  align-content: start;
+  gap: var(--wg-space-reference-1);
+}
+
+.wg-native-action {
+  min-block-size: var(--wg-size-touch-minimum);
+  padding-block: var(--wg-space-reference-2);
+  padding-inline: var(--wg-space-reference-4);
+  border: var(--wg-border-width-standard) solid var(--wg-color-semantic-border-strong);
+  border-radius: var(--wg-shape-radius-control);
+  color: var(--wg-color-semantic-text-primary);
+  background: var(--wg-color-semantic-surface-panel);
+  font: inherit;
+}
+
+@container wg-canvas (inline-size < 40rem) {
+  .wg-foundation-type-samples,
+  .wg-foundation-surfaces {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

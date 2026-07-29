@@ -465,6 +465,21 @@ export const tokens = {
     type: 'dimension',
     description: 'Reserved compact metric value width.',
   },
+  'size.icon.compact': {
+    value: '1rem',
+    type: 'dimension',
+    description: 'Compact inline icon size.',
+  },
+  'size.icon.standard': {
+    value: '1.25rem',
+    type: 'dimension',
+    description: 'Standard interface icon size.',
+  },
+  'size.icon.prominent': {
+    value: '2rem',
+    type: 'dimension',
+    description: 'Prominent reinforcing icon size.',
+  },
   'density.comfortable.scale': {
     value: 1,
     type: 'number',
@@ -584,6 +599,96 @@ export const tokens = {
     value: '0.125rem',
     type: 'dimension',
     description: 'Visible focus indicator offset.',
+  },
+  'component.focus-ring.color': {
+    value: '{color.semantic.focus.ring}',
+    type: 'color',
+    description: 'Shared consumer-authored focus-ring color.',
+  },
+  'component.focus-ring.width': {
+    value: '{focus.width}',
+    type: 'dimension',
+    description: 'Shared consumer-authored focus-ring width.',
+  },
+  'component.focus-ring.offset': {
+    value: '{focus.offset}',
+    type: 'dimension',
+    description: 'Shared consumer-authored focus-ring offset.',
+  },
+  'component.icon.size.compact': {
+    value: '{size.icon.compact}',
+    type: 'dimension',
+    description: 'Compact icon component size.',
+  },
+  'component.icon.size.standard': {
+    value: '{size.icon.standard}',
+    type: 'dimension',
+    description: 'Standard icon component size.',
+  },
+  'component.icon.size.prominent': {
+    value: '{size.icon.prominent}',
+    type: 'dimension',
+    description: 'Prominent icon component size.',
+  },
+  'component.surface.color.panel': {
+    value: '{color.semantic.surface.panel}',
+    type: 'color',
+    description: 'Neutral panel-tone surface background.',
+  },
+  'component.surface.color.inset': {
+    value: '{color.semantic.surface.inset}',
+    type: 'color',
+    description: 'Neutral inset-tone surface background.',
+  },
+  'component.surface.color.raised': {
+    value: '{color.semantic.surface.raised}',
+    type: 'color',
+    description: 'Neutral raised-tone surface background.',
+  },
+  'component.surface.color.border': {
+    value: '{color.semantic.border.subtle}',
+    type: 'color',
+    description: 'Routine neutral surface boundary.',
+  },
+  'component.surface.color.border-strong': {
+    value: '{color.semantic.border.strong}',
+    type: 'color',
+    description: 'Strong neutral surface boundary.',
+  },
+  'component.surface.radius': {
+    value: '{shape.radius.panel}',
+    type: 'dimension',
+    description: 'Neutral surface radius.',
+  },
+  'component.surface.space.compact': {
+    value: '{space.reference.2}',
+    type: 'dimension',
+    description: 'Compact neutral surface edge padding.',
+  },
+  'component.surface.space.comfortable': {
+    value: '{space.reference.4}',
+    type: 'dimension',
+    description: 'Comfortable neutral surface edge padding.',
+  },
+  'component.surface.elevation': {
+    value: '{elevation.panel}',
+    type: 'shadow',
+    description: 'Raised neutral surface elevation.',
+  },
+  'component.divider.color': {
+    value: '{color.semantic.border.subtle}',
+    type: 'color',
+    description: 'Internal separator color.',
+  },
+  'component.divider.size.standard': {
+    value: '{border.width.standard}',
+    type: 'dimension',
+    description: 'Standard internal separator thickness.',
+  },
+  'component.divider.size.strong': {
+    value: '{border.width.strong}',
+    type: 'dimension',
+    description: 'Strong internal separator thickness.',
   },
   'component.canvas.color.background': {
     value: '{color.semantic.surface.canvas}',

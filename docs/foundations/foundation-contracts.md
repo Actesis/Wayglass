@@ -3,6 +3,12 @@
 **Status:** Accepted for Phase 2C on July 29, 2026. The delivery model is recorded in
 [ADR 0011](../architecture/adr/0011-foundation-delivery-model.md).
 
+**Implementation:** The public utility stylesheet, `wg-surface`, `wg-divider`, tokens, framework
+exports, stories, and automated browser coverage are implemented. Evidence is recorded in the
+[Phase 2C foundation substrate validation](../accessibility/phase-2c-foundations-validation.md).
+`wg-icon` and the first official catalog remain intentionally deferred until Phase 2D selects the
+controls that consume them.
+
 These contracts cover the remaining behaviorless or near-behaviorless foundations: typography,
 icons, visually hidden content, focus rings, surfaces, and dividers. They define the public boundary
 before token additions or component implementation begin.
@@ -27,6 +33,24 @@ The utility stylesheet works without JavaScript. Before Custom Elements upgrade,
 its light-DOM content visible and in source order. An unupgraded divider or icon may be visually
 absent, so neither may be the only source of grouping, state, instructions, or an accessible name.
 No foundation requires Declarative Shadow DOM or server rendering for correctness.
+
+### Imports and registration
+
+Utilities are available through the explicit stylesheet export:
+
+```css
+@import '@wayglass/elements/foundations.css';
+```
+
+Custom Element modules remain side-effect free:
+
+```ts
+import { defineWgDivider } from '@wayglass/elements/divider';
+import { defineWgSurface } from '@wayglass/elements/surface';
+
+defineWgSurface();
+defineWgDivider();
+```
 
 ## Typography
 
@@ -271,9 +295,8 @@ Implementation will review and lock only the additional public roles required by
 
 Existing typography, semantic surface, border, focus, spacing, and density tokens are reused where
 their meanings already fit. Visually hidden clipping values remain private. The implementation audit
-must also replace existing uses of undefined typography aliases such as
-`--wg-typography-size-page-title` and `--wg-typography-size-section-title` with the accepted token
-paths or deliberately add documented aliases.
+replaced prior uses of the undefined `--wg-typography-size-page-title` and
+`--wg-typography-size-section-title` aliases with the accepted `title` and `section` token paths.
 
 ## Validation requirements
 

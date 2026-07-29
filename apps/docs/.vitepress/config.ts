@@ -91,6 +91,10 @@ export default defineConfig({
             text: 'Phase 2B Function Deck validation',
             link: '/accessibility/phase-2b-function-deck-validation',
           },
+          {
+            text: 'Phase 2C foundation validation',
+            link: '/accessibility/phase-2c-foundations-validation',
+          },
         ],
       },
       {

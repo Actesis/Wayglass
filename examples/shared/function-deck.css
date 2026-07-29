@@ -60,7 +60,7 @@
   padding-inline: var(--wg-space-reference-2);
   border-block-end: var(--wg-border-semantic-section) solid var(--wg-color-semantic-border-strong);
   font-family: var(--wg-typography-family-display);
-  font-size: var(--wg-typography-size-section-title);
+  font-size: var(--wg-typography-size-section);
 }
 
 .wg-function-deck__surface .wg-overview-function__sections {

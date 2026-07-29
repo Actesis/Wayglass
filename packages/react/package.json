@@ -24,6 +24,10 @@
       "types": "./dist/canvas.d.ts",
       "import": "./dist/canvas.js"
     },
+    "./divider": {
+      "types": "./dist/divider.d.ts",
+      "import": "./dist/divider.js"
+    },
     "./elbow": {
       "types": "./dist/elbow.d.ts",
       "import": "./dist/elbow.js"
@@ -43,6 +47,10 @@
     "./status-indicator": {
       "types": "./dist/status-indicator.d.ts",
       "import": "./dist/status-indicator.js"
+    },
+    "./surface": {
+      "types": "./dist/surface.d.ts",
+      "import": "./dist/surface.js"
     },
     "./tab": {
       "types": "./dist/tab.d.ts",

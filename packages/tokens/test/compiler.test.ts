@@ -57,6 +57,10 @@ describe('token compiler', () => {
     expect(firstBuild).toContain('--wg-component-tab-size-minimum');
     expect(firstBuild).toContain('--wg-component-tab-panel-color-background');
     expect(firstBuild).toContain('--wg-component-value-tile-space-section');
+    expect(firstBuild).toContain('--wg-component-focus-ring-color');
+    expect(firstBuild).toContain('--wg-component-surface-color-panel');
+    expect(firstBuild).toContain('--wg-component-divider-size-strong');
+    expect(firstBuild).toContain('--wg-component-icon-size-standard');
     expect(firstBuild).toContain('var(--wg-color-reference-red-500)');
   });
 
@@ -124,6 +128,31 @@ describe('token compiler', () => {
         'component.tab.size.selection',
         'component.tab-panel.color.background',
         'component.tab-panel.space',
+      ]),
+    );
+  });
+
+  it('contains the locked Phase 2C foundation token roles', () => {
+    const names = Object.keys(tokens);
+
+    expect(names).toEqual(
+      expect.arrayContaining([
+        'size.icon.compact',
+        'size.icon.standard',
+        'size.icon.prominent',
+        'component.focus-ring.color',
+        'component.focus-ring.width',
+        'component.focus-ring.offset',
+        'component.surface.color.panel',
+        'component.surface.color.inset',
+        'component.surface.color.raised',
+        'component.surface.color.border',
+        'component.surface.color.border-strong',
+        'component.surface.space.compact',
+        'component.surface.space.comfortable',
+        'component.divider.color',
+        'component.divider.size.standard',
+        'component.divider.size.strong',
       ]),
     );
   });

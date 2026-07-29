@@ -28,7 +28,7 @@
 .wg-semantic-header h1 {
   margin-block-end: var(--wg-space-reference-2);
   font-family: var(--wg-typography-family-display);
-  font-size: var(--wg-typography-size-page-title);
+  font-size: var(--wg-typography-size-title);
 }
 
 .wg-semantic-header p:last-child {
