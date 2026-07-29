@@ -67,7 +67,7 @@ can be validated before later components depend on it.
 - [x] Reuse one domain-neutral function model across overview and focused compositions.
 - [x] Preserve labeled summaries for hidden caution, critical, stale, unavailable, and pending
       state.
-- [ ] Keep critical state and its primary response discoverable while another function is selected.
+- [x] Keep critical state and its primary response discoverable while another function is selected.
 - [ ] Add phone, desktop, and wall-display fixtures.
 - [ ] Validate stable selection, focus, per-function context, responsive behavior, and supported
       browser engines.
