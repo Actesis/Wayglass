@@ -20,6 +20,7 @@ export default defineConfig({
           { text: 'Semantic model', link: '/foundations/state-model' },
           { text: 'Visual foundations', link: '/foundations/visual-language' },
           { text: 'Design tokens', link: '/foundations/tokens' },
+          { text: 'Phase 2C foundation contracts', link: '/foundations/foundation-contracts' },
         ],
       },
       {
@@ -52,6 +53,10 @@ export default defineConfig({
           {
             text: 'ADR 0010: Function Deck composition',
             link: '/architecture/adr/0010-function-deck-composition',
+          },
+          {
+            text: 'ADR 0011: Foundation delivery',
+            link: '/architecture/adr/0011-foundation-delivery-model',
           },
         ],
       },
