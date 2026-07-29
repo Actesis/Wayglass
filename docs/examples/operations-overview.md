@@ -91,11 +91,14 @@ Operations Overview remains the canonical simultaneous **overview** composition 
 purpose is to prove that Access, Communications, and Processing can be scanned together without
 confusing ownership or section purpose.
 
-The planned [Function Deck](../patterns/function-deck.md) is a compatible focused composition, not a
-replacement. It may present the same peer functions through selectors attached to one shared work
-surface on phones, desktops, or wall displays. Its selectors must summarize consequential hidden
-state, and critical state and its primary response must remain discoverable when another function is
-selected.
+The [Function Deck](../patterns/function-deck.md) is a compatible focused composition, not a
+replacement. The reference overview and focused fixtures consume one ordered domain-neutral function
+model for identity, selector summary, and content rendering. This proves that changing composition
+does not create a second source of truth for function ownership or state.
+
+The deck may present the same peer functions through selectors attached to one shared work surface
+on phones, desktops, or wall displays. Its selectors must summarize consequential hidden state, and
+critical state and its primary response must remain discoverable when another function is selected.
 
 ## Theme and density fixtures
 
@@ -133,6 +136,10 @@ Storybook exposes the production composition under **Examples / Operations Overv
 The Storybook stories and cross-browser test harness import the same canonical renderer from
 `apps/storybook/stories/operations-overview.fixture.ts`. This keeps visual review, responsive tests,
 and accessibility checks on the production elements instead of a parallel mock.
+
+That fixture also exports the ordered function model consumed by the focused deck. The model
+contains stable values, visible labels, consumer-authored selector summaries, and renderers; it is
+fixture data rather than a component API or prescribed application schema.
 
 The runnable [framework examples](./framework-examples.md) apply the same screen contract through
 plain Custom Element registration and the typed React wrappers.

@@ -43,6 +43,33 @@ test('uses wg-tabs as the only selection owner', async ({ page }) => {
   await expect(page.getByText('Selected function: Communications', { exact: true })).toBeVisible();
 });
 
+test('keeps function identity and order aligned with the overview composition', async ({
+  page,
+}) => {
+  const focusedFunctions = await page.locator('wg-tab').evaluateAll((tabs) =>
+    tabs.map((tab) => {
+      const summary = tab.querySelector('[slot="summary"]')?.textContent ?? '';
+
+      return {
+        value: tab.getAttribute('value'),
+        label: tab.textContent?.replace(summary, '').trim(),
+      };
+    }),
+  );
+
+  await page.goto('/tests/browser/operations-overview/?width=desktop&theme=wayglass-dark');
+  await page.waitForFunction(() => document.querySelectorAll('[data-function]').length === 3);
+
+  const overviewFunctions = await page.locator('[data-function]').evaluateAll((functions) =>
+    functions.map((functionElement) => ({
+      value: functionElement.getAttribute('data-function'),
+      label: functionElement.querySelector('h2')?.textContent?.trim(),
+    })),
+  );
+
+  expect(overviewFunctions).toEqual(focusedFunctions);
+});
+
 test('does not repurpose elbow geometry as a nested selector', async ({ page }) => {
   await expect(page.locator('.wg-function-deck wg-elbow')).toHaveCount(0);
   await expect(page.getByRole('heading', { name: 'Access', level: 2 })).toBeVisible();

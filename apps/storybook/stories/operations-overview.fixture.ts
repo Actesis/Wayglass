@@ -28,11 +28,37 @@ export type OperationsOverviewTheme = 'wayglass-dark' | 'wayglass-light';
 export type OperationsFunctionValue = 'access' | 'communications' | 'processing';
 export type OperationsFunctionHeading = 'elbow' | 'plain';
 
-export const operationsFunctionValues: readonly OperationsFunctionValue[] = [
-  'access',
-  'communications',
-  'processing',
-];
+interface OperationsFunctionMetadata {
+  readonly value: OperationsFunctionValue;
+  readonly label: string;
+  readonly selectorSummary: string;
+}
+
+export interface OperationsFunctionFixture extends OperationsFunctionMetadata {
+  readonly render: (
+    width: OperationsOverviewWidth,
+    idPrefix: string,
+    heading: OperationsFunctionHeading,
+  ) => ReturnType<typeof html>;
+}
+
+const accessMetadata = {
+  value: 'access',
+  label: 'Access',
+  selectorSummary: 'Positive · Confirmed',
+} as const satisfies OperationsFunctionMetadata;
+
+const communicationsMetadata = {
+  value: 'communications',
+  label: 'Communications',
+  selectorSummary: 'Caution · Data stale · Retry available',
+} as const satisfies OperationsFunctionMetadata;
+
+const processingMetadata = {
+  value: 'processing',
+  label: 'Processing',
+  selectorSummary: 'Critical · Pause pending',
+} as const satisfies OperationsFunctionMetadata;
 
 export interface OperationsOverviewOptions {
   readonly width: OperationsOverviewWidth;
@@ -66,11 +92,15 @@ function accessFunction(
   idPrefix: string,
   heading: OperationsFunctionHeading,
 ) {
-  const headingId = `${idPrefix}-access-heading`;
+  const headingId = `${idPrefix}-${accessMetadata.value}-heading`;
 
   return html`
-    <section class="wg-overview-function" data-function="access" aria-labelledby=${headingId}>
-      ${functionHeading('Access', headingId, heading)}
+    <section
+      class="wg-overview-function"
+      data-function=${accessMetadata.value}
+      aria-labelledby=${headingId}
+    >
+      ${functionHeading(accessMetadata.label, headingId, heading)}
       <div class="wg-overview-function__body">
         <wg-rail weight="strong"></wg-rail>
         <div class="wg-overview-function__sections">
@@ -114,15 +144,15 @@ function communicationsFunction(
   idPrefix: string,
   heading: OperationsFunctionHeading,
 ) {
-  const headingId = `${idPrefix}-communications-heading`;
+  const headingId = `${idPrefix}-${communicationsMetadata.value}-heading`;
 
   return html`
     <section
       class="wg-overview-function"
-      data-function="communications"
+      data-function=${communicationsMetadata.value}
       aria-labelledby=${headingId}
     >
-      ${functionHeading('Communications', headingId, heading)}
+      ${functionHeading(communicationsMetadata.label, headingId, heading)}
       <div class="wg-overview-function__body">
         <wg-rail weight="strong"></wg-rail>
         <div class="wg-overview-function__sections">
@@ -175,11 +205,15 @@ function processingFunction(
   idPrefix: string,
   heading: OperationsFunctionHeading,
 ) {
-  const headingId = `${idPrefix}-processing-heading`;
+  const headingId = `${idPrefix}-${processingMetadata.value}-heading`;
 
   return html`
-    <section class="wg-overview-function" data-function="processing" aria-labelledby=${headingId}>
-      ${functionHeading('Processing', headingId, heading)}
+    <section
+      class="wg-overview-function"
+      data-function=${processingMetadata.value}
+      aria-labelledby=${headingId}
+    >
+      ${functionHeading(processingMetadata.label, headingId, heading)}
       <div class="wg-overview-function__body">
         <wg-rail weight="strong"></wg-rail>
         <div class="wg-overview-function__sections">
@@ -232,20 +266,32 @@ function processingFunction(
   `;
 }
 
+export const operationsFunctions: readonly OperationsFunctionFixture[] = [
+  {
+    ...accessMetadata,
+    render: accessFunction,
+  },
+  {
+    ...communicationsMetadata,
+    render: communicationsFunction,
+  },
+  {
+    ...processingMetadata,
+    render: processingFunction,
+  },
+];
+
+export function getOperationsFunction(value: string) {
+  return operationsFunctions.find((functionFixture) => functionFixture.value === value);
+}
+
 export function renderOperationsFunction(
-  value: OperationsFunctionValue,
+  functionFixture: OperationsFunctionFixture,
   width: OperationsOverviewWidth,
   idPrefix = 'overview',
   heading: OperationsFunctionHeading = 'elbow',
 ) {
-  switch (value) {
-    case 'access':
-      return accessFunction(width, idPrefix, heading);
-    case 'communications':
-      return communicationsFunction(width, idPrefix, heading);
-    case 'processing':
-      return processingFunction(width, idPrefix, heading);
-  }
+  return functionFixture.render(width, idPrefix, heading);
 }
 
 export function renderOperationsOverview({ width, theme }: OperationsOverviewOptions) {
@@ -262,8 +308,8 @@ export function renderOperationsOverview({ width, theme }: OperationsOverviewOpt
             </p>
           </header>
           <main class="wg-overview-functions">
-            ${operationsFunctionValues.map((value) =>
-              renderOperationsFunction(value, width, 'overview'),
+            ${operationsFunctions.map((functionFixture) =>
+              renderOperationsFunction(functionFixture, width, 'overview'),
             )}
           </main>
           <footer slot="footer" class="wg-overview-footer">
