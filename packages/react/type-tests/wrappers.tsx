@@ -1,5 +1,6 @@
 import type { WgButton as WgButtonElement } from '@wayglass/elements/button';
 import type { WgSurface as WgSurfaceElement } from '@wayglass/elements/surface';
+import type { WgSplit as WgSplitElement } from '@wayglass/elements/split';
 import type { WgTab as WgTabElement, WgTabs as WgTabsElement } from '@wayglass/elements/tabs';
 import type { WgThemeProvider as WgThemeProviderElement } from '@wayglass/elements/theme-provider';
 import { createRef } from 'react';
@@ -8,7 +9,13 @@ import {
   WgBooleanValue,
   WgButton,
   WgDivider,
+  WgCluster,
+  WgFrame,
+  WgGrid,
   WgMetric,
+  WgScrollRegion,
+  WgSplit,
+  WgStack,
   WgSurface,
   WgTab,
   WgTabList,
@@ -24,6 +31,7 @@ const surfaceRef = createRef<WgSurfaceElement>();
 const providerRef = createRef<WgThemeProviderElement>();
 const tabRef = createRef<WgTabElement>();
 const tabsRef = createRef<WgTabsElement>();
+const splitRef = createRef<WgSplitElement>();
 
 const typedComposition = (
   <WgThemeProvider ref={providerRef} theme="wayglass-dark" density="compact">
@@ -55,6 +63,30 @@ const eventHandler = (event: WgThemeChangeEvent): void => {
 };
 
 const typedProvider = <WgThemeProvider onWgThemeChange={eventHandler} />;
+
+const typedLayouts = (
+  <WgFrame boundary="strong" padding="compact">
+    <WgStack space="section" align="stretch">
+      <WgCluster space="related" align="baseline" justify="between">
+        <span>Updated now</span>
+        <button type="button">Refresh</button>
+      </WgCluster>
+      <WgGrid space="section" minimum="compact" align="start">
+        <div>Peer one</div>
+        <div>Peer two</div>
+      </WgGrid>
+      <WgSplit ref={splitRef} space="section" ratio="primary" minimum="standard" align="stretch">
+        <section slot="primary">Primary region</section>
+        <aside slot="secondary">Supporting region</aside>
+      </WgSplit>
+      <WgScrollRegion axis="block" label="Recent events">
+        <ol>
+          <li>Event</li>
+        </ol>
+      </WgScrollRegion>
+    </WgStack>
+  </WgFrame>
+);
 
 const tabChangeHandler = (event: WgTabChangeEvent): void => {
   const tabs: WgTabsElement = event.currentTarget;
@@ -106,8 +138,21 @@ const invalidSurfaceTone = <WgSurface tone="critical" />;
 // @ts-expect-error Decorative remains Boolean in React.
 const invalidDividerDecorative = <WgDivider decorative="true" />;
 
+// @ts-expect-error Layout spacing is a closed semantic vocabulary.
+const invalidLayoutSpace = <WgStack space="large" />;
+
+// @ts-expect-error Cluster alignment is a closed logical vocabulary.
+const invalidClusterAlignment = <WgCluster align="top" />;
+
+// @ts-expect-error Split ratio is a closed prominence vocabulary.
+const invalidSplitRatio = <WgSplit ratio="golden" />;
+
+// @ts-expect-error Scroll axis is a closed logical vocabulary.
+const invalidScrollAxis = <WgScrollRegion axis="vertical" />;
+
 void typedComposition;
 void typedProvider;
+void typedLayouts;
 void typedTabs;
 void invalidCondition;
 void invalidPending;
@@ -115,3 +160,7 @@ void invalidActivation;
 void invalidTabDisabled;
 void invalidSurfaceTone;
 void invalidDividerDecorative;
+void invalidLayoutSpace;
+void invalidClusterAlignment;
+void invalidSplitRatio;
+void invalidScrollAxis;

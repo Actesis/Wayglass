@@ -76,8 +76,8 @@ can be validated before later components depend on it.
 
 - [x] Specify the remaining foundation contracts: typography, icon, visually hidden content, focus
       ring, surface, and divider.
-- [ ] Specify the remaining layout contracts: frame, stack, cluster, grid, split, and scroll region.
-- [ ] Implement, document, and validate the accepted foundation and layout primitives.
+- [x] Specify the remaining layout contracts: frame, stack, cluster, grid, split, and scroll region.
+- [x] Implement, document, and validate the accepted foundation and layout primitives.
 - [ ] Specify a domain-neutral media-content pattern for consumer-authored images, pictures, and
       figures without adding media URLs to the shared function state model.
 - [ ] Define responsive sizing and cropping, useful alternatives and captions, loading and

@@ -430,6 +430,36 @@ export const tokens = {
     type: 'dimension',
     description: 'Visible separation between independent functional zones.',
   },
+  'space.semantic.layout.related.compact': {
+    value: '{space.reference.1}',
+    type: 'dimension',
+    description: 'Compact gap between closely related layout items.',
+  },
+  'space.semantic.layout.related.comfortable': {
+    value: '{space.reference.2}',
+    type: 'dimension',
+    description: 'Comfortable gap between closely related layout items.',
+  },
+  'space.semantic.layout.section.compact': {
+    value: '{space.reference.3}',
+    type: 'dimension',
+    description: 'Compact gap between distinct sections inside one function.',
+  },
+  'space.semantic.layout.section.comfortable': {
+    value: '{space.reference.4}',
+    type: 'dimension',
+    description: 'Comfortable gap between distinct sections inside one function.',
+  },
+  'space.semantic.layout.function.compact': {
+    value: '{space.reference.6}',
+    type: 'dimension',
+    description: 'Compact gap between independent functional zones.',
+  },
+  'space.semantic.layout.function.comfortable': {
+    value: '{space.reference.8}',
+    type: 'dimension',
+    description: 'Comfortable gap between independent functional zones.',
+  },
   'space.semantic.page.compact': {
     value: '{space.reference.4}',
     type: 'dimension',
@@ -689,6 +719,131 @@ export const tokens = {
     value: '{border.width.strong}',
     type: 'dimension',
     description: 'Strong internal separator thickness.',
+  },
+  'component.layout.space.related': {
+    value: '{space.semantic.layout.related.comfortable}',
+    type: 'dimension',
+    description: 'Density-aware gap between closely related layout items.',
+  },
+  'component.layout.space.section': {
+    value: '{space.semantic.layout.section.comfortable}',
+    type: 'dimension',
+    description: 'Density-aware gap between sections inside one function.',
+  },
+  'component.layout.space.function': {
+    value: '{space.semantic.layout.function.comfortable}',
+    type: 'dimension',
+    description: 'Density-aware gap between independent functional zones.',
+  },
+  'component.frame.color.background': {
+    value: '{color.semantic.surface.panel}',
+    type: 'color',
+    description: 'Neutral functional-frame background.',
+  },
+  'component.frame.color.border': {
+    value: '{color.semantic.border.strong}',
+    type: 'color',
+    description: 'Neutral functional-frame boundary.',
+  },
+  'component.frame.border-size.standard': {
+    value: '{border.semantic.function}',
+    type: 'dimension',
+    description: 'Standard functional-frame boundary width.',
+  },
+  'component.frame.border-size.strong': {
+    value: '{border.width.band}',
+    type: 'dimension',
+    description: 'Strong functional-frame boundary width.',
+  },
+  'component.frame.radius': {
+    value: '{shape.radius.panel}',
+    type: 'dimension',
+    description: 'Functional-frame radius.',
+  },
+  'component.frame.space.compact': {
+    value: '{space.reference.3}',
+    type: 'dimension',
+    description: 'Compact functional-frame padding.',
+  },
+  'component.frame.space.comfortable': {
+    value: '{space.reference.6}',
+    type: 'dimension',
+    description: 'Comfortable functional-frame padding.',
+  },
+  'component.grid.item-minimum.compact': {
+    value: '12rem',
+    type: 'dimension',
+    description: 'Minimum grid item measure for compact peer content.',
+  },
+  'component.grid.item-minimum.standard': {
+    value: '18rem',
+    type: 'dimension',
+    description: 'Minimum grid item measure for standard peer content.',
+  },
+  'component.grid.item-minimum.wide': {
+    value: '24rem',
+    type: 'dimension',
+    description: 'Minimum grid item measure for wide peer content.',
+  },
+  'component.split.region-minimum.compact': {
+    value: '12rem',
+    type: 'dimension',
+    description: 'Minimum usable split-region measure for compact content.',
+  },
+  'component.split.region-minimum.standard': {
+    value: '18rem',
+    type: 'dimension',
+    description: 'Minimum usable split-region measure for standard content.',
+  },
+  'component.split.region-minimum.wide': {
+    value: '24rem',
+    type: 'dimension',
+    description: 'Minimum usable split-region measure for wide content.',
+  },
+  'component.split.ratio.equal': {
+    value: '1fr',
+    type: 'dimension',
+    description: 'Balanced split-region ratio.',
+  },
+  'component.split.ratio.emphasized': {
+    value: '1.5fr',
+    type: 'dimension',
+    description: 'Emphasized split-region ratio.',
+  },
+  'component.split.breakpoint.compact': {
+    value: '26rem',
+    type: 'dimension',
+    description: 'Inline size at which two compact split regions can coexist.',
+  },
+  'component.split.breakpoint.standard': {
+    value: '38rem',
+    type: 'dimension',
+    description: 'Inline size at which two standard split regions can coexist.',
+  },
+  'component.split.breakpoint.wide': {
+    value: '50rem',
+    type: 'dimension',
+    description: 'Inline size at which two wide split regions can coexist.',
+  },
+  'component.scroll-region.max-block-size': {
+    value: '24rem',
+    type: 'dimension',
+    description: 'Default maximum block size for intentionally scrollable content.',
+  },
+  'component.scroll-region.max-inline-size': {
+    value: '{size.content.measure}',
+    type: 'dimension',
+    description: 'Default maximum inline size for intentionally scrollable content.',
+  },
+  'component.scroll-region.color.border': {
+    value: '{color.semantic.border.strong}',
+    type: 'color',
+    description: 'Discoverable scroll-region boundary.',
+  },
+  'component.scroll-region.focus-ring-color': {
+    value: '{color.semantic.focus.ring}',
+    type: 'color',
+    description: 'Keyboard focus indicator for an overflowing scroll region.',
   },
   'component.canvas.color.background': {
     value: '{color.semantic.surface.canvas}',

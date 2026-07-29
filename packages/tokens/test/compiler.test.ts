@@ -157,6 +157,42 @@ describe('token compiler', () => {
     );
   });
 
+  it('contains the locked Phase 2C layout token roles and mirrored split thresholds', () => {
+    const names = Object.keys(tokens);
+
+    expect(names).toEqual(
+      expect.arrayContaining([
+        'component.layout.space.related',
+        'component.layout.space.section',
+        'component.layout.space.function',
+        'component.frame.color.background',
+        'component.frame.color.border',
+        'component.frame.border-size.standard',
+        'component.frame.border-size.strong',
+        'component.frame.space.compact',
+        'component.frame.space.comfortable',
+        'component.grid.item-minimum.compact',
+        'component.grid.item-minimum.standard',
+        'component.grid.item-minimum.wide',
+        'component.split.region-minimum.compact',
+        'component.split.region-minimum.standard',
+        'component.split.region-minimum.wide',
+        'component.split.ratio.equal',
+        'component.split.ratio.emphasized',
+        'component.split.breakpoint.compact',
+        'component.split.breakpoint.standard',
+        'component.split.breakpoint.wide',
+        'component.scroll-region.max-block-size',
+        'component.scroll-region.max-inline-size',
+        'component.scroll-region.color.border',
+        'component.scroll-region.focus-ring-color',
+      ]),
+    );
+    expect(tokens['component.split.breakpoint.compact'].value).toBe('26rem');
+    expect(tokens['component.split.breakpoint.standard'].value).toBe('38rem');
+    expect(tokens['component.split.breakpoint.wide'].value).toBe('50rem');
+  });
+
   it('provides accessible contrast for the default dark-theme foundations', () => {
     const paper = referenceColor('color.reference.paper.50');
     const canvas = referenceColor('color.reference.ink.950');

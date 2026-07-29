@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wayglass layout primitives fixture</title>
+    <link rel="stylesheet" href="/packages/tokens/dist/tokens.css" />
+    <link rel="stylesheet" href="/packages/themes/dist/themes.css" />
+    <link rel="stylesheet" href="/packages/elements/dist/foundations.css" />
+    <style>
+      body {
+        margin: 0;
+        color: var(--wg-color-semantic-text-primary);
+        background: var(--wg-color-semantic-surface-canvas);
+        font-family: var(--wg-typography-family-body);
+      }
+      main {
+        padding: 1rem;
+      }
+      h1,
+      h2,
+      p,
+      ol {
+        margin-block: 0;
+      }
+      .peer {
+        min-block-size: 3rem;
+        padding: 0.5rem;
+        border: 1px solid var(--wg-color-semantic-border-subtle);
+        overflow-wrap: anywhere;
+      }
+      #split-fixture {
+        inline-size: 42rem;
+        max-inline-size: 100%;
+      }
+      #scroll-overflow {
+        --wg-scroll-region-max-block-size: 6rem;
+      }
+      #scroll-fit {
+        --wg-scroll-region-max-block-size: 20rem;
+      }
+    </style>
+  </head>
+  <body data-wg-theme="wayglass-dark" data-wg-density="compact">
+    <main>
+      <wg-stack id="root-stack" space="function">
+        <h1 class="wg-type-title">Layout fixture</h1>
+        <section aria-labelledby="frame-heading">
+          <wg-frame id="frame-fixture">
+            <wg-stack space="section">
+              <h2 id="frame-heading" class="wg-type-section">Function boundary</h2>
+              <wg-cluster id="cluster-fixture" justify="between" align="baseline">
+                <span>Short metadata</span>
+                <button type="button">Native action</button>
+                <span>Long localized content that can wrap safely</span>
+              </wg-cluster>
+              <wg-grid id="grid-fixture" minimum="compact">
+                <div class="peer">Peer one</div>
+                <div class="peer">Peer two with extended content</div>
+                <div class="peer">Peer three</div>
+              </wg-grid>
+              <wg-split id="split-fixture" ratio="primary">
+                <section slot="primary" class="peer">
+                  <button id="primary-action" type="button">Primary action</button>
+                </section>
+                <aside slot="secondary" class="peer">
+                  <a id="secondary-link" href="#history">Supporting context</a>
+                </aside>
+              </wg-split>
+              <wg-scroll-region id="scroll-overflow" label="Recent events">
+                <ol id="history">
+                  <li>Event one</li>
+                  <li>Event two</li>
+                  <li>Event three</li>
+                  <li>Event four</li>
+                  <li>Event five</li>
+                  <li>Event six</li>
+                </ol>
+              </wg-scroll-region>
+              <wg-scroll-region id="scroll-fit" label="Short history">
+                <p>One short event.</p>
+              </wg-scroll-region>
+              <wg-scroll-region
+                id="scroll-unlabeled"
+                style="--wg-scroll-region-max-block-size: 1rem"
+              >
+                <p>
+                  Unlabeled content remains visible and scrollable when it is deliberately
+                  constrained.
+                </p>
+              </wg-scroll-region>
+            </wg-stack>
+          </wg-frame>
+        </section>
+      </wg-stack>
+    </main>
+    <script type="module">
+      import { defineWgCluster } from '/packages/elements/dist/cluster.js';
+      import { defineWgFrame } from '/packages/elements/dist/frame.js';
+      import { defineWgGrid } from '/packages/elements/dist/grid.js';
+      import { defineWgScrollRegion } from '/packages/elements/dist/scroll-region.js';
+      import { defineWgSplit } from '/packages/elements/dist/split.js';
+      import { defineWgStack } from '/packages/elements/dist/stack.js';
+
+      defineWgFrame();
+      defineWgStack();
+      defineWgCluster();
+      defineWgGrid();
+      defineWgSplit();
+      defineWgScrollRegion();
+    </script>
+  </body>
+</html>

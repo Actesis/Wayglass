@@ -1,0 +1,25 @@
+.wg-layout-catalog {
+  min-inline-size: 0;
+}
+
+.wg-layout-catalog h1,
+.wg-layout-catalog h2,
+.wg-layout-catalog p,
+.wg-layout-catalog ol {
+  margin-block: 0;
+}
+
+.wg-layout-kicker {
+  color: var(--wg-color-semantic-text-secondary);
+}
+
+.wg-layout-history {
+  display: grid;
+  gap: var(--wg-component-layout-space-related);
+  padding: var(--wg-space-reference-4);
+  padding-inline-start: var(--wg-space-reference-8);
+}
+
+.wg-layout-catalog wg-status-indicator {
+  min-inline-size: 8rem;
+}

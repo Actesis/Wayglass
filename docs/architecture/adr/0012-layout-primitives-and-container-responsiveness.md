@@ -1,6 +1,6 @@
 # ADR 0012: Use semantic layout elements with container-owned responsiveness
 
-- Status: proposed
+- Status: accepted
 - Date: 2026-07-29
 
 ## Context
