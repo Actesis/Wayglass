@@ -40,7 +40,7 @@ export default defineConfig({
       },
       {
         text: 'Phase 2 selection',
-        items: [{ text: 'Tabs (proposed)', link: '/components/tabs' }],
+        items: [{ text: 'Tabs', link: '/components/tabs' }],
       },
       {
         text: 'Architecture',
@@ -65,6 +65,10 @@ export default defineConfig({
           {
             text: 'Phase 1 validation',
             link: '/accessibility/phase-1-validation',
+          },
+          {
+            text: 'Phase 2A tabs validation',
+            link: '/accessibility/phase-2a-tabs-validation',
           },
         ],
       },

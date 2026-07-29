@@ -4,8 +4,9 @@
 [ADR 0009](../architecture/adr/0009-tabs-architecture.md).
 
 **Implementation:** The framework-neutral Custom Elements interaction model and typed React wrappers
-and production-backed stories and examples are complete. The final assistive-technology review
-remains a separate Phase 2A milestone.
+and production-backed stories and examples are complete. Automated validation is recorded in the
+[Phase 2A tabs validation record](../accessibility/phase-2a-tabs-validation.md). The representative
+screen-reader review remains the final Phase 2A acceptance gate.
 
 ## Purpose
 
@@ -332,7 +333,8 @@ Repeated registration is safe and conflicting constructors throw, consistent wit
 
 - Confirm whether wrapping or horizontal scrolling is the safer default for long selector sets after
   testing the Function Deck fixtures.
-- Record the representative browser and assistive-technology matrix required to accept ADR 0009.
+- Complete the representative assistive-technology matrix recorded in the
+  [Phase 2A tabs validation record](../accessibility/phase-2a-tabs-validation.md).
 
 ## References
 

@@ -37,6 +37,27 @@ test('exposes one named tablist with paired tab and panel semantics', async ({ p
   await expect(page.getByRole('tabpanel', { name: /Communications/ })).toBeHidden();
 });
 
+test('shows keyboard focus and moves from the selected tab into its panel', async ({ page }) => {
+  const access = page.getByRole('tab', { name: 'Access', exact: true });
+  const accessPanel = page.getByRole('tabpanel', { name: 'Access', exact: true });
+
+  await access.focus();
+  await expect(access).toBeFocused();
+
+  const focusStyle = await access.evaluate((element) => {
+    const style = getComputedStyle(element);
+    return {
+      outlineStyle: style.outlineStyle,
+      outlineWidth: Number.parseFloat(style.outlineWidth),
+    };
+  });
+  expect(focusStyle.outlineStyle).not.toBe('none');
+  expect(focusStyle.outlineWidth).toBeGreaterThan(0);
+
+  await page.keyboard.press('Tab');
+  await expect(accessPanel).toBeFocused();
+});
+
 test('uses automatic horizontal navigation, wrapping, disabled skipping, and RTL mapping', async ({
   page,
 }) => {
@@ -270,6 +291,50 @@ test('keeps tabs touch-sized and removes transitions for reduced motion', async 
   });
   expect(durations.every((duration) => duration === '0s')).toBe(true);
 });
+
+test('keeps selection discoverable without page overflow at 200% zoom', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 900 });
+  await page.reload();
+  await page.waitForFunction(() => customElements.get('wg-tabs') !== undefined);
+
+  const access = page.getByRole('tab', { name: 'Access', exact: true });
+  await access.focus();
+  await page.keyboard.press('End');
+
+  const processing = page.getByRole('tab', { name: /Processing/ });
+  await expect(processing).toBeFocused();
+  await expect(processing).toHaveAttribute('aria-selected', 'true');
+
+  const layout = await processing.evaluate((tab) => {
+    const list = tab.closest('wg-tab-list')!;
+    const scroller = list.shadowRoot!.querySelector('[part="list"]')!;
+    const tabBounds = tab.getBoundingClientRect();
+    const scrollerBounds = scroller.getBoundingClientRect();
+
+    return {
+      documentClientWidth: document.documentElement.clientWidth,
+      documentScrollWidth: document.documentElement.scrollWidth,
+      selectedWithinScroller:
+        tabBounds.left >= scrollerBounds.left - 1 && tabBounds.right <= scrollerBounds.right + 1,
+    };
+  });
+
+  expect(layout.documentScrollWidth - layout.documentClientWidth).toBeLessThanOrEqual(1);
+  expect(layout.selectedWithinScroller).toBe(true);
+});
+
+for (const theme of ['wayglass-dark', 'wayglass-light'] as const) {
+  test(`has no automated accessibility violations in the ${theme} theme`, async ({ page }) => {
+    const provider = page.locator('wg-theme-provider');
+    await provider.evaluate((element, nextTheme) => {
+      element.setAttribute('theme', nextTheme);
+    }, theme);
+    await expect(provider).toHaveAttribute('data-wg-theme', theme);
+
+    const results = await new AxeBuilder({ page }).analyze();
+    expect(results.violations).toEqual([]);
+  });
+}
 
 test('retains selected, focus, and relationship semantics in forced colors without Axe violations', async ({
   page,
