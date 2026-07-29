@@ -74,7 +74,7 @@ can be validated before later components depend on it.
 
 ### Phase 2C — Foundation, layout, and media expansion
 
-- [ ] Specify the remaining foundation contracts: typography, icon, visually hidden content, focus
+- [x] Specify the remaining foundation contracts: typography, icon, visually hidden content, focus
       ring, surface, and divider.
 - [ ] Specify the remaining layout contracts: frame, stack, cluster, grid, split, and scroll region.
 - [ ] Implement, document, and validate the accepted foundation and layout primitives.

@@ -43,9 +43,12 @@ Supporting foundations:
 - [`docs/patterns/function-deck.md`](./docs/patterns/function-deck.md) defines the Phase 2B focused
   composition, with evidence in the
   [`Function Deck validation record`](./docs/accessibility/phase-2b-function-deck-validation.md).
-- [`docs/foundations/foundation-contracts.md`](./docs/foundations/foundation-contracts.md) proposes
-  the remaining Phase 2C foundation APIs and their
+- [`docs/foundations/foundation-contracts.md`](./docs/foundations/foundation-contracts.md) defines
+  the accepted Phase 2C foundation APIs and their
   [`delivery-model decision`](./docs/architecture/adr/0011-foundation-delivery-model.md).
+- [`docs/layout/layout-contracts.md`](./docs/layout/layout-contracts.md) proposes the remaining
+  Phase 2C layout APIs and their
+  [`container-responsive architecture decision`](./docs/architecture/adr/0012-layout-primitives-and-container-responsiveness.md).
 
 ## Local development
 
