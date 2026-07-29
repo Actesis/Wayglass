@@ -5,8 +5,8 @@
 
 **Implementation:** The framework-neutral Custom Elements interaction model and typed React wrappers
 and production-backed stories and examples are complete. Automated validation is recorded in the
-[Phase 2A tabs validation record](../accessibility/phase-2a-tabs-validation.md). The representative
-screen-reader review remains the final Phase 2A acceptance gate.
+[Phase 2A tabs validation record](../accessibility/phase-2a-tabs-validation.md), together with the
+completed VoiceOver and Safari acceptance review.
 
 ## Purpose
 
@@ -333,8 +333,6 @@ Repeated registration is safe and conflicting constructors throw, consistent wit
 
 - Confirm whether wrapping or horizontal scrolling is the safer default for long selector sets after
   testing the Function Deck fixtures.
-- Complete the representative assistive-technology matrix recorded in the
-  [Phase 2A tabs validation record](../accessibility/phase-2a-tabs-validation.md).
 
 ## References
 
