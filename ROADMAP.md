@@ -63,7 +63,7 @@ can be validated before later components depend on it.
 ### Phase 2B — Focused Function Deck
 
 - [x] Define the production composition API after the tabs primitive is validated.
-- [ ] Compose the deck from tabs without adding selection behavior to `wg-elbow`.
+- [x] Compose the deck from tabs without adding selection behavior to `wg-elbow`.
 - [ ] Reuse one domain-neutral function model across overview and focused compositions.
 - [ ] Preserve labeled summaries for hidden caution, critical, stale, unavailable, and pending
       state.

@@ -25,6 +25,14 @@ defineWgValueTile();
 
 export type OperationsOverviewWidth = 'phone' | 'desktop' | 'wall';
 export type OperationsOverviewTheme = 'wayglass-dark' | 'wayglass-light';
+export type OperationsFunctionValue = 'access' | 'communications' | 'processing';
+export type OperationsFunctionHeading = 'elbow' | 'plain';
+
+export const operationsFunctionValues: readonly OperationsFunctionValue[] = [
+  'access',
+  'communications',
+  'processing',
+];
 
 export interface OperationsOverviewOptions {
   readonly width: OperationsOverviewWidth;
@@ -39,16 +47,30 @@ function booleanPresentation(width: OperationsOverviewWidth) {
   return width === 'wall' ? 'field' : 'rail';
 }
 
-function accessFunction(width: OperationsOverviewWidth) {
+function functionHeading(
+  label: string,
+  headingId: string,
+  presentation: OperationsFunctionHeading,
+) {
+  return presentation === 'elbow'
+    ? html`
+        <wg-elbow weight="strong">
+          <h2 id=${headingId}>${label}</h2>
+        </wg-elbow>
+      `
+    : html`<h2 id=${headingId}>${label}</h2>`;
+}
+
+function accessFunction(
+  width: OperationsOverviewWidth,
+  idPrefix: string,
+  heading: OperationsFunctionHeading,
+) {
+  const headingId = `${idPrefix}-access-heading`;
+
   return html`
-    <section
-      class="wg-overview-function"
-      data-function="access"
-      aria-labelledby="overview-access-heading"
-    >
-      <wg-elbow weight="strong">
-        <h2 id="overview-access-heading">Access</h2>
-      </wg-elbow>
+    <section class="wg-overview-function" data-function="access" aria-labelledby=${headingId}>
+      ${functionHeading('Access', headingId, heading)}
       <div class="wg-overview-function__body">
         <wg-rail weight="strong"></wg-rail>
         <div class="wg-overview-function__sections">
@@ -87,16 +109,20 @@ function accessFunction(width: OperationsOverviewWidth) {
   `;
 }
 
-function communicationsFunction(width: OperationsOverviewWidth) {
+function communicationsFunction(
+  width: OperationsOverviewWidth,
+  idPrefix: string,
+  heading: OperationsFunctionHeading,
+) {
+  const headingId = `${idPrefix}-communications-heading`;
+
   return html`
     <section
       class="wg-overview-function"
       data-function="communications"
-      aria-labelledby="overview-communications-heading"
+      aria-labelledby=${headingId}
     >
-      <wg-elbow weight="strong">
-        <h2 id="overview-communications-heading">Communications</h2>
-      </wg-elbow>
+      ${functionHeading('Communications', headingId, heading)}
       <div class="wg-overview-function__body">
         <wg-rail weight="strong"></wg-rail>
         <div class="wg-overview-function__sections">
@@ -144,16 +170,16 @@ function communicationsFunction(width: OperationsOverviewWidth) {
   `;
 }
 
-function processingFunction(width: OperationsOverviewWidth) {
+function processingFunction(
+  width: OperationsOverviewWidth,
+  idPrefix: string,
+  heading: OperationsFunctionHeading,
+) {
+  const headingId = `${idPrefix}-processing-heading`;
+
   return html`
-    <section
-      class="wg-overview-function"
-      data-function="processing"
-      aria-labelledby="overview-processing-heading"
-    >
-      <wg-elbow weight="strong">
-        <h2 id="overview-processing-heading">Processing</h2>
-      </wg-elbow>
+    <section class="wg-overview-function" data-function="processing" aria-labelledby=${headingId}>
+      ${functionHeading('Processing', headingId, heading)}
       <div class="wg-overview-function__body">
         <wg-rail weight="strong"></wg-rail>
         <div class="wg-overview-function__sections">
@@ -206,6 +232,22 @@ function processingFunction(width: OperationsOverviewWidth) {
   `;
 }
 
+export function renderOperationsFunction(
+  value: OperationsFunctionValue,
+  width: OperationsOverviewWidth,
+  idPrefix = 'overview',
+  heading: OperationsFunctionHeading = 'elbow',
+) {
+  switch (value) {
+    case 'access':
+      return accessFunction(width, idPrefix, heading);
+    case 'communications':
+      return communicationsFunction(width, idPrefix, heading);
+    case 'processing':
+      return processingFunction(width, idPrefix, heading);
+  }
+}
+
 export function renderOperationsOverview({ width, theme }: OperationsOverviewOptions) {
   return html`
     <div class="wg-overview-viewport wg-overview-viewport--${width}" data-overview-width=${width}>
@@ -220,7 +262,9 @@ export function renderOperationsOverview({ width, theme }: OperationsOverviewOpt
             </p>
           </header>
           <main class="wg-overview-functions">
-            ${accessFunction(width)} ${communicationsFunction(width)} ${processingFunction(width)}
+            ${operationsFunctionValues.map((value) =>
+              renderOperationsFunction(value, width, 'overview'),
+            )}
           </main>
           <footer slot="footer" class="wg-overview-footer">
             <span>Local fixture</span>

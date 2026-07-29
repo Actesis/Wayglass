@@ -45,7 +45,9 @@ direct path to it. Interactive controls must not be nested inside `wg-tab`; a pe
 when required, sits outside the tablist and moves selection through the existing `wg-tabs` API.
 
 Static `wg-elbow` headings remain inert structure inside a function surface. They do not receive
-selection, focus, or tab semantics.
+selection, focus, or tab semantics. The reference focused composition does not place one directly
+beneath the selected tab because the repeated folder-like geometry creates a misleading second
+selector layer; it uses a plain repeated function heading instead.
 
 ## Consequences
 

@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wayglass Function Deck fixture</title>
+    <link rel="stylesheet" href="/packages/tokens/dist/tokens.css" />
+    <link rel="stylesheet" href="/packages/themes/dist/themes.css" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module">
+      import { render } from 'lit';
+      import { renderFunctionDeck } from '/apps/storybook/stories/function-deck.fixture.ts';
+
+      render(renderFunctionDeck('wayglass-dark'), document.querySelector('#root'));
+    </script>
+  </body>
+</html>
