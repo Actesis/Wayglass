@@ -6,7 +6,9 @@
   "files": [
     "dist"
   ],
-  "sideEffects": false,
+  "sideEffects": [
+    "**/*.css"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -24,10 +26,15 @@
       "types": "./dist/canvas.d.ts",
       "import": "./dist/canvas.js"
     },
+    "./divider": {
+      "types": "./dist/divider.d.ts",
+      "import": "./dist/divider.js"
+    },
     "./elbow": {
       "types": "./dist/elbow.d.ts",
       "import": "./dist/elbow.js"
     },
+    "./foundations.css": "./dist/foundations.css",
     "./metric": {
       "types": "./dist/metric.d.ts",
       "import": "./dist/metric.js"
@@ -43,6 +50,10 @@
     "./status-indicator": {
       "types": "./dist/status-indicator.d.ts",
       "import": "./dist/status-indicator.js"
+    },
+    "./surface": {
+      "types": "./dist/surface.d.ts",
+      "import": "./dist/surface.js"
     },
     "./tab": {
       "types": "./dist/tab.d.ts",
@@ -70,7 +81,7 @@
     }
   },
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "build": "tsc -p tsconfig.build.json && node scripts/build.mjs",
     "test": "vitest run --passWithNoTests",
     "test:coverage": "vitest run --coverage --passWithNoTests",
     "typecheck": "tsc --noEmit -p tsconfig.json"

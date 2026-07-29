@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wayglass foundation primitives fixture</title>
+    <link rel="stylesheet" href="/packages/tokens/dist/tokens.css" />
+    <link rel="stylesheet" href="/packages/themes/dist/themes.css" />
+    <link rel="stylesheet" href="/packages/elements/dist/foundations.css" />
+    <style>
+      body {
+        margin: 0;
+        color: var(--wg-color-semantic-text-primary);
+        background: var(--wg-color-semantic-surface-canvas);
+        font-family: var(--wg-typography-family-body);
+      }
+
+      main {
+        display: grid;
+        gap: var(--wg-space-reference-4);
+        padding: var(--wg-space-reference-4);
+      }
+
+      h1,
+      h2,
+      p {
+        margin-block: 0;
+      }
+
+      .vertical-divider-fixture {
+        display: flex;
+        align-items: stretch;
+        min-block-size: 4rem;
+        gap: var(--wg-space-reference-2);
+      }
+    </style>
+  </head>
+  <body data-wg-theme="wayglass-dark" data-wg-density="compact">
+    <a id="skip-link" class="wg-visually-hidden-until-focus wg-focus-ring" href="#content">
+      Skip to content
+    </a>
+    <main id="content">
+      <h1 id="title" class="wg-type-title">Foundation fixture</h1>
+      <h2 id="section-title" class="wg-type-section">Native heading</h2>
+      <p id="body-copy" class="wg-type-body">
+        Native text retains its semantics.
+        <span id="hidden-copy" class="wg-visually-hidden">Assistive detail</span>
+      </p>
+      <p id="value" class="wg-type-value">0072</p>
+      <button id="native-focus" class="wg-focus-ring" type="button">Native focus target</button>
+      <wg-surface id="surface-panel" tone="panel">
+        <p>Panel content</p>
+      </wg-surface>
+      <wg-surface id="surface-raised" tone="raised" boundary="strong" padding="compact">
+        <p>Raised content</p>
+      </wg-surface>
+      <wg-divider id="semantic-divider"></wg-divider>
+      <wg-divider id="decorative-divider" decorative></wg-divider>
+      <div class="vertical-divider-fixture">
+        <span>Start</span>
+        <wg-divider id="vertical-divider" orientation="vertical" weight="strong"></wg-divider>
+        <span>End</span>
+      </div>
+    </main>
+    <script type="module">
+      import { defineWgDivider } from '/packages/elements/dist/divider.js';
+      import { defineWgSurface } from '/packages/elements/dist/surface.js';
+
+      defineWgSurface();
+      defineWgDivider();
+    </script>
+  </body>
+</html>

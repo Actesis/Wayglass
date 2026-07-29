@@ -1,0 +1,93 @@
+@layer wayglass.foundations {
+  .wg-type-title {
+    font-family: var(--wg-typography-family-display);
+    font-size: var(--wg-typography-size-title);
+    font-weight: var(--wg-typography-weight-emphasis);
+    line-height: var(--wg-typography-line-height-compact);
+  }
+
+  .wg-type-section {
+    font-family: var(--wg-typography-family-display);
+    font-size: var(--wg-typography-size-section);
+    font-weight: var(--wg-typography-weight-emphasis);
+    line-height: var(--wg-typography-line-height-compact);
+  }
+
+  .wg-type-body {
+    font-family: var(--wg-typography-family-body);
+    font-size: var(--wg-typography-size-body);
+    font-weight: var(--wg-typography-weight-regular);
+    line-height: var(--wg-typography-line-height-body);
+  }
+
+  .wg-type-label {
+    font-family: var(--wg-typography-family-body);
+    font-size: var(--wg-typography-size-label);
+    font-weight: var(--wg-typography-weight-medium);
+    line-height: var(--wg-typography-line-height-compact);
+  }
+
+  .wg-type-metadata {
+    font-family: var(--wg-typography-family-body);
+    font-size: var(--wg-typography-size-metadata);
+    font-weight: var(--wg-typography-weight-regular);
+    line-height: var(--wg-typography-line-height-body);
+  }
+
+  .wg-type-value,
+  .wg-type-value-prominent {
+    font-family: var(--wg-typography-family-numeric);
+    font-weight: var(--wg-typography-weight-emphasis);
+    font-variant-numeric: tabular-nums;
+    line-height: var(--wg-typography-line-height-compact);
+  }
+
+  .wg-type-value {
+    font-size: var(--wg-typography-size-value-compact);
+  }
+
+  .wg-type-value-prominent {
+    font-size: var(--wg-typography-size-value-prominent);
+  }
+
+  .wg-visually-hidden,
+  .wg-visually-hidden-until-focus:not(:focus-visible) {
+    position: absolute !important;
+    inline-size: 1px !important;
+    block-size: 1px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip-path: inset(50%) !important;
+    white-space: nowrap !important;
+  }
+
+  .wg-visually-hidden-until-focus:focus-visible {
+    position: fixed;
+    z-index: var(--wg-z-index-overlay);
+    inset-block-start: var(--wg-space-reference-2);
+    inset-inline-start: var(--wg-space-reference-2);
+    padding-block: var(--wg-space-reference-2);
+    padding-inline: var(--wg-space-reference-4);
+    color: var(--wg-color-semantic-text-primary);
+    background: var(--wg-color-semantic-surface-raised);
+  }
+
+  .wg-focus-ring {
+    --wg-focus-ring-color: var(--wg-component-focus-ring-color);
+    --wg-focus-ring-width: var(--wg-component-focus-ring-width);
+    --wg-focus-ring-offset: var(--wg-component-focus-ring-offset);
+  }
+
+  .wg-focus-ring:focus-visible {
+    outline: var(--wg-focus-ring-width) solid var(--wg-focus-ring-color);
+    outline-offset: var(--wg-focus-ring-offset);
+  }
+
+  @media (forced-colors: active) {
+    .wg-focus-ring {
+      --wg-focus-ring-color: Highlight;
+    }
+  }
+}

@@ -46,6 +46,8 @@ Supporting foundations:
 - [`docs/foundations/foundation-contracts.md`](./docs/foundations/foundation-contracts.md) defines
   the accepted Phase 2C foundation APIs and their
   [`delivery-model decision`](./docs/architecture/adr/0011-foundation-delivery-model.md).
+  Implementation evidence is recorded in the
+  [`foundation substrate validation`](./docs/accessibility/phase-2c-foundations-validation.md).
 - [`docs/layout/layout-contracts.md`](./docs/layout/layout-contracts.md) proposes the remaining
   Phase 2C layout APIs and their
   [`container-responsive architecture decision`](./docs/architecture/adr/0012-layout-primitives-and-container-responsiveness.md).

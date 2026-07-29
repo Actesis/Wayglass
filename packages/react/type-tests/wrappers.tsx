@@ -1,4 +1,5 @@
 import type { WgButton as WgButtonElement } from '@wayglass/elements/button';
+import type { WgSurface as WgSurfaceElement } from '@wayglass/elements/surface';
 import type { WgTab as WgTabElement, WgTabs as WgTabsElement } from '@wayglass/elements/tabs';
 import type { WgThemeProvider as WgThemeProviderElement } from '@wayglass/elements/theme-provider';
 import { createRef } from 'react';
@@ -6,7 +7,9 @@ import { createRef } from 'react';
 import {
   WgBooleanValue,
   WgButton,
+  WgDivider,
   WgMetric,
+  WgSurface,
   WgTab,
   WgTabList,
   WgTabPanel,
@@ -17,6 +20,7 @@ import {
 import type { WgTabChangeEvent, WgThemeChangeEvent } from '../src/index.js';
 
 const buttonRef = createRef<WgButtonElement>();
+const surfaceRef = createRef<WgSurfaceElement>();
 const providerRef = createRef<WgThemeProviderElement>();
 const tabRef = createRef<WgTabElement>();
 const tabsRef = createRef<WgTabsElement>();
@@ -35,6 +39,11 @@ const typedComposition = (
         Retry Communications primary link
       </WgButton>
     </WgValueTile>
+    <WgSurface ref={surfaceRef} tone="inset" boundary="strong" padding="compact">
+      <p>Supporting neutral context</p>
+      <WgDivider decorative />
+      <p>Additional context</p>
+    </WgSurface>
   </WgThemeProvider>
 );
 
@@ -91,6 +100,12 @@ const invalidActivation = <WgTabs activation="lazy" />;
 // @ts-expect-error Disabled remains Boolean in React.
 const invalidTabDisabled = <WgTab disabled="true" />;
 
+// @ts-expect-error Surface tone is a closed neutral vocabulary.
+const invalidSurfaceTone = <WgSurface tone="critical" />;
+
+// @ts-expect-error Decorative remains Boolean in React.
+const invalidDividerDecorative = <WgDivider decorative="true" />;
+
 void typedComposition;
 void typedProvider;
 void typedTabs;
@@ -98,3 +113,5 @@ void invalidCondition;
 void invalidPending;
 void invalidActivation;
 void invalidTabDisabled;
+void invalidSurfaceTone;
+void invalidDividerDecorative;

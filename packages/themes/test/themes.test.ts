@@ -111,6 +111,9 @@ describe('Phase 1 themes', () => {
     expect(first).toContain('--wg-color-semantic-selection-indicator: Highlight');
     expect(first).toContain('--wg-color-semantic-selection-surface: Canvas');
     expect(first).toContain('--wg-component-tab-space-inline: var(--wg-space-reference-6)');
+    expect(first).toContain(
+      '--wg-component-surface-space-comfortable: var(--wg-space-reference-6)',
+    );
     expect(first).not.toContain('wayglass-high-contrast');
     expect(first).not.toContain('wayglass-dim');
   });

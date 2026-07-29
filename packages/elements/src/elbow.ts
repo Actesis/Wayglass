@@ -71,7 +71,7 @@ export class WgElbow extends WayglassElement {
       border-start-end-radius: var(--wg-elbow-radius);
       color: var(--wg-elbow-color-text);
       background: var(--wg-elbow-color-background);
-      font-size: var(--wg-typography-size-section-title);
+      font-size: var(--wg-typography-size-section);
       font-weight: var(--wg-typography-weight-emphasis);
       overflow-wrap: anywhere;
     }

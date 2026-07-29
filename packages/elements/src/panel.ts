@@ -101,7 +101,7 @@ export class WgPanel extends WayglassElement {
 
     [part='heading'] {
       min-inline-size: 0;
-      font-size: var(--wg-typography-size-section-title);
+      font-size: var(--wg-typography-size-section);
       font-weight: var(--wg-typography-weight-emphasis);
       overflow-wrap: anywhere;
     }

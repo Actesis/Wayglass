@@ -15,6 +15,16 @@ export {
 } from './canvas.js';
 export type { CanvasWidth } from './canvas.js';
 export {
+  defineWgDivider,
+  dividerOrientations,
+  dividerWeights,
+  isDividerOrientation,
+  isDividerWeight,
+  WgDivider,
+  wgDividerTagName,
+} from './divider.js';
+export type { DividerOrientation, DividerWeight } from './divider.js';
+export {
   defineWgElbow,
   elbowPlacements,
   elbowWeights,
@@ -47,6 +57,18 @@ export {
   wgStatusIndicatorTagName,
 } from './status-indicator.js';
 export type { StatusIndicatorSize } from './status-indicator.js';
+export {
+  defineWgSurface,
+  isSurfaceBoundary,
+  isSurfacePadding,
+  isSurfaceTone,
+  surfaceBoundaries,
+  surfacePaddings,
+  surfaceTones,
+  WgSurface,
+  wgSurfaceTagName,
+} from './surface.js';
+export type { SurfaceBoundary, SurfacePadding, SurfaceTone } from './surface.js';
 export {
   defineWgTab,
   defineWgTabList,
