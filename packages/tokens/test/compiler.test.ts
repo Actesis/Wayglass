@@ -193,6 +193,21 @@ describe('token compiler', () => {
     expect(tokens['component.split.breakpoint.wide'].value).toBe('50rem');
   });
 
+  it('contains the locked Phase 2C media token roles', () => {
+    expect(Object.keys(tokens)).toEqual(
+      expect.arrayContaining([
+        'component.media.color.background',
+        'component.media.color.border',
+        'component.media.color.border-strong',
+        'component.media.border-size.subtle',
+        'component.media.border-size.strong',
+        'component.media.radius',
+        'component.media.min-block-size',
+        'component.media.state-space',
+      ]),
+    );
+  });
+
   it('provides accessible contrast for the default dark-theme foundations', () => {
     const paper = referenceColor('color.reference.paper.50');
     const canvas = referenceColor('color.reference.ink.950');

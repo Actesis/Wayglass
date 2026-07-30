@@ -16,6 +16,8 @@ export { WgGrid } from './grid.js';
 export type { WgGridProps } from './grid.js';
 export { WgMetric } from './metric.js';
 export type { WgMetricProps } from './metric.js';
+export { WgMedia } from './media.js';
+export type { WgMediaProps } from './media.js';
 export { WgPanel } from './panel.js';
 export type { WgPanelProps } from './panel.js';
 export { WgRail } from './rail.js';

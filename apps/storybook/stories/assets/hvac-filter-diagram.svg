@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900">
+  <rect width="1200" height="900" fill="#eef2f6"/>
+  <rect x="230" y="90" width="610" height="720" rx="34" fill="#d8dee7" stroke="#374151" stroke-width="12"/>
+  <rect x="290" y="150" width="490" height="260" rx="20" fill="#f8fafc" stroke="#64748b" stroke-width="8"/>
+  <path d="M350 220h370M350 280h370M350 340h370" stroke="#94a3b8" stroke-width="12"/>
+  <rect x="290" y="470" width="490" height="270" rx="20" fill="#cbd5e1" stroke="#374151" stroke-width="10"/>
+  <rect x="440" y="525" width="260" height="165" rx="16" fill="#f8fafc" stroke="#2563eb" stroke-width="14"/>
+  <path d="m460 555 220 105m0-105L460 660" stroke="#94a3b8" stroke-width="12"/>
+  <path d="M720 607h205" stroke="#2563eb" stroke-width="16" stroke-linecap="round"/>
+  <path d="m885 565 55 42-55 42" fill="none" stroke="#2563eb" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="860" y="485" width="250" height="112" rx="18" fill="#172033"/>
+  <text x="985" y="535" fill="#f8fafc" font-family="system-ui,sans-serif" font-size="34" text-anchor="middle">FILTER ACCESS</text>
+  <text x="985" y="575" fill="#cbd5e1" font-family="system-ui,sans-serif" font-size="26" text-anchor="middle">lower front panel</text>
+</svg>

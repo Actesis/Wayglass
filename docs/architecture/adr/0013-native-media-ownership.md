@@ -1,6 +1,6 @@
 # ADR 0013: Keep media sources and semantics in consumer-authored native elements
 
-- Status: proposed
+- Status: accepted
 - Date: 2026-07-29
 
 ## Context

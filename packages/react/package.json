@@ -48,6 +48,10 @@
       "types": "./dist/metric.d.ts",
       "import": "./dist/metric.js"
     },
+    "./media": {
+      "types": "./dist/media.d.ts",
+      "import": "./dist/media.js"
+    },
     "./panel": {
       "types": "./dist/panel.d.ts",
       "import": "./dist/panel.js"

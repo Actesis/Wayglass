@@ -1,7 +1,8 @@
 # Phase 2C media-content contract
 
-**Status:** Proposed for Phase 2C review on July 29, 2026. The ownership and delivery model is
-recorded in [ADR 0013](../architecture/adr/0013-native-media-ownership.md).
+**Status:** Accepted and implemented on July 30, 2026. The ownership and delivery model is recorded
+in [ADR 0013](../architecture/adr/0013-native-media-ownership.md), with implementation evidence in
+the [Phase 2C media-content validation](../accessibility/phase-2c-media-validation.md).
 
 This contract adds domain-neutral image presentation without turning Wayglass into an asset store,
 placing media URLs in shared function state, or making an image the only carrier of state,
@@ -122,7 +123,10 @@ state, with an explicit explanation when it is unavailable.
 
 - `base`
 - `viewport`
+- `asset`
 - `state`
+- `state-loading`
+- `state-unavailable`
 - `inspection`
 
 ### CSS custom properties
@@ -298,7 +302,7 @@ may hide the default native image solely because JavaScript has not upgraded the
 
 ## Validation requirements
 
-Implementation must cover:
+Implementation validation covers:
 
 - direct `<img>` and art-directed `<picture>` content;
 - informative and decorative alternatives without duplicate image roles;

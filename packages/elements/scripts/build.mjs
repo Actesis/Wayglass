@@ -7,3 +7,4 @@ await copyFile(
   new URL('../src/foundations.css', import.meta.url),
   new URL('foundations.css', outputDirectory),
 );
+await copyFile(new URL('../src/media.css', import.meta.url), new URL('media.css', outputDirectory));

@@ -845,6 +845,46 @@ export const tokens = {
     type: 'color',
     description: 'Keyboard focus indicator for an overflowing scroll region.',
   },
+  'component.media.color.background': {
+    value: '{color.semantic.surface.inset}',
+    type: 'color',
+    description: 'Neutral media viewport and state background.',
+  },
+  'component.media.color.border': {
+    value: '{color.semantic.border.subtle}',
+    type: 'color',
+    description: 'Routine neutral media boundary.',
+  },
+  'component.media.color.border-strong': {
+    value: '{color.semantic.border.strong}',
+    type: 'color',
+    description: 'Strong neutral media boundary.',
+  },
+  'component.media.border-size.subtle': {
+    value: '{border.width.standard}',
+    type: 'dimension',
+    description: 'Subtle media boundary width.',
+  },
+  'component.media.border-size.strong': {
+    value: '{border.width.strong}',
+    type: 'dimension',
+    description: 'Strong media boundary width.',
+  },
+  'component.media.radius': {
+    value: '{shape.radius.panel}',
+    type: 'dimension',
+    description: 'Media viewport radius.',
+  },
+  'component.media.min-block-size': {
+    value: '10rem',
+    type: 'dimension',
+    description: 'Minimum reserved media state height when no ratio is available.',
+  },
+  'component.media.state-space': {
+    value: '{space.reference.4}',
+    type: 'dimension',
+    description: 'Media loading and unavailable presentation spacing.',
+  },
   'component.canvas.color.background': {
     value: '{color.semantic.surface.canvas}',
     type: 'color',

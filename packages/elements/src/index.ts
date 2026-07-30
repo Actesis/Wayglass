@@ -57,6 +57,20 @@ export type { FrameBoundary, FramePadding } from './frame.js';
 export { defineWgGrid, WgGrid, wgGridTagName } from './grid.js';
 export { defineWgMetric, isMetricSize, metricSizes, WgMetric, wgMetricTagName } from './metric.js';
 export type { MetricSize } from './metric.js';
+export {
+  defineWgMedia,
+  isMediaAspect,
+  isMediaBoundary,
+  isMediaFit,
+  isMediaState,
+  mediaAspects,
+  mediaBoundaries,
+  mediaFits,
+  mediaStates,
+  WgMedia,
+  wgMediaTagName,
+} from './media.js';
+export type { MediaAspect, MediaBoundary, MediaFit, MediaState } from './media.js';
 export { defineWgPanel, isPanelEmphasis, panelEmphases, WgPanel, wgPanelTagName } from './panel.js';
 export type { PanelEmphasis } from './panel.js';
 export {

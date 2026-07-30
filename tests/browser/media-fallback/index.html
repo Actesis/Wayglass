@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wayglass media fallback fixture</title>
+    <link rel="stylesheet" href="/packages/elements/dist/media.css" />
+  </head>
+  <body>
+    <wg-media id="fallback-ready">
+      <img
+        src="/apps/storybook/stories/assets/hvac-air-handler.jpg"
+        width="1200"
+        height="900"
+        alt="Fallback HVAC view"
+      />
+      <p slot="loading">Incorrect loading claim</p>
+      <p slot="unavailable">Incorrect unavailable claim</p>
+    </wg-media>
+    <wg-media id="fallback-unavailable" state="unavailable">
+      <img
+        src="/fixtures/intentionally-missing-fallback.jpg"
+        width="1200"
+        height="900"
+        alt="Unavailable fallback asset"
+      />
+      <p slot="loading">Incorrect loading claim</p>
+      <p slot="unavailable">Useful unavailable fallback remains visible</p>
+    </wg-media>
+  </body>
+</html>
