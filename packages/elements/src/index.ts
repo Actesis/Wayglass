@@ -7,6 +7,14 @@ export {
 } from './button.js';
 export type { ButtonAppearance } from './button.js';
 export {
+  defineWgIconButton,
+  iconButtonAppearances,
+  isIconButtonAppearance,
+  WgIconButton,
+  wgIconButtonTagName,
+} from './icon-button.js';
+export type { IconButtonAppearance } from './icon-button.js';
+export {
   canvasWidths,
   defineWgCanvas,
   isCanvasWidth,
@@ -71,6 +79,14 @@ export {
   wgMediaTagName,
 } from './media.js';
 export type { MediaAspect, MediaBoundary, MediaFit, MediaState } from './media.js';
+export {
+  defineWgNavigationRail,
+  isNavigationRailOrientation,
+  navigationRailOrientations,
+  WgNavigationRail,
+  wgNavigationRailTagName,
+} from './navigation-rail.js';
+export type { NavigationRailOrientation } from './navigation-rail.js';
 export { defineWgPanel, isPanelEmphasis, panelEmphases, WgPanel, wgPanelTagName } from './panel.js';
 export type { PanelEmphasis } from './panel.js';
 export {
@@ -93,6 +109,21 @@ export {
   wgScrollRegionTagName,
 } from './scroll-region.js';
 export type { ScrollRegionAxis } from './scroll-region.js';
+export {
+  defineWgSegment,
+  defineWgSegmentedControl,
+  isSegmentedOrientation,
+  segmentedOrientations,
+  WgSegment,
+  WgSegmentedControl,
+  wgSegmentedControlTagName,
+  wgSegmentTagName,
+} from './segmented-control.js';
+export type {
+  SegmentChangeTrigger,
+  SegmentedOrientation,
+  WgSegmentChangeDetail,
+} from './segmented-control.js';
 export { defineWgSplit, isSplitRatio, splitRatios, WgSplit, wgSplitTagName } from './split.js';
 export type { SplitRatio } from './split.js';
 export { defineWgStack, WgStack, wgStackTagName } from './stack.js';
@@ -150,6 +181,8 @@ export {
   wgThemeProviderTagName,
 } from './theme-provider.js';
 export type { ThemeChangeSource, WgThemeChangeDetail } from './theme-provider.js';
+export { defineWgToggle, WgToggle, wgToggleTagName } from './toggle.js';
+export type { ToggleRequestTrigger, WgToggleRequestDetail } from './toggle.js';
 export {
   defineWgValueTile,
   isValueTileEmphasis,

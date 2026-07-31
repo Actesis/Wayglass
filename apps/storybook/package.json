@@ -13,6 +13,7 @@
   "dependencies": {
     "@wayglass/core": "workspace:*",
     "@wayglass/elements": "workspace:*",
+    "@wayglass/icons": "workspace:*",
     "@wayglass/themes": "workspace:*",
     "@wayglass/tokens": "workspace:*",
     "lit": "3.3.3"

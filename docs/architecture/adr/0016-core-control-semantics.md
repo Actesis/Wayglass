@@ -1,6 +1,6 @@
 # ADR 0016: Match each core control to its interaction semantics
 
-- Status: proposed
+- Status: accepted
 - Date: 2026-07-31
 
 ## Context

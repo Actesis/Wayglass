@@ -47,6 +47,10 @@
       "types": "./dist/grid.d.ts",
       "import": "./dist/grid.js"
     },
+    "./icon-button": {
+      "types": "./dist/icon-button.d.ts",
+      "import": "./dist/icon-button.js"
+    },
     "./metric": {
       "types": "./dist/metric.d.ts",
       "import": "./dist/metric.js"
@@ -56,6 +60,10 @@
       "import": "./dist/media.js"
     },
     "./media.css": "./dist/media.css",
+    "./navigation-rail": {
+      "types": "./dist/navigation-rail.d.ts",
+      "import": "./dist/navigation-rail.js"
+    },
     "./panel": {
       "types": "./dist/panel.d.ts",
       "import": "./dist/panel.js"
@@ -67,6 +75,14 @@
     "./scroll-region": {
       "types": "./dist/scroll-region.d.ts",
       "import": "./dist/scroll-region.js"
+    },
+    "./segment": {
+      "types": "./dist/segment.d.ts",
+      "import": "./dist/segment.js"
+    },
+    "./segmented-control": {
+      "types": "./dist/segmented-control.d.ts",
+      "import": "./dist/segmented-control.js"
     },
     "./split": {
       "types": "./dist/split.d.ts",
@@ -103,6 +119,10 @@
     "./theme-provider": {
       "types": "./dist/theme-provider.d.ts",
       "import": "./dist/theme-provider.js"
+    },
+    "./toggle": {
+      "types": "./dist/toggle.d.ts",
+      "import": "./dist/toggle.js"
     },
     "./value-tile": {
       "types": "./dist/value-tile.d.ts",

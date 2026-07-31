@@ -1,11 +1,16 @@
 import {
   WgButton,
+  WgIconButton,
   WgMetric,
+  WgNavigationRail,
+  WgSegment,
+  WgSegmentedControl,
   WgTab,
   WgTabList,
   WgTabPanel,
   WgTabs,
   WgThemeProvider,
+  WgToggle,
   WgValueTile,
 } from '../src/index.js';
 import { useState } from 'react';
@@ -15,6 +20,7 @@ function ReactFixture() {
   const [theme, setTheme] = useState<'wayglass-dark' | 'wayglass-light'>('wayglass-dark');
   const [activationCount, setActivationCount] = useState(0);
   const [selectedView, setSelectedView] = useState('overview');
+  const [density, setDensity] = useState('compact');
 
   return (
     <WgThemeProvider
@@ -71,6 +77,37 @@ function ReactFixture() {
           <WgTabPanel value="overview">React overview content</WgTabPanel>
           <WgTabPanel value="security">React security content</WgTabPanel>
         </WgTabs>
+        <WgToggle
+          id="react-toggle"
+          label="React notifications"
+          asserted
+          assertedLabel="On"
+          notAssertedLabel="Off"
+          onWgToggleRequest={(event) => {
+            document.documentElement.dataset.toggleRequest = JSON.stringify(event.detail);
+          }}
+        />
+        <WgSegmentedControl
+          id="react-segments"
+          value={density}
+          aria-label="React density"
+          onWgSegmentChange={(event) => {
+            document.documentElement.dataset.segmentChange = JSON.stringify(event.detail);
+            setDensity(event.detail.value);
+          }}
+        >
+          <WgSegment value="compact">Compact</WgSegment>
+          <WgSegment value="comfortable">Comfortable</WgSegment>
+        </WgSegmentedControl>
+        <WgIconButton label="Refresh React preview" />
+        <nav aria-label="React account">
+          <WgNavigationRail orientation="horizontal">
+            <a href="#overview" aria-current="page">
+              Overview
+            </a>
+            <a href="#settings">Settings</a>
+          </WgNavigationRail>
+        </nav>
       </main>
     </WgThemeProvider>
   );

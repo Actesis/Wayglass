@@ -130,6 +130,10 @@ export default defineConfig({
             text: 'Phase 2C media validation',
             link: '/accessibility/phase-2c-media-validation',
           },
+          {
+            text: 'Phase 2D-B core-controls validation',
+            link: '/accessibility/phase-2d-core-controls-validation',
+          },
         ],
       },
       {

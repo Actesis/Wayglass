@@ -4,6 +4,7 @@ import type { WgSplit as WgSplitElement } from '@wayglass/elements/split';
 import type { WgMedia as WgMediaElement } from '@wayglass/elements/media';
 import type { WgTab as WgTabElement, WgTabs as WgTabsElement } from '@wayglass/elements/tabs';
 import type { WgThemeProvider as WgThemeProviderElement } from '@wayglass/elements/theme-provider';
+import type { WgToggle as WgToggleElement } from '@wayglass/elements/toggle';
 import { createRef } from 'react';
 
 import {
@@ -13,9 +14,13 @@ import {
   WgCluster,
   WgFrame,
   WgGrid,
+  WgIconButton,
   WgMedia,
   WgMetric,
+  WgNavigationRail,
   WgScrollRegion,
+  WgSegment,
+  WgSegmentedControl,
   WgSplit,
   WgStack,
   WgSurface,
@@ -24,9 +29,15 @@ import {
   WgTabPanel,
   WgTabs,
   WgThemeProvider,
+  WgToggle,
   WgValueTile,
 } from '../src/index.js';
-import type { WgTabChangeEvent, WgThemeChangeEvent } from '../src/index.js';
+import type {
+  WgSegmentChangeEvent,
+  WgTabChangeEvent,
+  WgThemeChangeEvent,
+  WgToggleRequestEvent,
+} from '../src/index.js';
 
 const buttonRef = createRef<WgButtonElement>();
 const surfaceRef = createRef<WgSurfaceElement>();
@@ -35,6 +46,7 @@ const tabRef = createRef<WgTabElement>();
 const tabsRef = createRef<WgTabsElement>();
 const splitRef = createRef<WgSplitElement>();
 const mediaRef = createRef<WgMediaElement>();
+const toggleRef = createRef<WgToggleElement>();
 
 const typedComposition = (
   <WgThemeProvider ref={providerRef} theme="wayglass-dark" density="compact">
@@ -137,6 +149,48 @@ const typedTabs = (
   </WgTabs>
 );
 
+const toggleRequestHandler = (event: WgToggleRequestEvent): void => {
+  const toggle: WgToggleElement = event.currentTarget;
+  const requested: boolean = event.detail.requestedAsserted;
+  void toggle;
+  void requested;
+};
+
+const segmentChangeHandler = (event: WgSegmentChangeEvent): void => {
+  const value: string = event.detail.value;
+  void value;
+};
+
+const typedControls = (
+  <>
+    <WgIconButton label="Refresh account" appearance="quiet" pending={false} />
+    <WgToggle
+      ref={toggleRef}
+      label="Email notifications"
+      assertedLabel="On"
+      notAssertedLabel="Off"
+      requested="none"
+      requestState="idle"
+      availability="available"
+      onWgToggleRequest={toggleRequestHandler}
+    />
+    <WgSegmentedControl
+      value="compact"
+      orientation="horizontal"
+      aria-label="Density"
+      onWgSegmentChange={segmentChangeHandler}
+    >
+      <WgSegment value="compact">Compact</WgSegment>
+      <WgSegment value="comfortable">Comfortable</WgSegment>
+    </WgSegmentedControl>
+    <nav aria-label="Account">
+      <WgNavigationRail orientation="vertical">
+        <a href="/account">Account</a>
+      </WgNavigationRail>
+    </nav>
+  </>
+);
+
 // @ts-expect-error Condition names are closed semantic vocabulary.
 const invalidCondition = <WgMetric condition="healthy" />;
 
@@ -173,11 +227,18 @@ const invalidMediaAspect = <WgMedia aspect="cinematic" />;
 // @ts-expect-error Media state is resource presentation, not condition.
 const invalidMediaState = <WgMedia state="critical" />;
 
+// @ts-expect-error Request state is a closed vocabulary.
+const invalidRequestState = <WgToggle requestState="working" />;
+
+// @ts-expect-error Navigation orientation is a closed vocabulary.
+const invalidNavigationOrientation = <WgNavigationRail orientation="diagonal" />;
+
 void typedComposition;
 void typedProvider;
 void typedLayouts;
 void typedMedia;
 void typedTabs;
+void typedControls;
 void invalidCondition;
 void invalidPending;
 void invalidActivation;
@@ -190,3 +251,5 @@ void invalidSplitRatio;
 void invalidScrollAxis;
 void invalidMediaAspect;
 void invalidMediaState;
+void invalidRequestState;
+void invalidNavigationOrientation;
