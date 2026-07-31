@@ -1,6 +1,6 @@
 # ADR 0017: Keep command-menu ownership inside one coordinator
 
-- Status: proposed
+- Status: accepted
 - Date: 2026-07-31
 
 ## Context

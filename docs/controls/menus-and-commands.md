@@ -1,8 +1,8 @@
 # Phase 2D-C menu and command contracts
 
-**Status:** Proposed for Phase 2D-C on July 31, 2026. Ownership and popup architecture are proposed
-in [ADR 0017](../architecture/adr/0017-menu-command-architecture.md). No tokens or implementation
-are locked until both documents are accepted.
+**Status:** Accepted for Phase 2D-C on July 31, 2026. Ownership and popup architecture are recorded
+in [ADR 0017](../architecture/adr/0017-menu-command-architecture.md). Tokens and implementation
+remain the next milestone.
 
 This milestone defines one application-style command menu composed from `wg-menu` and
 `wg-command-item`. It provides compact access to secondary commands without turning ordinary
