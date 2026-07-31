@@ -56,6 +56,7 @@ export default defineConfig({
         items: [
           { text: 'Control-state contract', link: '/controls/control-state' },
           { text: 'Core-control contracts', link: '/controls/core-controls' },
+          { text: 'Menu and command proposal', link: '/controls/menus-and-commands' },
         ],
       },
       {
@@ -92,6 +93,10 @@ export default defineConfig({
           {
             text: 'ADR 0016: Core-control semantics',
             link: '/architecture/adr/0016-core-control-semantics',
+          },
+          {
+            text: 'ADR 0017: Menu and command architecture',
+            link: '/architecture/adr/0017-menu-command-architecture',
           },
         ],
       },

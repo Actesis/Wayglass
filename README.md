@@ -69,6 +69,9 @@ Supporting foundations:
   [`core-control semantics decision`](./docs/architecture/adr/0016-core-control-semantics.md).
   Implementation and validation evidence are recorded in the
   [`core-controls validation`](./docs/accessibility/phase-2d-core-controls-validation.md).
+- [`docs/controls/menus-and-commands.md`](./docs/controls/menus-and-commands.md) proposes the Phase
+  2D-C command-menu contract, together with the
+  [`menu and command architecture decision`](./docs/architecture/adr/0017-menu-command-architecture.md).
 
 ## Local development
 
