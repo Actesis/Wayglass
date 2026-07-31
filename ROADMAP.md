@@ -78,11 +78,11 @@ can be validated before later components depend on it.
       ring, surface, and divider.
 - [x] Specify the remaining layout contracts: frame, stack, cluster, grid, split, and scroll region.
 - [x] Implement, document, and validate the accepted foundation and layout primitives.
-- [ ] Specify a domain-neutral media-content pattern for consumer-authored images, pictures, and
+- [x] Specify a domain-neutral media-content pattern for consumer-authored images, pictures, and
       figures without adding media URLs to the shared function state model.
-- [ ] Define responsive sizing and cropping, useful alternatives and captions, loading and
+- [x] Define responsive sizing and cropping, useful alternatives and captions, loading and
       unavailable presentation, full-size inspection, and privacy guidance.
-- [ ] Add image-bearing information fixtures and validate that missing media never hides state,
+- [x] Add image-bearing information fixtures and validate that missing media never hides state,
       instructions, or actions across phone, desktop, and wall displays.
 
 ### Phase 2D — Controls and forms

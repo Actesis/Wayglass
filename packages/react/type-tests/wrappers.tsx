@@ -1,6 +1,7 @@
 import type { WgButton as WgButtonElement } from '@wayglass/elements/button';
 import type { WgSurface as WgSurfaceElement } from '@wayglass/elements/surface';
 import type { WgSplit as WgSplitElement } from '@wayglass/elements/split';
+import type { WgMedia as WgMediaElement } from '@wayglass/elements/media';
 import type { WgTab as WgTabElement, WgTabs as WgTabsElement } from '@wayglass/elements/tabs';
 import type { WgThemeProvider as WgThemeProviderElement } from '@wayglass/elements/theme-provider';
 import { createRef } from 'react';
@@ -12,6 +13,7 @@ import {
   WgCluster,
   WgFrame,
   WgGrid,
+  WgMedia,
   WgMetric,
   WgScrollRegion,
   WgSplit,
@@ -32,6 +34,7 @@ const providerRef = createRef<WgThemeProviderElement>();
 const tabRef = createRef<WgTabElement>();
 const tabsRef = createRef<WgTabsElement>();
 const splitRef = createRef<WgSplitElement>();
+const mediaRef = createRef<WgMediaElement>();
 
 const typedComposition = (
   <WgThemeProvider ref={providerRef} theme="wayglass-dark" density="compact">
@@ -86,6 +89,20 @@ const typedLayouts = (
       </WgScrollRegion>
     </WgStack>
   </WgFrame>
+);
+
+const typedMedia = (
+  <figure>
+    <WgMedia ref={mediaRef} aspect="landscape" fit="contain" state="ready" boundary="strong">
+      <img src="/asset.webp" width={1200} height={900} alt="Asset identification view" />
+      <a slot="inspection" href="/asset-full.webp">
+        View full-size asset image
+      </a>
+      <p slot="loading">Loading asset image…</p>
+      <p slot="unavailable">Asset image unavailable.</p>
+    </WgMedia>
+    <figcaption>Asset in its installed location.</figcaption>
+  </figure>
 );
 
 const tabChangeHandler = (event: WgTabChangeEvent): void => {
@@ -150,9 +167,16 @@ const invalidSplitRatio = <WgSplit ratio="golden" />;
 // @ts-expect-error Scroll axis is a closed logical vocabulary.
 const invalidScrollAxis = <WgScrollRegion axis="vertical" />;
 
+// @ts-expect-error Media aspect is a closed content-capacity vocabulary.
+const invalidMediaAspect = <WgMedia aspect="cinematic" />;
+
+// @ts-expect-error Media state is resource presentation, not condition.
+const invalidMediaState = <WgMedia state="critical" />;
+
 void typedComposition;
 void typedProvider;
 void typedLayouts;
+void typedMedia;
 void typedTabs;
 void invalidCondition;
 void invalidPending;
@@ -164,3 +188,5 @@ void invalidLayoutSpace;
 void invalidClusterAlignment;
 void invalidSplitRatio;
 void invalidScrollAxis;
+void invalidMediaAspect;
+void invalidMediaState;

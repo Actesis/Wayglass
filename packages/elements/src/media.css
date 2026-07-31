@@ -1,0 +1,14 @@
+wg-media:not([state='loading']) > [slot='loading'],
+wg-media:not([state='unavailable']) > [slot='unavailable'] {
+  display: none;
+}
+
+wg-media > picture > .wg-media-asset {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  min-inline-size: 0;
+  max-inline-size: 100%;
+  object-fit: var(--wg-media-object-fit, contain);
+  object-position: var(--wg-media-object-position, center);
+}

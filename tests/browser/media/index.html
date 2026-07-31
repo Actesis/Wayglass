@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wayglass media fixture</title>
+    <link rel="stylesheet" href="/packages/tokens/dist/tokens.css" />
+    <link rel="stylesheet" href="/packages/themes/dist/themes.css" />
+    <link rel="stylesheet" href="/packages/elements/dist/foundations.css" />
+    <link rel="stylesheet" href="/packages/elements/dist/media.css" />
+    <style>
+      body {
+        margin: 0;
+        color: var(--wg-color-semantic-text-primary);
+        background: var(--wg-color-semantic-surface-canvas);
+        font-family: var(--wg-typography-family-body);
+      }
+      main {
+        display: grid;
+        gap: 1.5rem;
+        max-inline-size: 72rem;
+        padding: 1rem;
+        margin-inline: auto;
+      }
+      h1,
+      h2,
+      p,
+      figure,
+      figcaption {
+        margin-block: 0;
+      }
+      figure,
+      section {
+        display: grid;
+        min-inline-size: 0;
+        gap: 0.75rem;
+      }
+      .media-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+      }
+      .inspection {
+        display: inline-flex;
+        min-block-size: 2.75rem;
+        align-items: center;
+        padding-inline: 1rem;
+        border: 1px solid var(--wg-color-semantic-border-strong);
+        border-radius: 0.5rem;
+        color: var(--wg-color-semantic-text-primary);
+        background: var(--wg-color-semantic-surface-panel);
+      }
+      @media (width < 40rem) {
+        .media-grid {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+    </style>
+  </head>
+  <body data-wg-theme="wayglass-dark" data-wg-density="compact">
+    <main>
+      <h1 class="wg-type-title">Media fixture</h1>
+      <figure>
+        <wg-media id="ready-media" aspect="landscape" fit="contain" boundary="strong">
+          <picture id="ready-picture">
+            <source
+              srcset="/apps/storybook/stories/assets/hvac-air-handler.jpg"
+              type="image/jpeg"
+            />
+            <img
+              id="ready-image"
+              class="wg-media-asset"
+              src="/apps/storybook/stories/assets/hvac-air-handler.jpg"
+              width="1200"
+              height="900"
+              alt="Gray HVAC air handler with a filter in its lower front access panel"
+            />
+          </picture>
+          <a
+            id="inspection-link"
+            class="inspection wg-focus-ring"
+            slot="inspection"
+            href="/apps/storybook/stories/assets/hvac-air-handler.jpg"
+          >
+            View full-size HVAC image
+          </a>
+          <p slot="loading">Loading HVAC image…</p>
+          <p slot="unavailable">HVAC image unavailable. The filter is in the lower front panel.</p>
+        </wg-media>
+        <figcaption>Air handler in the north utility closet.</figcaption>
+      </figure>
+
+      <div class="media-grid">
+        <section aria-labelledby="cover-heading">
+          <h2 id="cover-heading" class="wg-type-section">Cover crop</h2>
+          <wg-media id="cover-media" aspect="square" fit="cover">
+            <img
+              id="cover-image"
+              src="/apps/storybook/stories/assets/hvac-air-handler.jpg"
+              width="1200"
+              height="900"
+              alt="Utility closet HVAC air handler"
+            />
+            <p slot="loading">Loading cover image…</p>
+            <p slot="unavailable">Cover image unavailable.</p>
+          </wg-media>
+        </section>
+
+        <section aria-labelledby="loading-heading">
+          <h2 id="loading-heading" class="wg-type-section">Retained loading</h2>
+          <wg-media id="loading-media" aspect="square" fit="cover" state="loading">
+            <img
+              id="loading-image"
+              src="/apps/storybook/stories/assets/hvac-air-handler.jpg"
+              width="1200"
+              height="900"
+              alt="Previously loaded HVAC air handler view"
+            />
+            <p id="loading-copy" slot="loading">Refreshing image; previous view retained.</p>
+            <p slot="unavailable">HVAC image unavailable.</p>
+          </wg-media>
+          <p>Last captured July 30 at 05:42.</p>
+        </section>
+
+        <section aria-labelledby="unavailable-heading">
+          <h2 id="unavailable-heading" class="wg-type-section">Unavailable</h2>
+          <wg-media id="unavailable-media" aspect="square" state="unavailable">
+            <img
+              id="missing-image"
+              src="/fixtures/intentionally-missing-media.jpg"
+              width="1200"
+              height="900"
+              alt="Account identity document"
+            />
+            <p slot="loading">Loading identity image…</p>
+            <p id="unavailable-copy" slot="unavailable">
+              Identity image unavailable. Verification remains confirmed.
+            </p>
+          </wg-media>
+          <p id="persistent-state">Email verification: confirmed.</p>
+          <button id="persistent-action" type="button">Continue account review</button>
+        </section>
+      </div>
+
+      <section aria-labelledby="decorative-heading">
+        <h2 id="decorative-heading" class="wg-type-section">Decorative</h2>
+        <wg-media id="decorative-media" aspect="wide" fit="cover" boundary="none">
+          <img
+            src="/apps/storybook/stories/assets/ambient-bands.svg"
+            width="1200"
+            height="900"
+            alt=""
+          />
+          <p slot="loading">Loading decorative image…</p>
+          <p slot="unavailable">Decorative image unavailable.</p>
+        </wg-media>
+        <p>No state or instructions depend on the decorative media.</p>
+      </section>
+
+      <wg-media id="auto-loading-media" state="loading">
+        <p slot="loading">Loading image with unknown intrinsic dimensions…</p>
+        <p slot="unavailable">Image unavailable.</p>
+      </wg-media>
+    </main>
+    <script type="module">
+      import { defineWgMedia } from '/packages/elements/dist/media.js';
+
+      defineWgMedia();
+    </script>
+  </body>
+</html>

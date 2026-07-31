@@ -1,0 +1,40 @@
+.wg-media-figure {
+  display: grid;
+  min-inline-size: 0;
+  gap: var(--wg-component-layout-space-related);
+  margin: 0;
+}
+
+.wg-media-figure figcaption,
+.wg-media-kicker {
+  color: var(--wg-color-semantic-text-secondary);
+}
+
+.wg-media-inspection {
+  display: inline-flex;
+  min-block-size: var(--wg-size-touch-minimum);
+  box-sizing: border-box;
+  align-items: center;
+  padding-inline: var(--wg-space-reference-4);
+  border: var(--wg-border-width-standard) solid var(--wg-color-semantic-border-strong);
+  border-radius: var(--wg-shape-radius-control);
+  color: var(--wg-color-semantic-text-primary);
+  background: var(--wg-color-semantic-surface-panel);
+  font-weight: var(--wg-typography-weight-medium);
+}
+
+.wg-media-figure figcaption,
+.wg-media-figure p,
+.wg-media-figure h1,
+.wg-media-figure h2,
+.wg-media-figure + *,
+main h1,
+main h2,
+main p {
+  margin-block: 0;
+}
+
+wg-media [slot='loading'],
+wg-media [slot='unavailable'] {
+  margin: 0;
+}
