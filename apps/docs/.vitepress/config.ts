@@ -53,7 +53,10 @@ export default defineConfig({
       },
       {
         text: 'Phase 2 controls and forms',
-        items: [{ text: 'Control-state contract', link: '/controls/' }],
+        items: [
+          { text: 'Control-state contract', link: '/controls/control-state' },
+          { text: 'Core-control contracts', link: '/controls/core-controls' },
+        ],
       },
       {
         text: 'Architecture',
@@ -85,6 +88,10 @@ export default defineConfig({
           {
             text: 'ADR 0015: Native form controls',
             link: '/architecture/adr/0015-native-form-control-ownership',
+          },
+          {
+            text: 'ADR 0016: Core-control semantics',
+            link: '/architecture/adr/0016-core-control-semantics',
           },
         ],
       },

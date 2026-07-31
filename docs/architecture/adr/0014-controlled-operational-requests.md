@@ -1,6 +1,6 @@
 # ADR 0014: Keep operational controls controlled by confirmed application state
 
-- Status: proposed
+- Status: accepted
 - Date: 2026-07-31
 
 ## Context
