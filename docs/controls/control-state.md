@@ -1,8 +1,8 @@
 # Phase 2D-A control-state contract
 
-**Status:** Proposed for Phase 2D-A review on July 31, 2026. Controlled operational requests are
-recorded in [ADR 0014](../architecture/adr/0014-controlled-operational-requests.md). Native form
-ownership is recorded in [ADR 0015](../architecture/adr/0015-native-form-control-ownership.md).
+**Status:** Accepted for Phase 2D-A on July 31, 2026. Controlled operational requests are recorded
+in [ADR 0014](../architecture/adr/0014-controlled-operational-requests.md). Native form ownership is
+recorded in [ADR 0015](../architecture/adr/0015-native-form-control-ownership.md).
 
 This contract defines how Wayglass controls distinguish confirmed state, user intent, asynchronous
 request progress, request failure, target availability, local selection, and form editing. It does

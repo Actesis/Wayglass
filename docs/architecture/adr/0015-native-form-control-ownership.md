@@ -1,6 +1,6 @@
 # ADR 0015: Keep form controls consumer-authored and native in light DOM
 
-- Status: proposed
+- Status: accepted
 - Date: 2026-07-31
 
 ## Context

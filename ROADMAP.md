@@ -94,11 +94,13 @@ can be validated before later components depend on it.
       requests, unavailable targets, and local selection.
 - [x] Draft the controlled-request architecture decision.
 - [x] Draft the native form-control ownership and submission decision.
-- [ ] Review and accept the control-state contract and architecture decisions.
+- [x] Review and accept the control-state contract and architecture decisions.
 
 #### Phase 2D-B — Core controls
 
-- [ ] Specify icon button, toggle, segmented control, and navigation rail public contracts.
+- [x] Draft icon button, toggle, segmented control, and navigation rail public contracts.
+- [x] Draft the core-control semantics and ownership architecture decision.
+- [ ] Review and accept the core-control contracts and architecture decision.
 - [ ] Lock control tokens and implement the accepted framework-neutral interaction models.
 - [ ] Add typed React wrappers and production-backed stories.
 - [ ] Validate request behavior, selection, keyboard, touch, focus, zoom, forced colors, reduced
