@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wayglass menu and commands</title>
+    <link rel="stylesheet" href="/packages/tokens/dist/tokens.css" />
+    <link rel="stylesheet" href="/packages/themes/dist/themes.css" />
+    <style>
+      wg-menu:not(:defined) > :not([slot='trigger']) {
+        display: none;
+      }
+      body {
+        margin: 0;
+      }
+      main {
+        min-block-size: 100vh;
+        box-sizing: border-box;
+        padding: var(--wg-space-reference-4);
+        color: var(--wg-color-semantic-text-primary);
+        background: var(--wg-color-semantic-surface-canvas);
+        font-family: var(--wg-typography-family-body);
+      }
+      .stack {
+        display: grid;
+        min-inline-size: 0;
+        max-inline-size: 44rem;
+        gap: var(--wg-space-reference-6);
+      }
+    </style>
+  </head>
+  <body>
+    <wg-theme-provider theme="wayglass-dark" density="compact">
+      <main>
+        <div class="stack">
+          <h1>Report controls</h1>
+          <wg-menu id="report-menu" placement="block-end-start">
+            <span slot="trigger">Report actions</span>
+            <wg-command-item id="refresh-command" value="refresh-report">
+              Refresh report
+              <span slot="detail">Fetch the latest confirmed values</span>
+            </wg-command-item>
+            <wg-command-item id="copy-command" value="copy-report-id">
+              Copy report identifier
+            </wg-command-item>
+            <wg-divider></wg-divider>
+            <wg-command-item id="archive-command" value="archive-report" disabled>
+              Archive report
+              <span slot="detail">Unavailable while review is open</span>
+            </wg-command-item>
+            <wg-command-item id="export-command" value="export-report">
+              Export report
+            </wg-command-item>
+          </wg-menu>
+          <button id="following-control" type="button">Following control</button>
+          <button id="outside-control" type="button">Outside control</button>
+        </div>
+      </main>
+    </wg-theme-provider>
+    <script type="module">
+      import { defineWgDivider } from '/packages/elements/dist/divider.js';
+      import { defineWgMenu } from '/packages/elements/dist/menu.js';
+      import { defineWgThemeProvider } from '/packages/elements/dist/theme-provider.js';
+      defineWgThemeProvider();
+      defineWgDivider();
+      defineWgMenu();
+    </script>
+  </body>
+</html>

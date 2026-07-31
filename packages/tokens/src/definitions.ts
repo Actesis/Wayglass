@@ -1260,6 +1260,101 @@ export const tokens = {
     type: 'dimension',
     description: 'Navigation link minimum target size.',
   },
+  'component.menu.color.trigger-background': {
+    value: '{color.semantic.surface.inset}',
+    type: 'color',
+    description: 'Command-menu trigger background.',
+  },
+  'component.menu.color.trigger-background-hover': {
+    value: '{color.semantic.surface.raised}',
+    type: 'color',
+    description: 'Command-menu trigger hover background.',
+  },
+  'component.menu.color.popup-background': {
+    value: '{color.semantic.surface.raised}',
+    type: 'color',
+    description: 'Command-menu popup surface.',
+  },
+  'component.menu.color.item-background-hover': {
+    value: '{color.semantic.selection.surface}',
+    type: 'color',
+    description: 'Command-item hover and focused surface.',
+  },
+  'component.menu.color.border': {
+    value: '{color.semantic.border.strong}',
+    type: 'color',
+    description: 'Command-menu trigger and popup boundary.',
+  },
+  'component.menu.color.text': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'Command-menu trigger and item text.',
+  },
+  'component.menu.color.detail': {
+    value: '{color.semantic.text.secondary}',
+    type: 'color',
+    description: 'Command-item supporting detail text.',
+  },
+  'component.menu.radius.trigger': {
+    value: '{shape.radius.control}',
+    type: 'dimension',
+    description: 'Command-menu trigger radius.',
+  },
+  'component.menu.radius.popup': {
+    value: '{shape.radius.panel}',
+    type: 'dimension',
+    description: 'Command-menu popup radius.',
+  },
+  'component.menu.elevation': {
+    value: '{elevation.panel}',
+    type: 'shadow',
+    description: 'Command-menu popup elevation.',
+  },
+  'component.menu.space': {
+    value: '{space.reference.3}',
+    type: 'dimension',
+    description: 'Density-aware command-item internal spacing.',
+  },
+  'component.menu.space.popup': {
+    value: '{space.reference.1}',
+    type: 'dimension',
+    description: 'Command-menu popup edge spacing.',
+  },
+  'component.menu.space.offset': {
+    value: '{space.reference.2}',
+    type: 'dimension',
+    description: 'Command-menu distance from its trigger.',
+  },
+  'component.menu.space.viewport': {
+    value: '{space.reference.2}',
+    type: 'dimension',
+    description: 'Minimum command-menu inset from the visual viewport.',
+  },
+  'component.menu.size.trigger-minimum': {
+    value: '{size.touch.minimum}',
+    type: 'dimension',
+    description: 'Command-menu trigger minimum target size.',
+  },
+  'component.menu.size.item-minimum': {
+    value: '{size.touch.minimum}',
+    type: 'dimension',
+    description: 'Command-item minimum target size.',
+  },
+  'component.menu.size.inline-minimum': {
+    value: '12rem',
+    type: 'dimension',
+    description: 'Command-menu minimum usable inline size.',
+  },
+  'component.menu.size.inline-maximum': {
+    value: '24rem',
+    type: 'dimension',
+    description: 'Command-menu maximum readable inline size.',
+  },
+  'component.menu.size.block-maximum': {
+    value: '24rem',
+    type: 'dimension',
+    description: 'Command-menu maximum block size before internal scrolling.',
+  },
   'component.status-indicator.color.border': {
     value: '{color.semantic.border.strong}',
     type: 'color',

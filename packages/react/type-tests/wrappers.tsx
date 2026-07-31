@@ -2,6 +2,7 @@ import type { WgButton as WgButtonElement } from '@wayglass/elements/button';
 import type { WgSurface as WgSurfaceElement } from '@wayglass/elements/surface';
 import type { WgSplit as WgSplitElement } from '@wayglass/elements/split';
 import type { WgMedia as WgMediaElement } from '@wayglass/elements/media';
+import type { WgMenu as WgMenuElement } from '@wayglass/elements/menu';
 import type { WgTab as WgTabElement, WgTabs as WgTabsElement } from '@wayglass/elements/tabs';
 import type { WgThemeProvider as WgThemeProviderElement } from '@wayglass/elements/theme-provider';
 import type { WgToggle as WgToggleElement } from '@wayglass/elements/toggle';
@@ -12,10 +13,12 @@ import {
   WgButton,
   WgDivider,
   WgCluster,
+  WgCommandItem,
   WgFrame,
   WgGrid,
   WgIconButton,
   WgMedia,
+  WgMenu,
   WgMetric,
   WgNavigationRail,
   WgScrollRegion,
@@ -34,6 +37,8 @@ import {
 } from '../src/index.js';
 import type {
   WgSegmentChangeEvent,
+  WgCommandEvent,
+  WgMenuToggleEvent,
   WgTabChangeEvent,
   WgThemeChangeEvent,
   WgToggleRequestEvent,
@@ -47,6 +52,7 @@ const tabsRef = createRef<WgTabsElement>();
 const splitRef = createRef<WgSplitElement>();
 const mediaRef = createRef<WgMediaElement>();
 const toggleRef = createRef<WgToggleElement>();
+const menuRef = createRef<WgMenuElement>();
 
 const typedComposition = (
   <WgThemeProvider ref={providerRef} theme="wayglass-dark" density="compact">
@@ -191,6 +197,37 @@ const typedControls = (
   </>
 );
 
+const commandHandler = (event: WgCommandEvent): void => {
+  const value: string = event.detail.value;
+  const trigger: 'keyboard' | 'pointer' | 'programmatic' = event.detail.trigger;
+  void value;
+  void trigger;
+};
+
+const menuToggleHandler = (event: WgMenuToggleEvent): void => {
+  const menu: WgMenuElement = event.currentTarget;
+  const open: boolean = event.detail.open;
+  void menu;
+  void open;
+};
+
+const typedMenu = (
+  <WgMenu
+    ref={menuRef}
+    label="Report actions"
+    placement="block-end-end"
+    onWgMenuToggle={menuToggleHandler}
+  >
+    <span slot="trigger">Report actions</span>
+    <WgCommandItem value="refresh" onWgCommand={commandHandler}>
+      Refresh report
+      <span slot="detail">Fetch the latest confirmed values</span>
+    </WgCommandItem>
+    <WgDivider />
+    <WgCommandItem value="export">Export report</WgCommandItem>
+  </WgMenu>
+);
+
 // @ts-expect-error Condition names are closed semantic vocabulary.
 const invalidCondition = <WgMetric condition="healthy" />;
 
@@ -233,12 +270,19 @@ const invalidRequestState = <WgToggle requestState="working" />;
 // @ts-expect-error Navigation orientation is a closed vocabulary.
 const invalidNavigationOrientation = <WgNavigationRail orientation="diagonal" />;
 
+// @ts-expect-error Menu placement is a closed logical vocabulary.
+const invalidMenuPlacement = <WgMenu placement="bottom-right" />;
+
+// @ts-expect-error Command disabled state remains Boolean.
+const invalidCommandDisabled = <WgCommandItem value="refresh" disabled="true" />;
+
 void typedComposition;
 void typedProvider;
 void typedLayouts;
 void typedMedia;
 void typedTabs;
 void typedControls;
+void typedMenu;
 void invalidCondition;
 void invalidPending;
 void invalidActivation;
@@ -253,3 +297,5 @@ void invalidMediaAspect;
 void invalidMediaState;
 void invalidRequestState;
 void invalidNavigationOrientation;
+void invalidMenuPlacement;
+void invalidCommandDisabled;

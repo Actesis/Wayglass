@@ -119,6 +119,7 @@ describe('Phase 1 themes', () => {
     );
     expect(first).toContain('--wg-component-frame-space-compact: var(--wg-space-reference-3)');
     expect(first).toContain('--wg-component-media-state-space: var(--wg-space-reference-4)');
+    expect(first).toContain('--wg-component-menu-space: var(--wg-space-reference-3)');
     expect(first).not.toContain('wayglass-high-contrast');
     expect(first).not.toContain('wayglass-dim');
   });

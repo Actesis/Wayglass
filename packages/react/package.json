@@ -28,6 +28,10 @@
       "types": "./dist/cluster.d.ts",
       "import": "./dist/cluster.js"
     },
+    "./command-item": {
+      "types": "./dist/command-item.d.ts",
+      "import": "./dist/command-item.js"
+    },
     "./divider": {
       "types": "./dist/divider.d.ts",
       "import": "./dist/divider.js"
@@ -55,6 +59,10 @@
     "./media": {
       "types": "./dist/media.d.ts",
       "import": "./dist/media.js"
+    },
+    "./menu": {
+      "types": "./dist/menu.d.ts",
+      "import": "./dist/menu.js"
     },
     "./navigation-rail": {
       "types": "./dist/navigation-rail.d.ts",

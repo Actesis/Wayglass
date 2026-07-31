@@ -139,6 +139,10 @@ export default defineConfig({
             text: 'Phase 2D-B core-controls validation',
             link: '/accessibility/phase-2d-core-controls-validation',
           },
+          {
+            text: 'Phase 2D-C menu validation',
+            link: '/accessibility/phase-2d-menu-command-validation',
+          },
         ],
       },
       {

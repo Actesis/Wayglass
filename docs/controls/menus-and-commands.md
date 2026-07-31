@@ -1,8 +1,10 @@
 # Phase 2D-C menu and command contracts
 
-**Status:** Accepted for Phase 2D-C on July 31, 2026. Ownership and popup architecture are recorded
-in [ADR 0017](../architecture/adr/0017-menu-command-architecture.md). Tokens and implementation
-remain the next milestone.
+**Status:** Accepted and implemented for Phase 2D-C on July 31, 2026. Ownership and popup
+architecture are recorded in [ADR 0017](../architecture/adr/0017-menu-command-architecture.md).
+Automated and visual evidence is recorded in the
+[Phase 2D-C validation record](../accessibility/phase-2d-menu-command-validation.md); representative
+screen-reader acceptance remains open.
 
 This milestone defines one application-style command menu composed from `wg-menu` and
 `wg-command-item`. It provides compact access to secondary commands without turning ordinary
@@ -199,7 +201,7 @@ Attributes and properties:
 Methods:
 
 - `focus(options?: FocusOptions): void`: delegates to the internal trigger;
-- `show(options?: { focus?: 'first' | 'last' | 'none' }): void`;
+- `show(options?: { focus?: 'first' | 'last' | 'none' }): Promise<void>`;
 - `hide(options?: { restoreFocus?: boolean }): void`;
 - `toggle(options?: { focus?: 'first' | 'last' | 'none' }): void`.
 
@@ -216,6 +218,20 @@ Events:
 CSS parts:
 
 - `trigger`, `trigger-content`, `popup`, and `menu`.
+
+CSS custom properties:
+
+- `--wg-menu-color-trigger-background`;
+- `--wg-menu-color-trigger-background-hover`;
+- `--wg-menu-color-popup-background`;
+- `--wg-menu-color-border`;
+- `--wg-menu-color-text`;
+- `--wg-menu-color-detail`;
+- `--wg-menu-item-color-background-hover`;
+- `--wg-menu-trigger-radius`;
+- `--wg-menu-popup-radius`;
+- `--wg-menu-space`;
+- `--wg-menu-item-size-minimum`.
 
 ### `wg-command-item`
 
@@ -238,6 +254,8 @@ Events:
 CSS parts:
 
 - `item`, `leading`, `label`, `detail`, and `trailing`.
+
+CSS custom properties are inherited from the owning `wg-menu`.
 
 Methods:
 
