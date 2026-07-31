@@ -103,7 +103,7 @@ can be validated before later components depend on it.
 - [x] Review and accept the core-control contracts and architecture decision.
 - [x] Lock control tokens and implement the accepted framework-neutral interaction models.
 - [x] Add typed React wrappers and production-backed stories.
-- [ ] Validate request behavior, selection, keyboard, touch, focus, zoom, forced colors, reduced
+- [x] Validate request behavior, selection, keyboard, touch, focus, zoom, forced colors, reduced
       motion, and supported browser engines.
 
 #### Phase 2D-C — Menus and commands

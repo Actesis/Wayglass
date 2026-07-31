@@ -67,7 +67,7 @@ Supporting foundations:
   implemented Phase 2D-B icon button, operational toggle, segmented selection, and navigation-rail
   contracts, together with the
   [`core-control semantics decision`](./docs/architecture/adr/0016-core-control-semantics.md).
-  Automated evidence and the remaining representative screen-reader review are recorded in the
+  Implementation and validation evidence are recorded in the
   [`core-controls validation`](./docs/accessibility/phase-2d-core-controls-validation.md).
 
 ## Local development

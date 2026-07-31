@@ -1,11 +1,10 @@
 # Phase 2D-B core-control contracts
 
-**Status:** Accepted and implemented for Phase 2D-B on July 31, 2026. Semantic and implementation
-ownership is recorded in [ADR 0016](../architecture/adr/0016-core-control-semantics.md). Operational
-request behavior follows the accepted [control-state contract](./control-state.md). Automated and
-visual evidence is recorded in the
-[Phase 2D-B validation record](../accessibility/phase-2d-core-controls-validation.md);
-representative screen-reader acceptance remains open.
+**Status:** Accepted, implemented, and validated for Phase 2D-B on July 31, 2026. Semantic and
+implementation ownership is recorded in
+[ADR 0016](../architecture/adr/0016-core-control-semantics.md). Operational request behavior follows
+the accepted [control-state contract](./control-state.md). Validation evidence is recorded in the
+[Phase 2D-B validation record](../accessibility/phase-2d-core-controls-validation.md).
 
 These contracts define `wg-icon-button`, `wg-toggle`, `wg-segmented-control`, `wg-segment`, and
 `wg-navigation-rail` before tokens or implementation are locked.
