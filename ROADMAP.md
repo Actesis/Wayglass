@@ -87,14 +87,45 @@ can be validated before later components depend on it.
 
 ### Phase 2D — Controls and forms
 
-- [ ] Specify and implement icon button, toggle, segmented control, navigation rail, menu, and
-      command item.
-- [ ] Specify and implement text field, number field, select, checkbox, radio, slider, field label,
-      field message, and form group.
-- [ ] Define form participation, validation, submission, and error-announcement behavior before
-      extending `wg-button`.
-- [ ] Document and validate keyboard, touch, zoom, forced-colors, reduced-motion, and framework
-      behavior.
+#### Phase 2D-A — Control-state architecture
+
+- [x] Define the Phase 2D milestone sequence.
+- [x] Draft the shared contract for confirmed values, requested values, pending and rejected
+      requests, unavailable targets, and local selection.
+- [x] Draft the controlled-request architecture decision.
+- [x] Draft the native form-control ownership and submission decision.
+- [ ] Review and accept the control-state contract and architecture decisions.
+
+#### Phase 2D-B — Core controls
+
+- [ ] Specify icon button, toggle, segmented control, and navigation rail public contracts.
+- [ ] Lock control tokens and implement the accepted framework-neutral interaction models.
+- [ ] Add typed React wrappers and production-backed stories.
+- [ ] Validate request behavior, selection, keyboard, touch, focus, zoom, forced colors, reduced
+      motion, and supported browser engines.
+
+#### Phase 2D-C — Menus and commands
+
+- [ ] Specify menu and command-item ownership, semantics, keyboard behavior, and composition.
+- [ ] Define popup positioning, dismissal, focus entry, and focus return without prematurely
+      creating a general overlay system.
+- [ ] Implement, document, and validate menus and command items across supported inputs and browser
+      engines.
+
+#### Phase 2D-D — Form foundation
+
+- [ ] Specify field label, field message, and form group contracts around consumer-authored native
+      controls.
+- [ ] Define validation timing, submission, reset, disabled, read-only, required, and
+      error-announcement behavior.
+- [ ] Implement and validate the native form presentation and association substrate.
+
+#### Phase 2D-E — Form controls and validation
+
+- [ ] Specify and implement text field, number field, select, checkbox, radio, and slider contracts.
+- [ ] Add typed React wrappers and production-backed form compositions.
+- [ ] Validate native submission, reset, autofill-compatible ownership, constraint validation,
+      keyboard, touch, zoom, forced colors, and supported browser engines.
 
 ### Phase 2E — Feedback and closeout
 

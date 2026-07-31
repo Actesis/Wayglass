@@ -52,6 +52,10 @@ export default defineConfig({
         items: [{ text: 'Media-content contract', link: '/media/' }],
       },
       {
+        text: 'Phase 2 controls and forms',
+        items: [{ text: 'Control-state contract', link: '/controls/' }],
+      },
+      {
         text: 'Architecture',
         items: [
           {
@@ -73,6 +77,14 @@ export default defineConfig({
           {
             text: 'ADR 0013: Native media ownership',
             link: '/architecture/adr/0013-native-media-ownership',
+          },
+          {
+            text: 'ADR 0014: Controlled requests',
+            link: '/architecture/adr/0014-controlled-operational-requests',
+          },
+          {
+            text: 'ADR 0015: Native form controls',
+            link: '/architecture/adr/0015-native-form-control-ownership',
           },
         ],
       },
