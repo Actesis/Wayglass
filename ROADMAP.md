@@ -108,10 +108,13 @@ can be validated before later components depend on it.
 
 #### Phase 2D-C — Menus and commands
 
-- [ ] Specify menu and command-item ownership, semantics, keyboard behavior, and composition.
-- [ ] Define popup positioning, dismissal, focus entry, and focus return without prematurely
-      creating a general overlay system.
-- [ ] Implement, document, and validate menus and command items across supported inputs and browser
+- [x] Draft menu and command-item ownership, semantics, keyboard behavior, and composition.
+- [x] Draft popup positioning, dismissal, focus entry, and focus return without prematurely creating
+      a general overlay system.
+- [x] Review and accept the menu and command contracts and architecture decision.
+- [ ] Lock menu tokens and implement the accepted framework-neutral interaction model.
+- [ ] Add typed React wrappers and production-backed stories.
+- [ ] Validate menus and command items across supported inputs, assistive technology, and browser
       engines.
 
 #### Phase 2D-D — Form foundation
