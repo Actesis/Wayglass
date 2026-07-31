@@ -1120,6 +1120,146 @@ export const tokens = {
     type: 'dimension',
     description: 'Active tab-panel edge padding.',
   },
+  'component.icon-button.color.background': {
+    value: '{color.semantic.surface.inset}',
+    type: 'color',
+    description: 'Quiet icon-button background.',
+  },
+  'component.icon-button.color.background-hover': {
+    value: '{color.semantic.surface.raised}',
+    type: 'color',
+    description: 'Icon-button hover background.',
+  },
+  'component.icon-button.color.border': {
+    value: '{color.semantic.border.strong}',
+    type: 'color',
+    description: 'Secondary icon-button boundary.',
+  },
+  'component.icon-button.color.text': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'Icon-button foreground.',
+  },
+  'component.icon-button.radius': {
+    value: '{shape.radius.control}',
+    type: 'dimension',
+    description: 'Icon-button radius.',
+  },
+  'component.icon-button.size': {
+    value: '{size.touch.minimum}',
+    type: 'dimension',
+    description: 'Icon-button target size.',
+  },
+  'component.toggle.color.background': {
+    value: '{color.semantic.surface.inset}',
+    type: 'color',
+    description: 'Operational toggle background.',
+  },
+  'component.toggle.color.border': {
+    value: '{color.semantic.border.strong}',
+    type: 'color',
+    description: 'Operational toggle boundary.',
+  },
+  'component.toggle.color.text': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'Operational toggle text.',
+  },
+  'component.toggle.color.asserted': {
+    value: '{color.semantic.value.asserted}',
+    type: 'color',
+    description: 'Asserted operational value signal.',
+  },
+  'component.toggle.color.not-asserted': {
+    value: '{color.semantic.value.not-asserted}',
+    type: 'color',
+    description: 'Not-asserted operational value signal.',
+  },
+  'component.toggle.radius': {
+    value: '{shape.radius.control}',
+    type: 'dimension',
+    description: 'Operational toggle radius.',
+  },
+  'component.toggle.size.signal': {
+    value: '{size.signal.prominent}',
+    type: 'dimension',
+    description: 'Operational toggle signal size.',
+  },
+  'component.toggle.space': {
+    value: '{space.reference.3}',
+    type: 'dimension',
+    description: 'Operational toggle internal spacing.',
+  },
+  'component.segmented.color.background': {
+    value: '{color.semantic.surface.inset}',
+    type: 'color',
+    description: 'Segmented-control background.',
+  },
+  'component.segmented.color.border': {
+    value: '{color.semantic.border.strong}',
+    type: 'color',
+    description: 'Segmented-control boundary.',
+  },
+  'component.segmented.color.selected': {
+    value: '{color.semantic.selection.indicator}',
+    type: 'color',
+    description: 'Selected segment reinforcement.',
+  },
+  'component.segmented.color.text': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'Segment text.',
+  },
+  'component.segmented.radius': {
+    value: '{shape.radius.control}',
+    type: 'dimension',
+    description: 'Segmented-control radius.',
+  },
+  'component.segmented.space': {
+    value: '{space.reference.3}',
+    type: 'dimension',
+    description: 'Segment internal spacing.',
+  },
+  'component.segmented.size.minimum': {
+    value: '{size.touch.minimum}',
+    type: 'dimension',
+    description: 'Segment minimum target size.',
+  },
+  'component.navigation-rail.color.background': {
+    value: '{color.semantic.surface.inset}',
+    type: 'color',
+    description: 'Navigation-rail background.',
+  },
+  'component.navigation-rail.color.border': {
+    value: '{color.semantic.border.strong}',
+    type: 'color',
+    description: 'Navigation-rail boundary.',
+  },
+  'component.navigation-rail.color.current': {
+    value: '{color.semantic.selection.indicator}',
+    type: 'color',
+    description: 'Current-destination reinforcement.',
+  },
+  'component.navigation-rail.color.text': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'Navigation-rail link text.',
+  },
+  'component.navigation-rail.radius': {
+    value: '{shape.radius.band}',
+    type: 'dimension',
+    description: 'Navigation-rail radius.',
+  },
+  'component.navigation-rail.space': {
+    value: '{space.reference.2}',
+    type: 'dimension',
+    description: 'Navigation-rail internal spacing.',
+  },
+  'component.navigation-rail.link-size.minimum': {
+    value: '{size.touch.minimum}',
+    type: 'dimension',
+    description: 'Navigation link minimum target size.',
+  },
   'component.status-indicator.color.border': {
     value: '{color.semantic.border.strong}',
     type: 'color',

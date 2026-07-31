@@ -63,9 +63,12 @@ Supporting foundations:
   [`controlled-request decision`](./docs/architecture/adr/0014-controlled-operational-requests.md)
   and
   [`native form-control ownership decision`](./docs/architecture/adr/0015-native-form-control-ownership.md).
-- [`docs/controls/core-controls.md`](./docs/controls/core-controls.md) proposes the Phase 2D-B icon
-  button, operational toggle, segmented selection, and navigation-rail contracts, together with the
+- [`docs/controls/core-controls.md`](./docs/controls/core-controls.md) defines the accepted and
+  implemented Phase 2D-B icon button, operational toggle, segmented selection, and navigation-rail
+  contracts, together with the
   [`core-control semantics decision`](./docs/architecture/adr/0016-core-control-semantics.md).
+  Automated evidence and the remaining representative screen-reader review are recorded in the
+  [`core-controls validation`](./docs/accessibility/phase-2d-core-controls-validation.md).
 
 ## Local development
 

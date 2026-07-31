@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wayglass core controls</title>
+    <link rel="stylesheet" href="/packages/tokens/dist/tokens.css" />
+    <link rel="stylesheet" href="/packages/themes/dist/themes.css" />
+    <style>
+      body {
+        margin: 0;
+      }
+      main {
+        min-block-size: 100vh;
+        box-sizing: border-box;
+        padding: var(--wg-space-reference-4);
+        color: var(--wg-color-semantic-text-primary);
+        background: var(--wg-color-semantic-surface-canvas);
+        font-family: var(--wg-typography-family-body);
+      }
+      .stack {
+        display: grid;
+        min-inline-size: 0;
+        gap: var(--wg-space-reference-6);
+        max-inline-size: 44rem;
+      }
+      .stack > * {
+        min-inline-size: 0;
+      }
+      h1,
+      h2 {
+        overflow-wrap: anywhere;
+      }
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--wg-space-reference-3);
+      }
+    </style>
+  </head>
+  <body>
+    <wg-theme-provider theme="wayglass-dark" density="compact">
+      <main>
+        <div class="stack">
+          <h1>Core controls</h1>
+          <section>
+            <h2>Commands</h2>
+            <div class="row">
+              <wg-icon-button id="refresh" label="Refresh account status" appearance="secondary">
+                <wg-icon name="refresh"></wg-icon>
+              </wg-icon-button>
+              <wg-icon-button id="pending-command" label="Dismiss account notice" pending>
+                <wg-icon name="close"></wg-icon>
+              </wg-icon-button>
+            </div>
+          </section>
+          <section>
+            <h2>Operational values</h2>
+            <wg-toggle
+              id="confirmed-toggle"
+              label="Email notifications"
+              asserted
+              asserted-label="On"
+              not-asserted-label="Off"
+            >
+              <span slot="detail">Confirmed account setting</span>
+            </wg-toggle>
+            <wg-toggle
+              id="pending-toggle"
+              label="Activity summaries"
+              asserted-label="Enabled"
+              not-asserted-label="Disabled"
+              requested="asserted"
+              request-state="pending"
+            >
+              <span slot="feedback" role="status">Enabling; confirmed value remains Disabled.</span>
+            </wg-toggle>
+            <wg-toggle
+              id="rejected-toggle"
+              label="Security notices"
+              asserted-label="Enabled"
+              not-asserted-label="Disabled"
+              requested="asserted"
+              request-state="rejected"
+            >
+              <span slot="feedback">The request was not accepted. Try again.</span>
+            </wg-toggle>
+            <wg-toggle
+              id="unavailable-toggle"
+              label="Directory synchronization"
+              asserted-label="Enabled"
+              not-asserted-label="Disabled"
+              availability="unavailable"
+            >
+              <span slot="feedback">Directory service is unavailable.</span>
+            </wg-toggle>
+          </section>
+          <section>
+            <h2>Local selection</h2>
+            <wg-segmented-control id="density" value="compact" aria-label="Display density">
+              <wg-segment value="compact">Compact</wg-segment>
+              <wg-segment value="comfortable">Comfortable</wg-segment>
+              <wg-segment value="spacious" disabled>Spacious</wg-segment>
+            </wg-segmented-control>
+          </section>
+          <section>
+            <h2>Navigation</h2>
+            <nav aria-label="Account">
+              <wg-navigation-rail orientation="horizontal">
+                <a href="#overview" aria-current="page">Overview</a>
+                <a href="#activity">Activity</a>
+                <a href="#preferences">Preferences</a>
+              </wg-navigation-rail>
+            </nav>
+          </section>
+        </div>
+      </main>
+    </wg-theme-provider>
+    <script type="module">
+      import { defineWgThemeProvider } from '/packages/elements/dist/theme-provider.js';
+      import { defineWgIconButton } from '/packages/elements/dist/icon-button.js';
+      import { defineWgToggle } from '/packages/elements/dist/toggle.js';
+      import { defineWgSegmentedControl } from '/packages/elements/dist/segmented-control.js';
+      import { defineWgNavigationRail } from '/packages/elements/dist/navigation-rail.js';
+      import { defineWgIcon } from '/packages/icons/dist/index.js';
+      defineWgThemeProvider();
+      defineWgIcon();
+      defineWgIconButton();
+      defineWgToggle();
+      defineWgSegmentedControl();
+      defineWgNavigationRail();
+    </script>
+  </body>
+</html>

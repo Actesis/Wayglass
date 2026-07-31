@@ -11,7 +11,7 @@ export default defineConfig({
   },
   webServer: {
     command:
-      'pnpm --filter @wayglass/tokens build && pnpm --filter @wayglass/themes build && pnpm --filter @wayglass/elements build && pnpm --filter @wayglass/react build && pnpm exec vite --host 127.0.0.1 --port 4173 --strictPort',
+      'pnpm --filter @wayglass/tokens build && pnpm --filter @wayglass/themes build && pnpm --filter @wayglass/icons build && pnpm --filter @wayglass/elements build && pnpm --filter @wayglass/react build && pnpm exec vite --host 127.0.0.1 --port 4173 --strictPort',
     url: 'http://127.0.0.1:4173/tests/browser/fixture/',
     reuseExistingServer: true,
   },

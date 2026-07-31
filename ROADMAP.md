@@ -100,9 +100,9 @@ can be validated before later components depend on it.
 
 - [x] Draft icon button, toggle, segmented control, and navigation rail public contracts.
 - [x] Draft the core-control semantics and ownership architecture decision.
-- [ ] Review and accept the core-control contracts and architecture decision.
-- [ ] Lock control tokens and implement the accepted framework-neutral interaction models.
-- [ ] Add typed React wrappers and production-backed stories.
+- [x] Review and accept the core-control contracts and architecture decision.
+- [x] Lock control tokens and implement the accepted framework-neutral interaction models.
+- [x] Add typed React wrappers and production-backed stories.
 - [ ] Validate request behavior, selection, keyboard, touch, focus, zoom, forced colors, reduced
       motion, and supported browser engines.
 

@@ -12,7 +12,10 @@ test.beforeEach(async ({ page }) => {
       customElements.get('wg-tabs') !== undefined &&
       customElements.get('wg-tab-list') !== undefined &&
       customElements.get('wg-tab') !== undefined &&
-      customElements.get('wg-tab-panel') !== undefined,
+      customElements.get('wg-tab-panel') !== undefined &&
+      customElements.get('wg-toggle') !== undefined &&
+      customElements.get('wg-segmented-control') !== undefined &&
+      customElements.get('wg-navigation-rail') !== undefined,
   );
 });
 
@@ -24,6 +27,8 @@ test('registers wrappers and assigns typed element properties', async ({ page })
   await expect(page.locator('html')).toHaveAttribute('data-tabs-ref-tag', 'wg-tabs');
   await expect(page.locator('#react-tabs')).toHaveJSProperty('activation', 'automatic');
   await expect(page.locator('#react-tabs')).toHaveJSProperty('orientation', 'horizontal');
+  await expect(page.locator('#react-toggle')).toHaveJSProperty('asserted', true);
+  await expect(page.locator('#react-segments')).toHaveJSProperty('value', 'compact');
 });
 
 test('forwards native events through React props', async ({ page }) => {
@@ -44,6 +49,27 @@ test('translates typed Custom Events to React callback props', async ({ page }) 
     JSON.stringify({
       value: 'security',
       previousValue: 'overview',
+      trigger: 'pointer',
+    }),
+  );
+
+  await page.getByRole('switch', { name: 'React notifications' }).click();
+  await expect(page.locator('html')).toHaveAttribute(
+    'data-toggle-request',
+    JSON.stringify({
+      requestedAsserted: false,
+      confirmedAsserted: true,
+      trigger: 'pointer',
+    }),
+  );
+
+  await page.getByRole('radio', { name: 'Comfortable' }).click();
+  await expect(page.locator('#react-segments')).toHaveJSProperty('value', 'comfortable');
+  await expect(page.locator('html')).toHaveAttribute(
+    'data-segment-change',
+    JSON.stringify({
+      value: 'comfortable',
+      previousValue: 'compact',
       trigger: 'pointer',
     }),
   );

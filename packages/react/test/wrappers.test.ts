@@ -11,11 +11,15 @@ import {
   WgElbow,
   WgFrame,
   WgGrid,
+  WgIconButton,
   WgMedia,
   WgMetric,
+  WgNavigationRail,
   WgPanel,
   WgRail,
   WgScrollRegion,
+  WgSegment,
+  WgSegmentedControl,
   WgSplit,
   WgStack,
   WgStatusIndicator,
@@ -25,6 +29,7 @@ import {
   WgTabPanel,
   WgTabs,
   WgThemeProvider,
+  WgToggle,
   WgValueTile,
 } from '../src/index.js';
 import type { WgTabsProps, WgThemeProviderProps } from '../src/index.js';
@@ -55,6 +60,11 @@ describe('Wayglass React wrappers', () => {
       WgTabList,
       WgTab,
       WgTabPanel,
+      WgIconButton,
+      WgToggle,
+      WgSegmentedControl,
+      WgSegment,
+      WgNavigationRail,
     ];
 
     expect(wrappers.map((wrapper) => wrapper.displayName)).toEqual([
@@ -81,6 +91,11 @@ describe('Wayglass React wrappers', () => {
       'WgTabList',
       'WgTab',
       'WgTabPanel',
+      'WgIconButton',
+      'WgToggle',
+      'WgSegmentedControl',
+      'WgSegment',
+      'WgNavigationRail',
     ]);
   });
 
