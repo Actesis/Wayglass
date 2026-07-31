@@ -58,6 +58,11 @@ Supporting foundations:
   [`native-media ownership decision`](./docs/architecture/adr/0013-native-media-ownership.md).
   Implementation evidence is recorded in the
   [`media-content validation`](./docs/accessibility/phase-2c-media-validation.md).
+- [`docs/controls/control-state.md`](./docs/controls/control-state.md) proposes the Phase 2D-A
+  control-state contract, together with the
+  [`controlled-request decision`](./docs/architecture/adr/0014-controlled-operational-requests.md)
+  and
+  [`native form-control ownership decision`](./docs/architecture/adr/0015-native-form-control-ownership.md).
 
 ## Local development
 
