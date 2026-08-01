@@ -119,11 +119,17 @@ can be validated before later components depend on it.
 
 #### Phase 2D-D — Form foundation
 
-- [ ] Specify field label, field message, and form group contracts around consumer-authored native
+- [x] Draft field label, field message, and form group contracts around consumer-authored native
       controls.
-- [ ] Define validation timing, submission, reset, disabled, read-only, required, and
+- [x] Define validation timing, submission, reset, disabled, read-only, required, and
       error-announcement behavior.
-- [ ] Implement and validate the native form presentation and association substrate.
+- [ ] Review and accept the form-foundation contracts and explicit-relationship architecture
+      decision.
+- [ ] Lock form-foundation tokens and implement the accepted native presentation and association
+      substrate.
+- [ ] Add typed React wrappers and production-backed form-foundation stories.
+- [ ] Validate labeling, grouping, submission, reset, native constraints, error announcements,
+      autofill, zoom, forced colors, and supported browser and assistive-technology combinations.
 
 #### Phase 2D-E — Form controls and validation
 

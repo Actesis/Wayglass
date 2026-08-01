@@ -56,7 +56,8 @@ export default defineConfig({
         items: [
           { text: 'Control-state contract', link: '/controls/control-state' },
           { text: 'Core-control contracts', link: '/controls/core-controls' },
-          { text: 'Menu and command proposal', link: '/controls/menus-and-commands' },
+          { text: 'Menu and command contract', link: '/controls/menus-and-commands' },
+          { text: 'Form-foundation proposal', link: '/forms/form-foundation' },
         ],
       },
       {
@@ -97,6 +98,10 @@ export default defineConfig({
           {
             text: 'ADR 0017: Menu and command architecture',
             link: '/architecture/adr/0017-menu-command-architecture',
+          },
+          {
+            text: 'ADR 0018: Form relationships and validation',
+            link: '/architecture/adr/0018-explicit-form-relationships-and-validation',
           },
         ],
       },
