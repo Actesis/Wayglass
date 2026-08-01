@@ -7,12 +7,14 @@ import {
   WgButton,
   WgCanvas,
   WgCluster,
+  WgCommandItem,
   WgDivider,
   WgElbow,
   WgFrame,
   WgGrid,
   WgIconButton,
   WgMedia,
+  WgMenu,
   WgMetric,
   WgNavigationRail,
   WgPanel,
@@ -35,15 +37,17 @@ import {
 import type { WgTabsProps, WgThemeProviderProps } from '../src/index.js';
 
 describe('Wayglass React wrappers', () => {
-  it('exports named wrappers for every Phase 1 element', () => {
+  it('exports named wrappers for every implemented element', () => {
     const wrappers = [
       WgThemeProvider,
       WgCanvas,
       WgFrame,
       WgStack,
       WgCluster,
+      WgCommandItem,
       WgGrid,
       WgMedia,
+      WgMenu,
       WgSplit,
       WgScrollRegion,
       WgDivider,
@@ -73,8 +77,10 @@ describe('Wayglass React wrappers', () => {
       'WgFrame',
       'WgStack',
       'WgCluster',
+      'WgCommandItem',
       'WgGrid',
       'WgMedia',
+      'WgMenu',
       'WgSplit',
       'WgScrollRegion',
       'WgDivider',

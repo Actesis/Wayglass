@@ -32,6 +32,8 @@ export {
   wgClusterTagName,
 } from './cluster.js';
 export type { ClusterAlignment, ClusterJustification } from './cluster.js';
+export { defineWgCommandItem, WgCommandItem, wgCommandItemTagName } from './command-item.js';
+export type { CommandTrigger, WgCommandDetail } from './command-item.js';
 export {
   defineWgDivider,
   dividerOrientations,
@@ -79,6 +81,15 @@ export {
   wgMediaTagName,
 } from './media.js';
 export type { MediaAspect, MediaBoundary, MediaFit, MediaState } from './media.js';
+export { defineWgMenu, isMenuPlacement, menuPlacements, WgMenu, wgMenuTagName } from './menu.js';
+export type {
+  MenuFocusTarget,
+  MenuHideOptions,
+  MenuPlacement,
+  MenuShowOptions,
+  MenuToggleReason,
+  WgMenuToggleDetail,
+} from './menu.js';
 export {
   defineWgNavigationRail,
   isNavigationRailOrientation,

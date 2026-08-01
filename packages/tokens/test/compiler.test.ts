@@ -157,6 +157,33 @@ describe('token compiler', () => {
     );
   });
 
+  it('contains the locked Phase 2D-C menu token roles', () => {
+    const names = Object.keys(tokens);
+
+    expect(names).toEqual(
+      expect.arrayContaining([
+        'component.menu.color.trigger-background',
+        'component.menu.color.popup-background',
+        'component.menu.color.item-background-hover',
+        'component.menu.color.border',
+        'component.menu.color.text',
+        'component.menu.color.detail',
+        'component.menu.radius.trigger',
+        'component.menu.radius.popup',
+        'component.menu.elevation',
+        'component.menu.space',
+        'component.menu.space.popup',
+        'component.menu.space.offset',
+        'component.menu.space.viewport',
+        'component.menu.size.trigger-minimum',
+        'component.menu.size.item-minimum',
+        'component.menu.size.inline-minimum',
+        'component.menu.size.inline-maximum',
+        'component.menu.size.block-maximum',
+      ]),
+    );
+  });
+
   it('contains the locked Phase 2C layout token roles and mirrored split thresholds', () => {
     const names = Object.keys(tokens);
 
