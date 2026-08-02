@@ -1,7 +1,7 @@
 # Phase 2E-B persistent-feedback and loading contracts
 
-**Status:** Accepted for Phase 2E-B on August 1, 2026; implementation and validation are in
-progress. Shared delivery, announcement, lifetime, and state ownership follow the accepted
+**Status:** Accepted and implemented for Phase 2E-B on August 1, 2026; final validation remains
+open. Shared delivery, announcement, lifetime, and state ownership follow the accepted
 [feedback-state contract](./feedback-state.md) and
 [ADR 0020](../architecture/adr/0020-feedback-delivery-and-lifetime.md).
 

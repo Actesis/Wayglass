@@ -157,8 +157,8 @@ can be validated before later components depend on it.
 
 - [x] Draft badge, alert, progress, skeleton, empty-state, offline-state, and stale-data-marker
       public contracts.
-- [ ] Lock tokens and implement the accepted framework-neutral components and patterns.
-- [ ] Add typed React wrappers and production-backed stories.
+- [x] Lock tokens and implement the accepted framework-neutral components and patterns.
+- [x] Add typed React wrappers and production-backed stories.
 - [ ] Validate semantics, labeling, retained context, loading replacement, motion, zoom, forced
       colors, and supported browser and assistive-technology combinations.
 
