@@ -1390,6 +1390,16 @@ export const tokens = {
     type: 'color',
     description: 'Native form-control text reserved for Phase 2D-E presentations.',
   },
+  'component.form.color.control-placeholder': {
+    value: '{color.semantic.text.secondary}',
+    type: 'color',
+    description: 'Supplemental placeholder text that does not replace a persistent label.',
+  },
+  'component.form.color.control-accent': {
+    value: '{color.semantic.action.primary}',
+    type: 'color',
+    description: 'Native checkbox, radio, and range accent without condition meaning.',
+  },
   'component.form.color.control-border': {
     value: '{color.semantic.border.strong}',
     type: 'color',
@@ -1420,10 +1430,30 @@ export const tokens = {
     type: 'dimension',
     description: 'Spacing between a field-message signal and its text.',
   },
+  'component.form.space.control-block': {
+    value: '{space.semantic.control.block}',
+    type: 'dimension',
+    description: 'Native text, number, and select control block padding.',
+  },
+  'component.form.space.control-inline': {
+    value: '{space.semantic.control.inline}',
+    type: 'dimension',
+    description: 'Density-aware native text, number, and select control inline padding.',
+  },
+  'component.form.space.choice': {
+    value: '{space.reference.3}',
+    type: 'dimension',
+    description: 'Density-aware spacing between a native choice control and its label.',
+  },
   'component.form.size.control-minimum': {
     value: '{size.touch.minimum}',
     type: 'dimension',
     description: 'Native form-control minimum target size.',
+  },
+  'component.form.size.choice': {
+    value: '1.25rem',
+    type: 'dimension',
+    description: 'Visual checkbox and radio size within the larger labeled interaction target.',
   },
   'component.form.size.error-signal': {
     value: '{border.width.band}',

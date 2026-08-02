@@ -1,11 +1,14 @@
 # Phase 2D-E form-control contracts
 
-**Status:** Proposed for review on August 1, 2026. Native ownership remains governed by
+**Status:** Accepted and implemented for Phase 2D-E on August 1, 2026; final validation remains
+open. Native ownership remains governed by
 [ADR 0015](../architecture/adr/0015-native-form-control-ownership.md), explicit relationships and
 validation remain governed by
-[ADR 0018](../architecture/adr/0018-explicit-form-relationships-and-validation.md), and the proposed
+[ADR 0018](../architecture/adr/0018-explicit-form-relationships-and-validation.md), and the accepted
 presentation boundary is recorded in
-[ADR 0019](../architecture/adr/0019-styled-native-form-controls.md).
+[ADR 0019](../architecture/adr/0019-styled-native-form-controls.md). Automated and visual evidence
+is recorded in the
+[Phase 2D-E validation record](../accessibility/phase-2d-form-controls-validation.md).
 
 This milestone defines `wg-text-field`, `wg-number-field`, `wg-select`, `wg-checkbox`, `wg-radio`,
 and `wg-slider` as inert presentation shells around consumer-authored native controls. It does not
@@ -225,9 +228,8 @@ public API consists of:
   size, inline padding, block padding, and choice/slider geometry.
 
 Native controls and choice labels remain slotted light-DOM nodes, so the shell cannot assign CSS
-parts to them. The implementation will expose documented public classes for those nodes only if
-cross-engine prototyping proves `::slotted()` insufficient. That decision must be made before tokens
-or selectors are treated as stable API.
+parts to them. Cross-engine prototyping confirmed that `::slotted()` can deliver the accepted state
+and geometry selectors without adding public classes to native nodes.
 
 ## Diagnostics and invalid anatomy
 

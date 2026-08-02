@@ -157,6 +157,10 @@ export default defineConfig({
             text: 'Phase 2D-D form-foundation validation',
             link: '/accessibility/phase-2d-form-foundation-validation',
           },
+          {
+            text: 'Phase 2D-E form-controls validation',
+            link: '/accessibility/phase-2d-form-controls-validation',
+          },
         ],
       },
       {

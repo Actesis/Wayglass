@@ -81,9 +81,12 @@ Supporting foundations:
   [`explicit form relationships and validation decision`](./docs/architecture/adr/0018-explicit-form-relationships-and-validation.md).
   Automated and visual evidence is recorded in the
   [`form-foundation validation`](./docs/accessibility/phase-2d-form-foundation-validation.md).
-- [`docs/forms/form-controls.md`](./docs/forms/form-controls.md) proposes the Phase 2D-E text,
-  number, select, checkbox, radio, and slider contracts together with the
+- [`docs/forms/form-controls.md`](./docs/forms/form-controls.md) defines the accepted and
+  implemented Phase 2D-E text, number, select, checkbox, radio, and slider contracts together with
+  the
   [`styled-native presentation decision`](./docs/architecture/adr/0019-styled-native-form-controls.md).
+  Automated and visual evidence is recorded in the
+  [`form-controls validation`](./docs/accessibility/phase-2d-form-controls-validation.md).
 
 ## Local development
 
