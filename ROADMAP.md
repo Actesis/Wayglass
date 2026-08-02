@@ -167,7 +167,7 @@ can be validated before later components depend on it.
 - [x] Draft toast, toast-region, queue, lifetime, dismissal, and announcement contracts.
 - [x] Lock tokens and implement the accepted framework-neutral interaction model.
 - [x] Add typed React wrappers and production-backed stories.
-- [ ] Validate queue behavior, duplicate announcements, timing, pause and dismissal, focus
+- [x] Validate queue behavior, duplicate announcements, timing, pause and dismissal, focus
       independence, reduced motion, zoom, and supported browser and assistive-technology
       combinations.
 

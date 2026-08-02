@@ -1,3 +1,4 @@
+import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
@@ -114,6 +115,58 @@ test('replaces explicit duplicates in place and reports presentation dismissal',
   ).toContainEqual({ toastId: 'upload-1', reason: 'replaced' });
 });
 
+test('suppresses unchanged duplicate announcements and announces meaningful replacements', async ({
+  page,
+}) => {
+  await page.locator('#region').evaluate((region) => {
+    const announcer = region.shadowRoot!.querySelector('[part="polite-announcer"]')!;
+    (region as HTMLElement & { announcements?: string[] }).announcements = [];
+    new MutationObserver(() => {
+      const text = announcer.textContent?.trim();
+      if (text) {
+        (region as HTMLElement & { announcements: string[] }).announcements.push(text);
+      }
+    }).observe(announcer, { childList: true, characterData: true, subtree: true });
+  });
+
+  const addToast = async (id: string, message: string) => {
+    await page.locator('#region').evaluate(
+      (region, value) => {
+        const toast = document.createElement('wg-toast');
+        toast.setAttribute('toast-id', value.id);
+        toast.setAttribute('dedupe-key', 'sync-result');
+        toast.setAttribute('duration', '0');
+        toast.setAttribute('close-label', `Dismiss ${value.id}`);
+        toast.setAttribute('open', '');
+        toast.textContent = value.message;
+        region.append(toast);
+      },
+      { id, message },
+    );
+  };
+
+  await addToast('sync-1', 'Catalog synchronized.');
+  await expect(page.locator('#region').locator('[part="polite-announcer"]')).toHaveText(
+    'Catalog synchronized.',
+  );
+  await addToast('sync-2', 'Catalog synchronized.');
+  await page.waitForTimeout(250);
+  expect(
+    await page
+      .locator('#region')
+      .evaluate((region) => (region as HTMLElement & { announcements: string[] }).announcements),
+  ).toEqual(['Catalog synchronized.']);
+
+  await addToast('sync-3', 'Catalog synchronized with two changes.');
+  await expect
+    .poll(() =>
+      page
+        .locator('#region')
+        .evaluate((region) => (region as HTMLElement & { announcements: string[] }).announcements),
+    )
+    .toEqual(['Catalog synchronized.', 'Catalog synchronized with two changes.']);
+});
+
 test('distinguishes implicit manual action lifetime from an explicit duration', async ({
   page,
 }) => {
@@ -165,6 +218,74 @@ test('starts timed lifetime only when a toast becomes visible', async ({ page })
   await expect(toast).not.toBeVisible();
 });
 
+test('preserves remaining lifetime across explicit pause and resume', async ({ page }) => {
+  await page.clock.install();
+  await page.locator('#region').evaluate((region) => {
+    region.removeAttribute('paused');
+    const toast = document.createElement('wg-toast');
+    toast.setAttribute('toast-id', 'pause-resume');
+    toast.setAttribute('duration', '5000');
+    toast.setAttribute('close-label', 'Dismiss pause-resume notification');
+    toast.setAttribute('open', '');
+    toast.textContent = 'Pause and resume acknowledgement.';
+    region.append(toast);
+  });
+  const toast = page.locator('wg-toast[toast-id="pause-resume"]');
+  await expect(toast).toBeVisible();
+  await page.clock.fastForward(1_000);
+  await page
+    .locator('#region')
+    .evaluate((region) => (region as HTMLElement & { pause(): void }).pause());
+  await page.clock.fastForward(10_000);
+  await expect(toast).toBeVisible();
+  await page
+    .locator('#region')
+    .evaluate((region) => (region as HTMLElement & { resume(): void }).resume());
+  await page.clock.fastForward(2_000);
+  await expect(toast).toBeVisible();
+  await page.clock.fastForward(2_500);
+  await expect(toast).not.toBeVisible();
+});
+
+test('pauses timed lifetime while a toast contains focus', async ({ page }) => {
+  await page.clock.install();
+  await page.locator('#region').evaluate((region) => {
+    region.removeAttribute('paused');
+    const toast = document.createElement('wg-toast');
+    toast.setAttribute('toast-id', 'focus-pause');
+    toast.setAttribute('duration', '5000');
+    toast.setAttribute('close-label', 'Dismiss focus-pause notification');
+    toast.setAttribute('open', '');
+    toast.textContent = 'Review is available.';
+    const action = document.createElement('button');
+    action.slot = 'actions';
+    action.textContent = 'Review';
+    toast.append(action);
+    region.append(toast);
+  });
+  const toast = page.locator('wg-toast[toast-id="focus-pause"]');
+  await page.clock.fastForward(2_000);
+  await toast.getByRole('button', { name: 'Review' }).focus();
+  await page.clock.fastForward(10_000);
+  await expect(toast).toBeVisible();
+  await page.locator('#outside').focus();
+  await page.clock.fastForward(2_000);
+  await expect(toast).toBeVisible();
+  await page.clock.fastForward(2_500);
+  await expect(toast).not.toBeVisible();
+});
+
+test('defers dismiss-all for a focused toast until focus leaves', async ({ page }) => {
+  const toast = page.locator('#static-toast');
+  await toast.getByRole('button', { name: 'Dismiss saved notification' }).focus();
+  await page
+    .locator('#region')
+    .evaluate((region) => (region as HTMLElement & { dismissAll(): void }).dismissAll());
+  await expect(toast).toBeVisible();
+  await page.locator('#outside').focus();
+  await expect(toast).not.toBeVisible();
+});
+
 test('emits close reason and returns focus to the stack entry target', async ({ page }) => {
   const outside = page.locator('#outside');
   const toast = page.locator('#static-toast');
@@ -173,4 +294,59 @@ test('emits close reason and returns focus to the stack entry target', async ({ 
   await toast.getByRole('button', { name: 'Dismiss saved notification' }).click();
   await expect(outside).toBeFocused();
   await expect(toast).not.toBeVisible();
+});
+
+test('normalizes public vocabularies, duration, and visible limits', async ({ page }) => {
+  const toast = page.locator('#static-toast');
+  const region = page.locator('#region');
+  await toast.evaluate((element) => {
+    element.setAttribute('condition', 'healthy');
+    element.setAttribute('announcement', 'urgent');
+    element.setAttribute('duration', '12');
+  });
+  await region.evaluate((element) => {
+    element.setAttribute('placement', 'center');
+    element.setAttribute('max-visible', '99');
+  });
+  await expect(toast).toHaveAttribute('condition', 'neutral');
+  await expect(toast).toHaveAttribute('announcement', 'polite');
+  await expect(toast).toHaveAttribute('duration', '5000');
+  await expect(region).toHaveAttribute('placement', 'block-end-end');
+  await expect(region).toHaveAttribute('max-visible', '5');
+});
+
+for (const theme of ['wayglass-dark', 'wayglass-light'] as const) {
+  test(`has no automated accessibility violations in ${theme}`, async ({ page }) => {
+    await page.locator('wg-theme-provider').evaluate((element, value) => {
+      element.setAttribute('theme', value);
+    }, theme);
+    expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+  });
+}
+
+test('suppresses entry motion under reduced motion', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.reload();
+  await page.waitForFunction(() => customElements.get('wg-toast-region') !== undefined);
+  expect(
+    await page
+      .locator('#static-toast')
+      .locator('[part="base"]')
+      .evaluate((element) => getComputedStyle(element).animationName),
+  ).toBe('none');
+});
+
+test('reflows without page overflow at the 320 CSS-pixel viewport produced by 400 percent zoom', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 320, height: 900 });
+  const dimensions = await page.locator('html').evaluate((element) => ({
+    client: element.clientWidth,
+    scroll: element.scrollWidth,
+  }));
+  expect(dimensions.scroll - dimensions.client).toBeLessThanOrEqual(1);
+  await expect(page.locator('#static-toast')).toBeVisible();
+  await expect(
+    page.locator('#static-toast').getByRole('button', { name: 'Dismiss saved notification' }),
+  ).toBeVisible();
 });

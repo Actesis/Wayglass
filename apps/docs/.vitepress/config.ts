@@ -183,6 +183,10 @@ export default defineConfig({
             text: 'Phase 2E-B persistent-feedback validation',
             link: '/accessibility/phase-2e-persistent-feedback-validation',
           },
+          {
+            text: 'Phase 2E-C transient-feedback validation',
+            link: '/accessibility/phase-2e-transient-feedback-validation',
+          },
         ],
       },
       {

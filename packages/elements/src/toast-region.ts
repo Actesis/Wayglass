@@ -130,6 +130,7 @@ export class WgToastRegion extends WayglassElement {
   #lastFocusedToast: WgToast | null = null;
   #syncQueued = false;
   #diagnosticSignature = '';
+  #deferredDismissals = new Set<ToastRecord>();
   #announcementQueues: Record<'polite' | 'assertive', string[]> = {
     polite: [],
     assertive: [],
@@ -235,7 +236,10 @@ export class WgToastRegion extends WayglassElement {
   dismissAll(reason: 'programmatic' = 'programmatic'): void {
     let changed = false;
     for (const record of [...this.#records]) {
-      if (record.toast.containsFocus) continue;
+      if (record.toast.containsFocus) {
+        this.#deferredDismissals.add(record);
+        continue;
+      }
       this.#dismissRecord(record, reason, false);
       changed = true;
     }
@@ -374,6 +378,7 @@ export class WgToastRegion extends WayglassElement {
 
   #removeRecord(record: ToastRecord): void {
     this.#stopTimer(record, false);
+    this.#deferredDismissals.delete(record);
     const index = this.#records.indexOf(record);
     if (index >= 0) this.#records.splice(index, 1);
   }
@@ -445,6 +450,13 @@ export class WgToastRegion extends WayglassElement {
   readonly #handleFocusOut = (): void => {
     queueMicrotask(() => {
       this.#focusPaused = this.#records.some((record) => record.toast.containsFocus);
+      let dismissed = false;
+      for (const record of [...this.#deferredDismissals]) {
+        if (record.toast.containsFocus) continue;
+        this.#dismissRecord(record, 'programmatic', false);
+        dismissed = true;
+      }
+      if (dismissed) this.#updateVisibility();
       this.#updateTimers();
     });
   };
