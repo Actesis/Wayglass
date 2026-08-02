@@ -175,6 +175,10 @@ export default defineConfig({
             text: 'Phase 2D-E form-controls validation',
             link: '/accessibility/phase-2d-form-controls-validation',
           },
+          {
+            text: 'Phase 2E-B persistent-feedback validation',
+            link: '/accessibility/phase-2e-persistent-feedback-validation',
+          },
         ],
       },
       {
