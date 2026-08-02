@@ -85,6 +85,8 @@ Supporting foundations:
   implemented Phase 2D-E text, number, select, checkbox, radio, and slider contracts together with
   the
   [`styled-native presentation decision`](./docs/architecture/adr/0019-styled-native-form-controls.md).
+  Automated and visual evidence is recorded in the
+  [`form-controls validation`](./docs/accessibility/phase-2d-form-controls-validation.md).
 
 ## Local development
 

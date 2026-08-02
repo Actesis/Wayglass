@@ -61,6 +61,33 @@ test('keeps the native controls as the only form-control roles and focus targets
   }
 });
 
+test('reports invalid direct anatomy without hiding or replacing the native control', async ({
+  page,
+}) => {
+  const result = await page.evaluate(async () => {
+    const warnings: string[] = [];
+    const originalWarn = console.warn;
+    console.warn = (...values: unknown[]) => warnings.push(values.join(' '));
+    const shell = document.createElement('wg-number-field');
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.value = 'still native';
+    shell.append(input);
+    document.body.append(shell);
+    await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+    console.warn = originalWarn;
+    return {
+      warning: warnings.find((value) => value.includes('[wg-number-field]')) ?? '',
+      inputValue: input.value,
+      inputVisible: input.getBoundingClientRect().width > 0,
+      inputRole: input.getAttribute('role'),
+    };
+  });
+
+  expect(result.warning).toContain('Expected exactly one direct input[type="number"]');
+  expect(result).toMatchObject({ inputValue: 'still native', inputVisible: true, inputRole: null });
+});
+
 test('preserves ordinary text, textarea, and number editing behavior', async ({ page }) => {
   const name = page.getByLabel('Profile name');
   await name.fill('Morgan');

@@ -4,9 +4,11 @@
 open. Native ownership remains governed by
 [ADR 0015](../architecture/adr/0015-native-form-control-ownership.md), explicit relationships and
 validation remain governed by
-[ADR 0018](../architecture/adr/0018-explicit-form-relationships-and-validation.md), and the proposed
+[ADR 0018](../architecture/adr/0018-explicit-form-relationships-and-validation.md), and the accepted
 presentation boundary is recorded in
-[ADR 0019](../architecture/adr/0019-styled-native-form-controls.md).
+[ADR 0019](../architecture/adr/0019-styled-native-form-controls.md). Automated and visual evidence
+is recorded in the
+[Phase 2D-E validation record](../accessibility/phase-2d-form-controls-validation.md).
 
 This milestone defines `wg-text-field`, `wg-number-field`, `wg-select`, `wg-checkbox`, `wg-radio`,
 and `wg-slider` as inert presentation shells around consumer-authored native controls. It does not
