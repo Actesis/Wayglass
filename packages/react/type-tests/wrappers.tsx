@@ -15,6 +15,9 @@ import {
   WgCluster,
   WgCommandItem,
   WgFrame,
+  WgFieldLabel,
+  WgFieldMessage,
+  WgFormGroup,
   WgGrid,
   WgIconButton,
   WgMedia,
@@ -228,6 +231,30 @@ const typedMenu = (
   </WgMenu>
 );
 
+const typedFormFoundation = (
+  <WgFormGroup>
+    <label htmlFor="account-email">
+      <WgFieldLabel>
+        Email address
+        <span slot="requirement">Required</span>
+      </WgFieldLabel>
+    </label>
+    <input
+      id="account-email"
+      name="email"
+      type="email"
+      required
+      aria-describedby="account-email-help"
+    />
+    <WgFieldMessage id="account-email-help" kind="help">
+      Used for account notices.
+    </WgFieldMessage>
+  </WgFormGroup>
+);
+
+// @ts-expect-error Message kind is a closed presentation vocabulary.
+const invalidFieldMessageKind = <WgFieldMessage kind="warning" />;
+
 // @ts-expect-error Condition names are closed semantic vocabulary.
 const invalidCondition = <WgMetric condition="healthy" />;
 
@@ -283,6 +310,8 @@ void typedMedia;
 void typedTabs;
 void typedControls;
 void typedMenu;
+void typedFormFoundation;
+void invalidFieldMessageKind;
 void invalidCondition;
 void invalidPending;
 void invalidActivation;

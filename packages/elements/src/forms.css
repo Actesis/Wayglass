@@ -1,0 +1,68 @@
+@layer wayglass.forms {
+  .wg-form-action {
+    display: inline-flex;
+    min-inline-size: var(--wg-component-form-action-size-minimum);
+    min-block-size: var(--wg-component-form-action-size-minimum);
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    padding-block: var(--wg-component-form-action-space-block);
+    padding-inline: var(--wg-component-form-action-space-inline);
+    border: var(--wg-border-width-standard) solid var(--wg-component-form-action-color-border);
+    border-radius: var(--wg-component-form-action-radius);
+    color: var(--wg-component-form-action-color-text);
+    background: var(--wg-component-form-action-color-background);
+    font: inherit;
+    font-weight: var(--wg-typography-weight-medium);
+    line-height: var(--wg-typography-line-height-compact);
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .wg-form-action:hover:not(:disabled) {
+    background: var(--wg-component-form-action-color-background-hover);
+  }
+
+  .wg-form-action:active:not(:disabled) {
+    background: var(--wg-color-semantic-action-active);
+  }
+
+  .wg-form-action:focus-visible {
+    outline: var(--wg-focus-width) solid var(--wg-color-semantic-focus-ring);
+    outline-offset: var(--wg-focus-offset);
+  }
+
+  .wg-form-action:disabled {
+    cursor: not-allowed;
+    opacity: var(--wg-opacity-disabled);
+  }
+
+  .wg-form-action--quiet {
+    color: var(--wg-color-semantic-text-primary);
+    background: transparent;
+  }
+
+  .wg-form-action--quiet:hover:not(:disabled) {
+    background: var(--wg-color-semantic-surface-raised);
+  }
+
+  @media (forced-colors: active) {
+    .wg-form-action,
+    .wg-form-action--quiet {
+      border-color: ButtonText;
+      color: ButtonText;
+      background: ButtonFace;
+      forced-color-adjust: auto;
+    }
+
+    .wg-form-action:focus-visible {
+      outline-color: Highlight;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wg-form-action {
+      transition: none;
+    }
+  }
+}

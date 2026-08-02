@@ -54,6 +54,16 @@ export {
   wgElbowTagName,
 } from './elbow.js';
 export type { ElbowPlacement, ElbowWeight } from './elbow.js';
+export { defineWgFieldLabel, WgFieldLabel, wgFieldLabelTagName } from './field-label.js';
+export {
+  defineWgFieldMessage,
+  fieldMessageKinds,
+  isFieldMessageKind,
+  WgFieldMessage,
+  wgFieldMessageTagName,
+} from './field-message.js';
+export type { FieldMessageKind } from './field-message.js';
+export { defineWgFormGroup, WgFormGroup, wgFormGroupTagName } from './form-group.js';
 export {
   defineWgFrame,
   frameBoundaries,

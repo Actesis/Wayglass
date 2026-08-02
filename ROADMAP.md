@@ -123,11 +123,11 @@ can be validated before later components depend on it.
       controls.
 - [x] Define validation timing, submission, reset, disabled, read-only, required, and
       error-announcement behavior.
-- [ ] Review and accept the form-foundation contracts and explicit-relationship architecture
+- [x] Review and accept the form-foundation contracts and explicit-relationship architecture
       decision.
-- [ ] Lock form-foundation tokens and implement the accepted native presentation and association
+- [x] Lock form-foundation tokens and implement the accepted native presentation and association
       substrate.
-- [ ] Add typed React wrappers and production-backed form-foundation stories.
+- [x] Add typed React wrappers and production-backed form-foundation stories.
 - [ ] Validate labeling, grouping, submission, reset, native constraints, error announcements,
       autofill, zoom, forced colors, and supported browser and assistive-technology combinations.
 
