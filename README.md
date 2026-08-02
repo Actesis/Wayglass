@@ -94,6 +94,8 @@ Supporting foundations:
   defines the accepted Phase 2E-B badge, alert, native progress, skeleton, empty-state,
   offline-state, and stale-data-marker contracts. Automated and visual evidence is recorded in the
   [`persistent-feedback validation`](./docs/accessibility/phase-2e-persistent-feedback-validation.md).
+- [`docs/feedback/transient-feedback.md`](./docs/feedback/transient-feedback.md) proposes the Phase
+  2E-C toast and toast-region queue, announcement, lifetime, pause, dismissal, and focus contracts.
 
 ## Local development
 
