@@ -1,8 +1,8 @@
 # Phase 2E-D confirmation-dialog contract
 
-**Status:** Proposed for Phase 2E-D on August 2, 2026. Acceptance is required before the
-architecture decision, tokens, or implementation are locked. Shared persistence, interruption,
-modality, condition, and state ownership follow the accepted
+**Status:** Accepted for Phase 2E-D on August 2, 2026. The proposed architecture is recorded in
+[ADR 0021](../architecture/adr/0021-native-confirmation-and-proportional-friction.md). Shared
+persistence, interruption, modality, condition, and state ownership follow the accepted
 [feedback-state contract](./feedback-state.md) and
 [ADR 0020](../architecture/adr/0020-feedback-delivery-and-lifetime.md).
 
