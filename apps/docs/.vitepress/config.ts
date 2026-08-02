@@ -69,6 +69,10 @@ export default defineConfig({
             text: 'Persistent feedback proposal',
             link: '/feedback/persistent-feedback-and-loading',
           },
+          {
+            text: 'Transient feedback proposal',
+            link: '/feedback/transient-feedback',
+          },
         ],
       },
       {
