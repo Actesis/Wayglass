@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wayglass persistent feedback fixture</title>
+    <link rel="stylesheet" href="/packages/tokens/dist/tokens.css" />
+    <link rel="stylesheet" href="/packages/themes/dist/themes.css" />
+    <style>
+      body {
+        margin: 0;
+      }
+      main {
+        min-block-size: 100vh;
+        box-sizing: border-box;
+        padding: var(--wg-space-reference-4);
+        color: var(--wg-color-semantic-text-primary);
+        background: var(--wg-color-semantic-surface-canvas);
+        font-family: var(--wg-typography-family-body);
+      }
+      .fixture {
+        display: grid;
+        max-inline-size: 60rem;
+        gap: var(--wg-space-reference-6);
+      }
+      .section {
+        display: grid;
+        gap: var(--wg-space-reference-3);
+        min-inline-size: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <wg-theme-provider theme="wayglass-dark" density="compact">
+      <main>
+        <div class="fixture">
+          <header><h1>Persistent feedback fixture</h1></header>
+
+          <section class="section" aria-labelledby="outcomes-heading">
+            <h2 id="outcomes-heading">Outcomes</h2>
+            <p>
+              Supplier verification
+              <wg-badge id="review-badge" condition="caution">Requires review</wg-badge>
+            </p>
+            <wg-alert id="result-alert" condition="positive" label="Import result">
+              <h3 slot="heading">124 records imported</h3>
+              <p>Three records remain available for review.</p>
+              <button slot="actions" type="button">Review records</button>
+            </wg-alert>
+          </section>
+
+          <section class="section" aria-labelledby="activity-heading" aria-busy="true">
+            <h2 id="activity-heading">Activity and freshness</h2>
+            <wg-progress id="import-progress">
+              <label for="catalog-import">Importing catalog</label>
+              <progress id="catalog-import" value="64" max="100">64%</progress>
+              <output for="catalog-import">64%</output>
+            </wg-progress>
+            <p id="latency-value" aria-describedby="latency-freshness">Queue latency: 184 ms</p>
+            <wg-stale-data-marker id="latency-freshness"
+              >Stale · observed 18 minutes ago</wg-stale-data-marker
+            >
+            <p id="loading-copy">Loading supporting summary</p>
+            <wg-skeleton id="loading-skeleton" shape="text" lines="3" motion="pulse"></wg-skeleton>
+          </section>
+
+          <wg-empty-state id="empty-results" label="No matching maintenance records">
+            <h2 slot="heading">No records match these filters</h2>
+            <p>Clear one or more filters to include completed and scheduled work.</p>
+            <button slot="actions" type="button">Clear filters</button>
+          </wg-empty-state>
+
+          <wg-offline-state id="offline-source" label="Inventory source offline">
+            <h2 slot="heading">Inventory source is offline</h2>
+            <p>New counts and transfers are unavailable.</p>
+            <p slot="last-known">Last successful update: 14:42 UTC</p>
+            <button slot="actions" type="button">Retry source</button>
+          </wg-offline-state>
+        </div>
+      </main>
+    </wg-theme-provider>
+
+    <script type="module">
+      import {
+        defineWgAlert,
+        defineWgBadge,
+        defineWgEmptyState,
+        defineWgOfflineState,
+        defineWgProgress,
+        defineWgSkeleton,
+        defineWgStaleDataMarker,
+        defineWgThemeProvider,
+      } from '/packages/elements/dist/index.js';
+
+      defineWgThemeProvider();
+      defineWgAlert();
+      defineWgBadge();
+      defineWgProgress();
+      defineWgSkeleton();
+      defineWgEmptyState();
+      defineWgOfflineState();
+      defineWgStaleDataMarker();
+    </script>
+  </body>
+</html>

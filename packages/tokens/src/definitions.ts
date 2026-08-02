@@ -1651,9 +1651,9 @@ export const tokens = {
     description: 'Offline availability marker independent from condition.',
   },
   'component.feedback.color.stale': {
-    value: '{color.semantic.knowledge.stale}',
+    value: '{color.semantic.knowledge.confirmed}',
     type: 'color',
-    description: 'Stale-knowledge marker independent from condition.',
+    description: 'Neutral stale-knowledge marker independent from caution condition.',
   },
   'component.feedback.color.progress': {
     value: '{color.semantic.activity.pending}',

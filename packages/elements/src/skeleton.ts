@@ -124,8 +124,10 @@ export class WgSkeleton extends WayglassElement {
     if (name === 'lines') {
       const parsed = Number(value);
       const normalized = Number.isInteger(parsed) ? Math.min(8, Math.max(1, parsed)) : 1;
-      if (value !== String(normalized)) this.setAttribute('lines', String(normalized));
-      return;
+      if (value !== String(normalized)) {
+        this.setAttribute('lines', String(normalized));
+        return;
+      }
     }
     super.attributeChangedCallback(name, previous, value);
   }

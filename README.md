@@ -92,7 +92,8 @@ Supporting foundations:
   [`delivery and lifetime decision`](./docs/architecture/adr/0020-feedback-delivery-and-lifetime.md).
 - [`docs/feedback/persistent-feedback-and-loading.md`](./docs/feedback/persistent-feedback-and-loading.md)
   defines the accepted Phase 2E-B badge, alert, native progress, skeleton, empty-state,
-  offline-state, and stale-data-marker contracts.
+  offline-state, and stale-data-marker contracts. Automated and visual evidence is recorded in the
+  [`persistent-feedback validation`](./docs/accessibility/phase-2e-persistent-feedback-validation.md).
 
 ## Local development
 
