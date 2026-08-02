@@ -41,7 +41,7 @@ complete state, accessibility, responsive, theme, and framework contracts.
 
 ## Phase 2 — Core system
 
-Status: planned.
+Status: closeout in progress.
 
 Phase 2 expands the vertical slice into the generic foundations, layouts, controls, forms, and
 feedback required by `SPEC.md`. Work is divided into reviewable milestones so each interaction model
@@ -184,7 +184,7 @@ can be validated before later components depend on it.
 
 #### Phase 2E-E — Phase 2 closeout
 
-- [ ] Complete Phase 2 documentation and production-backed examples.
+- [x] Complete Phase 2 documentation and production-backed examples.
 - [ ] Close or explicitly carry the remaining representative assistive-technology gates from Phase
       2D.
 - [ ] Run the Phase 2 accessibility, responsive, visual-state, framework, and supported-browser

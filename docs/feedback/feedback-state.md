@@ -1,7 +1,7 @@
 # Phase 2E feedback-state contract
 
 **Status:** Accepted for Phase 2E-A on August 1, 2026. This contract defines the shared boundaries
-that component-specific contracts must preserve. The proposed delivery model is recorded in
+that component-specific contracts must preserve. The accepted delivery model is recorded in
 [ADR 0020](../architecture/adr/0020-feedback-delivery-and-lifetime.md).
 
 Feedback tells a person what happened, what is happening, what is absent, or what decision is

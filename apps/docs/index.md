@@ -10,11 +10,12 @@ hero:
       text: Explore the foundations
       link: /foundations/
     - theme: alt
-      text: Review Phase 1
-      link: /components/
+      text: Review Phase 2
+      link: /phase-2
 ---
 
-The Phase 0 foundations, Phase 1 domain-neutral vertical slice, and Phase 2 selection foundations
-are complete. Explore the [Operations Overview](/examples/operations-overview), work through the
-[Function Deck](/patterns/function-deck), review the [component contracts](/components/), or inspect
-the [Phase 2B validation record](/accessibility/phase-2b-function-deck-validation).
+The Phase 0 foundations and Phase 1 domain-neutral vertical slice are complete. Phase 2 has
+delivered the generic selection, layout, media, controls, forms, feedback, and confirmation system
+and is in closeout. Start with the [Phase 2 delivery map](/phase-2), explore the
+[Operations Overview](/examples/operations-overview), or work through the
+[Function Deck](/patterns/function-deck).

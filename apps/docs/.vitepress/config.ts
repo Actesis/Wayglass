@@ -6,6 +6,7 @@ export default defineConfig({
   cleanUrls: true,
   themeConfig: {
     nav: [
+      { text: 'Phase 2', link: '/phase-2' },
       { text: 'Foundations', link: '/foundations/' },
       { text: 'Components', link: '/components/' },
       { text: 'Patterns', link: '/patterns/function-deck' },
@@ -13,6 +14,10 @@ export default defineConfig({
       { text: 'Repository', link: 'https://github.com/Actesis/Wayglass' },
     ],
     sidebar: [
+      {
+        text: 'System',
+        items: [{ text: 'Phase 2 delivery map', link: '/phase-2' }],
+      },
       {
         text: 'Foundations',
         items: [
@@ -45,11 +50,11 @@ export default defineConfig({
       },
       {
         text: 'Phase 2 layout',
-        items: [{ text: 'Layout contracts', link: '/layout/' }],
+        items: [{ text: 'Layout contracts', link: '/layout/layout-contracts' }],
       },
       {
         text: 'Phase 2 media',
-        items: [{ text: 'Media-content contract', link: '/media/' }],
+        items: [{ text: 'Media-content contract', link: '/media/media-content' }],
       },
       {
         text: 'Phase 2 controls and forms',
@@ -58,7 +63,7 @@ export default defineConfig({
           { text: 'Core-control contracts', link: '/controls/core-controls' },
           { text: 'Menu and command contract', link: '/controls/menus-and-commands' },
           { text: 'Form-foundation contract', link: '/forms/form-foundation' },
-          { text: 'Form-control proposal', link: '/forms/form-controls' },
+          { text: 'Form-control contract', link: '/forms/form-controls' },
         ],
       },
       {
@@ -66,15 +71,15 @@ export default defineConfig({
         items: [
           { text: 'Feedback-state contract', link: '/feedback/feedback-state' },
           {
-            text: 'Persistent feedback proposal',
+            text: 'Persistent feedback contract',
             link: '/feedback/persistent-feedback-and-loading',
           },
           {
-            text: 'Transient feedback proposal',
+            text: 'Transient feedback contract',
             link: '/feedback/transient-feedback',
           },
           {
-            text: 'Confirmation-dialog proposal',
+            text: 'Confirmation-dialog contract',
             link: '/feedback/confirmation-dialog',
           },
         ],

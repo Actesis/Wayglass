@@ -3,10 +3,11 @@
 Wayglass is a design language for operational awareness. It helps people understand what a system is
 doing, what changed, what needs attention, and what they can do next.
 
-The Phase 0 foundations, Phase 1 domain-neutral vertical slice, and Phase 2 selection foundations
-are complete. Dark and light theme contexts, the initial structural, action, and semantic display
-components, typed React wrappers, compound tabs, and the Function Deck composition are available.
-Production-backed overview and focused fixtures cover desktop, phone, wall-display, and edge-state
+The Phase 0 foundations and Phase 1 domain-neutral vertical slice are complete. Phase 2 has
+delivered selection, focused composition, foundation utilities, responsive layout, media, controls,
+native form presentation, persistent and transient feedback, and proportional confirmation; closeout
+is in progress. Framework-neutral Custom Elements, typed React wrappers, and production-backed
+Storybook fixtures cover dark and light themes, phone, desktop, wall-display, and edge-state
 contexts. Accessibility, responsive behavior, visual states, and supported-browser behavior are
 recorded in phase-specific validation matrices. Wayglass is a working name, all packages are
 private, and no software license has been selected yet.
@@ -23,6 +24,8 @@ Accessibility, legal, safety, and security requirements override that order wher
 
 Supporting foundations:
 
+- [`docs/phase-2.md`](./docs/phase-2.md) maps the complete Phase 2 delivery to its contracts,
+  production packages, examples, and validation evidence.
 - [`docs/foundations/state-model.md`](./docs/foundations/state-model.md) separates domain value,
   condition, knowledge, activity, and section purpose.
 - [`docs/foundations/visual-language.md`](./docs/foundations/visual-language.md) defines the
@@ -37,8 +40,8 @@ Supporting foundations:
   1 reference composition.
 - [`docs/accessibility/phase-1-validation.md`](./docs/accessibility/phase-1-validation.md) records
   the Phase 1 accessibility, responsive, state, framework, and browser validation evidence.
-- [`docs/components/tabs.md`](./docs/components/tabs.md) proposes the Phase 2A tabs contract and
-  links its
+- [`docs/components/tabs.md`](./docs/components/tabs.md) defines the accepted Phase 2A tabs contract
+  and links its
   [`accessibility architecture decision`](./docs/architecture/adr/0009-tabs-architecture.md).
 - [`docs/patterns/function-deck.md`](./docs/patterns/function-deck.md) defines the Phase 2B focused
   composition, with evidence in the
@@ -58,8 +61,8 @@ Supporting foundations:
   [`native-media ownership decision`](./docs/architecture/adr/0013-native-media-ownership.md).
   Implementation evidence is recorded in the
   [`media-content validation`](./docs/accessibility/phase-2c-media-validation.md).
-- [`docs/controls/control-state.md`](./docs/controls/control-state.md) proposes the Phase 2D-A
-  control-state contract, together with the
+- [`docs/controls/control-state.md`](./docs/controls/control-state.md) defines the accepted Phase
+  2D-A control-state contract, together with the
   [`controlled-request decision`](./docs/architecture/adr/0014-controlled-operational-requests.md)
   and
   [`native form-control ownership decision`](./docs/architecture/adr/0015-native-form-control-ownership.md).
@@ -94,8 +97,14 @@ Supporting foundations:
   defines the accepted Phase 2E-B badge, alert, native progress, skeleton, empty-state,
   offline-state, and stale-data-marker contracts. Automated and visual evidence is recorded in the
   [`persistent-feedback validation`](./docs/accessibility/phase-2e-persistent-feedback-validation.md).
-- [`docs/feedback/transient-feedback.md`](./docs/feedback/transient-feedback.md) proposes the Phase
-  2E-C toast and toast-region queue, announcement, lifetime, pause, dismissal, and focus contracts.
+- [`docs/feedback/transient-feedback.md`](./docs/feedback/transient-feedback.md) defines the
+  accepted and implemented Phase 2E-C toast and toast-region queue, announcement, lifetime, pause,
+  dismissal, and focus contracts, with evidence in the
+  [`transient-feedback validation`](./docs/accessibility/phase-2e-transient-feedback-validation.md).
+- [`docs/feedback/confirmation-dialog.md`](./docs/feedback/confirmation-dialog.md) defines the
+  accepted and implemented Phase 2E-D native confirmation and proportional-friction contract, with
+  evidence in the
+  [`confirmation-dialog validation`](./docs/accessibility/phase-2e-confirmation-dialog-validation.md).
 
 ## Local development
 
