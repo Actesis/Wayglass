@@ -11,6 +11,7 @@ import { createRef } from 'react';
 import {
   WgBooleanValue,
   WgButton,
+  WgCheckbox,
   WgDivider,
   WgCluster,
   WgCommandItem,
@@ -24,12 +25,17 @@ import {
   WgMenu,
   WgMetric,
   WgNavigationRail,
+  WgNumberField,
+  WgRadio,
   WgScrollRegion,
+  WgSelect,
   WgSegment,
   WgSegmentedControl,
   WgSplit,
+  WgSlider,
   WgStack,
   WgSurface,
+  WgTextField,
   WgTab,
   WgTabList,
   WgTabPanel,
@@ -78,6 +84,34 @@ const typedComposition = (
     </WgSurface>
   </WgThemeProvider>
 );
+
+const typedFormControls = (
+  <form>
+    <WgTextField>
+      <input name="email" type="email" autoComplete="email" onChange={() => undefined} />
+    </WgTextField>
+    <WgNumberField>
+      <input name="quantity" type="number" min={0} step={1} />
+    </WgNumberField>
+    <WgSelect>
+      <select name="route" defaultValue="email">
+        <option value="email">Email</option>
+      </select>
+    </WgSelect>
+    <WgCheckbox>
+      <input id="updates" name="updates" type="checkbox" />
+      <label htmlFor="updates">Send updates</label>
+    </WgCheckbox>
+    <WgRadio>
+      <input id="route-email" name="preferred-route" type="radio" value="email" />
+      <label htmlFor="route-email">Email</label>
+    </WgRadio>
+    <WgSlider>
+      <input name="threshold" type="range" min={0} max={100} />
+    </WgSlider>
+  </form>
+);
+void typedFormControls;
 
 const eventHandler = (event: WgThemeChangeEvent): void => {
   const provider: WgThemeProviderElement = event.currentTarget;

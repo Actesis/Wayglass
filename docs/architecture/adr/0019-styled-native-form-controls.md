@@ -1,6 +1,6 @@
 # ADR 0019: Style native form controls without replacing their platform behavior
 
-- Status: proposed
+- Status: accepted
 - Date: 2026-08-01
 
 ## Context

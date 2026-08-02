@@ -50,6 +50,10 @@ export const fieldShellStyles = css`
     opacity: 1;
   }
 
+  ::slotted(select:not([multiple]):not([size])) {
+    block-size: var(--wg-form-control-size-minimum);
+  }
+
   ::slotted(input:read-only),
   ::slotted(textarea:read-only) {
     background-color: var(--wg-form-control-color-background-readonly);
@@ -203,7 +207,7 @@ export const sliderShellStyles = css`
     display: block;
     inline-size: 100%;
     min-inline-size: 0;
-    min-block-size: var(--wg-form-slider-size-minimum);
+    block-size: var(--wg-form-slider-size-minimum);
     margin: 0;
     accent-color: var(--wg-form-slider-accent);
   }

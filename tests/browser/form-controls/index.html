@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wayglass native form controls fixture</title>
+    <link rel="stylesheet" href="/packages/tokens/dist/tokens.css" />
+    <link rel="stylesheet" href="/packages/themes/dist/themes.css" />
+    <link rel="stylesheet" href="/packages/elements/dist/forms.css" />
+    <style>
+      body {
+        margin: 0;
+      }
+      main {
+        min-block-size: 100vh;
+        box-sizing: border-box;
+        padding: var(--wg-space-reference-4);
+        color: var(--wg-color-semantic-text-primary);
+        background: var(--wg-color-semantic-surface-canvas);
+        font-family: var(--wg-typography-family-body);
+      }
+      form {
+        display: grid;
+        max-inline-size: 40rem;
+        gap: var(--wg-space-reference-5);
+      }
+      fieldset {
+        min-inline-size: 0;
+        margin: 0;
+      }
+      .choices {
+        display: grid;
+        gap: var(--wg-space-reference-1);
+      }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--wg-space-reference-3);
+      }
+    </style>
+  </head>
+  <body>
+    <wg-theme-provider theme="wayglass-dark" density="comfortable">
+      <main>
+        <h1>Account preferences</h1>
+        <form id="controls-form">
+          <wg-form-group>
+            <label for="profile-name"><wg-field-label>Profile name</wg-field-label></label>
+            <wg-text-field id="text-shell">
+              <input id="profile-name" name="profileName" autocomplete="name" value="Matt" />
+            </wg-text-field>
+          </wg-form-group>
+
+          <wg-form-group>
+            <label for="profile-note"><wg-field-label>Profile note</wg-field-label></label>
+            <wg-text-field>
+              <textarea id="profile-note" name="note">Initial note</textarea>
+            </wg-text-field>
+          </wg-form-group>
+
+          <wg-form-group>
+            <label for="team-size"><wg-field-label>Team size</wg-field-label></label>
+            <wg-number-field>
+              <input
+                id="team-size"
+                name="teamSize"
+                type="number"
+                min="1"
+                max="20"
+                step="1"
+                value="4"
+              />
+            </wg-number-field>
+          </wg-form-group>
+
+          <wg-form-group>
+            <label for="region"><wg-field-label>Region</wg-field-label></label>
+            <wg-select>
+              <select id="region" name="region">
+                <optgroup label="Americas"><option value="na">North America</option></optgroup>
+                <optgroup label="Other">
+                  <option value="eu">Europe</option>
+                  <option value="apac">Asia Pacific</option>
+                </optgroup>
+              </select>
+            </wg-select>
+          </wg-form-group>
+
+          <wg-form-group>
+            <wg-checkbox id="updates-shell">
+              <input id="updates" name="updates" type="checkbox" value="yes" checked />
+              <label for="updates">Send account updates</label>
+            </wg-checkbox>
+            <wg-checkbox>
+              <input id="mixed-choice" type="checkbox" />
+              <label for="mixed-choice">Apply to selected teams</label>
+            </wg-checkbox>
+          </wg-form-group>
+
+          <wg-form-group>
+            <fieldset>
+              <legend><wg-field-label>Delivery schedule</wg-field-label></legend>
+              <div class="choices">
+                <wg-radio>
+                  <input id="daily" name="schedule" type="radio" value="daily" checked />
+                  <label for="daily">Daily</label>
+                </wg-radio>
+                <wg-radio>
+                  <input id="weekly" name="schedule" type="radio" value="weekly" />
+                  <label for="weekly">Weekly</label>
+                </wg-radio>
+              </div>
+            </fieldset>
+          </wg-form-group>
+
+          <wg-form-group>
+            <label for="threshold"><wg-field-label>Alert threshold</wg-field-label></label>
+            <wg-slider>
+              <input
+                id="threshold"
+                name="threshold"
+                type="range"
+                min="0"
+                max="100"
+                step="10"
+                value="60"
+                aria-describedby="threshold-value"
+              />
+            </wg-slider>
+            <output id="threshold-value" for="threshold">60 percent</output>
+          </wg-form-group>
+
+          <wg-form-group>
+            <label for="recovery"><wg-field-label>Recovery email</wg-field-label></label>
+            <wg-text-field>
+              <input
+                id="recovery"
+                name="recovery"
+                value="name@example"
+                aria-invalid="true"
+                aria-describedby="recovery-error"
+              />
+            </wg-text-field>
+            <wg-field-message id="recovery-error" kind="error"
+              >Enter a complete email address.</wg-field-message
+            >
+          </wg-form-group>
+
+          <div class="actions">
+            <button class="wg-form-action" type="submit" name="intent" value="save">
+              Save preferences
+            </button>
+            <button class="wg-form-action wg-form-action--quiet" type="reset">Reset</button>
+          </div>
+        </form>
+      </main>
+    </wg-theme-provider>
+
+    <script type="module">
+      import {
+        defineWgCheckbox,
+        defineWgFieldLabel,
+        defineWgFieldMessage,
+        defineWgFormGroup,
+        defineWgNumberField,
+        defineWgRadio,
+        defineWgSelect,
+        defineWgSlider,
+        defineWgTextField,
+        defineWgThemeProvider,
+      } from '/packages/elements/dist/index.js';
+
+      defineWgThemeProvider();
+      defineWgFieldLabel();
+      defineWgFieldMessage();
+      defineWgFormGroup();
+      defineWgTextField();
+      defineWgNumberField();
+      defineWgSelect();
+      defineWgCheckbox();
+      defineWgRadio();
+      defineWgSlider();
+
+      const form = document.querySelector('#controls-form');
+      const slider = document.querySelector('#threshold');
+      const output = document.querySelector('#threshold-value');
+      const mixed = document.querySelector('#mixed-choice');
+      mixed.indeterminate = true;
+
+      slider.addEventListener('input', () => {
+        output.value = `${slider.value} percent`;
+      });
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        document.documentElement.dataset.formData = JSON.stringify(
+          Object.fromEntries(new FormData(form, event.submitter)),
+        );
+      });
+      form.addEventListener('reset', () => {
+        queueMicrotask(() => {
+          mixed.indeterminate = true;
+          output.value = `${slider.value} percent`;
+          document.documentElement.dataset.reset = 'true';
+        });
+      });
+    </script>
+  </body>
+</html>

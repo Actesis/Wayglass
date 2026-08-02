@@ -135,10 +135,10 @@ can be validated before later components depend on it.
 
 - [x] Draft text field, number field, select, checkbox, radio, and slider public contracts.
 - [x] Draft the styled-native control presentation architecture decision.
-- [ ] Review and accept the form-control contracts and architecture decision.
-- [ ] Prototype and lock the native-control selectors and tokens, then implement the accepted
+- [x] Review and accept the form-control contracts and architecture decision.
+- [x] Prototype and lock the native-control selectors and tokens, then implement the accepted
       framework-neutral presentation shells.
-- [ ] Add typed React wrappers and production-backed form compositions.
+- [x] Add typed React wrappers and production-backed form compositions.
 - [ ] Validate native submission, reset, autofill-compatible ownership, constraint validation,
       keyboard, touch, zoom, forced colors, and supported browser and assistive-technology
       combinations.
