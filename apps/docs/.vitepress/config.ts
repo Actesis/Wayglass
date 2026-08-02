@@ -57,7 +57,7 @@ export default defineConfig({
           { text: 'Control-state contract', link: '/controls/control-state' },
           { text: 'Core-control contracts', link: '/controls/core-controls' },
           { text: 'Menu and command contract', link: '/controls/menus-and-commands' },
-          { text: 'Form-foundation proposal', link: '/forms/form-foundation' },
+          { text: 'Form-foundation contract', link: '/forms/form-foundation' },
         ],
       },
       {
@@ -147,6 +147,10 @@ export default defineConfig({
           {
             text: 'Phase 2D-C menu validation',
             link: '/accessibility/phase-2d-menu-command-validation',
+          },
+          {
+            text: 'Phase 2D-D form-foundation validation',
+            link: '/accessibility/phase-2d-form-foundation-validation',
           },
         ],
       },

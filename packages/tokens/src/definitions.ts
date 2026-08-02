@@ -1355,6 +1355,121 @@ export const tokens = {
     type: 'dimension',
     description: 'Command-menu maximum block size before internal scrolling.',
   },
+  'component.form.color.label': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'Native field label and legend text.',
+  },
+  'component.form.color.requirement': {
+    value: '{color.semantic.text.secondary}',
+    type: 'color',
+    description: 'Visible required or optional qualifier without condition meaning.',
+  },
+  'component.form.color.help': {
+    value: '{color.semantic.text.secondary}',
+    type: 'color',
+    description: 'Persistent field help and supporting detail text.',
+  },
+  'component.form.color.error': {
+    value: '{color.semantic.condition.critical}',
+    type: 'color',
+    description: 'Current textual field-error signal.',
+  },
+  'component.form.color.control-background': {
+    value: '{color.semantic.surface.inset}',
+    type: 'color',
+    description: 'Native form-control surface reserved for Phase 2D-E presentations.',
+  },
+  'component.form.color.control-background-readonly': {
+    value: '{color.semantic.surface.panel}',
+    type: 'color',
+    description: 'Read-only native form-control surface distinct from disabled state.',
+  },
+  'component.form.color.control-text': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'Native form-control text reserved for Phase 2D-E presentations.',
+  },
+  'component.form.color.control-border': {
+    value: '{color.semantic.border.strong}',
+    type: 'color',
+    description: 'Native form-control boundary reserved for Phase 2D-E presentations.',
+  },
+  'component.form.color.control-border-invalid': {
+    value: '{color.semantic.condition.critical}',
+    type: 'color',
+    description: 'Current invalid native form-control boundary.',
+  },
+  'component.form.radius.control': {
+    value: '{shape.radius.control}',
+    type: 'dimension',
+    description: 'Native form-control radius reserved for Phase 2D-E presentations.',
+  },
+  'component.form.space.group': {
+    value: '{space.reference.3}',
+    type: 'dimension',
+    description: 'Density-aware spacing among label, control, help, and error content.',
+  },
+  'component.form.space.label': {
+    value: '{space.reference.1}',
+    type: 'dimension',
+    description: 'Spacing among field label, requirement, and detail content.',
+  },
+  'component.form.space.message': {
+    value: '{space.reference.2}',
+    type: 'dimension',
+    description: 'Spacing between a field-message signal and its text.',
+  },
+  'component.form.size.control-minimum': {
+    value: '{size.touch.minimum}',
+    type: 'dimension',
+    description: 'Native form-control minimum target size.',
+  },
+  'component.form.size.error-signal': {
+    value: '{border.width.band}',
+    type: 'dimension',
+    description: 'Redundant field-error signal thickness.',
+  },
+  'component.form-action.color.background': {
+    value: '{color.semantic.action.primary}',
+    type: 'color',
+    description: 'Native submit and reset action background.',
+  },
+  'component.form-action.color.background-hover': {
+    value: '{color.semantic.action.hover}',
+    type: 'color',
+    description: 'Native submit and reset action hover background.',
+  },
+  'component.form-action.color.border': {
+    value: '{color.semantic.border.strong}',
+    type: 'color',
+    description: 'Native submit and reset action boundary.',
+  },
+  'component.form-action.color.text': {
+    value: '{color.semantic.text.inverse}',
+    type: 'color',
+    description: 'Native filled form-action text.',
+  },
+  'component.form-action.radius': {
+    value: '{shape.radius.control}',
+    type: 'dimension',
+    description: 'Native submit and reset action radius.',
+  },
+  'component.form-action.space.block': {
+    value: '{space.semantic.control.block}',
+    type: 'dimension',
+    description: 'Native form-action block padding.',
+  },
+  'component.form-action.space.inline': {
+    value: '{space.semantic.control.inline}',
+    type: 'dimension',
+    description: 'Density-aware native form-action inline padding.',
+  },
+  'component.form-action.size.minimum': {
+    value: '{size.touch.minimum}',
+    type: 'dimension',
+    description: 'Native form-action minimum target size.',
+  },
   'component.status-indicator.color.border': {
     value: '{color.semantic.border.strong}',
     type: 'color',

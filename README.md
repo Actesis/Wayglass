@@ -74,11 +74,13 @@ Supporting foundations:
   [`menu and command architecture decision`](./docs/architecture/adr/0017-menu-command-architecture.md).
   Implementation and automated evidence are recorded in the
   [`menu and command validation`](./docs/accessibility/phase-2d-menu-command-validation.md).
-- [`docs/forms/form-foundation.md`](./docs/forms/form-foundation.md) proposes the Phase 2D-D native
-  form-foundation contracts, building on
+- [`docs/forms/form-foundation.md`](./docs/forms/form-foundation.md) defines the accepted and
+  implemented Phase 2D-D native form-foundation contracts, building on
   [`native form-control ownership`](./docs/architecture/adr/0015-native-form-control-ownership.md)
-  and the proposed
+  and
   [`explicit form relationships and validation decision`](./docs/architecture/adr/0018-explicit-form-relationships-and-validation.md).
+  Automated and visual evidence is recorded in the
+  [`form-foundation validation`](./docs/accessibility/phase-2d-form-foundation-validation.md).
 
 ## Local development
 

@@ -1,9 +1,12 @@
 # Phase 2D-D form-foundation contracts
 
-**Status:** Proposed for Phase 2D-D on July 31, 2026. Native control ownership is accepted in
-[ADR 0015](../architecture/adr/0015-native-form-control-ownership.md). Explicit relationship and
-validation ownership is proposed in
-[ADR 0018](../architecture/adr/0018-explicit-form-relationships-and-validation.md).
+**Status:** Accepted and implemented for Phase 2D-D on July 31, 2026. Native control ownership is
+accepted in [ADR 0015](../architecture/adr/0015-native-form-control-ownership.md). Explicit
+relationship and validation ownership is accepted in
+[ADR 0018](../architecture/adr/0018-explicit-form-relationships-and-validation.md). Automated and
+visual evidence is recorded in the
+[Phase 2D-D validation record](../accessibility/phase-2d-form-foundation-validation.md);
+representative screen-reader and autofill acceptance remains open.
 
 This milestone defines the presentation and association substrate around consumer-authored native
 form controls. It does not replace the form platform or yet define the Phase 2D-E text, number,
@@ -249,12 +252,16 @@ CSS parts:
 
 Form submission and reset use native buttons:
 
+```css
+@import '@wayglass/elements/forms.css';
+```
+
 ```html
 <button class="wg-form-action" type="submit">Save profile</button>
 <button class="wg-form-action wg-form-action--quiet" type="reset">Reset changes</button>
 ```
 
-Phase 2D-D proposes a public `wg-form-action` class rather than a Custom Element proxy. The native
+Phase 2D-D provides a public `wg-form-action` class rather than a Custom Element proxy. The native
 button remains the submitter, retains `name` and `value`, participates in constraint validation, and
 works before JavaScript. The class provides ordinary Wayglass button presentation and focus
 treatment; `wg-form-action--quiet` is the only initial modifier. Consequential submit labels name
@@ -341,10 +348,9 @@ hide, clone, move, disable, relabel, or otherwise repair native controls.
 - Requirement and error text must survive longer translations and bidirectional content.
 - Error identification never depends on motion.
 
-## Proposed token roles
+## Token roles
 
-Values remain unlocked until the contract is accepted. The implementation should define semantic
-aliases for:
+The accepted implementation defines semantic aliases for:
 
 - field stack and internal spacing;
 - label, requirement, help, and error text;

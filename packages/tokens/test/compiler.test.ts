@@ -184,6 +184,38 @@ describe('token compiler', () => {
     );
   });
 
+  it('contains the locked Phase 2D-D form-foundation token roles', () => {
+    const names = Object.keys(tokens);
+
+    expect(names).toEqual(
+      expect.arrayContaining([
+        'component.form.color.label',
+        'component.form.color.requirement',
+        'component.form.color.help',
+        'component.form.color.error',
+        'component.form.color.control-background',
+        'component.form.color.control-background-readonly',
+        'component.form.color.control-text',
+        'component.form.color.control-border',
+        'component.form.color.control-border-invalid',
+        'component.form.radius.control',
+        'component.form.space.group',
+        'component.form.space.label',
+        'component.form.space.message',
+        'component.form.size.control-minimum',
+        'component.form.size.error-signal',
+        'component.form-action.color.background',
+        'component.form-action.color.background-hover',
+        'component.form-action.color.border',
+        'component.form-action.color.text',
+        'component.form-action.radius',
+        'component.form-action.space.block',
+        'component.form-action.space.inline',
+        'component.form-action.size.minimum',
+      ]),
+    );
+  });
+
   it('contains the locked Phase 2C layout token roles and mirrored split thresholds', () => {
     const names = Object.keys(tokens);
 

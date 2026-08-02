@@ -40,6 +40,18 @@
       "types": "./dist/elbow.d.ts",
       "import": "./dist/elbow.js"
     },
+    "./field-label": {
+      "types": "./dist/field-label.d.ts",
+      "import": "./dist/field-label.js"
+    },
+    "./field-message": {
+      "types": "./dist/field-message.d.ts",
+      "import": "./dist/field-message.js"
+    },
+    "./form-group": {
+      "types": "./dist/form-group.d.ts",
+      "import": "./dist/form-group.js"
+    },
     "./frame": {
       "types": "./dist/frame.d.ts",
       "import": "./dist/frame.js"

@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wayglass form-foundation fixture</title>
+    <link rel="stylesheet" href="/packages/tokens/dist/tokens.css" />
+    <link rel="stylesheet" href="/packages/themes/dist/themes.css" />
+    <link rel="stylesheet" href="/packages/elements/dist/forms.css" />
+    <style>
+      body {
+        margin: 0;
+      }
+
+      main {
+        min-block-size: 100vh;
+        box-sizing: border-box;
+        padding: var(--wg-space-reference-4);
+        color: var(--wg-color-semantic-text-primary);
+        background: var(--wg-color-semantic-surface-canvas);
+        font-family: var(--wg-typography-family-body);
+      }
+
+      form {
+        display: grid;
+        max-inline-size: 36rem;
+        gap: var(--wg-space-reference-6);
+      }
+
+      input:not([type='radio']) {
+        inline-size: 100%;
+        min-block-size: var(--wg-component-form-size-control-minimum);
+        box-sizing: border-box;
+        padding: var(--wg-space-reference-2) var(--wg-space-reference-3);
+        border: var(--wg-border-width-standard) solid var(--wg-component-form-color-control-border);
+        border-radius: var(--wg-component-form-radius-control);
+        color: var(--wg-component-form-color-control-text);
+        background: var(--wg-component-form-color-control-background);
+        font: inherit;
+      }
+
+      input[readonly] {
+        background: var(--wg-component-form-color-control-background-readonly);
+      }
+
+      input[aria-invalid='true'] {
+        border-color: var(--wg-component-form-color-control-border-invalid);
+      }
+
+      fieldset {
+        min-inline-size: 0;
+        margin: 0;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--wg-space-reference-3);
+      }
+    </style>
+  </head>
+  <body>
+    <wg-theme-provider theme="wayglass-dark" density="comfortable">
+      <main>
+        <h1>Account profile form</h1>
+        <form id="profile-form">
+          <wg-form-group id="email-group">
+            <label for="email">
+              <wg-field-label>
+                Email address
+                <span slot="requirement">Required</span>
+              </wg-field-label>
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              required
+              aria-describedby="email-help"
+            />
+            <wg-field-message id="email-help" kind="help">
+              Used for account notices.
+            </wg-field-message>
+            <wg-field-message id="email-error" kind="error" hidden>
+              Enter a complete email address, such as name@example.com.
+            </wg-field-message>
+          </wg-form-group>
+
+          <wg-form-group>
+            <label for="account-id"><wg-field-label>Account identifier</wg-field-label></label>
+            <input id="account-id" name="accountId" value="AC-2048" readonly />
+            <wg-field-message id="account-id-help"
+              >Read-only confirmed identifier.</wg-field-message
+            >
+          </wg-form-group>
+
+          <wg-form-group>
+            <label for="legacy-code"><wg-field-label>Legacy code</wg-field-label></label>
+            <input id="legacy-code" name="legacyCode" value="retired" disabled />
+          </wg-form-group>
+
+          <wg-form-group>
+            <fieldset aria-describedby="contact-help">
+              <legend>
+                <wg-field-label>
+                  Preferred contact method
+                  <span slot="requirement">Required</span>
+                </wg-field-label>
+              </legend>
+              <label><input type="radio" name="contact" value="email" required /> Email</label>
+              <label><input type="radio" name="contact" value="phone" /> Phone</label>
+            </fieldset>
+            <wg-field-message id="contact-help"
+              >Choose the route checked most often.</wg-field-message
+            >
+          </wg-form-group>
+
+          <div class="actions">
+            <button class="wg-form-action" type="submit" name="intent" value="save">
+              Save account profile
+            </button>
+            <button class="wg-form-action wg-form-action--quiet" type="reset">Reset changes</button>
+          </div>
+        </form>
+      </main>
+    </wg-theme-provider>
+
+    <script type="module">
+      import {
+        defineWgFieldLabel,
+        defineWgFieldMessage,
+        defineWgFormGroup,
+        defineWgThemeProvider,
+      } from '/packages/elements/dist/index.js';
+
+      defineWgThemeProvider();
+      defineWgFieldLabel();
+      defineWgFieldMessage();
+      defineWgFormGroup();
+
+      const form = document.querySelector('#profile-form');
+      const email = document.querySelector('#email');
+      const error = document.querySelector('#email-error');
+
+      form.addEventListener(
+        'invalid',
+        (event) => {
+          document.documentElement.dataset.invalidCount = String(
+            Number(document.documentElement.dataset.invalidCount || 0) + 1,
+          );
+          if (event.target === email) {
+            email.setAttribute('aria-invalid', 'true');
+            email.setAttribute('aria-describedby', 'email-help email-error');
+            error.hidden = false;
+          }
+        },
+        true,
+      );
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const submitter = event.submitter;
+        const data = new FormData(form, submitter);
+        document.documentElement.dataset.submitCount = String(
+          Number(document.documentElement.dataset.submitCount || 0) + 1,
+        );
+        document.documentElement.dataset.submitter = submitter?.value || '';
+        document.documentElement.dataset.formData = JSON.stringify(Object.fromEntries(data));
+      });
+
+      form.addEventListener('reset', () => {
+        document.documentElement.dataset.resetCount = String(
+          Number(document.documentElement.dataset.resetCount || 0) + 1,
+        );
+        queueMicrotask(() => {
+          email.removeAttribute('aria-invalid');
+          email.setAttribute('aria-describedby', 'email-help');
+          error.hidden = true;
+        });
+      });
+    </script>
+  </body>
+</html>

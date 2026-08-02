@@ -1,6 +1,6 @@
 # ADR 0018: Keep form relationships explicit and validation policy application-owned
 
-- Status: proposed
+- Status: accepted
 - Date: 2026-07-31
 
 ## Context
