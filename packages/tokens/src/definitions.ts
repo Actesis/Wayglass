@@ -1705,6 +1705,71 @@ export const tokens = {
     type: 'duration',
     description: 'Optional non-semantic skeleton pulse duration.',
   },
+  'component.toast.color.background': {
+    value: '{color.semantic.surface.raised}',
+    type: 'color',
+    description: 'Raised temporary-feedback surface.',
+  },
+  'component.toast.color.border': {
+    value: '{color.semantic.border.strong}',
+    type: 'color',
+    description: 'Temporary-feedback surface boundary.',
+  },
+  'component.toast.color.text': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'Temporary-feedback primary text.',
+  },
+  'component.toast.color.detail': {
+    value: '{color.semantic.text.secondary}',
+    type: 'color',
+    description: 'Temporary-feedback supporting text.',
+  },
+  'component.toast.radius': {
+    value: '{shape.radius.panel}',
+    type: 'dimension',
+    description: 'Temporary-feedback surface radius.',
+  },
+  'component.toast.space': {
+    value: '{space.reference.4}',
+    type: 'dimension',
+    description: 'Density-aware temporary-feedback edge spacing.',
+  },
+  'component.toast.space.related': {
+    value: '{space.reference.2}',
+    type: 'dimension',
+    description: 'Spacing between closely related toast anatomy.',
+  },
+  'component.toast.space.viewport': {
+    value: '{space.reference.4}',
+    type: 'dimension',
+    description: 'Viewport-safe toast-region inset and stack spacing.',
+  },
+  'component.toast.size.inline-maximum': {
+    value: '24rem',
+    type: 'dimension',
+    description: 'Maximum readable toast inline size.',
+  },
+  'component.toast.size.marker': {
+    value: '{border.width.band}',
+    type: 'dimension',
+    description: 'Redundant toast condition marker thickness.',
+  },
+  'component.toast.size.control-minimum': {
+    value: '{component.button.size.minimum}',
+    type: 'dimension',
+    description: 'Minimum component-owned toast close target.',
+  },
+  'component.toast.elevation': {
+    value: '{elevation.panel}',
+    type: 'shadow',
+    description: 'Temporary-feedback elevation above document content.',
+  },
+  'component.toast.motion': {
+    value: '{motion.duration.fast}',
+    type: 'duration',
+    description: 'Optional short toast entry and exit transition.',
+  },
 } as const satisfies Record<string, TokenDefinition>;
 
 export type TokenName = keyof typeof tokens;

@@ -245,6 +245,28 @@ describe('token compiler', () => {
     );
   });
 
+  it('contains the locked Phase 2E-C transient-feedback token roles', () => {
+    const names = Object.keys(tokens);
+
+    expect(names).toEqual(
+      expect.arrayContaining([
+        'component.toast.color.background',
+        'component.toast.color.border',
+        'component.toast.color.text',
+        'component.toast.color.detail',
+        'component.toast.radius',
+        'component.toast.space',
+        'component.toast.space.related',
+        'component.toast.space.viewport',
+        'component.toast.size.inline-maximum',
+        'component.toast.size.marker',
+        'component.toast.size.control-minimum',
+        'component.toast.elevation',
+        'component.toast.motion',
+      ]),
+    );
+  });
+
   it('contains the locked Phase 2C layout token roles and mirrored split thresholds', () => {
     const names = Object.keys(tokens);
 

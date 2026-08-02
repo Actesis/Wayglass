@@ -42,6 +42,14 @@
       "types": "./dist/stale-data-marker.d.ts",
       "import": "./dist/stale-data-marker.js"
     },
+    "./toast": {
+      "types": "./dist/toast.d.ts",
+      "import": "./dist/toast.js"
+    },
+    "./toast-region": {
+      "types": "./dist/toast-region.d.ts",
+      "import": "./dist/toast-region.js"
+    },
     "./checkbox": {
       "types": "./dist/checkbox.d.ts",
       "import": "./dist/checkbox.js"

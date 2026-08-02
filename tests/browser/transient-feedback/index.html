@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wayglass transient feedback fixture</title>
+    <link rel="stylesheet" href="/packages/tokens/dist/tokens.css" />
+    <link rel="stylesheet" href="/packages/themes/dist/themes.css" />
+    <style>
+      body {
+        min-block-size: 100vh;
+        margin: 0;
+        color: var(--wg-color-semantic-text-primary);
+        background: var(--wg-color-semantic-surface-canvas);
+        font-family: var(--wg-typography-family-body);
+      }
+      main {
+        padding: var(--wg-space-reference-4);
+      }
+    </style>
+  </head>
+  <body>
+    <wg-theme-provider theme="wayglass-dark" density="compact">
+      <main>
+        <h1>Transient feedback fixture</h1>
+        <button id="outside" type="button">Save preferences</button>
+      </main>
+      <wg-toast-region id="region" max-visible="2" paused>
+        <wg-toast
+          id="static-toast"
+          toast-id="static-outcome"
+          condition="positive"
+          announcement="polite"
+          duration="0"
+          close-label="Dismiss saved notification"
+          open
+        >
+          Preferences already saved.
+        </wg-toast>
+      </wg-toast-region>
+    </wg-theme-provider>
+
+    <script type="module">
+      import { defineWgThemeProvider, defineWgToastRegion } from '/packages/elements/dist/index.js';
+
+      defineWgThemeProvider();
+      defineWgToastRegion();
+    </script>
+  </body>
+</html>

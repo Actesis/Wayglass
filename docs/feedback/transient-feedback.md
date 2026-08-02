@@ -1,10 +1,12 @@
 # Phase 2E-C transient-feedback contracts
 
-**Status:** Proposed for Phase 2E-C on August 2, 2026. Shared persistence, interruption, modality,
-condition, and state ownership follow the accepted [feedback-state contract](./feedback-state.md)
-and [ADR 0020](../architecture/adr/0020-feedback-delivery-and-lifetime.md).
+**Status:** Accepted and implemented for Phase 2E-C on August 2, 2026; typed React wrappers,
+production-backed stories, and final validation remain open. Shared persistence, interruption,
+modality, condition, and state ownership follow the accepted
+[feedback-state contract](./feedback-state.md) and
+[ADR 0020](../architecture/adr/0020-feedback-delivery-and-lifetime.md).
 
-This milestone proposes `wg-toast` and `wg-toast-region`. A toast is a brief acknowledgement whose
+This milestone defines `wg-toast` and `wg-toast-region`. A toast is a brief acknowledgement whose
 durable result or recovery path is already visible or discoverable elsewhere. The region is the one
 framework-neutral coordinator for ordering, visible queue bounds, deduplication, announcements,
 expiry, pausing, and dismissal.
@@ -217,9 +219,9 @@ document body only when removing the close control would otherwise leave focus o
 The region does not jump to the action that originally caused the toast.
 
 Hover and focus do not stop visual dismissal transitions after the user explicitly closes a toast.
-Escape is not a global toast shortcut because focus may be elsewhere and the key belongs to the
-active control or overlay. When focus is inside a toast, Escape may close that toast only if testing
-shows no conflict with its slotted action; this remains an implementation-prototype decision.
+Escape is not a global or toast-local dismissal shortcut because focus may be elsewhere and the key
+belongs to the active control or an overlay opened by a slotted action. The labeled close control is
+the explicit keyboard dismissal path.
 
 ## Responsive and visual behavior
 

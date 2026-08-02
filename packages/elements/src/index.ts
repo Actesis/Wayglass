@@ -232,6 +232,23 @@ export type { ThemeChangeSource, WgThemeChangeDetail } from './theme-provider.js
 export { defineWgToggle, WgToggle, wgToggleTagName } from './toggle.js';
 export type { ToggleRequestTrigger, WgToggleRequestDetail } from './toggle.js';
 export {
+  defineWgToast,
+  toastAnnouncements,
+  toastConditions,
+  toastDismissReasons,
+  WgToast,
+  wgToastTagName,
+} from './toast.js';
+export type { ToastDismissReason, ToastPresentationState, WgToastDismissDetail } from './toast.js';
+export {
+  defineWgToastRegion,
+  isToastRegionPlacement,
+  toastRegionPlacements,
+  WgToastRegion,
+  wgToastRegionTagName,
+} from './toast-region.js';
+export type { ToastRegionPlacement } from './toast-region.js';
+export {
   defineWgValueTile,
   isValueTileEmphasis,
   valueTileEmphases,
