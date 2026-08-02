@@ -62,6 +62,10 @@ export default defineConfig({
         ],
       },
       {
+        text: 'Phase 2 feedback',
+        items: [{ text: 'Feedback-state proposal', link: '/feedback/feedback-state' }],
+      },
+      {
         text: 'Architecture',
         items: [
           {
@@ -107,6 +111,10 @@ export default defineConfig({
           {
             text: 'ADR 0019: Styled-native form controls',
             link: '/architecture/adr/0019-styled-native-form-controls',
+          },
+          {
+            text: 'ADR 0020: Feedback delivery and lifetime',
+            link: '/architecture/adr/0020-feedback-delivery-and-lifetime',
           },
         ],
       },
