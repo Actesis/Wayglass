@@ -177,7 +177,7 @@ can be validated before later components depend on it.
       proportional-friction contracts.
 - [x] Record the modal confirmation and destructive-action architecture decision.
 - [x] Lock tokens and implement the accepted framework-neutral interaction model.
-- [ ] Add typed React wrappers and production-backed stories.
+- [x] Add typed React wrappers and production-backed stories.
 - [ ] Validate keyboard and focus behavior, cancellation, destructive labeling, nested invocation,
       zoom, forced colors, reduced motion, and supported browser and assistive-technology
       combinations.

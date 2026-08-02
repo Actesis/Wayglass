@@ -15,7 +15,8 @@ test.beforeEach(async ({ page }) => {
       customElements.get('wg-tab-panel') !== undefined &&
       customElements.get('wg-toggle') !== undefined &&
       customElements.get('wg-segmented-control') !== undefined &&
-      customElements.get('wg-navigation-rail') !== undefined,
+      customElements.get('wg-navigation-rail') !== undefined &&
+      customElements.get('wg-confirmation-dialog') !== undefined,
   );
 });
 
@@ -72,6 +73,24 @@ test('translates typed Custom Events to React callback props', async ({ page }) 
       previousValue: 'compact',
       trigger: 'pointer',
     }),
+  );
+});
+
+test('forwards confirmation methods, refs, and typed action events', async ({ page }) => {
+  const trigger = page.locator('#react-confirmation-trigger');
+  await trigger.click();
+  await expect(page.getByRole('dialog', { name: 'Disconnect React records?' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Keep React connected' })).toBeFocused();
+
+  await page.getByRole('button', { name: 'Disconnect React records', exact: true }).click();
+  await expect(trigger).toBeFocused();
+  await expect(page.locator('html')).toHaveAttribute(
+    'data-confirmation-close',
+    JSON.stringify({ dialogId: 'react-disconnect-source', reason: 'action' }),
+  );
+  await expect(page.locator('html')).toHaveAttribute(
+    'data-confirmation-action',
+    JSON.stringify({ dialogId: 'react-disconnect-source' }),
   );
 });
 

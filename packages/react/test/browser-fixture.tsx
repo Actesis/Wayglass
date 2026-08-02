@@ -1,5 +1,6 @@
 import {
   WgButton,
+  WgConfirmationDialog,
   WgIconButton,
   WgMetric,
   WgNavigationRail,
@@ -13,7 +14,8 @@ import {
   WgToggle,
   WgValueTile,
 } from '../src/index.js';
-import { useState } from 'react';
+import type { WgConfirmationDialog as WgConfirmationDialogElement } from '@wayglass/elements/confirmation-dialog';
+import { useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 
 function ReactFixture() {
@@ -21,6 +23,7 @@ function ReactFixture() {
   const [activationCount, setActivationCount] = useState(0);
   const [selectedView, setSelectedView] = useState('overview');
   const [density, setDensity] = useState('compact');
+  const confirmationRef = useRef<WgConfirmationDialogElement>(null);
 
   return (
     <WgThemeProvider
@@ -108,6 +111,30 @@ function ReactFixture() {
             <a href="#settings">Settings</a>
           </WgNavigationRail>
         </nav>
+        <button
+          id="react-confirmation-trigger"
+          type="button"
+          onClick={(event) => confirmationRef.current?.show({ invoker: event.currentTarget })}
+        >
+          Disconnect React source
+        </button>
+        <WgConfirmationDialog
+          id="react-confirmation"
+          ref={confirmationRef}
+          dialogId="react-disconnect-source"
+          actionLabel="Disconnect React records"
+          cancelLabel="Keep React connected"
+          actionAppearance="critical"
+          onWgConfirmationClose={(event) => {
+            document.documentElement.dataset.confirmationClose = JSON.stringify(event.detail);
+          }}
+          onWgConfirmationAction={(event) => {
+            document.documentElement.dataset.confirmationAction = JSON.stringify(event.detail);
+          }}
+        >
+          <h2 slot="heading">Disconnect React records?</h2>
+          <p>Current updates will stop. Stored records remain available.</p>
+        </WgConfirmationDialog>
       </main>
     </WgThemeProvider>
   );
