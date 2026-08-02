@@ -222,6 +222,29 @@ describe('token compiler', () => {
     );
   });
 
+  it('contains the locked Phase 2E-B persistent-feedback token roles', () => {
+    const names = Object.keys(tokens);
+
+    expect(names).toEqual(
+      expect.arrayContaining([
+        'color.semantic.availability.offline',
+        'component.feedback.color.background',
+        'component.feedback.color.offline',
+        'component.feedback.color.stale',
+        'component.feedback.color.progress',
+        'component.feedback.color.skeleton',
+        'component.feedback.radius',
+        'component.feedback.radius.compact',
+        'component.feedback.space',
+        'component.feedback.space.related',
+        'component.feedback.size.marker',
+        'component.feedback.size.progress',
+        'component.feedback.size.skeleton-line',
+        'component.feedback.motion.skeleton',
+      ]),
+    );
+  });
+
   it('contains the locked Phase 2C layout token roles and mirrored split thresholds', () => {
     const names = Object.keys(tokens);
 

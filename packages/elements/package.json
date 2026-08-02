@@ -14,6 +14,34 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
+    "./alert": {
+      "types": "./dist/alert.d.ts",
+      "import": "./dist/alert.js"
+    },
+    "./badge": {
+      "types": "./dist/badge.d.ts",
+      "import": "./dist/badge.js"
+    },
+    "./empty-state": {
+      "types": "./dist/empty-state.d.ts",
+      "import": "./dist/empty-state.js"
+    },
+    "./offline-state": {
+      "types": "./dist/offline-state.d.ts",
+      "import": "./dist/offline-state.js"
+    },
+    "./progress": {
+      "types": "./dist/progress.d.ts",
+      "import": "./dist/progress.js"
+    },
+    "./skeleton": {
+      "types": "./dist/skeleton.d.ts",
+      "import": "./dist/skeleton.js"
+    },
+    "./stale-data-marker": {
+      "types": "./dist/stale-data-marker.d.ts",
+      "import": "./dist/stale-data-marker.js"
+    },
     "./checkbox": {
       "types": "./dist/checkbox.d.ts",
       "import": "./dist/checkbox.js"

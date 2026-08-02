@@ -91,8 +91,8 @@ Supporting foundations:
   2E feedback-state boundaries and
   [`delivery and lifetime decision`](./docs/architecture/adr/0020-feedback-delivery-and-lifetime.md).
 - [`docs/feedback/persistent-feedback-and-loading.md`](./docs/feedback/persistent-feedback-and-loading.md)
-  proposes the Phase 2E-B badge, alert, native progress, skeleton, empty-state, offline-state, and
-  stale-data-marker contracts.
+  defines the accepted Phase 2E-B badge, alert, native progress, skeleton, empty-state,
+  offline-state, and stale-data-marker contracts.
 
 ## Local development
 

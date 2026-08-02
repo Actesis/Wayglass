@@ -275,6 +275,11 @@ export const tokens = {
     type: 'color',
     description: 'Pending activity reinforcement without implying a problem.',
   },
+  'color.semantic.availability.offline': {
+    value: '{color.reference.ink.500}',
+    type: 'color',
+    description: 'Offline availability reinforcement without condition meaning.',
+  },
   'color.semantic.value.asserted': {
     value: '{color.reference.blue.500}',
     type: 'color',
@@ -1619,6 +1624,86 @@ export const tokens = {
     value: '{space.semantic.section.compact}',
     type: 'dimension',
     description: 'Value tile internal section spacing.',
+  },
+  'component.feedback.color.background': {
+    value: '{color.semantic.surface.panel}',
+    type: 'color',
+    description: 'Persistent feedback and state surface.',
+  },
+  'component.feedback.color.border': {
+    value: '{color.semantic.border.subtle}',
+    type: 'color',
+    description: 'Persistent feedback and state boundary.',
+  },
+  'component.feedback.color.text': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'Persistent feedback primary text.',
+  },
+  'component.feedback.color.detail': {
+    value: '{color.semantic.text.secondary}',
+    type: 'color',
+    description: 'Persistent feedback supporting text.',
+  },
+  'component.feedback.color.offline': {
+    value: '{color.semantic.availability.offline}',
+    type: 'color',
+    description: 'Offline availability marker independent from condition.',
+  },
+  'component.feedback.color.stale': {
+    value: '{color.semantic.knowledge.stale}',
+    type: 'color',
+    description: 'Stale-knowledge marker independent from condition.',
+  },
+  'component.feedback.color.progress': {
+    value: '{color.semantic.activity.pending}',
+    type: 'color',
+    description: 'Native progress accent without outcome meaning.',
+  },
+  'component.feedback.color.skeleton': {
+    value: '{color.semantic.surface.raised}',
+    type: 'color',
+    description: 'Nonsemantic skeleton placeholder surface.',
+  },
+  'component.feedback.radius': {
+    value: '{shape.radius.panel}',
+    type: 'dimension',
+    description: 'Persistent feedback and state surface radius.',
+  },
+  'component.feedback.radius.compact': {
+    value: '{shape.radius.signal}',
+    type: 'dimension',
+    description: 'Compact badge and freshness-marker radius.',
+  },
+  'component.feedback.space': {
+    value: '{space.reference.4}',
+    type: 'dimension',
+    description: 'Density-aware persistent feedback edge spacing.',
+  },
+  'component.feedback.space.related': {
+    value: '{space.reference.2}',
+    type: 'dimension',
+    description: 'Spacing between closely related feedback anatomy.',
+  },
+  'component.feedback.size.marker': {
+    value: '{border.width.band}',
+    type: 'dimension',
+    description: 'Redundant feedback condition or availability marker thickness.',
+  },
+  'component.feedback.size.progress': {
+    value: '0.625rem',
+    type: 'dimension',
+    description: 'Native progress visual track block size.',
+  },
+  'component.feedback.size.skeleton-line': {
+    value: '0.875rem',
+    type: 'dimension',
+    description: 'Text skeleton line block size.',
+  },
+  'component.feedback.motion.skeleton': {
+    value: '1200ms',
+    type: 'duration',
+    description: 'Optional non-semantic skeleton pulse duration.',
   },
 } as const satisfies Record<string, TokenDefinition>;
 

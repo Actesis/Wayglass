@@ -6,6 +6,9 @@ export {
   wgButtonTagName,
 } from './button.js';
 export type { ButtonAppearance } from './button.js';
+export { defineWgAlert, WgAlert, wgAlertTagName } from './alert.js';
+export type { AlertAnnouncement, FeedbackCondition } from './feedback-values.js';
+export { defineWgBadge, WgBadge, wgBadgeTagName } from './badge.js';
 export { defineWgCheckbox, WgCheckbox, wgCheckboxTagName } from './checkbox.js';
 export { defineWgNumberField, WgNumberField, wgNumberFieldTagName } from './number-field.js';
 export { defineWgRadio, WgRadio, wgRadioTagName } from './radio.js';
@@ -60,6 +63,7 @@ export {
   wgElbowTagName,
 } from './elbow.js';
 export type { ElbowPlacement, ElbowWeight } from './elbow.js';
+export { defineWgEmptyState, WgEmptyState, wgEmptyStateTagName } from './empty-state.js';
 export { defineWgFieldLabel, WgFieldLabel, wgFieldLabelTagName } from './field-label.js';
 export {
   defineWgFieldMessage,
@@ -70,6 +74,8 @@ export {
 } from './field-message.js';
 export type { FieldMessageKind } from './field-message.js';
 export { defineWgFormGroup, WgFormGroup, wgFormGroupTagName } from './form-group.js';
+export { defineWgOfflineState, WgOfflineState, wgOfflineStateTagName } from './offline-state.js';
+export { defineWgProgress, WgProgress, wgProgressTagName } from './progress.js';
 export {
   defineWgFrame,
   frameBoundaries,
@@ -154,6 +160,21 @@ export type {
 export { defineWgSplit, isSplitRatio, splitRatios, WgSplit, wgSplitTagName } from './split.js';
 export type { SplitRatio } from './split.js';
 export { defineWgStack, WgStack, wgStackTagName } from './stack.js';
+export {
+  defineWgSkeleton,
+  isSkeletonMotion,
+  isSkeletonShape,
+  skeletonMotions,
+  skeletonShapes,
+  WgSkeleton,
+  wgSkeletonTagName,
+} from './skeleton.js';
+export type { SkeletonMotion, SkeletonShape } from './skeleton.js';
+export {
+  defineWgStaleDataMarker,
+  WgStaleDataMarker,
+  wgStaleDataMarkerTagName,
+} from './stale-data-marker.js';
 export {
   isLayoutAlignment,
   isLayoutMinimum,
