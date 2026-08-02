@@ -165,7 +165,7 @@ can be validated before later components depend on it.
 #### Phase 2E-C — Transient feedback
 
 - [x] Draft toast, toast-region, queue, lifetime, dismissal, and announcement contracts.
-- [ ] Lock tokens and implement the accepted framework-neutral interaction model.
+- [x] Lock tokens and implement the accepted framework-neutral interaction model.
 - [ ] Add typed React wrappers and production-backed stories.
 - [ ] Validate queue behavior, duplicate announcements, timing, pause and dismissal, focus
       independence, reduced motion, zoom, and supported browser and assistive-technology
