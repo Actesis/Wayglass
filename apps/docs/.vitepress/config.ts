@@ -58,6 +58,7 @@ export default defineConfig({
           { text: 'Core-control contracts', link: '/controls/core-controls' },
           { text: 'Menu and command contract', link: '/controls/menus-and-commands' },
           { text: 'Form-foundation contract', link: '/forms/form-foundation' },
+          { text: 'Form-control proposal', link: '/forms/form-controls' },
         ],
       },
       {
@@ -102,6 +103,10 @@ export default defineConfig({
           {
             text: 'ADR 0018: Form relationships and validation',
             link: '/architecture/adr/0018-explicit-form-relationships-and-validation',
+          },
+          {
+            text: 'ADR 0019: Styled-native form controls',
+            link: '/architecture/adr/0019-styled-native-form-controls',
           },
         ],
       },
