@@ -195,6 +195,10 @@ export default defineConfig({
             text: 'Phase 2E-C transient-feedback validation',
             link: '/accessibility/phase-2e-transient-feedback-validation',
           },
+          {
+            text: 'Phase 2E-D confirmation-dialog validation',
+            link: '/accessibility/phase-2e-confirmation-dialog-validation',
+          },
         ],
       },
       {
