@@ -92,6 +92,7 @@ export class WgConfirmationDialog extends WayglassElement {
         var(--wg-component-confirmation-size-inline-maximum),
         calc(100vw - 2 * var(--wg-component-confirmation-space-viewport))
       );
+      min-inline-size: 0;
       max-inline-size: none;
       max-block-size: calc(100dvh - 2 * var(--wg-component-confirmation-space-viewport));
       box-sizing: border-box;
@@ -143,6 +144,7 @@ export class WgConfirmationDialog extends WayglassElement {
       font-size: var(--wg-typography-size-section);
       font-weight: var(--wg-typography-weight-emphasis);
       line-height: var(--wg-typography-line-height-compact);
+      overflow-wrap: anywhere;
     }
 
     [part='heading']:focus-visible {
@@ -154,6 +156,7 @@ export class WgConfirmationDialog extends WayglassElement {
       color: var(--wg-component-confirmation-color-detail);
       font-size: var(--wg-typography-size-body);
       line-height: var(--wg-typography-line-height-body);
+      overflow-wrap: anywhere;
     }
 
     [part='actions'] {
@@ -179,6 +182,7 @@ export class WgConfirmationDialog extends WayglassElement {
       font-weight: var(--wg-typography-weight-medium);
       line-height: 1.2;
       text-align: center;
+      overflow-wrap: anywhere;
       cursor: pointer;
     }
 
@@ -331,6 +335,7 @@ export class WgConfirmationDialog extends WayglassElement {
 
   protected override updated(changed: PropertyValues<this>): void {
     if (!changed.has('open')) return;
+    if (this.#closing) return;
     if (this.open && !this.#dialog?.open) this.#requestOpen(this.#pendingOptions);
     if (!this.open && this.#dialog?.open && !this.#closing) this.#closeNative('programmatic');
   }
@@ -374,6 +379,7 @@ export class WgConfirmationDialog extends WayglassElement {
   }
 
   show(options: ConfirmationShowOptions = {}): boolean {
+    if (this.#closing) return this.#rejectOpen('cannot reopen during the current close lifecycle');
     if (this.#dialog?.open) return true;
     this.#pendingOptions = options;
     if (!this.hasUpdated) {
@@ -436,6 +442,9 @@ export class WgConfirmationDialog extends WayglassElement {
       return this.#rejectOpen(
         `cannot open while confirmation "${active.dialogId || '(missing id)'}" is active`,
       );
+    }
+    if (documentOwner.querySelector('dialog:modal')) {
+      return this.#rejectOpen('cannot open while another native modal dialog is active');
     }
 
     this.#pendingOptions = {};
@@ -518,8 +527,6 @@ export class WgConfirmationDialog extends WayglassElement {
   readonly #handleNativeClose = (): void => {
     const reason = this.#closingReason;
     const documentOwner = this.ownerDocument;
-    if (activeConfirmations.get(documentOwner) === this) activeConfirmations.delete(documentOwner);
-    this.#closing = false;
     this.#closingReason = 'programmatic';
     this.open = false;
 
@@ -544,6 +551,9 @@ export class WgConfirmationDialog extends WayglassElement {
       }
       this.#invoker = null;
       this.#fallbackFocus = null;
+      this.#closing = false;
+      if (activeConfirmations.get(documentOwner) === this)
+        activeConfirmations.delete(documentOwner);
     });
   };
 
