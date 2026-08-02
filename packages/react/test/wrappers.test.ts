@@ -40,15 +40,19 @@ import {
   WgTabPanel,
   WgTabs,
   WgThemeProvider,
+  WgToast,
+  WgToastRegion,
   WgToggle,
   WgValueTile,
 } from '../src/index.js';
-import type { WgTabsProps, WgThemeProviderProps } from '../src/index.js';
+import type { WgTabsProps, WgThemeProviderProps, WgToastProps } from '../src/index.js';
 
 describe('Wayglass React wrappers', () => {
   it('exports named wrappers for every implemented element', () => {
     const wrappers = [
       WgThemeProvider,
+      WgToastRegion,
+      WgToast,
       WgCanvas,
       WgFrame,
       WgStack,
@@ -91,6 +95,8 @@ describe('Wayglass React wrappers', () => {
 
     expect(wrappers.map((wrapper) => wrapper.displayName)).toEqual([
       'WgThemeProvider',
+      'WgToastRegion',
+      'WgToast',
       'WgCanvas',
       'WgFrame',
       'WgStack',
@@ -175,5 +181,21 @@ describe('Wayglass React wrappers', () => {
     expect(tabs.props.activation).toBe('manual');
     expect(tabs.props.orientation).toBe('vertical');
     expect(tabs.props.onWgTabChange).toBe(onWgTabChange);
+  });
+
+  it('preserves the typed toast-dismiss callback prop', () => {
+    const onWgToastDismiss: NonNullable<WgToastProps['onWgToastDismiss']> = (event) => {
+      expect(event.detail.reason).toMatch(/^(timeout|close|programmatic|replaced)$/);
+    };
+    const toast = createElement(WgToast, {
+      toastId: 'save-result',
+      open: true,
+      closeLabel: 'Dismiss save result',
+      onWgToastDismiss,
+      children: 'Preferences saved.',
+    });
+
+    expect(toast.props.toastId).toBe('save-result');
+    expect(toast.props.onWgToastDismiss).toBe(onWgToastDismiss);
   });
 });

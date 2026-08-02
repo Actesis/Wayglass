@@ -6,6 +6,8 @@ import type { WgMenu as WgMenuElement } from '@wayglass/elements/menu';
 import type { WgTab as WgTabElement, WgTabs as WgTabsElement } from '@wayglass/elements/tabs';
 import type { WgThemeProvider as WgThemeProviderElement } from '@wayglass/elements/theme-provider';
 import type { WgToggle as WgToggleElement } from '@wayglass/elements/toggle';
+import type { WgToast as WgToastElement } from '@wayglass/elements/toast';
+import type { WgToastRegion as WgToastRegionElement } from '@wayglass/elements/toast-region';
 import { createRef } from 'react';
 
 import {
@@ -41,6 +43,8 @@ import {
   WgTabPanel,
   WgTabs,
   WgThemeProvider,
+  WgToast,
+  WgToastRegion,
   WgToggle,
   WgValueTile,
 } from '../src/index.js';
@@ -50,6 +54,7 @@ import type {
   WgMenuToggleEvent,
   WgTabChangeEvent,
   WgThemeChangeEvent,
+  WgToastDismissEvent,
   WgToggleRequestEvent,
 } from '../src/index.js';
 
@@ -62,6 +67,8 @@ const splitRef = createRef<WgSplitElement>();
 const mediaRef = createRef<WgMediaElement>();
 const toggleRef = createRef<WgToggleElement>();
 const menuRef = createRef<WgMenuElement>();
+const toastRef = createRef<WgToastElement>();
+const toastRegionRef = createRef<WgToastRegionElement>();
 
 const typedComposition = (
   <WgThemeProvider ref={providerRef} theme="wayglass-dark" density="compact">
@@ -265,6 +272,34 @@ const typedMenu = (
   </WgMenu>
 );
 
+const toastDismissHandler = (event: WgToastDismissEvent): void => {
+  const toast: WgToastElement = event.currentTarget;
+  const toastId: string = event.detail.toastId;
+  const reason: 'timeout' | 'close' | 'programmatic' | 'replaced' = event.detail.reason;
+  void toast;
+  void toastId;
+  void reason;
+};
+
+const typedTransientFeedback = (
+  <WgToastRegion ref={toastRegionRef} placement="block-end-end" maxVisible={3} paused={false}>
+    <WgToast
+      ref={toastRef}
+      toastId="preferences-saved"
+      dedupeKey="preferences"
+      condition="positive"
+      announcement="polite"
+      duration={8_000}
+      dismissible
+      closeLabel="Dismiss save notification"
+      open
+      onWgToastDismiss={toastDismissHandler}
+    >
+      Contact preferences saved.
+    </WgToast>
+  </WgToastRegion>
+);
+
 const typedFormFoundation = (
   <WgFormGroup>
     <label htmlFor="account-email">
@@ -344,6 +379,7 @@ void typedMedia;
 void typedTabs;
 void typedControls;
 void typedMenu;
+void typedTransientFeedback;
 void typedFormFoundation;
 void invalidFieldMessageKind;
 void invalidCondition;
