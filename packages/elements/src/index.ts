@@ -6,6 +6,12 @@ export {
   wgButtonTagName,
 } from './button.js';
 export type { ButtonAppearance } from './button.js';
+export { defineWgCheckbox, WgCheckbox, wgCheckboxTagName } from './checkbox.js';
+export { defineWgNumberField, WgNumberField, wgNumberFieldTagName } from './number-field.js';
+export { defineWgRadio, WgRadio, wgRadioTagName } from './radio.js';
+export { defineWgSelect, WgSelect, wgSelectTagName } from './select.js';
+export { defineWgSlider, WgSlider, wgSliderTagName } from './slider.js';
+export { defineWgTextField, WgTextField, wgTextFieldTagName } from './text-field.js';
 export {
   defineWgIconButton,
   iconButtonAppearances,
