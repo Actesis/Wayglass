@@ -173,7 +173,7 @@ can be validated before later components depend on it.
 
 #### Phase 2E-D — Confirmation and proportional friction
 
-- [ ] Draft confirmation-dialog ownership, native-dialog integration, focus, dismissal, action, and
+- [x] Draft confirmation-dialog ownership, native-dialog integration, focus, dismissal, action, and
       proportional-friction contracts.
 - [ ] Record the modal confirmation and destructive-action architecture decision.
 - [ ] Lock tokens and implement the accepted framework-neutral interaction model.
