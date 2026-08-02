@@ -9,6 +9,7 @@ import {
   WgCheckbox,
   WgCluster,
   WgCommandItem,
+  WgConfirmationDialog,
   WgDivider,
   WgElbow,
   WgFieldLabel,
@@ -45,7 +46,12 @@ import {
   WgToggle,
   WgValueTile,
 } from '../src/index.js';
-import type { WgTabsProps, WgThemeProviderProps, WgToastProps } from '../src/index.js';
+import type {
+  WgConfirmationDialogProps,
+  WgTabsProps,
+  WgThemeProviderProps,
+  WgToastProps,
+} from '../src/index.js';
 
 describe('Wayglass React wrappers', () => {
   it('exports named wrappers for every implemented element', () => {
@@ -53,6 +59,7 @@ describe('Wayglass React wrappers', () => {
       WgThemeProvider,
       WgToastRegion,
       WgToast,
+      WgConfirmationDialog,
       WgCanvas,
       WgFrame,
       WgStack,
@@ -97,6 +104,7 @@ describe('Wayglass React wrappers', () => {
       'WgThemeProvider',
       'WgToastRegion',
       'WgToast',
+      'WgConfirmationDialog',
       'WgCanvas',
       'WgFrame',
       'WgStack',
@@ -197,5 +205,31 @@ describe('Wayglass React wrappers', () => {
 
     expect(toast.props.toastId).toBe('save-result');
     expect(toast.props.onWgToastDismiss).toBe(onWgToastDismiss);
+  });
+
+  it('preserves typed confirmation action and close callback props', () => {
+    const onWgConfirmationAction: NonNullable<
+      WgConfirmationDialogProps['onWgConfirmationAction']
+    > = (event) => {
+      expect(event.detail.dialogId).toBe('disconnect-source');
+    };
+    const onWgConfirmationClose: NonNullable<WgConfirmationDialogProps['onWgConfirmationClose']> = (
+      event,
+    ) => {
+      expect(event.detail.reason).toMatch(/^(action|cancel|escape|programmatic)$/);
+    };
+    const dialog = createElement(WgConfirmationDialog, {
+      dialogId: 'disconnect-source',
+      actionLabel: 'Disconnect Northwind records',
+      cancelLabel: 'Keep connected',
+      actionAppearance: 'critical',
+      initialFocus: 'cancel',
+      onWgConfirmationAction,
+      onWgConfirmationClose,
+    });
+
+    expect(dialog.props.dialogId).toBe('disconnect-source');
+    expect(dialog.props.onWgConfirmationAction).toBe(onWgConfirmationAction);
+    expect(dialog.props.onWgConfirmationClose).toBe(onWgConfirmationClose);
   });
 });

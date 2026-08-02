@@ -1,4 +1,5 @@
 import type { WgButton as WgButtonElement } from '@wayglass/elements/button';
+import type { WgConfirmationDialog as WgConfirmationDialogElement } from '@wayglass/elements/confirmation-dialog';
 import type { WgSurface as WgSurfaceElement } from '@wayglass/elements/surface';
 import type { WgSplit as WgSplitElement } from '@wayglass/elements/split';
 import type { WgMedia as WgMediaElement } from '@wayglass/elements/media';
@@ -17,6 +18,7 @@ import {
   WgDivider,
   WgCluster,
   WgCommandItem,
+  WgConfirmationDialog,
   WgFrame,
   WgFieldLabel,
   WgFieldMessage,
@@ -51,6 +53,8 @@ import {
 import type {
   WgSegmentChangeEvent,
   WgCommandEvent,
+  WgConfirmationActionEvent,
+  WgConfirmationCloseEvent,
   WgMenuToggleEvent,
   WgTabChangeEvent,
   WgThemeChangeEvent,
@@ -69,6 +73,7 @@ const toggleRef = createRef<WgToggleElement>();
 const menuRef = createRef<WgMenuElement>();
 const toastRef = createRef<WgToastElement>();
 const toastRegionRef = createRef<WgToastRegionElement>();
+const confirmationDialogRef = createRef<WgConfirmationDialogElement>();
 
 const typedComposition = (
   <WgThemeProvider ref={providerRef} theme="wayglass-dark" density="compact">
@@ -300,6 +305,37 @@ const typedTransientFeedback = (
   </WgToastRegion>
 );
 
+const confirmationActionHandler = (event: WgConfirmationActionEvent): void => {
+  const dialog: WgConfirmationDialogElement = event.currentTarget;
+  const dialogId: string = event.detail.dialogId;
+  void dialog;
+  void dialogId;
+};
+
+const confirmationCloseHandler = (event: WgConfirmationCloseEvent): void => {
+  const reason: 'action' | 'cancel' | 'escape' | 'programmatic' = event.detail.reason;
+  void reason;
+};
+
+const typedConfirmation = (
+  <WgConfirmationDialog
+    ref={confirmationDialogRef}
+    dialogId="disconnect-source"
+    actionLabel="Disconnect Northwind records"
+    cancelLabel="Keep connected"
+    actionAppearance="critical"
+    attention="ordinary"
+    initialFocus="cancel"
+    open={false}
+    onWgConfirmationAction={confirmationActionHandler}
+    onWgConfirmationClose={confirmationCloseHandler}
+  >
+    <h2 slot="heading">Disconnect Northwind records?</h2>
+    <p>Current updates will stop for every operator.</p>
+  </WgConfirmationDialog>
+);
+void typedConfirmation;
+
 const typedFormFoundation = (
   <WgFormGroup>
     <label htmlFor="account-email">
@@ -329,6 +365,9 @@ const invalidCondition = <WgMetric condition="healthy" />;
 
 // @ts-expect-error Boolean element properties remain Boolean in React.
 const invalidPending = <WgButton pending="true" />;
+
+// @ts-expect-error Confirmation attention is an explicit closed vocabulary.
+const invalidConfirmationAttention = <WgConfirmationDialog attention="urgent" />;
 
 // @ts-expect-error Activation is a closed interaction vocabulary.
 const invalidActivation = <WgTabs activation="lazy" />;
@@ -384,6 +423,7 @@ void typedFormFoundation;
 void invalidFieldMessageKind;
 void invalidCondition;
 void invalidPending;
+void invalidConfirmationAttention;
 void invalidActivation;
 void invalidTabDisabled;
 void invalidSurfaceTone;

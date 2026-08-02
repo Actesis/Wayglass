@@ -22,6 +22,12 @@ export { WgCanvas } from './canvas.js';
 export type { WgCanvasProps } from './canvas.js';
 export { WgCheckbox } from './checkbox.js';
 export type { WgCheckboxProps } from './checkbox.js';
+export { WgConfirmationDialog } from './confirmation-dialog.js';
+export type {
+  WgConfirmationActionEvent,
+  WgConfirmationCloseEvent,
+  WgConfirmationDialogProps,
+} from './confirmation-dialog.js';
 export { WgNumberField } from './number-field.js';
 export type { WgNumberFieldProps } from './number-field.js';
 export { WgRadio } from './radio.js';
