@@ -1,7 +1,8 @@
 # Phase 2D-D form-foundation validation
 
-Status: automated and visual validation complete as of July 31, 2026; representative screen-reader
-and autofill acceptance remains open.
+Status: automated and visual validation complete as of July 31, 2026. Representative screen-reader
+and autofill acceptance is consolidated with the complete form composition and carried as an
+explicit public-release gate in the [Phase 2 ledger](./phase-2-assistive-technology-gates.md).
 
 This record covers `wg-field-label`, `wg-field-message`, `wg-form-group`, the native
 `wg-form-action` class, their tokens and typed React wrappers, and production-backed Storybook
@@ -28,8 +29,8 @@ stories. The accessibility target is WCAG 2.2 AA.
 | Framework parity                | Typed React wrappers use the production classes while native input properties and events stay ordinary React APIs                             | Pass    |
 | Supported browser engines       | The focused suite passes in Chromium, Firefox, and WebKit                                                                                     | Pass    |
 | Automated accessibility review  | Axe reports no violations in dark, light, and forced-colors fixtures across supported engines                                                 | Pass    |
-| Representative assistive review | VoiceOver/Safari labeling, description, invalid announcement, native grouping, and focus behavior                                             | Pending |
-| Representative autofill review  | Real browser autofill and password-manager behavior with production-like profile fields                                                       | Pending |
+| Representative assistive review | VoiceOver/Safari labeling, description, invalid announcement, native grouping, and focus behavior                                             | Carried |
+| Representative autofill review  | Real browser autofill and password-manager behavior with production-like profile fields                                                       | Carried |
 
 ## Automated and visual review record
 
@@ -51,7 +52,8 @@ actions. Specific text, number, select, checkbox, radio, and range-control prese
 intentionally deferred to Phase 2D-E.
 
 Browser role queries and Axe inspect the platform accessibility representation but do not prove
-spoken output or real profile-data integration. Final Phase 2D-D acceptance therefore still needs:
+spoken output or real profile-data integration. Phase 2 closeout consolidates the following checks
+into the Phase 2D-E form composition and carries them to the public-release gate:
 
 1. VoiceOver with Safari: confirm native label, requirement, help, and current error output; native
    fieldset/legend grouping; invalid submission focus; error correction; and reset behavior.

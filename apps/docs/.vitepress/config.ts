@@ -153,6 +153,10 @@ export default defineConfig({
         text: 'Accessibility',
         items: [
           {
+            text: 'Phase 2 assistive-technology gates',
+            link: '/accessibility/phase-2-assistive-technology-gates',
+          },
+          {
             text: 'Phase 1 validation',
             link: '/accessibility/phase-1-validation',
           },

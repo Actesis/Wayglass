@@ -1,7 +1,8 @@
 # Phase 2E-C transient-feedback validation
 
 **Status:** Automated cross-browser and visual review complete on August 2, 2026. Representative
-assistive-technology review remains open for Phase 2 closeout.
+assistive-technology review is carried as an explicit public-release gate in the
+[Phase 2 ledger](./phase-2-assistive-technology-gates.md).
 
 This record covers `wg-toast`, `wg-toast-region`, the document-level queue and announcement
 coordinator, their locked tokens, typed React wrappers, and production-backed Storybook
@@ -23,7 +24,7 @@ compositions.
 | React parity                    | Typed wrappers preserve production properties, methods, refs, authored children, and dismissal-event detail                                                      | Pass    |
 | Supported engines               | All 51 focused cases pass in Chromium, Firefox, and WebKit                                                                                                       | Pass    |
 | Automated accessibility         | Axe reports no violations in dark and light fixtures across supported engines                                                                                    | Pass    |
-| Representative assistive review | VoiceOver/Safari and NVDA/Firefox announcement timing, duplicate suppression, interruption, action navigation, and retained context                              | Pending |
+| Representative assistive review | VoiceOver/Safari and NVDA/Firefox announcement timing, duplicate suppression, interruption, action navigation, and retained context                              | Carried |
 
 ## Automated review record
 
@@ -60,10 +61,10 @@ The compact phone composition stacks the two functions and constrains the toast 
 the export result produced a second, caution-state toast; repeating the trigger replaced its
 deduplicated request without adding a third visible toast. The browser console reported no errors.
 
-## Open representative review
+## Carried representative review
 
 DOM and accessibility-tree assertions do not prove spoken timing, interruption, or a screen reader's
-handling of consecutive live-region mutations. Before Phase 2 closeout, complete representative
+handling of consecutive live-region mutations. Before public release, complete representative
 VoiceOver with Safari and NVDA with Firefox review for:
 
 1. no announcement from static initial content and one correctly scoped announcement for newly

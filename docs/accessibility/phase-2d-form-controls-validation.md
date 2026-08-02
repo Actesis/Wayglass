@@ -1,7 +1,8 @@
 # Phase 2D-E form-control validation
 
 **Status:** Automated cross-browser and visual review complete on August 1, 2026. Representative
-assistive-technology, real-profile autofill, and password-manager review remain open.
+assistive-technology, real-profile autofill, and password-manager review is carried as an explicit
+public-release gate in the [Phase 2 ledger](./phase-2-assistive-technology-gates.md).
 
 This record covers `wg-text-field`, `wg-number-field`, `wg-select`, `wg-checkbox`, `wg-radio`, and
 `wg-slider`, their locked tokens, typed React wrappers, and production-backed Storybook
@@ -26,8 +27,8 @@ compositions.
 | React parity                    | Typed shells use production element classes while native React controls retain ordinary props, refs, and events                                                         | Pass    |
 | Supported engines               | All 45 focused cases pass in Chromium, Firefox, and WebKit                                                                                                              | Pass    |
 | Automated accessibility         | Axe reports no violations in dark, light, and forced-colors fixtures across supported engines                                                                           | Pass    |
-| Representative assistive review | VoiceOver/Safari and NVDA/Firefox labeling, grouping, value/state, invalid, and focus behavior                                                                          | Pending |
-| Representative autofill review  | Real browser profile and password-manager behavior for semantic identity, contact, and password fields                                                                  | Pending |
+| Representative assistive review | VoiceOver/Safari and NVDA/Firefox labeling, grouping, value/state, invalid, and focus behavior                                                                          | Carried |
+| Representative autofill review  | Real browser profile and password-manager behavior for semantic identity, contact, and password fields                                                                  | Carried |
 
 ## Automated review record
 
@@ -55,11 +56,11 @@ Readonly and disabled controls remain distinct.
 The phone composition had no horizontal overflow, all reviewed native controls remained inside their
 owning panel, and the browser console reported no errors.
 
-## Open representative review
+## Carried representative review
 
 Automated accessibility-tree and Axe results do not prove spoken output, virtual-cursor behavior,
-autofill, password-manager integration, or mobile software-keyboard selection. Final Phase 2D-E
-acceptance still needs:
+autofill, password-manager integration, or mobile software-keyboard selection. Phase 2 closeout
+carries the following procedure to the public-release gate:
 
 1. VoiceOver with Safari: verify labels, help and error descriptions, fieldset/legend grouping,
    checkbox mixed state, radio position and selection, range value, invalid state, and focus order.

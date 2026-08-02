@@ -6,7 +6,9 @@ relationship and validation ownership is accepted in
 [ADR 0018](../architecture/adr/0018-explicit-form-relationships-and-validation.md). Automated and
 visual evidence is recorded in the
 [Phase 2D-D validation record](../accessibility/phase-2d-form-foundation-validation.md);
-representative screen-reader and autofill acceptance remains open.
+representative screen-reader and autofill acceptance is consolidated with the complete form
+composition and carried in the
+[Phase 2 ledger](../accessibility/phase-2-assistive-technology-gates.md).
 
 This milestone defines the presentation and association substrate around consumer-authored native
 form controls. It does not replace the form platform or yet define the Phase 2D-E text, number,

@@ -1,7 +1,8 @@
 # Phase 2E-B persistent-feedback validation
 
 **Status:** Automated cross-browser and visual review complete on August 2, 2026. Representative
-assistive-technology review remains open for Phase 2 closeout.
+assistive-technology review is carried as an explicit public-release gate in the
+[Phase 2 ledger](./phase-2-assistive-technology-gates.md).
 
 This record covers `wg-badge`, `wg-alert`, `wg-progress`, `wg-skeleton`, `wg-empty-state`,
 `wg-offline-state`, and `wg-stale-data-marker`, their locked tokens, typed React wrappers, and
@@ -23,7 +24,7 @@ production-backed Storybook compositions.
 | React parity                    | Typed wrappers use the production element classes and preserve component properties, methods, refs, and authored children                                    | Pass    |
 | Supported engines               | All 36 focused cases pass in Chromium, Firefox, and WebKit                                                                                                   | Pass    |
 | Automated accessibility         | Axe reports no violations in dark, light, and forced-colors fixtures across supported engines                                                                | Pass    |
-| Representative assistive review | VoiceOver/Safari and NVDA/Firefox reading order, announcement scope, progress changes, stale descriptions, and retained context                              | Pending |
+| Representative assistive review | VoiceOver/Safari and NVDA/Firefox reading order, announcement scope, progress changes, stale descriptions, and retained context                              | Carried |
 
 ## Automated review record
 
@@ -53,10 +54,10 @@ The compact phone composition stacked the four function panels without horizonta
 actions, progress, stale context, skeleton lines, and feedback bands remained contained in their
 owning panels, and the browser console reported no errors.
 
-## Open representative review
+## Carried representative review
 
 Accessibility-tree queries and Axe do not prove spoken timing, announcement interruption, or
-virtual-cursor context. Before Phase 2 closeout, complete representative VoiceOver with Safari and
+virtual-cursor context. Before public release, complete representative VoiceOver with Safari and
 NVDA with Firefox review for:
 
 1. reading order and retained surrounding context for badge, alert, empty, offline, and stale
