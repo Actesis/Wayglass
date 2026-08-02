@@ -47,6 +47,7 @@ export const themeTokenOverrides = {
     'color.semantic.knowledge.unavailable': 'color.reference.ink.500',
     'color.semantic.activity.idle': 'color.reference.ink.500',
     'color.semantic.activity.pending': 'color.reference.blue.500',
+    'color.semantic.availability.offline': 'color.reference.ink.500',
     'color.semantic.value.asserted': 'color.reference.blue.500',
     'color.semantic.value.not-asserted': 'color.reference.ink.500',
     'color.semantic.focus.ring': 'color.reference.blue.400',
@@ -83,6 +84,7 @@ export const themeTokenOverrides = {
     'color.semantic.knowledge.unavailable': 'color.reference.ink.500',
     'color.semantic.activity.idle': 'color.reference.ink.500',
     'color.semantic.activity.pending': 'color.reference.blue.600',
+    'color.semantic.availability.offline': 'color.reference.ink.500',
     'color.semantic.value.asserted': 'color.reference.blue.600',
     'color.semantic.value.not-asserted': 'color.reference.ink.500',
     'color.semantic.focus.ring': 'color.reference.blue.600',
@@ -125,6 +127,7 @@ export const densityTokenOverrides = {
     'component.metric.space': 'space.reference.2',
     'component.value-tile.space': 'space.reference.4',
     'component.value-tile.space.section': 'space.semantic.section.compact',
+    'component.feedback.space': 'space.reference.3',
   },
   comfortable: {
     'component.canvas.space.block': 'space.semantic.page.comfortable',
@@ -158,6 +161,7 @@ export const densityTokenOverrides = {
     'component.metric.space': 'space.reference.3',
     'component.value-tile.space': 'space.reference.6',
     'component.value-tile.space.section': 'space.semantic.section.comfortable',
+    'component.feedback.space': 'space.reference.6',
   },
 } as const satisfies Readonly<Record<DensityName, TokenOverrides>>;
 

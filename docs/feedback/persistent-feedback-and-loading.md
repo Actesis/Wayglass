@@ -1,9 +1,9 @@
 # Phase 2E-B persistent-feedback and loading contracts
 
-**Status:** Proposed for Phase 2E-B on August 1, 2026. Shared delivery, announcement, lifetime, and
-state ownership follow the accepted [feedback-state contract](./feedback-state.md) and
-[ADR 0020](../architecture/adr/0020-feedback-delivery-and-lifetime.md). Token values and
-implementation remain open until this proposal is accepted.
+**Status:** Accepted for Phase 2E-B on August 1, 2026; implementation and validation are in
+progress. Shared delivery, announcement, lifetime, and state ownership follow the accepted
+[feedback-state contract](./feedback-state.md) and
+[ADR 0020](../architecture/adr/0020-feedback-delivery-and-lifetime.md).
 
 This milestone defines `wg-badge`, `wg-alert`, `wg-progress`, `wg-skeleton`, `wg-empty-state`,
 `wg-offline-state`, and `wg-stale-data-marker`. These components present persistent context and
