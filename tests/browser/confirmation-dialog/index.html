@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wayglass confirmation-dialog fixture</title>
+    <link rel="stylesheet" href="/packages/tokens/dist/tokens.css" />
+    <link rel="stylesheet" href="/packages/themes/dist/themes.css" />
+    <style>
+      body {
+        min-block-size: 100vh;
+        margin: 0;
+        color: var(--wg-color-semantic-text-primary);
+        background: var(--wg-color-semantic-surface-canvas);
+        font-family: var(--wg-typography-family-body);
+      }
+
+      main {
+        padding: var(--wg-space-reference-4);
+      }
+    </style>
+  </head>
+  <body>
+    <wg-theme-provider theme="wayglass-dark" density="compact">
+      <main>
+        <h1>Confirmation-dialog fixture</h1>
+        <button id="invoker" type="button">Disconnect source</button>
+        <button id="fallback" type="button">Manage sources</button>
+
+        <wg-confirmation-dialog
+          id="confirmation"
+          dialog-id="disconnect-source"
+          action-label="Disconnect Northwind records"
+          cancel-label="Keep connected"
+          action-appearance="critical"
+        >
+          <h2 slot="heading">Disconnect Northwind records?</h2>
+          <p>Current updates will stop for every operator. Stored records will remain available.</p>
+        </wg-confirmation-dialog>
+
+        <wg-confirmation-dialog
+          id="second-confirmation"
+          dialog-id="delete-reports"
+          action-label="Delete 24 reports"
+          cancel-label="Keep reports"
+        >
+          <h2 slot="heading">Delete 24 archived reports?</h2>
+          <p>The reports cannot be recovered after deletion.</p>
+        </wg-confirmation-dialog>
+      </main>
+    </wg-theme-provider>
+
+    <script type="module">
+      import {
+        defineWgConfirmationDialog,
+        defineWgThemeProvider,
+      } from '/packages/elements/dist/index.js';
+
+      defineWgThemeProvider();
+      defineWgConfirmationDialog();
+
+      document.querySelector('#invoker').addEventListener('click', (event) => {
+        document.querySelector('#confirmation').show({ invoker: event.currentTarget });
+      });
+    </script>
+  </body>
+</html>

@@ -1,6 +1,6 @@
 # ADR 0021: Use native modal confirmation with explicit proportional friction
 
-- Status: proposed
+- Status: accepted
 - Date: 2026-08-02
 
 ## Context
