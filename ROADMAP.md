@@ -175,7 +175,7 @@ can be validated before later components depend on it.
 
 - [x] Draft confirmation-dialog ownership, native-dialog integration, focus, dismissal, action, and
       proportional-friction contracts.
-- [ ] Record the modal confirmation and destructive-action architecture decision.
+- [x] Record the modal confirmation and destructive-action architecture decision.
 - [ ] Lock tokens and implement the accepted framework-neutral interaction model.
 - [ ] Add typed React wrappers and production-backed stories.
 - [ ] Validate keyboard and focus behavior, cancellation, destructive labeling, nested invocation,

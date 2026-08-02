@@ -130,6 +130,10 @@ export default defineConfig({
             text: 'ADR 0020: Feedback delivery and lifetime',
             link: '/architecture/adr/0020-feedback-delivery-and-lifetime',
           },
+          {
+            text: 'ADR 0021: Native confirmation',
+            link: '/architecture/adr/0021-native-confirmation-and-proportional-friction',
+          },
         ],
       },
       {
