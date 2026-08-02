@@ -91,6 +91,7 @@ export const themeTokenOverrides = {
     'color.semantic.data.series.1': 'color.reference.blue.600',
     'color.semantic.data.series.2': 'color.reference.green.700',
     'component.button.color.critical': 'color.reference.red.500',
+    'component.confirmation.color.action-critical-text': 'color.reference.paper.50',
   },
 } as const satisfies Readonly<Record<Phase1ThemeName, TokenOverrides>>;
 
@@ -129,6 +130,7 @@ export const densityTokenOverrides = {
     'component.value-tile.space.section': 'space.semantic.section.compact',
     'component.feedback.space': 'space.reference.3',
     'component.toast.space': 'space.reference.3',
+    'component.confirmation.space': 'space.reference.3',
   },
   comfortable: {
     'component.canvas.space.block': 'space.semantic.page.comfortable',
@@ -164,6 +166,7 @@ export const densityTokenOverrides = {
     'component.value-tile.space.section': 'space.semantic.section.comfortable',
     'component.feedback.space': 'space.reference.6',
     'component.toast.space': 'space.reference.6',
+    'component.confirmation.space': 'space.reference.6',
   },
 } as const satisfies Readonly<Record<DensityName, TokenOverrides>>;
 

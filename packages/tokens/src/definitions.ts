@@ -1770,6 +1770,126 @@ export const tokens = {
     type: 'duration',
     description: 'Optional short toast entry and exit transition.',
   },
+  'component.confirmation.color.backdrop': {
+    value: 'rgb(9 13 20 / 72%)',
+    type: 'color',
+    description: 'Modal backdrop separating a confirmation decision from inert page content.',
+  },
+  'component.confirmation.color.background': {
+    value: '{color.semantic.surface.panel}',
+    type: 'color',
+    description: 'Confirmation decision surface.',
+  },
+  'component.confirmation.color.border': {
+    value: '{color.semantic.border.strong}',
+    type: 'color',
+    description: 'Confirmation surface and secondary-action boundary.',
+  },
+  'component.confirmation.color.marker': {
+    value: '{color.semantic.structure.band}',
+    type: 'color',
+    description: 'Neutral structural marker separating the modal decision surface.',
+  },
+  'component.confirmation.color.text': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'Confirmation heading and primary text.',
+  },
+  'component.confirmation.color.detail': {
+    value: '{color.semantic.text.secondary}',
+    type: 'color',
+    description: 'Confirmation consequence description.',
+  },
+  'component.confirmation.color.cancel-background': {
+    value: '{color.semantic.surface.inset}',
+    type: 'color',
+    description: 'Safe cancellation control background.',
+  },
+  'component.confirmation.color.cancel-background-hover': {
+    value: '{color.semantic.surface.raised}',
+    type: 'color',
+    description: 'Safe cancellation control hover background.',
+  },
+  'component.confirmation.color.action': {
+    value: '{color.semantic.action.primary}',
+    type: 'color',
+    description: 'Ordinary confirmed-action background.',
+  },
+  'component.confirmation.color.action-hover': {
+    value: '{color.semantic.action.hover}',
+    type: 'color',
+    description: 'Ordinary confirmed-action hover background.',
+  },
+  'component.confirmation.color.action-critical': {
+    value: '{color.semantic.action.critical}',
+    type: 'color',
+    description: 'Genuinely harmful confirmed-action background.',
+  },
+  'component.confirmation.color.action-critical-hover': {
+    value: '{color.semantic.action.critical}',
+    type: 'color',
+    description: 'Genuinely harmful confirmed-action hover background.',
+  },
+  'component.confirmation.color.action-critical-text': {
+    value: '{color.semantic.text.inverse}',
+    type: 'color',
+    description: 'High-contrast text on filled critical confirmation actions.',
+  },
+  'component.confirmation.color.action-text': {
+    value: '{color.semantic.text.inverse}',
+    type: 'color',
+    description: 'Filled confirmation action text.',
+  },
+  'component.confirmation.radius': {
+    value: '{shape.radius.panel}',
+    type: 'dimension',
+    description: 'Confirmation decision surface radius.',
+  },
+  'component.confirmation.space': {
+    value: '{space.reference.4}',
+    type: 'dimension',
+    description: 'Density-aware confirmation edge spacing.',
+  },
+  'component.confirmation.space.related': {
+    value: '{space.reference.2}',
+    type: 'dimension',
+    description: 'Spacing between closely related confirmation anatomy.',
+  },
+  'component.confirmation.space.viewport': {
+    value: '{space.reference.4}',
+    type: 'dimension',
+    description: 'Viewport-safe confirmation inset.',
+  },
+  'component.confirmation.size.inline-maximum': {
+    value: '32rem',
+    type: 'dimension',
+    description: 'Maximum readable confirmation inline size.',
+  },
+  'component.confirmation.size.marker': {
+    value: '{border.width.band}',
+    type: 'dimension',
+    description: 'Neutral confirmation structure marker thickness.',
+  },
+  'component.confirmation.size.control-minimum': {
+    value: '{component.button.size.minimum}',
+    type: 'dimension',
+    description: 'Minimum component-owned confirmation control target.',
+  },
+  'component.confirmation.elevation': {
+    value: '{elevation.panel}',
+    type: 'shadow',
+    description: 'Confirmation elevation above inert document content.',
+  },
+  'component.confirmation.motion': {
+    value: '{motion.duration.fast}',
+    type: 'duration',
+    description: 'Optional short confirmation entry transition.',
+  },
+  'component.confirmation.motion-distance': {
+    value: '{space.reference.2}',
+    type: 'dimension',
+    description: 'Optional short confirmation entry translation.',
+  },
 } as const satisfies Record<string, TokenDefinition>;
 
 export type TokenName = keyof typeof tokens;

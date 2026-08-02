@@ -54,6 +54,10 @@
       "types": "./dist/checkbox.d.ts",
       "import": "./dist/checkbox.js"
     },
+    "./confirmation-dialog": {
+      "types": "./dist/confirmation-dialog.d.ts",
+      "import": "./dist/confirmation-dialog.js"
+    },
     "./number-field": {
       "types": "./dist/number-field.d.ts",
       "import": "./dist/number-field.js"

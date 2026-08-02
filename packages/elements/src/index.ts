@@ -10,6 +10,27 @@ export { defineWgAlert, WgAlert, wgAlertTagName } from './alert.js';
 export type { AlertAnnouncement, FeedbackCondition } from './feedback-values.js';
 export { defineWgBadge, WgBadge, wgBadgeTagName } from './badge.js';
 export { defineWgCheckbox, WgCheckbox, wgCheckboxTagName } from './checkbox.js';
+export {
+  confirmationActionAppearances,
+  confirmationAttentions,
+  confirmationCloseReasons,
+  confirmationInitialFocuses,
+  defineWgConfirmationDialog,
+  isConfirmationActionAppearance,
+  isConfirmationAttention,
+  isConfirmationInitialFocus,
+  WgConfirmationDialog,
+  wgConfirmationDialogTagName,
+} from './confirmation-dialog.js';
+export type {
+  ConfirmationActionAppearance,
+  ConfirmationAttention,
+  ConfirmationCloseReason,
+  ConfirmationInitialFocus,
+  ConfirmationShowOptions,
+  WgConfirmationActionDetail,
+  WgConfirmationCloseDetail,
+} from './confirmation-dialog.js';
 export { defineWgNumberField, WgNumberField, wgNumberFieldTagName } from './number-field.js';
 export { defineWgRadio, WgRadio, wgRadioTagName } from './radio.js';
 export { defineWgSelect, WgSelect, wgSelectTagName } from './select.js';
