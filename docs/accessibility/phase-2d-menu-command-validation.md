@@ -1,7 +1,8 @@
 # Phase 2D-C menu and command validation
 
-Status: automated and visual validation complete as of July 31, 2026; representative screen-reader
-acceptance remains open.
+Status: automated and visual validation complete as of July 31, 2026. Representative screen-reader
+acceptance is carried as an explicit public-release gate in the
+[Phase 2 ledger](./phase-2-assistive-technology-gates.md).
 
 This record covers `wg-menu`, `wg-command-item`, their logical placement and client-only fallback,
 tokens, typed React wrappers, and production-backed Storybook stories. The accessibility target is
@@ -25,7 +26,7 @@ WCAG 2.2 AA.
 | Framework parity                | Side-effect-free element modules and typed React properties, refs, methods, and custom-event callbacks use the production classes                 | Pass    |
 | Supported browser engines       | The menu-specific suite passes in Chromium, Firefox, and WebKit                                                                                   | Pass    |
 | Automated accessibility review  | Axe reports no violations in open dark, light, and forced-colors fixtures across supported engines                                                | Pass    |
-| Representative assistive review | VoiceOver with Safari review of the internal menu button, slotted custom menu items, disabled discovery, and focus return                         | Pending |
+| Representative assistive review | VoiceOver with Safari review of the internal menu button, slotted custom menu items, disabled discovery, and focus return                         | Carried |
 
 ## Automated and visual review record
 
@@ -44,8 +45,8 @@ boundary, and keeps the compact icon trigger subordinate to its labeled function
 
 Browser role queries and Axe inspect the platform accessibility representation, but they do not
 prove spoken interaction across the internal menu container and slotted custom menu-item hosts.
-Phase 2D-C therefore remains short of final validation until the following representative VoiceOver
-and Safari review is recorded:
+Phase 2 closeout therefore carries the following representative VoiceOver and Safari procedure to
+the public-release gate:
 
 1. Tab to Report actions and confirm its stable name, menu-button role, collapsed state, and popup
    availability are announced.

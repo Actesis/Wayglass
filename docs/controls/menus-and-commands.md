@@ -4,7 +4,8 @@
 architecture are recorded in [ADR 0017](../architecture/adr/0017-menu-command-architecture.md).
 Automated and visual evidence is recorded in the
 [Phase 2D-C validation record](../accessibility/phase-2d-menu-command-validation.md); representative
-screen-reader acceptance remains open.
+screen-reader acceptance is carried as a public-release gate in the
+[Phase 2 ledger](../accessibility/phase-2-assistive-technology-gates.md).
 
 This milestone defines one application-style command menu composed from `wg-menu` and
 `wg-command-item`. It provides compact access to secondary commands without turning ordinary

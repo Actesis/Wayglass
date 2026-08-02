@@ -2,10 +2,11 @@
 
 **Status:** Accepted, implemented, and automatically validated for Phase 2E-D on August 2, 2026.
 Representative assistive-technology review remains tracked in the
-[Phase 2E-D validation record](../accessibility/phase-2e-confirmation-dialog-validation.md). The
-architecture is recorded in
-[ADR 0021](../architecture/adr/0021-native-confirmation-and-proportional-friction.md). Shared
-persistence, interruption, modality, condition, and state ownership follow the accepted
+[Phase 2E-D validation record](../accessibility/phase-2e-confirmation-dialog-validation.md) and is
+carried as a public-release gate in the
+[Phase 2 ledger](../accessibility/phase-2-assistive-technology-gates.md). The architecture is
+recorded in [ADR 0021](../architecture/adr/0021-native-confirmation-and-proportional-friction.md).
+Shared persistence, interruption, modality, condition, and state ownership follow the accepted
 [feedback-state contract](./feedback-state.md) and
 [ADR 0020](../architecture/adr/0020-feedback-delivery-and-lifetime.md).
 

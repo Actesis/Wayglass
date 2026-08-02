@@ -2,11 +2,12 @@
 
 **Status:** Accepted, implemented, and automatically validated for Phase 2E-C on August 2, 2026.
 Representative assistive-technology checks remain tracked in the
-[Phase 2E-C validation record](../accessibility/phase-2e-transient-feedback-validation.md). Typed
-React wrappers and production-backed stories use the same coordinator. Shared persistence,
-interruption, modality, condition, and state ownership follow the accepted
-[feedback-state contract](./feedback-state.md) and
-[ADR 0020](../architecture/adr/0020-feedback-delivery-and-lifetime.md).
+[Phase 2E-C validation record](../accessibility/phase-2e-transient-feedback-validation.md) and are
+carried as public-release gates in the
+[Phase 2 ledger](../accessibility/phase-2-assistive-technology-gates.md). Typed React wrappers and
+production-backed stories use the same coordinator. Shared persistence, interruption, modality,
+condition, and state ownership follow the accepted [feedback-state contract](./feedback-state.md)
+and [ADR 0020](../architecture/adr/0020-feedback-delivery-and-lifetime.md).
 
 This milestone defines `wg-toast` and `wg-toast-region`. A toast is a brief acknowledgement whose
 durable result or recovery path is already visible or discoverable elsewhere. The region is the one

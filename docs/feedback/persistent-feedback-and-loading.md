@@ -3,7 +3,8 @@
 **Status:** Accepted and implemented for Phase 2E-B on August 1, 2026. Automated cross-browser and
 visual evidence is recorded in the
 [Phase 2E-B validation record](../accessibility/phase-2e-persistent-feedback-validation.md);
-representative assistive-technology review remains open for Phase 2 closeout. Shared delivery,
+representative assistive-technology review is carried as a public-release gate in the
+[Phase 2 ledger](../accessibility/phase-2-assistive-technology-gates.md). Shared delivery,
 announcement, lifetime, and state ownership follow the accepted
 [feedback-state contract](./feedback-state.md) and
 [ADR 0020](../architecture/adr/0020-feedback-delivery-and-lifetime.md).
@@ -472,7 +473,7 @@ Acceptance requires:
   pointer, and supported browser engines;
 - production-backed domain-neutral stories with information-only and operational sections, images
   where useful, vanilla usage, and typed React wrappers; and
-- representative VoiceOver/Safari and NVDA/Firefox review before Phase 2 closeout.
+- representative VoiceOver/Safari and NVDA/Firefox review before public release.
 
 ## Deferred decisions
 

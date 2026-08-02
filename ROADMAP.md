@@ -185,7 +185,7 @@ can be validated before later components depend on it.
 #### Phase 2E-E — Phase 2 closeout
 
 - [x] Complete Phase 2 documentation and production-backed examples.
-- [ ] Close or explicitly carry the remaining representative assistive-technology gates from Phase
+- [x] Close or explicitly carry the remaining representative assistive-technology gates from Phase
       2D.
 - [ ] Run the Phase 2 accessibility, responsive, visual-state, framework, and supported-browser
       validation matrix.

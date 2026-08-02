@@ -1,7 +1,8 @@
 # Phase 2E-D confirmation-dialog validation
 
 **Status:** Automated cross-browser and visual review complete on August 2, 2026. Representative
-assistive-technology review remains open for Phase 2 closeout.
+assistive-technology review is carried as an explicit public-release gate in the
+[Phase 2 ledger](./phase-2-assistive-technology-gates.md).
 
 This record covers `wg-confirmation-dialog`, its document-local modal coordinator, locked tokens,
 typed React wrapper, and production-backed proportional-friction stories.
@@ -24,7 +25,7 @@ typed React wrapper, and production-backed proportional-friction stories.
 | React parity                    | The typed wrapper preserves production properties, methods, refs, authored children, events, and the same document-local coordinator                           | Pass    |
 | Supported engines               | All 63 focused cases pass in Chromium, Firefox, and WebKit                                                                                                     | Pass    |
 | Automated accessibility         | Axe reports no non-contrast violations in dark and light open-dialog fixtures; every modal foreground/background pair passes explicit contrast measurement     | Pass    |
-| Representative assistive review | VoiceOver/Safari and NVDA/Firefox announcement, reading order, modality, cancellation, focus containment, and focus return with vanilla and React entry points | Pending |
+| Representative assistive review | VoiceOver/Safari and NVDA/Firefox announcement, reading order, modality, cancellation, focus containment, and focus return with vanilla and React entry points | Carried |
 
 ## Automated review record
 
@@ -71,10 +72,10 @@ presentation. At the constrained viewport and 200% text size, labels wrap withou
 choices remain reachable, and long content scrolls inside the modal rather than moving the document
 behind it.
 
-## Open representative review
+## Carried representative review
 
 DOM, accessibility-tree, and keyboard assertions do not prove spoken dialog entry, virtual-cursor
-context, or platform-specific focus recovery. Before Phase 2 closeout, complete representative
+context, or platform-specific focus recovery. Before public release, complete representative
 VoiceOver with Safari and NVDA with Firefox review for both vanilla and React entry points:
 
 1. ordinary `dialog` and explicit `alertdialog` name, description, role, and initial announcement;

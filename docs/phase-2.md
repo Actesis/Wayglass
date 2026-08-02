@@ -79,10 +79,10 @@ forced colors, reduced motion, dark and light themes, framework parity, and Chro
 WebKit. The Phase 2 closeout matrix will consolidate that evidence rather than replace it.
 
 Automated accessibility trees and Axe cannot prove spoken timing, virtual-cursor context, platform
-focus recovery, password-manager behavior, or mobile screen-reader interaction. The validation
-records therefore name the remaining VoiceOver/Safari, NVDA/Firefox, and applicable mobile or
-password-manager checks explicitly. Phase 2 closeout must either complete each representative gate
-or carry it forward with scope and release impact recorded.
+focus recovery, password-manager behavior, or mobile screen-reader interaction. The
+[representative assistive-technology gate ledger](./accessibility/phase-2-assistive-technology-gates.md)
+records completed evidence and carries every remaining VoiceOver/Safari, NVDA/Firefox, mobile, and
+password-manager check with explicit scope and release impact.
 
 ## Deliberate boundaries
 
