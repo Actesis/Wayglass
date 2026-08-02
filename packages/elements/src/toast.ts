@@ -180,7 +180,6 @@ export class WgToast extends WayglassElement {
 
     @keyframes wg-toast-enter {
       from {
-        opacity: 0;
         transform: translateY(0.25rem);
       }
     }

@@ -24,20 +24,20 @@
       <main>
         <h1>Transient feedback fixture</h1>
         <button id="outside" type="button">Save preferences</button>
+        <wg-toast-region id="region" max-visible="2" paused>
+          <wg-toast
+            id="static-toast"
+            toast-id="static-outcome"
+            condition="positive"
+            announcement="polite"
+            duration="0"
+            close-label="Dismiss saved notification"
+            open
+          >
+            Preferences already saved.
+          </wg-toast>
+        </wg-toast-region>
       </main>
-      <wg-toast-region id="region" max-visible="2" paused>
-        <wg-toast
-          id="static-toast"
-          toast-id="static-outcome"
-          condition="positive"
-          announcement="polite"
-          duration="0"
-          close-label="Dismiss saved notification"
-          open
-        >
-          Preferences already saved.
-        </wg-toast>
-      </wg-toast-region>
     </wg-theme-provider>
 
     <script type="module">
