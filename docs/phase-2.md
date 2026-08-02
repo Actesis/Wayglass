@@ -73,10 +73,10 @@ behavior.
 
 ## Validation and remaining gates
 
-Phase-specific records under [`docs/accessibility`](./accessibility/phase-2a-tabs-validation.md)
-cover keyboard and focus behavior, accessible relationships, responsive reflow, touch targets,
-forced colors, reduced motion, dark and light themes, framework parity, and Chromium, Firefox, and
-WebKit. The Phase 2 closeout matrix will consolidate that evidence rather than replace it.
+The [Phase 2 validation matrix](./accessibility/phase-2-validation-matrix.md) consolidates the
+phase-specific records covering keyboard and focus behavior, accessible relationships, responsive
+reflow, touch targets, forced colors, reduced motion, dark and light themes, framework parity, and
+Chromium, Firefox, and WebKit. It preserves the detailed records rather than replacing them.
 
 Automated accessibility trees and Axe cannot prove spoken timing, virtual-cursor context, platform
 focus recovery, password-manager behavior, or mobile screen-reader interaction. The
