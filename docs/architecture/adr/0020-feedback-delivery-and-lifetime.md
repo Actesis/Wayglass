@@ -1,6 +1,6 @@
 # ADR 0020: Keep durable state separate from feedback delivery and lifetime
 
-- Status: proposed
+- Status: accepted
 - Date: 2026-08-01
 
 ## Context

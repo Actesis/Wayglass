@@ -63,7 +63,13 @@ export default defineConfig({
       },
       {
         text: 'Phase 2 feedback',
-        items: [{ text: 'Feedback-state proposal', link: '/feedback/feedback-state' }],
+        items: [
+          { text: 'Feedback-state contract', link: '/feedback/feedback-state' },
+          {
+            text: 'Persistent feedback proposal',
+            link: '/feedback/persistent-feedback-and-loading',
+          },
+        ],
       },
       {
         text: 'Architecture',

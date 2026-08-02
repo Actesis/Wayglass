@@ -151,11 +151,11 @@ can be validated before later components depend on it.
 - [x] Draft the shared contract for persistent feedback, transient announcements, loading and
       absence, degraded knowledge or availability, and modal confirmation.
 - [x] Draft the feedback delivery, announcement, and lifetime architecture decision.
-- [ ] Review and accept the shared feedback contract and architecture decision.
+- [x] Review and accept the shared feedback contract and architecture decision.
 
 #### Phase 2E-B — Persistent feedback and loading
 
-- [ ] Draft badge, alert, progress, skeleton, empty-state, offline-state, and stale-data-marker
+- [x] Draft badge, alert, progress, skeleton, empty-state, offline-state, and stale-data-marker
       public contracts.
 - [ ] Lock tokens and implement the accepted framework-neutral components and patterns.
 - [ ] Add typed React wrappers and production-backed stories.
