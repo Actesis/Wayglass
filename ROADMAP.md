@@ -145,9 +145,48 @@ can be validated before later components depend on it.
 
 ### Phase 2E — Feedback and closeout
 
-- [ ] Specify and implement badge, alert, toast, progress, skeleton, empty state, offline state,
-      stale-data marker, and confirmation dialog.
+#### Phase 2E-A — Feedback-state architecture
+
+- [x] Define the Phase 2E milestone sequence.
+- [x] Draft the shared contract for persistent feedback, transient announcements, loading and
+      absence, degraded knowledge or availability, and modal confirmation.
+- [x] Draft the feedback delivery, announcement, and lifetime architecture decision.
+- [ ] Review and accept the shared feedback contract and architecture decision.
+
+#### Phase 2E-B — Persistent feedback and loading
+
+- [ ] Draft badge, alert, progress, skeleton, empty-state, offline-state, and stale-data-marker
+      public contracts.
+- [ ] Lock tokens and implement the accepted framework-neutral components and patterns.
+- [ ] Add typed React wrappers and production-backed stories.
+- [ ] Validate semantics, labeling, retained context, loading replacement, motion, zoom, forced
+      colors, and supported browser and assistive-technology combinations.
+
+#### Phase 2E-C — Transient feedback
+
+- [ ] Draft toast, toast-region, queue, lifetime, dismissal, and announcement contracts.
+- [ ] Lock tokens and implement the accepted framework-neutral interaction model.
+- [ ] Add typed React wrappers and production-backed stories.
+- [ ] Validate queue behavior, duplicate announcements, timing, pause and dismissal, focus
+      independence, reduced motion, zoom, and supported browser and assistive-technology
+      combinations.
+
+#### Phase 2E-D — Confirmation and proportional friction
+
+- [ ] Draft confirmation-dialog ownership, native-dialog integration, focus, dismissal, action, and
+      proportional-friction contracts.
+- [ ] Record the modal confirmation and destructive-action architecture decision.
+- [ ] Lock tokens and implement the accepted framework-neutral interaction model.
+- [ ] Add typed React wrappers and production-backed stories.
+- [ ] Validate keyboard and focus behavior, cancellation, destructive labeling, nested invocation,
+      zoom, forced colors, reduced motion, and supported browser and assistive-technology
+      combinations.
+
+#### Phase 2E-E — Phase 2 closeout
+
 - [ ] Complete Phase 2 documentation and production-backed examples.
+- [ ] Close or explicitly carry the remaining representative assistive-technology gates from Phase
+      2D.
 - [ ] Run the Phase 2 accessibility, responsive, visual-state, framework, and supported-browser
       validation matrix.
 - [ ] Record deferred or revised component-roadmap decisions without widening Phase 3.
