@@ -1,8 +1,8 @@
 # Phase 2E-C transient-feedback contracts
 
-**Status:** Accepted and implemented for Phase 2E-C on August 2, 2026; typed React wrappers,
-production-backed stories, and final validation remain open. Shared persistence, interruption,
-modality, condition, and state ownership follow the accepted
+**Status:** Accepted and implemented for Phase 2E-C on August 2, 2026; final validation remains
+open. Typed React wrappers and production-backed stories use the same coordinator. Shared
+persistence, interruption, modality, condition, and state ownership follow the accepted
 [feedback-state contract](./feedback-state.md) and
 [ADR 0020](../architecture/adr/0020-feedback-delivery-and-lifetime.md).
 
