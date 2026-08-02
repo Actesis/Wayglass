@@ -73,6 +73,10 @@ export default defineConfig({
             text: 'Transient feedback proposal',
             link: '/feedback/transient-feedback',
           },
+          {
+            text: 'Confirmation-dialog proposal',
+            link: '/feedback/confirmation-dialog',
+          },
         ],
       },
       {
