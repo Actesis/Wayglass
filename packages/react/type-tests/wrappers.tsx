@@ -1,8 +1,10 @@
 import type { WgButton as WgButtonElement } from '@wayglass/elements/button';
 import type { WgConfirmationDialog as WgConfirmationDialogElement } from '@wayglass/elements/confirmation-dialog';
+import type { WgDialog as WgDialogElement } from '@wayglass/elements/dialog';
 import type { WgSurface as WgSurfaceElement } from '@wayglass/elements/surface';
 import type { WgSplit as WgSplitElement } from '@wayglass/elements/split';
 import type { WgMedia as WgMediaElement } from '@wayglass/elements/media';
+import type { WgMediaViewer as WgMediaViewerElement } from '@wayglass/elements/media-viewer';
 import type { WgMenu as WgMenuElement } from '@wayglass/elements/menu';
 import type { WgTab as WgTabElement, WgTabs as WgTabsElement } from '@wayglass/elements/tabs';
 import type { WgThemeProvider as WgThemeProviderElement } from '@wayglass/elements/theme-provider';
@@ -19,6 +21,7 @@ import {
   WgCluster,
   WgCommandItem,
   WgConfirmationDialog,
+  WgDialog,
   WgFrame,
   WgFieldLabel,
   WgFieldMessage,
@@ -26,6 +29,7 @@ import {
   WgGrid,
   WgIconButton,
   WgMedia,
+  WgMediaViewer,
   WgMenu,
   WgMetric,
   WgNavigationRail,
@@ -55,6 +59,11 @@ import type {
   WgCommandEvent,
   WgConfirmationActionEvent,
   WgConfirmationCloseEvent,
+  WgDialogCloseEvent,
+  WgDialogOpenEvent,
+  WgMediaViewChangeEvent,
+  WgMediaViewerCloseEvent,
+  WgMediaViewerOpenEvent,
   WgMenuToggleEvent,
   WgTabChangeEvent,
   WgThemeChangeEvent,
@@ -74,6 +83,8 @@ const menuRef = createRef<WgMenuElement>();
 const toastRef = createRef<WgToastElement>();
 const toastRegionRef = createRef<WgToastRegionElement>();
 const confirmationDialogRef = createRef<WgConfirmationDialogElement>();
+const dialogRef = createRef<WgDialogElement>();
+const mediaViewerRef = createRef<WgMediaViewerElement>();
 
 const typedComposition = (
   <WgThemeProvider ref={providerRef} theme="wayglass-dark" density="compact">
@@ -336,6 +347,79 @@ const typedConfirmation = (
 );
 void typedConfirmation;
 
+const dialogOpenHandler = (event: WgDialogOpenEvent): void => {
+  const dialog: WgDialogElement = event.currentTarget;
+  const dialogId: string = event.detail.dialogId;
+  void dialog;
+  void dialogId;
+};
+
+const dialogCloseHandler = (event: WgDialogCloseEvent): void => {
+  const reason: 'close-control' | 'escape' | 'programmatic' = event.detail.reason;
+  void reason;
+};
+
+const typedDialog = (
+  <WgDialog
+    ref={dialogRef}
+    dialogId="record-details"
+    closeLabel="Close details"
+    initialFocus="first-interactive"
+    size="wide"
+    onWgDialogOpen={dialogOpenHandler}
+    onWgDialogClose={dialogCloseHandler}
+  >
+    <h2 slot="heading">Record details</h2>
+    <p>Application-authored content.</p>
+    <button slot="actions" type="button">
+      Save
+    </button>
+  </WgDialog>
+);
+
+const mediaViewerOpenHandler = (event: WgMediaViewerOpenEvent): void => {
+  const viewer: WgMediaViewerElement = event.currentTarget;
+  const viewerId: string = event.detail.viewerId;
+  void viewer;
+  void viewerId;
+};
+
+const mediaViewerCloseHandler = (event: WgMediaViewerCloseEvent): void => {
+  const reason: 'close-control' | 'escape' | 'programmatic' = event.detail.reason;
+  void reason;
+};
+
+const mediaViewChangeHandler = (event: WgMediaViewChangeEvent): void => {
+  const view: 'fit' | 'actual-size' | 'zoomed' = event.detail.view;
+  const scale: number = event.detail.scale;
+  void view;
+  void scale;
+};
+
+const typedMediaViewer = (
+  <WgMediaViewer
+    ref={mediaViewerRef}
+    viewerId="asset-image"
+    state="ready"
+    initialView="fit"
+    closeLabel="Close image"
+    zoomInLabel="Zoom in"
+    zoomOutLabel="Zoom out"
+    fitLabel="Fit image"
+    actualSizeLabel="Actual size"
+    onWgMediaViewerOpen={mediaViewerOpenHandler}
+    onWgMediaViewerClose={mediaViewerCloseHandler}
+    onWgMediaViewChange={mediaViewChangeHandler}
+  >
+    <h2 slot="heading">Asset identification image</h2>
+    <p slot="context">Use the label beside the lower access panel.</p>
+    <img src="/asset.webp" width={1200} height={900} alt="Asset identification view" />
+    <p slot="caption">Captured July 30.</p>
+    <p slot="loading">Loading image…</p>
+    <p slot="unavailable">Image unavailable. Use the lower access panel.</p>
+  </WgMediaViewer>
+);
+
 const typedFormFoundation = (
   <WgFormGroup>
     <label htmlFor="account-email">
@@ -368,6 +452,12 @@ const invalidPending = <WgButton pending="true" />;
 
 // @ts-expect-error Confirmation attention is an explicit closed vocabulary.
 const invalidConfirmationAttention = <WgConfirmationDialog attention="urgent" />;
+
+// @ts-expect-error Dialog size is a closed content-capacity vocabulary.
+const invalidDialogSize = <WgDialog size="fullscreen" />;
+
+// @ts-expect-error Media-viewer state is resource presentation, not condition.
+const invalidMediaViewerState = <WgMediaViewer state="critical" />;
 
 // @ts-expect-error Activation is a closed interaction vocabulary.
 const invalidActivation = <WgTabs activation="lazy" />;
@@ -419,11 +509,15 @@ void typedTabs;
 void typedControls;
 void typedMenu;
 void typedTransientFeedback;
+void typedDialog;
+void typedMediaViewer;
 void typedFormFoundation;
 void invalidFieldMessageKind;
 void invalidCondition;
 void invalidPending;
 void invalidConfirmationAttention;
+void invalidDialogSize;
+void invalidMediaViewerState;
 void invalidActivation;
 void invalidTabDisabled;
 void invalidSurfaceTone;

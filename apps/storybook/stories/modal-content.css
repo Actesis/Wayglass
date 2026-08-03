@@ -1,0 +1,57 @@
+.wg-modal-example {
+  min-block-size: 100vh;
+  box-sizing: border-box;
+  padding: var(--wg-space-reference-6);
+  color: var(--wg-color-semantic-text-primary);
+  background: var(--wg-color-semantic-surface-canvas);
+  font-family: var(--wg-typography-family-body);
+}
+
+.wg-modal-example-header {
+  max-inline-size: 72ch;
+}
+
+.wg-modal-example-header > :first-child,
+.wg-modal-example-card p,
+.wg-modal-example-dialog p,
+.wg-modal-example-dialog dl {
+  margin-block: 0;
+}
+
+.wg-modal-example-figure {
+  margin: 0;
+}
+
+.wg-modal-example-figure figcaption {
+  margin-block-start: var(--wg-space-reference-2);
+  color: var(--wg-color-semantic-text-secondary);
+}
+
+.wg-modal-example-dialog dl {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: var(--wg-space-reference-2) var(--wg-space-reference-4);
+}
+
+.wg-modal-example-dialog dt {
+  font-weight: var(--wg-typography-weight-emphasis);
+}
+
+.wg-modal-example-dialog dd {
+  margin: 0;
+}
+
+@media (max-width: 36rem) {
+  .wg-modal-example {
+    padding: var(--wg-space-reference-3);
+  }
+
+  .wg-modal-example-dialog dl {
+    grid-template-columns: 1fr;
+    gap: var(--wg-space-reference-1);
+  }
+
+  .wg-modal-example-dialog dd + dt {
+    margin-block-start: var(--wg-space-reference-2);
+  }
+}

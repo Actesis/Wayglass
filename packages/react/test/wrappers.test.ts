@@ -10,6 +10,7 @@ import {
   WgCluster,
   WgCommandItem,
   WgConfirmationDialog,
+  WgDialog,
   WgDivider,
   WgElbow,
   WgFieldLabel,
@@ -19,6 +20,7 @@ import {
   WgGrid,
   WgIconButton,
   WgMedia,
+  WgMediaViewer,
   WgMenu,
   WgMetric,
   WgNavigationRail,
@@ -48,6 +50,8 @@ import {
 } from '../src/index.js';
 import type {
   WgConfirmationDialogProps,
+  WgDialogProps,
+  WgMediaViewerProps,
   WgTabsProps,
   WgThemeProviderProps,
   WgToastProps,
@@ -60,6 +64,7 @@ describe('Wayglass React wrappers', () => {
       WgToastRegion,
       WgToast,
       WgConfirmationDialog,
+      WgDialog,
       WgCanvas,
       WgFrame,
       WgStack,
@@ -67,6 +72,7 @@ describe('Wayglass React wrappers', () => {
       WgCommandItem,
       WgGrid,
       WgMedia,
+      WgMediaViewer,
       WgMenu,
       WgSplit,
       WgScrollRegion,
@@ -105,6 +111,7 @@ describe('Wayglass React wrappers', () => {
       'WgToastRegion',
       'WgToast',
       'WgConfirmationDialog',
+      'WgDialog',
       'WgCanvas',
       'WgFrame',
       'WgStack',
@@ -112,6 +119,7 @@ describe('Wayglass React wrappers', () => {
       'WgCommandItem',
       'WgGrid',
       'WgMedia',
+      'WgMediaViewer',
       'WgMenu',
       'WgSplit',
       'WgScrollRegion',
@@ -231,5 +239,58 @@ describe('Wayglass React wrappers', () => {
     expect(dialog.props.dialogId).toBe('disconnect-source');
     expect(dialog.props.onWgConfirmationAction).toBe(onWgConfirmationAction);
     expect(dialog.props.onWgConfirmationClose).toBe(onWgConfirmationClose);
+  });
+
+  it('preserves typed content-dialog lifetime callback props', () => {
+    const onWgDialogOpen: NonNullable<WgDialogProps['onWgDialogOpen']> = (event) => {
+      expect(event.detail.dialogId).toBe('record-details');
+    };
+    const onWgDialogClose: NonNullable<WgDialogProps['onWgDialogClose']> = (event) => {
+      expect(event.detail.reason).toMatch(/^(close-control|escape|programmatic)$/);
+    };
+    const dialog = createElement(WgDialog, {
+      dialogId: 'record-details',
+      closeLabel: 'Close details',
+      initialFocus: 'heading',
+      size: 'wide',
+      onWgDialogOpen,
+      onWgDialogClose,
+    });
+
+    expect(dialog.props.dialogId).toBe('record-details');
+    expect(dialog.props.onWgDialogOpen).toBe(onWgDialogOpen);
+    expect(dialog.props.onWgDialogClose).toBe(onWgDialogClose);
+  });
+
+  it('preserves typed media-viewer lifetime and view callback props', () => {
+    const onWgMediaViewerOpen: NonNullable<WgMediaViewerProps['onWgMediaViewerOpen']> = (event) => {
+      expect(event.detail.viewerId).toBe('asset-image');
+    };
+    const onWgMediaViewerClose: NonNullable<WgMediaViewerProps['onWgMediaViewerClose']> = (
+      event,
+    ) => {
+      expect(event.detail.reason).toMatch(/^(close-control|escape|programmatic)$/);
+    };
+    const onWgMediaViewChange: NonNullable<WgMediaViewerProps['onWgMediaViewChange']> = (event) => {
+      expect(event.detail.view).toMatch(/^(fit|actual-size|zoomed)$/);
+    };
+    const viewer = createElement(WgMediaViewer, {
+      viewerId: 'asset-image',
+      closeLabel: 'Close image',
+      zoomInLabel: 'Zoom in',
+      zoomOutLabel: 'Zoom out',
+      fitLabel: 'Fit image',
+      actualSizeLabel: 'Actual size',
+      initialView: 'fit',
+      state: 'ready',
+      onWgMediaViewerOpen,
+      onWgMediaViewerClose,
+      onWgMediaViewChange,
+    });
+
+    expect(viewer.props.viewerId).toBe('asset-image');
+    expect(viewer.props.onWgMediaViewerOpen).toBe(onWgMediaViewerOpen);
+    expect(viewer.props.onWgMediaViewerClose).toBe(onWgMediaViewerClose);
+    expect(viewer.props.onWgMediaViewChange).toBe(onWgMediaViewChange);
   });
 });

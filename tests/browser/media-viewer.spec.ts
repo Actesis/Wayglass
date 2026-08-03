@@ -61,6 +61,12 @@ test('opens one labeled native modal with consumer-authored image semantics', as
       return { open: nativeDialog.open, modal: nativeDialog.matches(':modal') };
     }),
   ).toEqual({ open: true, modal: true });
+  await expect(page.getByText('Loading the air handler image…')).toBeHidden();
+  await expect(
+    page.getByText(
+      'Image unavailable. The filter is behind the lower front panel below the return duct.',
+    ),
+  ).toBeHidden();
 });
 
 test('fits initially and bounds zoom between fit and intrinsic actual size', async ({ page }) => {
