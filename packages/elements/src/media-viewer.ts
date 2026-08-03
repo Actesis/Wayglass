@@ -296,7 +296,6 @@ export class WgMediaViewer extends WayglassElement {
 
     @keyframes wg-media-viewer-enter {
       from {
-        opacity: 0;
         transform: translateY(var(--wg-component-media-viewer-motion-distance));
       }
     }

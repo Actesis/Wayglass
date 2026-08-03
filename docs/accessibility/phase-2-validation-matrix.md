@@ -1,7 +1,8 @@
 # Phase 2 validation matrix
 
-**Status:** Complete on August 2, 2026 against `main` commit `1a547f5`. Repository checks and all
-675 browser cases passed without a retry or component failure.
+**Status:** Updated for Phase 2F on August 3, 2026 from the implementation baseline at `main` commit
+`2164d00`. Repository checks and all 747 browser cases pass after the contrast-safe modal-motion
+correction recorded below.
 
 This record consolidates the Phase 2 validation evidence. It does not replace the detailed milestone
 records or convert automated accessibility evidence into a screen-reader claim. Remaining manual
@@ -13,7 +14,7 @@ platform reviews retain the release impact defined in the
 | Dimension            | Evidence                                                                                                                                                                                | Result                                           |
 | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
 | Repository integrity | Formatting, lint, TypeScript, unit tests, package builds, documentation, Storybook, and vanilla and React application builds through `pnpm check`                                       | Pass                                             |
-| Supported browsers   | The same 225 test definitions in Chromium, Firefox, and WebKit; 675 cases total                                                                                                         | Pass                                             |
+| Supported browsers   | The same 249 test definitions in Chromium, Firefox, and WebKit; 747 cases total                                                                                                         | Pass                                             |
 | Accessibility        | Native and authored semantics, names and relationships, keyboard and focus behavior, target geometry, Axe, forced colors, reduced motion, and retained context                          | Pass; representative manual gates remain carried |
 | Responsive behavior  | Phone, desktop, wall-display, container-responsive, 320 CSS-pixel, 200% text-size, and zoom-equivalent fixtures without unintended page overflow                                        | Pass                                             |
 | Visual states        | Dark and light themes, density, selection, focus, pending, rejected, loading, stale, offline, disabled, read-only, invalid, destructive, forced-color, and reduced-motion presentations | Pass                                             |
@@ -33,8 +34,9 @@ contrast, boundaries, focus, and required state cues rather than one fixed rende
 | Phase 1 primitives retained by Phase 2     |                          25 |                         75 | `theme-provider`, `structural-primitives`, `semantic-displays`, `phase-1-validation` |
 | Controls and forms                         |                          53 |                        159 | `core-controls`, `menu-commands`, `form-foundation`, `form-controls`                 |
 | Feedback and confirmation                  |                          50 |                        150 | `persistent-feedback`, `transient-feedback`, `confirmation-dialog`                   |
+| Modal content and media inspection         |                          24 |                         72 | `content-dialog`, `media-viewer`                                                     |
 | Framework parity and accessibility harness |                          18 |                         54 | `framework-examples`, `react-wrappers`, `accessibility`                              |
-| **Total**                                  |                     **225** |                    **675** | **20 specification files**                                                           |
+| **Total**                                  |                     **249** |                    **747** | **22 specification files**                                                           |
 
 The matrix covers side-effect-free imports and useful pre-upgrade content as well as registered
 behavior. This keeps the accepted client-only fallback and explicit registration model inside the
@@ -50,8 +52,10 @@ pnpm test:browser
 ```
 
 `pnpm test:browser` starts the repository fixture server and runs the full suite in the configured
-Chromium, Firefox, and WebKit projects. The authoritative closeout run completed all 675 cases in
-1.8 minutes with five workers.
+Chromium, Firefox, and WebKit projects. The first Phase 2F closeout run passed 746 of 747 cases and
+exposed a temporary low-contrast state when WebKit sampled a dark dialog during its opacity entry
+animation. Modal entry motion was changed to position-only, an opacity regression assertion was
+added, and the authoritative rerun completed all 747 cases in 2.1 minutes with five workers.
 
 ## Remaining release gates
 

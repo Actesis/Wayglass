@@ -74,12 +74,11 @@ Phase 2E provided the primitives needed to compose one, but repeated form eviden
 a stable package-owned component. Error summaries therefore remain application compositions unless
 future evidence supports a separate contract.
 
-The confirmation dialog remains intentionally narrow, but its accepted native-dialog ownership,
-modal coordination, and focus-return model now provide enough evidence for focused follow-up work.
-Phase 2F will define a narrow general content dialog and single-media viewer that share internal
-modal infrastructure without inheriting confirmation semantics or creating a public universal
-overlay abstraction. Applications will continue to own media URLs, authorization, storage, metadata,
-captions, and gallery membership.
+The confirmation dialog remains intentionally narrow. Its accepted native-dialog ownership, modal
+coordination, and focus-return model provided the evidence for the completed Phase 2F work: a narrow
+general content dialog and single-media viewer that share internal modal infrastructure without
+inheriting confirmation semantics or creating a public universal overlay abstraction. Applications
+will continue to own media URLs, authorization, storage, metadata, captions, and gallery membership.
 
 Drawers, teaching overlays, tooltips, arbitrary popup positioning, galleries, carousels, comparison,
 annotation, editing, video, and camera workflows remain deferred. These patterns have different

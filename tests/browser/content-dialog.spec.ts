@@ -248,6 +248,15 @@ for (const theme of ['wayglass-dark', 'wayglass-light'] as const) {
     await page.locator('#content-dialog').evaluate((element) => {
       (element as HTMLElement & { show(): boolean }).show();
     });
+    expect(
+      await page
+        .locator('#content-dialog')
+        .evaluate((element) =>
+          getComputedStyle(element.shadowRoot!.querySelector('[part="surface"]')!).getPropertyValue(
+            'opacity',
+          ),
+        ),
+    ).toBe('1');
     const results = await new AxeBuilder({ page }).analyze();
     expect(results.violations).toEqual([]);
   });

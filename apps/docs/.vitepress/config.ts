@@ -230,6 +230,10 @@ export default defineConfig({
             text: 'Phase 2E-D confirmation-dialog validation',
             link: '/accessibility/phase-2e-confirmation-dialog-validation',
           },
+          {
+            text: 'Phase 2F modal-content validation',
+            link: '/accessibility/phase-2f-modal-content-media-validation',
+          },
         ],
       },
       {

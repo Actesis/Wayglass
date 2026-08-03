@@ -195,7 +195,6 @@ export class WgDialog extends WayglassElement {
 
     @keyframes wg-dialog-enter {
       from {
-        opacity: 0;
         transform: translateY(var(--wg-component-dialog-motion-distance));
       }
     }

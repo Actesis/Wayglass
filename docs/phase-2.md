@@ -5,10 +5,9 @@ semantic model—domain value, condition, knowledge, activity, and section purpo
 while adding the selection, layout, media, controls, forms, and feedback needed to build complete
 operational interfaces.
 
-Status: Phase 2A–E are complete. Their implementation, typed React wrappers, production-backed
-examples, and automated cross-browser validation are complete. Phase 2F is planned to add focused
-modal content and media inspection. Representative assistive-technology gates remain explicit
-release obligations rather than being implied by automation.
+Status: Phase 2A–F are complete. Their implementation, typed React wrappers, production-backed
+examples, and automated cross-browser validation are complete. Representative assistive-technology
+gates remain explicit release obligations rather than being implied by automation.
 
 ## Delivered system
 
@@ -24,15 +23,17 @@ release obligations rather than being implied by automation.
 | Persistent feedback | [Badges, alerts, progress, skeletons, absence, offline availability, and stale knowledge](./feedback/persistent-feedback-and-loading.md)                           | `Feedback/Persistent and loading`                              |
 | Transient feedback  | [Document-level toast queue, announcement, lifetime, pause, and dismissal](./feedback/transient-feedback.md)                                                       | `Feedback/Transient`                                           |
 | Confirmation        | [Native modal confirmation and proportional friction](./feedback/confirmation-dialog.md) without turning every critical-looking action into a dialog               | `Feedback/Confirmation and friction`                           |
+| Modal content       | [General content dialogs](./feedback/content-dialog.md) and [single-media inspection](./media/media-viewer.md) on shared private native-modal infrastructure       | `Feedback/Modal content and media inspection`                  |
 
-## Planned Phase 2F follow-up
+## Phase 2F modal content and inspection
 
 The accepted [content-dialog contract](./feedback/content-dialog.md) and
 [media-viewer contract](./media/media-viewer.md) share private native-modal lifecycle infrastructure
 without creating a public universal overlay.
 [ADR 0023](./architecture/adr/0023-native-modal-content-and-media-inspection.md) records the
 accepted architecture, and the required dialog and media-viewer token groups are locked before
-implementation.
+implementation. Framework-neutral elements, typed React wrappers, production-backed stories, and
+cross-browser validation are complete.
 
 Every production component is exported from `@wayglass/elements` through an explicit registration
 function. Typed wrappers in `@wayglass/react` use those same Custom Element classes and
@@ -83,10 +84,12 @@ behavior.
 
 ## Validation and remaining gates
 
-The [Phase 2 validation matrix](./accessibility/phase-2-validation-matrix.md) consolidates the
-phase-specific records covering keyboard and focus behavior, accessible relationships, responsive
-reflow, touch targets, forced colors, reduced motion, dark and light themes, framework parity, and
-Chromium, Firefox, and WebKit. It preserves the detailed records rather than replacing them.
+The [Phase 2 validation matrix](./accessibility/phase-2-validation-matrix.md) and focused
+[Phase 2F validation record](./accessibility/phase-2f-modal-content-media-validation.md) consolidate
+the phase-specific records covering keyboard and focus behavior, accessible relationships,
+responsive reflow, touch targets, forced colors, reduced motion, dark and light themes, framework
+parity, and Chromium, Firefox, and WebKit. It preserves the detailed records rather than replacing
+them.
 
 Automated accessibility trees and Axe cannot prove spoken timing, virtual-cursor context, platform
 focus recovery, password-manager behavior, or mobile screen-reader interaction. The
@@ -96,7 +99,7 @@ password-manager check with explicit scope and release impact.
 
 ## Deliberate boundaries
 
-Phase 2F will add a narrow general content dialog and single-media viewer without adding a universal
+Phase 2F adds a narrow general content dialog and single-media viewer without adding a universal
 overlay system, application data store, authorization policy, media-asset service, workflow engine,
 or server-rendered interaction implementation. Inline confirmation, undo, richer workflow dialogs,
 galleries, annotation and editing, and stronger verification remain application-owned or deferred
