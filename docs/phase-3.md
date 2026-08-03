@@ -1,7 +1,7 @@
 # Phase 3 operational components
 
-**Status:** Proposed formal roadmap on August 3, 2026. Implementation begins only after this
-sequence and its boundaries are accepted.
+**Status:** Formal roadmap accepted on August 3, 2026. Phase 3A operational-data architecture is in
+progress; implementation begins only after its contracts and decision records are accepted.
 
 Phase 3 turns the Phase 1 and Phase 2 foundations into a reusable operational-data layer. It adds
 scalar summaries, compact telemetry, status collections, temporal records, collection tools, and
