@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wayglass media-viewer fixture</title>
+    <link rel="stylesheet" href="/packages/tokens/dist/tokens.css" />
+    <link rel="stylesheet" href="/packages/themes/dist/themes.css" />
+    <link rel="stylesheet" href="/packages/elements/dist/media-viewer.css" />
+    <style>
+      body {
+        min-block-size: 100vh;
+        margin: 0;
+        color: var(--wg-color-semantic-text-primary);
+        background: var(--wg-color-semantic-surface-canvas);
+        font-family: var(--wg-typography-family-body);
+      }
+
+      main {
+        padding: var(--wg-space-reference-4);
+      }
+    </style>
+  </head>
+  <body>
+    <wg-theme-provider theme="wayglass-dark" density="compact">
+      <main>
+        <h1>Media-viewer fixture</h1>
+        <button id="invoker" type="button">Inspect air handler image</button>
+        <button id="fallback" type="button">Return to asset details</button>
+
+        <wg-media-viewer
+          id="viewer"
+          viewer-id="air-handler-image"
+          close-label="Close image"
+          zoom-in-label="Zoom in"
+          zoom-out-label="Zoom out"
+          fit-label="Fit image"
+          actual-size-label="Actual size"
+        >
+          <h2 slot="heading">North utility closet air handler</h2>
+          <p slot="context">Use the lower front panel to identify the filter access point.</p>
+          <picture>
+            <source
+              srcset="/apps/storybook/stories/assets/hvac-air-handler.jpg"
+              type="image/jpeg"
+            />
+            <img
+              id="viewer-image"
+              class="wg-media-viewer-asset"
+              src="/apps/storybook/stories/assets/hvac-air-handler.jpg"
+              width="1200"
+              height="900"
+              alt="Gray HVAC air handler with a filter in its lower front access panel"
+            />
+          </picture>
+          <p slot="caption">Air handler and return duct photographed July 30.</p>
+          <p slot="loading">Loading the air handler image…</p>
+          <p slot="unavailable">
+            Image unavailable. The filter is behind the lower front panel below the return duct.
+          </p>
+        </wg-media-viewer>
+
+        <wg-media-viewer
+          id="second-viewer"
+          viewer-id="filter-diagram"
+          close-label="Close diagram"
+          zoom-in-label="Zoom in"
+          zoom-out-label="Zoom out"
+          fit-label="Fit diagram"
+          actual-size-label="Actual size"
+        >
+          <h2 slot="heading">Filter access diagram</h2>
+          <img
+            src="/apps/storybook/stories/assets/hvac-filter-diagram.svg"
+            width="1200"
+            height="900"
+            alt="Diagram pointing to the lower front filter access panel"
+          />
+          <p slot="unavailable">Diagram unavailable. Use the lower front panel.</p>
+        </wg-media-viewer>
+
+        <wg-dialog id="content-dialog" dialog-id="asset-details" close-label="Close details">
+          <h2 slot="heading">Asset details</h2>
+          <p>Application-authored details.</p>
+        </wg-dialog>
+      </main>
+    </wg-theme-provider>
+
+    <script type="module">
+      import {
+        defineWgDialog,
+        defineWgMediaViewer,
+        defineWgThemeProvider,
+      } from '/packages/elements/dist/index.js';
+
+      defineWgThemeProvider();
+      defineWgDialog();
+      defineWgMediaViewer();
+
+      document.querySelector('#invoker').addEventListener('click', (event) => {
+        document.querySelector('#viewer').show({ invoker: event.currentTarget });
+      });
+    </script>
+  </body>
+</html>

@@ -9,3 +9,7 @@ await copyFile(
 );
 await copyFile(new URL('../src/forms.css', import.meta.url), new URL('forms.css', outputDirectory));
 await copyFile(new URL('../src/media.css', import.meta.url), new URL('media.css', outputDirectory));
+await copyFile(
+  new URL('../src/media-viewer.css', import.meta.url),
+  new URL('media-viewer.css', outputDirectory),
+);

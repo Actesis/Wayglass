@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wayglass media-viewer fallback fixture</title>
+    <link rel="stylesheet" href="/packages/elements/dist/media-viewer.css" />
+  </head>
+  <body>
+    <button id="invoker" type="button">Inspect image</button>
+    <wg-media-viewer id="unupgraded">
+      <h2 slot="heading">Private asset image</h2>
+      <img
+        src="/apps/storybook/stories/assets/hvac-air-handler.jpg"
+        alt="Unupgraded private asset"
+      />
+    </wg-media-viewer>
+  </body>
+</html>

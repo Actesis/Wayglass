@@ -141,6 +141,27 @@ export {
   WgMedia,
   wgMediaTagName,
 } from './media.js';
+export {
+  defineWgMediaViewer,
+  isMediaViewerInitialView,
+  isMediaViewerState,
+  mediaViewerCloseReasons,
+  mediaViewerInitialViews,
+  mediaViewerStates,
+  mediaViewerViews,
+  WgMediaViewer,
+  wgMediaViewerTagName,
+} from './media-viewer.js';
+export type {
+  MediaViewerCloseReason,
+  MediaViewerInitialView,
+  MediaViewerShowOptions,
+  MediaViewerState,
+  MediaViewerView,
+  WgMediaViewChangeDetail,
+  WgMediaViewerCloseDetail,
+  WgMediaViewerDetail,
+} from './media-viewer.js';
 export type { MediaAspect, MediaBoundary, MediaFit, MediaState } from './media.js';
 export { defineWgMenu, isMenuPlacement, menuPlacements, WgMenu, wgMenuTagName } from './menu.js';
 export type {

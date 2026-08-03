@@ -146,6 +146,11 @@
       "import": "./dist/media.js"
     },
     "./media.css": "./dist/media.css",
+    "./media-viewer": {
+      "types": "./dist/media-viewer.d.ts",
+      "import": "./dist/media-viewer.js"
+    },
+    "./media-viewer.css": "./dist/media-viewer.css",
     "./menu": {
       "types": "./dist/menu.d.ts",
       "import": "./dist/menu.js"
