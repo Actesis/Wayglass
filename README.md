@@ -3,16 +3,16 @@
 Wayglass is a design language for operational awareness. It helps people understand what a system is
 doing, what changed, what needs attention, and what they can do next.
 
-The Phase 0 foundations, Phase 1 domain-neutral vertical slice, and Phase 2 core system are
+The Phase 0 foundations, Phase 1 domain-neutral vertical slice, and Phase 2A–E core system are
 complete. Phase 2 delivered selection, focused composition, foundation utilities, responsive layout,
 media, controls, native form presentation, persistent and transient feedback, and proportional
-confirmation. Framework-neutral Custom Elements, typed React wrappers, and production-backed
-Storybook fixtures cover dark and light themes, phone, desktop, wall-display, and edge-state
-contexts. Accessibility, responsive behavior, visual states, and supported-browser behavior are
-recorded in phase-specific validation matrices. Wayglass is licensed under Apache-2.0. The
-`@wayglass` npm organization and planned documentation origin at
-[`wayglass.hoagsoftworks.com`](https://wayglass.hoagsoftworks.com) are confirmed; all packages
-remain private until release governance is approved.
+confirmation; Phase 2F will add focused modal content and media inspection. Framework-neutral Custom
+Elements, typed React wrappers, and production-backed Storybook fixtures cover dark and light
+themes, phone, desktop, wall-display, and edge-state contexts. Accessibility, responsive behavior,
+visual states, and supported-browser behavior are recorded in phase-specific validation matrices.
+Wayglass is licensed under Apache-2.0. The `@wayglass` npm organization and planned documentation
+origin at [`wayglass.hoagsoftworks.com`](https://wayglass.hoagsoftworks.com) are confirmed; all
+packages remain private until release governance is approved.
 
 ## Governing documents
 
@@ -26,8 +26,8 @@ Accessibility, legal, safety, and security requirements override that order wher
 
 Supporting foundations:
 
-- [`docs/phase-2.md`](./docs/phase-2.md) maps the complete Phase 2 delivery to its contracts,
-  production packages, examples, and validation evidence.
+- [`docs/phase-2.md`](./docs/phase-2.md) maps the delivered Phase 2A–E system and planned Phase 2F
+  follow-up to contracts, production packages, examples, and validation evidence.
 - [`docs/phase-2-roadmap-disposition.md`](./docs/phase-2-roadmap-disposition.md) records the Phase 2
   deferrals and preserves the existing Phase 3 boundary.
 - [`docs/foundations/state-model.md`](./docs/foundations/state-model.md) separates domain value,

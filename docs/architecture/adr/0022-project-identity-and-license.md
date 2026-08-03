@@ -6,8 +6,9 @@
 ## Context
 
 ADR 0006 kept Wayglass, `@wayglass/*`, `wg-`, and `--wg-` provisional while the project had no npm
-scope or selected software license. Phase 2 is complete, the `wayglass` npm organization has been
-registered, and the project needs a stable identity before release governance begins.
+scope or selected software license. The Phase 2A–E core system is complete, the `wayglass` npm
+organization has been registered, and the project needs a stable identity before release governance
+begins.
 
 The project also needs a permissive license suitable for open and proprietary consumer applications.
 MIT minimizes downstream paperwork, while Apache License 2.0 adds explicit contributor patent

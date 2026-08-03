@@ -1,6 +1,7 @@
 # Phase 2 roadmap disposition
 
-**Status:** Accepted at Phase 2 closeout on August 2, 2026. Phase 3 remains limited to the
+**Status:** Accepted during the Phase 2 closeout audit on August 2, 2026, then revised to promote
+focused modal content and media inspection into Phase 2F. Phase 3 remains limited to the
 operational-component scope already defined in `SPEC.md`.
 
 Phase 2 deliberately left some capabilities application-owned or evidence-driven. This record
@@ -32,9 +33,8 @@ The following remain compatible future work but have no Phase 3 delivery commitm
 - a presentation-only Function Deck wrapper;
 - automatic navigation-rail collapse, icon-only navigation, and responsive destination migration;
 - checked, radio, nested, and context menu variants and command palettes;
-- a package-owned media viewer, galleries, comparison tools, annotations, and editing;
-- general modal dialogs, drawers, lightboxes, teaching overlays, tooltips, and universal overlay
-  positioning;
+- media galleries, comparison tools, annotations, and editing;
+- drawers, teaching overlays, tooltips, nonmodal lightboxes, and universal overlay positioning;
 - inline-confirmation and generic error-summary components; and
 - specialized form controls such as comboboxes, date or file controls, masking, password reveal,
   custom multi-selects, and advanced sliders.
@@ -74,8 +74,17 @@ Phase 2E provided the primitives needed to compose one, but repeated form eviden
 a stable package-owned component. Error summaries therefore remain application compositions unless
 future evidence supports a separate contract.
 
-The confirmation dialog does not satisfy the prerequisites for a general overlay or media-viewer
-system. Its accepted ownership is intentionally narrow, so those deferrals remain open.
+The confirmation dialog remains intentionally narrow, but its accepted native-dialog ownership,
+modal coordination, and focus-return model now provide enough evidence for focused follow-up work.
+Phase 2F will define a narrow general content dialog and single-media viewer that share internal
+modal infrastructure without inheriting confirmation semantics or creating a public universal
+overlay abstraction. Applications will continue to own media URLs, authorization, storage, metadata,
+captions, and gallery membership.
+
+Drawers, teaching overlays, tooltips, arbitrary popup positioning, galleries, carousels, comparison,
+annotation, editing, video, and camera workflows remain deferred. These patterns have different
+modality, positioning, focus, dismissal, and application-state requirements and are not implied by
+the focused Phase 2F work.
 
 ## Cross-cutting work outside Phase 3
 
