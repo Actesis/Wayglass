@@ -109,6 +109,10 @@ Supporting foundations:
   accepted and implemented Phase 2E-D native confirmation and proportional-friction contract, with
   evidence in the
   [`confirmation-dialog validation`](./docs/accessibility/phase-2e-confirmation-dialog-validation.md).
+- [`docs/feedback/content-dialog.md`](./docs/feedback/content-dialog.md) and
+  [`docs/media/media-viewer.md`](./docs/media/media-viewer.md) propose the focused Phase 2F modal
+  content and single-media inspection contracts, with shared lifecycle architecture proposed in
+  [`ADR 0023`](./docs/architecture/adr/0023-native-modal-content-and-media-inspection.md).
 
 ## Local development
 
