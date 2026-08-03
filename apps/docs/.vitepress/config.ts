@@ -57,7 +57,10 @@ export default defineConfig({
       },
       {
         text: 'Phase 2 media',
-        items: [{ text: 'Media-content contract', link: '/media/media-content' }],
+        items: [
+          { text: 'Media-content contract', link: '/media/media-content' },
+          { text: 'Media-viewer proposal', link: '/media/media-viewer' },
+        ],
       },
       {
         text: 'Phase 2 controls and forms',
@@ -84,6 +87,10 @@ export default defineConfig({
           {
             text: 'Confirmation-dialog contract',
             link: '/feedback/confirmation-dialog',
+          },
+          {
+            text: 'Content-dialog proposal',
+            link: '/feedback/content-dialog',
           },
         ],
       },
@@ -145,6 +152,10 @@ export default defineConfig({
           {
             text: 'ADR 0022: Project identity and license',
             link: '/architecture/adr/0022-project-identity-and-license',
+          },
+          {
+            text: 'ADR 0023: Modal content and media inspection',
+            link: '/architecture/adr/0023-native-modal-content-and-media-inspection',
           },
         ],
       },

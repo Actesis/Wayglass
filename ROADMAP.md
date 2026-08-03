@@ -197,9 +197,9 @@ Phase 2F resolves the focused media-viewer deferral identified during the Phase 
 builds on native media ownership and the accepted native-dialog architecture without creating a
 universal overlay system.
 
-- [ ] Draft the shared modal ownership, lifecycle, coordination, dismissal, and focus-return
+- [x] Draft the shared modal ownership, lifecycle, coordination, dismissal, and focus-return
       contract.
-- [ ] Draft narrow public contracts for a general content dialog and single-media viewer.
+- [x] Draft narrow public contracts for a general content dialog and single-media viewer.
 - [ ] Draft and accept the modal-content and media-inspection architecture decision.
 - [ ] Lock the required dialog and viewer tokens.
 - [ ] Implement framework-neutral modal infrastructure, `wg-dialog`, and `wg-media-viewer` while
