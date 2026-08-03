@@ -2,6 +2,7 @@ import { css, html, nothing } from 'lit';
 import type { PropertyValues } from 'lit';
 
 import { defineElement } from './registration.js';
+import { NativeModalController } from './native-modal-controller.js';
 import { WayglassElement } from './wayglass-element.js';
 
 export const confirmationActionAppearances = ['primary', 'critical'] as const;
@@ -31,7 +32,6 @@ export interface WgConfirmationCloseDetail extends WgConfirmationActionDetail {
 
 export const wgConfirmationDialogTagName = 'wg-confirmation-dialog';
 
-const activeConfirmations = new WeakMap<Document, WgConfirmationDialog>();
 let confirmationInstanceSequence = 0;
 
 export function isConfirmationActionAppearance(
@@ -53,20 +53,6 @@ export function isConfirmationInitialFocus(value: unknown): value is Confirmatio
   return (
     typeof value === 'string' &&
     confirmationInitialFocuses.some((initialFocus) => initialFocus === value)
-  );
-}
-
-function deepActiveElement(root: Document | ShadowRoot): HTMLElement | null {
-  let active: Element | null = root.activeElement;
-  while (active?.shadowRoot?.activeElement) active = active.shadowRoot.activeElement;
-  return active instanceof HTMLElement ? active : null;
-}
-
-function isUsableFocusTarget(value: HTMLElement | null): value is HTMLElement {
-  return Boolean(
-    value?.isConnected &&
-    !value.matches(':disabled, [aria-disabled="true"], [hidden], [inert]') &&
-    value.getClientRects().length > 0,
   );
 }
 
@@ -283,8 +269,7 @@ export class WgConfirmationDialog extends WayglassElement {
   declare initialFocus: ConfirmationInitialFocus;
 
   readonly #instanceId = ++confirmationInstanceSequence;
-  #invoker: HTMLElement | null = null;
-  #fallbackFocus: HTMLElement | null = null;
+  readonly #modalController = new NativeModalController(this);
   #closingReason: ConfirmationCloseReason = 'programmatic';
   #closing = false;
   #pendingOptions: ConfirmationShowOptions = {};
@@ -322,8 +307,7 @@ export class WgConfirmationDialog extends WayglassElement {
   }
 
   override disconnectedCallback(): void {
-    const documentOwner = this.ownerDocument;
-    if (activeConfirmations.get(documentOwner) === this) activeConfirmations.delete(documentOwner);
+    this.#modalController.release();
     this.#dialog?.close();
     this.#closing = false;
     super.disconnectedCallback();
@@ -436,32 +420,18 @@ export class WgConfirmationDialog extends WayglassElement {
     const diagnostic = this.#validationDiagnostic();
     if (diagnostic) return this.#rejectOpen(diagnostic);
 
-    const documentOwner = this.ownerDocument;
-    const active = activeConfirmations.get(documentOwner);
-    if (active && active !== this) {
-      return this.#rejectOpen(
-        `cannot open while confirmation "${active.dialogId || '(missing id)'}" is active`,
-      );
-    }
-    if (documentOwner.querySelector('dialog:modal')) {
-      return this.#rejectOpen('cannot open while another native modal dialog is active');
-    }
-
     this.#pendingOptions = {};
-    this.#invoker = options.invoker ?? deepActiveElement(documentOwner);
-    this.#fallbackFocus = options.fallbackFocus ?? null;
-    activeConfirmations.set(documentOwner, this);
+    const openDiagnostic = this.#modalController.open(
+      dialog,
+      `confirmation:${this.dialogId || '(missing id)'}`,
+      options,
+    );
+    if (openDiagnostic) return this.#rejectOpen(openDiagnostic);
 
-    try {
-      dialog.showModal();
-      this.open = true;
-      this.#diagnosticSignature = '';
-      queueMicrotask(() => this.focus({ preventScroll: true }));
-      return true;
-    } catch {
-      activeConfirmations.delete(documentOwner);
-      return this.#rejectOpen('native showModal() rejected the invocation');
-    }
+    this.open = true;
+    this.#diagnosticSignature = '';
+    queueMicrotask(() => this.focus({ preventScroll: true }));
+    return true;
   }
 
   #rejectOpen(message: string): false {
@@ -526,12 +496,11 @@ export class WgConfirmationDialog extends WayglassElement {
 
   readonly #handleNativeClose = (): void => {
     const reason = this.#closingReason;
-    const documentOwner = this.ownerDocument;
     this.#closingReason = 'programmatic';
     this.open = false;
 
     queueMicrotask(() => {
-      this.#restoreFocus();
+      this.#modalController.restoreFocus((message) => this.#warn(message));
       const detail: WgConfirmationCloseDetail = { dialogId: this.dialogId, reason };
       this.dispatchEvent(
         new CustomEvent<WgConfirmationCloseDetail>('wg-confirmation-close', {
@@ -549,25 +518,10 @@ export class WgConfirmationDialog extends WayglassElement {
           }),
         );
       }
-      this.#invoker = null;
-      this.#fallbackFocus = null;
       this.#closing = false;
-      if (activeConfirmations.get(documentOwner) === this)
-        activeConfirmations.delete(documentOwner);
+      this.#modalController.release();
     });
   };
-
-  #restoreFocus(): void {
-    if (isUsableFocusTarget(this.#invoker)) {
-      this.#invoker.focus({ preventScroll: true });
-      return;
-    }
-    if (isUsableFocusTarget(this.#fallbackFocus)) {
-      this.#fallbackFocus.focus({ preventScroll: true });
-      return;
-    }
-    this.#warn('closed without a usable invoker or fallback focus target');
-  }
 
   readonly #handleContentChange = (): void => {
     if (this.#dialog?.open && this.#validationDiagnostic()) this.#closeNative('programmatic');

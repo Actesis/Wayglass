@@ -75,6 +75,24 @@ export {
 } from './divider.js';
 export type { DividerOrientation, DividerWeight } from './divider.js';
 export {
+  defineWgDialog,
+  dialogCloseReasons,
+  dialogInitialFocuses,
+  dialogSizes,
+  isDialogInitialFocus,
+  isDialogSize,
+  WgDialog,
+  wgDialogTagName,
+} from './dialog.js';
+export type {
+  DialogCloseReason,
+  DialogInitialFocus,
+  DialogShowOptions,
+  DialogSize,
+  WgDialogCloseDetail,
+  WgDialogDetail,
+} from './dialog.js';
+export {
   defineWgElbow,
   elbowPlacements,
   elbowWeights,

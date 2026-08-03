@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wayglass content-dialog fixture</title>
+    <link rel="stylesheet" href="/packages/tokens/dist/tokens.css" />
+    <link rel="stylesheet" href="/packages/themes/dist/themes.css" />
+    <style>
+      body {
+        min-block-size: 100vh;
+        margin: 0;
+        color: var(--wg-color-semantic-text-primary);
+        background: var(--wg-color-semantic-surface-canvas);
+        font-family: var(--wg-typography-family-body);
+      }
+
+      main {
+        padding: var(--wg-space-reference-4);
+      }
+    </style>
+  </head>
+  <body>
+    <wg-theme-provider theme="wayglass-dark" density="compact">
+      <main>
+        <h1>Content-dialog fixture</h1>
+        <button id="invoker" type="button">Review maintenance details</button>
+        <button id="fallback" type="button">Return to asset</button>
+
+        <wg-dialog
+          id="content-dialog"
+          dialog-id="maintenance-details"
+          close-label="Close details"
+          size="standard"
+        >
+          <h2 slot="heading">Air handler maintenance details</h2>
+          <p>The filter access panel is below the gray return duct.</p>
+          <label>
+            Technician note
+            <input id="note" name="note" />
+          </label>
+          <button id="save" slot="actions" type="button">Save note</button>
+        </wg-dialog>
+
+        <wg-dialog id="second-dialog" dialog-id="service-history" close-label="Close history">
+          <h2 slot="heading">Service history</h2>
+          <p>No service visits in the last 90 days.</p>
+        </wg-dialog>
+
+        <wg-confirmation-dialog
+          id="confirmation"
+          dialog-id="disconnect-source"
+          action-label="Disconnect source"
+          cancel-label="Keep connected"
+        >
+          <h2 slot="heading">Disconnect service source?</h2>
+          <p>Current updates will stop.</p>
+        </wg-confirmation-dialog>
+      </main>
+    </wg-theme-provider>
+
+    <script type="module">
+      import {
+        defineWgConfirmationDialog,
+        defineWgDialog,
+        defineWgThemeProvider,
+      } from '/packages/elements/dist/index.js';
+
+      defineWgThemeProvider();
+      defineWgConfirmationDialog();
+      defineWgDialog();
+
+      document.querySelector('#invoker').addEventListener('click', (event) => {
+        document.querySelector('#content-dialog').show({ invoker: event.currentTarget });
+      });
+    </script>
+  </body>
+</html>
