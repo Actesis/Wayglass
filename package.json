@@ -2,7 +2,13 @@
   "name": "wayglass",
   "version": "0.0.0",
   "private": true,
+  "license": "Apache-2.0",
   "description": "A design language for operational awareness.",
+  "homepage": "https://wayglass.hoagsoftworks.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Actesis/Wayglass.git"
+  },
   "type": "module",
   "packageManager": "pnpm@11.9.0",
   "engines": {

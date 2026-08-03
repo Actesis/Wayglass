@@ -41,7 +41,7 @@ complete state, accessibility, responsive, theme, and framework contracts.
 
 ## Phase 2 — Core system
 
-Status: closeout in progress.
+Status: complete.
 
 Phase 2 expands the vertical slice into the generic foundations, layouts, controls, forms, and
 feedback required by `SPEC.md`. Work is divided into reviewable milestones so each interaction model
@@ -189,18 +189,20 @@ can be validated before later components depend on it.
       2D.
 - [x] Run the Phase 2 accessibility, responsive, visual-state, framework, and supported-browser
       validation matrix.
-- [ ] Record deferred or revised component-roadmap decisions without widening Phase 3.
+- [x] Record deferred or revised component-roadmap decisions without widening Phase 3.
 
 ## Later phases
 
 Phases 3–5 remain as defined in `SPEC.md`. Their scope will be refined through proposals or
 architecture decisions before implementation.
 
+The accepted [Phase 2 roadmap disposition](./docs/phase-2-roadmap-disposition.md) records
+evidence-driven candidates, application-owned boundaries, resolved deferrals, and the unchanged
+interpretation of Phase 3.
+
 ## Deferred decisions
 
-- Final project and package name
-- Software license
-- Public npm scope
+- Initial npm package publication and release automation
 - GitHub Actions and deployment provider
 - Full server-side rendering and hydration
 - Localization and right-to-left implementation

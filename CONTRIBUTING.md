@@ -1,7 +1,8 @@
 # Contributing to Wayglass
 
-Wayglass is currently private and in its foundation phase. The project name and license are not
-final, so external redistribution is not yet authorized.
+Wayglass is licensed under the Apache License, Version 2.0. The project remains pre-release and all
+npm packages remain private until release governance is approved. Contributions intentionally
+submitted for inclusion are licensed under Apache-2.0 as described in `LICENSE`.
 
 ## Before making a change
 

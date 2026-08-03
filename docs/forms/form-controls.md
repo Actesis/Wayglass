@@ -1,9 +1,9 @@
 # Phase 2D-E form-control contracts
 
 **Status:** Accepted, implemented, and automatically validated for Phase 2D-E on August 1, 2026;
-representative assistive-technology review remains tracked for Phase 2 closeout. Native ownership
-remains governed by [ADR 0015](../architecture/adr/0015-native-form-control-ownership.md), explicit
-relationships and validation remain governed by
+representative assistive-technology review remains tracked as a public-release gate. Native
+ownership remains governed by [ADR 0015](../architecture/adr/0015-native-form-control-ownership.md),
+explicit relationships and validation remain governed by
 [ADR 0018](../architecture/adr/0018-explicit-form-relationships-and-validation.md), and the accepted
 presentation boundary is recorded in
 [ADR 0019](../architecture/adr/0019-styled-native-form-controls.md). Automated and visual evidence

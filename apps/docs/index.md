@@ -16,6 +16,7 @@ hero:
 
 The Phase 0 foundations and Phase 1 domain-neutral vertical slice are complete. Phase 2 has
 delivered the generic selection, layout, media, controls, forms, feedback, and confirmation system
-and is in closeout. Start with the [Phase 2 delivery map](/phase-2), explore the
+and is complete. Start with the [Phase 2 delivery map](/phase-2), review its
+[roadmap disposition](/phase-2-roadmap-disposition), explore the
 [Operations Overview](/examples/operations-overview), or work through the
 [Function Deck](/patterns/function-deck).

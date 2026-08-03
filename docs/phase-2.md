@@ -5,9 +5,9 @@ semantic model—domain value, condition, knowledge, activity, and section purpo
 while adding the selection, layout, media, controls, forms, and feedback needed to build complete
 operational interfaces.
 
-Status: implementation, typed React wrappers, production-backed examples, and automated
-cross-browser validation are complete. Representative assistive-technology gates are explicitly
-tracked for Phase 2 closeout rather than being implied by automation.
+Status: Phase 2 is complete. Implementation, typed React wrappers, production-backed examples, and
+automated cross-browser validation are complete. Representative assistive-technology gates remain
+explicit release obligations rather than being implied by automation.
 
 ## Delivered system
 

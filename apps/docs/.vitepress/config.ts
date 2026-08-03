@@ -16,7 +16,10 @@ export default defineConfig({
     sidebar: [
       {
         text: 'System',
-        items: [{ text: 'Phase 2 delivery map', link: '/phase-2' }],
+        items: [
+          { text: 'Phase 2 delivery map', link: '/phase-2' },
+          { text: 'Phase 2 roadmap disposition', link: '/phase-2-roadmap-disposition' },
+        ],
       },
       {
         text: 'Foundations',
@@ -138,6 +141,10 @@ export default defineConfig({
           {
             text: 'ADR 0021: Native confirmation',
             link: '/architecture/adr/0021-native-confirmation-and-proportional-friction',
+          },
+          {
+            text: 'ADR 0022: Project identity and license',
+            link: '/architecture/adr/0022-project-identity-and-license',
           },
         ],
       },

@@ -2,7 +2,8 @@
 
 > Technology should increase understanding, not complexity.
 
-> **Naming status:** Wayglass is the working project name. It may be replaced after formal naming and trademark review. Until then, use **Wayglass** consistently in documentation, examples, package names, and design discussions.
+> **Naming status:** Wayglass is the confirmed project and product name. Use **Wayglass**
+> consistently in documentation, examples, package names, and design discussions.
 
 ## 1. Why Wayglass Exists
 

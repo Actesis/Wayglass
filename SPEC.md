@@ -1,7 +1,7 @@
 # Wayglass Technical Specification
 
 **Document status:** Draft v0.2  
-**Project naming status:** Wayglass is a working name pending formal clearance.  
+**Project naming status:** Wayglass is the confirmed project and product name.
 **Normative language:** “MUST,” “MUST NOT,” “SHOULD,” “SHOULD NOT,” and “MAY” indicate requirement strength.
 
 ## 1. Purpose
