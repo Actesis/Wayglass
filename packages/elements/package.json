@@ -59,6 +59,10 @@
       "types": "./dist/confirmation-dialog.d.ts",
       "import": "./dist/confirmation-dialog.js"
     },
+    "./dialog": {
+      "types": "./dist/dialog.d.ts",
+      "import": "./dist/dialog.js"
+    },
     "./number-field": {
       "types": "./dist/number-field.d.ts",
       "import": "./dist/number-field.js"
