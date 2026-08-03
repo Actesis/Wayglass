@@ -1,13 +1,20 @@
 # Phase 2F media-viewer contract
 
-**Status:** Accepted for Phase 2F on August 2, 2026. The architecture is recorded in
+**Status:** Accepted and implemented in the framework-neutral element package for Phase 2F on August
+2, 2026. The architecture is recorded in
 [ADR 0023](../architecture/adr/0023-native-modal-content-and-media-inspection.md) and preserves the
 native media ownership accepted in [ADR 0013](../architecture/adr/0013-native-media-ownership.md).
+The typed React binding, production-backed story, and final validation remain roadmap work.
 
 This contract defines `wg-media-viewer`, a focused modal inspector for one consumer-authored image
 or picture. It supplies consistent modality, close and focus-return behavior, fitting, actual-size
 inspection, bounded zoom, and native scrolling without taking ownership of media sources or asset
 workflows.
+
+The framework-neutral element uses the side-effect-free `@wayglass/elements/media-viewer` module.
+Consumers using a nested image inside `<picture>` also load `@wayglass/elements/media-viewer.css`
+and apply `wg-media-viewer-asset` to the final `<img>`. The stylesheet also keeps an unupgraded
+viewer hidden for the accepted client-only fallback.
 
 ## Design invariants
 

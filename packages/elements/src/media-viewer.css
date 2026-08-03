@@ -1,0 +1,13 @@
+wg-media-viewer:not(:defined) {
+  display: none;
+}
+
+wg-media-viewer > picture > .wg-media-viewer-asset {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  min-inline-size: 0;
+  max-inline-size: none;
+  max-block-size: none;
+  object-fit: contain;
+}
