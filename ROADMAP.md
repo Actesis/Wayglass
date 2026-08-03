@@ -41,7 +41,7 @@ complete state, accessibility, responsive, theme, and framework contracts.
 
 ## Phase 2 — Core system
 
-Status: Phase 2A–E complete; Phase 2F planned.
+Status: complete.
 
 Phase 2 expands the vertical slice into the generic foundations, layouts, controls, forms, and
 feedback required by `SPEC.md`. Work is divided into reviewable milestones so each interaction model
@@ -205,7 +205,7 @@ universal overlay system.
 - [x] Implement framework-neutral modal infrastructure, `wg-dialog`, and `wg-media-viewer` while
       preserving consumer ownership of native media sources and semantics.
 - [x] Add typed React wrappers and production-backed dialog and media-inspection stories.
-- [ ] Validate keyboard, touch, focus return, modality, loading and unavailable states, responsive
+- [x] Validate keyboard, touch, focus return, modality, loading and unavailable states, responsive
       containment, bounded zoom and pan, forced colors, reduced motion, and supported browser and
       representative assistive-technology combinations.
 

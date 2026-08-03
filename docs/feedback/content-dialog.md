@@ -1,8 +1,8 @@
 # Phase 2F content-dialog contract
 
-**Status:** Accepted and implemented with framework-neutral and typed React delivery plus a
-production-backed story for Phase 2F as of August 3, 2026. Final cross-browser and representative
-assistive-technology validation remains in the Phase 2F sequence. The architecture is recorded in
+**Status:** Accepted, implemented, and cross-browser validated with framework-neutral and typed
+React delivery plus a production-backed story for Phase 2F as of August 3, 2026. Representative
+assistive-technology review remains a public-release gate. The architecture is recorded in
 [ADR 0023](../architecture/adr/0023-native-modal-content-and-media-inspection.md).
 
 This contract defines `wg-dialog`, a general modal surface for application-authored information and

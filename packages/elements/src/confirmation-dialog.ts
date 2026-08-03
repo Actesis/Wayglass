@@ -213,7 +213,6 @@ export class WgConfirmationDialog extends WayglassElement {
 
     @keyframes wg-confirmation-enter {
       from {
-        opacity: 0;
         transform: translateY(var(--wg-component-confirmation-motion-distance));
       }
     }
