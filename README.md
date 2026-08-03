@@ -110,8 +110,8 @@ Supporting foundations:
   evidence in the
   [`confirmation-dialog validation`](./docs/accessibility/phase-2e-confirmation-dialog-validation.md).
 - [`docs/feedback/content-dialog.md`](./docs/feedback/content-dialog.md) and
-  [`docs/media/media-viewer.md`](./docs/media/media-viewer.md) propose the focused Phase 2F modal
-  content and single-media inspection contracts, with shared lifecycle architecture proposed in
+  [`docs/media/media-viewer.md`](./docs/media/media-viewer.md) define the accepted Phase 2F modal
+  content and single-media inspection contracts, with shared lifecycle architecture recorded in
   [`ADR 0023`](./docs/architecture/adr/0023-native-modal-content-and-media-inspection.md).
 
 ## Local development

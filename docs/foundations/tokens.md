@@ -59,6 +59,23 @@ state meaning.
 
 Wayglass High Contrast and Wayglass Dim remain planned; they are not reported as implemented themes.
 
+## Phase 2F modal content and media inspection
+
+Phase 2F adds `color.semantic.modal.backdrop` as the shared meaning for inert-document separation
+behind a native modal. It does not create a universal overlay API. Confirmation, content dialogs,
+and media viewers retain separate component token groups because their anatomy and content capacity
+differ.
+
+The `component.dialog.*` group defines modal surface, boundary, text, close-control, radius,
+density-aware spacing, viewport inset, compact/standard/wide content capacities, minimum close
+target, elevation, and optional entry motion. The `component.media-viewer.*` group separately
+defines the inspection surface and viewport, control states, caption/detail text, spacing, large
+display capacity, preferred viewport minimum, control targets, elevation, and optional motion.
+
+Zoom steps, intrinsic-image calculations, scroll positions, focus mechanics, and coordinator state
+remain private implementation constants or runtime values. Making them tokens would imply visual
+customization where behavioral consistency is required.
+
 ## CSS names
 
 Token paths compile deterministically to `--wg-` custom properties:

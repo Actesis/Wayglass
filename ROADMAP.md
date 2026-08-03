@@ -200,8 +200,8 @@ universal overlay system.
 - [x] Draft the shared modal ownership, lifecycle, coordination, dismissal, and focus-return
       contract.
 - [x] Draft narrow public contracts for a general content dialog and single-media viewer.
-- [ ] Draft and accept the modal-content and media-inspection architecture decision.
-- [ ] Lock the required dialog and viewer tokens.
+- [x] Draft and accept the modal-content and media-inspection architecture decision.
+- [x] Lock the required dialog and viewer tokens.
 - [ ] Implement framework-neutral modal infrastructure, `wg-dialog`, and `wg-media-viewer` while
       preserving consumer ownership of native media sources and semantics.
 - [ ] Add typed React wrappers and production-backed dialog and media-inspection stories.

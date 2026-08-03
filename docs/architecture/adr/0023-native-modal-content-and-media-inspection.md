@@ -1,6 +1,6 @@
 # ADR 0023: Share native modal lifecycle without creating a universal overlay
 
-- Status: proposed
+- Status: accepted
 - Date: 2026-08-02
 
 ## Context
