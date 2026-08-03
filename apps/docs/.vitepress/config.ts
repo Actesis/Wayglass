@@ -172,6 +172,10 @@ export default defineConfig({
             text: 'ADR 0023: Modal content and media inspection',
             link: '/architecture/adr/0023-native-modal-content-and-media-inspection',
           },
+          {
+            text: 'ADR 0024: Operational data and updates',
+            link: '/architecture/adr/0024-operational-data-ownership-and-updates',
+          },
         ],
       },
       {
@@ -185,6 +189,10 @@ export default defineConfig({
       {
         text: 'Accessibility',
         items: [
+          {
+            text: 'Phase 3 validation plan',
+            link: '/accessibility/phase-3-validation-plan',
+          },
           {
             text: 'Phase 2 assistive-technology gates',
             link: '/accessibility/phase-2-assistive-technology-gates',

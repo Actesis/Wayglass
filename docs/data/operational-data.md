@@ -2,7 +2,9 @@
 
 **Status:** Proposed for Phase 3A review on August 3, 2026. This contract inventories the existing
 Wayglass contracts that operational components extend and defines the shared data-ownership rules
-that their public APIs must preserve. It does not finalize any component-specific API.
+that their public APIs must preserve. The proposed implementation architecture is recorded in
+[ADR 0024](../architecture/adr/0024-operational-data-ownership-and-updates.md). It does not finalize
+any component-specific API.
 
 Operational data answers several different questions: what is true now, how a value has changed,
 what condition a subject is in, what happened over time, and how a set of records relates. Wayglass
@@ -248,13 +250,13 @@ facility, asset workflow, account process, or agent system without changing comp
 - Chromium, Firefox, WebKit, and the representative assistive-technology gates assigned by the Phase
   3 validation matrix.
 
-## Questions carried to the architecture decision
+## Questions resolved by the proposed architecture decision
 
-1. What minimal shared mechanism lets dynamic collection components preserve focus and reading
-   position without observing or reconciling application records?
-2. Should update announcements be entirely consumer-authored, or should selected components expose
-   one narrowly typed opt-in announcement request?
-3. Which performance bounds can be guaranteed without pagination or virtualization, and which
-   fixture sizes expose unsafe component behavior early?
-4. Does any concept beyond the existing known-state and control types merit inclusion in
-   `@wayglass/core`, or are component-local types sufficient?
+1. DOM-node continuity, stable consumer keys, DOM-aligned order, and no component-driven focus or
+   scroll movement preserve interaction context without a shared record reconciler.
+2. Applications own update announcements. Phase 3 data surfaces have no implicit live region; a
+   component-specific opt-in requires later manual evidence.
+3. ADR 0024 defines a non-virtualized fixture and mutation envelope plus a recorded engineering
+   regression threshold rather than a device-independent speed guarantee.
+4. No new Phase 3A type enters `@wayglass/core`. Component-local types remain the default until
+   repeated identical semantics prove otherwise.
