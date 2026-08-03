@@ -209,9 +209,83 @@ universal overlay system.
       containment, bounded zoom and pan, forced colors, reduced motion, and supported browser and
       representative assistive-technology combinations.
 
+## Phase 3 — Operational components
+
+Status: proposed for acceptance.
+
+Phase 3 delivers the operational-data components defined in `SPEC.md`. The
+[formal Phase 3 plan](./docs/phase-3.md) sequences shared ownership decisions before component APIs
+and retains the boundaries accepted during Phase 2.
+
+### Phase 3A — Operational-data architecture
+
+- [ ] Inventory the Phase 1 and Phase 2 contracts that Phase 3 extends.
+- [ ] Draft the operational-data ownership contract and representative fixture model.
+- [ ] Draft the data identity, update, focus-stability, and announcement architecture decision.
+- [ ] Define the Phase 3 validation matrix and performance bounds.
+- [ ] Review and accept the contracts, architecture, boundaries, and milestone sequence.
+
+### Phase 3B — Metrics and key values
+
+- [ ] Specify metric-group, trend-indicator, key-value-display, and compatible metric extensions.
+- [ ] Lock tokens and implement the accepted framework-neutral contracts.
+- [ ] Add typed React wrappers and production-backed stories.
+- [ ] Validate semantics, mixed states, responsive values, themes, forced colors, zoom, and
+      supported browsers and assistive technology.
+
+### Phase 3C — Telemetry strip
+
+- [ ] Specify sample ownership, scale, gaps, live updates, and equivalent textual context.
+- [ ] Record and accept the rendering and accessibility architecture.
+- [ ] Lock tokens and implement framework-neutral and React delivery with production-backed stories.
+- [ ] Validate bounded volume, resize, update stability, themes, forced colors, zoom, and supported
+      browsers and assistive technology.
+
+### Phase 3D — Status list
+
+- [ ] Specify entry structure, state composition, actions, authored ordering, and mutation behavior.
+- [ ] Lock tokens and implement framework-neutral and React delivery with production-backed stories.
+- [ ] Validate mixed states, dynamic collections, focus stability, responsive density, and supported
+      browsers and assistive technology.
+
+### Phase 3E — Timeline and event log
+
+- [ ] Specify the distinct timeline and event-log contracts plus any genuinely shared record shape.
+- [ ] Record and accept temporal ordering, live-update, announcement, and reading-position behavior.
+- [ ] Lock tokens and implement framework-neutral and React delivery with production-backed stories.
+- [ ] Validate temporal semantics, mutation, overflow, density, and supported browsers and assistive
+      technology.
+
+### Phase 3F — Filter and command patterns
+
+- [ ] Specify filter-bar and command-bar composition, labeling, responsive priority, and overflow.
+- [ ] Compose existing controls without adding a query engine, command palette, or universal
+      toolbar.
+- [ ] Lock tokens and implement framework-neutral and React delivery with production-backed stories.
+- [ ] Validate grouping, keyboard and touch behavior, focus retention, narrow widths, and supported
+      browsers and assistive technology.
+
+### Phase 3G — Data table
+
+- [ ] Specify native table ownership, headers, authored sorting intent, row actions, states, and
+      responsive containment.
+- [ ] Record and accept the table semantics and overflow architecture.
+- [ ] Lock tokens and implement framework-neutral and React delivery with production-backed stories.
+- [ ] Validate relationships, mutation, wide and dense data, 320 CSS-pixel width, 200% text, and
+      supported browsers and assistive technology.
+
+### Phase 3H — Integration and closeout
+
+- [ ] Compose the domain-neutral Operational Activity reference workspace.
+- [ ] Add equivalent framework-neutral and React examples.
+- [ ] Complete documentation, exports, stories, and the Phase 3 validation records.
+- [ ] Run the full repository validation matrix and disposition representative assistive-technology
+      gates.
+- [ ] Audit deferred or revised roadmap candidates without widening Phase 4.
+
 ## Later phases
 
-Phases 3–5 remain as defined in `SPEC.md`. Their scope will be refined through proposals or
+Phases 4–5 remain as defined in `SPEC.md`. Their scope will be refined through proposals or
 architecture decisions before implementation.
 
 The accepted [Phase 2 roadmap disposition](./docs/phase-2-roadmap-disposition.md) records
