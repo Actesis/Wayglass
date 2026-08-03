@@ -114,7 +114,7 @@ can be validated before later components depend on it.
 - [x] Review and accept the menu and command contracts and architecture decision.
 - [x] Lock menu tokens and implement the accepted framework-neutral interaction model.
 - [x] Add typed React wrappers and production-backed stories.
-- [ ] Validate menus and command items across supported inputs, assistive technology, and browser
+- [x] Validate menus and command items across supported inputs, assistive technology, and browser
       engines.
 
 #### Phase 2D-D — Form foundation
@@ -128,7 +128,7 @@ can be validated before later components depend on it.
 - [x] Lock form-foundation tokens and implement the accepted native presentation and association
       substrate.
 - [x] Add typed React wrappers and production-backed form-foundation stories.
-- [ ] Validate labeling, grouping, submission, reset, native constraints, error announcements,
+- [x] Validate labeling, grouping, submission, reset, native constraints, error announcements,
       autofill, zoom, forced colors, and supported browser and assistive-technology combinations.
 
 #### Phase 2D-E — Form controls and validation
@@ -139,7 +139,7 @@ can be validated before later components depend on it.
 - [x] Prototype and lock the native-control selectors and tokens, then implement the accepted
       framework-neutral presentation shells.
 - [x] Add typed React wrappers and production-backed form compositions.
-- [ ] Validate native submission, reset, autofill-compatible ownership, constraint validation,
+- [x] Validate native submission, reset, autofill-compatible ownership, constraint validation,
       keyboard, touch, zoom, forced colors, and supported browser and assistive-technology
       combinations.
 
@@ -159,7 +159,7 @@ can be validated before later components depend on it.
       public contracts.
 - [x] Lock tokens and implement the accepted framework-neutral components and patterns.
 - [x] Add typed React wrappers and production-backed stories.
-- [ ] Validate semantics, labeling, retained context, loading replacement, motion, zoom, forced
+- [x] Validate semantics, labeling, retained context, loading replacement, motion, zoom, forced
       colors, and supported browser and assistive-technology combinations.
 
 #### Phase 2E-C — Transient feedback
@@ -187,7 +187,7 @@ can be validated before later components depend on it.
 - [x] Complete Phase 2 documentation and production-backed examples.
 - [x] Close or explicitly carry the remaining representative assistive-technology gates from Phase
       2D.
-- [ ] Run the Phase 2 accessibility, responsive, visual-state, framework, and supported-browser
+- [x] Run the Phase 2 accessibility, responsive, visual-state, framework, and supported-browser
       validation matrix.
 - [ ] Record deferred or revised component-roadmap decisions without widening Phase 3.
 

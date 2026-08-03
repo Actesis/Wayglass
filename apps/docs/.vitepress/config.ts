@@ -157,6 +157,10 @@ export default defineConfig({
             link: '/accessibility/phase-2-assistive-technology-gates',
           },
           {
+            text: 'Phase 2 validation matrix',
+            link: '/accessibility/phase-2-validation-matrix',
+          },
+          {
             text: 'Phase 1 validation',
             link: '/accessibility/phase-1-validation',
           },
