@@ -5,9 +5,10 @@ semantic model—domain value, condition, knowledge, activity, and section purpo
 while adding the selection, layout, media, controls, forms, and feedback needed to build complete
 operational interfaces.
 
-Status: implementation, typed React wrappers, production-backed examples, and automated
-cross-browser validation are complete. Representative assistive-technology gates are explicitly
-tracked for Phase 2 closeout rather than being implied by automation.
+Status: Phase 2A–E are complete. Their implementation, typed React wrappers, production-backed
+examples, and automated cross-browser validation are complete. Phase 2F is planned to add focused
+modal content and media inspection. Representative assistive-technology gates remain explicit
+release obligations rather than being implied by automation.
 
 ## Delivered system
 
@@ -86,8 +87,9 @@ password-manager check with explicit scope and release impact.
 
 ## Deliberate boundaries
 
-Phase 2 does not add a general overlay system, application data store, authorization policy,
-media-asset service, workflow engine, or server-rendered interaction implementation. Inline
-confirmation, undo, richer workflow dialogs, and stronger verification remain application-owned or
-deferred until real deployment evidence establishes reusable contracts. These boundaries prevent
-closeout work from widening Phase 3.
+Phase 2F will add a narrow general content dialog and single-media viewer without adding a universal
+overlay system, application data store, authorization policy, media-asset service, workflow engine,
+or server-rendered interaction implementation. Inline confirmation, undo, richer workflow dialogs,
+galleries, annotation and editing, and stronger verification remain application-owned or deferred
+until real deployment evidence establishes reusable contracts. These boundaries prevent the
+follow-up from widening Phase 3.

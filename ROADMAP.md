@@ -41,7 +41,7 @@ complete state, accessibility, responsive, theme, and framework contracts.
 
 ## Phase 2 — Core system
 
-Status: closeout in progress.
+Status: Phase 2A–E complete; Phase 2F planned.
 
 Phase 2 expands the vertical slice into the generic foundations, layouts, controls, forms, and
 feedback required by `SPEC.md`. Work is divided into reviewable milestones so each interaction model
@@ -189,18 +189,38 @@ can be validated before later components depend on it.
       2D.
 - [x] Run the Phase 2 accessibility, responsive, visual-state, framework, and supported-browser
       validation matrix.
-- [ ] Record deferred or revised component-roadmap decisions without widening Phase 3.
+- [x] Record deferred or revised component-roadmap decisions without widening Phase 3.
+
+### Phase 2F — Modal content and media inspection
+
+Phase 2F resolves the focused media-viewer deferral identified during the Phase 2 closeout audit. It
+builds on native media ownership and the accepted native-dialog architecture without creating a
+universal overlay system.
+
+- [ ] Draft the shared modal ownership, lifecycle, coordination, dismissal, and focus-return
+      contract.
+- [ ] Draft narrow public contracts for a general content dialog and single-media viewer.
+- [ ] Draft and accept the modal-content and media-inspection architecture decision.
+- [ ] Lock the required dialog and viewer tokens.
+- [ ] Implement framework-neutral modal infrastructure, `wg-dialog`, and `wg-media-viewer` while
+      preserving consumer ownership of native media sources and semantics.
+- [ ] Add typed React wrappers and production-backed dialog and media-inspection stories.
+- [ ] Validate keyboard, touch, focus return, modality, loading and unavailable states, responsive
+      containment, bounded zoom and pan, forced colors, reduced motion, and supported browser and
+      representative assistive-technology combinations.
 
 ## Later phases
 
 Phases 3–5 remain as defined in `SPEC.md`. Their scope will be refined through proposals or
 architecture decisions before implementation.
 
+The accepted [Phase 2 roadmap disposition](./docs/phase-2-roadmap-disposition.md) records
+evidence-driven candidates, application-owned boundaries, resolved deferrals, and the unchanged
+interpretation of Phase 3.
+
 ## Deferred decisions
 
-- Final project and package name
-- Software license
-- Public npm scope
+- Initial npm package publication and release automation
 - GitHub Actions and deployment provider
 - Full server-side rendering and hydration
 - Localization and right-to-left implementation

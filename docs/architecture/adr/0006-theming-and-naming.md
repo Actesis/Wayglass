@@ -1,6 +1,6 @@
 # ADR 0006: Keep naming provisional and theming semantically adaptable
 
-- Status: accepted
+- Status: superseded in part by ADR 0022
 - Date: 2026-07-27
 
 ## Context
@@ -17,6 +17,9 @@ component presentation while preserving value roles, state meaning, functional b
 visibility, accessibility, and interaction behavior.
 
 No software license is selected during Phase 0.
+
+The provisional naming and license decisions were resolved by
+[ADR 0022](./0022-project-identity-and-license.md). The semantic theming decision remains in force.
 
 ## Consequences
 
