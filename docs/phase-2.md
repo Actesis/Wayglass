@@ -27,11 +27,12 @@ release obligations rather than being implied by automation.
 
 ## Planned Phase 2F follow-up
 
-The proposed [content-dialog contract](./feedback/content-dialog.md) and
+The accepted [content-dialog contract](./feedback/content-dialog.md) and
 [media-viewer contract](./media/media-viewer.md) share private native-modal lifecycle infrastructure
 without creating a public universal overlay.
 [ADR 0023](./architecture/adr/0023-native-modal-content-and-media-inspection.md) records the
-proposed architecture for review before tokens or implementation are locked.
+accepted architecture, and the required dialog and media-viewer token groups are locked before
+implementation.
 
 Every production component is exported from `@wayglass/elements` through an explicit registration
 function. Typed wrappers in `@wayglass/react` use those same Custom Element classes and

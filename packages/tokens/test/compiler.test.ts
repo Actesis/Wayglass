@@ -318,6 +318,53 @@ describe('token compiler', () => {
     );
   });
 
+  it('contains the locked Phase 2F modal-content and media-viewer token roles', () => {
+    expect(Object.keys(tokens)).toEqual(
+      expect.arrayContaining([
+        'color.semantic.modal.backdrop',
+        'component.dialog.color.backdrop',
+        'component.dialog.color.background',
+        'component.dialog.color.border',
+        'component.dialog.color.text',
+        'component.dialog.color.detail',
+        'component.dialog.color.close-background',
+        'component.dialog.color.close-background-hover',
+        'component.dialog.radius',
+        'component.dialog.space',
+        'component.dialog.space.related',
+        'component.dialog.space.viewport',
+        'component.dialog.size.inline-maximum.compact',
+        'component.dialog.size.inline-maximum.standard',
+        'component.dialog.size.inline-maximum.wide',
+        'component.dialog.size.control-minimum',
+        'component.dialog.elevation',
+        'component.dialog.motion',
+        'component.dialog.motion-distance',
+        'component.media-viewer.color.backdrop',
+        'component.media-viewer.color.background',
+        'component.media-viewer.color.viewport',
+        'component.media-viewer.color.border',
+        'component.media-viewer.color.text',
+        'component.media-viewer.color.detail',
+        'component.media-viewer.color.control-background',
+        'component.media-viewer.color.control-background-hover',
+        'component.media-viewer.color.control-selected',
+        'component.media-viewer.radius',
+        'component.media-viewer.space',
+        'component.media-viewer.space.related',
+        'component.media-viewer.space.viewport',
+        'component.media-viewer.size.inline-maximum',
+        'component.media-viewer.size.viewport-minimum',
+        'component.media-viewer.size.control-minimum',
+        'component.media-viewer.elevation',
+        'component.media-viewer.motion',
+        'component.media-viewer.motion-distance',
+      ]),
+    );
+    expect(tokens['component.dialog.size.inline-maximum.standard'].value).toBe('42rem');
+    expect(tokens['component.media-viewer.size.inline-maximum'].value).toBe('80rem');
+  });
+
   it('provides accessible contrast for the default dark-theme foundations', () => {
     const paper = referenceColor('color.reference.paper.50');
     const canvas = referenceColor('color.reference.ink.950');

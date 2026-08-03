@@ -1,6 +1,6 @@
 # Phase 2F content-dialog contract
 
-**Status:** Proposed for Phase 2F review on August 2, 2026. The proposed architecture is recorded in
+**Status:** Accepted for Phase 2F on August 2, 2026. The architecture is recorded in
 [ADR 0023](../architecture/adr/0023-native-modal-content-and-media-inspection.md).
 
 This contract defines `wg-dialog`, a general modal surface for application-authored information and

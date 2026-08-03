@@ -130,6 +130,11 @@ export const tokens = {
     type: 'color',
     description: 'Raised or strongly separated surface in the default dark theme.',
   },
+  'color.semantic.modal.backdrop': {
+    value: 'rgb(9 13 20 / 72%)',
+    type: 'color',
+    description: 'Backdrop separating native modal content from the inert document.',
+  },
   'color.semantic.text.primary': {
     value: '{color.reference.paper.50}',
     type: 'color',
@@ -1771,7 +1776,7 @@ export const tokens = {
     description: 'Optional short toast entry and exit transition.',
   },
   'component.confirmation.color.backdrop': {
-    value: 'rgb(9 13 20 / 72%)',
+    value: '{color.semantic.modal.backdrop}',
     type: 'color',
     description: 'Modal backdrop separating a confirmation decision from inert page content.',
   },
@@ -1889,6 +1894,191 @@ export const tokens = {
     value: '{space.reference.2}',
     type: 'dimension',
     description: 'Optional short confirmation entry translation.',
+  },
+  'component.dialog.color.backdrop': {
+    value: '{color.semantic.modal.backdrop}',
+    type: 'color',
+    description: 'Native content-dialog backdrop.',
+  },
+  'component.dialog.color.background': {
+    value: '{color.semantic.surface.panel}',
+    type: 'color',
+    description: 'General modal content surface.',
+  },
+  'component.dialog.color.border': {
+    value: '{color.semantic.border.strong}',
+    type: 'color',
+    description: 'General modal surface and close-control boundary.',
+  },
+  'component.dialog.color.text': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'General modal heading and primary text.',
+  },
+  'component.dialog.color.detail': {
+    value: '{color.semantic.text.secondary}',
+    type: 'color',
+    description: 'General modal supporting text.',
+  },
+  'component.dialog.color.close-background': {
+    value: '{color.semantic.surface.inset}',
+    type: 'color',
+    description: 'General modal close-control background.',
+  },
+  'component.dialog.color.close-background-hover': {
+    value: '{color.semantic.surface.raised}',
+    type: 'color',
+    description: 'General modal close-control hover background.',
+  },
+  'component.dialog.radius': {
+    value: '{shape.radius.panel}',
+    type: 'dimension',
+    description: 'General modal surface radius.',
+  },
+  'component.dialog.space': {
+    value: '{space.reference.4}',
+    type: 'dimension',
+    description: 'Density-aware general modal edge spacing.',
+  },
+  'component.dialog.space.related': {
+    value: '{space.reference.2}',
+    type: 'dimension',
+    description: 'Spacing between related general modal anatomy.',
+  },
+  'component.dialog.space.viewport': {
+    value: '{space.reference.4}',
+    type: 'dimension',
+    description: 'Viewport-safe general modal inset.',
+  },
+  'component.dialog.size.inline-maximum.compact': {
+    value: '28rem',
+    type: 'dimension',
+    description: 'Maximum inline size for short bounded modal content.',
+  },
+  'component.dialog.size.inline-maximum.standard': {
+    value: '42rem',
+    type: 'dimension',
+    description: 'Maximum inline size for ordinary modal content.',
+  },
+  'component.dialog.size.inline-maximum.wide': {
+    value: '64rem',
+    type: 'dimension',
+    description: 'Maximum inline size for deliberately wide modal content.',
+  },
+  'component.dialog.size.control-minimum': {
+    value: '{component.button.size.minimum}',
+    type: 'dimension',
+    description: 'Minimum component-owned content-dialog close target.',
+  },
+  'component.dialog.elevation': {
+    value: '{elevation.panel}',
+    type: 'shadow',
+    description: 'General modal elevation above inert document content.',
+  },
+  'component.dialog.motion': {
+    value: '{motion.duration.fast}',
+    type: 'duration',
+    description: 'Optional short content-dialog entry transition.',
+  },
+  'component.dialog.motion-distance': {
+    value: '{space.reference.2}',
+    type: 'dimension',
+    description: 'Optional short content-dialog entry translation.',
+  },
+  'component.media-viewer.color.backdrop': {
+    value: '{color.semantic.modal.backdrop}',
+    type: 'color',
+    description: 'Native media-viewer backdrop.',
+  },
+  'component.media-viewer.color.background': {
+    value: '{color.semantic.surface.panel}',
+    type: 'color',
+    description: 'Media-viewer modal surface.',
+  },
+  'component.media-viewer.color.viewport': {
+    value: '{color.semantic.surface.canvas}',
+    type: 'color',
+    description: 'Neutral media inspection viewport.',
+  },
+  'component.media-viewer.color.border': {
+    value: '{color.semantic.border.strong}',
+    type: 'color',
+    description: 'Media-viewer surface, viewport, and control boundary.',
+  },
+  'component.media-viewer.color.text': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'Media-viewer heading and primary text.',
+  },
+  'component.media-viewer.color.detail': {
+    value: '{color.semantic.text.secondary}',
+    type: 'color',
+    description: 'Media-viewer context, caption, and scale text.',
+  },
+  'component.media-viewer.color.control-background': {
+    value: '{color.semantic.surface.inset}',
+    type: 'color',
+    description: 'Media-viewer control background.',
+  },
+  'component.media-viewer.color.control-background-hover': {
+    value: '{color.semantic.surface.raised}',
+    type: 'color',
+    description: 'Media-viewer control hover background.',
+  },
+  'component.media-viewer.color.control-selected': {
+    value: '{color.semantic.selection.indicator}',
+    type: 'color',
+    description: 'Selected fit or actual-size view reinforcement.',
+  },
+  'component.media-viewer.radius': {
+    value: '{shape.radius.panel}',
+    type: 'dimension',
+    description: 'Media-viewer surface and viewport radius.',
+  },
+  'component.media-viewer.space': {
+    value: '{space.reference.4}',
+    type: 'dimension',
+    description: 'Density-aware media-viewer edge spacing.',
+  },
+  'component.media-viewer.space.related': {
+    value: '{space.reference.2}',
+    type: 'dimension',
+    description: 'Spacing between related media-viewer anatomy.',
+  },
+  'component.media-viewer.space.viewport': {
+    value: '{space.reference.4}',
+    type: 'dimension',
+    description: 'Viewport-safe media-viewer inset.',
+  },
+  'component.media-viewer.size.inline-maximum': {
+    value: '80rem',
+    type: 'dimension',
+    description: 'Maximum media-viewer inline size on large displays.',
+  },
+  'component.media-viewer.size.viewport-minimum': {
+    value: '12rem',
+    type: 'dimension',
+    description: 'Preferred minimum media viewport block size when space permits.',
+  },
+  'component.media-viewer.size.control-minimum': {
+    value: '{component.button.size.minimum}',
+    type: 'dimension',
+    description: 'Minimum component-owned media-viewer control target.',
+  },
+  'component.media-viewer.elevation': {
+    value: '{elevation.panel}',
+    type: 'shadow',
+    description: 'Media-viewer elevation above inert document content.',
+  },
+  'component.media-viewer.motion': {
+    value: '{motion.duration.fast}',
+    type: 'duration',
+    description: 'Optional short media-viewer entry and scale transition.',
+  },
+  'component.media-viewer.motion-distance': {
+    value: '{space.reference.2}',
+    type: 'dimension',
+    description: 'Optional short media-viewer entry translation.',
   },
 } as const satisfies Record<string, TokenDefinition>;
 

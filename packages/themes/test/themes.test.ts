@@ -128,6 +128,8 @@ describe('Phase 1 themes', () => {
     expect(first).toContain('--wg-component-form-action-space-inline: var(--wg-space-reference-6)');
     expect(first).toContain('--wg-component-feedback-space: var(--wg-space-reference-6)');
     expect(first).toContain('--wg-component-toast-space: var(--wg-space-reference-6)');
+    expect(first).toContain('--wg-component-dialog-space: var(--wg-space-reference-6)');
+    expect(first).toContain('--wg-component-media-viewer-space: var(--wg-space-reference-6)');
     expect(first).not.toContain('wayglass-high-contrast');
     expect(first).not.toContain('wayglass-dim');
   });

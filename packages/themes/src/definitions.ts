@@ -131,6 +131,8 @@ export const densityTokenOverrides = {
     'component.feedback.space': 'space.reference.3',
     'component.toast.space': 'space.reference.3',
     'component.confirmation.space': 'space.reference.3',
+    'component.dialog.space': 'space.reference.3',
+    'component.media-viewer.space': 'space.reference.3',
   },
   comfortable: {
     'component.canvas.space.block': 'space.semantic.page.comfortable',
@@ -167,6 +169,8 @@ export const densityTokenOverrides = {
     'component.feedback.space': 'space.reference.6',
     'component.toast.space': 'space.reference.6',
     'component.confirmation.space': 'space.reference.6',
+    'component.dialog.space': 'space.reference.6',
+    'component.media-viewer.space': 'space.reference.6',
   },
 } as const satisfies Readonly<Record<DensityName, TokenOverrides>>;
 

@@ -59,7 +59,7 @@ export default defineConfig({
         text: 'Phase 2 media',
         items: [
           { text: 'Media-content contract', link: '/media/media-content' },
-          { text: 'Media-viewer proposal', link: '/media/media-viewer' },
+          { text: 'Media-viewer contract', link: '/media/media-viewer' },
         ],
       },
       {
@@ -89,7 +89,7 @@ export default defineConfig({
             link: '/feedback/confirmation-dialog',
           },
           {
-            text: 'Content-dialog proposal',
+            text: 'Content-dialog contract',
             link: '/feedback/content-dialog',
           },
         ],
