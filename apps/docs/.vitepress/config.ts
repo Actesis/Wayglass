@@ -54,6 +54,15 @@ export default defineConfig({
         items: [{ text: 'Tabs', link: '/components/tabs' }],
       },
       {
+        text: 'Phase 3 data',
+        items: [
+          {
+            text: 'Operational-data ownership',
+            link: '/data/operational-data',
+          },
+        ],
+      },
+      {
         text: 'Phase 2 layout',
         items: [{ text: 'Layout contracts', link: '/layout/layout-contracts' }],
       },
@@ -99,6 +108,10 @@ export default defineConfig({
       {
         text: 'Architecture',
         items: [
+          {
+            text: 'ADR 0005: Known-state model',
+            link: '/architecture/adr/0005-known-state-model',
+          },
           {
             text: 'ADR 0009: Tabs architecture',
             link: '/architecture/adr/0009-tabs-architecture',
