@@ -1,10 +1,10 @@
 # Phase 2F media-viewer contract
 
-**Status:** Accepted and implemented in the framework-neutral element package for Phase 2F on August
-2, 2026. The architecture is recorded in
+**Status:** Accepted and implemented with framework-neutral and typed React delivery plus a
+production-backed story for Phase 2F as of August 3, 2026. The architecture is recorded in
 [ADR 0023](../architecture/adr/0023-native-modal-content-and-media-inspection.md) and preserves the
 native media ownership accepted in [ADR 0013](../architecture/adr/0013-native-media-ownership.md).
-The typed React binding, production-backed story, and final validation remain roadmap work.
+Final cross-browser and representative assistive-technology validation remains roadmap work.
 
 This contract defines `wg-media-viewer`, a focused modal inspector for one consumer-authored image
 or picture. It supplies consistent modality, close and focus-return behavior, fitting, actual-size

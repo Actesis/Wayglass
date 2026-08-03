@@ -233,7 +233,7 @@ export class WgMediaViewer extends WayglassElement {
       visibility: hidden;
     }
 
-    [part='state'] {
+    [part~='state'] {
       position: absolute;
       z-index: 1;
       display: none;
@@ -248,12 +248,12 @@ export class WgMediaViewer extends WayglassElement {
       overflow-wrap: anywhere;
     }
 
-    :host([state='loading']) [part='state-loading'],
-    :host([state='unavailable']) [part='state-unavailable'] {
+    :host([state='loading']) [part~='state-loading'],
+    :host([state='unavailable']) [part~='state-unavailable'] {
       display: grid;
     }
 
-    :host([state='loading']) [part='state-loading'] {
+    :host([state='loading']) [part~='state-loading'] {
       background: color-mix(
         in srgb,
         var(--wg-component-media-viewer-color-viewport) 84%,

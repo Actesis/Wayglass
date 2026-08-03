@@ -204,7 +204,7 @@ universal overlay system.
 - [x] Lock the required dialog and viewer tokens.
 - [x] Implement framework-neutral modal infrastructure, `wg-dialog`, and `wg-media-viewer` while
       preserving consumer ownership of native media sources and semantics.
-- [ ] Add typed React wrappers and production-backed dialog and media-inspection stories.
+- [x] Add typed React wrappers and production-backed dialog and media-inspection stories.
 - [ ] Validate keyboard, touch, focus return, modality, loading and unavailable states, responsive
       containment, bounded zoom and pan, forced colors, reduced motion, and supported browser and
       representative assistive-technology combinations.

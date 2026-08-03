@@ -44,6 +44,8 @@ export { WgCommandItem } from './command-item.js';
 export type { WgCommandEvent, WgCommandItemProps } from './command-item.js';
 export { WgDivider } from './divider.js';
 export type { WgDividerProps } from './divider.js';
+export { WgDialog } from './dialog.js';
+export type { WgDialogCloseEvent, WgDialogOpenEvent, WgDialogProps } from './dialog.js';
 export { WgElbow } from './elbow.js';
 export type { WgElbowProps } from './elbow.js';
 export { WgFieldLabel } from './field-label.js';
@@ -60,6 +62,13 @@ export { WgMetric } from './metric.js';
 export type { WgMetricProps } from './metric.js';
 export { WgMedia } from './media.js';
 export type { WgMediaProps } from './media.js';
+export { WgMediaViewer } from './media-viewer.js';
+export type {
+  WgMediaViewChangeEvent,
+  WgMediaViewerCloseEvent,
+  WgMediaViewerOpenEvent,
+  WgMediaViewerProps,
+} from './media-viewer.js';
 export { WgMenu } from './menu.js';
 export type { WgMenuProps, WgMenuToggleEvent } from './menu.js';
 export { WgNavigationRail } from './navigation-rail.js';

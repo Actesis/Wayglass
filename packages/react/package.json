@@ -57,6 +57,10 @@
       "types": "./dist/confirmation-dialog.d.ts",
       "import": "./dist/confirmation-dialog.js"
     },
+    "./dialog": {
+      "types": "./dist/dialog.d.ts",
+      "import": "./dist/dialog.js"
+    },
     "./number-field": {
       "types": "./dist/number-field.d.ts",
       "import": "./dist/number-field.js"
@@ -136,6 +140,10 @@
     "./media": {
       "types": "./dist/media.d.ts",
       "import": "./dist/media.js"
+    },
+    "./media-viewer": {
+      "types": "./dist/media-viewer.d.ts",
+      "import": "./dist/media-viewer.js"
     },
     "./menu": {
       "types": "./dist/menu.d.ts",
