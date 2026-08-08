@@ -221,8 +221,8 @@ and retains the boundaries accepted during Phase 2.
 
 - [x] Inventory the Phase 1 and Phase 2 contracts that Phase 3 extends.
 - [x] Draft the operational-data ownership contract and representative fixture model.
-- [ ] Draft the data identity, update, focus-stability, and announcement architecture decision.
-- [ ] Define the Phase 3 validation matrix and performance bounds.
+- [x] Draft the data identity, update, focus-stability, and announcement architecture decision.
+- [x] Define the Phase 3 validation matrix and performance bounds.
 - [ ] Review and accept the contracts, architecture, boundaries, and milestone sequence.
 
 ### Phase 3B — Metrics and key values
