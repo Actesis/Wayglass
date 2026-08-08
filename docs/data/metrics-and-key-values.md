@@ -2,7 +2,8 @@
 
 **Status:** Accepted for Phase 3B on August 8, 2026. These contracts define `wg-metric-group`,
 `wg-trend-indicator`, `wg-key-value`, and one compatible `wg-metric` slot extension. Their required
-tokens are locked; implementation remains in progress.
+tokens are locked, and the framework-neutral elements plus typed React wrappers are implemented.
+Production-backed stories and the complete Phase 3B validation matrix remain in progress.
 
 The components follow the accepted [operational-data ownership contract](./operational-data.md) and
 [ADR 0024](../architecture/adr/0024-operational-data-ownership-and-updates.md). Applications own

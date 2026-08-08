@@ -163,6 +163,7 @@ export class WgMetric extends WayglassElement {
     }
 
     slot[name='label']::slotted(*),
+    slot[name='trend']::slotted(*),
     slot[name='description']::slotted(*),
     slot[name='metadata']::slotted(*) {
       margin-block: 0;
@@ -235,6 +236,7 @@ export class WgMetric extends WayglassElement {
     const accessibleValue = this.loading ? 'Loading' : this.value.trim() || 'No value';
     const hasDescription = this.#hasNamedSlot('description');
     const hasMetadata = this.#hasNamedSlot('metadata');
+    const hasTrend = this.#hasNamedSlot('trend');
     const stateSegments = knownStateSegments(this.condition, this.knowledge, this.activity);
     const summary = [
       visibleLabel,
@@ -268,6 +270,9 @@ export class WgMetric extends WayglassElement {
           <span part="activity" ?hidden=${this.activity === 'idle'}>
             ${activityLabels[this.activity]}
           </span>
+        </span>
+        <span part="trend" ?hidden=${!hasTrend}>
+          <slot name="trend" @slotchange=${this.#handleSlotChange}></slot>
         </span>
         <span part="description" ?hidden=${!hasDescription}>
           <slot name="description" @slotchange=${this.#handleSlotChange}></slot>

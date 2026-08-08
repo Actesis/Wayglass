@@ -128,6 +128,16 @@ export type { FrameBoundary, FramePadding } from './frame.js';
 export { defineWgGrid, WgGrid, wgGridTagName } from './grid.js';
 export { defineWgMetric, isMetricSize, metricSizes, WgMetric, wgMetricTagName } from './metric.js';
 export type { MetricSize } from './metric.js';
+export { defineWgMetricGroup, WgMetricGroup, wgMetricGroupTagName } from './metric-group.js';
+export { defineWgKeyValue, WgKeyValue, wgKeyValueTagName } from './key-value.js';
+export {
+  defineWgTrendIndicator,
+  isTrendDirection,
+  trendDirections,
+  WgTrendIndicator,
+  wgTrendIndicatorTagName,
+} from './trend-indicator.js';
+export type { TrendDirection } from './trend-indicator.js';
 export {
   defineWgMedia,
   isMediaAspect,

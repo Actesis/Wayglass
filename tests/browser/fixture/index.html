@@ -124,6 +124,29 @@
                 ></wg-metric>
                 <wg-metric id="metric-loading" label="Throughput" unit="Mb/s" loading></wg-metric>
                 <div class="fixture-narrow">
+                  <wg-metric-group id="metric-group" label="Processing activity" busy>
+                    <p slot="description">Confirmed values from the current interval.</p>
+                    <button id="metric-group-action" slot="actions" type="button">
+                      Review activity
+                    </button>
+                    <wg-metric id="metric-with-trend" label="Completed" value="1,284">
+                      <wg-trend-indicator
+                        id="trend-rising"
+                        slot="trend"
+                        direction="rising"
+                        label="12% over the previous hour"
+                        activity="pending"
+                      >
+                        <time slot="detail" datetime="2026-08-08T19:00:00Z">Since noon</time>
+                      </wg-trend-indicator>
+                    </wg-metric>
+                    <wg-key-value id="key-value" label="Last confirmed" knowledge="stale">
+                      <time slot="value" datetime="2026-08-08T19:24:00Z">12:24 PM local time</time>
+                    </wg-key-value>
+                    <wg-key-value id="key-value-missing" label="Assigned reviewer"></wg-key-value>
+                  </wg-metric-group>
+                </div>
+                <div class="fixture-narrow">
                   <wg-value-tile id="value-tile" busy>
                     <h3 slot="heading">Connection overview</h3>
                     <wg-status-indicator
@@ -151,10 +174,13 @@
       import { defineWgCanvas } from '/packages/elements/dist/canvas.js';
       import { defineWgElbow } from '/packages/elements/dist/elbow.js';
       import { defineWgMetric } from '/packages/elements/dist/metric.js';
+      import { defineWgMetricGroup } from '/packages/elements/dist/metric-group.js';
+      import { defineWgKeyValue } from '/packages/elements/dist/key-value.js';
       import { defineWgPanel } from '/packages/elements/dist/panel.js';
       import { defineWgRail } from '/packages/elements/dist/rail.js';
       import { defineWgStatusIndicator } from '/packages/elements/dist/status-indicator.js';
       import { defineWgThemeProvider } from '/packages/elements/dist/theme-provider.js';
+      import { defineWgTrendIndicator } from '/packages/elements/dist/trend-indicator.js';
       import { defineWgValueTile } from '/packages/elements/dist/value-tile.js';
 
       defineWgThemeProvider();
@@ -166,6 +192,9 @@
       defineWgStatusIndicator();
       defineWgBooleanValue();
       defineWgMetric();
+      defineWgMetricGroup();
+      defineWgKeyValue();
+      defineWgTrendIndicator();
       defineWgValueTile();
     </script>
   </body>
