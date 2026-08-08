@@ -63,6 +63,7 @@ const forcedColorOverrides = {
   'color.semantic.condition.positive': 'CanvasText',
   'color.semantic.data.series.1': 'CanvasText',
   'color.semantic.data.series.2': 'CanvasText',
+  'color.semantic.data.change': 'CanvasText',
   'color.semantic.focus.ring': 'Highlight',
   'color.semantic.knowledge.confirmed': 'CanvasText',
   'color.semantic.knowledge.conflicting': 'CanvasText',

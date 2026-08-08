@@ -1,8 +1,8 @@
 # Phase 3B metrics and key-values contracts
 
-**Status:** Proposed for Phase 3B review on August 8, 2026. These contracts define
-`wg-metric-group`, `wg-trend-indicator`, `wg-key-value`, and one compatible `wg-metric` slot
-extension before tokens or implementation are locked.
+**Status:** Accepted for Phase 3B on August 8, 2026. These contracts define `wg-metric-group`,
+`wg-trend-indicator`, `wg-key-value`, and one compatible `wg-metric` slot extension. Their required
+tokens are locked; implementation remains in progress.
 
 The components follow the accepted [operational-data ownership contract](./operational-data.md) and
 [ADR 0024](../architecture/adr/0024-operational-data-ownership-and-updates.md). Applications own

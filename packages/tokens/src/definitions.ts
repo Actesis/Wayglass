@@ -310,6 +310,11 @@ export const tokens = {
     type: 'color',
     description: 'Second operational data-series role.',
   },
+  'color.semantic.data.change': {
+    value: '{color.reference.blue.500}',
+    type: 'color',
+    description: 'Neutral operational change signal without direction or condition meaning.',
+  },
   'typography.family.body': {
     value: 'ui-rounded, "Avenir Next", Avenir, Inter, system-ui, sans-serif',
     type: 'fontFamily',
@@ -1604,6 +1609,101 @@ export const tokens = {
     value: '{size.metric.value-minimum}',
     type: 'dimension',
     description: 'Reserved metric value width.',
+  },
+  'component.metric-group.color.background': {
+    value: '{color.semantic.surface.inset}',
+    type: 'color',
+    description: 'Contained background for a related scalar-value group.',
+  },
+  'component.metric-group.color.border': {
+    value: '{color.semantic.border.subtle}',
+    type: 'color',
+    description: 'Routine boundary around a related scalar-value group.',
+  },
+  'component.metric-group.color.heading': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'Metric-group heading text.',
+  },
+  'component.metric-group.color.description': {
+    value: '{color.semantic.text.secondary}',
+    type: 'color',
+    description: 'Metric-group shared context and description text.',
+  },
+  'component.metric-group.radius': {
+    value: '{shape.radius.panel}',
+    type: 'dimension',
+    description: 'Metric-group contained-surface radius.',
+  },
+  'component.metric-group.space': {
+    value: '{space.reference.4}',
+    type: 'dimension',
+    description: 'Density-aware metric-group edge and section spacing.',
+  },
+  'component.metric-group.space.item': {
+    value: '{space.reference.3}',
+    type: 'dimension',
+    description: 'Density-aware spacing between peer scalar values.',
+  },
+  'component.metric-group.size.item-minimum': {
+    value: '12rem',
+    type: 'dimension',
+    description: 'Minimum preferred inline measure for one scalar item before grid reflow.',
+  },
+  'component.trend-indicator.color.signal': {
+    value: '{color.semantic.data.change}',
+    type: 'color',
+    description: 'Direction-neutral trend signal color without condition meaning.',
+  },
+  'component.trend-indicator.color.text': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'Trend direction and comparison text.',
+  },
+  'component.trend-indicator.color.state': {
+    value: '{color.semantic.text.secondary}',
+    type: 'color',
+    description: 'Trend known-state and supporting detail text.',
+  },
+  'component.trend-indicator.size.signal': {
+    value: '{size.signal.compact}',
+    type: 'dimension',
+    description: 'Trend signal block measure at ordinary text size.',
+  },
+  'component.trend-indicator.width.signal': {
+    value: '{space.reference.8}',
+    type: 'dimension',
+    description: 'Trend signal inline measure for visible direction geometry.',
+  },
+  'component.trend-indicator.space': {
+    value: '{space.reference.2}',
+    type: 'dimension',
+    description: 'Density-aware spacing among trend signal, text, and state.',
+  },
+  'component.key-value.color.label': {
+    value: '{color.semantic.text.secondary}',
+    type: 'color',
+    description: 'Key-value label text.',
+  },
+  'component.key-value.color.value': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'Key-value primary value text.',
+  },
+  'component.key-value.color.state': {
+    value: '{color.semantic.text.secondary}',
+    type: 'color',
+    description: 'Key-value known-state and supporting text.',
+  },
+  'component.key-value.space': {
+    value: '{space.reference.2}',
+    type: 'dimension',
+    description: 'Density-aware spacing inside one key-value display.',
+  },
+  'component.key-value.size.label-minimum': {
+    value: '8rem',
+    type: 'dimension',
+    description: 'Preferred label measure for aligned key-value scanning before narrow reflow.',
   },
   'component.value-tile.color.background': {
     value: '{color.semantic.surface.panel}',

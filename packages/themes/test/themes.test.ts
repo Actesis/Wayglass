@@ -77,6 +77,7 @@ describe('Phase 1 themes', () => {
     const criticalAction = themeColor(theme, 'component.button.color.critical');
     const strongBoundary = themeColor(theme, 'color.semantic.border.strong');
     const selectionIndicator = themeColor(theme, 'color.semantic.selection.indicator');
+    const dataChange = themeColor(theme, 'color.semantic.data.change');
 
     expect(contrastRatio(primaryText, canvas)).toBeGreaterThanOrEqual(7);
     expect(contrastRatio(secondaryText, panel)).toBeGreaterThanOrEqual(4.5);
@@ -84,6 +85,7 @@ describe('Phase 1 themes', () => {
     expect(contrastRatio(inverseText, criticalAction)).toBeGreaterThanOrEqual(4.5);
     expect(contrastRatio(strongBoundary, panel)).toBeGreaterThanOrEqual(3);
     expect(contrastRatio(selectionIndicator, panel)).toBeGreaterThanOrEqual(3);
+    expect(contrastRatio(dataChange, panel)).toBeGreaterThanOrEqual(3);
   });
 
   it('generates deterministic theme and density selectors from token aliases', () => {
@@ -109,6 +111,7 @@ describe('Phase 1 themes', () => {
     expect(first).toContain('--wg-color-semantic-text-primary: CanvasText');
     expect(first).toContain('--wg-color-semantic-focus-ring: Highlight');
     expect(first).toContain('--wg-color-semantic-selection-indicator: Highlight');
+    expect(first).toContain('--wg-color-semantic-data-change: CanvasText');
     expect(first).toContain('--wg-color-semantic-selection-surface: Canvas');
     expect(first).toContain('--wg-component-tab-space-inline: var(--wg-space-reference-6)');
     expect(first).toContain(
@@ -130,6 +133,10 @@ describe('Phase 1 themes', () => {
     expect(first).toContain('--wg-component-toast-space: var(--wg-space-reference-6)');
     expect(first).toContain('--wg-component-dialog-space: var(--wg-space-reference-6)');
     expect(first).toContain('--wg-component-media-viewer-space: var(--wg-space-reference-6)');
+    expect(first).toContain('--wg-component-metric-group-space: var(--wg-space-reference-6)');
+    expect(first).toContain('--wg-component-metric-group-space-item: var(--wg-space-reference-3)');
+    expect(first).toContain('--wg-component-trend-indicator-space: var(--wg-space-reference-2)');
+    expect(first).toContain('--wg-component-key-value-space: var(--wg-space-reference-3)');
     expect(first).not.toContain('wayglass-high-contrast');
     expect(first).not.toContain('wayglass-dim');
   });
