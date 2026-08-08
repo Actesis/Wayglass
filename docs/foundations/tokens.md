@@ -76,6 +76,23 @@ Zoom steps, intrinsic-image calculations, scroll positions, focus mechanics, and
 remain private implementation constants or runtime values. Making them tokens would imply visual
 customization where behavioral consistency is required.
 
+## Phase 3B scalar data
+
+Phase 3B adds `color.semantic.data.change` for a neutral operational-change signal. Dark and light
+themes may map it to different hues or contrast levels, but rising, falling, steady, mixed, and
+absent direction all use the same role. Trend direction never borrows positive, caution, or critical
+color; an application-supplied condition remains a separate cue.
+
+The `component.metric-group.*` group defines its neutral contained surface, boundary, heading and
+description text, radius, density-aware edge and item spacing, and preferred scalar-item measure.
+The `component.trend-indicator.*` group defines neutral signal, text and state colors, direction
+geometry measures, and density-aware spacing. The `component.key-value.*` group defines label,
+value, and state text, density-aware spacing, and the preferred aligned label measure.
+
+Direction geometry, line angle, wrapping threshold, loading text, child counting, and grid column
+count remain private mechanical behavior. Exposing them as tokens would imply visual customization
+or application policy that the contracts do not support.
+
 ## CSS names
 
 Token paths compile deterministically to `--wg-` custom properties:

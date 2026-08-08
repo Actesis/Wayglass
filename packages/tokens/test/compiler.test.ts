@@ -365,6 +365,35 @@ describe('token compiler', () => {
     expect(tokens['component.media-viewer.size.inline-maximum'].value).toBe('80rem');
   });
 
+  it('contains the locked Phase 3B scalar-data token roles', () => {
+    expect(Object.keys(tokens)).toEqual(
+      expect.arrayContaining([
+        'color.semantic.data.change',
+        'component.metric-group.color.background',
+        'component.metric-group.color.border',
+        'component.metric-group.color.heading',
+        'component.metric-group.color.description',
+        'component.metric-group.radius',
+        'component.metric-group.space',
+        'component.metric-group.space.item',
+        'component.metric-group.size.item-minimum',
+        'component.trend-indicator.color.signal',
+        'component.trend-indicator.color.text',
+        'component.trend-indicator.color.state',
+        'component.trend-indicator.size.signal',
+        'component.trend-indicator.width.signal',
+        'component.trend-indicator.space',
+        'component.key-value.color.label',
+        'component.key-value.color.value',
+        'component.key-value.color.state',
+        'component.key-value.space',
+        'component.key-value.size.label-minimum',
+      ]),
+    );
+    expect(tokens['component.metric-group.size.item-minimum'].value).toBe('12rem');
+    expect(tokens['component.key-value.size.label-minimum'].value).toBe('8rem');
+  });
+
   it('provides accessible contrast for the default dark-theme foundations', () => {
     const paper = referenceColor('color.reference.paper.50');
     const canvas = referenceColor('color.reference.ink.950');
