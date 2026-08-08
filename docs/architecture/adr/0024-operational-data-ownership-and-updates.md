@@ -1,7 +1,7 @@
 # ADR 0024: Keep operational data and update policy consumer-owned
 
-- Status: proposed
-- Date: 2026-08-03
+- Status: accepted
+- Date: 2026-08-08
 
 ## Context
 

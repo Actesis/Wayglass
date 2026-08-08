@@ -1,8 +1,8 @@
 # Phase 3A operational-data ownership contract
 
-**Status:** Proposed for Phase 3A review on August 3, 2026. This contract inventories the existing
-Wayglass contracts that operational components extend and defines the shared data-ownership rules
-that their public APIs must preserve. The proposed implementation architecture is recorded in
+**Status:** Accepted for Phase 3A on August 8, 2026. This contract inventories the existing Wayglass
+contracts that operational components extend and defines the shared data-ownership rules that their
+public APIs must preserve. The accepted implementation architecture is recorded in
 [ADR 0024](../architecture/adr/0024-operational-data-ownership-and-updates.md). It does not finalize
 any component-specific API.
 

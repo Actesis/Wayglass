@@ -60,6 +60,10 @@ export default defineConfig({
             text: 'Operational-data ownership',
             link: '/data/operational-data',
           },
+          {
+            text: 'Metrics and key-values',
+            link: '/data/metrics-and-key-values',
+          },
         ],
       },
       {
