@@ -1,8 +1,8 @@
 # Phase 3 validation plan
 
-**Status:** Proposed for Phase 3A review on August 3, 2026. This plan defines the evidence every
-Phase 3 milestone must produce and the integrated closeout matrix. It will become the cumulative
-validation record as components are delivered.
+**Status:** Accepted for Phase 3A on August 8, 2026. This plan defines the evidence every Phase 3
+milestone must produce and the integrated closeout matrix. It will become the cumulative validation
+record as components are delivered.
 
 Phase 3 adds dense, dynamic operational data. Passing static role queries is insufficient: the
 system must preserve data meaning, native relationships, focus, reading and scroll context, and

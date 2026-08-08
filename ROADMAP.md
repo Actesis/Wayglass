@@ -211,7 +211,7 @@ universal overlay system.
 
 ## Phase 3 — Operational components
 
-Status: proposed for acceptance.
+Status: Phase 3A complete; Phase 3B active.
 
 Phase 3 delivers the operational-data components defined in `SPEC.md`. The
 [formal Phase 3 plan](./docs/phase-3.md) sequences shared ownership decisions before component APIs
@@ -223,11 +223,11 @@ and retains the boundaries accepted during Phase 2.
 - [x] Draft the operational-data ownership contract and representative fixture model.
 - [x] Draft the data identity, update, focus-stability, and announcement architecture decision.
 - [x] Define the Phase 3 validation matrix and performance bounds.
-- [ ] Review and accept the contracts, architecture, boundaries, and milestone sequence.
+- [x] Review and accept the contracts, architecture, boundaries, and milestone sequence.
 
 ### Phase 3B — Metrics and key values
 
-- [ ] Specify metric-group, trend-indicator, key-value-display, and compatible metric extensions.
+- [x] Specify metric-group, trend-indicator, key-value-display, and compatible metric extensions.
 - [ ] Lock tokens and implement the accepted framework-neutral contracts.
 - [ ] Add typed React wrappers and production-backed stories.
 - [ ] Validate semantics, mixed states, responsive values, themes, forced colors, zoom, and

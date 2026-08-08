@@ -75,6 +75,8 @@ Include an unambiguous unit and useful precision. Do not imply certainty beyond 
 ### Slots
 
 - `label`
+- `trend`: proposed in Phase 3B for one `wg-trend-indicator` or compatible authored presentation;
+  the metric does not calculate or copy its state.
 - `description`
 - `metadata`
 
