@@ -8,7 +8,9 @@ automated cross-browser validation, and production review are complete. Represen
 assistive-technology gates remain carried with explicit release impact. Phase 3D status-list
 contracts, public tokens, framework-neutral elements, typed React wrappers, and production-backed
 stories, automated cross-browser validation, and production review are complete. Representative
-manual assistive-technology gates remain carried with explicit release impact.
+manual assistive-technology gates remain carried with explicit release impact. Phase 3E timeline and
+event-log contracts and their architecture decision are proposed for review; tokens and
+implementation have not started.
 
 Phase 3 turns the Phase 1 and Phase 2 foundations into a reusable operational-data layer. It adds
 scalar summaries, compact telemetry, status collections, temporal records, collection tools, and
@@ -108,6 +110,12 @@ Provide a scan-efficient collection of independently meaningful operational entr
   browsers.
 
 ### Phase 3E — Timeline and event log
+
+**Current status:** The [temporal-collection contracts](./data/temporal-collections.md) and
+[ADR 0026](./architecture/adr/0026-temporal-collection-behavior.md) are proposed for review. They
+separate curated timelines from dense event logs, preserve authored native record content, and keep
+announcements, unseen-record calculation, follow-latest policy, and scroll restoration
+application-owned. Tokens and implementation wait for acceptance.
 
 Share only the record structure that the two temporal views genuinely have in common.
 
