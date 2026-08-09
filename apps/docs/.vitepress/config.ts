@@ -80,6 +80,10 @@ export default defineConfig({
             text: 'Filter and command patterns',
             link: '/data/filter-and-command-patterns',
           },
+          {
+            text: 'Data table',
+            link: '/data/data-table',
+          },
         ],
       },
       {
@@ -208,6 +212,10 @@ export default defineConfig({
             text: 'ADR 0027: Filter and command composition',
             link: '/architecture/adr/0027-filter-and-command-composition',
           },
+          {
+            text: 'ADR 0028: Native data table and overflow',
+            link: '/architecture/adr/0028-native-data-table-and-contained-overflow',
+          },
         ],
       },
       {
@@ -244,6 +252,10 @@ export default defineConfig({
           {
             text: 'Phase 3E temporal-collections validation',
             link: '/accessibility/phase-3e-temporal-collections-validation',
+          },
+          {
+            text: 'Phase 3F filter-and-command validation',
+            link: '/accessibility/phase-3f-filter-command-validation',
           },
           {
             text: 'Phase 2 assistive-technology gates',

@@ -174,6 +174,10 @@ toolbar.
 
 ### Phase 3G — Data table
 
+**Current status:** The [data-table contract](./data/data-table.md) and
+[native-table architecture decision](./architecture/adr/0028-native-data-table-and-contained-overflow.md)
+are proposed for review. No Phase 3G public API or token is locked and implementation has not begun.
+
 Deliver an accessible operational table while retaining native tabular relationships.
 
 - Specify captions, column and row headers, cell content, empty and loading states, overflow,
