@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wayglass telemetry-strip fixture</title>
+    <link rel="stylesheet" href="/packages/tokens/dist/tokens.css" />
+    <link rel="stylesheet" href="/packages/themes/dist/themes.css" />
+    <style>
+      body {
+        margin: 0;
+        color: var(--wg-color-semantic-text-primary);
+        background: var(--wg-color-semantic-surface-page);
+        font-family: var(--wg-typography-family-body);
+      }
+
+      main {
+        box-sizing: border-box;
+        inline-size: min(100%, 72rem);
+        margin-inline: auto;
+        padding: var(--wg-space-reference-4);
+      }
+
+      wg-telemetry-strip:not(:defined) {
+        display: grid;
+        gap: var(--wg-space-reference-3);
+      }
+
+      wg-telemetry-strip:not(:defined) > * {
+        margin-block: 0;
+      }
+    </style>
+  </head>
+  <body data-theme="wayglass-dark" data-density="compact">
+    <main>
+      <wg-telemetry-strip id="history" label="Queue depth" condition="caution" activity="pending">
+        <h1 slot="heading">Queue depth</h1>
+        <p slot="current">Latest observation: 24 records</p>
+        <time slot="window-start" datetime="2026-08-09T18:00:00Z">11:00</time>
+        <time slot="window-end" datetime="2026-08-09T19:00:00Z">12:00</time>
+        <p slot="summary">
+          Queue depth varied between 15 and 31 records. One brief gap and two unavailable intervals
+          occur in the hour; the latest confirmed observation is 24.
+        </p>
+        <button slot="detail" id="details" type="button">Inspect exact observations</button>
+      </wg-telemetry-strip>
+    </main>
+    <script type="module" src="./fixture.ts"></script>
+  </body>
+</html>

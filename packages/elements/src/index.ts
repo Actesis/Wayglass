@@ -131,6 +131,12 @@ export type { MetricSize } from './metric.js';
 export { defineWgMetricGroup, WgMetricGroup, wgMetricGroupTagName } from './metric-group.js';
 export { defineWgKeyValue, WgKeyValue, wgKeyValueTagName } from './key-value.js';
 export {
+  defineWgTelemetryStrip,
+  WgTelemetryStrip,
+  wgTelemetryStripTagName,
+} from './telemetry-strip.js';
+export type { TelemetrySample } from './telemetry-strip.js';
+export {
   defineWgTrendIndicator,
   isTrendDirection,
   trendDirections,
