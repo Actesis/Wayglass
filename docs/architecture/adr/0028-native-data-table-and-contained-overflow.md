@@ -1,6 +1,6 @@
 # ADR 0028: Preserve one native table inside the accepted scroll boundary
 
-- Status: proposed
+- Status: accepted
 - Date: 2026-08-09
 
 ## Context

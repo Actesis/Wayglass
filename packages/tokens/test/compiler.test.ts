@@ -537,6 +537,38 @@ describe('token compiler', () => {
     );
   });
 
+  it('contains the locked Phase 3G data-table token roles', () => {
+    expect(Object.keys(tokens)).toEqual(
+      expect.arrayContaining([
+        'component.data-table.color.background',
+        'component.data-table.color.table-background',
+        'component.data-table.color.border',
+        'component.data-table.color.row-separator',
+        'component.data-table.color.caption',
+        'component.data-table.color.header',
+        'component.data-table.color.text',
+        'component.data-table.color.context',
+        'component.data-table.radius',
+        'component.data-table.space',
+        'component.data-table.space.group',
+        'component.data-table.space.cell-block',
+        'component.data-table.space.cell-inline',
+      ]),
+    );
+    expect(tokens['component.data-table.color.background'].value).toBe(
+      '{color.semantic.surface.panel}',
+    );
+    expect(tokens['component.data-table.color.table-background'].value).toBe(
+      '{color.semantic.surface.inset}',
+    );
+    expect(tokens['component.data-table.color.row-separator'].value).toBe(
+      '{color.semantic.border.subtle}',
+    );
+    expect(tokens['component.data-table.color.context'].value).toBe(
+      '{color.semantic.text.secondary}',
+    );
+  });
+
   it('provides accessible contrast for the default dark-theme foundations', () => {
     const paper = referenceColor('color.reference.paper.50');
     const canvas = referenceColor('color.reference.ink.950');
