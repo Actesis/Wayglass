@@ -1,4 +1,5 @@
 import type { WgMetric as WgMetricElement } from '@wayglass/elements/metric';
+import type { WgTelemetryStrip as WgTelemetryStripElement } from '@wayglass/elements/telemetry-strip';
 import { createElement, createRef, isValidElement } from 'react';
 import { describe, expect, it } from 'vitest';
 
@@ -40,6 +41,7 @@ import {
   WgStatusIndicator,
   WgSurface,
   WgTextField,
+  WgTelemetryStrip,
   WgTrendIndicator,
   WgTab,
   WgTabList,
@@ -93,6 +95,7 @@ describe('Wayglass React wrappers', () => {
       WgMetric,
       WgMetricGroup,
       WgKeyValue,
+      WgTelemetryStrip,
       WgTrendIndicator,
       WgValueTile,
       WgTabs,
@@ -143,6 +146,7 @@ describe('Wayglass React wrappers', () => {
       'WgMetric',
       'WgMetricGroup',
       'WgKeyValue',
+      'WgTelemetryStrip',
       'WgTrendIndicator',
       'WgValueTile',
       'WgTabs',
@@ -178,6 +182,27 @@ describe('Wayglass React wrappers', () => {
     expect(metric.props.condition).toBe('caution');
     expect(metric.props.knowledge).toBe('stale');
     expect(metric.props.ref).toBe(ref);
+  });
+
+  it('preserves telemetry samples as a typed property and supports element refs', () => {
+    const ref = createRef<WgTelemetryStripElement>();
+    const samples = [
+      { observedAt: 0, value: 12 },
+      { observedAt: 1, value: null, knowledge: 'unavailable' },
+    ] as const;
+    const telemetry = createElement(WgTelemetryStrip, {
+      ref,
+      label: 'Queue depth',
+      samples,
+      windowStart: 0,
+      windowEnd: 1,
+      scaleMinimum: 0,
+      scaleMaximum: 20,
+    });
+
+    expect(isValidElement(telemetry)).toBe(true);
+    expect(telemetry.props.samples).toBe(samples);
+    expect(telemetry.props.ref).toBe(ref);
   });
 
   it('preserves the typed theme-change callback prop', () => {

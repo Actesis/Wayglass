@@ -147,27 +147,27 @@ export class WgTelemetryStrip extends WayglassElement {
       vector-effect: non-scaling-stroke;
     }
 
-    [data-knowledge='confirmed'] {
+    [part='graphic'] [data-knowledge='confirmed'] {
       color: var(--wg-telemetry-strip-color-series);
       stroke-dasharray: none;
     }
-    [data-knowledge='inferred'] {
+    [part='graphic'] [data-knowledge='inferred'] {
       color: var(--wg-color-semantic-knowledge-inferred);
       stroke-dasharray: 2 5;
     }
-    [data-knowledge='stale'] {
+    [part='graphic'] [data-knowledge='stale'] {
       color: var(--wg-color-semantic-knowledge-stale);
       stroke-dasharray: 10 6;
     }
-    [data-knowledge='unknown'] {
+    [part='graphic'] [data-knowledge='unknown'] {
       color: var(--wg-color-semantic-knowledge-unknown);
       stroke-dasharray: 1 4 8 4;
     }
-    [data-knowledge='conflicting'] {
+    [part='graphic'] [data-knowledge='conflicting'] {
       color: var(--wg-color-semantic-knowledge-conflicting);
       stroke-dasharray: 12 3 2 3;
     }
-    [data-knowledge='unavailable'] {
+    [part='graphic'] [data-knowledge='unavailable'] {
       color: var(--wg-color-semantic-knowledge-unavailable);
       stroke-dasharray: 4 9;
     }
@@ -208,22 +208,6 @@ export class WgTelemetryStrip extends WayglassElement {
     .condition {
       color: var(--_wg-telemetry-condition-color);
       font-weight: var(--wg-typography-weight-medium);
-    }
-
-    .knowledge[data-knowledge='inferred'] {
-      color: var(--wg-color-semantic-knowledge-inferred);
-    }
-    .knowledge[data-knowledge='stale'] {
-      color: var(--wg-color-semantic-knowledge-stale);
-    }
-    .knowledge[data-knowledge='unknown'] {
-      color: var(--wg-color-semantic-knowledge-unknown);
-    }
-    .knowledge[data-knowledge='conflicting'] {
-      color: var(--wg-color-semantic-knowledge-conflicting);
-    }
-    .knowledge[data-knowledge='unavailable'] {
-      color: var(--wg-color-semantic-knowledge-unavailable);
     }
 
     [hidden] {

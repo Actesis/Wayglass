@@ -12,14 +12,23 @@ import {
   WgTabList,
   WgTabPanel,
   WgTabs,
+  WgTelemetryStrip,
   WgThemeProvider,
   WgTrendIndicator,
   WgToggle,
   WgValueTile,
 } from '../src/index.js';
 import type { WgConfirmationDialog as WgConfirmationDialogElement } from '@wayglass/elements/confirmation-dialog';
+import type { TelemetrySample } from '@wayglass/elements/telemetry-strip';
 import { useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
+
+const telemetrySamples = [
+  { observedAt: 0, value: 12 },
+  { observedAt: 1, value: 16, knowledge: 'inferred' },
+  { observedAt: 2, value: null, knowledge: 'unavailable' },
+  { observedAt: 3, value: 14 },
+] as const satisfies readonly TelemetrySample[];
 
 function ReactFixture() {
   const [theme, setTheme] = useState<'wayglass-dark' | 'wayglass-light'>('wayglass-dark');
@@ -69,6 +78,29 @@ function ReactFixture() {
           </WgMetric>
           <WgKeyValue id="react-key-value" label="Active policy" value="Standard review" />
         </WgMetricGroup>
+        <WgTelemetryStrip
+          id="react-telemetry"
+          ref={(element) => {
+            document.documentElement.dataset.telemetryRefTag = element?.localName ?? '';
+          }}
+          label="React queue depth"
+          samples={telemetrySamples}
+          windowStart={0}
+          windowEnd={3}
+          scaleMinimum={0}
+          scaleMaximum={20}
+          activity="pending"
+        >
+          <h2 slot="heading">React queue depth</h2>
+          <span slot="current">Latest observation: 14 records</span>
+          <time slot="window-start" dateTime="2026-08-09T18:00:00Z">
+            11:00
+          </time>
+          <time slot="window-end" dateTime="2026-08-09T19:00:00Z">
+            12:00
+          </time>
+          <p slot="summary">One unavailable observation occurs in the React-authored history.</p>
+        </WgTelemetryStrip>
         <WgTabs
           id="react-tabs"
           ref={(element) => {

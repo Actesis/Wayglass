@@ -50,6 +50,10 @@ bounded performance while authored records change.
 
 ### Phase 3C — Telemetry
 
+Automated implementation evidence is complete; see the
+[Phase 3C telemetry validation record](./phase-3c-telemetry-validation.md). Representative manual
+assistive-technology procedures remain public-release gates.
+
 - Steady, sparse, gapped, changing, out-of-range, stale, unavailable, and live-replaced series.
 - Equivalent readable value, unit, time window, state, and trend summary without relying on rendered
   paths or pixels.

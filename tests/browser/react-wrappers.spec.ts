@@ -10,6 +10,7 @@ test.beforeEach(async ({ page }) => {
       customElements.get('wg-metric-group') !== undefined &&
       customElements.get('wg-trend-indicator') !== undefined &&
       customElements.get('wg-key-value') !== undefined &&
+      customElements.get('wg-telemetry-strip') !== undefined &&
       customElements.get('wg-button') !== undefined &&
       customElements.get('wg-value-tile') !== undefined &&
       customElements.get('wg-tabs') !== undefined &&
@@ -31,6 +32,17 @@ test('registers wrappers and assigns typed element properties', async ({ page })
   await expect(page.locator('#react-metric-group')).toHaveJSProperty('label', 'React scalar data');
   await expect(page.locator('#react-trended-metric').getByText('Rising')).toBeVisible();
   await expect(page.locator('#react-key-value')).toHaveJSProperty('value', 'Standard review');
+  await expect(page.locator('html')).toHaveAttribute(
+    'data-telemetry-ref-tag',
+    'wg-telemetry-strip',
+  );
+  await expect(page.locator('#react-telemetry')).toHaveJSProperty('samples', [
+    { observedAt: 0, value: 12 },
+    { observedAt: 1, value: 16, knowledge: 'inferred' },
+    { observedAt: 2, value: null, knowledge: 'unavailable' },
+    { observedAt: 3, value: 14 },
+  ]);
+  await expect(page.getByRole('group', { name: 'React queue depth' })).toBeVisible();
   await expect(page.locator('html')).toHaveAttribute('data-tabs-ref-tag', 'wg-tabs');
   await expect(page.locator('#react-tabs')).toHaveJSProperty('activation', 'automatic');
   await expect(page.locator('#react-tabs')).toHaveJSProperty('orientation', 'horizontal');
