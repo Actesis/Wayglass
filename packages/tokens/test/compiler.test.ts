@@ -394,6 +394,28 @@ describe('token compiler', () => {
     expect(tokens['component.key-value.size.label-minimum'].value).toBe('8rem');
   });
 
+  it('contains the locked Phase 3C telemetry token roles', () => {
+    expect(Object.keys(tokens)).toEqual(
+      expect.arrayContaining([
+        'component.telemetry-strip.color.background',
+        'component.telemetry-strip.color.graphic-background',
+        'component.telemetry-strip.color.border',
+        'component.telemetry-strip.color.heading',
+        'component.telemetry-strip.color.current',
+        'component.telemetry-strip.color.series',
+        'component.telemetry-strip.color.context',
+        'component.telemetry-strip.color.state',
+        'component.telemetry-strip.radius',
+        'component.telemetry-strip.space',
+        'component.telemetry-strip.space.related',
+        'component.telemetry-strip.size.graphic-block',
+        'component.telemetry-strip.width.series',
+      ]),
+    );
+    expect(tokens['component.telemetry-strip.size.graphic-block'].value).toBe('7rem');
+    expect(tokens['component.telemetry-strip.width.series'].value).toBe('{border.width.strong}');
+  });
+
   it('provides accessible contrast for the default dark-theme foundations', () => {
     const paper = referenceColor('color.reference.paper.50');
     const canvas = referenceColor('color.reference.ink.950');

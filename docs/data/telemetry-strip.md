@@ -3,7 +3,7 @@
 **Status:** Accepted on August 9, 2026. This contract defines the Phase 3C boundary for
 `wg-telemetry-strip`. Its fallback, resize, forced-colors, and high-volume architecture proof
 passed, and [ADR 0025](../architecture/adr/0025-telemetry-rendering-and-accessible-equivalence.md)
-is accepted. Tokens and production implementation remain next.
+is accepted. The required public tokens are locked; production implementation remains next.
 
 `wg-telemetry-strip` presents a compact recent history beside an application-authored readable
 summary. It helps a person recognize shape, continuity, and recency at a glance without becoming a
@@ -186,7 +186,7 @@ no alternate data behavior. Forced colors must preserve the path, points, gaps, 
 controls, and observation distinctions using system colors plus geometry or line pattern. Themes may
 substantially adapt color, weight, surface, and spacing without changing those meanings.
 
-## Proposed API
+## API
 
 ### Attributes and properties
 
@@ -218,7 +218,27 @@ display components.
 
 None.
 
-### Proposed CSS parts
+### CSS custom properties
+
+- `--wg-telemetry-strip-color-background`
+- `--wg-telemetry-strip-color-graphic-background`
+- `--wg-telemetry-strip-color-border`
+- `--wg-telemetry-strip-color-heading`
+- `--wg-telemetry-strip-color-current`
+- `--wg-telemetry-strip-color-series`
+- `--wg-telemetry-strip-color-context`
+- `--wg-telemetry-strip-color-state`
+- `--wg-telemetry-strip-radius`
+- `--wg-telemetry-strip-space`
+- `--wg-telemetry-strip-space-related`
+- `--wg-telemetry-strip-size-graphic-block`
+- `--wg-telemetry-strip-width-series`
+
+Knowledge-state colors use the shared semantic knowledge tokens. Dash patterns, viewBox geometry,
+path grouping, point radius, and gap-mark height remain fixed private mechanics so themes cannot
+erase their non-color distinctions or imply an unsupported chart API.
+
+### CSS parts
 
 - `base`
 - `header`

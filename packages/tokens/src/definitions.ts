@@ -1705,6 +1705,71 @@ export const tokens = {
     type: 'dimension',
     description: 'Preferred label measure for aligned key-value scanning before narrow reflow.',
   },
+  'component.telemetry-strip.color.background': {
+    value: '{color.semantic.surface.panel}',
+    type: 'color',
+    description: 'Contained background for one compact telemetry history.',
+  },
+  'component.telemetry-strip.color.graphic-background': {
+    value: '{color.semantic.surface.inset}',
+    type: 'color',
+    description: 'Inset background behind calculated telemetry geometry.',
+  },
+  'component.telemetry-strip.color.border': {
+    value: '{color.semantic.border.subtle}',
+    type: 'color',
+    description: 'Routine boundary around one telemetry strip.',
+  },
+  'component.telemetry-strip.color.heading': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'Telemetry-strip heading text.',
+  },
+  'component.telemetry-strip.color.current': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'Application-authored present-value context beside telemetry history.',
+  },
+  'component.telemetry-strip.color.series': {
+    value: '{color.semantic.data.series.1}',
+    type: 'color',
+    description: 'Confirmed single-series telemetry geometry without condition meaning.',
+  },
+  'component.telemetry-strip.color.context': {
+    value: '{color.semantic.text.secondary}',
+    type: 'color',
+    description: 'Telemetry time-window, summary, and supporting detail text.',
+  },
+  'component.telemetry-strip.color.state': {
+    value: '{color.semantic.text.secondary}',
+    type: 'color',
+    description: 'Telemetry-strip known-state text before state-specific semantic color.',
+  },
+  'component.telemetry-strip.radius': {
+    value: '{shape.radius.panel}',
+    type: 'dimension',
+    description: 'Telemetry-strip contained-surface radius.',
+  },
+  'component.telemetry-strip.space': {
+    value: '{space.reference.4}',
+    type: 'dimension',
+    description: 'Density-aware telemetry-strip edge and section spacing.',
+  },
+  'component.telemetry-strip.space.related': {
+    value: '{space.reference.2}',
+    type: 'dimension',
+    description: 'Density-aware spacing between closely related telemetry anatomy.',
+  },
+  'component.telemetry-strip.size.graphic-block': {
+    value: '7rem',
+    type: 'dimension',
+    description: 'Preferred block size of the compact telemetry graphic.',
+  },
+  'component.telemetry-strip.width.series': {
+    value: '{border.width.strong}',
+    type: 'dimension',
+    description: 'Visible non-scaling telemetry series stroke width.',
+  },
   'component.value-tile.color.background': {
     value: '{color.semantic.surface.panel}',
     type: 'color',
