@@ -210,6 +210,10 @@ export default defineConfig({
             link: '/accessibility/phase-3b-scalar-data-validation',
           },
           {
+            text: 'Phase 3C telemetry architecture proof',
+            link: '/accessibility/phase-3c-telemetry-architecture-proof',
+          },
+          {
             text: 'Phase 2 assistive-technology gates',
             link: '/accessibility/phase-2-assistive-technology-gates',
           },
