@@ -1,5 +1,8 @@
 import { defineWgBooleanValue } from '/packages/elements/dist/boolean-value.js';
+import { defineWgEmptyState } from '/packages/elements/dist/empty-state.js';
 import { defineWgKeyValue } from '/packages/elements/dist/key-value.js';
+import { defineWgOfflineState } from '/packages/elements/dist/offline-state.js';
+import { defineWgProgress } from '/packages/elements/dist/progress.js';
 import { defineWgStatusEntry } from '/packages/elements/dist/status-entry.js';
 import { defineWgStatusList } from '/packages/elements/dist/status-list.js';
 
@@ -108,12 +111,65 @@ function renderEnvelope(): void {
   fixture.append(list);
 }
 
+function renderFeedback(): void {
+  const fixture = document.querySelector<HTMLElement>('#fixture');
+  if (!fixture) return;
+  fixture.innerHTML = `
+    <wg-status-list id="loading-list" label="Loading sources" busy>
+      <h1 slot="heading">Loading sources</h1>
+      <wg-progress slot="status">
+        <label for="loading-progress">Loading current source summaries</label>
+        <progress id="loading-progress" aria-label="Loading current source summaries"></progress>
+        <span>Waiting for the first confirmed response.</span>
+      </wg-progress>
+    </wg-status-list>
+
+    <wg-status-list id="filtered-list" label="Matching sources">
+      <h2 slot="heading">Matching sources</h2>
+      <wg-empty-state slot="status" label="No matching sources">
+        <h3 slot="heading">No matching sources</h3>
+        <p>Clear the current filters to return to the authored collection.</p>
+        <button slot="actions" type="button">Clear source filters</button>
+      </wg-empty-state>
+    </wg-status-list>
+
+    <wg-status-list id="partial-list" label="Partial sources">
+      <h2 slot="heading">Partial sources</h2>
+      <p slot="status">Three sources could not be reached; confirmed results remain visible.</p>
+      <wg-status-entry id="partial-source" label="Confirmed source" condition="positive">
+        <span slot="description">This source returned a confirmed current summary.</span>
+      </wg-status-entry>
+    </wg-status-list>
+
+    <wg-status-list id="offline-list" label="Remote sources">
+      <h2 slot="heading">Remote sources</h2>
+      <wg-offline-state slot="status" label="Remote source is offline">
+        <h3 slot="heading">Remote source is offline</h3>
+        <p>Retained entries keep their last confirmed state.</p>
+        <time slot="last-known" datetime="2026-08-09T14:12:00-07:00">Last confirmed at 2:12 PM</time>
+      </wg-offline-state>
+      <wg-status-entry id="retained-source" label="Retained source" condition="caution" knowledge="stale">
+        <span slot="description">The retained summary remains visible while offline.</span>
+      </wg-status-entry>
+    </wg-status-list>
+
+    <wg-status-list id="failure-list" label="Unavailable sources">
+      <h2 slot="heading">Unavailable sources</h2>
+      <p slot="status">Current summaries are unavailable. Retry remains application-owned.</p>
+    </wg-status-list>
+  `;
+}
+
 const started = performance.now();
 if (parameters.get('fixture') === 'envelope') renderEnvelope();
+if (parameters.get('fixture') === 'feedback') renderFeedback();
 
 if (parameters.get('upgrade') !== 'false') {
   defineWgKeyValue();
   defineWgBooleanValue();
+  defineWgEmptyState();
+  defineWgOfflineState();
+  defineWgProgress();
   defineWgStatusEntry();
   defineWgStatusList();
 }

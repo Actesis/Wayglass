@@ -7,7 +7,8 @@ accepted after cross-browser proof, and its element, tokens, React wrapper, prod
 automated cross-browser validation, and production review are complete. Representative manual
 assistive-technology gates remain carried with explicit release impact. Phase 3D status-list
 contracts, public tokens, framework-neutral elements, typed React wrappers, and production-backed
-stories are complete; automated validation and production review are next.
+stories, automated cross-browser validation, and production review are complete. Representative
+manual assistive-technology gates remain carried with explicit release impact.
 
 Phase 3 turns the Phase 1 and Phase 2 foundations into a reusable operational-data layer. It adds
 scalar summaries, compact telemetry, status collections, temporal records, collection tools, and
@@ -89,8 +90,8 @@ Deliver a compact operational history, not a general chart package.
 
 **Current status:** The [`wg-status-list` and `wg-status-entry` contracts](./data/status-list.md)
 and their required public tokens, framework-neutral elements, typed React wrappers, and
-production-backed stories are implemented. The broader automated validation matrix and production
-review remain next.
+production-backed stories are implemented. Automated cross-browser validation and production review
+are complete; representative manual assistive-technology procedures remain public-release gates.
 
 Provide a scan-efficient collection of independently meaningful operational entries.
 

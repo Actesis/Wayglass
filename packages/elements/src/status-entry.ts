@@ -32,7 +32,6 @@ export class WgStatusEntry extends WayglassElement {
       --wg-status-entry-size-signal: var(--wg-component-status-entry-size-signal);
       --_wg-status-entry-condition-color: var(--wg-status-entry-color-condition);
       --_wg-status-entry-condition-text: var(--wg-status-entry-color-state);
-      --_wg-status-entry-knowledge-color: var(--wg-status-entry-color-state);
       --_wg-status-entry-activity-color: var(--wg-color-semantic-activity-idle);
 
       display: block;
@@ -45,7 +44,6 @@ export class WgStatusEntry extends WayglassElement {
 
     :host([condition='informational']) {
       --_wg-status-entry-condition-color: var(--wg-color-semantic-condition-informational);
-      --_wg-status-entry-condition-text: var(--wg-color-semantic-condition-informational);
     }
     :host([condition='positive']) {
       --_wg-status-entry-condition-color: var(--wg-color-semantic-condition-positive);
@@ -60,21 +58,6 @@ export class WgStatusEntry extends WayglassElement {
       --_wg-status-entry-condition-text: var(--wg-color-semantic-condition-critical);
     }
 
-    :host([knowledge='inferred']) {
-      --_wg-status-entry-knowledge-color: var(--wg-color-semantic-knowledge-inferred);
-    }
-    :host([knowledge='stale']) {
-      --_wg-status-entry-knowledge-color: var(--wg-color-semantic-knowledge-stale);
-    }
-    :host([knowledge='unknown']) {
-      --_wg-status-entry-knowledge-color: var(--wg-color-semantic-knowledge-unknown);
-    }
-    :host([knowledge='conflicting']) {
-      --_wg-status-entry-knowledge-color: var(--wg-color-semantic-knowledge-conflicting);
-    }
-    :host([knowledge='unavailable']) {
-      --_wg-status-entry-knowledge-color: var(--wg-color-semantic-knowledge-unavailable);
-    }
     :host([activity='pending']) {
       --_wg-status-entry-activity-color: var(--wg-color-semantic-activity-pending);
     }
@@ -152,11 +135,11 @@ export class WgStatusEntry extends WayglassElement {
     }
 
     [part='knowledge'] {
-      color: var(--_wg-status-entry-knowledge-color);
+      color: var(--wg-status-entry-color-state);
     }
 
     [part='activity'] {
-      color: var(--_wg-status-entry-activity-color);
+      color: var(--wg-status-entry-color-state);
     }
 
     [part='description'],

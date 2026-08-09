@@ -222,6 +222,10 @@ export default defineConfig({
             link: '/accessibility/phase-3c-telemetry-validation',
           },
           {
+            text: 'Phase 3D status-list validation',
+            link: '/accessibility/phase-3d-status-list-validation',
+          },
+          {
             text: 'Phase 2 assistive-technology gates',
             link: '/accessibility/phase-2-assistive-technology-gates',
           },

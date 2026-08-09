@@ -1826,9 +1826,9 @@ export const tokens = {
     description: 'Status-entry description, time, and metadata text.',
   },
   'component.status-entry.color.state': {
-    value: '{color.semantic.text.secondary}',
+    value: '{color.semantic.text.primary}',
     type: 'color',
-    description: 'Status-entry known-state text before state-specific semantic color.',
+    description: 'Contrast-safe status-entry state text.',
   },
   'component.status-entry.color.condition': {
     value: '{color.semantic.condition.neutral}',

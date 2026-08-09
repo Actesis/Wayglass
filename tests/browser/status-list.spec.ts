@@ -79,6 +79,51 @@ test('renders condition, knowledge, and activity independently with icon-free te
   await expect(page.getByText('Verified', { exact: true })).toBeVisible();
 });
 
+test('covers every state value and optional-content shape in the 100-entry envelope', async ({
+  page,
+}) => {
+  await openStatusList(page, '?fixture=envelope');
+  for (const condition of ['neutral', 'informational', 'positive', 'caution', 'critical']) {
+    await expect(page.locator(`wg-status-entry[condition="${condition}"]`).first()).toBeVisible();
+  }
+  for (const knowledge of [
+    'confirmed',
+    'inferred',
+    'stale',
+    'unknown',
+    'conflicting',
+    'unavailable',
+  ]) {
+    await expect(page.locator(`wg-status-entry[knowledge="${knowledge}"]`).first()).toBeVisible();
+  }
+  await expect(page.locator('wg-status-entry[activity="pending"]')).toHaveCount(14);
+  await expect(page.locator('wg-status-entry > [slot="value"]')).toHaveCount(25);
+  await expect(page.locator('wg-status-entry > time[slot="time"]')).toHaveCount(20);
+  await expect(page.locator('wg-status-entry > [slot="metadata"]')).toHaveCount(16);
+  await expect(page.locator('wg-status-entry > button[slot="actions"]')).toHaveCount(10);
+  await expect(page.locator('#status-entry-001 > [slot="value"]')).toHaveCount(0);
+});
+
+test('keeps loading, filtered-empty, partial, offline, and failure feedback application-authored', async ({
+  page,
+}) => {
+  await openStatusList(page, '?fixture=feedback');
+  await expect(page.getByRole('list')).toHaveCount(5);
+  await expect(page.getByRole('listitem')).toHaveCount(2);
+  await expect(page.getByRole('list', { name: 'Loading sources' })).toHaveAttribute(
+    'aria-busy',
+    'true',
+  );
+  await expect(
+    page.getByRole('progressbar', { name: 'Loading current source summaries' }),
+  ).toBeVisible();
+  await expect(page.getByRole('group', { name: 'No matching sources' })).toBeVisible();
+  await expect(page.getByRole('group', { name: 'Remote source is offline' })).toBeVisible();
+  await expect(page.getByText('Three sources could not be reached')).toBeVisible();
+  await expect(page.getByText('Current summaries are unavailable')).toBeVisible();
+  await expect(page.locator('wg-status-list [aria-live]')).toHaveCount(0);
+});
+
 test('normalizes invalid state attributes without emitting user-intent events', async ({
   page,
 }) => {
@@ -139,6 +184,10 @@ test('updates and reorders 100 stable entries without disturbing focused authore
   await page.locator('#status-action-050').focus();
 
   const result = await page.locator('#status-envelope').evaluate(async (list) => {
+    const observer = PerformanceObserver.supportedEntryTypes.includes('longtask')
+      ? new PerformanceObserver(() => undefined)
+      : undefined;
+    observer?.observe({ type: 'longtask', buffered: true });
     const entries = Array.from(list.querySelectorAll<HTMLElement>('wg-status-entry'));
     const focusedEntry = document.querySelector<HTMLElement>('#status-entry-050')!;
     const focusedReference = focusedEntry;
@@ -153,9 +202,12 @@ test('updates and reorders 100 stable entries without disturbing focused authore
     for (const entry of entries.slice(50).reverse()) list.append(entry);
     const synchronousDuration = performance.now() - started;
     await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+    const longTasks = observer?.takeRecords().map((entry) => entry.duration) ?? [];
+    observer?.disconnect();
 
     return {
       synchronousDuration,
+      longTasks,
       focused: document.activeElement?.id,
       sameNode: document.querySelector('#status-entry-050') === focusedReference,
       count: list.querySelectorAll('wg-status-entry').length,
@@ -171,7 +223,158 @@ test('updates and reorders 100 stable entries without disturbing focused authore
   expect(result.first).toBe('status-entry-049');
   expect(result.events).toBe(0);
   expect(result.overflow).toBeLessThanOrEqual(1);
+  expect(result.longTasks.filter((duration) => duration >= 100)).toEqual([]);
   if (browserName === 'chromium') expect(result.synchronousDuration).toBeLessThan(100);
+});
+
+test('preserves identity and unaffected focus across insertion, cross-list movement, and removal recovery', async ({
+  page,
+}) => {
+  await openStatusList(page, '?fixture=envelope');
+  await page.locator('#status-action-050').focus();
+  const result = await page.locator('#status-envelope').evaluate(async (list) => {
+    const focusedEntry = list.querySelector<HTMLElement>('#status-entry-050')!;
+    const focusedReference = focusedEntry;
+    const movedEntry = list.querySelector<HTMLElement>('#status-entry-049')!;
+    const movedReference = movedEntry;
+    const createEntry = (id: string, label: string) => {
+      const entry = document.createElement('wg-status-entry');
+      entry.id = id;
+      entry.setAttribute('label', label);
+      const summary = document.createElement('span');
+      summary.slot = 'description';
+      summary.textContent = `${label} summary.`;
+      entry.append(summary);
+      return entry;
+    };
+
+    const before = createEntry('inserted-before', 'Inserted before');
+    const after = createEntry('inserted-after', 'Inserted after');
+    list.insertBefore(before, focusedEntry);
+    list.insertBefore(after, focusedEntry.nextSibling);
+
+    const destination = document.createElement('wg-status-list');
+    destination.id = 'moved-list';
+    destination.setAttribute('label', 'Moved sources');
+    document.querySelector('main')!.append(destination);
+    destination.append(movedEntry);
+    await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+
+    const focusAfterInsertAndMove = document.activeElement?.id;
+    const insertedOrder = [
+      before.nextElementSibling?.id,
+      after.previousElementSibling?.id,
+      after.nextElementSibling?.id,
+    ];
+    const recovery = list.querySelector<HTMLButtonElement>('#status-action-060')!;
+    recovery.focus();
+    focusedEntry.remove();
+    await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+
+    return {
+      focusAfterInsertAndMove,
+      focusAfterRecovery: document.activeElement?.id,
+      focusedSameBeforeRemoval: focusedEntry === focusedReference,
+      movedSameNode: destination.querySelector('#status-entry-049') === movedReference,
+      insertedOrder,
+      remaining: list.querySelectorAll('wg-status-entry').length,
+    };
+  });
+
+  expect(result.focusAfterInsertAndMove).toBe('status-action-050');
+  expect(result.focusAfterRecovery).toBe('status-action-060');
+  expect(result.focusedSameBeforeRemoval).toBe(true);
+  expect(result.movedSameNode).toBe(true);
+  expect(result.insertedOrder).toEqual([
+    'status-entry-050',
+    'status-entry-050',
+    'status-entry-051',
+  ]);
+  expect(result.remaining).toBe(100);
+});
+
+test('records the Chromium 100-entry construction and mutation envelope', async ({
+  page,
+  browserName,
+}) => {
+  test.skip(browserName !== 'chromium', 'The timing regression threshold is Chromium-specific.');
+  const warmUpCount = 3;
+  const iterationCount = 15;
+  await openStatusList(page, '?fixture=envelope');
+
+  for (let index = 0; index < warmUpCount; index += 1) {
+    await page.reload();
+    await page.waitForSelector('#status-envelope');
+  }
+
+  const constructionDurations: number[] = [];
+  for (let index = 0; index < iterationCount; index += 1) {
+    await page.reload();
+    await page.waitForSelector('#status-envelope');
+    constructionDurations.push(
+      await page.evaluate(
+        () =>
+          (window as Window & { statusListConstructionDuration?: number })
+            .statusListConstructionDuration ?? 0,
+      ),
+    );
+  }
+
+  const mutationDurations = await page
+    .locator('#status-envelope')
+    .evaluate(async (list, iterations) => {
+      const entries = Array.from(list.querySelectorAll('wg-status-entry')) as Array<
+        HTMLElement & { updateComplete: Promise<boolean> }
+      >;
+      const durations: number[] = [];
+      for (let iteration = 0; iteration < iterations; iteration += 1) {
+        const started = performance.now();
+        entries.forEach((entry, index) => {
+          entry.setAttribute('condition', (index + iteration) % 2 === 0 ? 'positive' : 'caution');
+          entry.setAttribute('knowledge', (index + iteration) % 3 === 0 ? 'stale' : 'confirmed');
+        });
+        const first = list.querySelector('wg-status-entry');
+        if (first) list.append(first);
+        durations.push(performance.now() - started);
+        await Promise.all(entries.map((entry) => entry.updateComplete));
+        await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+      }
+      return durations;
+    }, iterationCount);
+
+  const median = (values: readonly number[]) => {
+    const sorted = [...values].sort((left, right) => left - right);
+    return sorted[Math.floor(sorted.length / 2)] ?? 0;
+  };
+  const record = {
+    warmUpCount,
+    iterationCount,
+    entryCount: 100,
+    medianConstructionMs: median(constructionDurations),
+    medianMutationMs: median(mutationDurations),
+    largestSynchronousMutationMs: Math.max(...mutationDurations),
+  };
+  console.info(`[phase-3d-performance] ${JSON.stringify(record)}`);
+  expect(record.medianConstructionMs).toBeLessThan(100);
+  expect(record.medianMutationMs).toBeLessThan(100);
+  expect(record.largestSynchronousMutationMs).toBeLessThan(100);
+});
+
+test('maps compact and comfortable density without changing authored semantics', async ({
+  page,
+}) => {
+  const gaps: number[] = [];
+  for (const density of ['compact', 'comfortable'] as const) {
+    await openStatusList(page, `?density=${density}`);
+    gaps.push(
+      await page
+        .locator('#active-list')
+        .locator('section[part="base"]')
+        .evaluate((element) => Number.parseFloat(getComputedStyle(element).gap)),
+    );
+    await expect(page.getByRole('list', { name: 'Active sources' })).toBeVisible();
+  }
+  expect(gaps[1]).toBeGreaterThan(gaps[0]!);
 });
 
 test('supports narrow reflow, forced colors, reduced motion, and accessibility', async ({
@@ -182,6 +385,7 @@ test('supports narrow reflow, forced colors, reduced motion, and accessibility',
   await openStatusList(page, '?theme=wayglass-light&density=comfortable&dir=rtl');
   await page.evaluate(() => {
     document.documentElement.style.fontSize = '200%';
+    document.querySelector('main')!.style.filter = 'grayscale(1)';
   });
   await page.evaluate(() => new Promise<void>((resolve) => requestAnimationFrame(() => resolve())));
 
@@ -193,5 +397,19 @@ test('supports narrow reflow, forced colors, reduced motion, and accessibility',
   await expect(page.getByText('Caution', { exact: true })).toBeVisible();
   await expect(page.getByText('Data stale', { exact: true })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Inspect South source' })).toBeVisible();
+  expect(
+    await page
+      .locator('#south-source')
+      .evaluate((element) => getComputedStyle(element).transitionDuration),
+  ).toBe('0s');
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
 });
+
+for (const theme of ['wayglass-dark', 'wayglass-light'] as const) {
+  test(`passes status-list accessibility checks in ${theme}`, async ({ page }) => {
+    await openStatusList(page, `?fixture=envelope&theme=${theme}`);
+    const results = await new AxeBuilder({ page }).analyze();
+    expect(results.violations).toEqual([]);
+    await expect(page.locator('[aria-live], [role="status"], [role="alert"]')).toHaveCount(0);
+  });
+}
