@@ -12,7 +12,8 @@ manual assistive-technology gates remain carried with explicit release impact. P
 event-log contracts, architecture decision, public tokens, four framework-neutral elements, typed
 React wrappers, production stories, automated cross-browser validation, and production review are
 complete. Representative manual assistive-technology gates remain carried with explicit release
-impact.
+impact. Phase 3F filter and command contracts and their composition architecture are proposed for
+review; tokens and implementation wait for acceptance.
 
 Phase 3 turns the Phase 1 and Phase 2 foundations into a reusable operational-data layer. It adds
 scalar summaries, compact telemetry, status collections, temporal records, collection tools, and
@@ -141,6 +142,13 @@ Share only the record structure that the two temporal views genuinely have in co
   forced colors, reduced motion, zoom, and supported browsers.
 
 ### Phase 3F — Filter and command patterns
+
+**Current status:** The
+[filter and command pattern contracts](./data/filter-and-command-patterns.md) and
+[ADR 0027](./architecture/adr/0027-filter-and-command-composition.md) are proposed for review. They
+preserve native form submission and reset, existing command activation, stable visible priority,
+explicitly authored overflow, durable result and outcome context, ordinary Tab order, and
+application-owned execution. Tokens and implementation wait for acceptance.
 
 Create compositional working areas for existing controls rather than a query engine or universal
 toolbar.
