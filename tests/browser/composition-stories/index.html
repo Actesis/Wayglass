@@ -24,6 +24,7 @@
 
       const parameters = new URLSearchParams(window.location.search);
       const fixture = parameters.get('fixture') ?? 'workspace';
+      document.documentElement.dir = parameters.get('direction') === 'rtl' ? 'rtl' : 'ltr';
       const options = {
         width: parameters.get('width') ?? 'desktop',
         theme: parameters.get('theme') ?? 'wayglass-dark',
