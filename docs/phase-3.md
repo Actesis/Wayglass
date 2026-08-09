@@ -13,8 +13,8 @@ event-log contracts, architecture decision, public tokens, four framework-neutra
 React wrappers, production stories, automated cross-browser validation, and production review are
 complete. Representative manual assistive-technology gates remain carried with explicit release
 impact. Phase 3F filter and command contracts and their composition architecture are accepted, their
-required public tokens are locked, and the framework-neutral elements and typed React bindings are
-implemented. Reference stories and the full validation matrix remain.
+required public tokens are locked, and the framework-neutral elements, typed React bindings, and
+production-backed reference stories are implemented. The full validation matrix remains.
 
 Phase 3 turns the Phase 1 and Phase 2 foundations into a reusable operational-data layer. It adds
 scalar summaries, compact telemetry, status collections, temporal records, collection tools, and
@@ -149,8 +149,9 @@ Share only the record structure that the two temporal views genuinely have in co
 [ADR 0027](./architecture/adr/0027-filter-and-command-composition.md) are accepted. They preserve
 native form submission and reset, existing command activation, stable visible priority, explicitly
 authored overflow, durable result and outcome context, ordinary Tab order, and application-owned
-execution. The required public tokens are locked and the framework-neutral elements and typed React
-bindings are implemented; reference stories and the full validation matrix remain.
+execution. The required public tokens are locked and the framework-neutral elements, typed React
+bindings, and production-backed reference stories are implemented; the full validation matrix
+remains.
 
 Create compositional working areas for existing controls rather than a query engine or universal
 toolbar.

@@ -1,0 +1,130 @@
+.wg-composition-viewport {
+  inline-size: min(90rem, 100%);
+  margin-inline: auto;
+}
+
+.wg-composition-viewport--phone {
+  inline-size: min(20rem, 100%);
+}
+
+.wg-composition-viewport--wall {
+  inline-size: min(120rem, 100%);
+}
+
+.wg-composition-viewport wg-canvas {
+  min-block-size: 100vh;
+}
+
+.wg-composition-header h1,
+.wg-composition-header p {
+  margin-block-start: 0;
+}
+
+.wg-composition-header h1 {
+  margin-block-end: var(--wg-space-reference-2);
+  font-family: var(--wg-typography-family-display);
+  font-size: var(--wg-typography-size-title);
+}
+
+.wg-composition-header p:last-child,
+.wg-composition-result-context {
+  margin-block-end: 0;
+  color: var(--wg-color-semantic-text-secondary);
+}
+
+.wg-composition-workspace,
+.wg-composition-feedback {
+  display: grid;
+  min-inline-size: 0;
+  gap: var(--wg-space-semantic-function-gutter);
+}
+
+.wg-composition-tools {
+  display: grid;
+  min-inline-size: 0;
+  gap: var(--wg-space-semantic-function-gutter);
+}
+
+.wg-composition-filter-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  min-inline-size: 0;
+  gap: var(--wg-space-reference-3);
+}
+
+.wg-composition-filter-form fieldset {
+  display: flex;
+  flex-wrap: wrap;
+  min-inline-size: 0;
+  margin: 0;
+  padding: var(--wg-space-reference-2);
+  gap: var(--wg-space-reference-2);
+  border: var(--wg-border-width-standard) solid var(--wg-color-semantic-border-subtle);
+  border-radius: var(--wg-component-form-radius-control);
+}
+
+.wg-composition-filter-form wg-select {
+  min-inline-size: min(14rem, 100%);
+}
+
+.wg-composition-filter-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--wg-space-reference-2);
+}
+
+.wg-composition-results {
+  min-inline-size: 0;
+}
+
+.wg-composition-results > h2 {
+  margin-block: 0 var(--wg-space-reference-1);
+  font-size: var(--wg-typography-size-section);
+}
+
+.wg-composition-result-context {
+  margin-block-start: 0;
+}
+
+.wg-composition-feedback {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+  align-items: start;
+}
+
+.wg-composition-feedback-card {
+  display: grid;
+  min-inline-size: 0;
+  gap: var(--wg-space-reference-3);
+}
+
+.wg-composition-feedback-card > h2,
+.wg-composition-feedback-card > p {
+  margin-block: 0;
+}
+
+.wg-composition-status-stack {
+  display: grid;
+  gap: var(--wg-space-reference-2);
+}
+
+.wg-composition-viewport--phone .wg-composition-filter-form,
+.wg-composition-viewport--phone .wg-composition-filter-form fieldset,
+.wg-composition-viewport--phone .wg-composition-filter-actions {
+  display: grid;
+  align-items: stretch;
+}
+
+.wg-composition-viewport--phone .wg-composition-filter-form wg-select,
+.wg-composition-viewport--phone .wg-composition-filter-actions > * {
+  inline-size: 100%;
+}
+
+.wg-composition-viewport--wall .wg-composition-workspace {
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  align-items: start;
+}
+
+.wg-composition-viewport wg-progress progress {
+  inline-size: 100%;
+}

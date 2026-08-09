@@ -2,8 +2,8 @@
 
 **Status:** Accepted for Phase 3F on August 9, 2026. This contract defines the boundary for
 `wg-filter-bar` and `wg-command-bar`. Its required public tokens are locked, and the
-framework-neutral elements and typed React bindings are implemented. Reference stories and the full
-validation matrix remain in progress. It follows the accepted
+framework-neutral elements, typed React bindings, and production-backed reference stories are
+implemented. The full validation matrix remains in progress. It follows the accepted
 [operational-data ownership contract](./operational-data.md),
 [control-state contract](../controls/control-state.md),
 [form-foundation contracts](../forms/form-foundation.md),
