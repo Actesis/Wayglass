@@ -117,7 +117,10 @@ export class WgEventRecord extends WayglassElement {
     [part='reference'],
     [part='metadata'],
     [part='details'],
-    [part='actions'] {
+    [part='actions'],
+    [part='condition'],
+    [part='knowledge'],
+    [part='activity'] {
       min-inline-size: 0;
       overflow-wrap: anywhere;
     }

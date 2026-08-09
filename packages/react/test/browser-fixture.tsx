@@ -1,6 +1,8 @@
 import {
   WgButton,
   WgConfirmationDialog,
+  WgEventLog,
+  WgEventRecord,
   WgIconButton,
   WgKeyValue,
   WgMetric,
@@ -16,6 +18,8 @@ import {
   WgTabs,
   WgTelemetryStrip,
   WgThemeProvider,
+  WgTimeline,
+  WgTimelineItem,
   WgTrendIndicator,
   WgToggle,
   WgValueTile,
@@ -119,6 +123,63 @@ function ReactFixture() {
             </button>
           </WgStatusEntry>
         </WgStatusList>
+        <WgTimeline
+          id="react-timeline"
+          ref={(element) => {
+            document.documentElement.dataset.timelineRefTag = element?.localName ?? '';
+          }}
+          label="React review history"
+          chronology="ascending"
+          chronologyLabel="Oldest to newest"
+        >
+          <h2 slot="heading">React review history</h2>
+          <WgTimelineItem
+            id="react-timeline-item"
+            label="React review opened"
+            kind="interval"
+            condition="informational"
+            knowledge="inferred"
+            activity="pending"
+          >
+            <time slot="time" dateTime="2026-08-09T09:00:00-07:00">
+              9:00 AM
+            </time>
+            <span slot="end-time">Ongoing</span>
+            <p>The React-authored review remains in progress.</p>
+            <details slot="details">
+              <summary>Inspect React review context</summary>
+              <p>Two authored checks remain.</p>
+            </details>
+          </WgTimelineItem>
+        </WgTimeline>
+        <WgEventLog
+          id="react-event-log"
+          ref={(element) => {
+            document.documentElement.dataset.eventLogRefTag = element?.localName ?? '';
+          }}
+          label="React review events"
+          chronology="descending"
+          chronologyLabel="Newest to oldest"
+        >
+          <h2 slot="heading">React review events</h2>
+          <p slot="status">2 newer React records are paused.</p>
+          <WgEventRecord
+            id="react-event-record"
+            label="React response delayed"
+            condition="caution"
+            knowledge="stale"
+            activity="pending"
+          >
+            <time slot="time" dateTime="2026-08-09T09:14:50-07:00">
+              9:14:50 AM
+            </time>
+            <span slot="source">Source: React coordination</span>
+            <span slot="category">Category: Delivery timing</span>
+            <button slot="actions" type="button">
+              Inspect React delayed response
+            </button>
+          </WgEventRecord>
+        </WgEventLog>
         <WgTabs
           id="react-tabs"
           ref={(element) => {

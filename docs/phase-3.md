@@ -9,9 +9,10 @@ assistive-technology gates remain carried with explicit release impact. Phase 3D
 contracts, public tokens, framework-neutral elements, typed React wrappers, and production-backed
 stories, automated cross-browser validation, and production review are complete. Representative
 manual assistive-technology gates remain carried with explicit release impact. Phase 3E timeline and
-event-log contracts and architecture decision are accepted, and their public tokens are locked. The
-four framework-neutral temporal elements are implemented with focused cross-browser coverage; React
-delivery, production stories, and full validation remain.
+event-log contracts, architecture decision, public tokens, four framework-neutral elements, typed
+React wrappers, production stories, automated cross-browser validation, and production review are
+complete. Representative manual assistive-technology gates remain carried with explicit release
+impact.
 
 Phase 3 turns the Phase 1 and Phase 2 foundations into a reusable operational-data layer. It adds
 scalar summaries, compact telemetry, status collections, temporal records, collection tools, and
@@ -121,7 +122,9 @@ have framework-neutral implementations and focused cross-browser tests. `wg-even
 `wg-event-record` now provide the distinct dense record family with its 500-record and 50-insertion
 envelopes. Typed React wrappers now deliver all four temporal elements. Production Storybook
 fixtures cover the two distinct families, application-owned compositions, feedback states, and
-reference envelopes; full validation remains.
+reference envelopes. Automated cross-browser validation and production review are complete; see the
+[Phase 3E temporal-collections validation record](./accessibility/phase-3e-temporal-collections-validation.md).
+Representative manual assistive-technology procedures remain public-release gates.
 
 Share only the record structure that the two temporal views genuinely have in common.
 

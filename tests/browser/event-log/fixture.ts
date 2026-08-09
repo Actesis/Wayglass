@@ -5,6 +5,12 @@ type Activity = 'idle' | 'pending';
 type Condition = 'neutral' | 'informational' | 'positive' | 'caution' | 'critical';
 type Knowledge = 'confirmed' | 'inferred' | 'stale' | 'unknown' | 'conflicting' | 'unavailable';
 
+declare global {
+  interface Window {
+    eventLogConstructionDuration?: number;
+  }
+}
+
 const parameters = new URLSearchParams(window.location.search);
 document.body.dataset.wgTheme = parameters.get('theme') ?? 'wayglass-dark';
 document.body.dataset.wgDensity = parameters.get('density') ?? 'compact';
@@ -97,9 +103,11 @@ function renderEnvelope(): void {
   fixture.append(log);
 }
 
+const started = performance.now();
 if (parameters.get('fixture') === 'envelope') renderEnvelope();
 
 if (parameters.get('upgrade') !== 'false') {
   defineWgEventRecord();
   defineWgEventLog();
 }
+window.eventLogConstructionDuration = performance.now() - started;
