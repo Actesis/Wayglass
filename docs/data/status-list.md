@@ -1,8 +1,9 @@
 # Phase 3D status-list contracts
 
 **Status:** Accepted for Phase 3D on August 9, 2026. These contracts define `wg-status-list` and
-`wg-status-entry`. Their required public tokens are locked; production implementation remains next.
-They follow the accepted [operational-data ownership contract](./operational-data.md) and
+`wg-status-entry`. Their required public tokens and framework-neutral elements are implemented;
+typed React wrappers and production delivery remain next. They follow the accepted
+[operational-data ownership contract](./operational-data.md) and
 [ADR 0024](../architecture/adr/0024-operational-data-ownership-and-updates.md).
 
 Status lists present a scan-efficient set of independently meaningful current summaries. They do not
