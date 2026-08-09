@@ -148,6 +148,18 @@ describe('Phase 1 themes', () => {
     expect(first).toContain(
       '--wg-component-telemetry-strip-space-related: var(--wg-space-reference-2)',
     );
+    expect(first).toContain('--wg-component-status-list-space: var(--wg-space-reference-3)');
+    expect(first).toContain('--wg-component-status-list-space-entry: var(--wg-space-reference-1)');
+    expect(first).toContain('--wg-component-status-entry-space: var(--wg-space-reference-3)');
+    expect(first).toContain(
+      '--wg-component-status-entry-space-related: var(--wg-space-reference-1)',
+    );
+    expect(first).toContain('--wg-component-status-list-space: var(--wg-space-reference-6)');
+    expect(first).toContain('--wg-component-status-list-space-entry: var(--wg-space-reference-2)');
+    expect(first).toContain('--wg-component-status-entry-space: var(--wg-space-reference-4)');
+    expect(first).toContain(
+      '--wg-component-status-entry-space-related: var(--wg-space-reference-2)',
+    );
     expect(first).not.toContain('wayglass-high-contrast');
     expect(first).not.toContain('wayglass-dim');
   });

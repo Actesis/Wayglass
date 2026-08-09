@@ -1770,6 +1770,101 @@ export const tokens = {
     type: 'dimension',
     description: 'Visible non-scaling telemetry series stroke width.',
   },
+  'component.status-list.color.background': {
+    value: '{color.semantic.surface.panel}',
+    type: 'color',
+    description: 'Contained background for one named status collection.',
+  },
+  'component.status-list.color.border': {
+    value: '{color.semantic.border.subtle}',
+    type: 'color',
+    description: 'Routine boundary around one named status collection.',
+  },
+  'component.status-list.color.heading': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'Status-list heading text.',
+  },
+  'component.status-list.color.context': {
+    value: '{color.semantic.text.secondary}',
+    type: 'color',
+    description: 'Status-list description and authored collection-feedback text.',
+  },
+  'component.status-list.radius': {
+    value: '{shape.radius.panel}',
+    type: 'dimension',
+    description: 'Status-list contained-surface radius.',
+  },
+  'component.status-list.space': {
+    value: '{space.reference.4}',
+    type: 'dimension',
+    description: 'Density-aware status-list edge and section spacing.',
+  },
+  'component.status-list.space.entry': {
+    value: '{space.reference.2}',
+    type: 'dimension',
+    description: 'Density-aware separation between status entries in authored order.',
+  },
+  'component.status-entry.color.background': {
+    value: '{color.semantic.surface.inset}',
+    type: 'color',
+    description: 'Contained background for one independently meaningful status entry.',
+  },
+  'component.status-entry.color.border': {
+    value: '{color.semantic.border.subtle}',
+    type: 'color',
+    description: 'Routine boundary around one status entry.',
+  },
+  'component.status-entry.color.heading': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'Status-entry primary subject text.',
+  },
+  'component.status-entry.color.detail': {
+    value: '{color.semantic.text.secondary}',
+    type: 'color',
+    description: 'Status-entry description, time, and metadata text.',
+  },
+  'component.status-entry.color.state': {
+    value: '{color.semantic.text.secondary}',
+    type: 'color',
+    description: 'Status-entry known-state text before state-specific semantic color.',
+  },
+  'component.status-entry.color.condition': {
+    value: '{color.semantic.condition.neutral}',
+    type: 'color',
+    description: 'Status-entry condition signal and text before the selected condition override.',
+  },
+  'component.status-entry.color.signal-border': {
+    value: '{color.semantic.border.strong}',
+    type: 'color',
+    description: 'Redundant boundary around the compact status-entry condition signal.',
+  },
+  'component.status-entry.radius': {
+    value: '{shape.radius.control}',
+    type: 'dimension',
+    description: 'Status-entry contained-surface radius.',
+  },
+  'component.status-entry.radius.signal': {
+    value: '{shape.radius.signal}',
+    type: 'dimension',
+    description: 'Status-entry compact condition-signal radius.',
+  },
+  'component.status-entry.space': {
+    value: '{space.reference.3}',
+    type: 'dimension',
+    description: 'Density-aware status-entry edge and major-region spacing.',
+  },
+  'component.status-entry.space.related': {
+    value: '{space.reference.2}',
+    type: 'dimension',
+    description: 'Density-aware spacing between closely related status-entry anatomy.',
+  },
+  'component.status-entry.size.signal': {
+    value: '{size.signal.compact}',
+    type: 'dimension',
+    description: 'Compact rounded-square status-entry condition signal size.',
+  },
   'component.value-tile.color.background': {
     value: '{color.semantic.surface.panel}',
     type: 'color',

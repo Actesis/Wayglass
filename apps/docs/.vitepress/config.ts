@@ -68,6 +68,10 @@ export default defineConfig({
             text: 'Telemetry strip',
             link: '/data/telemetry-strip',
           },
+          {
+            text: 'Status list',
+            link: '/data/status-list',
+          },
         ],
       },
       {
@@ -212,6 +216,10 @@ export default defineConfig({
           {
             text: 'Phase 3C telemetry architecture proof',
             link: '/accessibility/phase-3c-telemetry-architecture-proof',
+          },
+          {
+            text: 'Phase 3C telemetry validation',
+            link: '/accessibility/phase-3c-telemetry-validation',
           },
           {
             text: 'Phase 2 assistive-technology gates',

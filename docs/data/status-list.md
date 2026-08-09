@@ -1,8 +1,8 @@
 # Phase 3D status-list contracts
 
-**Status:** Proposed for Phase 3D on August 9, 2026. These contracts define `wg-status-list` and
-`wg-status-entry` before visual tokens or implementation are locked. They follow the accepted
-[operational-data ownership contract](./operational-data.md) and
+**Status:** Accepted for Phase 3D on August 9, 2026. These contracts define `wg-status-list` and
+`wg-status-entry`. Their required public tokens are locked; production implementation remains next.
+They follow the accepted [operational-data ownership contract](./operational-data.md) and
 [ADR 0024](../architecture/adr/0024-operational-data-ownership-and-updates.md).
 
 Status lists present a scan-efficient set of independently meaningful current summaries. They do not
@@ -157,7 +157,17 @@ None. Slotted controls retain their native or documented events.
 
 None.
 
-#### Proposed CSS parts
+#### CSS custom properties
+
+- `--wg-status-list-color-background`
+- `--wg-status-list-color-border`
+- `--wg-status-list-color-heading`
+- `--wg-status-list-color-context`
+- `--wg-status-list-radius`
+- `--wg-status-list-space`
+- `--wg-status-list-space-entry`
+
+#### CSS parts
 
 - `base`
 - `header`
@@ -166,8 +176,6 @@ None.
 - `actions`
 - `status`
 - `list`
-
-Public custom properties are deliberately deferred until the Phase 3D token-lock slice.
 
 ## `wg-status-entry`
 
@@ -288,7 +296,26 @@ None. Slotted controls retain their native or documented events.
 
 None.
 
-#### Proposed CSS parts
+#### CSS custom properties
+
+- `--wg-status-entry-color-background`
+- `--wg-status-entry-color-border`
+- `--wg-status-entry-color-heading`
+- `--wg-status-entry-color-detail`
+- `--wg-status-entry-color-state`
+- `--wg-status-entry-color-condition`
+- `--wg-status-entry-color-signal-border`
+- `--wg-status-entry-radius`
+- `--wg-status-entry-radius-signal`
+- `--wg-status-entry-space`
+- `--wg-status-entry-space-related`
+- `--wg-status-entry-size-signal`
+
+Condition-specific signal and text color, knowledge text, and pending activity emphasis use the
+shared semantic state tokens. Entry grid tracks, responsive thresholds, and action placement remain
+private mechanics.
+
+#### CSS parts
 
 - `base`
 - `signal`
@@ -303,8 +330,6 @@ None.
 - `time`
 - `metadata`
 - `actions`
-
-Public custom properties are deliberately deferred until the Phase 3D token-lock slice.
 
 ### Example
 
@@ -371,7 +396,7 @@ At the 100-entry reference envelope, automated evidence must satisfy ADR 0024's 
 overflow, observer, and synchronous-task regression thresholds. Package-owned pagination and
 virtualization remain out of scope.
 
-## Decisions to confirm before token lock
+## Accepted decisions
 
 1. One named list is the grouping primitive; applications compose multiple lists rather than a new
    status-group element.

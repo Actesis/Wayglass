@@ -416,6 +416,39 @@ describe('token compiler', () => {
     expect(tokens['component.telemetry-strip.width.series'].value).toBe('{border.width.strong}');
   });
 
+  it('contains the locked Phase 3D status-list token roles', () => {
+    expect(Object.keys(tokens)).toEqual(
+      expect.arrayContaining([
+        'component.status-list.color.background',
+        'component.status-list.color.border',
+        'component.status-list.color.heading',
+        'component.status-list.color.context',
+        'component.status-list.radius',
+        'component.status-list.space',
+        'component.status-list.space.entry',
+        'component.status-entry.color.background',
+        'component.status-entry.color.border',
+        'component.status-entry.color.heading',
+        'component.status-entry.color.detail',
+        'component.status-entry.color.state',
+        'component.status-entry.color.condition',
+        'component.status-entry.color.signal-border',
+        'component.status-entry.radius',
+        'component.status-entry.radius.signal',
+        'component.status-entry.space',
+        'component.status-entry.space.related',
+        'component.status-entry.size.signal',
+      ]),
+    );
+    expect(tokens['component.status-list.color.background'].value).toBe(
+      '{color.semantic.surface.panel}',
+    );
+    expect(tokens['component.status-entry.color.condition'].value).toBe(
+      '{color.semantic.condition.neutral}',
+    );
+    expect(tokens['component.status-entry.size.signal'].value).toBe('{size.signal.compact}');
+  });
+
   it('provides accessible contrast for the default dark-theme foundations', () => {
     const paper = referenceColor('color.reference.paper.50');
     const canvas = referenceColor('color.reference.ink.950');

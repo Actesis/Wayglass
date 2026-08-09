@@ -106,6 +106,21 @@ height remain private mechanical constants. Those values preserve the accepted n
 and rendering performance; exposing them would allow themes to make knowledge states ambiguous or
 turn the compact overview into a general chart API.
 
+## Phase 3D status collections
+
+The `component.status-list.*` group defines the neutral contained collection surface, routine
+boundary, heading and context text, radius, density-aware section spacing, and separation between
+authored entries. The `component.status-entry.*` group defines the inset entry surface, routine
+boundary, primary and supporting text, shared known-state and condition roles, compact signal
+boundary and size, radii, and density-aware internal spacing.
+
+Condition, knowledge, and activity continue to use their shared semantic color roles. Status-entry
+tokens provide component defaults but do not create a second state palette. Entry row geometry,
+responsive wrap thresholds, state-label copy, authored-action layout, child validation, focus
+recovery, and mutation behavior remain private mechanics or application responsibilities. Exposing
+them as tokens would allow themes to change semantics or imply behavioral customization that the
+contracts do not support.
+
 ## CSS names
 
 Token paths compile deterministically to `--wg-` custom properties:
