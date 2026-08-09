@@ -271,6 +271,22 @@ export type { StatusIndicatorSize } from './status-indicator.js';
 export { defineWgStatusEntry, WgStatusEntry, wgStatusEntryTagName } from './status-entry.js';
 export { defineWgStatusList, WgStatusList, wgStatusListTagName } from './status-list.js';
 export {
+  defineWgTimeline,
+  isTimelineChronology,
+  timelineChronologies,
+  WgTimeline,
+  wgTimelineTagName,
+} from './timeline.js';
+export type { TimelineChronology } from './timeline.js';
+export {
+  defineWgTimelineItem,
+  isTimelineItemKind,
+  timelineItemKinds,
+  WgTimelineItem,
+  wgTimelineItemTagName,
+} from './timeline-item.js';
+export type { TimelineItemKind } from './timeline-item.js';
+export {
   defineWgSurface,
   isSurfaceBoundary,
   isSurfacePadding,
