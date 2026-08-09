@@ -268,6 +268,8 @@ export {
   wgStatusIndicatorTagName,
 } from './status-indicator.js';
 export type { StatusIndicatorSize } from './status-indicator.js';
+export { defineWgStatusEntry, WgStatusEntry, wgStatusEntryTagName } from './status-entry.js';
+export { defineWgStatusList, WgStatusList, wgStatusListTagName } from './status-list.js';
 export {
   defineWgSurface,
   isSurfaceBoundary,

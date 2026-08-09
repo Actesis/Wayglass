@@ -207,6 +207,14 @@
       "types": "./dist/status-indicator.d.ts",
       "import": "./dist/status-indicator.js"
     },
+    "./status-entry": {
+      "types": "./dist/status-entry.d.ts",
+      "import": "./dist/status-entry.js"
+    },
+    "./status-list": {
+      "types": "./dist/status-list.d.ts",
+      "import": "./dist/status-list.js"
+    },
     "./surface": {
       "types": "./dist/surface.d.ts",
       "import": "./dist/surface.js"

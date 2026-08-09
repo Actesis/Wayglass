@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wayglass status-list fixture</title>
+    <link rel="stylesheet" href="/packages/tokens/dist/tokens.css" />
+    <link rel="stylesheet" href="/packages/themes/dist/themes.css" />
+    <style>
+      body {
+        margin: 0;
+        color: var(--wg-color-semantic-text-primary);
+        background: var(--wg-color-semantic-surface-canvas);
+        font-family: var(--wg-typography-family-body);
+      }
+
+      main {
+        display: grid;
+        box-sizing: border-box;
+        inline-size: min(100%, 72rem);
+        margin-inline: auto;
+        padding: var(--wg-space-reference-4);
+        gap: var(--wg-space-reference-6);
+      }
+
+      wg-status-list:not(:defined),
+      wg-status-entry:not(:defined) {
+        display: grid;
+        gap: var(--wg-space-reference-2);
+      }
+
+      wg-status-list:not(:defined) > *,
+      wg-status-entry:not(:defined) > * {
+        margin-block: 0;
+      }
+    </style>
+  </head>
+  <body data-wg-theme="wayglass-dark" data-wg-density="compact">
+    <main id="fixture">
+      <wg-status-list id="active-list" label="Active sources" busy>
+        <h1 slot="heading">Active sources</h1>
+        <p slot="description">Current summaries in application-authored priority order.</p>
+        <button slot="actions" id="refresh-all" type="button">Refresh all sources</button>
+        <p slot="status">Refreshing retained values.</p>
+
+        <wg-status-entry id="north-source" label="North source" condition="positive">
+          <span slot="description">Delivery is operating inside its expected range.</span>
+          <wg-key-value slot="value" label="Queue" value="18"></wg-key-value>
+          <time slot="time" datetime="2026-08-09T14:22:00-07:00">Observed at 2:22 PM</time>
+          <span slot="metadata">Priority 2</span>
+          <button slot="actions" id="inspect-north" type="button">Inspect North source</button>
+        </wg-status-entry>
+
+        <wg-status-entry id="central-source" label="Central source">
+          <strong slot="heading">Central source</strong>
+          <span slot="description">No domain condition is asserted.</span>
+          <wg-boolean-value
+            slot="value"
+            label="Verification"
+            asserted-label="Verified"
+            not-asserted-label="Unverified"
+            asserted
+          ></wg-boolean-value>
+        </wg-status-entry>
+
+        <wg-status-entry
+          id="south-source"
+          label="South source"
+          condition="caution"
+          knowledge="stale"
+          activity="pending"
+        >
+          <span slot="description"
+            >Delivery is delayed; the last confirmed route remains active.</span
+          >
+          <time slot="time" datetime="2026-08-09T14:12:00-07:00">Observed at 2:12 PM</time>
+          <span slot="metadata">Remote coordination</span>
+          <button slot="actions" id="inspect-south" type="button">Inspect South source</button>
+        </wg-status-entry>
+      </wg-status-list>
+
+      <wg-status-list id="unavailable-list" label="Unavailable sources">
+        <h2 slot="heading">Unavailable sources</h2>
+        <wg-status-entry
+          id="archive-source"
+          label="Archive source"
+          condition="critical"
+          knowledge="unavailable"
+        >
+          <span slot="description">No current summary is available.</span>
+        </wg-status-entry>
+      </wg-status-list>
+    </main>
+    <script type="module" src="./fixture.ts"></script>
+  </body>
+</html>
