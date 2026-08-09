@@ -1,6 +1,8 @@
 import type { WgButton as WgButtonElement } from '@wayglass/elements/button';
 import type { WgConfirmationDialog as WgConfirmationDialogElement } from '@wayglass/elements/confirmation-dialog';
 import type { WgDialog as WgDialogElement } from '@wayglass/elements/dialog';
+import type { WgEventLog as WgEventLogElement } from '@wayglass/elements/event-log';
+import type { WgEventRecord as WgEventRecordElement } from '@wayglass/elements/event-record';
 import type { WgSurface as WgSurfaceElement } from '@wayglass/elements/surface';
 import type { WgSplit as WgSplitElement } from '@wayglass/elements/split';
 import type { WgMedia as WgMediaElement } from '@wayglass/elements/media';
@@ -9,6 +11,8 @@ import type { WgMenu as WgMenuElement } from '@wayglass/elements/menu';
 import type { WgTab as WgTabElement, WgTabs as WgTabsElement } from '@wayglass/elements/tabs';
 import type { WgThemeProvider as WgThemeProviderElement } from '@wayglass/elements/theme-provider';
 import type { WgTelemetryStrip as WgTelemetryStripElement } from '@wayglass/elements/telemetry-strip';
+import type { WgTimeline as WgTimelineElement } from '@wayglass/elements/timeline';
+import type { WgTimelineItem as WgTimelineItemElement } from '@wayglass/elements/timeline-item';
 import type { WgStatusEntry as WgStatusEntryElement } from '@wayglass/elements/status-entry';
 import type { WgToggle as WgToggleElement } from '@wayglass/elements/toggle';
 import type { WgToast as WgToastElement } from '@wayglass/elements/toast';
@@ -24,6 +28,8 @@ import {
   WgCommandItem,
   WgConfirmationDialog,
   WgDialog,
+  WgEventLog,
+  WgEventRecord,
   WgFrame,
   WgFieldLabel,
   WgFieldMessage,
@@ -51,6 +57,8 @@ import {
   WgSurface,
   WgTextField,
   WgTelemetryStrip,
+  WgTimeline,
+  WgTimelineItem,
   WgTrendIndicator,
   WgTab,
   WgTabList,
@@ -95,6 +103,10 @@ const dialogRef = createRef<WgDialogElement>();
 const mediaViewerRef = createRef<WgMediaViewerElement>();
 const telemetryStripRef = createRef<WgTelemetryStripElement>();
 const statusEntryRef = createRef<WgStatusEntryElement>();
+const timelineRef = createRef<WgTimelineElement>();
+const timelineItemRef = createRef<WgTimelineItemElement>();
+const eventLogRef = createRef<WgEventLogElement>();
+const eventRecordRef = createRef<WgEventRecordElement>();
 
 const typedComposition = (
   <WgThemeProvider ref={providerRef} theme="wayglass-dark" density="compact">
@@ -177,6 +189,59 @@ const typedStatusList = (
   </WgStatusList>
 );
 void typedStatusList;
+
+const typedTemporalCollections = (
+  <>
+    <WgTimeline
+      ref={timelineRef}
+      label="Deployment history"
+      chronology="ascending"
+      chronologyLabel="Oldest to newest"
+      busy
+    >
+      <p slot="description">Selected milestones in the current deployment.</p>
+      <WgTimelineItem
+        ref={timelineItemRef}
+        label="Review opened"
+        kind="interval"
+        condition="informational"
+        knowledge="inferred"
+        activity="pending"
+      >
+        <time slot="time" dateTime="2026-08-09T18:00:00Z">
+          11:00 AM
+        </time>
+        <span slot="end-time">Ongoing</span>
+        <p>Reviewers are checking the deployment.</p>
+      </WgTimelineItem>
+    </WgTimeline>
+    <WgEventLog
+      ref={eventLogRef}
+      label="Operational events"
+      chronology="descending"
+      chronologyLabel="Newest to oldest"
+    >
+      <p slot="status">3 newer records</p>
+      <WgEventRecord
+        ref={eventRecordRef}
+        label="Source response delayed"
+        condition="caution"
+        knowledge="stale"
+        activity="pending"
+      >
+        <time slot="time" dateTime="2026-08-09T18:03:00Z">
+          11:03 AM
+        </time>
+        <span slot="source">North source</span>
+        <details slot="details">
+          <summary>Inspect response timing</summary>
+          <p>The response arrived after the expected window.</p>
+        </details>
+      </WgEventRecord>
+    </WgEventLog>
+  </>
+);
+void typedTemporalCollections;
 
 const typedFormControls = (
   <form>
@@ -574,6 +639,15 @@ const invalidMenuPlacement = <WgMenu placement="bottom-right" />;
 // @ts-expect-error Command disabled state remains Boolean.
 const invalidCommandDisabled = <WgCommandItem value="refresh" disabled="true" />;
 
+// @ts-expect-error Temporal chronology is a closed authored-order vocabulary.
+const invalidTimelineChronology = <WgTimeline chronology="latest-first" />;
+
+// @ts-expect-error Timeline kind distinguishes only milestones and intervals.
+const invalidTimelineItemKind = <WgTimelineItem kind="event" />;
+
+// @ts-expect-error Event records use the shared closed activity axis.
+const invalidEventRecordActivity = <WgEventRecord activity="active" />;
+
 void typedComposition;
 void typedScalarData;
 void typedProvider;
@@ -607,3 +681,6 @@ void invalidRequestState;
 void invalidNavigationOrientation;
 void invalidMenuPlacement;
 void invalidCommandDisabled;
+void invalidTimelineChronology;
+void invalidTimelineItemKind;
+void invalidEventRecordActivity;
