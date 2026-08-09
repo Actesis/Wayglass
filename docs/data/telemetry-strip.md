@@ -3,9 +3,10 @@
 **Status:** Accepted on August 9, 2026. This contract defines the Phase 3C boundary for
 `wg-telemetry-strip`. Its fallback, resize, forced-colors, and high-volume architecture proof
 passed, and [ADR 0025](../architecture/adr/0025-telemetry-rendering-and-accessible-equivalence.md)
-is accepted. The required public tokens are locked, and the framework-neutral production element is
-implemented with explicit registration and focused browser coverage. React delivery and
-production-backed stories remain next.
+is accepted. The required public tokens, framework-neutral element, typed React wrapper,
+production-backed stories, and automated cross-browser validation are complete. Representative
+manual assistive-technology review remains a public-release gate; see the
+[Phase 3C validation record](../accessibility/phase-3c-telemetry-validation.md).
 
 `wg-telemetry-strip` presents a compact recent history beside an application-authored readable
 summary. It helps a person recognize shape, continuity, and recency at a glance without becoming a
