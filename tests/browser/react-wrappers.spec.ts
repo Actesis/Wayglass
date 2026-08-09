@@ -11,6 +11,8 @@ test.beforeEach(async ({ page }) => {
       customElements.get('wg-trend-indicator') !== undefined &&
       customElements.get('wg-key-value') !== undefined &&
       customElements.get('wg-telemetry-strip') !== undefined &&
+      customElements.get('wg-status-list') !== undefined &&
+      customElements.get('wg-status-entry') !== undefined &&
       customElements.get('wg-button') !== undefined &&
       customElements.get('wg-value-tile') !== undefined &&
       customElements.get('wg-tabs') !== undefined &&
@@ -43,6 +45,11 @@ test('registers wrappers and assigns typed element properties', async ({ page })
     { observedAt: 3, value: 14 },
   ]);
   await expect(page.getByRole('group', { name: 'React queue depth' })).toBeVisible();
+  await expect(page.getByRole('list', { name: 'React delivery sources' })).toBeVisible();
+  await expect(page.locator('#react-status-list')).toHaveJSProperty('busy', true);
+  await expect(page.locator('#react-status-entry')).toHaveJSProperty('condition', 'caution');
+  await expect(page.locator('#react-status-entry')).toHaveJSProperty('knowledge', 'stale');
+  await expect(page.locator('#react-status-entry')).toHaveJSProperty('activity', 'pending');
   await expect(page.locator('html')).toHaveAttribute('data-tabs-ref-tag', 'wg-tabs');
   await expect(page.locator('#react-tabs')).toHaveJSProperty('activation', 'automatic');
   await expect(page.locator('#react-tabs')).toHaveJSProperty('orientation', 'horizontal');

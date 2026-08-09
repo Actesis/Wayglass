@@ -8,6 +8,8 @@ import {
   WgNavigationRail,
   WgSegment,
   WgSegmentedControl,
+  WgStatusEntry,
+  WgStatusList,
   WgTab,
   WgTabList,
   WgTabPanel,
@@ -101,6 +103,22 @@ function ReactFixture() {
           </time>
           <p slot="summary">One unavailable observation occurs in the React-authored history.</p>
         </WgTelemetryStrip>
+        <WgStatusList id="react-status-list" label="React delivery sources" busy>
+          <h2 slot="heading">React delivery sources</h2>
+          <p slot="status">Refreshing retained React entries.</p>
+          <WgStatusEntry
+            id="react-status-entry"
+            label="React North source"
+            condition="caution"
+            knowledge="stale"
+            activity="pending"
+          >
+            <span slot="description">The last confirmed React route remains active.</span>
+            <button slot="actions" type="button">
+              Inspect React North source
+            </button>
+          </WgStatusEntry>
+        </WgStatusList>
         <WgTabs
           id="react-tabs"
           ref={(element) => {

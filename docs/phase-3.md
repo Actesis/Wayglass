@@ -6,8 +6,8 @@ production review are complete. The Phase 3C telemetry-strip contract and render
 accepted after cross-browser proof, and its element, tokens, React wrapper, production stories,
 automated cross-browser validation, and production review are complete. Representative manual
 assistive-technology gates remain carried with explicit release impact. Phase 3D status-list
-contracts, public tokens, and framework-neutral elements are complete; typed React and production
-delivery are next.
+contracts, public tokens, framework-neutral elements, typed React wrappers, and production-backed
+stories are complete; automated validation and production review are next.
 
 Phase 3 turns the Phase 1 and Phase 2 foundations into a reusable operational-data layer. It adds
 scalar summaries, compact telemetry, status collections, temporal records, collection tools, and
@@ -88,8 +88,9 @@ Deliver a compact operational history, not a general chart package.
 ### Phase 3D — Status list
 
 **Current status:** The [`wg-status-list` and `wg-status-entry` contracts](./data/status-list.md)
-and their required public tokens and framework-neutral elements are implemented. Typed React
-wrappers, production stories, and the broader validation matrix remain next.
+and their required public tokens, framework-neutral elements, typed React wrappers, and
+production-backed stories are implemented. The broader automated validation matrix and production
+review remain next.
 
 Provide a scan-efficient collection of independently meaningful operational entries.
 

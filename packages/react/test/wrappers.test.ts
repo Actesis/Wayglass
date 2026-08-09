@@ -1,4 +1,5 @@
 import type { WgMetric as WgMetricElement } from '@wayglass/elements/metric';
+import type { WgStatusEntry as WgStatusEntryElement } from '@wayglass/elements/status-entry';
 import type { WgTelemetryStrip as WgTelemetryStripElement } from '@wayglass/elements/telemetry-strip';
 import { createElement, createRef, isValidElement } from 'react';
 import { describe, expect, it } from 'vitest';
@@ -39,6 +40,8 @@ import {
   WgSlider,
   WgStack,
   WgStatusIndicator,
+  WgStatusEntry,
+  WgStatusList,
   WgSurface,
   WgTextField,
   WgTelemetryStrip,
@@ -90,6 +93,8 @@ describe('Wayglass React wrappers', () => {
       WgPanel,
       WgButton,
       WgStatusIndicator,
+      WgStatusEntry,
+      WgStatusList,
       WgSurface,
       WgBooleanValue,
       WgMetric,
@@ -141,6 +146,8 @@ describe('Wayglass React wrappers', () => {
       'WgPanel',
       'WgButton',
       'WgStatusIndicator',
+      'WgStatusEntry',
+      'WgStatusList',
       'WgSurface',
       'WgBooleanValue',
       'WgMetric',
@@ -203,6 +210,23 @@ describe('Wayglass React wrappers', () => {
     expect(isValidElement(telemetry)).toBe(true);
     expect(telemetry.props.samples).toBe(samples);
     expect(telemetry.props.ref).toBe(ref);
+  });
+
+  it('preserves typed status-entry axes and element refs', () => {
+    const ref = createRef<WgStatusEntryElement>();
+    const entry = createElement(WgStatusEntry, {
+      ref,
+      label: 'North source',
+      condition: 'caution',
+      knowledge: 'stale',
+      activity: 'pending',
+    });
+
+    expect(isValidElement(entry)).toBe(true);
+    expect(entry.props.condition).toBe('caution');
+    expect(entry.props.knowledge).toBe('stale');
+    expect(entry.props.activity).toBe('pending');
+    expect(entry.props.ref).toBe(ref);
   });
 
   it('preserves the typed theme-change callback prop', () => {
