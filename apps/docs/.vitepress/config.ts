@@ -64,6 +64,10 @@ export default defineConfig({
             text: 'Metrics and key-values',
             link: '/data/metrics-and-key-values',
           },
+          {
+            text: 'Telemetry strip',
+            link: '/data/telemetry-strip',
+          },
         ],
       },
       {
@@ -179,6 +183,10 @@ export default defineConfig({
           {
             text: 'ADR 0024: Operational data and updates',
             link: '/architecture/adr/0024-operational-data-ownership-and-updates',
+          },
+          {
+            text: 'ADR 0025: Telemetry rendering',
+            link: '/architecture/adr/0025-telemetry-rendering-and-accessible-equivalence',
           },
         ],
       },
