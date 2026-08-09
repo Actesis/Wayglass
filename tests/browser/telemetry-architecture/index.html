@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Telemetry rendering architecture proof</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: system-ui, sans-serif;
+      }
+
+      body {
+        min-block-size: 100vh;
+        margin: 0;
+        color: #e8edf6;
+        background: #0b111a;
+      }
+
+      body[data-theme='light'] {
+        --proof-text: #17202d;
+        --proof-secondary: #46546a;
+        --proof-border: #7c8ba1;
+        --proof-surface: #f4f7fb;
+        --proof-graphic: #e6ebf3;
+        --proof-series: #235ea8;
+        color-scheme: light;
+        color: #17202d;
+        background: #ffffff;
+      }
+
+      body[data-grayscale] {
+        filter: grayscale(1);
+      }
+
+      main {
+        box-sizing: border-box;
+        inline-size: min(100%, 88rem);
+        margin-inline: auto;
+        padding: clamp(0.75rem, 3vw, 2rem);
+      }
+
+      .context {
+        max-inline-size: 68ch;
+        margin-block: 0 1rem;
+        color: var(--proof-secondary, #aebbd0);
+      }
+
+      wg-telemetry-proof:not(:defined) {
+        display: grid;
+        gap: 0.75rem;
+        padding: 1rem;
+        border: 1px solid var(--proof-border, #52627a);
+        border-radius: 0.75rem;
+        background: var(--proof-surface, #17202d);
+      }
+
+      wg-telemetry-proof:not(:defined) > * {
+        margin-block: 0;
+      }
+    </style>
+  </head>
+  <body data-theme="dark">
+    <main>
+      <p class="context">
+        Disposable Phase 3C rendering proof; no production element is registered.
+      </p>
+      <wg-telemetry-proof id="queue-history" label="Queue depth">
+        <h1 slot="heading">Queue depth</h1>
+        <p slot="current">Latest observation: 24 records</p>
+        <time slot="window-start" datetime="2026-08-09T18:00:00Z">11:00</time>
+        <time slot="window-end" datetime="2026-08-09T19:00:00Z">12:00</time>
+        <p slot="summary">
+          Queue depth varied between 15 and 31 records. One brief gap and two unavailable intervals
+          occur in the hour; the latest confirmed observation is 24.
+        </p>
+        <button slot="detail" id="details" type="button">Inspect exact observations</button>
+      </wg-telemetry-proof>
+    </main>
+    <script type="module" src="./proof.ts"></script>
+  </body>
+</html>

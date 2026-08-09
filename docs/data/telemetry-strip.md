@@ -1,9 +1,9 @@
 # Phase 3C telemetry-strip contract
 
-**Status:** Proposed on August 9, 2026. This contract defines the intended boundary for
-`wg-telemetry-strip`. Its rendering architecture remains proposed until the fallback, resize,
-forced-colors, and high-volume proof in
-[ADR 0025](../architecture/adr/0025-telemetry-rendering-and-accessible-equivalence.md) passes.
+**Status:** Accepted on August 9, 2026. This contract defines the Phase 3C boundary for
+`wg-telemetry-strip`. Its fallback, resize, forced-colors, and high-volume architecture proof
+passed, and [ADR 0025](../architecture/adr/0025-telemetry-rendering-and-accessible-equivalence.md)
+is accepted. Tokens and production implementation remain next.
 
 `wg-telemetry-strip` presents a compact recent history beside an application-authored readable
 summary. It helps a person recognize shape, continuity, and recency at a glance without becoming a
@@ -262,9 +262,9 @@ contract. Applications should not restyle knowledge patterns into a conflicting 
 </script>
 ```
 
-## Required architecture proof
+## Architecture-proof result
 
-Before ADR 0025 can be accepted or tokens can be locked, a disposable browser fixture must prove:
+The disposable browser fixture proved:
 
 1. useful visible and accessible content before Custom Element registration and with the internal
    graphic removed;
@@ -277,8 +277,10 @@ Before ADR 0025 can be accepted or tokens can be locked, a disposable browser fi
    states within the next-animation-frame and 100-millisecond regression envelope; and
 6. stable authored text, focus, and absence of announcements while the series is replaced.
 
-The proof must run in Chromium, Firefox, and WebKit. Automated accessibility results do not replace
-the representative VoiceOver/Safari and NVDA/Firefox gates assigned during production validation.
+All 30 cases passed across Chromium, Firefox, and WebKit. The fixture and evidence remain in the
+[Phase 3C architecture-proof record](../accessibility/phase-3c-telemetry-architecture-proof.md).
+Automated accessibility results do not replace the representative VoiceOver/Safari and NVDA/Firefox
+gates assigned during production validation.
 
 ## Deferred capabilities
 
@@ -287,11 +289,11 @@ interpolation, smoothing, aggregation, component-owned downsampling, streaming t
 history, tooltips, point inspection, range selection, pan, zoom, export, and a reusable chart
 package remain outside Phase 3C.
 
-## Review questions
+## Decisions resolved by the architecture proof
 
-1. Is a required authored summary the right equivalence boundary for a compact overview, with exact
-   values delegated to an adjacent table or detail view when needed?
-2. Is observation-level `knowledge` useful enough to justify its geometry, or should the first input
-   type model only values and explicit gaps?
-3. Should the architecture proof retain optional point marks at all widths, or use them only for
-   non-confirmed observations and gap boundaries?
+1. A required authored summary is the accepted equivalence boundary for the compact overview. An
+   adjacent native table or list remains necessary when exact sample inspection is part of the task.
+2. Observation-level `knowledge` remains in the input type. Distinct path and gap patterns preserved
+   its meaning without converting knowledge into condition or series-wide state.
+3. Production rendering will mark only non-confirmed run boundaries and explicit gap boundaries.
+   Marking every one of 240 samples added noise without improving the overview or semantics.

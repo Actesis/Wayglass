@@ -1,6 +1,6 @@
 # ADR 0025: Render compact telemetry as hidden SVG beside authored readable content
 
-- Status: proposed
+- Status: accepted
 - Date: 2026-08-09
 
 ## Context
@@ -17,10 +17,10 @@ accessible SVG would create hundreds of low-value navigation nodes and still wou
 operational meaning of the shape. A full chart library would widen the dependency and product scope
 before Wayglass has evidence for axes, legends, inspection, or multiple series.
 
-This decision is proposed rather than accepted. The Phase 3C architecture proof described below must
-validate its assumptions before token locking or production implementation.
+The Phase 3C architecture proof validated this decision before token locking or production
+implementation.
 
-## Proposed decision
+## Decision
 
 ### Use one internal SVG as non-semantic calculated presentation
 
@@ -74,10 +74,9 @@ The supported envelope is one 240-sample strip and 12 strips with 120 samples ea
 workspace. The reference performance gate remains the next-animation-frame usability requirement and
 100-millisecond synchronous-task threshold from ADR 0024.
 
-## Required proof before acceptance
+## Acceptance evidence
 
-A disposable, production-independent browser fixture must test the proposed structure before this
-ADR changes to accepted:
+A disposable, production-independent browser fixture tested the proposed structure:
 
 - pre-upgrade and graphic-removed content remains visible, ordered, and sufficient for the overview;
 - upgraded output has one named group, no SVG accessibility-tree duplication, and no implicit live
@@ -90,11 +89,20 @@ ADR changes to accepted:
 - invalid, empty, sparse, irregular, repeated-time, and boundary data fail neutrally; and
 - Chromium, Firefox, and WebKit pass the functional and automated accessibility fixture.
 
-The proof will record any browser-specific path, vector-effect, forced-color, or shadow-DOM behavior
-that changes the decision. If SVG cannot meet the tests without a second semantic model, this ADR
-will be revised rather than accepted by assumption.
+All 30 cases passed across Chromium, Firefox, and WebKit on August 9, 2026. The proof retained 240
+irregular samples in four knowledge-run paths plus explicit gaps, resized from 320 CSS pixels
+through wall width without recalculation or overflow, preserved authored focus during silent
+replacement, and passed dark and light Axe scans. Forced-color and grayscale checks retained six
+distinct stroke patterns. No browser-specific path, `vector-effect`, forced-color, or shadow-DOM
+behavior required a change to the decision.
 
-## Consequences if accepted
+Visual review of dark desktop, dark phone, and light grayscale compositions found the line, authored
+summary, time window, and gaps coherent at each width. Rendering a point for every sample was noisy
+and unnecessary. Production implementation will use point marks only at non-confirmed run boundaries
+and explicit gap boundaries. Full evidence is recorded in the
+[Phase 3C architecture proof](../../accessibility/phase-3c-telemetry-architecture-proof.md).
+
+## Consequences
 
 - Telemetry stays lightweight, responsive, themeable, and independent of a chart dependency.
 - Consumer-authored text remains useful before upgrade and becomes the single accessible semantic

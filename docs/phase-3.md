@@ -3,8 +3,8 @@
 **Status:** Formal roadmap accepted on August 3, 2026. Phase 3A operational-data architecture is
 complete; Phase 3B scalar data is implemented and its automated cross-browser validation and
 production review are complete. The Phase 3C telemetry-strip contract and rendering architecture are
-proposed for review and browser proof. Representative manual assistive-technology gates remain
-carried with explicit release impact.
+accepted after cross-browser proof; token locking is next. Representative manual
+assistive-technology gates remain carried with explicit release impact.
 
 Phase 3 turns the Phase 1 and Phase 2 foundations into a reusable operational-data layer. It adds
 scalar summaries, compact telemetry, status collections, temporal records, collection tools, and
