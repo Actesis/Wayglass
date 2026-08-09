@@ -198,6 +198,10 @@ export default defineConfig({
             link: '/accessibility/phase-3-validation-plan',
           },
           {
+            text: 'Phase 3B scalar-data validation',
+            link: '/accessibility/phase-3b-scalar-data-validation',
+          },
+          {
             text: 'Phase 2 assistive-technology gates',
             link: '/accessibility/phase-2-assistive-technology-gates',
           },

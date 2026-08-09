@@ -2,7 +2,9 @@ import {
   WgButton,
   WgConfirmationDialog,
   WgIconButton,
+  WgKeyValue,
   WgMetric,
+  WgMetricGroup,
   WgNavigationRail,
   WgSegment,
   WgSegmentedControl,
@@ -11,6 +13,7 @@ import {
   WgTabPanel,
   WgTabs,
   WgThemeProvider,
+  WgTrendIndicator,
   WgToggle,
   WgValueTile,
 } from '../src/index.js';
@@ -59,6 +62,13 @@ function ReactFixture() {
           </WgButton>
           <span id="activation-count">{activationCount}</span>
         </WgValueTile>
+        <WgMetricGroup id="react-metric-group" label="React scalar data">
+          <p slot="description">React preserves the production light-DOM composition.</p>
+          <WgMetric id="react-trended-metric" label="Completed" value="1,284" unit="tasks">
+            <WgTrendIndicator slot="trend" direction="rising" label="12% over the previous hour" />
+          </WgMetric>
+          <WgKeyValue id="react-key-value" label="Active policy" value="Standard review" />
+        </WgMetricGroup>
         <WgTabs
           id="react-tabs"
           ref={(element) => {

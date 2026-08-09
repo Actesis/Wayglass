@@ -142,6 +142,13 @@ test('uses a labeled native scroll region for actual-size pan without custom whe
   await page.locator('#viewer').evaluate((element) => {
     (element as HTMLElement & { show(): boolean; actualSize(): boolean }).show();
   });
+  await expect
+    .poll(() =>
+      page
+        .locator('#viewer')
+        .evaluate((element) => element.shadowRoot!.querySelector('output')!.textContent),
+    )
+    .not.toBe('100%');
   await page.locator('#viewer').evaluate((element) => {
     (element as HTMLElement & { actualSize(): boolean }).actualSize();
   });
@@ -232,11 +239,13 @@ test('shares modal coordination and returns focus with explicit close reasons', 
 
   await page.keyboard.press('Escape');
   await expect(page.locator('#invoker')).toBeFocused();
-  expect(
-    await page
-      .locator('#viewer')
-      .evaluate((element) => (element as HTMLElement & { records: unknown[] }).records),
-  ).toEqual([{ viewerId: 'air-handler-image', reason: 'escape' }]);
+  await expect
+    .poll(() =>
+      page
+        .locator('#viewer')
+        .evaluate((element) => (element as HTMLElement & { records: unknown[] }).records),
+    )
+    .toEqual([{ viewerId: 'air-handler-image', reason: 'escape' }]);
 });
 
 test('normalizes state vocabulary and rejects invalid anatomy and labels', async ({ page }) => {

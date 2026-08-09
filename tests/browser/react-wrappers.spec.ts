@@ -7,6 +7,9 @@ test.beforeEach(async ({ page }) => {
     () =>
       customElements.get('wg-theme-provider') !== undefined &&
       customElements.get('wg-metric') !== undefined &&
+      customElements.get('wg-metric-group') !== undefined &&
+      customElements.get('wg-trend-indicator') !== undefined &&
+      customElements.get('wg-key-value') !== undefined &&
       customElements.get('wg-button') !== undefined &&
       customElements.get('wg-value-tile') !== undefined &&
       customElements.get('wg-tabs') !== undefined &&
@@ -25,6 +28,9 @@ test('registers wrappers and assigns typed element properties', async ({ page })
   await expect(page.locator('#react-metric')).toHaveJSProperty('condition', 'caution');
   await expect(page.locator('#react-metric')).toHaveJSProperty('knowledge', 'stale');
   await expect(page.locator('#react-metric').getByText('184')).toBeVisible();
+  await expect(page.locator('#react-metric-group')).toHaveJSProperty('label', 'React scalar data');
+  await expect(page.locator('#react-trended-metric').getByText('Rising')).toBeVisible();
+  await expect(page.locator('#react-key-value')).toHaveJSProperty('value', 'Standard review');
   await expect(page.locator('html')).toHaveAttribute('data-tabs-ref-tag', 'wg-tabs');
   await expect(page.locator('#react-tabs')).toHaveJSProperty('activation', 'automatic');
   await expect(page.locator('#react-tabs')).toHaveJSProperty('orientation', 'horizontal');
