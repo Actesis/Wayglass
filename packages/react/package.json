@@ -101,6 +101,10 @@
       "types": "./dist/command-item.d.ts",
       "import": "./dist/command-item.js"
     },
+    "./command-bar": {
+      "types": "./dist/command-bar.d.ts",
+      "import": "./dist/command-bar.js"
+    },
     "./divider": {
       "types": "./dist/divider.d.ts",
       "import": "./dist/divider.js"
@@ -120,6 +124,10 @@
     "./form-group": {
       "types": "./dist/form-group.d.ts",
       "import": "./dist/form-group.js"
+    },
+    "./filter-bar": {
+      "types": "./dist/filter-bar.d.ts",
+      "import": "./dist/filter-bar.js"
     },
     "./frame": {
       "types": "./dist/frame.d.ts",

@@ -1,8 +1,10 @@
 import type { WgButton as WgButtonElement } from '@wayglass/elements/button';
+import type { WgCommandBar as WgCommandBarElement } from '@wayglass/elements/command-bar';
 import type { WgConfirmationDialog as WgConfirmationDialogElement } from '@wayglass/elements/confirmation-dialog';
 import type { WgDialog as WgDialogElement } from '@wayglass/elements/dialog';
 import type { WgEventLog as WgEventLogElement } from '@wayglass/elements/event-log';
 import type { WgEventRecord as WgEventRecordElement } from '@wayglass/elements/event-record';
+import type { WgFilterBar as WgFilterBarElement } from '@wayglass/elements/filter-bar';
 import type { WgSurface as WgSurfaceElement } from '@wayglass/elements/surface';
 import type { WgSplit as WgSplitElement } from '@wayglass/elements/split';
 import type { WgMedia as WgMediaElement } from '@wayglass/elements/media';
@@ -25,6 +27,7 @@ import {
   WgCheckbox,
   WgDivider,
   WgCluster,
+  WgCommandBar,
   WgCommandItem,
   WgConfirmationDialog,
   WgDialog,
@@ -33,6 +36,7 @@ import {
   WgFrame,
   WgFieldLabel,
   WgFieldMessage,
+  WgFilterBar,
   WgFormGroup,
   WgGrid,
   WgIconButton,
@@ -107,6 +111,8 @@ const timelineRef = createRef<WgTimelineElement>();
 const timelineItemRef = createRef<WgTimelineItemElement>();
 const eventLogRef = createRef<WgEventLogElement>();
 const eventRecordRef = createRef<WgEventRecordElement>();
+const filterBarRef = createRef<WgFilterBarElement>();
+const commandBarRef = createRef<WgCommandBarElement>();
 
 const typedComposition = (
   <WgThemeProvider ref={providerRef} theme="wayglass-dark" density="compact">
@@ -189,6 +195,36 @@ const typedStatusList = (
   </WgStatusList>
 );
 void typedStatusList;
+
+const typedCompositionBars = (
+  <>
+    <WgFilterBar ref={filterBarRef} label="Event filters">
+      <h2 slot="heading">Event filters</h2>
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          new FormData(event.currentTarget);
+        }}
+        onReset={() => undefined}
+      >
+        <label>
+          Source
+          <input name="source" />
+        </label>
+        <button type="submit">Apply Event filters</button>
+      </form>
+      <p slot="summary">One filter applied: North intake.</p>
+      <p slot="status">24 events match.</p>
+    </WgFilterBar>
+    <WgCommandBar ref={commandBarRef} label="Event commands">
+      <h2 slot="heading">Event commands</h2>
+      <WgButton>Acknowledge selected Event records</WgButton>
+      <WgButton slot="secondary">Assign selected Event records</WgButton>
+      <p slot="status">No command is pending.</p>
+    </WgCommandBar>
+  </>
+);
+void typedCompositionBars;
 
 const typedTemporalCollections = (
   <>
