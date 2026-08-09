@@ -145,6 +145,10 @@
       "types": "./dist/key-value.d.ts",
       "import": "./dist/key-value.js"
     },
+    "./telemetry-strip": {
+      "types": "./dist/telemetry-strip.d.ts",
+      "import": "./dist/telemetry-strip.js"
+    },
     "./trend-indicator": {
       "types": "./dist/trend-indicator.d.ts",
       "import": "./dist/trend-indicator.js"

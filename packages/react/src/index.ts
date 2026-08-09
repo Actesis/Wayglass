@@ -64,6 +64,8 @@ export { WgMetricGroup } from './metric-group.js';
 export type { WgMetricGroupProps } from './metric-group.js';
 export { WgKeyValue } from './key-value.js';
 export type { WgKeyValueProps } from './key-value.js';
+export { WgTelemetryStrip } from './telemetry-strip.js';
+export type { WgTelemetryStripProps } from './telemetry-strip.js';
 export { WgTrendIndicator } from './trend-indicator.js';
 export type { WgTrendIndicatorProps } from './trend-indicator.js';
 export { WgMedia } from './media.js';

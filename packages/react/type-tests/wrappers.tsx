@@ -8,6 +8,7 @@ import type { WgMediaViewer as WgMediaViewerElement } from '@wayglass/elements/m
 import type { WgMenu as WgMenuElement } from '@wayglass/elements/menu';
 import type { WgTab as WgTabElement, WgTabs as WgTabsElement } from '@wayglass/elements/tabs';
 import type { WgThemeProvider as WgThemeProviderElement } from '@wayglass/elements/theme-provider';
+import type { WgTelemetryStrip as WgTelemetryStripElement } from '@wayglass/elements/telemetry-strip';
 import type { WgToggle as WgToggleElement } from '@wayglass/elements/toggle';
 import type { WgToast as WgToastElement } from '@wayglass/elements/toast';
 import type { WgToastRegion as WgToastRegionElement } from '@wayglass/elements/toast-region';
@@ -46,6 +47,7 @@ import {
   WgStack,
   WgSurface,
   WgTextField,
+  WgTelemetryStrip,
   WgTrendIndicator,
   WgTab,
   WgTabList,
@@ -88,6 +90,7 @@ const toastRegionRef = createRef<WgToastRegionElement>();
 const confirmationDialogRef = createRef<WgConfirmationDialogElement>();
 const dialogRef = createRef<WgDialogElement>();
 const mediaViewerRef = createRef<WgMediaViewerElement>();
+const telemetryStripRef = createRef<WgTelemetryStripElement>();
 
 const typedComposition = (
   <WgThemeProvider ref={providerRef} theme="wayglass-dark" density="compact">
@@ -120,6 +123,33 @@ const typedScalarData = (
     <WgKeyValue label="Active policy" value="Standard review" knowledge="confirmed" />
   </WgMetricGroup>
 );
+
+const typedTelemetry = (
+  <WgTelemetryStrip
+    ref={telemetryStripRef}
+    label="Queue depth"
+    samples={[
+      { observedAt: 0, value: 12 },
+      { observedAt: 1, value: null, knowledge: 'unavailable' },
+    ]}
+    windowStart={0}
+    windowEnd={1}
+    scaleMinimum={0}
+    scaleMaximum={20}
+    condition="caution"
+    activity="pending"
+  >
+    <h2 slot="heading">Queue depth</h2>
+    <time slot="window-start" dateTime="2026-08-09T18:00:00Z">
+      11:00
+    </time>
+    <time slot="window-end" dateTime="2026-08-09T19:00:00Z">
+      12:00
+    </time>
+    <p slot="summary">One unavailable observation occurs in the hour.</p>
+  </WgTelemetryStrip>
+);
+void typedTelemetry;
 
 const typedFormControls = (
   <form>
