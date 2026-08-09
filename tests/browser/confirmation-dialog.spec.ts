@@ -113,11 +113,13 @@ test('closes on Escape, reports the reason, and returns focus to the invoker', a
   await page.keyboard.press('Escape');
   await expect(page.getByRole('dialog')).not.toBeVisible();
   await expect(page.locator('#invoker')).toBeFocused();
-  expect(
-    await page
-      .locator('#confirmation')
-      .evaluate((element) => (element as HTMLElement & { events: unknown[] }).events),
-  ).toEqual([{ dialogId: 'disconnect-source', reason: 'escape' }]);
+  await expect
+    .poll(() =>
+      page
+        .locator('#confirmation')
+        .evaluate((element) => (element as HTMLElement & { events: unknown[] }).events),
+    )
+    .toEqual([{ dialogId: 'disconnect-source', reason: 'escape' }]);
 });
 
 test('closes before emitting one confirmed action intent', async ({ page }) => {

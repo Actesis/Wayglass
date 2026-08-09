@@ -330,6 +330,13 @@ for (const theme of ['wayglass-dark', 'wayglass-light'] as const) {
       element.setAttribute('theme', nextTheme);
     }, theme);
     await expect(provider).toHaveAttribute('data-wg-theme', theme);
+    await page.evaluate(async () => {
+      await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+      const animations = Array.from(document.querySelectorAll('wg-tab')).flatMap((tab) =>
+        Array.from(tab.shadowRoot?.querySelector('[part="tab"]')?.getAnimations() ?? []),
+      );
+      await Promise.all(animations.map((animation) => animation.finished.catch(() => undefined)));
+    });
 
     const results = await new AxeBuilder({ page }).analyze();
     expect(results.violations).toEqual([]);

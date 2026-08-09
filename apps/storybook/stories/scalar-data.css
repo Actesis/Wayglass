@@ -1,0 +1,69 @@
+.wg-scalar-viewport {
+  inline-size: min(72rem, 100%);
+  margin-inline: auto;
+}
+
+.wg-scalar-viewport--phone {
+  inline-size: min(20rem, 100%);
+}
+
+.wg-scalar-viewport--wall {
+  inline-size: min(120rem, 100%);
+}
+
+.wg-scalar-viewport wg-canvas {
+  min-block-size: 100vh;
+}
+
+.wg-scalar-header h1,
+.wg-scalar-header p {
+  margin-block-start: 0;
+}
+
+.wg-scalar-header h1 {
+  margin-block-end: var(--wg-space-reference-2);
+  font-family: var(--wg-typography-family-display);
+  font-size: var(--wg-typography-size-title);
+}
+
+.wg-scalar-header p:last-child {
+  margin-block-end: 0;
+  color: var(--wg-color-semantic-text-secondary);
+}
+
+.wg-scalar-workspace {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: var(--wg-space-semantic-function-gutter);
+}
+
+.wg-scalar-workspace wg-metric-group:last-child {
+  grid-column: 1 / -1;
+}
+
+.wg-scalar-viewport--phone .wg-scalar-workspace {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.wg-scalar-viewport--phone .wg-scalar-workspace wg-metric-group:last-child {
+  grid-column: 1;
+}
+
+.wg-scalar-viewport--wall .wg-scalar-workspace {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.wg-scalar-viewport--wall .wg-scalar-workspace wg-metric-group:last-child {
+  grid-column: auto;
+}
+
+.wg-scalar-viewport button[slot='actions'] {
+  min-block-size: var(--wg-size-touch-minimum);
+}
+
+@media (forced-colors: active) {
+  .wg-scalar-viewport button[slot='actions'] {
+    border: 1px solid ButtonText;
+  }
+}
