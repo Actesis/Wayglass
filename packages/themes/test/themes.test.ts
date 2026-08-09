@@ -160,6 +160,30 @@ describe('Phase 1 themes', () => {
     expect(first).toContain(
       '--wg-component-status-entry-space-related: var(--wg-space-reference-2)',
     );
+    expect(first).toContain('--wg-component-timeline-space: var(--wg-space-reference-3)');
+    expect(first).toContain('--wg-component-timeline-space-item: var(--wg-space-reference-2)');
+    expect(first).toContain('--wg-component-timeline-item-space: var(--wg-space-reference-3)');
+    expect(first).toContain(
+      '--wg-component-timeline-item-space-related: var(--wg-space-reference-1)',
+    );
+    expect(first).toContain('--wg-component-event-log-space: var(--wg-space-reference-3)');
+    expect(first).toContain('--wg-component-event-log-space-record: var(--wg-space-reference-1)');
+    expect(first).toContain('--wg-component-event-record-space: var(--wg-space-reference-2)');
+    expect(first).toContain(
+      '--wg-component-event-record-space-related: var(--wg-space-reference-1)',
+    );
+    expect(first).toContain('--wg-component-timeline-space: var(--wg-space-reference-6)');
+    expect(first).toContain('--wg-component-timeline-space-item: var(--wg-space-reference-3)');
+    expect(first).toContain('--wg-component-timeline-item-space: var(--wg-space-reference-4)');
+    expect(first).toContain(
+      '--wg-component-timeline-item-space-related: var(--wg-space-reference-2)',
+    );
+    expect(first).toContain('--wg-component-event-log-space: var(--wg-space-reference-6)');
+    expect(first).toContain('--wg-component-event-log-space-record: var(--wg-space-reference-2)');
+    expect(first).toContain('--wg-component-event-record-space: var(--wg-space-reference-3)');
+    expect(first).toContain(
+      '--wg-component-event-record-space-related: var(--wg-space-reference-2)',
+    );
     expect(first).not.toContain('wayglass-high-contrast');
     expect(first).not.toContain('wayglass-dim');
   });

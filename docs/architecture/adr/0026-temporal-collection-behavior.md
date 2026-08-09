@@ -1,6 +1,6 @@
 # ADR 0026: Separate temporal views and keep reading context application-owned
 
-- Status: proposed
+- Status: accepted
 - Date: 2026-08-09
 
 ## Context
@@ -18,7 +18,7 @@ person has left the latest boundary, and whether an update warrants speech.
 The accepted [operational-data contract](../../data/operational-data.md) and
 [ADR 0024](./0024-operational-data-ownership-and-updates.md) already establish consumer-owned data,
 DOM continuity, authoritative DOM order, stationary updates, and no implicit live regions. The
-[Phase 3E temporal-collection proposal](../../data/temporal-collections.md) requires a narrower
+[Phase 3E temporal-collection contract](../../data/temporal-collections.md) requires a narrower
 decision about component separation and reading-context behavior.
 
 ## Decision

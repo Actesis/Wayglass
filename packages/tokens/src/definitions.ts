@@ -1865,6 +1865,191 @@ export const tokens = {
     type: 'dimension',
     description: 'Compact rounded-square status-entry condition signal size.',
   },
+  'component.timeline.color.background': {
+    value: '{color.semantic.surface.panel}',
+    type: 'color',
+    description: 'Contained background for one named curated timeline.',
+  },
+  'component.timeline.color.border': {
+    value: '{color.semantic.border.subtle}',
+    type: 'color',
+    description: 'Routine boundary around one named curated timeline.',
+  },
+  'component.timeline.color.heading': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'Timeline heading text.',
+  },
+  'component.timeline.color.context': {
+    value: '{color.semantic.text.secondary}',
+    type: 'color',
+    description: 'Timeline chronology, description, and authored collection-feedback text.',
+  },
+  'component.timeline.radius': {
+    value: '{shape.radius.panel}',
+    type: 'dimension',
+    description: 'Timeline contained-surface radius.',
+  },
+  'component.timeline.space': {
+    value: '{space.reference.4}',
+    type: 'dimension',
+    description: 'Density-aware timeline edge and section spacing.',
+  },
+  'component.timeline.space.item': {
+    value: '{space.reference.3}',
+    type: 'dimension',
+    description: 'Density-aware separation between curated timeline items.',
+  },
+  'component.timeline-item.color.heading': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'Timeline-item milestone or interval heading text.',
+  },
+  'component.timeline-item.color.detail': {
+    value: '{color.semantic.text.secondary}',
+    type: 'color',
+    description: 'Timeline-item time, description, metadata, and supporting detail text.',
+  },
+  'component.timeline-item.color.state': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'Contrast-safe timeline-item state text.',
+  },
+  'component.timeline-item.color.condition': {
+    value: '{color.semantic.condition.neutral}',
+    type: 'color',
+    description: 'Timeline-item occurrence signal before the selected condition override.',
+  },
+  'component.timeline-item.color.sequence': {
+    value: '{color.semantic.border.strong}',
+    type: 'color',
+    description: 'Direction-neutral timeline sequence geometry without condition meaning.',
+  },
+  'component.timeline-item.color.signal-border': {
+    value: '{color.semantic.border.strong}',
+    type: 'color',
+    description: 'Redundant boundary around the timeline-item occurrence signal.',
+  },
+  'component.timeline-item.radius.signal': {
+    value: '{shape.radius.signal}',
+    type: 'dimension',
+    description: 'Timeline-item occurrence-signal radius.',
+  },
+  'component.timeline-item.space': {
+    value: '{space.reference.3}',
+    type: 'dimension',
+    description: 'Density-aware timeline-item major-region spacing.',
+  },
+  'component.timeline-item.space.related': {
+    value: '{space.reference.2}',
+    type: 'dimension',
+    description: 'Density-aware spacing between closely related timeline-item anatomy.',
+  },
+  'component.timeline-item.size.signal': {
+    value: '{size.signal.compact}',
+    type: 'dimension',
+    description: 'Compact rounded-square timeline-item occurrence signal size.',
+  },
+  'component.timeline-item.width.sequence': {
+    value: '{border.width.standard}',
+    type: 'dimension',
+    description: 'Neutral timeline sequence-line width.',
+  },
+  'component.event-log.color.background': {
+    value: '{color.semantic.surface.panel}',
+    type: 'color',
+    description: 'Contained background for one named event stream.',
+  },
+  'component.event-log.color.border': {
+    value: '{color.semantic.border.subtle}',
+    type: 'color',
+    description: 'Routine boundary around one named event stream.',
+  },
+  'component.event-log.color.heading': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'Event-log heading text.',
+  },
+  'component.event-log.color.context': {
+    value: '{color.semantic.text.secondary}',
+    type: 'color',
+    description: 'Event-log chronology, description, and authored collection-feedback text.',
+  },
+  'component.event-log.radius': {
+    value: '{shape.radius.panel}',
+    type: 'dimension',
+    description: 'Event-log contained-surface radius.',
+  },
+  'component.event-log.space': {
+    value: '{space.reference.4}',
+    type: 'dimension',
+    description: 'Density-aware event-log edge and section spacing.',
+  },
+  'component.event-log.space.record': {
+    value: '{space.reference.2}',
+    type: 'dimension',
+    description: 'Density-aware separation between event records in authored order.',
+  },
+  'component.event-record.color.background': {
+    value: '{color.semantic.surface.inset}',
+    type: 'color',
+    description: 'Contained background for one inspectable event occurrence.',
+  },
+  'component.event-record.color.border': {
+    value: '{color.semantic.border.subtle}',
+    type: 'color',
+    description: 'Routine boundary around one event record.',
+  },
+  'component.event-record.color.summary': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'Event-record primary occurrence summary text.',
+  },
+  'component.event-record.color.detail': {
+    value: '{color.semantic.text.secondary}',
+    type: 'color',
+    description: 'Event-record time, source, category, reference, and supporting detail text.',
+  },
+  'component.event-record.color.state': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'Contrast-safe event-record state text.',
+  },
+  'component.event-record.color.condition': {
+    value: '{color.semantic.condition.neutral}',
+    type: 'color',
+    description: 'Event-record occurrence signal before the selected condition override.',
+  },
+  'component.event-record.color.signal-border': {
+    value: '{color.semantic.border.strong}',
+    type: 'color',
+    description: 'Redundant boundary around the compact event-record occurrence signal.',
+  },
+  'component.event-record.radius': {
+    value: '{shape.radius.control}',
+    type: 'dimension',
+    description: 'Event-record contained-surface radius.',
+  },
+  'component.event-record.radius.signal': {
+    value: '{shape.radius.signal}',
+    type: 'dimension',
+    description: 'Event-record compact occurrence-signal radius.',
+  },
+  'component.event-record.space': {
+    value: '{space.reference.2}',
+    type: 'dimension',
+    description: 'Density-aware event-record edge and major-region spacing.',
+  },
+  'component.event-record.space.related': {
+    value: '{space.reference.1}',
+    type: 'dimension',
+    description: 'Density-aware spacing between closely related event-record anatomy.',
+  },
+  'component.event-record.size.signal': {
+    value: '{size.signal.compact}',
+    type: 'dimension',
+    description: 'Compact rounded-square event-record occurrence signal size.',
+  },
   'component.value-tile.color.background': {
     value: '{color.semantic.surface.panel}',
     type: 'color',
