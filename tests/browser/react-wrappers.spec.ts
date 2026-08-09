@@ -13,6 +13,8 @@ test.beforeEach(async ({ page }) => {
       customElements.get('wg-telemetry-strip') !== undefined &&
       customElements.get('wg-status-list') !== undefined &&
       customElements.get('wg-status-entry') !== undefined &&
+      customElements.get('wg-filter-bar') !== undefined &&
+      customElements.get('wg-command-bar') !== undefined &&
       customElements.get('wg-timeline') !== undefined &&
       customElements.get('wg-timeline-item') !== undefined &&
       customElements.get('wg-event-log') !== undefined &&
@@ -54,6 +56,15 @@ test('registers wrappers and assigns typed element properties', async ({ page })
   await expect(page.locator('#react-status-entry')).toHaveJSProperty('condition', 'caution');
   await expect(page.locator('#react-status-entry')).toHaveJSProperty('knowledge', 'stale');
   await expect(page.locator('#react-status-entry')).toHaveJSProperty('activity', 'pending');
+  await expect(page.locator('html')).toHaveAttribute('data-filter-bar-ref-tag', 'wg-filter-bar');
+  await expect(page.locator('html')).toHaveAttribute('data-command-bar-ref-tag', 'wg-command-bar');
+  await expect(page.locator('#react-filter-bar')).toHaveJSProperty('label', 'React event filters');
+  await expect(page.locator('#react-command-bar')).toHaveJSProperty(
+    'label',
+    'React event commands',
+  );
+  await expect(page.getByRole('region', { name: 'React event filters' })).toBeVisible();
+  await expect(page.getByRole('region', { name: 'React event commands' })).toBeVisible();
   await expect(page.locator('html')).toHaveAttribute('data-timeline-ref-tag', 'wg-timeline');
   const timelineList = page.getByRole('list', { name: 'React review history' });
   await expect(timelineList).toBeVisible();
@@ -86,6 +97,19 @@ test('forwards native events through React props', async ({ page }) => {
   await expect(page.locator('#activation-count')).toHaveText('0');
   await page.locator('#react-button').locator('button').click();
   await expect(page.locator('#activation-count')).toHaveText('1');
+
+  await page.getByRole('combobox', { name: 'React source' }).selectOption('north');
+  await page.getByRole('button', { name: 'Apply React event filters' }).click();
+  await expect(page.locator('html')).toHaveAttribute(
+    'data-react-filter-submit',
+    JSON.stringify({ submitter: 'apply', source: 'north' }),
+  );
+  await page.getByRole('button', { name: 'Reset React filter draft' }).click();
+  await expect(page.locator('html')).toHaveAttribute('data-react-filter-reset', 'true');
+  await expect(page.getByRole('combobox', { name: 'React source' })).toHaveValue('all');
+
+  await page.getByRole('button', { name: 'Acknowledge selected React Event records' }).click();
+  await expect(page.locator('html')).toHaveAttribute('data-react-primary-command', 'activated');
 });
 
 test('translates typed Custom Events to React callback props', async ({ page }) => {

@@ -1,12 +1,16 @@
 import {
   WgButton,
+  WgCommandBar,
+  WgCommandItem,
   WgConfirmationDialog,
   WgEventLog,
   WgEventRecord,
+  WgFilterBar,
   WgIconButton,
   WgKeyValue,
   WgMetric,
   WgMetricGroup,
+  WgMenu,
   WgNavigationRail,
   WgSegment,
   WgSegmentedControl,
@@ -123,6 +127,74 @@ function ReactFixture() {
             </button>
           </WgStatusEntry>
         </WgStatusList>
+        <WgFilterBar
+          id="react-filter-bar"
+          ref={(element) => {
+            document.documentElement.dataset.filterBarRefTag = element?.localName ?? '';
+          }}
+          label="React event filters"
+        >
+          <h2 slot="heading">React event filters</h2>
+          <p slot="description">Narrow the retained React-authored event records.</p>
+          <form
+            id="react-filter-form"
+            onSubmit={(event) => {
+              event.preventDefault();
+              const submitter = (event.nativeEvent as SubmitEvent)
+                .submitter as HTMLButtonElement | null;
+              const data = new FormData(event.currentTarget, submitter);
+              document.documentElement.dataset.reactFilterSubmit = JSON.stringify({
+                submitter: submitter?.value ?? null,
+                source: data.get('source'),
+              });
+            }}
+            onReset={() => {
+              document.documentElement.dataset.reactFilterReset = 'true';
+            }}
+          >
+            <label>
+              React source
+              <select name="source" defaultValue="all">
+                <option value="all">All React sources</option>
+                <option value="north">React North source</option>
+              </select>
+            </label>
+            <button name="intent" value="apply" type="submit">
+              Apply React event filters
+            </button>
+            <button type="reset">Reset React filter draft</button>
+          </form>
+          <p slot="summary">No React filters applied.</p>
+          <p slot="status">500 retained React events remain visible.</p>
+        </WgFilterBar>
+        <WgCommandBar
+          id="react-command-bar"
+          ref={(element) => {
+            document.documentElement.dataset.commandBarRefTag = element?.localName ?? '';
+          }}
+          label="React event commands"
+        >
+          <h2 slot="heading">React event commands</h2>
+          <p slot="description">Commands affect selected React event records.</p>
+          <WgButton
+            id="react-primary-command"
+            onClick={() => {
+              document.documentElement.dataset.reactPrimaryCommand = 'activated';
+            }}
+          >
+            Acknowledge selected React Event records
+          </WgButton>
+          <WgButton id="react-secondary-command" slot="secondary">
+            Assign selected React Event records
+          </WgButton>
+          <WgMenu slot="overflow" label="More React Event commands">
+            <span slot="trigger">More React Event commands</span>
+            <WgCommandItem value="export-react-events">
+              Export selected React Event records
+            </WgCommandItem>
+          </WgMenu>
+          <p slot="status">No React command is pending.</p>
+        </WgCommandBar>
         <WgTimeline
           id="react-timeline"
           ref={(element) => {
