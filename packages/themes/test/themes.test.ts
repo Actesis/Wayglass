@@ -70,6 +70,7 @@ describe('Phase 1 themes', () => {
   it.each(phase1ThemeNames)('%s meets foundational contrast thresholds', (theme) => {
     const canvas = themeColor(theme, 'color.semantic.surface.canvas');
     const panel = themeColor(theme, 'color.semantic.surface.panel');
+    const inset = themeColor(theme, 'color.semantic.surface.inset');
     const primaryText = themeColor(theme, 'color.semantic.text.primary');
     const secondaryText = themeColor(theme, 'color.semantic.text.secondary');
     const inverseText = themeColor(theme, 'color.semantic.text.inverse');
@@ -78,6 +79,7 @@ describe('Phase 1 themes', () => {
     const strongBoundary = themeColor(theme, 'color.semantic.border.strong');
     const selectionIndicator = themeColor(theme, 'color.semantic.selection.indicator');
     const dataChange = themeColor(theme, 'color.semantic.data.change');
+    const dataSeries = themeColor(theme, 'color.semantic.data.series.1');
 
     expect(contrastRatio(primaryText, canvas)).toBeGreaterThanOrEqual(7);
     expect(contrastRatio(secondaryText, panel)).toBeGreaterThanOrEqual(4.5);
@@ -86,6 +88,7 @@ describe('Phase 1 themes', () => {
     expect(contrastRatio(strongBoundary, panel)).toBeGreaterThanOrEqual(3);
     expect(contrastRatio(selectionIndicator, panel)).toBeGreaterThanOrEqual(3);
     expect(contrastRatio(dataChange, panel)).toBeGreaterThanOrEqual(3);
+    expect(contrastRatio(dataSeries, inset)).toBeGreaterThanOrEqual(3);
   });
 
   it('generates deterministic theme and density selectors from token aliases', () => {
@@ -137,6 +140,14 @@ describe('Phase 1 themes', () => {
     expect(first).toContain('--wg-component-metric-group-space-item: var(--wg-space-reference-3)');
     expect(first).toContain('--wg-component-trend-indicator-space: var(--wg-space-reference-2)');
     expect(first).toContain('--wg-component-key-value-space: var(--wg-space-reference-3)');
+    expect(first).toContain('--wg-component-telemetry-strip-space: var(--wg-space-reference-3)');
+    expect(first).toContain(
+      '--wg-component-telemetry-strip-space-related: var(--wg-space-reference-1)',
+    );
+    expect(first).toContain('--wg-component-telemetry-strip-space: var(--wg-space-reference-6)');
+    expect(first).toContain(
+      '--wg-component-telemetry-strip-space-related: var(--wg-space-reference-2)',
+    );
     expect(first).not.toContain('wayglass-high-contrast');
     expect(first).not.toContain('wayglass-dim');
   });

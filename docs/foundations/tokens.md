@@ -93,6 +93,19 @@ Direction geometry, line angle, wrapping threshold, loading text, child counting
 count remain private mechanical behavior. Exposing them as tokens would imply visual customization
 or application policy that the contracts do not support.
 
+## Phase 3C compact telemetry
+
+The `component.telemetry-strip.*` group defines the contained and inset graphic surfaces, routine
+boundary, heading and current-value text, neutral single-series color, context and state text,
+surface radius, density-aware spacing, preferred graphic block size, and non-scaling series stroke.
+Observation knowledge continues to use the shared `color.semantic.knowledge.*` roles rather than a
+second telemetry-specific state palette.
+
+Dash patterns, normalized coordinates, path grouping, point radius, boundary placement, and gap-mark
+height remain private mechanical constants. Those values preserve the accepted non-color language
+and rendering performance; exposing them would allow themes to make knowledge states ambiguous or
+turn the compact overview into a general chart API.
+
 ## CSS names
 
 Token paths compile deterministically to `--wg-` custom properties:
