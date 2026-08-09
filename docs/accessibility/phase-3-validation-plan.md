@@ -74,9 +74,12 @@ manual assistive-technology procedures remain public-release gates.
 ### Phase 3E — Timeline and event log
 
 - Past milestones, intervals, current activity, inferred time, delayed receipt, duplicated visible
-  events, chronological directions, grouping, details, and actions.
+  events, chronological directions, visible ordering context, grouping, occurrence-scoped condition,
+  authored severity, native details, media, and actions.
 - New-record and burst updates with no forced scroll or implicit speech; deliberate unseen-summary
-  announcements tested separately.
+  announcements and application-owned jump/follow-latest composition tested separately.
+- Named ordered-list semantics without `role="log"`; DOM, visual, and assistive-technology order
+  agree in ascending and descending chronology while details or a record action contains focus.
 - One hundred timeline items and 500 event records, including insertion of 50 records away from and
   at the newest boundary.
 

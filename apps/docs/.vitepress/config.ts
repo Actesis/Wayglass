@@ -72,6 +72,10 @@ export default defineConfig({
             text: 'Status list',
             link: '/data/status-list',
           },
+          {
+            text: 'Temporal collections',
+            link: '/data/temporal-collections',
+          },
         ],
       },
       {
@@ -191,6 +195,10 @@ export default defineConfig({
           {
             text: 'ADR 0025: Telemetry rendering',
             link: '/architecture/adr/0025-telemetry-rendering-and-accessible-equivalence',
+          },
+          {
+            text: 'ADR 0026: Temporal collections',
+            link: '/architecture/adr/0026-temporal-collection-behavior',
           },
         ],
       },
