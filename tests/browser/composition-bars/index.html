@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wayglass filter and command bars</title>
+    <link rel="stylesheet" href="/packages/tokens/dist/tokens.css" />
+    <link rel="stylesheet" href="/packages/themes/dist/themes.css" />
+    <style>
+      body {
+        margin: 0;
+        color: var(--wg-color-semantic-text-primary);
+        background: var(--wg-color-semantic-surface-canvas);
+        font-family: var(--wg-typography-family-body);
+      }
+
+      main {
+        display: grid;
+        box-sizing: border-box;
+        inline-size: min(100%, 64rem);
+        margin-inline: auto;
+        padding: var(--wg-space-reference-4);
+        gap: var(--wg-space-reference-6);
+      }
+
+      form,
+      fieldset {
+        min-inline-size: 0;
+      }
+
+      form {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: end;
+        gap: var(--wg-space-reference-3);
+      }
+
+      fieldset {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0;
+        padding: var(--wg-space-reference-2);
+        gap: var(--wg-space-reference-2);
+        border: var(--wg-border-width-standard) solid var(--wg-color-semantic-border-subtle);
+      }
+
+      label {
+        display: grid;
+        gap: var(--wg-space-reference-1);
+      }
+
+      input,
+      select,
+      button {
+        min-block-size: var(--wg-size-touch-minimum);
+        box-sizing: border-box;
+        font: inherit;
+      }
+
+      wg-filter-bar:not(:defined),
+      wg-command-bar:not(:defined) {
+        display: grid;
+        gap: var(--wg-space-reference-2);
+      }
+
+      @media (max-width: 36rem) {
+        form,
+        fieldset {
+          display: grid;
+        }
+      }
+    </style>
+  </head>
+  <body data-wg-theme="wayglass-dark" data-wg-density="compact">
+    <main>
+      <wg-filter-bar id="event-filters" label="Event filters">
+        <h1 slot="heading">Event filters</h1>
+        <p slot="description">Narrow the retained operational events.</p>
+        <form id="event-filter-form">
+          <fieldset>
+            <legend>Condition</legend>
+            <label><input name="condition" type="checkbox" value="caution" /> Caution</label>
+            <label><input name="condition" type="checkbox" value="critical" /> Critical</label>
+          </fieldset>
+          <label>
+            Source
+            <select name="source">
+              <option value="">All sources</option>
+              <option value="north">North intake</option>
+            </select>
+          </label>
+          <button id="apply-filters" name="intent" value="apply" type="submit">
+            Apply Event filters
+          </button>
+          <button id="reset-filter-draft" type="reset">Reset filter draft</button>
+        </form>
+        <p slot="summary" id="applied-summary">No filters applied.</p>
+        <p slot="status" id="filter-status">500 retained events remain visible.</p>
+      </wg-filter-bar>
+
+      <wg-command-bar id="event-commands" label="Event commands">
+        <h2 slot="heading">Event commands</h2>
+        <p slot="description">Commands affect the selected event records.</p>
+        <wg-button id="acknowledge-events" appearance="primary">
+          Acknowledge selected Event records
+        </wg-button>
+        <wg-button id="assign-events" slot="secondary" appearance="secondary">
+          Assign selected Event records
+        </wg-button>
+        <wg-menu id="event-command-menu" slot="overflow" label="More Event commands">
+          <span slot="trigger">More Event commands</span>
+          <wg-command-item value="export-events">Export selected Event records</wg-command-item>
+          <wg-command-item value="archive-events" disabled>
+            Archive selected Event records
+            <span slot="detail">Unavailable while review is open</span>
+          </wg-command-item>
+        </wg-menu>
+        <p slot="status" id="command-status">12 records selected; no command is pending.</p>
+      </wg-command-bar>
+    </main>
+
+    <script type="module">
+      const parameters = new URLSearchParams(window.location.search);
+      document.body.dataset.wgTheme = parameters.get('theme') ?? 'wayglass-dark';
+      document.body.dataset.wgDensity = parameters.get('density') ?? 'compact';
+      if (parameters.get('direction') === 'rtl') document.documentElement.dir = 'rtl';
+
+      if (parameters.get('upgrade') !== 'false') {
+        const [filterBar, commandBar, button, menu] = await Promise.all([
+          import('/packages/elements/dist/filter-bar.js'),
+          import('/packages/elements/dist/command-bar.js'),
+          import('/packages/elements/dist/button.js'),
+          import('/packages/elements/dist/menu.js'),
+        ]);
+        filterBar.defineWgFilterBar();
+        commandBar.defineWgCommandBar();
+        button.defineWgButton();
+        menu.defineWgMenu();
+      }
+    </script>
+  </body>
+</html>
