@@ -62,6 +62,10 @@ assistive-technology procedures remain public-release gates.
 
 ### Phase 3D — Status list
 
+Automated implementation evidence is complete; see the
+[Phase 3D status-list validation record](./phase-3d-status-list-validation.md). Representative
+manual assistive-technology procedures remain public-release gates.
+
 - Mixed condition, knowledge, activity, value, time, metadata, and action content with icon-free
   meaning.
 - Empty, filtered-empty, initial loading, refresh, partial, offline, and unavailable collections.

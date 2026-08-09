@@ -114,12 +114,13 @@ authored entries. The `component.status-entry.*` group defines the inset entry s
 boundary, primary and supporting text, shared known-state and condition roles, compact signal
 boundary and size, radii, and density-aware internal spacing.
 
-Condition, knowledge, and activity continue to use their shared semantic color roles. Status-entry
-tokens provide component defaults but do not create a second state palette. Entry row geometry,
-responsive wrap thresholds, state-label copy, authored-action layout, child validation, focus
-recovery, and mutation behavior remain private mechanics or application responsibilities. Exposing
-them as tokens would allow themes to change semantics or imply behavioral customization that the
-contracts do not support.
+Condition signals and pending signal emphasis continue to use their shared semantic color roles.
+State words use the contrast-safe status-entry text role; knowledge also retains fixed non-color
+signal-border distinctions. This prevents graphic-support colors from becoming low-contrast text
+without creating a second state palette. Entry row geometry, responsive wrap thresholds, state-label
+copy, authored-action layout, child validation, focus recovery, and mutation behavior remain private
+mechanics or application responsibilities. Exposing them as tokens would allow themes to change
+semantics or imply behavioral customization that the contracts do not support.
 
 ## CSS names
 

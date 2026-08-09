@@ -446,6 +446,9 @@ describe('token compiler', () => {
     expect(tokens['component.status-entry.color.condition'].value).toBe(
       '{color.semantic.condition.neutral}',
     );
+    expect(tokens['component.status-entry.color.state'].value).toBe(
+      '{color.semantic.text.primary}',
+    );
     expect(tokens['component.status-entry.size.signal'].value).toBe('{size.signal.compact}');
   });
 
