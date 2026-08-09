@@ -1,6 +1,10 @@
+import type { WgEventLog as WgEventLogElement } from '@wayglass/elements/event-log';
+import type { WgEventRecord as WgEventRecordElement } from '@wayglass/elements/event-record';
 import type { WgMetric as WgMetricElement } from '@wayglass/elements/metric';
 import type { WgStatusEntry as WgStatusEntryElement } from '@wayglass/elements/status-entry';
 import type { WgTelemetryStrip as WgTelemetryStripElement } from '@wayglass/elements/telemetry-strip';
+import type { WgTimeline as WgTimelineElement } from '@wayglass/elements/timeline';
+import type { WgTimelineItem as WgTimelineItemElement } from '@wayglass/elements/timeline-item';
 import { createElement, createRef, isValidElement } from 'react';
 import { describe, expect, it } from 'vitest';
 
@@ -15,6 +19,8 @@ import {
   WgDialog,
   WgDivider,
   WgElbow,
+  WgEventLog,
+  WgEventRecord,
   WgFieldLabel,
   WgFieldMessage,
   WgFormGroup,
@@ -45,6 +51,8 @@ import {
   WgSurface,
   WgTextField,
   WgTelemetryStrip,
+  WgTimeline,
+  WgTimelineItem,
   WgTrendIndicator,
   WgTab,
   WgTabList,
@@ -95,6 +103,10 @@ describe('Wayglass React wrappers', () => {
       WgStatusIndicator,
       WgStatusEntry,
       WgStatusList,
+      WgTimeline,
+      WgTimelineItem,
+      WgEventLog,
+      WgEventRecord,
       WgSurface,
       WgBooleanValue,
       WgMetric,
@@ -148,6 +160,10 @@ describe('Wayglass React wrappers', () => {
       'WgStatusIndicator',
       'WgStatusEntry',
       'WgStatusList',
+      'WgTimeline',
+      'WgTimelineItem',
+      'WgEventLog',
+      'WgEventRecord',
       'WgSurface',
       'WgBooleanValue',
       'WgMetric',
@@ -227,6 +243,57 @@ describe('Wayglass React wrappers', () => {
     expect(entry.props.knowledge).toBe('stale');
     expect(entry.props.activity).toBe('pending');
     expect(entry.props.ref).toBe(ref);
+  });
+
+  it('preserves typed temporal collection properties and element refs', () => {
+    const timelineRef = createRef<WgTimelineElement>();
+    const eventLogRef = createRef<WgEventLogElement>();
+    const timeline = createElement(WgTimeline, {
+      ref: timelineRef,
+      label: 'Deployment history',
+      chronology: 'ascending',
+      chronologyLabel: 'Oldest to newest',
+      busy: true,
+    });
+    const eventLog = createElement(WgEventLog, {
+      ref: eventLogRef,
+      label: 'Operational events',
+      chronology: 'descending',
+      chronologyLabel: 'Newest to oldest',
+    });
+
+    expect(timeline.props.chronology).toBe('ascending');
+    expect(timeline.props.chronologyLabel).toBe('Oldest to newest');
+    expect(timeline.props.ref).toBe(timelineRef);
+    expect(eventLog.props.chronology).toBe('descending');
+    expect(eventLog.props.ref).toBe(eventLogRef);
+  });
+
+  it('preserves typed temporal record properties and element refs', () => {
+    const timelineItemRef = createRef<WgTimelineItemElement>();
+    const eventRecordRef = createRef<WgEventRecordElement>();
+    const timelineItem = createElement(WgTimelineItem, {
+      ref: timelineItemRef,
+      label: 'Review opened',
+      kind: 'interval',
+      condition: 'informational',
+      knowledge: 'inferred',
+      activity: 'pending',
+    });
+    const eventRecord = createElement(WgEventRecord, {
+      ref: eventRecordRef,
+      label: 'Source response delayed',
+      condition: 'caution',
+      knowledge: 'stale',
+      activity: 'pending',
+    });
+
+    expect(timelineItem.props.kind).toBe('interval');
+    expect(timelineItem.props.knowledge).toBe('inferred');
+    expect(timelineItem.props.ref).toBe(timelineItemRef);
+    expect(eventRecord.props.condition).toBe('caution');
+    expect(eventRecord.props.activity).toBe('pending');
+    expect(eventRecord.props.ref).toBe(eventRecordRef);
   });
 
   it('preserves the typed theme-change callback prop', () => {
