@@ -147,6 +147,21 @@ follow-latest policy, and unseen-record calculation remain private mechanics or 
 responsibilities. Exposing them as tokens would allow themes to change semantics or imply behavioral
 customization that the accepted contracts do not support.
 
+## Phase 3F filter and command compositions
+
+The `component.filter-bar.*` and `component.command-bar.*` groups define neutral contained surfaces,
+routine boundaries, heading and supporting-context text, panel radii, density-aware section spacing,
+and spacing between related control groups. Both use the same semantic foundation while remaining
+separate component namespaces so substantial brand adaptation does not collapse their different
+native form and immediate-command ownership.
+
+Child controls continue to use their existing form, button, menu, focus, pending, disabled, and
+feedback tokens. Applied-filter summaries and durable command outcomes remain authored content; they
+do not receive a new state palette. Responsive thresholds, control priority, command migration,
+overflow calculation, form layout, result count, busy state, and announcement delivery remain
+private mechanics or application policy. Exposing them as tokens would imply behavior or ownership
+that the accepted Phase 3F contract explicitly excludes.
+
 ## CSS names
 
 Token paths compile deterministically to `--wg-` custom properties:

@@ -76,6 +76,10 @@ export default defineConfig({
             text: 'Temporal collections',
             link: '/data/temporal-collections',
           },
+          {
+            text: 'Filter and command patterns',
+            link: '/data/filter-and-command-patterns',
+          },
         ],
       },
       {
@@ -200,6 +204,10 @@ export default defineConfig({
             text: 'ADR 0026: Temporal collections',
             link: '/architecture/adr/0026-temporal-collection-behavior',
           },
+          {
+            text: 'ADR 0027: Filter and command composition',
+            link: '/architecture/adr/0027-filter-and-command-composition',
+          },
         ],
       },
       {
@@ -232,6 +240,10 @@ export default defineConfig({
           {
             text: 'Phase 3D status-list validation',
             link: '/accessibility/phase-3d-status-list-validation',
+          },
+          {
+            text: 'Phase 3E temporal-collections validation',
+            link: '/accessibility/phase-3e-temporal-collections-validation',
           },
           {
             text: 'Phase 2 assistive-technology gates',
