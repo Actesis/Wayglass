@@ -3,8 +3,8 @@
 **Status:** Accepted for Phase 3E on August 9, 2026. This contract defines the boundary for
 `wg-timeline`, `wg-timeline-item`, `wg-event-log`, and `wg-event-record`. Its required public tokens
 are locked. Both framework-neutral collection families, their focused cross-browser tests, and typed
-React wrappers are implemented; production stories and full validation remain. It follows the
-accepted [operational-data ownership contract](./operational-data.md),
+React wrappers and production Storybook fixtures are implemented; full validation remains. It
+follows the accepted [operational-data ownership contract](./operational-data.md),
 [ADR 0024](../architecture/adr/0024-operational-data-ownership-and-updates.md), and accepted
 [ADR 0026](../architecture/adr/0026-temporal-collection-behavior.md).
 
