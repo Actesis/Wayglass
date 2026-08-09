@@ -1,0 +1,59 @@
+.wg-status-viewport {
+  inline-size: min(80rem, 100%);
+  margin-inline: auto;
+}
+
+.wg-status-viewport--phone {
+  inline-size: min(20rem, 100%);
+}
+
+.wg-status-viewport--wall {
+  inline-size: min(120rem, 100%);
+}
+
+.wg-status-viewport wg-canvas {
+  min-block-size: 100vh;
+}
+
+.wg-status-header h1,
+.wg-status-header p {
+  margin-block-start: 0;
+}
+
+.wg-status-header h1 {
+  margin-block-end: var(--wg-space-reference-2);
+  font-family: var(--wg-typography-family-display);
+  font-size: var(--wg-typography-size-title);
+}
+
+.wg-status-header p:last-child {
+  margin-block-end: 0;
+  color: var(--wg-color-semantic-text-secondary);
+}
+
+.wg-status-workspace,
+.wg-status-feedback-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+  align-items: start;
+  gap: var(--wg-space-semantic-function-gutter);
+}
+
+.wg-status-viewport--phone .wg-status-workspace,
+.wg-status-viewport--phone .wg-status-feedback-grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.wg-status-viewport--wall .wg-status-workspace,
+.wg-status-viewport--wall .wg-status-feedback-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.wg-status-viewport wg-status-entry [slot='actions'],
+.wg-status-viewport wg-status-list [slot='actions'] {
+  min-block-size: var(--wg-size-touch-minimum);
+}
+
+.wg-status-viewport wg-progress progress {
+  inline-size: 100%;
+}

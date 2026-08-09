@@ -9,6 +9,7 @@ import type { WgMenu as WgMenuElement } from '@wayglass/elements/menu';
 import type { WgTab as WgTabElement, WgTabs as WgTabsElement } from '@wayglass/elements/tabs';
 import type { WgThemeProvider as WgThemeProviderElement } from '@wayglass/elements/theme-provider';
 import type { WgTelemetryStrip as WgTelemetryStripElement } from '@wayglass/elements/telemetry-strip';
+import type { WgStatusEntry as WgStatusEntryElement } from '@wayglass/elements/status-entry';
 import type { WgToggle as WgToggleElement } from '@wayglass/elements/toggle';
 import type { WgToast as WgToastElement } from '@wayglass/elements/toast';
 import type { WgToastRegion as WgToastRegionElement } from '@wayglass/elements/toast-region';
@@ -45,6 +46,8 @@ import {
   WgSplit,
   WgSlider,
   WgStack,
+  WgStatusEntry,
+  WgStatusList,
   WgSurface,
   WgTextField,
   WgTelemetryStrip,
@@ -91,6 +94,7 @@ const confirmationDialogRef = createRef<WgConfirmationDialogElement>();
 const dialogRef = createRef<WgDialogElement>();
 const mediaViewerRef = createRef<WgMediaViewerElement>();
 const telemetryStripRef = createRef<WgTelemetryStripElement>();
+const statusEntryRef = createRef<WgStatusEntryElement>();
 
 const typedComposition = (
   <WgThemeProvider ref={providerRef} theme="wayglass-dark" density="compact">
@@ -150,6 +154,29 @@ const typedTelemetry = (
   </WgTelemetryStrip>
 );
 void typedTelemetry;
+
+const typedStatusList = (
+  <WgStatusList label="Delivery sources" busy>
+    <h2 slot="heading">Delivery sources</h2>
+    <p slot="status">Refreshing retained values.</p>
+    <WgStatusEntry
+      ref={statusEntryRef}
+      label="North source"
+      condition="caution"
+      knowledge="stale"
+      activity="pending"
+    >
+      <span slot="description">The last confirmed route remains active.</span>
+      <time slot="time" dateTime="2026-08-09T14:22:00-07:00">
+        Observed at 2:22 PM
+      </time>
+      <button slot="actions" type="button">
+        Inspect North source
+      </button>
+    </WgStatusEntry>
+  </WgStatusList>
+);
+void typedStatusList;
 
 const typedFormControls = (
   <form>
