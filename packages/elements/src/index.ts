@@ -103,6 +103,15 @@ export {
 } from './elbow.js';
 export type { ElbowPlacement, ElbowWeight } from './elbow.js';
 export { defineWgEmptyState, WgEmptyState, wgEmptyStateTagName } from './empty-state.js';
+export {
+  defineWgEventLog,
+  eventLogChronologies,
+  isEventLogChronology,
+  WgEventLog,
+  wgEventLogTagName,
+} from './event-log.js';
+export type { EventLogChronology } from './event-log.js';
+export { defineWgEventRecord, WgEventRecord, wgEventRecordTagName } from './event-record.js';
 export { defineWgFieldLabel, WgFieldLabel, wgFieldLabelTagName } from './field-label.js';
 export {
   defineWgFieldMessage,
