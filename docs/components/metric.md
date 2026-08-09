@@ -103,6 +103,7 @@ None.
 - `label`
 - `value`
 - `unit`
+- `trend`
 - `description`
 - `metadata`
 - `knowledge`

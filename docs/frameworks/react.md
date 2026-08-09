@@ -18,7 +18,13 @@ compatible work.
 Import from the root:
 
 ```tsx
-import { WgBooleanValue, WgMetric, WgThemeProvider, WgValueTile } from '@wayglass/react';
+import {
+  WgKeyValue,
+  WgMetric,
+  WgMetricGroup,
+  WgThemeProvider,
+  WgTrendIndicator,
+} from '@wayglass/react';
 ```
 
 Or use a side-effect-minimal component entry point:
@@ -38,6 +44,9 @@ Wrappers are available for all Phase 1 elements and the Phase 2A tabs compound e
 - `WgStatusIndicator`
 - `WgBooleanValue`
 - `WgMetric`
+- `WgMetricGroup`
+- `WgTrendIndicator`
+- `WgKeyValue`
 - `WgValueTile`
 - `WgTabs`
 - `WgTabList`

@@ -1,6 +1,32 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 
+test('keeps scalar-data imports side-effect free with useful fallback text', async ({ page }) => {
+  await page.goto('/tests/browser/module-import/');
+  const result = await page.evaluate(async () => {
+    const group = document.createElement('wg-metric-group');
+    group.innerHTML = '<span>Fallback scalar content</span>';
+    document.body.append(group);
+    await Promise.all([
+      import('/packages/elements/dist/metric-group.js'),
+      import('/packages/elements/dist/key-value.js'),
+      import('/packages/elements/dist/trend-indicator.js'),
+    ]);
+    return {
+      registrations: ['wg-metric-group', 'wg-key-value', 'wg-trend-indicator'].map(
+        (name) => customElements.get(name) !== undefined,
+      ),
+      text: group.textContent?.trim(),
+      visible: group.getBoundingClientRect().height > 0,
+    };
+  });
+  expect(result).toEqual({
+    registrations: [false, false, false],
+    text: 'Fallback scalar content',
+    visible: true,
+  });
+});
+
 test.beforeEach(async ({ page }) => {
   await page.goto('/tests/browser/fixture/');
   await page.waitForFunction(
@@ -8,6 +34,9 @@ test.beforeEach(async ({ page }) => {
       customElements.get('wg-status-indicator') !== undefined &&
       customElements.get('wg-boolean-value') !== undefined &&
       customElements.get('wg-metric') !== undefined &&
+      customElements.get('wg-metric-group') !== undefined &&
+      customElements.get('wg-key-value') !== undefined &&
+      customElements.get('wg-trend-indicator') !== undefined &&
       customElements.get('wg-value-tile') !== undefined,
   );
 });
@@ -29,6 +58,17 @@ test('normalizes invalid semantic display attributes', async ({ page }) => {
     element.setAttribute('activity', 'working');
     element.setAttribute('size', 'large');
   });
+  await page.locator('#trend-rising').evaluate((element) => {
+    element.setAttribute('direction', 'up');
+    element.setAttribute('condition', 'good');
+    element.setAttribute('knowledge', 'maybe');
+    element.setAttribute('activity', 'working');
+  });
+  await page.locator('#key-value').evaluate((element) => {
+    element.setAttribute('condition', 'good');
+    element.setAttribute('knowledge', 'maybe');
+    element.setAttribute('activity', 'working');
+  });
   await page.locator('#value-tile').evaluate((element) => element.setAttribute('emphasis', 'loud'));
 
   await expect(page.locator('#status-mixed')).toHaveAttribute('condition', 'neutral');
@@ -41,6 +81,13 @@ test('normalizes invalid semantic display attributes', async ({ page }) => {
   await expect(page.locator('#metric')).toHaveAttribute('knowledge', 'confirmed');
   await expect(page.locator('#metric')).toHaveAttribute('activity', 'idle');
   await expect(page.locator('#metric')).toHaveAttribute('size', 'compact');
+  await expect(page.locator('#trend-rising')).toHaveAttribute('direction', 'none');
+  await expect(page.locator('#trend-rising')).toHaveAttribute('condition', 'neutral');
+  await expect(page.locator('#trend-rising')).toHaveAttribute('knowledge', 'confirmed');
+  await expect(page.locator('#trend-rising')).toHaveAttribute('activity', 'idle');
+  await expect(page.locator('#key-value')).toHaveAttribute('condition', 'neutral');
+  await expect(page.locator('#key-value')).toHaveAttribute('knowledge', 'confirmed');
+  await expect(page.locator('#key-value')).toHaveAttribute('activity', 'idle');
   await expect(page.locator('#value-tile')).toHaveAttribute('emphasis', 'standard');
 });
 
@@ -158,6 +205,100 @@ test('composes a named value region and preserves narrow action order', async ({
   await expect(page.locator('#tile-action').locator('button')).toBeFocused();
 });
 
+test('groups scalar values without aggregating state or announcing updates', async ({ page }) => {
+  const group = page.locator('#metric-group');
+  const base = group.locator('[part="base"]').first();
+  await expect(base).toHaveAttribute('role', 'group');
+  await expect(base).toHaveAttribute('aria-label', 'Processing activity');
+  await expect(base).toHaveAttribute('aria-busy', 'true');
+  await expect(base).not.toHaveAttribute('aria-live');
+  await expect(group).toContainText('Data stale');
+  await expect(base).not.toHaveAttribute('aria-label', /stale/i);
+  expect(
+    await group
+      .locator('[part="content"] > slot')
+      .evaluate((element) => getComputedStyle(element).display),
+  ).toBe('contents');
+
+  await page.locator('#metric-group-action').focus();
+  await group.evaluate((element) => {
+    const value = element.querySelector('#key-value');
+    if (value) element.prepend(value);
+  });
+  await expect(page.locator('#metric-group-action')).toBeFocused();
+});
+
+test('keeps trend direction visible and independent from condition', async ({ page }) => {
+  const trend = page.locator('#trend-rising');
+  await expect(trend.getByText('Rising')).toBeVisible();
+  await expect(trend.getByText('12% over the previous hour')).toBeVisible();
+  await expect(trend.getByText('Pending')).toBeVisible();
+  await expect(trend.locator('[role="group"]')).toHaveAttribute(
+    'aria-label',
+    'Rising, 12% over the previous hour, Pending',
+  );
+  await expect(trend.locator('[part="signal"]')).toHaveAttribute('aria-hidden', 'true');
+  await expect(trend.locator('[role="group"]')).not.toHaveAttribute('aria-live');
+
+  const risingColor = await trend
+    .locator('[part="signal"]')
+    .evaluate((element) => getComputedStyle(element).color);
+  await trend.evaluate(async (element) => {
+    element.setAttribute('direction', 'falling');
+    await (element as HTMLElement & { updateComplete: Promise<unknown> }).updateComplete;
+  });
+  await expect(trend.getByText('Falling')).toBeVisible();
+  const fallingColor = await trend
+    .locator('[part="signal"]')
+    .evaluate((element) => getComputedStyle(element).color);
+  expect(fallingColor).toBe(risingColor);
+
+  for (const [direction, word] of [
+    ['steady', 'Steady'],
+    ['mixed', 'Mixed'],
+    ['none', 'No direction'],
+  ] as const) {
+    await trend.evaluate(async (element, nextDirection) => {
+      element.setAttribute('direction', nextDirection);
+      await (element as HTMLElement & { updateComplete: Promise<unknown> }).updateComplete;
+    }, direction);
+    await expect(trend.getByText(word)).toBeVisible();
+  }
+  await expect(trend.locator('[part="signal"]')).toBeHidden();
+
+  await trend.evaluate(async (element) => {
+    element.setAttribute('condition', 'positive');
+    element.setAttribute('loading', '');
+    await (element as HTMLElement & { updateComplete: Promise<unknown> }).updateComplete;
+  });
+  await expect(trend.getByText('Loading')).toBeVisible();
+  await expect(trend.getByText('Positive')).toBeVisible();
+  await expect(trend.locator('[role="group"]')).toHaveAttribute('aria-busy', 'true');
+  await expect(trend.locator('[part="signal"]')).toBeHidden();
+});
+
+test('preserves native key-value content and exposes a readable missing value', async ({
+  page,
+}) => {
+  const value = page.locator('#key-value');
+  const time = value.locator('time');
+  await expect(time).toHaveAttribute('datetime', '2026-08-08T19:24:00Z');
+  await expect(time).toHaveText('12:24 PM local time');
+  await expect(value.locator('[role="group"]')).toHaveAttribute('aria-label', 'Last confirmed');
+  await expect(value.getByText('Data stale')).toBeVisible();
+
+  const missing = page.locator('#key-value-missing');
+  await expect(missing.locator('[part="value"]')).toHaveText('—');
+  await expect(missing.locator('[part="value"]')).toHaveAttribute('aria-label', 'No value');
+  await missing.evaluate(async (element) => {
+    const emptyValue = document.createElement('span');
+    emptyValue.slot = 'value';
+    element.append(emptyValue);
+    await (element as HTMLElement & { updateComplete: Promise<unknown> }).updateComplete;
+  });
+  await expect(missing.locator('[part="value"]')).toHaveText('—');
+});
+
 test('semantic displays add no tab stops and pass accessibility checks', async ({ page }) => {
   for (const selector of [
     '#status-mixed',
@@ -166,6 +307,10 @@ test('semantic displays add no tab stops and pass accessibility checks', async (
     '#boolean-loading',
     '#metric',
     '#metric-loading',
+    '#metric-group',
+    '#trend-rising',
+    '#key-value',
+    '#key-value-missing',
   ]) {
     await expect(page.locator(selector)).not.toHaveAttribute('tabindex', /.+/);
   }
@@ -184,6 +329,7 @@ test('semantic displays add no tab stops and pass accessibility checks', async (
     .include('#boolean-loading')
     .include('#metric')
     .include('#metric-loading')
+    .include('#metric-group')
     .analyze();
   expect(lightResults.violations).toEqual([]);
 });

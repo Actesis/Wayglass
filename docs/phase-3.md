@@ -1,7 +1,8 @@
 # Phase 3 operational components
 
 **Status:** Formal roadmap accepted on August 3, 2026. Phase 3A operational-data architecture is
-complete; Phase 3B metrics and key-values contracts are accepted and their tokens are locked.
+complete; Phase 3B contracts and tokens are accepted, and its scalar elements and React wrappers are
+implemented. Production stories and complete validation remain in progress.
 
 Phase 3 turns the Phase 1 and Phase 2 foundations into a reusable operational-data layer. It adds
 scalar summaries, compact telemetry, status collections, temporal records, collection tools, and

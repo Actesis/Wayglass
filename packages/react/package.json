@@ -137,6 +137,18 @@
       "types": "./dist/metric.d.ts",
       "import": "./dist/metric.js"
     },
+    "./metric-group": {
+      "types": "./dist/metric-group.d.ts",
+      "import": "./dist/metric-group.js"
+    },
+    "./key-value": {
+      "types": "./dist/key-value.d.ts",
+      "import": "./dist/key-value.js"
+    },
+    "./trend-indicator": {
+      "types": "./dist/trend-indicator.d.ts",
+      "import": "./dist/trend-indicator.js"
+    },
     "./media": {
       "types": "./dist/media.d.ts",
       "import": "./dist/media.js"

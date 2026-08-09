@@ -31,7 +31,9 @@ import {
   WgMedia,
   WgMediaViewer,
   WgMenu,
+  WgKeyValue,
   WgMetric,
+  WgMetricGroup,
   WgNavigationRail,
   WgNumberField,
   WgRadio,
@@ -44,6 +46,7 @@ import {
   WgStack,
   WgSurface,
   WgTextField,
+  WgTrendIndicator,
   WgTab,
   WgTabList,
   WgTabPanel,
@@ -106,6 +109,16 @@ const typedComposition = (
       <p>Additional context</p>
     </WgSurface>
   </WgThemeProvider>
+);
+
+const typedScalarData = (
+  <WgMetricGroup label="Processing activity" busy>
+    <p slot="description">Current 15-minute interval</p>
+    <WgMetric label="Completed" value="1,284">
+      <WgTrendIndicator slot="trend" direction="rising" label="12% over the previous hour" />
+    </WgMetric>
+    <WgKeyValue label="Active policy" value="Standard review" knowledge="confirmed" />
+  </WgMetricGroup>
 );
 
 const typedFormControls = (
@@ -447,6 +460,9 @@ const invalidFieldMessageKind = <WgFieldMessage kind="warning" />;
 // @ts-expect-error Condition names are closed semantic vocabulary.
 const invalidCondition = <WgMetric condition="healthy" />;
 
+// @ts-expect-error Trend direction is a closed comparison vocabulary.
+const invalidTrendDirection = <WgTrendIndicator direction="improving" />;
+
 // @ts-expect-error Boolean element properties remain Boolean in React.
 const invalidPending = <WgButton pending="true" />;
 
@@ -502,6 +518,7 @@ const invalidMenuPlacement = <WgMenu placement="bottom-right" />;
 const invalidCommandDisabled = <WgCommandItem value="refresh" disabled="true" />;
 
 void typedComposition;
+void typedScalarData;
 void typedProvider;
 void typedLayouts;
 void typedMedia;
@@ -514,6 +531,7 @@ void typedMediaViewer;
 void typedFormFoundation;
 void invalidFieldMessageKind;
 void invalidCondition;
+void invalidTrendDirection;
 void invalidPending;
 void invalidConfirmationAttention;
 void invalidDialogSize;
