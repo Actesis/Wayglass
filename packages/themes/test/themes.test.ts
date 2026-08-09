@@ -184,6 +184,14 @@ describe('Phase 1 themes', () => {
     expect(first).toContain(
       '--wg-component-event-record-space-related: var(--wg-space-reference-2)',
     );
+    expect(first).toContain('--wg-component-filter-bar-space: var(--wg-space-reference-3)');
+    expect(first).toContain('--wg-component-filter-bar-space-group: var(--wg-space-reference-2)');
+    expect(first).toContain('--wg-component-command-bar-space: var(--wg-space-reference-3)');
+    expect(first).toContain('--wg-component-command-bar-space-group: var(--wg-space-reference-2)');
+    expect(first).toContain('--wg-component-filter-bar-space: var(--wg-space-reference-6)');
+    expect(first).toContain('--wg-component-filter-bar-space-group: var(--wg-space-reference-3)');
+    expect(first).toContain('--wg-component-command-bar-space: var(--wg-space-reference-6)');
+    expect(first).toContain('--wg-component-command-bar-space-group: var(--wg-space-reference-3)');
     expect(first).not.toContain('wayglass-high-contrast');
     expect(first).not.toContain('wayglass-dim');
   });

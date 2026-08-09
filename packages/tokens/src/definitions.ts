@@ -2050,6 +2050,76 @@ export const tokens = {
     type: 'dimension',
     description: 'Compact rounded-square event-record occurrence signal size.',
   },
+  'component.filter-bar.color.background': {
+    value: '{color.semantic.surface.panel}',
+    type: 'color',
+    description: 'Neutral contained background for one named filter composition.',
+  },
+  'component.filter-bar.color.border': {
+    value: '{color.semantic.border.subtle}',
+    type: 'color',
+    description: 'Routine boundary around one named filter composition.',
+  },
+  'component.filter-bar.color.heading': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'Filter-bar heading text.',
+  },
+  'component.filter-bar.color.context': {
+    value: '{color.semantic.text.secondary}',
+    type: 'color',
+    description: 'Filter-bar description, applied-summary, and authored status text.',
+  },
+  'component.filter-bar.radius': {
+    value: '{shape.radius.panel}',
+    type: 'dimension',
+    description: 'Filter-bar contained-surface radius.',
+  },
+  'component.filter-bar.space': {
+    value: '{space.reference.4}',
+    type: 'dimension',
+    description: 'Density-aware filter-bar edge and section spacing.',
+  },
+  'component.filter-bar.space.group': {
+    value: '{space.reference.2}',
+    type: 'dimension',
+    description: 'Density-aware spacing between related filter groups and actions.',
+  },
+  'component.command-bar.color.background': {
+    value: '{color.semantic.surface.panel}',
+    type: 'color',
+    description: 'Neutral contained background for one named command composition.',
+  },
+  'component.command-bar.color.border': {
+    value: '{color.semantic.border.subtle}',
+    type: 'color',
+    description: 'Routine boundary around one named command composition.',
+  },
+  'component.command-bar.color.heading': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'Command-bar heading text.',
+  },
+  'component.command-bar.color.context': {
+    value: '{color.semantic.text.secondary}',
+    type: 'color',
+    description: 'Command-bar description and authored outcome-status text.',
+  },
+  'component.command-bar.radius': {
+    value: '{shape.radius.panel}',
+    type: 'dimension',
+    description: 'Command-bar contained-surface radius.',
+  },
+  'component.command-bar.space': {
+    value: '{space.reference.4}',
+    type: 'dimension',
+    description: 'Density-aware command-bar edge and section spacing.',
+  },
+  'component.command-bar.space.group': {
+    value: '{space.reference.2}',
+    type: 'dimension',
+    description: 'Density-aware spacing between primary, secondary, and overflow commands.',
+  },
   'component.value-tile.color.background': {
     value: '{color.semantic.surface.panel}',
     type: 'color',

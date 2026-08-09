@@ -1,12 +1,11 @@
 # Phase 3F filter and command pattern contracts
 
-**Status:** Proposed for Phase 3F review on August 9, 2026. This proposal defines the boundary for
-`wg-filter-bar` and `wg-command-bar`. It does not yet lock visual tokens or authorize
-implementation. It follows the accepted
-[operational-data ownership contract](./operational-data.md),
+**Status:** Accepted for Phase 3F on August 9, 2026. This contract defines the boundary for
+`wg-filter-bar` and `wg-command-bar`. Its required public tokens are locked; implementation has not
+started. It follows the accepted [operational-data ownership contract](./operational-data.md),
 [control-state contract](../controls/control-state.md),
 [form-foundation contracts](../forms/form-foundation.md),
-[menu and command contracts](../controls/menus-and-commands.md), and proposed
+[menu and command contracts](../controls/menus-and-commands.md), and accepted
 [ADR 0027](../architecture/adr/0027-filter-and-command-composition.md).
 
 Filter and command bars both place controls near operational data, but they have different native
@@ -17,7 +16,7 @@ without turning either pattern into a query engine, command executor, or univers
 
 ## Shared requirements
 
-Both proposed elements:
+Both accepted elements:
 
 - import without registration side effects and expose explicit registration functions;
 - provide a visibly named, domain-neutral function-local boundary;
@@ -158,7 +157,7 @@ Consequential commands continue to use the accepted proportional-friction policy
 menu item may open `wg-confirmation-dialog`, but the command bar neither selects that tier nor owns
 the dialog's focus and close lifecycle.
 
-## Proposed `wg-filter-bar` API
+## `wg-filter-bar` API
 
 ### Purpose and anatomy
 
@@ -187,7 +186,7 @@ The element has no `value`, `filters`, `schema`, `applied`, `dirty`, `busy`, `di
 
 Events and methods: none. Native form and control events pass through unchanged.
 
-### Proposed CSS custom properties
+### CSS custom properties
 
 - `--wg-filter-bar-color-background`
 - `--wg-filter-bar-color-border`
@@ -197,7 +196,7 @@ Events and methods: none. Native form and control events pass through unchanged.
 - `--wg-filter-bar-space`
 - `--wg-filter-bar-space-group`
 
-### Proposed CSS parts
+### CSS parts
 
 - `base`
 - `header`
@@ -207,7 +206,7 @@ Events and methods: none. Native form and control events pass through unchanged.
 - `summary`
 - `status`
 
-## Proposed `wg-command-bar` API
+## `wg-command-bar` API
 
 ### Purpose and anatomy
 
@@ -237,7 +236,7 @@ overflow calculation, or execution property.
 
 Events and methods: none. Native click and existing typed command events bubble unchanged.
 
-### Proposed CSS custom properties
+### CSS custom properties
 
 - `--wg-command-bar-color-background`
 - `--wg-command-bar-color-border`
@@ -247,7 +246,7 @@ Events and methods: none. Native click and existing typed command events bubble 
 - `--wg-command-bar-space`
 - `--wg-command-bar-space-group`
 
-### Proposed CSS parts
+### CSS parts
 
 - `base`
 - `header`
@@ -327,9 +326,9 @@ The following remain application-owned or separately deferred:
 - automatic result announcements, focus movement, confirmation selection, or modal coordination.
 
 These are compatible later capabilities only after deployment evidence proves a reusable contract.
-The proposed slots allow application composition without implying future package ownership.
+The accepted slots allow application composition without implying future package ownership.
 
-## Proposed contract decisions
+## Resolved contract decisions
 
 1. Filter and command bars remain separate composition elements because their native owners differ.
 2. A filter bar wraps one consumer-authored native form and never replaces native submit, reset,
@@ -342,5 +341,6 @@ The proposed slots allow application composition without implying future package
    calculated or populated by responsive DOM migration.
 6. Result and command outcomes remain durable, function-local, stationary, and quiet unless the
    application selects one deliberate announcement owner.
-7. Public tokens will be locked only for the named surfaces, boundaries, text roles, radius, and
-   density-aware spacing after this contract and ADR are accepted.
+7. Public tokens are locked only for the named surfaces, boundaries, text roles, radius, and
+   density-aware spacing; implementation, stories, and validation proceed in later reviewable
+   slices.

@@ -1,6 +1,6 @@
 # ADR 0027: Compose filters and commands around their existing interaction owners
 
-- Status: proposed
+- Status: accepted
 - Date: 2026-08-09
 
 ## Context
@@ -20,7 +20,7 @@ schema, aggregate native events, add arrow-key navigation to ordinary buttons, m
 menu at narrow widths, or execute commands. Each convenience would make Wayglass compete with the
 native form, existing command controls, framework reconciliation, or application policy.
 
-The [Phase 3F filter and command proposal](../../data/filter-and-command-patterns.md) therefore
+The [Phase 3F filter and command contract](../../data/filter-and-command-patterns.md) therefore
 requires a narrower decision about composition, responsive priority, overflow, result context, and
 focus order.
 

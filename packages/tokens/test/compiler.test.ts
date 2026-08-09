@@ -504,6 +504,39 @@ describe('token compiler', () => {
     expect(tokens['component.event-record.size.signal'].value).toBe('{size.signal.compact}');
   });
 
+  it('contains the locked Phase 3F filter and command composition token roles', () => {
+    expect(Object.keys(tokens)).toEqual(
+      expect.arrayContaining([
+        'component.filter-bar.color.background',
+        'component.filter-bar.color.border',
+        'component.filter-bar.color.heading',
+        'component.filter-bar.color.context',
+        'component.filter-bar.radius',
+        'component.filter-bar.space',
+        'component.filter-bar.space.group',
+        'component.command-bar.color.background',
+        'component.command-bar.color.border',
+        'component.command-bar.color.heading',
+        'component.command-bar.color.context',
+        'component.command-bar.radius',
+        'component.command-bar.space',
+        'component.command-bar.space.group',
+      ]),
+    );
+    expect(tokens['component.filter-bar.color.background'].value).toBe(
+      '{color.semantic.surface.panel}',
+    );
+    expect(tokens['component.filter-bar.color.border'].value).toBe(
+      '{color.semantic.border.subtle}',
+    );
+    expect(tokens['component.command-bar.color.background'].value).toBe(
+      '{color.semantic.surface.panel}',
+    );
+    expect(tokens['component.command-bar.color.context'].value).toBe(
+      '{color.semantic.text.secondary}',
+    );
+  });
+
   it('provides accessible contrast for the default dark-theme foundations', () => {
     const paper = referenceColor('color.reference.paper.50');
     const canvas = referenceColor('color.reference.ink.950');
