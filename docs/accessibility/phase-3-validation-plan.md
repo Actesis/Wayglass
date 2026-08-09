@@ -73,6 +73,10 @@ manual assistive-technology procedures remain public-release gates.
 
 ### Phase 3E — Timeline and event log
 
+Automated implementation evidence is complete; see the
+[Phase 3E temporal-collections validation record](./phase-3e-temporal-collections-validation.md).
+Representative manual assistive-technology procedures remain public-release gates.
+
 - Past milestones, intervals, current activity, inferred time, delayed receipt, duplicated visible
   events, chronological directions, visible ordering context, grouping, occurrence-scoped condition,
   authored severity, native details, media, and actions.

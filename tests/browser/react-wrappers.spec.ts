@@ -13,6 +13,10 @@ test.beforeEach(async ({ page }) => {
       customElements.get('wg-telemetry-strip') !== undefined &&
       customElements.get('wg-status-list') !== undefined &&
       customElements.get('wg-status-entry') !== undefined &&
+      customElements.get('wg-timeline') !== undefined &&
+      customElements.get('wg-timeline-item') !== undefined &&
+      customElements.get('wg-event-log') !== undefined &&
+      customElements.get('wg-event-record') !== undefined &&
       customElements.get('wg-button') !== undefined &&
       customElements.get('wg-value-tile') !== undefined &&
       customElements.get('wg-tabs') !== undefined &&
@@ -50,6 +54,27 @@ test('registers wrappers and assigns typed element properties', async ({ page })
   await expect(page.locator('#react-status-entry')).toHaveJSProperty('condition', 'caution');
   await expect(page.locator('#react-status-entry')).toHaveJSProperty('knowledge', 'stale');
   await expect(page.locator('#react-status-entry')).toHaveJSProperty('activity', 'pending');
+  await expect(page.locator('html')).toHaveAttribute('data-timeline-ref-tag', 'wg-timeline');
+  const timelineList = page.getByRole('list', { name: 'React review history' });
+  await expect(timelineList).toBeVisible();
+  await expect(page.locator('#react-timeline')).toHaveJSProperty('chronology', 'ascending');
+  await expect(page.locator('#react-timeline')).toHaveJSProperty(
+    'chronologyLabel',
+    'Oldest to newest',
+  );
+  await expect(page.locator('#react-timeline-item')).toHaveJSProperty('kind', 'interval');
+  await expect(page.locator('#react-timeline-item')).toHaveJSProperty('knowledge', 'inferred');
+  await expect(page.locator('html')).toHaveAttribute('data-event-log-ref-tag', 'wg-event-log');
+  const eventList = page.getByRole('list', { name: 'React review events' });
+  await expect(eventList).toBeVisible();
+  await expect(page.locator('#react-event-log')).toHaveJSProperty('chronology', 'descending');
+  await expect(page.locator('#react-event-record')).toHaveJSProperty('condition', 'caution');
+  await expect(page.locator('#react-event-record')).toHaveJSProperty('knowledge', 'stale');
+  await expect(page.locator('#react-event-record')).toHaveJSProperty('activity', 'pending');
+  for (const temporalList of [timelineList, eventList]) {
+    await expect(temporalList).not.toHaveAttribute('aria-live');
+    await expect(temporalList).not.toHaveAttribute('role', 'log');
+  }
   await expect(page.locator('html')).toHaveAttribute('data-tabs-ref-tag', 'wg-tabs');
   await expect(page.locator('#react-tabs')).toHaveJSProperty('activation', 'automatic');
   await expect(page.locator('#react-tabs')).toHaveJSProperty('orientation', 'horizontal');
