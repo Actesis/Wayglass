@@ -64,6 +64,7 @@ export {
 export type { ClusterAlignment, ClusterJustification } from './cluster.js';
 export { defineWgCommandItem, WgCommandItem, wgCommandItemTagName } from './command-item.js';
 export type { CommandTrigger, WgCommandDetail } from './command-item.js';
+export { defineWgCommandBar, WgCommandBar, wgCommandBarTagName } from './command-bar.js';
 export {
   defineWgDivider,
   dividerOrientations,
@@ -122,6 +123,7 @@ export {
 } from './field-message.js';
 export type { FieldMessageKind } from './field-message.js';
 export { defineWgFormGroup, WgFormGroup, wgFormGroupTagName } from './form-group.js';
+export { defineWgFilterBar, WgFilterBar, wgFilterBarTagName } from './filter-bar.js';
 export { defineWgOfflineState, WgOfflineState, wgOfflineStateTagName } from './offline-state.js';
 export { defineWgProgress, WgProgress, wgProgressTagName } from './progress.js';
 export {
