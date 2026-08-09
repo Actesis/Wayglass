@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wayglass timeline fixture</title>
+    <link rel="stylesheet" href="/packages/tokens/dist/tokens.css" />
+    <link rel="stylesheet" href="/packages/themes/dist/themes.css" />
+    <style>
+      body {
+        margin: 0;
+        color: var(--wg-color-semantic-text-primary);
+        background: var(--wg-color-semantic-surface-canvas);
+        font-family: var(--wg-typography-family-body);
+      }
+
+      main {
+        display: grid;
+        box-sizing: border-box;
+        inline-size: min(100%, 72rem);
+        margin-inline: auto;
+        padding: var(--wg-space-reference-4);
+        gap: var(--wg-space-reference-6);
+      }
+
+      wg-timeline:not(:defined),
+      wg-timeline-item:not(:defined) {
+        display: grid;
+        gap: var(--wg-space-reference-2);
+      }
+
+      wg-timeline:not(:defined) > *,
+      wg-timeline-item:not(:defined) > * {
+        margin-block: 0;
+      }
+    </style>
+  </head>
+  <body data-wg-theme="wayglass-dark" data-wg-density="compact">
+    <main id="fixture">
+      <wg-timeline
+        id="processing-timeline"
+        label="Processing milestones"
+        chronology="ascending"
+        chronology-label="Oldest to newest"
+        busy
+      >
+        <h1 slot="heading">Processing milestones</h1>
+        <p slot="description">Curated transitions in application-authored occurrence order.</p>
+        <button slot="actions" id="review-timeline" type="button">
+          Review processing timeline
+        </button>
+        <wg-timeline-item id="accepted-item" label="Request accepted" condition="positive">
+          <time slot="time" datetime="2026-08-09T09:00:00-07:00">9:00 AM</time>
+          <p>The request entered the processing sequence.</p>
+          <span slot="metadata">Reference WG-4012</span>
+        </wg-timeline-item>
+
+        <wg-timeline-item
+          id="review-item"
+          label="Manual review"
+          kind="interval"
+          condition="caution"
+          knowledge="stale"
+          activity="pending"
+        >
+          <time slot="time" datetime="2026-08-09T09:18:00-07:00">Started at 9:18 AM</time>
+          <span slot="end-time">Ongoing</span>
+          <strong slot="heading">Manual review</strong>
+          <p>The last confirmed reviewer assignment remains visible.</p>
+          <details slot="details">
+            <summary>Review context</summary>
+            <p>Two authored checks remain before processing can continue.</p>
+          </details>
+          <button slot="actions" id="inspect-review" type="button">Inspect manual review</button>
+        </wg-timeline-item>
+
+        <wg-timeline-item
+          id="route-item"
+          label="Alternate route inferred"
+          condition="informational"
+          knowledge="inferred"
+        >
+          <time slot="time" datetime="2026-08-09T09:31:00-07:00">9:31 AM</time>
+          <p>An alternate route was inferred from the available evidence.</p>
+        </wg-timeline-item>
+        <p slot="status">Refreshing retained milestones.</p>
+      </wg-timeline>
+
+      <wg-timeline
+        id="recent-timeline"
+        label="Recent milestones"
+        chronology="descending"
+        chronology-label="Newest to oldest"
+      >
+        <h2 slot="heading">Recent milestones</h2>
+        <wg-timeline-item label="Delivery completed" condition="positive">
+          <time slot="time" datetime="2026-08-09T10:04:00-07:00">10:04 AM</time>
+        </wg-timeline-item>
+      </wg-timeline>
+    </main>
+    <script type="module" src="./fixture.ts"></script>
+  </body>
+</html>

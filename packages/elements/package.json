@@ -215,6 +215,14 @@
       "types": "./dist/status-list.d.ts",
       "import": "./dist/status-list.js"
     },
+    "./timeline": {
+      "types": "./dist/timeline.d.ts",
+      "import": "./dist/timeline.js"
+    },
+    "./timeline-item": {
+      "types": "./dist/timeline-item.d.ts",
+      "import": "./dist/timeline-item.js"
+    },
     "./surface": {
       "types": "./dist/surface.d.ts",
       "import": "./dist/surface.js"
