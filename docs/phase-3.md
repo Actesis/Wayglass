@@ -10,8 +10,8 @@ contracts, public tokens, framework-neutral elements, typed React wrappers, and 
 stories, automated cross-browser validation, and production review are complete. Representative
 manual assistive-technology gates remain carried with explicit release impact. Phase 3E timeline and
 event-log contracts and architecture decision are accepted, and their public tokens are locked. The
-framework-neutral timeline pair is implemented with focused cross-browser coverage; event-log
-implementation has not started.
+four framework-neutral temporal elements are implemented with focused cross-browser coverage; React
+delivery, production stories, and full validation remain.
 
 Phase 3 turns the Phase 1 and Phase 2 foundations into a reusable operational-data layer. It adds
 scalar summaries, compact telemetry, status collections, temporal records, collection tools, and
@@ -117,8 +117,9 @@ Provide a scan-efficient collection of independently meaningful operational entr
 curated timelines from dense event logs, preserve authored native record content, and keep
 announcements, unseen-record calculation, follow-latest policy, and scroll restoration
 application-owned. The required public tokens are locked. `wg-timeline` and `wg-timeline-item` now
-have framework-neutral implementations and focused cross-browser tests; event-log elements, React
-delivery, production stories, and full validation remain.
+have framework-neutral implementations and focused cross-browser tests. `wg-event-log` and
+`wg-event-record` now provide the distinct dense record family with its 500-record and 50-insertion
+envelopes; React delivery, production stories, and full validation remain.
 
 Share only the record structure that the two temporal views genuinely have in common.
 

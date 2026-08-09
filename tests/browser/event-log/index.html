@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wayglass event-log fixture</title>
+    <link rel="stylesheet" href="/packages/tokens/dist/tokens.css" />
+    <link rel="stylesheet" href="/packages/themes/dist/themes.css" />
+    <style>
+      body {
+        margin: 0;
+        color: var(--wg-color-semantic-text-primary);
+        background: var(--wg-color-semantic-surface-canvas);
+        font-family: var(--wg-typography-family-body);
+      }
+
+      main {
+        display: grid;
+        box-sizing: border-box;
+        inline-size: min(100%, 76rem);
+        margin-inline: auto;
+        padding: var(--wg-space-reference-4);
+        gap: var(--wg-space-reference-6);
+      }
+
+      wg-event-log:not(:defined),
+      wg-event-record:not(:defined) {
+        display: grid;
+        gap: var(--wg-space-reference-2);
+      }
+
+      wg-event-log:not(:defined) > *,
+      wg-event-record:not(:defined) > * {
+        margin-block: 0;
+      }
+    </style>
+  </head>
+  <body data-wg-theme="wayglass-dark" data-wg-density="compact">
+    <main id="fixture">
+      <wg-event-log
+        id="intake-log"
+        label="Intake events"
+        chronology="descending"
+        chronology-label="Newest to oldest by occurrence time"
+        busy
+      >
+        <h1 slot="heading">Intake events</h1>
+        <p slot="description">
+          Inspectable authored occurrences; current source status is separate.
+        </p>
+        <button slot="actions" id="export-events" type="button">
+          Export visible intake events
+        </button>
+
+        <wg-event-record
+          id="delayed-record"
+          label="Source response delayed"
+          condition="caution"
+          knowledge="stale"
+          activity="pending"
+        >
+          <time slot="time" datetime="2026-08-09T10:14:00-07:00">Occurred 10:14 AM</time>
+          <time slot="received-time" datetime="2026-08-09T10:19:00-07:00">Received 10:19 AM</time>
+          <span slot="source">Source: North intake</span>
+          <span slot="category">Priority: Review</span>
+          <span slot="reference">Reference: EVT-4412</span>
+          <span slot="metadata">Receipt was delayed by the application transport.</span>
+          <details slot="details">
+            <summary>Inspect occurrence details</summary>
+            <p>The retained source response remains available for comparison.</p>
+          </details>
+          <button slot="actions" id="inspect-delayed" type="button">
+            Inspect delayed source response
+          </button>
+        </wg-event-record>
+
+        <wg-event-record
+          id="duplicate-one"
+          label="Policy evaluation completed"
+          condition="positive"
+        >
+          <time slot="time" datetime="2026-08-09T10:12:00-07:00">Occurred 10:12 AM</time>
+          <span slot="source">Source: Policy service</span>
+          <span slot="category">Category: Evaluation</span>
+        </wg-event-record>
+
+        <wg-event-record
+          id="duplicate-two"
+          label="Policy evaluation completed"
+          condition="informational"
+          knowledge="inferred"
+        >
+          <time slot="time" datetime="2026-08-09T10:11:00-07:00">Occurred 10:11 AM</time>
+          <strong slot="summary">Policy evaluation completed</strong>
+          <span slot="source">Source: Recovery service</span>
+          <span slot="category">Category: Reconstructed</span>
+        </wg-event-record>
+
+        <div slot="status">
+          <span>12 newer records are paused.</span>
+          <button type="button">Jump to newest intake event</button>
+        </div>
+      </wg-event-log>
+
+      <wg-event-log
+        id="delivery-log"
+        label="Delivery events"
+        chronology="ascending"
+        chronology-label="Oldest to newest by occurrence time"
+      >
+        <h2 slot="heading">Delivery events</h2>
+        <wg-event-record
+          label="Delivery source unavailable"
+          condition="critical"
+          knowledge="unavailable"
+        >
+          <time slot="time" datetime="2026-08-09T09:58:00-07:00">Occurred 9:58 AM</time>
+          <span slot="source">Source: Archive delivery</span>
+        </wg-event-record>
+      </wg-event-log>
+    </main>
+    <script type="module" src="./fixture.ts"></script>
+  </body>
+</html>

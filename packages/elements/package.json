@@ -27,6 +27,14 @@
       "types": "./dist/empty-state.d.ts",
       "import": "./dist/empty-state.js"
     },
+    "./event-log": {
+      "types": "./dist/event-log.d.ts",
+      "import": "./dist/event-log.js"
+    },
+    "./event-record": {
+      "types": "./dist/event-record.d.ts",
+      "import": "./dist/event-record.js"
+    },
     "./offline-state": {
       "types": "./dist/offline-state.d.ts",
       "import": "./dist/offline-state.js"
