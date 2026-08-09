@@ -122,6 +122,31 @@ copy, authored-action layout, child validation, focus recovery, and mutation beh
 mechanics or application responsibilities. Exposing them as tokens would allow themes to change
 semantics or imply behavioral customization that the contracts do not support.
 
+## Phase 3E temporal collections
+
+The `component.timeline.*` group defines the neutral contained timeline surface, boundary, heading
+and chronology context, radius, density-aware section spacing, and separation between curated items.
+The `component.timeline-item.*` group defines primary and supporting text, contrast-safe known-state
+text, occurrence condition and signal boundary, direction-neutral sequence geometry, signal radius
+and size, sequence width, and density-aware internal spacing.
+
+The `component.event-log.*` group defines the neutral contained event-stream surface, boundary,
+heading and chronology context, radius, density-aware section spacing, and compact record
+separation. The `component.event-record.*` group defines the inset record surface, routine boundary,
+primary summary and supporting text, contrast-safe known-state text, occurrence condition and signal
+boundary, radii, compact signal size, and density-aware internal spacing.
+
+Occurrence signals reuse `color.semantic.condition.*`; non-default knowledge and activity continue
+to use their shared semantic roles. The timeline sequence uses a neutral strong-boundary role rather
+than condition or change color, so the line never implies severity, health, causality, or current
+source state. State words use contrast-safe component text roles rather than graphic-support colors.
+
+Sequence placement, marker attachment, interval geometry, responsive thresholds, field-column
+layout, state-label copy, authored chronology, native disclosure behavior, scroll position,
+follow-latest policy, and unseen-record calculation remain private mechanics or application
+responsibilities. Exposing them as tokens would allow themes to change semantics or imply behavioral
+customization that the accepted contracts do not support.
+
 ## CSS names
 
 Token paths compile deterministically to `--wg-` custom properties:

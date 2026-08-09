@@ -452,6 +452,58 @@ describe('token compiler', () => {
     expect(tokens['component.status-entry.size.signal'].value).toBe('{size.signal.compact}');
   });
 
+  it('contains the locked Phase 3E temporal-collection token roles', () => {
+    expect(Object.keys(tokens)).toEqual(
+      expect.arrayContaining([
+        'component.timeline.color.background',
+        'component.timeline.color.border',
+        'component.timeline.color.heading',
+        'component.timeline.color.context',
+        'component.timeline.radius',
+        'component.timeline.space',
+        'component.timeline.space.item',
+        'component.timeline-item.color.heading',
+        'component.timeline-item.color.detail',
+        'component.timeline-item.color.state',
+        'component.timeline-item.color.condition',
+        'component.timeline-item.color.sequence',
+        'component.timeline-item.color.signal-border',
+        'component.timeline-item.radius.signal',
+        'component.timeline-item.space',
+        'component.timeline-item.space.related',
+        'component.timeline-item.size.signal',
+        'component.timeline-item.width.sequence',
+        'component.event-log.color.background',
+        'component.event-log.color.border',
+        'component.event-log.color.heading',
+        'component.event-log.color.context',
+        'component.event-log.radius',
+        'component.event-log.space',
+        'component.event-log.space.record',
+        'component.event-record.color.background',
+        'component.event-record.color.border',
+        'component.event-record.color.summary',
+        'component.event-record.color.detail',
+        'component.event-record.color.state',
+        'component.event-record.color.condition',
+        'component.event-record.color.signal-border',
+        'component.event-record.radius',
+        'component.event-record.radius.signal',
+        'component.event-record.space',
+        'component.event-record.space.related',
+        'component.event-record.size.signal',
+      ]),
+    );
+    expect(tokens['component.timeline-item.color.sequence'].value).toBe(
+      '{color.semantic.border.strong}',
+    );
+    expect(tokens['component.timeline-item.width.sequence'].value).toBe('{border.width.standard}');
+    expect(tokens['component.event-record.color.condition'].value).toBe(
+      '{color.semantic.condition.neutral}',
+    );
+    expect(tokens['component.event-record.size.signal'].value).toBe('{size.signal.compact}');
+  });
+
   it('provides accessible contrast for the default dark-theme foundations', () => {
     const paper = referenceColor('color.reference.paper.50');
     const canvas = referenceColor('color.reference.ink.950');

@@ -1,10 +1,10 @@
 # Phase 3E temporal-collection contracts
 
-**Status:** Proposed for Phase 3E review on August 9, 2026. This proposal defines the boundary for
-`wg-timeline`, `wg-timeline-item`, `wg-event-log`, and `wg-event-record`. It does not yet lock
-visual tokens or authorize implementation. It follows the accepted
+**Status:** Accepted for Phase 3E on August 9, 2026. This contract defines the boundary for
+`wg-timeline`, `wg-timeline-item`, `wg-event-log`, and `wg-event-record`. Its required public tokens
+are locked; implementation has not started. It follows the accepted
 [operational-data ownership contract](./operational-data.md),
-[ADR 0024](../architecture/adr/0024-operational-data-ownership-and-updates.md), and proposed
+[ADR 0024](../architecture/adr/0024-operational-data-ownership-and-updates.md), and accepted
 [ADR 0026](../architecture/adr/0026-temporal-collection-behavior.md).
 
 Timeline and event-log records both describe occurrences over time, but they answer different
@@ -14,7 +14,7 @@ turning them into two appearances of one generic list.
 
 ## Shared requirements
 
-All four proposed elements:
+All four accepted elements:
 
 - import without registration side effects and expose explicit registration functions;
 - preserve consumer-authored light DOM, native controls, event handling, stable DOM nodes, and
@@ -167,7 +167,7 @@ The item container exposes list semantics and is named by the visible heading or
 The collection is not a live region and is not focusable. `busy` exposes bounded replacement or
 refresh activity without erasing retained items or announcing each mutation.
 
-### Proposed API
+### API
 
 Attributes and properties:
 
@@ -186,6 +186,27 @@ Slots:
 - default: direct `wg-timeline-item` children in authored reading order.
 
 Events and methods: none.
+
+CSS custom properties:
+
+- `--wg-timeline-color-background`
+- `--wg-timeline-color-border`
+- `--wg-timeline-color-heading`
+- `--wg-timeline-color-context`
+- `--wg-timeline-radius`
+- `--wg-timeline-space`
+- `--wg-timeline-space-item`
+
+CSS parts:
+
+- `base`
+- `header`
+- `heading`
+- `chronology`
+- `description`
+- `actions`
+- `status`
+- `list`
 
 ## `wg-timeline-item`
 
@@ -209,7 +230,7 @@ The item is display-only and not focusable. It does not format time, calculate d
 active interval, toggle details, or make its whole surface clickable. The application retains the
 same node for the same curated occurrence.
 
-### Proposed API
+### API
 
 Attributes and properties:
 
@@ -229,6 +250,38 @@ Slots:
 - `actions`: optional consumer-authored controls.
 
 Events and methods: none.
+
+CSS custom properties:
+
+- `--wg-timeline-item-color-heading`
+- `--wg-timeline-item-color-detail`
+- `--wg-timeline-item-color-state`
+- `--wg-timeline-item-color-condition`
+- `--wg-timeline-item-color-sequence`
+- `--wg-timeline-item-color-signal-border`
+- `--wg-timeline-item-radius-signal`
+- `--wg-timeline-item-space`
+- `--wg-timeline-item-space-related`
+- `--wg-timeline-item-size-signal`
+- `--wg-timeline-item-width-sequence`
+
+CSS parts:
+
+- `base`
+- `sequence`
+- `signal`
+- `content`
+- `time`
+- `end-time`
+- `heading`
+- `state`
+- `condition`
+- `knowledge`
+- `activity`
+- `description`
+- `metadata`
+- `details`
+- `actions`
 
 ## `wg-event-log`
 
@@ -256,7 +309,7 @@ At the accepted Phase 3 envelope, one log supports 500 authored records and inse
 without component-owned pagination, virtualization, forced scroll, or record-by-record speech.
 Larger or long-lived streams use application-owned retention, paging, or reviewed windowing.
 
-### Proposed API
+### API
 
 Attributes and properties:
 
@@ -276,6 +329,27 @@ Slots:
 
 Events and methods: none. This collection-level parity with `wg-timeline` does not imply
 interchangeable record semantics or one shared implementation class.
+
+CSS custom properties:
+
+- `--wg-event-log-color-background`
+- `--wg-event-log-color-border`
+- `--wg-event-log-color-heading`
+- `--wg-event-log-color-context`
+- `--wg-event-log-radius`
+- `--wg-event-log-space`
+- `--wg-event-log-space-record`
+
+CSS parts:
+
+- `base`
+- `header`
+- `heading`
+- `chronology`
+- `description`
+- `actions`
+- `status`
+- `list`
 
 ## `wg-event-record`
 
@@ -300,7 +374,7 @@ Duplicate visible summaries remain distinct occurrences with distinct applicatio
 application reuses the same node when correcting or enriching the same occurrence and creates a new
 node for a genuinely new occurrence.
 
-### Proposed API
+### API
 
 Attributes and properties:
 
@@ -321,6 +395,40 @@ Slots:
 - `actions`: optional consumer-authored controls.
 
 Events and methods: none.
+
+CSS custom properties:
+
+- `--wg-event-record-color-background`
+- `--wg-event-record-color-border`
+- `--wg-event-record-color-summary`
+- `--wg-event-record-color-detail`
+- `--wg-event-record-color-state`
+- `--wg-event-record-color-condition`
+- `--wg-event-record-color-signal-border`
+- `--wg-event-record-radius`
+- `--wg-event-record-radius-signal`
+- `--wg-event-record-space`
+- `--wg-event-record-space-related`
+- `--wg-event-record-size-signal`
+
+CSS parts:
+
+- `base`
+- `signal`
+- `content`
+- `time`
+- `summary`
+- `state`
+- `condition`
+- `knowledge`
+- `activity`
+- `received-time`
+- `source`
+- `category`
+- `reference`
+- `metadata`
+- `details`
+- `actions`
 
 ## Responsive behavior
 
@@ -351,7 +459,7 @@ These are compatible later capabilities only after deployment evidence proves a 
 The collection slots deliberately permit application compositions without implying future package
 ownership.
 
-## Review questions resolved by this proposal
+## Resolved contract decisions
 
 1. Timeline and event log remain separate collection and record families.
 2. Their records remain authored light DOM; no shared structured record type is added.
@@ -362,5 +470,6 @@ ownership.
 6. Event logs use named list semantics rather than the implicitly live `log` role.
 7. Announcements, unseen counts, follow-latest, and scroll restoration remain application-owned
    compositions; Wayglass provides stable slots and stationary update behavior.
-8. Tokens, implementation, stories, and validation proceed only after this proposal and ADR 0026 are
-   accepted.
+8. Public tokens are locked only for intentional surfaces, sequence and signal geometry, text roles,
+   radii, and density-aware spacing; implementation, stories, and validation proceed in later
+   reviewable slices.
