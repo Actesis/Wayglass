@@ -119,8 +119,9 @@ announcements, unseen-record calculation, follow-latest policy, and scroll resto
 application-owned. The required public tokens are locked. `wg-timeline` and `wg-timeline-item` now
 have framework-neutral implementations and focused cross-browser tests. `wg-event-log` and
 `wg-event-record` now provide the distinct dense record family with its 500-record and 50-insertion
-envelopes. Typed React wrappers now deliver all four temporal elements; production stories and full
-validation remain.
+envelopes. Typed React wrappers now deliver all four temporal elements. Production Storybook
+fixtures cover the two distinct families, application-owned compositions, feedback states, and
+reference envelopes; full validation remains.
 
 Share only the record structure that the two temporal views genuinely have in common.
 

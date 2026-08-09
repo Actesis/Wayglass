@@ -1,0 +1,100 @@
+.wg-temporal-viewport {
+  inline-size: min(90rem, 100%);
+  margin-inline: auto;
+}
+
+.wg-temporal-viewport--phone {
+  inline-size: min(20rem, 100%);
+}
+
+.wg-temporal-viewport--wall {
+  inline-size: min(120rem, 100%);
+}
+
+.wg-temporal-viewport wg-canvas {
+  min-block-size: 100vh;
+}
+
+.wg-temporal-header h1,
+.wg-temporal-header p {
+  margin-block-start: 0;
+}
+
+.wg-temporal-header h1 {
+  margin-block-end: var(--wg-space-reference-2);
+  font-family: var(--wg-typography-family-display);
+  font-size: var(--wg-typography-size-title);
+}
+
+.wg-temporal-header p:last-child {
+  margin-block-end: 0;
+  color: var(--wg-color-semantic-text-secondary);
+}
+
+.wg-temporal-workspace,
+.wg-temporal-feedback {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: var(--wg-space-semantic-function-gutter);
+}
+
+.wg-temporal-feedback {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+}
+
+.wg-temporal-viewport--phone .wg-temporal-workspace,
+.wg-temporal-viewport--phone .wg-temporal-feedback {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.wg-temporal-viewport--wall .wg-temporal-workspace {
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+}
+
+.wg-temporal-workspace > section,
+.wg-temporal-feedback > * {
+  min-inline-size: 0;
+}
+
+.wg-temporal-status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--wg-space-semantic-related);
+}
+
+.wg-temporal-viewport wg-button {
+  min-block-size: var(--wg-size-touch-minimum);
+}
+
+.wg-temporal-viewport details {
+  color: var(--wg-color-semantic-text-secondary);
+}
+
+.wg-temporal-viewport details summary {
+  color: var(--wg-color-semantic-action-primary);
+  cursor: pointer;
+  font-weight: var(--wg-typography-weight-medium);
+}
+
+.wg-temporal-viewport details p {
+  margin-block-end: 0;
+}
+
+.wg-temporal-media {
+  max-inline-size: 28rem;
+  margin-block-end: 0;
+  margin-inline: 0;
+}
+
+.wg-temporal-media figcaption {
+  margin-block-start: var(--wg-space-semantic-related);
+  color: var(--wg-color-semantic-text-secondary);
+  font-size: var(--wg-typography-size-metadata);
+}
+
+.wg-temporal-viewport wg-progress progress {
+  inline-size: 100%;
+}
