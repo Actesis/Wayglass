@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wayglass data table</title>
+    <link rel="stylesheet" href="/packages/tokens/dist/tokens.css" />
+    <link rel="stylesheet" href="/packages/themes/dist/themes.css" />
+    <link rel="stylesheet" href="/packages/elements/dist/data-table.css" />
+    <style>
+      body {
+        margin: 0;
+        color: var(--wg-color-semantic-text-primary);
+        background: var(--wg-color-semantic-surface-canvas);
+        font-family: var(--wg-typography-family-body);
+      }
+
+      main {
+        display: grid;
+        box-sizing: border-box;
+        inline-size: min(100%, 48rem);
+        margin-inline: auto;
+        padding: var(--wg-space-reference-4);
+        gap: var(--wg-space-reference-6);
+      }
+
+      wg-data-table:not(:defined) {
+        display: grid;
+        min-inline-size: 0;
+        gap: var(--wg-component-data-table-space-group);
+        padding: var(--wg-component-data-table-space);
+        background: var(--wg-component-data-table-color-background);
+      }
+
+      wg-scroll-region:not(:defined) {
+        display: block;
+        max-inline-size: 100%;
+        overflow: auto;
+      }
+
+      /* Fixture-only mechanical width: guarantees contained overflow in every browser engine. */
+      .wide-table {
+        min-inline-size: 64rem;
+      }
+
+      button {
+        min-block-size: var(--wg-size-touch-minimum);
+        font: inherit;
+      }
+    </style>
+  </head>
+  <body data-wg-theme="wayglass-dark" data-wg-density="compact">
+    <main>
+      <h1>Records</h1>
+      <wg-data-table id="operational-records">
+        <p slot="context" id="table-context">3 records shown; sorted by most recent update.</p>
+        <wg-scroll-region axis="inline" label="Operational review records table">
+          <table id="records-table" class="wide-table">
+            <caption>
+              Operational review records
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col" aria-sort="descending">
+                  <button id="sort-updated" type="button">Updated, newest first</button>
+                </th>
+                <th scope="col">Record</th>
+                <th scope="col">Condition</th>
+                <th scope="col">Knowledge</th>
+                <th scope="col">Owner</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr id="record-1842">
+                <td><time datetime="2026-08-09T14:24:18-07:00">2:24 PM</time></td>
+                <th scope="row">Review WG-1842</th>
+                <td>Caution</td>
+                <td>Confirmed</td>
+                <td>Operations <small>North region</small></td>
+                <td><button id="inspect-1842" type="button">Inspect Review WG-1842</button></td>
+              </tr>
+              <tr id="record-1841">
+                <td><time datetime="2026-08-09T14:18:00-07:00">2:18 PM</time></td>
+                <th scope="row">Review WG-1841</th>
+                <td>Routine</td>
+                <td>Inferred</td>
+                <td>Field team <small>West region</small></td>
+                <td><button type="button">Inspect Review WG-1841</button></td>
+              </tr>
+              <tr id="record-1840">
+                <td><time datetime="2026-08-09T14:05:00-07:00">2:05 PM</time></td>
+                <th scope="row">Review WG-1840</th>
+                <td>Critical</td>
+                <td>Stale</td>
+                <td>Operations <small>Central region</small></td>
+                <td><button type="button">Inspect Review WG-1840</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </wg-scroll-region>
+        <p slot="feedback" id="table-feedback">All shown records remain available.</p>
+      </wg-data-table>
+
+      <table id="outside-table" hidden>
+        <caption>
+          Unscoped comparison table
+        </caption>
+        <tbody>
+          <tr>
+            <th scope="row">Outside Wayglass</th>
+            <td id="outside-cell">Application styled</td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+
+    <script type="module">
+      const parameters = new URLSearchParams(window.location.search);
+      document.body.dataset.wgTheme = parameters.get('theme') ?? 'wayglass-dark';
+      document.body.dataset.wgDensity = parameters.get('density') ?? 'compact';
+      if (parameters.get('direction') === 'rtl') document.documentElement.dir = 'rtl';
+      if (parameters.get('textScale') === '200') document.documentElement.style.fontSize = '200%';
+
+      if (parameters.get('upgrade') !== 'false') {
+        const [dataTable, scrollRegion] = await Promise.all([
+          import('/packages/elements/dist/data-table.js'),
+          import('/packages/elements/dist/scroll-region.js'),
+        ]);
+        dataTable.defineWgDataTable();
+        scrollRegion.defineWgScrollRegion();
+      }
+    </script>
+  </body>
+</html>

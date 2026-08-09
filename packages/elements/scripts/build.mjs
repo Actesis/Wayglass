@@ -8,6 +8,10 @@ await copyFile(
   new URL('foundations.css', outputDirectory),
 );
 await copyFile(new URL('../src/forms.css', import.meta.url), new URL('forms.css', outputDirectory));
+await copyFile(
+  new URL('../src/data-table.css', import.meta.url),
+  new URL('data-table.css', outputDirectory),
+);
 await copyFile(new URL('../src/media.css', import.meta.url), new URL('media.css', outputDirectory));
 await copyFile(
   new URL('../src/media-viewer.css', import.meta.url),
