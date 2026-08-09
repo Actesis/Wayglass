@@ -176,7 +176,8 @@ toolbar.
 
 **Current status:** The [data-table contract](./data/data-table.md) and
 [native-table architecture decision](./architecture/adr/0028-native-data-table-and-contained-overflow.md)
-are proposed for review. No Phase 3G public API or token is locked and implementation has not begun.
+are accepted, and the required public token vocabulary is locked. Framework-neutral and React
+implementation, reference stories, and validation have not begun.
 
 Deliver an accessible operational table while retaining native tabular relationships.
 

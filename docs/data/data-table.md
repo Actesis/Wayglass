@@ -1,13 +1,14 @@
 # Phase 3G data-table contract
 
-**Status:** Proposed for Phase 3G review on August 9, 2026. This contract defines the intended
-boundary for `wg-data-table`; no public API or token is locked until the proposal is accepted.
+**Status:** Accepted for Phase 3G on August 9, 2026. This contract defines the public boundary for
+`wg-data-table`, and its required public token vocabulary is locked. Framework-neutral and React
+implementation, reference stories, and validation remain to be completed.
 
-The proposal follows the accepted [operational-data ownership contract](./operational-data.md),
+The contract follows the accepted [operational-data ownership contract](./operational-data.md),
 [Phase 3 validation plan](../accessibility/phase-3-validation-plan.md),
 [layout contracts](../layout/layout-contracts.md), and
 [ADR 0024](../architecture/adr/0024-operational-data-ownership-and-updates.md). Its architecture is
-recorded in proposed
+recorded in accepted
 [ADR 0028](../architecture/adr/0028-native-data-table-and-contained-overflow.md).
 
 ## Purpose
@@ -218,18 +219,27 @@ because Shadow DOM deliberately cannot reach through the slotted `<table>` to st
 caption, headers, rows, and cells. The stylesheet remains opt-in, token-backed, limited to direct
 native table descendants of `wg-data-table`, and never changes semantic display roles.
 
-The proposed public token intent covers:
+The locked public CSS custom properties are:
 
-- wrapper and table surface colors;
-- neutral boundary and row-separator colors;
-- caption, header, primary text, and supporting-context colors;
-- compact and comfortable cell block and inline spacing;
-- wrapper radius and group spacing; and
-- focus and overflow boundary integration through existing scroll-region tokens.
+- `--wg-data-table-color-background`
+- `--wg-data-table-color-table-background`
+- `--wg-data-table-color-border`
+- `--wg-data-table-color-row-separator`
+- `--wg-data-table-color-caption`
+- `--wg-data-table-color-header`
+- `--wg-data-table-color-text`
+- `--wg-data-table-color-context`
+- `--wg-data-table-radius`
+- `--wg-data-table-space`
+- `--wg-data-table-space-group`
+- `--wg-data-table-space-cell-block`
+- `--wg-data-table-space-cell-inline`
 
-Exact names and values are locked in the later Phase 3G token slice after this contract is accepted.
-Private mechanical constants are allowed only for intrinsic table layout details that do not express
-theme or brand intent.
+Background, table surface, structural boundaries, and text roles resolve through existing semantic
+color tokens. Edge, group, and logical cell spacing respond to the inherited compact or comfortable
+density. Focus and overflow presentation continue to use the existing scroll-region tokens. Private
+mechanical constants are allowed only for intrinsic table-layout details that do not express theme
+or brand intent.
 
 ## Accessibility and keyboard interaction
 
@@ -256,7 +266,7 @@ Required validation includes:
 - Axe scans and explicit absence of implicit live regions; and
 - representative VoiceOver/Safari and NVDA/Firefox review before public release.
 
-## Proposed API
+## API
 
 ### Element
 
@@ -349,7 +359,7 @@ The following remain application-owned or separately deferred:
 These are compatible future capabilities only when production evidence establishes a reusable
 semantic, focus, responsive, and ownership contract.
 
-## Proposed decisions
+## Accepted decisions
 
 1. Keep one consumer-authored native table as the sole tabular semantic owner.
 2. Require an explicit direct `wg-scroll-region` rather than duplicating overflow observers, focus
@@ -365,5 +375,6 @@ semantic, focus, responsive, and ownership contract.
 8. Defer package-owned sticky headers until grouped-header and adaptive-mode evidence supports a
    stable option.
 
-Acceptance of this proposal authorizes the later token, element, React, story, and validation
-slices; it does not itself lock or implement the public API.
+This accepted contract authorizes the element, React, story, and validation slices. The API and
+required token vocabulary are locked; the remaining slices implement and validate them without
+silently widening ownership.

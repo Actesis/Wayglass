@@ -192,6 +192,22 @@ describe('Phase 1 themes', () => {
     expect(first).toContain('--wg-component-filter-bar-space-group: var(--wg-space-reference-3)');
     expect(first).toContain('--wg-component-command-bar-space: var(--wg-space-reference-6)');
     expect(first).toContain('--wg-component-command-bar-space-group: var(--wg-space-reference-3)');
+    expect(first).toContain('--wg-component-data-table-space: var(--wg-space-reference-3)');
+    expect(first).toContain('--wg-component-data-table-space-group: var(--wg-space-reference-2)');
+    expect(first).toContain(
+      '--wg-component-data-table-space-cell-block: var(--wg-space-reference-2)',
+    );
+    expect(first).toContain(
+      '--wg-component-data-table-space-cell-inline: var(--wg-space-reference-3)',
+    );
+    expect(first).toContain('--wg-component-data-table-space: var(--wg-space-reference-6)');
+    expect(first).toContain('--wg-component-data-table-space-group: var(--wg-space-reference-3)');
+    expect(first).toContain(
+      '--wg-component-data-table-space-cell-block: var(--wg-space-reference-3)',
+    );
+    expect(first).toContain(
+      '--wg-component-data-table-space-cell-inline: var(--wg-space-reference-4)',
+    );
     expect(first).not.toContain('wayglass-high-contrast');
     expect(first).not.toContain('wayglass-dim');
   });

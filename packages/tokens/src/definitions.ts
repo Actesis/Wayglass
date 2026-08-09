@@ -2120,6 +2120,71 @@ export const tokens = {
     type: 'dimension',
     description: 'Density-aware spacing between primary, secondary, and overflow commands.',
   },
+  'component.data-table.color.background': {
+    value: '{color.semantic.surface.panel}',
+    type: 'color',
+    description: 'Neutral contained background around one native operational table.',
+  },
+  'component.data-table.color.table-background': {
+    value: '{color.semantic.surface.inset}',
+    type: 'color',
+    description: 'Native table surface inside the contained data-table boundary.',
+  },
+  'component.data-table.color.border': {
+    value: '{color.semantic.border.subtle}',
+    type: 'color',
+    description: 'Routine boundary around the native table surface.',
+  },
+  'component.data-table.color.row-separator': {
+    value: '{color.semantic.border.subtle}',
+    type: 'color',
+    description: 'Neutral separator between native table rows and header groups.',
+  },
+  'component.data-table.color.caption': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'Native table caption text.',
+  },
+  'component.data-table.color.header': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'Native column, row, and grouped-header text.',
+  },
+  'component.data-table.color.text': {
+    value: '{color.semantic.text.primary}',
+    type: 'color',
+    description: 'Primary native data-cell text.',
+  },
+  'component.data-table.color.context': {
+    value: '{color.semantic.text.secondary}',
+    type: 'color',
+    description: 'Data-table context, feedback, and supporting cell text.',
+  },
+  'component.data-table.radius': {
+    value: '{shape.radius.panel}',
+    type: 'dimension',
+    description: 'Data-table contained-surface radius.',
+  },
+  'component.data-table.space': {
+    value: '{space.reference.4}',
+    type: 'dimension',
+    description: 'Density-aware data-table edge spacing.',
+  },
+  'component.data-table.space.group': {
+    value: '{space.reference.2}',
+    type: 'dimension',
+    description: 'Density-aware spacing between context, table, and feedback regions.',
+  },
+  'component.data-table.space.cell-block': {
+    value: '{space.reference.2}',
+    type: 'dimension',
+    description: 'Density-aware logical block padding for native header and data cells.',
+  },
+  'component.data-table.space.cell-inline': {
+    value: '{space.reference.3}',
+    type: 'dimension',
+    description: 'Density-aware logical inline padding for native header and data cells.',
+  },
   'component.value-tile.color.background': {
     value: '{color.semantic.surface.panel}',
     type: 'color',
