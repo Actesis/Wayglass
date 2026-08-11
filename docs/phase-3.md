@@ -18,6 +18,11 @@ reference stories, automated cross-browser validation, and production review are
 Representative manual assistive-technology gates remain without changing Phase 3 implementation
 scope.
 
+Phase 3G's native data-table contract, implementation, production stories, automated cross-browser
+validation, and production review are also complete. Representative manual assistive-technology
+gates remain carried with explicit public-release impact. Phase 3H integration planning is now in
+progress.
+
 Phase 3 turns the Phase 1 and Phase 2 foundations into a reusable operational-data layer. It adds
 scalar summaries, compact telemetry, status collections, temporal records, collection tools, and
 accessible tables while preserving the independent domain value, condition, knowledge, and activity
@@ -198,6 +203,13 @@ Deliver an accessible operational table while retaining native tabular relations
   touch, assistive technology, themes, forced colors, zoom, and supported browsers.
 
 ### Phase 3H — Integration and closeout
+
+**Current status:** The
+[Operational Activity integration contract](./data/operational-activity-integration.md) and
+[ADR 0029](./architecture/adr/0029-operational-activity-reference-integration.md) are proposed. They
+keep the reference state and transitions example-owned, reuse the existing overview and Function
+Deck patterns, provide one semantic composition and announcement owner at a time, and share behavior
+rather than rendering between framework-neutral and React integrations.
 
 Prove the components as one system rather than a catalog of isolated demonstrations.
 
