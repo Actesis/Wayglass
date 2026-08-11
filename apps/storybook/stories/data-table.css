@@ -118,6 +118,20 @@ wg-data-table th small {
   min-inline-size: max(100%, 88rem);
 }
 
+.wg-data-table-validation {
+  min-inline-size: max(100%, 150rem);
+}
+
+.wg-data-table-validation :is(th, td) {
+  white-space: nowrap;
+  overflow-wrap: normal;
+}
+
+.wg-data-table-validation td small,
+.wg-data-table-validation td strong {
+  display: block;
+}
+
 #operational-review-table table {
   min-inline-size: max(100%, 70rem);
 }

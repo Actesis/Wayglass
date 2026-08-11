@@ -3,7 +3,9 @@
 **Status:** Accepted for Phase 3G on August 9, 2026. This contract defines the public boundary for
 `wg-data-table`, and its required public token vocabulary is locked. The framework-neutral element,
 explicit native-table stylesheet, typed React binding, and production reference stories are
-implemented. Full validation remains to be completed.
+implemented. Automated cross-browser validation and production review are complete; see the
+[Phase 3G validation record](../accessibility/phase-3g-data-table-validation.md). Representative
+manual assistive-technology gates remain.
 
 The contract follows the accepted [operational-data ownership contract](./operational-data.md),
 [Phase 3 validation plan](../accessibility/phase-3-validation-plan.md),
@@ -376,20 +378,23 @@ semantic, focus, responsive, and ownership contract.
 8. Defer package-owned sticky headers until grouped-header and adaptive-mode evidence supports a
    stable option.
 
-This accepted contract authorizes the element, React, story, and validation slices. The API and
-required token vocabulary are locked; the remaining slices implement and validate them without
-silently widening ownership.
+This accepted contract authorized the element, React, story, and validation slices. The API and
+required token vocabulary remain locked, and automated validation is recorded without silently
+widening ownership.
 
 ## Reference stories
 
-Storybook provides dark compact, light comfortable, phone, and wall-panel compositions plus two
+Storybook provides dark compact, light comfortable, phone, and wall-panel compositions plus three
 focused reference stories:
 
-- **Data states** keeps initial loading, empty, retained stale, and unavailable feedback outside
-  native data rows and adds no implicit announcement owner.
+- **Data states** keeps initial loading, empty, retained refresh, stale, partial, unavailable,
+  failed, and recovered feedback outside native data rows and adds no implicit announcement owner.
 - **Reference envelope** demonstrates a dense 12-column table, contained inline overflow,
   application-authored sticky headers, and replacement of 20 rows while retained nodes and the
   invoking action keep their identity and focus.
+- **Validation envelope** provides the accepted 200-row by 20-column scale, six grouped column
+  headers, explicit complex-header relationships, compound cell content, and application-owned
+  replacement of rows 181–200.
 
 The primary workspace demonstrates a sparse table with row headers, independent condition,
 knowledge, and activity labels, authored sorting that reorders existing rows, ordinary row actions,
