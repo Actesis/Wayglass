@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wayglass Operational Activity stories</title>
+    <link rel="stylesheet" href="/packages/tokens/dist/tokens.css" />
+    <link rel="stylesheet" href="/packages/themes/dist/themes.css" />
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module">
+      import { mountOperationalActivity } from '/apps/storybook/stories/operational-activity.fixture.ts';
+
+      const parameters = new URLSearchParams(window.location.search);
+      document.documentElement.dir = parameters.get('direction') === 'rtl' ? 'rtl' : 'ltr';
+      const fixture = mountOperationalActivity({
+        composition: parameters.get('composition') ?? 'overview',
+        width: parameters.get('width') ?? 'desktop',
+        theme: parameters.get('theme') ?? 'wayglass-dark',
+        density: parameters.get('density') ?? 'compact',
+        scenario: parameters.get('scenario') ?? 'steady',
+        selectedFunction: parameters.get('selected') ?? undefined,
+      });
+      document.querySelector('#root').append(fixture);
+    </script>
+  </body>
+</html>
