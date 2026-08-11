@@ -1,0 +1,202 @@
+.wg-operational-viewport {
+  inline-size: min(96rem, 100%);
+  min-inline-size: 0;
+  margin-inline: auto;
+}
+
+.wg-operational-viewport--phone {
+  inline-size: min(20rem, 100%);
+}
+
+.wg-operational-viewport--wall {
+  inline-size: min(120rem, 100%);
+}
+
+.wg-operational-viewport wg-canvas {
+  min-block-size: 100vh;
+}
+
+.wg-operational-header h1,
+.wg-operational-header p,
+.wg-operational-footer,
+.wg-operational-function h2,
+.wg-operational-function h3,
+.wg-operational-function h4 {
+  margin-block-start: 0;
+}
+
+.wg-operational-header h1 {
+  margin-block-end: var(--wg-space-reference-2);
+  font-family: var(--wg-typography-family-display);
+  font-size: var(--wg-typography-size-title);
+}
+
+.wg-operational-header p:last-child,
+.wg-operational-footer,
+.wg-operational-announcement {
+  color: var(--wg-color-semantic-text-secondary);
+}
+
+.wg-operational-overview {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  gap: var(--wg-space-semantic-function-gutter);
+}
+
+.wg-operational-function {
+  min-inline-size: 0;
+  overflow: hidden;
+  border: var(--wg-border-width-standard) solid var(--wg-color-semantic-border-strong);
+  border-radius: var(--wg-shape-radius-panel);
+  background: var(--wg-color-semantic-surface-panel);
+}
+
+.wg-operational-function__body,
+.wg-operational-summary-grid,
+.wg-operational-tools {
+  display: grid;
+  min-inline-size: 0;
+  gap: var(--wg-space-reference-3);
+}
+
+.wg-operational-function__body {
+  padding: var(--wg-space-semantic-section-gap);
+}
+
+.wg-operational-summary-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+}
+
+.wg-operational-tools {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+}
+
+.wg-operational-feedback {
+  min-inline-size: 0;
+}
+
+p.wg-operational-feedback {
+  margin: 0;
+  padding: var(--wg-space-reference-3);
+  border-inline-start: var(--wg-border-width-value-rail) solid
+    var(--wg-color-semantic-condition-neutral);
+  background: var(--wg-color-semantic-surface-raised);
+}
+
+.wg-operational-feedback--partial,
+.wg-operational-feedback--failed {
+  border-inline-start-color: var(--wg-color-semantic-condition-caution);
+}
+
+.wg-operational-feedback--recovered {
+  border-inline-start-color: var(--wg-color-semantic-condition-positive);
+}
+
+.wg-operational-feedback--refreshing {
+  border-inline-start-color: var(--wg-color-semantic-activity-pending);
+}
+
+.wg-operational-collection,
+.wg-operational-table {
+  min-inline-size: 0;
+}
+
+.wg-operational-tools form {
+  display: grid;
+  gap: var(--wg-space-reference-2);
+}
+
+.wg-operational-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--wg-space-reference-2);
+}
+
+.wg-operational-tools :is(input, select, button),
+.wg-operational-table th button {
+  box-sizing: border-box;
+  min-block-size: var(--wg-size-touch-minimum);
+  padding-block: var(--wg-space-semantic-control-block);
+  padding-inline: var(--wg-space-semantic-control-inline);
+  border: var(--wg-border-width-standard) solid var(--wg-color-semantic-border-strong);
+  border-radius: var(--wg-shape-radius-control);
+  color: var(--wg-color-semantic-text-primary);
+  background: var(--wg-color-semantic-surface-raised);
+  font: inherit;
+}
+
+.wg-operational-tools :is(input, select) {
+  inline-size: 100%;
+  block-size: var(--wg-size-touch-minimum);
+}
+
+.wg-operational-tools button,
+.wg-operational-table th button {
+  font-weight: var(--wg-typography-weight-medium);
+  cursor: pointer;
+}
+
+.wg-operational-tools :is(input, select, button):focus-visible,
+.wg-operational-table th button:focus-visible {
+  outline: var(--wg-focus-width) solid var(--wg-color-semantic-focus-ring);
+  outline-offset: var(--wg-focus-offset);
+}
+
+.wg-operational-table table {
+  min-inline-size: max(100%, 64rem);
+}
+
+.wg-operational-focused {
+  display: grid;
+  min-inline-size: 0;
+  gap: var(--wg-space-reference-3);
+}
+
+.wg-operational-focused wg-tab {
+  flex: 0 0 auto;
+}
+
+.wg-operational-focused__surface {
+  min-inline-size: 0;
+}
+
+.wg-operational-focused__surface .wg-operational-function > h2 {
+  margin: 0;
+  padding: var(--wg-space-reference-3);
+  border-block-end: var(--wg-border-semantic-section) solid var(--wg-color-semantic-border-strong);
+  font-family: var(--wg-typography-family-display);
+  font-size: var(--wg-typography-size-section);
+}
+
+.wg-operational-announcement:empty {
+  display: none;
+}
+
+.wg-operational-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--wg-space-reference-2);
+}
+
+.wg-operational-viewport--phone .wg-operational-overview,
+.wg-operational-viewport--phone .wg-operational-summary-grid,
+.wg-operational-viewport--phone .wg-operational-tools {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.wg-operational-viewport--wall .wg-operational-overview {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (forced-colors: active) {
+  .wg-operational-function,
+  p.wg-operational-feedback,
+  .wg-operational-tools :is(input, select, button),
+  .wg-operational-table th button {
+    border-color: CanvasText;
+    color: CanvasText;
+    background: Canvas;
+  }
+}

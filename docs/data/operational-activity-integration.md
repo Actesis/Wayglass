@@ -4,6 +4,11 @@
 workspace and its application-owned state boundary. It does not add a public component, record
 schema, store, or package API.
 
+**Implementation:** The shared model and production Storybook overview and focused compositions are
+implemented. Both compositions consume the same state instance and reducer, explicitly register
+production Custom Elements, preserve keyed application records, and provide one application-owned
+announcement region. Runnable Vanilla and React integrations remain the next delivery slice.
+
 The contract applies the accepted [operational-data ownership](./operational-data.md),
 [Function Deck](../patterns/function-deck.md),
 [filter and command](./filter-and-command-patterns.md), and [data-table](./data-table.md) contracts

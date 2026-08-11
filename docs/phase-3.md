@@ -20,8 +20,9 @@ scope.
 
 Phase 3G's native data-table contract, implementation, production stories, automated cross-browser
 validation, and production review are also complete. Representative manual assistive-technology
-gates remain carried with explicit public-release impact. Phase 3H integration planning is now in
-progress.
+gates remain carried with explicit public-release impact. Phase 3H's shared example model and
+production Storybook overview and focused compositions are now implemented; runnable Vanilla and
+React integrations are next.
 
 Phase 3 turns the Phase 1 and Phase 2 foundations into a reusable operational-data layer. It adds
 scalar summaries, compact telemetry, status collections, temporal records, collection tools, and
@@ -211,7 +212,11 @@ keep the reference state and transitions example-owned, reuse the existing overv
 Deck patterns, provide one semantic composition and announcement owner at a time, and share behavior
 rather than rendering between framework-neutral and React integrations. The shared example model,
 derived selectors, deterministic scenarios, pure transitions, and focused unit coverage are now
-implemented. Production overview and focused Storybook compositions are next.
+implemented. Production overview and focused Storybook compositions now exercise the accepted
+components, one application-owned reducer, stable record identity, one announcement owner, and the
+deterministic state vocabulary across desktop, phone, and wall-display stories. Focused
+cross-browser interaction and accessibility coverage protects this production fixture. Equivalent
+runnable Vanilla and React integrations are next.
 
 Prove the components as one system rather than a catalog of isolated demonstrations.
 
