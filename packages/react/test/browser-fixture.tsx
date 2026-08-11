@@ -3,6 +3,7 @@ import {
   WgCommandBar,
   WgCommandItem,
   WgConfirmationDialog,
+  WgDataTable,
   WgEventLog,
   WgEventRecord,
   WgFilterBar,
@@ -14,6 +15,7 @@ import {
   WgNavigationRail,
   WgSegment,
   WgSegmentedControl,
+  WgScrollRegion,
   WgStatusEntry,
   WgStatusList,
   WgTab,
@@ -195,6 +197,49 @@ function ReactFixture() {
           </WgMenu>
           <p slot="status">No React command is pending.</p>
         </WgCommandBar>
+        <WgDataTable
+          id="react-data-table"
+          ref={(element) => {
+            document.documentElement.dataset.dataTableRefTag = element?.localName ?? '';
+          }}
+        >
+          <p slot="context">2 React records shown; sorted by most recent update.</p>
+          <WgScrollRegion axis="inline" label="React review records table">
+            <table>
+              <caption>React review records</caption>
+              <thead>
+                <tr>
+                  <th scope="col" aria-sort="descending">
+                    <button
+                      id="react-sort-updated"
+                      type="button"
+                      onClick={() => {
+                        document.documentElement.dataset.reactTableSort = 'activated';
+                      }}
+                    >
+                      Updated, newest first
+                    </button>
+                  </th>
+                  <th scope="col">Record</th>
+                  <th scope="col">Condition</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>2:24 PM</td>
+                  <th scope="row">React Review WG-1842</th>
+                  <td>Caution</td>
+                </tr>
+                <tr>
+                  <td>2:18 PM</td>
+                  <th scope="row">React Review WG-1841</th>
+                  <td>Routine</td>
+                </tr>
+              </tbody>
+            </table>
+          </WgScrollRegion>
+          <p slot="feedback">All shown React records remain available.</p>
+        </WgDataTable>
         <WgTimeline
           id="react-timeline"
           ref={(element) => {

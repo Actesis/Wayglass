@@ -83,11 +83,16 @@ export class WgDataTable extends WayglassElement {
   #lastDiagnostic = '';
 
   protected override updated(): void {
-    const diagnostic = this.#validateAnatomy();
-    if (diagnostic && diagnostic !== this.#lastDiagnostic) {
-      console.warn(`[wg-data-table] ${diagnostic}`);
-    }
-    this.#lastDiagnostic = diagnostic ?? '';
+    // React assigns reflected properties to nested custom elements later in the same task.
+    // Validate after that commit completes so valid composed anatomy does not warn transiently.
+    queueMicrotask(() => {
+      if (!this.isConnected) return;
+      const diagnostic = this.#validateAnatomy();
+      if (diagnostic && diagnostic !== this.#lastDiagnostic) {
+        console.warn(`[wg-data-table] ${diagnostic}`);
+      }
+      this.#lastDiagnostic = diagnostic ?? '';
+    });
   }
 
   protected override render() {

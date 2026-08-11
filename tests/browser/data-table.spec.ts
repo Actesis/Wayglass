@@ -52,6 +52,23 @@ test('keeps the element import side-effect free and leaves useful native fallbac
   });
 });
 
+test('keeps React registration explicit for the separately composed scroll region', async ({
+  page,
+}) => {
+  await page.goto('/tests/browser/module-import/');
+  const result = await page.evaluate(async () => {
+    await import('/packages/react/dist/data-table.js');
+    return {
+      dataTableRegistered: customElements.get('wg-data-table') !== undefined,
+      scrollRegionRegistered: customElements.get('wg-scroll-region') !== undefined,
+    };
+  });
+  expect(result).toEqual({
+    dataTableRegistered: true,
+    scrollRegionRegistered: false,
+  });
+});
+
 test('preserves native table semantics without adding grid, live-region, or wrapper focus', async ({
   page,
 }) => {
