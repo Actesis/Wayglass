@@ -44,6 +44,8 @@ export { WgCommandItem } from './command-item.js';
 export type { WgCommandEvent, WgCommandItemProps } from './command-item.js';
 export { WgCommandBar } from './command-bar.js';
 export type { WgCommandBarProps } from './command-bar.js';
+export { WgDataTable } from './data-table.js';
+export type { WgDataTableProps } from './data-table.js';
 export { WgDivider } from './divider.js';
 export type { WgDividerProps } from './divider.js';
 export { WgDialog } from './dialog.js';

@@ -2,8 +2,8 @@
 
 **Status:** Accepted for Phase 3G on August 9, 2026. This contract defines the public boundary for
 `wg-data-table`, and its required public token vocabulary is locked. The framework-neutral element
-and explicit native-table stylesheet are implemented. React delivery, reference stories, and full
-validation remain to be completed.
+and explicit native-table stylesheet are implemented, along with the typed React binding. Reference
+stories and full validation remain to be completed.
 
 The contract follows the accepted [operational-data ownership contract](./operational-data.md),
 [Phase 3 validation plan](../accessibility/phase-3-validation-plan.md),

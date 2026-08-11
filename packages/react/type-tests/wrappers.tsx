@@ -1,6 +1,7 @@
 import type { WgButton as WgButtonElement } from '@wayglass/elements/button';
 import type { WgCommandBar as WgCommandBarElement } from '@wayglass/elements/command-bar';
 import type { WgConfirmationDialog as WgConfirmationDialogElement } from '@wayglass/elements/confirmation-dialog';
+import type { WgDataTable as WgDataTableElement } from '@wayglass/elements/data-table';
 import type { WgDialog as WgDialogElement } from '@wayglass/elements/dialog';
 import type { WgEventLog as WgEventLogElement } from '@wayglass/elements/event-log';
 import type { WgEventRecord as WgEventRecordElement } from '@wayglass/elements/event-record';
@@ -30,6 +31,7 @@ import {
   WgCommandBar,
   WgCommandItem,
   WgConfirmationDialog,
+  WgDataTable,
   WgDialog,
   WgEventLog,
   WgEventRecord,
@@ -113,6 +115,7 @@ const eventLogRef = createRef<WgEventLogElement>();
 const eventRecordRef = createRef<WgEventRecordElement>();
 const filterBarRef = createRef<WgFilterBarElement>();
 const commandBarRef = createRef<WgCommandBarElement>();
+const dataTableRef = createRef<WgDataTableElement>();
 
 const typedComposition = (
   <WgThemeProvider ref={providerRef} theme="wayglass-dark" density="compact">
@@ -225,6 +228,35 @@ const typedCompositionBars = (
   </>
 );
 void typedCompositionBars;
+
+const typedDataTable = (
+  <WgDataTable ref={dataTableRef}>
+    <p slot="context">24 records shown; sorted by most recent update.</p>
+    <WgScrollRegion axis="inline" label="Operational records table">
+      <table>
+        <caption>Operational records</caption>
+        <thead>
+          <tr>
+            <th scope="col" aria-sort="descending">
+              <button type="button" onClick={() => undefined}>
+                Updated, newest first
+              </button>
+            </th>
+            <th scope="col">Record</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2:24 PM</td>
+            <th scope="row">Review WG-1842</th>
+          </tr>
+        </tbody>
+      </table>
+    </WgScrollRegion>
+    <p slot="feedback">All shown records are current.</p>
+  </WgDataTable>
+);
+void typedDataTable;
 
 const typedTemporalCollections = (
   <>

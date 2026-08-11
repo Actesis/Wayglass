@@ -2,6 +2,12 @@ import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
+  const dataTableWarnings: string[] = [];
+  page.on('console', (message) => {
+    if (message.type() === 'warning' && message.text().includes('[wg-data-table]')) {
+      dataTableWarnings.push(message.text());
+    }
+  });
   await page.goto('/tests/browser/react-fixture/');
   await page.waitForFunction(
     () =>
@@ -15,6 +21,8 @@ test.beforeEach(async ({ page }) => {
       customElements.get('wg-status-entry') !== undefined &&
       customElements.get('wg-filter-bar') !== undefined &&
       customElements.get('wg-command-bar') !== undefined &&
+      customElements.get('wg-data-table') !== undefined &&
+      customElements.get('wg-scroll-region') !== undefined &&
       customElements.get('wg-timeline') !== undefined &&
       customElements.get('wg-timeline-item') !== undefined &&
       customElements.get('wg-event-log') !== undefined &&
@@ -30,6 +38,7 @@ test.beforeEach(async ({ page }) => {
       customElements.get('wg-navigation-rail') !== undefined &&
       customElements.get('wg-confirmation-dialog') !== undefined,
   );
+  expect(dataTableWarnings).toEqual([]);
 });
 
 test('registers wrappers and assigns typed element properties', async ({ page }) => {
@@ -58,6 +67,7 @@ test('registers wrappers and assigns typed element properties', async ({ page })
   await expect(page.locator('#react-status-entry')).toHaveJSProperty('activity', 'pending');
   await expect(page.locator('html')).toHaveAttribute('data-filter-bar-ref-tag', 'wg-filter-bar');
   await expect(page.locator('html')).toHaveAttribute('data-command-bar-ref-tag', 'wg-command-bar');
+  await expect(page.locator('html')).toHaveAttribute('data-data-table-ref-tag', 'wg-data-table');
   await expect(page.locator('#react-filter-bar')).toHaveJSProperty('label', 'React event filters');
   await expect(page.locator('#react-command-bar')).toHaveJSProperty(
     'label',
@@ -65,6 +75,8 @@ test('registers wrappers and assigns typed element properties', async ({ page })
   );
   await expect(page.getByRole('region', { name: 'React event filters' })).toBeVisible();
   await expect(page.getByRole('region', { name: 'React event commands' })).toBeVisible();
+  await expect(page.getByRole('table', { name: 'React review records' })).toBeVisible();
+  await expect(page.getByRole('rowheader', { name: 'React Review WG-1842' })).toBeVisible();
   await expect(page.locator('html')).toHaveAttribute('data-timeline-ref-tag', 'wg-timeline');
   const timelineList = page.getByRole('list', { name: 'React review history' });
   await expect(timelineList).toBeVisible();
@@ -110,6 +122,13 @@ test('forwards native events through React props', async ({ page }) => {
 
   await page.getByRole('button', { name: 'Acknowledge selected React Event records' }).click();
   await expect(page.locator('html')).toHaveAttribute('data-react-primary-command', 'activated');
+
+  await page.getByRole('button', { name: 'Updated, newest first' }).click();
+  await expect(page.locator('html')).toHaveAttribute('data-react-table-sort', 'activated');
+  await expect(page.getByRole('columnheader', { name: 'Updated, newest first' })).toHaveAttribute(
+    'aria-sort',
+    'descending',
+  );
 });
 
 test('translates typed Custom Events to React callback props', async ({ page }) => {

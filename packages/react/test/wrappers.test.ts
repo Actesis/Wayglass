@@ -1,3 +1,4 @@
+import type { WgDataTable as WgDataTableElement } from '@wayglass/elements/data-table';
 import type { WgEventLog as WgEventLogElement } from '@wayglass/elements/event-log';
 import type { WgEventRecord as WgEventRecordElement } from '@wayglass/elements/event-record';
 import type { WgMetric as WgMetricElement } from '@wayglass/elements/metric';
@@ -17,6 +18,7 @@ import {
   WgCommandBar,
   WgCommandItem,
   WgConfirmationDialog,
+  WgDataTable,
   WgDialog,
   WgDivider,
   WgElbow,
@@ -89,6 +91,7 @@ describe('Wayglass React wrappers', () => {
       WgCluster,
       WgCommandBar,
       WgCommandItem,
+      WgDataTable,
       WgGrid,
       WgMedia,
       WgMediaViewer,
@@ -148,6 +151,7 @@ describe('Wayglass React wrappers', () => {
       'WgCluster',
       'WgCommandBar',
       'WgCommandItem',
+      'WgDataTable',
       'WgGrid',
       'WgMedia',
       'WgMediaViewer',
@@ -211,6 +215,24 @@ describe('Wayglass React wrappers', () => {
     expect(metric.props.condition).toBe('caution');
     expect(metric.props.knowledge).toBe('stale');
     expect(metric.props.ref).toBe(ref);
+  });
+
+  it('preserves data-table element refs and consumer-authored native content', () => {
+    const ref = createRef<WgDataTableElement>();
+    const caption = createElement('caption', null, 'Operational records');
+    const table = createElement('table', null, caption);
+    const scrollRegion = createElement(
+      WgScrollRegion,
+      { axis: 'inline', label: 'Operational records table' },
+      table,
+    );
+    const dataTable = createElement(WgDataTable, { ref }, scrollRegion);
+
+    expect(isValidElement(dataTable)).toBe(true);
+    expect(dataTable.props.ref).toBe(ref);
+    expect(dataTable.props.children).toBe(scrollRegion);
+    expect(scrollRegion.props.children).toBe(table);
+    expect(table.props.children).toBe(caption);
   });
 
   it('preserves telemetry samples as a typed property and supports element refs', () => {
