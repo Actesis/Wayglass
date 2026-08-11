@@ -1,13 +1,13 @@
 # Phase 3H Operational Activity integration contract
 
-**Status:** Proposed for Phase 3H on August 11, 2026. This contract defines the integrated reference
+**Status:** Accepted for Phase 3H on August 11, 2026. This contract defines the integrated reference
 workspace and its application-owned state boundary. It does not add a public component, record
 schema, store, or package API.
 
 The contract applies the accepted [operational-data ownership](./operational-data.md),
 [Function Deck](../patterns/function-deck.md),
 [filter and command](./filter-and-command-patterns.md), and [data-table](./data-table.md) contracts
-as one system. The proposed architecture is recorded in
+as one system. The accepted architecture is recorded in
 [ADR 0029](../architecture/adr/0029-operational-activity-reference-integration.md).
 
 ## Purpose
@@ -80,6 +80,14 @@ Every surface derives its visible projection from that state:
 
 The fixture must not create a universal operational record. Each component family receives only the
 content or narrow input already accepted by its own contract.
+
+The shared model is implemented in `examples/shared/operational-activity-model.ts`. Its focused unit
+suite verifies the ordered function definitions, stable fixture keys, every deterministic scenario,
+unknown-before-confirmed loading state, draft and applied filters, retained identity during sorting,
+request and confirmed-value separation, quiet idempotent live updates, consequential selector
+summaries, scenario selection continuity, and the replaceable single announcement owner. Storybook
+owns this example-only test gate because it is the canonical integration fixture; the module remains
+available to the runnable vanilla and React examples without becoming production package code.
 
 ## Composition modes
 
@@ -206,7 +214,7 @@ The implementation slices must prove:
 
 ## Delivery sequence
 
-After this contract and ADR are accepted, Phase 3H proceeds in bounded slices:
+Phase 3H proceeds in bounded slices:
 
 1. implement the example-only state, selectors, transitions, and deterministic scenarios;
 2. compose the production Storybook overview and focused workspaces;

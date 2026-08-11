@@ -206,10 +206,12 @@ Deliver an accessible operational table while retaining native tabular relations
 
 **Current status:** The
 [Operational Activity integration contract](./data/operational-activity-integration.md) and
-[ADR 0029](./architecture/adr/0029-operational-activity-reference-integration.md) are proposed. They
+[ADR 0029](./architecture/adr/0029-operational-activity-reference-integration.md) are accepted. They
 keep the reference state and transitions example-owned, reuse the existing overview and Function
 Deck patterns, provide one semantic composition and announcement owner at a time, and share behavior
-rather than rendering between framework-neutral and React integrations.
+rather than rendering between framework-neutral and React integrations. The shared example model,
+derived selectors, deterministic scenarios, pure transitions, and focused unit coverage are now
+implemented. Production overview and focused Storybook compositions are next.
 
 Prove the components as one system rather than a catalog of isolated demonstrations.
 

@@ -7,8 +7,8 @@
   "scripts": {
     "build": "storybook build --disable-telemetry",
     "dev": "storybook dev -p 6006 --disable-telemetry",
-    "test": "vitest run --passWithNoTests",
-    "test:coverage": "vitest run --coverage --passWithNoTests",
+    "test": "vitest run --root ../.. examples/shared/test",
+    "test:coverage": "vitest run --coverage --root ../.. examples/shared/test",
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {

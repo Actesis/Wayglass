@@ -5,5 +5,5 @@
     "moduleResolution": "Bundler",
     "noEmit": true
   },
-  "include": [".storybook/**/*.ts", "stories/**/*.ts", "env.d.ts"]
+  "include": [".storybook/**/*.ts", "stories/**/*.ts", "../../examples/shared/**/*.ts", "env.d.ts"]
 }

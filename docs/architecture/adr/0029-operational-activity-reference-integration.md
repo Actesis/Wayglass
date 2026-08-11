@@ -1,6 +1,6 @@
 # ADR 0029: Keep Operational Activity integration example-owned
 
-- Status: proposed
+- Status: accepted
 - Date: 2026-08-11
 
 ## Context
@@ -91,6 +91,9 @@ adding timers, random failures, networking, persistence, routing, or a fake serv
 - The example module may evolve or be replaced without a public package migration.
 - Phase 4 reference applications may learn from the fixture but are not required to adopt its state
   shape or workflow.
+
+Acceptance on August 11, 2026 authorizes the bounded Phase 3H integration slices defined by the
+Operational Activity contract without promoting this example architecture into public package API.
 
 ## Alternatives considered
 
