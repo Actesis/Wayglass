@@ -178,7 +178,9 @@ toolbar.
 [native-table architecture decision](./architecture/adr/0028-native-data-table-and-contained-overflow.md)
 are accepted, the required public token vocabulary is locked, and the framework-neutral element,
 explicit native-table stylesheet, typed React binding, and production reference stories are
-implemented. Full validation remains.
+implemented. Automated cross-browser validation and production review are complete; see the
+[Phase 3G data-table validation record](./accessibility/phase-3g-data-table-validation.md).
+Representative manual assistive-technology gates remain.
 
 Deliver an accessible operational table while retaining native tabular relationships.
 

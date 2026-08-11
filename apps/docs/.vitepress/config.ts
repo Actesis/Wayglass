@@ -258,6 +258,10 @@ export default defineConfig({
             link: '/accessibility/phase-3f-filter-command-validation',
           },
           {
+            text: 'Phase 3G data-table validation',
+            link: '/accessibility/phase-3g-data-table-validation',
+          },
+          {
             text: 'Phase 2 assistive-technology gates',
             link: '/accessibility/phase-2-assistive-technology-gates',
           },

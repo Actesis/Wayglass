@@ -19,6 +19,7 @@
       import {
         renderDataTableEnvelope,
         renderDataTableStates,
+        renderDataTableValidation,
         renderDataTableWorkspace,
       } from '/apps/storybook/stories/data-table.fixture.ts';
 
@@ -31,12 +32,16 @@
         density: parameters.get('density') ?? 'compact',
       };
       const template =
-        fixture === 'states'
-          ? renderDataTableStates(options)
-          : fixture === 'envelope'
-            ? renderDataTableEnvelope(options)
-            : renderDataTableWorkspace(options);
+        fixture === 'validation'
+          ? renderDataTableValidation(options)
+          : fixture === 'states'
+            ? renderDataTableStates(options)
+            : fixture === 'envelope'
+              ? renderDataTableEnvelope(options)
+              : renderDataTableWorkspace(options);
+      const started = performance.now();
       render(template, document.querySelector('#root'));
+      window.dataTableConstructionDuration = performance.now() - started;
     </script>
   </body>
 </html>

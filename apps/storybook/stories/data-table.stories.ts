@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import {
   renderDataTableEnvelope,
   renderDataTableStates,
+  renderDataTableValidation,
   renderDataTableWorkspace,
 } from './data-table.fixture.js';
 
@@ -62,6 +63,15 @@ export const DataStates: Story = {
 export const ReferenceEnvelope: Story = {
   render: () =>
     renderDataTableEnvelope({
+      width: 'desktop',
+      theme: 'wayglass-light',
+      density: 'compact',
+    }),
+};
+
+export const ValidationEnvelope: Story = {
+  render: () =>
+    renderDataTableValidation({
       width: 'desktop',
       theme: 'wayglass-light',
       density: 'compact',
