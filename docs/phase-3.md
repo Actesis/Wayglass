@@ -176,8 +176,9 @@ toolbar.
 
 **Current status:** The [data-table contract](./data/data-table.md) and
 [native-table architecture decision](./architecture/adr/0028-native-data-table-and-contained-overflow.md)
-are accepted, and the required public token vocabulary is locked. Framework-neutral and React
-implementation, reference stories, and validation have not begun.
+are accepted, the required public token vocabulary is locked, and the framework-neutral element and
+explicit native-table stylesheet are implemented. React delivery, reference stories, and validation
+remain.
 
 Deliver an accessible operational table while retaining native tabular relationships.
 

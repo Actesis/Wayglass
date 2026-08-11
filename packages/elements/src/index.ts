@@ -65,6 +65,7 @@ export type { ClusterAlignment, ClusterJustification } from './cluster.js';
 export { defineWgCommandItem, WgCommandItem, wgCommandItemTagName } from './command-item.js';
 export type { CommandTrigger, WgCommandDetail } from './command-item.js';
 export { defineWgCommandBar, WgCommandBar, wgCommandBarTagName } from './command-bar.js';
+export { defineWgDataTable, WgDataTable, wgDataTableTagName } from './data-table.js';
 export {
   defineWgDivider,
   dividerOrientations,
