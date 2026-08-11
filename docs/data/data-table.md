@@ -1,9 +1,9 @@
 # Phase 3G data-table contract
 
 **Status:** Accepted for Phase 3G on August 9, 2026. This contract defines the public boundary for
-`wg-data-table`, and its required public token vocabulary is locked. The framework-neutral element
-and explicit native-table stylesheet are implemented, along with the typed React binding. Reference
-stories and full validation remain to be completed.
+`wg-data-table`, and its required public token vocabulary is locked. The framework-neutral element,
+explicit native-table stylesheet, typed React binding, and production reference stories are
+implemented. Full validation remains to be completed.
 
 The contract follows the accepted [operational-data ownership contract](./operational-data.md),
 [Phase 3 validation plan](../accessibility/phase-3-validation-plan.md),
@@ -379,3 +379,20 @@ semantic, focus, responsive, and ownership contract.
 This accepted contract authorizes the element, React, story, and validation slices. The API and
 required token vocabulary are locked; the remaining slices implement and validate them without
 silently widening ownership.
+
+## Reference stories
+
+Storybook provides dark compact, light comfortable, phone, and wall-panel compositions plus two
+focused reference stories:
+
+- **Data states** keeps initial loading, empty, retained stale, and unavailable feedback outside
+  native data rows and adds no implicit announcement owner.
+- **Reference envelope** demonstrates a dense 12-column table, contained inline overflow,
+  application-authored sticky headers, and replacement of 20 rows while retained nodes and the
+  invoking action keep their identity and focus.
+
+The primary workspace demonstrates a sparse table with row headers, independent condition,
+knowledge, and activity labels, authored sorting that reorders existing rows, ordinary row actions,
+and the accepted confirmation pattern for a consequential application action. These fixtures are
+evidence for the accepted ownership boundary; their sticky CSS, records, sorting, and mutation logic
+are not component API.

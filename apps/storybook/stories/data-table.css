@@ -1,0 +1,169 @@
+.wg-data-table-viewport {
+  inline-size: min(90rem, 100%);
+  margin-inline: auto;
+}
+
+.wg-data-table-viewport--phone {
+  inline-size: min(20rem, 100%);
+}
+
+.wg-data-table-viewport--wall {
+  inline-size: min(120rem, 100%);
+}
+
+.wg-data-table-viewport wg-canvas {
+  min-block-size: 100vh;
+}
+
+.wg-data-table-header h1,
+.wg-data-table-header p {
+  margin-block-start: 0;
+}
+
+.wg-data-table-header h1 {
+  margin-block-end: var(--wg-space-reference-2);
+  font-family: var(--wg-typography-family-display);
+  font-size: var(--wg-typography-size-title);
+}
+
+.wg-data-table-header p:last-child,
+.wg-data-table-guidance p,
+.wg-data-table-envelope-actions p {
+  margin-block-end: 0;
+  color: var(--wg-color-semantic-text-secondary);
+}
+
+.wg-data-table-workspace,
+.wg-data-table-state-grid,
+.wg-data-table-guidance,
+.wg-data-table-envelope-actions {
+  display: grid;
+  min-inline-size: 0;
+  gap: var(--wg-space-semantic-function-gutter);
+}
+
+.wg-data-table-state-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 28rem), 1fr));
+  align-items: start;
+}
+
+.wg-data-table-guidance {
+  padding: var(--wg-space-reference-4);
+  border: var(--wg-border-width-standard) solid var(--wg-color-semantic-border-subtle);
+  border-radius: var(--wg-shape-radius-panel);
+  background: var(--wg-color-semantic-surface-panel);
+}
+
+.wg-data-table-guidance h2,
+.wg-data-table-guidance p,
+.wg-data-table-envelope-actions p {
+  margin-block: 0;
+}
+
+.wg-data-table-guidance wg-button,
+.wg-data-table-envelope-actions wg-button,
+wg-data-table td wg-button,
+wg-data-table td button,
+wg-data-table th button {
+  min-block-size: var(--wg-size-touch-minimum);
+}
+
+wg-data-table td button,
+wg-data-table th button {
+  box-sizing: border-box;
+  padding-block: var(--wg-space-semantic-control-block);
+  padding-inline: var(--wg-space-semantic-control-inline);
+  border: var(--wg-border-width-standard) solid var(--wg-color-semantic-border-strong);
+  border-radius: var(--wg-shape-radius-control);
+  color: var(--wg-color-semantic-text-primary);
+  background: var(--wg-color-semantic-surface-raised);
+  font: inherit;
+  font-weight: var(--wg-typography-weight-medium);
+  cursor: pointer;
+}
+
+wg-data-table td button:focus-visible,
+wg-data-table th button:focus-visible {
+  outline: var(--wg-focus-width) solid var(--wg-color-semantic-focus-ring);
+  outline-offset: var(--wg-focus-offset);
+}
+
+wg-data-table th small {
+  display: block;
+  margin-block-start: var(--wg-space-reference-1);
+  font-weight: var(--wg-typography-weight-regular);
+}
+
+.wg-data-table-state {
+  display: inline-block;
+  padding-inline-start: var(--wg-space-reference-2);
+  border-inline-start: var(--wg-border-width-value-rail) solid
+    var(--wg-color-semantic-condition-neutral);
+  font-weight: var(--wg-typography-weight-medium);
+}
+
+.wg-data-table-state--positive {
+  border-inline-start-color: var(--wg-color-semantic-condition-positive);
+}
+
+.wg-data-table-state--caution {
+  border-inline-start-color: var(--wg-color-semantic-condition-caution);
+}
+
+.wg-data-table-state--critical {
+  border-inline-start-color: var(--wg-color-semantic-condition-critical);
+}
+
+.wg-data-table-wide {
+  min-inline-size: max(100%, 88rem);
+}
+
+#operational-review-table table {
+  min-inline-size: max(100%, 70rem);
+}
+
+#operational-review-table :is(th, td):nth-child(n + 2):nth-child(-n + 6) {
+  white-space: nowrap;
+  overflow-wrap: normal;
+}
+
+.wg-data-table-sticky thead th {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 1;
+  background: var(--wg-data-table-color-table-background);
+}
+
+.wg-data-table-envelope-actions {
+  justify-items: start;
+}
+
+.wg-data-table-state-grid [slot='feedback'] p {
+  margin-block: var(--wg-space-reference-1) 0;
+}
+
+.wg-data-table-state-grid wg-scroll-region[hidden] {
+  display: none;
+}
+
+.wg-data-table-viewport--phone .wg-data-table-state-grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.wg-data-table-viewport--wall .wg-data-table-state-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (forced-colors: active) {
+  .wg-data-table-guidance,
+  wg-data-table td button,
+  wg-data-table th button {
+    border-color: CanvasText;
+    color: CanvasText;
+    background: Canvas;
+  }
+
+  .wg-data-table-state {
+    border-inline-start-color: CanvasText;
+  }
+}
