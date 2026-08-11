@@ -84,6 +84,10 @@ export default defineConfig({
             text: 'Data table',
             link: '/data/data-table',
           },
+          {
+            text: 'Operational Activity integration',
+            link: '/data/operational-activity-integration',
+          },
         ],
       },
       {
@@ -215,6 +219,10 @@ export default defineConfig({
           {
             text: 'ADR 0028: Native data table and overflow',
             link: '/architecture/adr/0028-native-data-table-and-contained-overflow',
+          },
+          {
+            text: 'ADR 0029: Operational Activity integration',
+            link: '/architecture/adr/0029-operational-activity-reference-integration',
           },
         ],
       },
