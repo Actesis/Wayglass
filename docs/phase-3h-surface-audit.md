@@ -49,7 +49,8 @@ component subpath, not only the Phase 3 subset.
 
 ## Carried release gates
 
-This audit closes production-surface completeness; it does not close the remaining Phase 3H
-validation milestone. The integrated accessibility, responsive, visual-state, performance-bound, and
-supported-browser matrix remains next. Representative manual assistive-technology checks and any
-deployment-dependent evidence retain their documented public-release impact.
+This audit closes production-surface completeness. The later
+[Phase 3H integrated validation](./accessibility/phase-3h-integrated-validation.md) closed the
+accessibility, responsive, visual-state, performance-bound, and supported-browser matrix, and the
+[Phase 3 roadmap disposition](./phase-3-roadmap-disposition.md) completed closeout. Representative
+manual assistive-technology checks retain their documented public-release impact.
