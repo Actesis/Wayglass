@@ -3,5 +3,5 @@
   "compilerOptions": {
     "noEmit": true
   },
-  "include": ["env.d.ts", "main.ts"]
+  "include": ["env.d.ts", "main.ts", "operational-activity.ts", "../shared/**/*.ts"]
 }

@@ -22,7 +22,8 @@ Phase 3G's native data-table contract, implementation, production stories, autom
 validation, and production review are also complete. Representative manual assistive-technology
 gates remain carried with explicit public-release impact. Phase 3H's shared example model and
 production Storybook overview and focused compositions are now implemented; runnable Vanilla and
-React integrations are next.
+React integrations now provide equivalent production-backed routes. Documentation and package
+surface audits are next.
 
 Phase 3 turns the Phase 1 and Phase 2 foundations into a reusable operational-data layer. It adds
 scalar summaries, compact telemetry, status collections, temporal records, collection tools, and
@@ -216,7 +217,12 @@ implemented. Production overview and focused Storybook compositions now exercise
 components, one application-owned reducer, stable record identity, one announcement owner, and the
 deterministic state vocabulary across desktop, phone, and wall-display stories. Focused
 cross-browser interaction and accessibility coverage protects this production fixture. Equivalent
-runnable Vanilla and React integrations are next.
+runnable Vanilla and React integrations now consume the same example state, selectors, transitions,
+scenario vocabulary, and shared visual contract. The Vanilla route shares the framework-neutral
+keyed renderer with Storybook; the React route independently exercises typed wrappers, event props,
+refs, and React keys. Focused cross-browser tests verify semantic parity, transitions, retained node
+identity, responsive containment, and automated accessibility. Documentation and package surface
+audits are next.
 
 Prove the components as one system rather than a catalog of isolated demonstrations.
 
