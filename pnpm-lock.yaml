@@ -164,6 +164,9 @@ importers:
       '@wayglass/tokens':
         specifier: workspace:*
         version: link:../../packages/tokens
+      lit:
+        specifier: 3.3.3
+        version: 3.3.3
     devDependencies:
       typescript:
         specifier: 6.0.3

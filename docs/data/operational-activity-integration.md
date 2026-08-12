@@ -4,10 +4,10 @@
 workspace and its application-owned state boundary. It does not add a public component, record
 schema, store, or package API.
 
-**Implementation:** The shared model and production Storybook overview and focused compositions are
-implemented. Both compositions consume the same state instance and reducer, explicitly register
-production Custom Elements, preserve keyed application records, and provide one application-owned
-announcement region. Runnable Vanilla and React integrations remain the next delivery slice.
+**Implementation:** The shared model, production Storybook compositions, and runnable Vanilla and
+React integrations are implemented. Every renderer consumes the same state, selectors, reducer, and
+scenario vocabulary, preserves keyed application records, and provides one application-owned
+announcement region. Documentation and package surface audits remain the next delivery slice.
 
 The contract applies the accepted [operational-data ownership](./operational-data.md),
 [Function Deck](../patterns/function-deck.md),
@@ -180,6 +180,29 @@ the framework-neutral renderer.
 
 Imports remain side-effect free. No example may depend on a Storybook-only implementation, and no
 production package may depend on example code.
+
+The Storybook fixture and runnable Vanilla route share the keyed Lit renderer under `examples/`. Lit
+is a direct dependency of the Vanilla example because keyed reconciliation must retain authored
+collection nodes and focus through filtering and sorting; sharing the already-accepted
+framework-neutral renderer avoids a second manual DOM reconciliation implementation. React does not
+reuse that renderer: it maps the same state through production typed wrappers, React event props,
+refs, and stable keys.
+
+## Runnable example routes
+
+The Vanilla and React examples each mount one semantic composition selected from the URL query. The
+default route renders the simultaneous overview. `?composition=focused` renders one accepted tabs
+composition; `selected=intake|processing|delivery` selects its initial function.
+
+The routes also accept the deterministic contract vocabulary:
+
+- `scenario=steady|initial-loading|retained-refresh|stale-partial|unavailable|filtered-empty|failed-request|recovered|live-update`;
+- `width=phone|desktop|wall`;
+- `theme=wayglass-dark|wayglass-light`; and
+- `density=compact|comfortable`.
+
+Unknown values fall back to the accepted defaults. Query selection never mounts both overview and
+focused workspaces, and it does not introduce a router, store, transport, timer, or fake backend.
 
 ## Responsive and adaptive behavior
 

@@ -14,7 +14,8 @@
   "dependencies": {
     "@wayglass/elements": "workspace:*",
     "@wayglass/themes": "workspace:*",
-    "@wayglass/tokens": "workspace:*"
+    "@wayglass/tokens": "workspace:*",
+    "lit": "3.3.3"
   },
   "devDependencies": {
     "typescript": "6.0.3",

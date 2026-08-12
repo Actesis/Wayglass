@@ -1,3 +1,4 @@
+/* Shared by the framework-neutral and React Operational Activity renderers. */
 .wg-operational-viewport {
   inline-size: min(96rem, 100%);
   min-inline-size: 0;
