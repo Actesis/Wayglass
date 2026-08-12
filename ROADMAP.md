@@ -284,10 +284,56 @@ and retains the boundaries accepted during Phase 2.
       gates.
 - [x] Audit deferred or revised roadmap candidates without widening Phase 4.
 
-## Later phases
+## Phase 4 — Reference domains
 
-Phases 4–5 remain as defined in `SPEC.md`. Their scope will be refined through proposals or
-architecture decisions before implementation.
+Status: Formal roadmap proposed for review. Implementation begins only after Phase 4A contracts and
+architecture are accepted.
+
+The [formal Phase 4 plan](./docs/phase-4.md) treats the three reference applications as deployment
+proofs with application-owned state and workflows rather than as new public component families.
+
+### Phase 4A — Reference-application architecture
+
+- [ ] Inventory reusable Phase 1–3 contracts and define one credible workflow per application.
+- [ ] Specify application isolation, state, adapter, routing, renderer, and code-sharing boundaries.
+- [ ] Define shared scenario vocabulary, brand-adaptation rules, validation matrix, and performance
+      bounds.
+- [ ] Draft and accept the required architecture and validation records.
+
+### Phase 4B — Smart-home reference application
+
+- [ ] Define and implement the whole-home awareness and control workflow.
+- [ ] Prove Boolean values, requested versus confirmed control, device knowledge, maintenance, and
+      identifying media without creating premature domain APIs.
+- [ ] Validate phone, desktop, wall, accessibility, failure, recovery, and production visuals.
+
+### Phase 4C — Operations-console reference application
+
+- [ ] Define and implement a multi-function service or process workflow distinct from the Phase 3
+      fixture.
+- [ ] Prove dense operational investigation, cross-function consequence, retained updates, and
+      application-owned volume policy.
+- [ ] Validate phone, desktop, wall, accessibility, failure, recovery, and production visuals.
+
+### Phase 4D — AI-agent-supervision reference application
+
+- [ ] Define and implement a human-supervision workflow for agents, tasks, tools, uncertainty, and
+      approval.
+- [ ] Prove independent activity, condition, confidence, human attention, consequential action, and
+      honest recovery.
+- [ ] Validate phone, desktop, wall, accessibility, failure, recovery, and production visuals.
+
+### Phase 4E — Cross-domain validation and closeout
+
+- [ ] Run the shared semantic, accessibility, responsive, visual-state, framework, performance, and
+      supported-browser review across all three applications.
+- [ ] Complete or explicitly carry representative assistive-technology release gates.
+- [ ] Audit application/package boundaries and record the Phase 4 roadmap disposition.
+
+## Phase 5 — Ecosystem
+
+Phase 5 remains as defined in `SPEC.md`. Its scope will be refined through proposals or architecture
+decisions after Phase 4 evidence is available.
 
 The accepted [Phase 2 roadmap disposition](./docs/phase-2-roadmap-disposition.md) records
 evidence-driven candidates, application-owned boundaries, resolved deferrals, and the unchanged
