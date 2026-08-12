@@ -163,6 +163,52 @@ test('renders deterministic loading, retained refresh, empty, failed, and live-u
   await expect(page.locator('[data-announcement-owner]')).toBeEmpty();
 });
 
+test('keeps stale, unavailable, and recovered truth explicit without duplicate announcements', async ({
+  page,
+}) => {
+  await openOperationalActivity(page, { scenario: 'stale-partial' });
+  await expect(page.getByText('Partial.', { exact: true })).toHaveCount(2);
+  await expect(
+    page.getByText(/latest sample is stale and one source is unavailable/i),
+  ).toBeVisible();
+  await expect(
+    page.locator('.wg-operational-feedback').filter({
+      hasText: 'Delivery is partial. Three of four expected destinations reported.',
+    }),
+  ).toBeVisible();
+
+  await openOperationalActivity(page, { scenario: 'unavailable' });
+  await expect(page.locator('wg-offline-state')).toHaveCount(2);
+  await expect(page.getByText(/last-confirmed records remain visible/i).first()).toBeVisible();
+
+  await openOperationalActivity(page, { scenario: 'recovered' });
+  await expect(page.getByText('Recovered.', { exact: true })).toHaveCount(3);
+  await expect(page.locator('[aria-live]')).toHaveCount(1);
+  await expect(page.locator('[data-announcement-owner]')).toBeEmpty();
+});
+
+test('preserves all three functions in the wall overview without creating a second composition', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1600, height: 1000 });
+  await openOperationalActivity(page, {
+    composition: 'overview',
+    width: 'wall',
+    density: 'comfortable',
+  });
+  await expect(page.locator('.wg-operational-overview')).toHaveCount(1);
+  await expect(page.locator('.wg-operational-focused')).toHaveCount(0);
+  for (const name of ['Intake', 'Processing', 'Delivery']) {
+    await expect(page.getByRole('region', { name, exact: true })).toBeVisible();
+  }
+  await expect(page.getByRole('tablist')).toHaveCount(0);
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    ),
+  ).toBeLessThanOrEqual(1);
+});
+
 test('contains phone and RTL layouts and has no automated accessibility violations', async ({
   page,
 }) => {
@@ -198,4 +244,118 @@ test('contains phone and RTL layouts and has no automated accessibility violatio
   expect(undersized).toEqual([]);
   const results = await new AxeBuilder({ page }).analyze();
   expect(results.violations).toEqual([]);
+});
+
+test('retains consequential state at 200 percent text with forced colors and reduced motion', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 320, height: 900 });
+  await page.emulateMedia({ forcedColors: 'active', reducedMotion: 'reduce' });
+  await openOperationalActivity(page, {
+    composition: 'focused',
+    scenario: 'unavailable',
+    selected: 'processing',
+    width: 'phone',
+    theme: 'wayglass-light',
+    density: 'comfortable',
+    direction: 'rtl',
+  });
+  await page.evaluate(() => {
+    document.documentElement.style.fontSize = '200%';
+    document.querySelector<HTMLElement>('.wg-operational-viewport')!.style.filter = 'grayscale(1)';
+  });
+  await page.evaluate(() => new Promise<void>((resolve) => requestAnimationFrame(() => resolve())));
+
+  await expect(page.getByRole('tab')).toHaveCount(3);
+  await expect(page.locator('wg-tab[value="intake"]')).toContainText(
+    'Unavailable · Last-confirmed records retained · Retry available',
+  );
+  await expect(page.getByRole('button', { name: 'Open Intake recovery' })).toBeVisible();
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    ),
+  ).toBeLessThanOrEqual(1);
+  expect(
+    await page.locator('wg-tab[value="intake"]').evaluate((tab) => {
+      const style = getComputedStyle(tab);
+      return [style.animationDuration, style.transitionDuration];
+    }),
+  ).toEqual(['0s', '0s']);
+  const results = await new AxeBuilder({ page }).analyze();
+  expect(results.violations).toEqual([]);
+});
+
+test('records the Chromium integrated construction and filter-mutation envelope', async ({
+  page,
+  browserName,
+}) => {
+  test.skip(browserName !== 'chromium', 'The timing regression threshold is Chromium-specific.');
+  const warmUpCount = 3;
+  const iterationCount = 15;
+  await openOperationalActivity(page, { width: 'wall' });
+
+  for (let index = 0; index < warmUpCount; index += 1) {
+    await page.reload();
+    await page.waitForSelector('[data-operational-activity-root]');
+  }
+
+  const constructionDurations: number[] = [];
+  for (let index = 0; index < iterationCount; index += 1) {
+    await page.reload();
+    await page.waitForSelector('[data-operational-activity-root]');
+    constructionDurations.push(
+      await page.evaluate(
+        () =>
+          (window as Window & { operationalActivityConstructionDuration?: number })
+            .operationalActivityConstructionDuration ?? 0,
+      ),
+    );
+  }
+
+  const mutationRecord = await page.evaluate(async (iterations) => {
+    const durations: number[] = [];
+    const input = document.querySelector<HTMLInputElement>('#operational-intake-query')!;
+    const apply = [...document.querySelectorAll<HTMLButtonElement>('button')].find(
+      (button) => button.textContent?.trim() === 'Apply Intake event filters',
+    )!;
+    const observer = PerformanceObserver.supportedEntryTypes.includes('longtask')
+      ? new PerformanceObserver(() => undefined)
+      : undefined;
+    observer?.observe({ type: 'longtask', buffered: true });
+    for (let index = 0; index < iterations; index += 1) {
+      input.value = index % 2 === 0 ? 'Central' : '';
+      const started = performance.now();
+      apply.click();
+      durations.push(performance.now() - started);
+      await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+    }
+    const longTasks = observer?.takeRecords().map((entry) => entry.duration) ?? [];
+    observer?.disconnect();
+    return {
+      durations,
+      longTasks,
+      rootCount: document.querySelectorAll('[data-operational-activity-root]').length,
+      announcementOwnerCount: document.querySelectorAll('[data-announcement-owner]').length,
+    };
+  }, iterationCount);
+
+  const median = (values: readonly number[]) => {
+    const sorted = [...values].sort((left, right) => left - right);
+    return sorted[Math.floor(sorted.length / 2)] ?? 0;
+  };
+  const record = {
+    warmUpCount,
+    iterationCount,
+    medianConstructionMs: median(constructionDurations),
+    medianMutationMs: median(mutationRecord.durations),
+    largestSynchronousMutationMs: Math.max(...mutationRecord.durations),
+  };
+  console.info(`[phase-3h-performance] ${JSON.stringify(record)}`);
+  expect(record.medianConstructionMs).toBeLessThan(100);
+  expect(record.medianMutationMs).toBeLessThan(100);
+  expect(record.largestSynchronousMutationMs).toBeLessThan(100);
+  expect(mutationRecord.longTasks.filter((duration) => duration >= 100)).toEqual([]);
+  expect(mutationRecord.rootCount).toBe(1);
+  expect(mutationRecord.announcementOwnerCount).toBe(1);
 });

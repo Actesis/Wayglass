@@ -124,10 +124,14 @@ test('retains boundaries, signals, and text alternatives in forced colors', asyn
 
 test('reflows at the effective CSS viewport of a 200% zoomed 640px display', async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 900 });
-  await page.goto('/examples/vanilla/');
-  await page.waitForFunction(() => document.querySelectorAll('[data-function]').length === 3);
+  await page.goto('/tests/browser/operations-overview/?width=phone&theme=wayglass-dark');
+  await page.waitForFunction(
+    () =>
+      customElements.get('wg-value-tile') !== undefined &&
+      document.querySelectorAll('[data-function]').length === 3,
+  );
 
-  const layout = await page.locator('[data-example="vanilla"]').evaluate((element) => ({
+  const layout = await page.locator('[data-overview-width="phone"]').evaluate((element) => ({
     clientWidth: element.clientWidth,
     scrollWidth: element.scrollWidth,
     tops: Array.from(element.querySelectorAll('[data-function]')).map(

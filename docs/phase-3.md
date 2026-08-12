@@ -24,7 +24,9 @@ gates remain carried with explicit public-release impact. Phase 3H's shared exam
 production Storybook overview and focused compositions are now implemented; runnable Vanilla and
 React integrations now provide equivalent production-backed routes. The production documentation,
 package-export, typed-wrapper, and Storybook audit is complete, with an automated package-parity
-guard in place. Integrated closeout validation is next.
+guard in place. Integrated automated cross-browser validation and production review are also
+complete. Representative manual assistive-technology gates remain carried with explicit
+public-release impact. The deferred and revised candidate audit is next.
 
 Phase 3 turns the Phase 1 and Phase 2 foundations into a reusable operational-data layer. It adds
 scalar summaries, compact telemetry, status collections, temporal records, collection tools, and
@@ -226,7 +228,11 @@ identity, responsive containment, and automated accessibility. The
 [Phase 3H production-surface audit](./phase-3h-surface-audit.md) now verifies the production
 documentation, all package entry points, typed wrapper parity, component-family stories, integrated
 Storybook coverage, and dedicated docs-site entry points. An automated audit protects public package
-parity. Integrated closeout validation is next.
+parity. The
+[Phase 3H integrated validation record](./accessibility/phase-3h-integrated-validation.md) now
+closes the automated accessibility, responsive, visual-state, framework, performance-bound, and
+complete Chromium/Firefox/WebKit matrix. Representative manual assistive-technology gates remain
+explicit public-release requirements. The deferred and revised candidate audit is next.
 
 Prove the components as one system rather than a catalog of isolated demonstrations.
 

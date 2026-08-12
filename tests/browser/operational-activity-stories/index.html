@@ -19,6 +19,7 @@
 
       const parameters = new URLSearchParams(window.location.search);
       document.documentElement.dir = parameters.get('direction') === 'rtl' ? 'rtl' : 'ltr';
+      const constructionStarted = performance.now();
       const fixture = mountOperationalActivity({
         composition: parameters.get('composition') ?? 'overview',
         width: parameters.get('width') ?? 'desktop',
@@ -28,6 +29,7 @@
         selectedFunction: parameters.get('selected') ?? undefined,
       });
       document.querySelector('#root').append(fixture);
+      window.operationalActivityConstructionDuration = performance.now() - constructionStarted;
     </script>
   </body>
 </html>

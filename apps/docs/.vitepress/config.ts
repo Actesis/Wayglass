@@ -274,6 +274,10 @@ export default defineConfig({
             link: '/accessibility/phase-3g-data-table-validation',
           },
           {
+            text: 'Phase 3H integrated validation',
+            link: '/accessibility/phase-3h-integrated-validation',
+          },
+          {
             text: 'Phase 2 assistive-technology gates',
             link: '/accessibility/phase-2-assistive-technology-gates',
           },
