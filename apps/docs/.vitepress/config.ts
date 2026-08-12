@@ -11,13 +11,17 @@ export default defineConfig({
       { text: 'Foundations', link: '/foundations/' },
       { text: 'Components', link: '/components/' },
       { text: 'Patterns', link: '/patterns/function-deck' },
-      { text: 'Examples', link: '/examples/operations-overview' },
+      { text: 'Examples', link: '/examples/framework-examples' },
       { text: 'Repository', link: 'https://github.com/Actesis/Wayglass' },
     ],
     sidebar: [
       {
         text: 'System',
         items: [
+          {
+            text: 'Phase 3H production-surface audit',
+            link: '/phase-3h-surface-audit',
+          },
           { text: 'Phase 3 delivery plan', link: '/phase-3' },
           { text: 'Phase 2 delivery map', link: '/phase-2' },
           { text: 'Phase 2 roadmap disposition', link: '/phase-2-roadmap-disposition' },
@@ -339,12 +343,12 @@ export default defineConfig({
         text: 'Examples',
         items: [
           {
-            text: 'Operations Overview',
-            link: '/examples/operations-overview',
+            text: 'Operational Activity',
+            link: '/examples/framework-examples',
           },
           {
-            text: 'Framework examples',
-            link: '/examples/framework-examples',
+            text: 'Operations Overview',
+            link: '/examples/operations-overview',
           },
         ],
       },

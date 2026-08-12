@@ -1,67 +1,62 @@
-# Framework examples
+# Operational Activity framework examples
 
-Wayglass includes two runnable integrations that demonstrate the Operations Overview and the generic
-tabs selection foundation. Both consume production workspace packages, preserve the same semantic
-and responsive contracts, and keep application state outside the components.
+Wayglass includes equivalent runnable Vanilla Custom Elements and React integrations for the Phase 3
+Operational Activity workspace. They consume the production workspace packages and the same
+example-owned state model while keeping their rendering implementations independent.
 
-## Vanilla Custom Elements
+## Run the examples
 
-Run:
+From the repository root, start either application:
 
 ```bash
 pnpm example:vanilla
-```
-
-The source in `examples/vanilla`:
-
-- imports the generated token and theme styles;
-- imports and calls each element's individual registration function;
-- composes the screen with platform HTML;
-- listens for the native button click;
-- listens for the typed `wg-tab-change` Custom Event;
-- updates the button and panel through their public properties;
-- reflects tab selection through application-owned state;
-- retains the confirmed `Connected` value while exposing a pending retry request.
-
-This is the reference for framework-neutral consumption. It does not depend on React, Storybook, or
-a second component implementation.
-
-## React
-
-Run:
-
-```bash
 pnpm example:react
 ```
 
-The source in `examples/react`:
+Both routes accept the same query parameters:
 
-- composes the same production Custom Elements through `@wayglass/react`;
-- uses typed Boolean and closed-vocabulary props;
-- uses standard `slot` props for Web Component composition;
-- keeps retry state in React with `useState`;
-- keeps selected tab state in React with `useState`;
-- receives `wg-tab-change` through the typed `onWgTabChange` prop;
-- receives native button clicks through React event props.
+| Parameter     | Accepted values                                                                                                                                 | Default         |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
+| `composition` | `overview`, `focused`                                                                                                                           | `overview`      |
+| `selected`    | `intake`, `processing`, `delivery`                                                                                                              | `intake`        |
+| `scenario`    | `steady`, `initial-loading`, `retained-refresh`, `stale-partial`, `unavailable`, `filtered-empty`, `failed-request`, `recovered`, `live-update` | `steady`        |
+| `width`       | `phone`, `desktop`, `wall`                                                                                                                      | `desktop`       |
+| `theme`       | `wayglass-dark`, `wayglass-light`                                                                                                               | `wayglass-dark` |
+| `density`     | `compact`, `comfortable`                                                                                                                        | `compact`       |
 
-The wrappers register their elements on the client. Server-rendered applications may emit the
-markup, but the current implementation uses client-only upgrade as the supported fallback.
+For example, append `?composition=focused&selected=processing&scenario=failed-request&width=phone`
+to either local URL. Unknown values fall back to the defaults instead of creating an unsupported
+state.
 
-## Shared contract
+## Shared behavior, separate renderers
 
-Both examples:
+`examples/shared/operational-activity-model.ts` owns the deterministic records, stable identifiers,
+derived selectors, scenarios, and pure transitions. `examples/shared/operational-activity.css` owns
+the reference composition's visual contract. Neither file depends on a rendering framework.
 
-- contain accessible Access, Communications, and Processing regions;
-- distinguish information, monitoring, and control sections;
-- recompose into one ordered column below the phone breakpoint;
-- follow the operating-system theme through `wg-theme-provider`;
-- preserve domain value independently from condition, knowledge, and activity;
-- compose the same domain-neutral Workspace views model from `examples/shared/tabs-example.ts`;
-- keep useful hidden-view summaries visible in the tab selectors;
-- reflect pointer and keyboard selection without duplicating the production interaction model;
-- pass automated accessibility checks in Chromium, Firefox, and WebKit.
+The Vanilla route in `examples/vanilla`:
 
-The examples share their model and reference styles with Storybook. Storybook's `Components/Tabs`
-stories cover dark and light themes, automatic and manual activation, horizontal and vertical
-orientation, narrow layout, and a disabled selector. Application code remains separate so each
-example demonstrates its real consumer API rather than importing a Storybook-only renderer.
+- explicitly registers every Custom Element it uses;
+- renders platform HTML through the framework-neutral keyed renderer;
+- handles native events and typed Wayglass Custom Events; and
+- preserves element identity while application state changes.
+
+The React route in `examples/react`:
+
+- composes the production elements through typed `@wayglass/react` wrappers;
+- owns state with React's reducer integration;
+- handles native and typed wrapper event props; and
+- uses stable React keys without importing the Vanilla renderer.
+
+## Parity contract
+
+Both examples provide the same semantic content, scenarios, transitions, overview and focused
+compositions, and phone, desktop, and wall-display constraints. They preserve domain value,
+condition, knowledge, and activity as independent axes. Filters, commands, live-update requests,
+selection, and announcements remain application-owned.
+
+Storybook's `Examples/Operational Activity` stories use the same model, scenario vocabulary, visual
+contract, and Vanilla renderer. This makes Storybook a production-backed inspection surface rather
+than a second example implementation. The framework browser suite verifies semantic parity, retained
+node identity, responsive containment, interactions, and automated accessibility in Chromium,
+Firefox, and WebKit.

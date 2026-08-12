@@ -22,8 +22,9 @@ Phase 3G's native data-table contract, implementation, production stories, autom
 validation, and production review are also complete. Representative manual assistive-technology
 gates remain carried with explicit public-release impact. Phase 3H's shared example model and
 production Storybook overview and focused compositions are now implemented; runnable Vanilla and
-React integrations now provide equivalent production-backed routes. Documentation and package
-surface audits are next.
+React integrations now provide equivalent production-backed routes. The production documentation,
+package-export, typed-wrapper, and Storybook audit is complete, with an automated package-parity
+guard in place. Integrated closeout validation is next.
 
 Phase 3 turns the Phase 1 and Phase 2 foundations into a reusable operational-data layer. It adds
 scalar summaries, compact telemetry, status collections, temporal records, collection tools, and
@@ -221,8 +222,11 @@ runnable Vanilla and React integrations now consume the same example state, sele
 scenario vocabulary, and shared visual contract. The Vanilla route shares the framework-neutral
 keyed renderer with Storybook; the React route independently exercises typed wrappers, event props,
 refs, and React keys. Focused cross-browser tests verify semantic parity, transitions, retained node
-identity, responsive containment, and automated accessibility. Documentation and package surface
-audits are next.
+identity, responsive containment, and automated accessibility. The
+[Phase 3H production-surface audit](./phase-3h-surface-audit.md) now verifies the production
+documentation, all package entry points, typed wrapper parity, component-family stories, integrated
+Storybook coverage, and dedicated docs-site entry points. An automated audit protects public package
+parity. Integrated closeout validation is next.
 
 Prove the components as one system rather than a catalog of isolated demonstrations.
 

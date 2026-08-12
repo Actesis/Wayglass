@@ -1,12 +1,13 @@
 # React bindings
 
 `@wayglass/react` provides typed React components backed by the production Custom Elements. The
-wrappers add React property, event, and ref integration without duplicating component behavior.
+wrappers add React property, event, and ref integration without duplicating component behavior or
+application state.
 
 ## Installation boundary
 
-The package remains private during Phase 2. Applications in this workspace consume it as a workspace
-dependency alongside `react` and `@wayglass/elements`.
+The package remains private until release governance is approved. Applications in this workspace
+consume it as a workspace dependency alongside `react` and `@wayglass/elements`.
 
 Every wrapper module registers its element when `customElements` is available. Importing a wrapper
 in a server environment is safe: registration is skipped, markup can render, and the element
@@ -27,24 +28,19 @@ Or use a side-effect-minimal component entry point:
 import { WgMetric } from '@wayglass/react/metric';
 ```
 
-Wrappers are available for all Phase 1 elements and the Phase 2A tabs compound elements:
+Every public Custom Element has a matching wrapper subpath and root export. This includes the Phase
+3 families:
 
-- `WgThemeProvider`
-- `WgCanvas`
-- `WgRail`
-- `WgElbow`
-- `WgPanel`
-- `WgButton`
-- `WgStatusIndicator`
-- `WgBooleanValue`
-- `WgMetric`
-- `WgValueTile`
-- `WgTabs`
-- `WgTabList`
-- `WgTab`
-- `WgTabPanel`
+- scalar summaries: `WgMetric`, `WgMetricGroup`, `WgKeyValue`, and `WgTrendIndicator`;
+- compact telemetry: `WgTelemetryStrip`;
+- status collections: `WgStatusList` and `WgStatusEntry`;
+- temporal collections: `WgTimeline`, `WgTimelineItem`, `WgEventLog`, and `WgEventRecord`;
+- collection tools: `WgFilterBar` and `WgCommandBar`; and
+- native tables and containment: `WgDataTable` and `WgScrollRegion`.
 
-Each module also exports its corresponding `Props` type.
+Foundation, layout, controls, forms, feedback, media, and selection wrappers remain available
+alongside these data components. Each module also exports its corresponding `Props` type. The
+[Phase 3H production-surface audit](/phase-3h-surface-audit) records the complete parity evidence.
 
 ## Properties and composition
 
@@ -85,6 +81,27 @@ Compound components preserve the production light-DOM structure:
   <WgTabPanel value="overview">Overview content</WgTabPanel>
   <WgTabPanel value="security">Security content</WgTabPanel>
 </WgTabs>
+```
+
+Operational collections preserve consumer-authored native content instead of replacing it with a
+React-only schema:
+
+```tsx
+<WgDataTable>
+  <p slot="context">24 records shown; sorted by most recent update.</p>
+  <WgScrollRegion axis="inline" label="Operational records table">
+    <table>
+      <caption>Operational records</caption>
+      <thead>
+        <tr>
+          <th scope="col">Source</th>
+          <th scope="col">Updated</th>
+        </tr>
+      </thead>
+      <tbody>{rows}</tbody>
+    </table>
+  </WgScrollRegion>
+</WgDataTable>
 ```
 
 ## Events
