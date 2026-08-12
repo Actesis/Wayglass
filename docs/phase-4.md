@@ -1,7 +1,8 @@
 # Phase 4 reference domains
 
-**Status:** Proposed formal roadmap for review on August 12, 2026. No Phase 4 implementation is
-authorized until this roadmap and the Phase 4A architecture and validation contracts are accepted.
+**Status:** Formal roadmap accepted on August 12, 2026. Phase 4A reference-application architecture
+is active. No application implementation is authorized until its architecture and validation
+contracts are accepted.
 
 Phase 4 tests Wayglass in three distinct, credible application contexts:
 
@@ -56,6 +57,11 @@ Phase 4 will:
 
 Define the common rules and validation method before application code establishes accidental
 conventions.
+
+The proposed
+[Phase 4 reference-application contract](./reference-apps/phase-4-reference-applications.md)
+inventories the accepted Wayglass surface and defines one credible user, environment, shared truth,
+workflow, consequential action, failure envelope, and deliberate exclusion set for each application.
 
 - Inventory the Phase 1–3 components, patterns, state contracts, media ownership, and application
   boundaries each reference domain can reuse.
