@@ -26,6 +26,8 @@ Accessibility, legal, safety, and security requirements override that order wher
 
 Supporting foundations:
 
+- [`docs/phase-4.md`](./docs/phase-4.md) proposes the formal roadmap and common acceptance criteria
+  for the smart-home, operations-console, and AI-agent-supervision reference applications.
 - [`docs/phase-3.md`](./docs/phase-3.md) maps the completed operational-component system to its
   contracts, production packages, examples, and validation evidence.
 - [`docs/phase-3-roadmap-disposition.md`](./docs/phase-3-roadmap-disposition.md) closes Phase 3 and
