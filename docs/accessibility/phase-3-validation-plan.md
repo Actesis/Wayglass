@@ -106,6 +106,10 @@ Representative manual assistive-technology procedures remain public-release gate
 
 ### Phase 3H — Integration
 
+Automated integration evidence is complete; see the
+[Phase 3H integrated validation record](./phase-3h-integrated-validation.md). Representative manual
+assistive-technology procedures remain public-release gates.
+
 - Operational Activity in simultaneous and focused compositions at phone, desktop, and wall sizes.
 - Shared records presented consistently across scalar, status, temporal, and tabular views without
   duplicate state or announcement ownership.
