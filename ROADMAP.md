@@ -295,7 +295,7 @@ proofs with application-owned state and workflows rather than as new public comp
 ### Phase 4A — Reference-application architecture
 
 - [x] Inventory reusable Phase 1–3 contracts and define one credible workflow per application.
-- [ ] Specify application isolation, state, adapter, routing, renderer, and code-sharing boundaries.
+- [x] Specify application isolation, state, adapter, routing, renderer, and code-sharing boundaries.
 - [ ] Define shared scenario vocabulary, brand-adaptation rules, validation matrix, and performance
       bounds.
 - [ ] Draft and accept the required architecture and validation records.

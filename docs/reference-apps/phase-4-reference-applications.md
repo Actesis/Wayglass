@@ -230,8 +230,9 @@ Acceptance of this contract authorizes the next Phase 4A planning slices:
 1. an architecture decision for three isolated private React applications, application-owned state
    and adapters, deterministic scenarios, routing, production-package consumption, and code-sharing
    thresholds; and
-2. a validation plan with exact fixtures, viewports, state coverage, performance envelopes, visual
-   review, and representative assistive-technology gates.
+2. the proposed [Phase 4 validation plan](../accessibility/phase-4-validation-plan.md), with exact
+   fixtures, viewports, state coverage, performance envelopes, visual review, and representative
+   assistive-technology gates.
 
 It does not authorize application scaffolding or a public domain component. Implementation begins
 only after both records are reviewed and accepted.
