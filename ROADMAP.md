@@ -286,8 +286,8 @@ and retains the boundaries accepted during Phase 2.
 
 ## Phase 4 — Reference domains
 
-Status: Formal roadmap proposed for review. Implementation begins only after Phase 4A contracts and
-architecture are accepted.
+Status: Formal roadmap accepted on August 12, 2026. Phase 4A active. Application implementation
+begins only after Phase 4A contracts and architecture are accepted.
 
 The [formal Phase 4 plan](./docs/phase-4.md) treats the three reference applications as deployment
 proofs with application-owned state and workflows rather than as new public component families.
