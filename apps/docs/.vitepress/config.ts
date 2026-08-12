@@ -19,7 +19,7 @@ export default defineConfig({
       {
         text: 'System',
         items: [
-          { text: 'Phase 4 proposed plan', link: '/phase-4' },
+          { text: 'Phase 4 plan', link: '/phase-4' },
           { text: 'Phase 3 roadmap disposition', link: '/phase-3-roadmap-disposition' },
           {
             text: 'Phase 3H production-surface audit',
@@ -239,6 +239,10 @@ export default defineConfig({
           {
             text: 'ADR 0029: Operational Activity integration',
             link: '/architecture/adr/0029-operational-activity-reference-integration',
+          },
+          {
+            text: 'ADR 0030: Isolated reference applications',
+            link: '/architecture/adr/0030-isolated-reference-applications',
           },
         ],
       },

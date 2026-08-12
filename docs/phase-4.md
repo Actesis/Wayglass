@@ -62,6 +62,10 @@ The proposed
 [Phase 4 reference-application contract](./reference-apps/phase-4-reference-applications.md)
 inventories the accepted Wayglass surface and defines one credible user, environment, shared truth,
 workflow, consequential action, failure envelope, and deliberate exclusion set for each application.
+The proposed
+[reference-application architecture decision](./architecture/adr/0030-isolated-reference-applications.md)
+keeps three private React applications, state, adapters, routes, fixtures, branding, and sharing
+thresholds outside production Wayglass packages.
 
 - Inventory the Phase 1–3 components, patterns, state contracts, media ownership, and application
   boundaries each reference domain can reuse.

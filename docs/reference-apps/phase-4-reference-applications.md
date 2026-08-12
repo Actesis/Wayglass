@@ -1,8 +1,9 @@
 # Phase 4 reference-application contract
 
-**Status:** Proposed for Phase 4A review on August 12, 2026. This contract defines the smallest
-credible workflow and existing Wayglass surface for each Phase 4 reference application. It does not
-select application architecture, authorize implementation, or add public package APIs.
+**Status:** Accepted for Phase 4A on August 12, 2026. This contract defines the smallest credible
+workflow and existing Wayglass surface for each Phase 4 reference application. The proposed
+[ADR 0030](../architecture/adr/0030-isolated-reference-applications.md) now defines the application
+architecture for review; no implementation or public package API is authorized yet.
 
 The [formal Phase 4 roadmap](../phase-4.md) requires three applications that test the design
 language under different domain pressure. This contract fixes what each application must prove
