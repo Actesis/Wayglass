@@ -211,7 +211,8 @@ universal overlay system.
 
 ## Phase 3 — Operational components
 
-Status: Phase 3A complete; Phase 3B active.
+Status: Complete. Automated closeout finished on August 12, 2026; representative manual
+assistive-technology procedures remain explicit public-release gates.
 
 Phase 3 delivers the operational-data components defined in `SPEC.md`. The
 [formal Phase 3 plan](./docs/phase-3.md) sequences shared ownership decisions before component APIs
@@ -228,60 +229,60 @@ and retains the boundaries accepted during Phase 2.
 ### Phase 3B — Metrics and key values
 
 - [x] Specify metric-group, trend-indicator, key-value-display, and compatible metric extensions.
-- [ ] Lock tokens and implement the accepted framework-neutral contracts.
-- [ ] Add typed React wrappers and production-backed stories.
-- [ ] Validate semantics, mixed states, responsive values, themes, forced colors, zoom, and
+- [x] Lock tokens and implement the accepted framework-neutral contracts.
+- [x] Add typed React wrappers and production-backed stories.
+- [x] Validate semantics, mixed states, responsive values, themes, forced colors, zoom, and
       supported browsers and assistive technology.
 
 ### Phase 3C — Telemetry strip
 
-- [ ] Specify sample ownership, scale, gaps, live updates, and equivalent textual context.
-- [ ] Record and accept the rendering and accessibility architecture.
-- [ ] Lock tokens and implement framework-neutral and React delivery with production-backed stories.
-- [ ] Validate bounded volume, resize, update stability, themes, forced colors, zoom, and supported
+- [x] Specify sample ownership, scale, gaps, live updates, and equivalent textual context.
+- [x] Record and accept the rendering and accessibility architecture.
+- [x] Lock tokens and implement framework-neutral and React delivery with production-backed stories.
+- [x] Validate bounded volume, resize, update stability, themes, forced colors, zoom, and supported
       browsers and assistive technology.
 
 ### Phase 3D — Status list
 
-- [ ] Specify entry structure, state composition, actions, authored ordering, and mutation behavior.
-- [ ] Lock tokens and implement framework-neutral and React delivery with production-backed stories.
-- [ ] Validate mixed states, dynamic collections, focus stability, responsive density, and supported
+- [x] Specify entry structure, state composition, actions, authored ordering, and mutation behavior.
+- [x] Lock tokens and implement framework-neutral and React delivery with production-backed stories.
+- [x] Validate mixed states, dynamic collections, focus stability, responsive density, and supported
       browsers and assistive technology.
 
 ### Phase 3E — Timeline and event log
 
-- [ ] Specify the distinct timeline and event-log contracts plus any genuinely shared record shape.
-- [ ] Record and accept temporal ordering, live-update, announcement, and reading-position behavior.
-- [ ] Lock tokens and implement framework-neutral and React delivery with production-backed stories.
-- [ ] Validate temporal semantics, mutation, overflow, density, and supported browsers and assistive
+- [x] Specify the distinct timeline and event-log contracts plus any genuinely shared record shape.
+- [x] Record and accept temporal ordering, live-update, announcement, and reading-position behavior.
+- [x] Lock tokens and implement framework-neutral and React delivery with production-backed stories.
+- [x] Validate temporal semantics, mutation, overflow, density, and supported browsers and assistive
       technology.
 
 ### Phase 3F — Filter and command patterns
 
-- [ ] Specify filter-bar and command-bar composition, labeling, responsive priority, and overflow.
-- [ ] Compose existing controls without adding a query engine, command palette, or universal
+- [x] Specify filter-bar and command-bar composition, labeling, responsive priority, and overflow.
+- [x] Compose existing controls without adding a query engine, command palette, or universal
       toolbar.
-- [ ] Lock tokens and implement framework-neutral and React delivery with production-backed stories.
-- [ ] Validate grouping, keyboard and touch behavior, focus retention, narrow widths, and supported
+- [x] Lock tokens and implement framework-neutral and React delivery with production-backed stories.
+- [x] Validate grouping, keyboard and touch behavior, focus retention, narrow widths, and supported
       browsers and assistive technology.
 
 ### Phase 3G — Data table
 
-- [ ] Specify native table ownership, headers, authored sorting intent, row actions, states, and
+- [x] Specify native table ownership, headers, authored sorting intent, row actions, states, and
       responsive containment.
-- [ ] Record and accept the table semantics and overflow architecture.
-- [ ] Lock tokens and implement framework-neutral and React delivery with production-backed stories.
-- [ ] Validate relationships, mutation, wide and dense data, 320 CSS-pixel width, 200% text, and
+- [x] Record and accept the table semantics and overflow architecture.
+- [x] Lock tokens and implement framework-neutral and React delivery with production-backed stories.
+- [x] Validate relationships, mutation, wide and dense data, 320 CSS-pixel width, 200% text, and
       supported browsers and assistive technology.
 
 ### Phase 3H — Integration and closeout
 
-- [ ] Compose the domain-neutral Operational Activity reference workspace.
-- [ ] Add equivalent framework-neutral and React examples.
-- [ ] Complete documentation, exports, stories, and the Phase 3 validation records.
-- [ ] Run the full repository validation matrix and disposition representative assistive-technology
+- [x] Compose the domain-neutral Operational Activity reference workspace.
+- [x] Add equivalent framework-neutral and React examples.
+- [x] Complete documentation, exports, stories, and the Phase 3 validation records.
+- [x] Run the full repository validation matrix and disposition representative assistive-technology
       gates.
-- [ ] Audit deferred or revised roadmap candidates without widening Phase 4.
+- [x] Audit deferred or revised roadmap candidates without widening Phase 4.
 
 ## Later phases
 
@@ -290,7 +291,9 @@ architecture decisions before implementation.
 
 The accepted [Phase 2 roadmap disposition](./docs/phase-2-roadmap-disposition.md) records
 evidence-driven candidates, application-owned boundaries, resolved deferrals, and the unchanged
-interpretation of Phase 3.
+interpretation of Phase 3. The accepted
+[Phase 3 roadmap disposition](./docs/phase-3-roadmap-disposition.md) closes Phase 3, carries its
+release gates, and preserves Phase 4's application boundary.
 
 ## Deferred decisions
 

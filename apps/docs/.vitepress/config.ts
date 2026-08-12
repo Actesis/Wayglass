@@ -18,6 +18,7 @@ export default defineConfig({
       {
         text: 'System',
         items: [
+          { text: 'Phase 3 roadmap disposition', link: '/phase-3-roadmap-disposition' },
           {
             text: 'Phase 3H production-surface audit',
             link: '/phase-3h-surface-audit',

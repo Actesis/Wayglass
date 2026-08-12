@@ -7,7 +7,8 @@ schema, store, or package API.
 **Implementation:** The shared model, production Storybook compositions, and runnable Vanilla and
 React integrations are implemented. Every renderer consumes the same state, selectors, reducer, and
 scenario vocabulary, preserves keyed application records, and provides one application-owned
-announcement region. Documentation and package surface audits remain the next delivery slice.
+announcement region. Documentation, package-surface, integrated-validation, and roadmap-disposition
+audits are complete.
 
 The contract applies the accepted [operational-data ownership](./operational-data.md),
 [Function Deck](../patterns/function-deck.md),

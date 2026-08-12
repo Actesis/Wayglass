@@ -1,22 +1,22 @@
 # Phase 3 operational components
 
-**Status:** Formal roadmap accepted on August 3, 2026. Phase 3A operational-data architecture is
-complete; Phase 3B scalar data is implemented and its automated cross-browser validation and
-production review are complete. The Phase 3C telemetry-strip contract and rendering architecture are
-accepted after cross-browser proof, and its element, tokens, React wrapper, production stories,
-automated cross-browser validation, and production review are complete. Representative manual
-assistive-technology gates remain carried with explicit release impact. Phase 3D status-list
-contracts, public tokens, framework-neutral elements, typed React wrappers, and production-backed
-stories, automated cross-browser validation, and production review are complete. Representative
-manual assistive-technology gates remain carried with explicit release impact. Phase 3E timeline and
-event-log contracts, architecture decision, public tokens, four framework-neutral elements, typed
-React wrappers, production stories, automated cross-browser validation, and production review are
-complete. Representative manual assistive-technology gates remain carried with explicit release
-impact. Phase 3F filter and command contracts and their composition architecture are accepted. The
-required public tokens, framework-neutral elements, typed React bindings, production-backed
-reference stories, automated cross-browser validation, and production review are complete.
-Representative manual assistive-technology gates remain without changing Phase 3 implementation
-scope.
+**Status:** Complete as of August 12, 2026. Formal roadmap accepted on August 3, 2026. Phase 3A
+operational-data architecture is complete; Phase 3B scalar data is implemented and its automated
+cross-browser validation and production review are complete. The Phase 3C telemetry-strip contract
+and rendering architecture are accepted after cross-browser proof, and its element, tokens, React
+wrapper, production stories, automated cross-browser validation, and production review are complete.
+Representative manual assistive-technology gates remain carried with explicit release impact. Phase
+3D status-list contracts, public tokens, framework-neutral elements, typed React wrappers, and
+production-backed stories, automated cross-browser validation, and production review are complete.
+Representative manual assistive-technology gates remain carried with explicit release impact. Phase
+3E timeline and event-log contracts, architecture decision, public tokens, four framework-neutral
+elements, typed React wrappers, production stories, automated cross-browser validation, and
+production review are complete. Representative manual assistive-technology gates remain carried with
+explicit release impact. Phase 3F filter and command contracts and their composition architecture
+are accepted. The required public tokens, framework-neutral elements, typed React bindings,
+production-backed reference stories, automated cross-browser validation, and production review are
+complete. Representative manual assistive-technology gates remain without changing Phase 3
+implementation scope.
 
 Phase 3G's native data-table contract, implementation, production stories, automated cross-browser
 validation, and production review are also complete. Representative manual assistive-technology
@@ -26,7 +26,8 @@ React integrations now provide equivalent production-backed routes. The producti
 package-export, typed-wrapper, and Storybook audit is complete, with an automated package-parity
 guard in place. Integrated automated cross-browser validation and production review are also
 complete. Representative manual assistive-technology gates remain carried with explicit
-public-release impact. The deferred and revised candidate audit is next.
+public-release impact. The [Phase 3 roadmap disposition](./phase-3-roadmap-disposition.md) closes
+the deferred and revised candidate audit without widening Phase 4.
 
 Phase 3 turns the Phase 1 and Phase 2 foundations into a reusable operational-data layer. It adds
 scalar summaries, compact telemetry, status collections, temporal records, collection tools, and
@@ -232,7 +233,9 @@ parity. The
 [Phase 3H integrated validation record](./accessibility/phase-3h-integrated-validation.md) now
 closes the automated accessibility, responsive, visual-state, framework, performance-bound, and
 complete Chromium/Firefox/WebKit matrix. Representative manual assistive-technology gates remain
-explicit public-release requirements. The deferred and revised candidate audit is next.
+explicit public-release requirements. The
+[Phase 3 roadmap disposition](./phase-3-roadmap-disposition.md) records the completed candidate
+audit, confirms application-owned boundaries, and preserves the accepted Phase 4 scope.
 
 Prove the components as one system rather than a catalog of isolated demonstrations.
 
@@ -274,6 +277,10 @@ compatible future capabilities, not implied deliverables.
 The evidence-driven candidates retained by the
 [Phase 2 roadmap disposition](./phase-2-roadmap-disposition.md) remain unassigned unless a Phase 3
 contract demonstrates a reusable need and an approved proposal explicitly promotes them.
+
+The completed [Phase 3 roadmap disposition](./phase-3-roadmap-disposition.md) records that no Phase
+2 candidate met that promotion threshold, classifies the additional candidates produced by Phase 3,
+and defines the evidence required before any later package promotion.
 
 ## Phase exit criteria
 
