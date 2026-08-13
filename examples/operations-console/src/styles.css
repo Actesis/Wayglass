@@ -1,0 +1,101 @@
+:root {
+  color: var(--wg-color-semantic-text-primary);
+  background: var(--wg-color-semantic-surface-canvas);
+  font-family: var(--wg-typography-family-body);
+  line-height: var(--wg-typography-line-height-body);
+}
+
+body {
+  margin: 0;
+}
+
+a {
+  color: var(--wg-color-semantic-action-primary);
+  font-weight: var(--wg-typography-weight-medium);
+  text-underline-offset: var(--wg-space-reference-1);
+}
+
+a:focus-visible {
+  outline: var(--wg-border-width-strong) solid var(--wg-color-semantic-focus-ring);
+  outline-offset: var(--wg-space-reference-1);
+}
+
+.northline-header,
+.northline-header nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--wg-space-reference-3);
+}
+
+.northline-header p,
+.northline-header strong,
+.northline-heading p,
+.northline-heading h1,
+.northline-functions h2,
+.northline-functions p,
+.northline-exception p,
+.northline-foundation-note {
+  margin: 0;
+}
+
+.northline-header > div,
+main,
+.northline-heading,
+.northline-exception {
+  display: grid;
+  gap: var(--wg-space-reference-2);
+}
+
+.northline-header strong,
+.northline-heading h1 {
+  font-family: var(--wg-typography-family-display);
+  font-size: var(--wg-typography-size-title);
+}
+
+.northline-header p,
+.northline-heading > p:first-child,
+footer,
+.northline-foundation-note {
+  color: var(--wg-color-semantic-text-secondary);
+  font-size: var(--wg-typography-size-label);
+}
+
+main {
+  gap: var(--wg-space-semantic-layout-function-comfortable);
+}
+
+.northline-heading p:last-child {
+  max-inline-size: 64ch;
+}
+
+.northline-functions {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--wg-space-semantic-function-gutter);
+}
+
+.northline-functions article {
+  min-inline-size: 0;
+  padding: var(--wg-space-semantic-layout-section-compact);
+  border-block-start: var(--wg-border-semantic-function) solid
+    var(--wg-color-semantic-border-strong);
+  background: var(--wg-color-semantic-surface-inset);
+}
+
+.northline-functions article[data-active='true'] {
+  border-block-start-color: var(--wg-color-semantic-selection-indicator);
+  background: var(--wg-color-semantic-selection-surface);
+}
+
+.northline-functions p,
+.northline-foundation-note {
+  max-inline-size: 72ch;
+}
+
+@media (max-width: 48rem) {
+  .northline-functions {
+    grid-template-columns: 1fr;
+  }
+}

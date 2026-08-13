@@ -20,6 +20,7 @@
     "docs:build": "pnpm --filter @wayglass/docs build",
     "docs:dev": "pnpm --filter @wayglass/docs dev",
     "example:react": "pnpm --filter @wayglass/example-react dev",
+    "example:operations-console": "pnpm --filter @wayglass/example-operations-console dev",
     "example:smart-home": "pnpm --filter @wayglass/example-smart-home dev",
     "example:vanilla": "pnpm --filter @wayglass/example-vanilla dev",
     "format": "prettier --write .",

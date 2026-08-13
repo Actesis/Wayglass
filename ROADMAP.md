@@ -286,7 +286,8 @@ and retains the boundaries accepted during Phase 2.
 
 ## Phase 4 — Reference domains
 
-Status: Phase 4A accepted on August 12, 2026. Phase 4B Cedar House implementation active.
+Status: Phase 4A and Phase 4B accepted on August 12, 2026. Phase 4C Northline Cold Storage
+foundations active.
 
 The [formal Phase 4 plan](./docs/phase-4.md) treats the three reference applications as deployment
 proofs with application-owned state and workflows rather than as new public component families.
@@ -301,13 +302,15 @@ proofs with application-owned state and workflows rather than as new public comp
 
 ### Phase 4B — Smart-home reference application
 
-- [ ] Define and implement the whole-home awareness and control workflow.
-- [ ] Prove Boolean values, requested versus confirmed control, device knowledge, maintenance, and
+- [x] Define and implement the whole-home awareness and control workflow.
+- [x] Prove Boolean values, requested versus confirmed control, device knowledge, maintenance, and
       identifying media without creating premature domain APIs.
-- [ ] Validate phone, desktop, wall, accessibility, failure, recovery, and production visuals.
+- [x] Validate phone, desktop, wall, accessibility, failure, recovery, and production visuals.
 
 ### Phase 4C — Operations-console reference application
 
+- [x] Establish the private application, domain truth, routes, scenarios, command port, and
+      unit-test foundation.
 - [ ] Define and implement a multi-function service or process workflow distinct from the Phase 3
       fixture.
 - [ ] Prove dense operational investigation, cross-function consequence, retained updates, and
