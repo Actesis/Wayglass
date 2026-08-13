@@ -116,6 +116,40 @@ importers:
         specifier: 4.1.10
         version: 4.1.10(@types/node@26.1.1)(@vitest/coverage-v8@4.1.10)(vite@8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(tsx@4.23.1))
 
+  examples/agent-supervision:
+    dependencies:
+      '@wayglass/react':
+        specifier: workspace:*
+        version: link:../../packages/react
+      '@wayglass/themes':
+        specifier: workspace:*
+        version: link:../../packages/themes
+      '@wayglass/tokens':
+        specifier: workspace:*
+        version: link:../../packages/tokens
+      react:
+        specifier: 19.2.8
+        version: 19.2.8
+      react-dom:
+        specifier: 19.2.8
+        version: 19.2.8(react@19.2.8)
+    devDependencies:
+      '@types/react':
+        specifier: 19.2.17
+        version: 19.2.17
+      '@types/react-dom':
+        specifier: 19.2.3
+        version: 19.2.3(@types/react@19.2.17)
+      typescript:
+        specifier: 6.0.3
+        version: 6.0.3
+      vite:
+        specifier: 8.1.5
+        version: 8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(tsx@4.23.1)
+      vitest:
+        specifier: 4.1.10
+        version: 4.1.10(@types/node@26.1.1)(@vitest/coverage-v8@4.1.10)(vite@8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(tsx@4.23.1))
+
   examples/operations-console:
     dependencies:
       '@wayglass/elements':
