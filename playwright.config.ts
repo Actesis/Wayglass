@@ -22,6 +22,12 @@ export default defineConfig({
       url: 'http://127.0.0.1:6103/',
       reuseExistingServer: true,
     },
+    {
+      command:
+        'pnpm --filter @wayglass/example-operations-console build && pnpm --filter @wayglass/example-operations-console exec vite preview --host 127.0.0.1 --port 6104 --strictPort',
+      url: 'http://127.0.0.1:6104/',
+      reuseExistingServer: true,
+    },
   ],
   projects: [
     {

@@ -1,7 +1,7 @@
 # Northline Cold Storage reference application
 
-**Status:** Phase 4C foundation active on August 12, 2026. Production composition, operational
-workflows, and the accepted validation matrix remain ahead.
+**Status:** Phase 4C foundation accepted and production composition active on August 13, 2026.
+Operational investigation, control, and the accepted validation matrix remain ahead.
 
 Northline Cold Storage is the private operations-console application defined by the accepted
 [Phase 4 reference-application contract](./phase-4-reference-applications.md). It tests whether a
@@ -36,8 +36,39 @@ request never changes the confirmed release state.
 No service connection, package publication, domain component, data-grid dependency, chart package,
 or release-hold reversal is part of this foundation.
 
+## Operational composition
+
+The first production composition provides:
+
+- a simultaneous overview with strongly separated Receiving, Cold storage, Order preparation, and
+  Dispatch functions;
+- one outbound-readiness summary that names the uncertain load without treating stale evidence as a
+  confirmed safe or unsafe result;
+- focused function routes whose folder-like selector band retains concise peer summaries and keeps
+  the Dispatch consequence visible from every function;
+- scalar, status, and tabular projections derived from the same application-owned load records;
+- a contained native Dispatch table with stable row identity and a useful `NL-2048` detail route;
+- explicit loading, retained-refresh, partial, unavailable, stale, and recovered presentation; and
+- dark, light, compact, comfortable, phone, desktop, and RTL-compatible browser fixtures.
+
+The application directly depends on `@wayglass/elements` only for the accepted native-table light
+DOM stylesheet; React wrappers do not and should not duplicate consumer-authored table CSS. No new
+third-party dependency or schema-driven data grid is introduced.
+
+The overview and focused routes are canonical application fixtures. They are not duplicated in
+Storybook, and their records, summaries, sorting, and retention policy remain Northline-owned.
+
 ## Local use
 
 Run `pnpm example:operations-console`, then open the local Vite URL. Human-readable paths include
 `/`, `/functions/dispatch`, and `/loads/NL-2048`. Query parameters may select `scenario`, `theme`,
 `density`, `dir`, and `fixture` without replacing route identity.
+
+## Next slices
+
+1. Add filtering, authored sorting, investigation acknowledgement, and temporal load detail while
+   preserving route-return and reading context.
+2. Add the consequential dispatch-hold confirmation, pending, denied, failed, and confirmed-result
+   workflow.
+3. Complete the accepted responsive, visual, accessibility, failure, recovery, performance, and
+   supported-browser record.

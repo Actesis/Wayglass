@@ -4,6 +4,8 @@ import {
   createNorthlineState,
   northlineScenarios,
   reduceNorthline,
+  selectDispatchSummary,
+  selectFunctionExceptions,
   selectDispatchLoads,
   selectLoad,
 } from '../src/model.js';
@@ -86,5 +88,18 @@ describe('Northline application state', () => {
     expect(state.dispatch.loads).toHaveLength(80);
     expect(state.retention).toEqual({ eventLimit: 250, retainedEventCount: 250 });
     expect(state).toEqual(createNorthlineState('steady', 'maximum'));
+  });
+
+  it('derives overview, focused, and tabular dispatch facts from the same load records', () => {
+    const state = createNorthlineState('stale-trailer');
+    expect(selectDispatchSummary(state)).toEqual({
+      scheduled: 2,
+      held: 1,
+      needsAttention: 1,
+      unknownTemperature: 0,
+      earliestCutoffAt: '2026-08-12T17:15:00-07:00',
+    });
+    expect(selectFunctionExceptions(state, 'dispatch')).toHaveLength(1);
+    expect(selectDispatchLoads(state)[0]?.id).toBe('NL-2048');
   });
 });
