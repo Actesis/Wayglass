@@ -47,6 +47,10 @@ export interface DispatchLoad {
   id: string;
   destination: string;
   carrier: string;
+  trailerId: string;
+  dispatchDoor: string;
+  sealState: 'verified' | 'unverified';
+  palletCount: number;
   cutoffAt: string;
   confirmedReleaseState: DispatchReleaseState;
   requestedReleaseState: DispatchReleaseState | null;
@@ -87,6 +91,35 @@ export interface LoadTimelineEntry {
   activity: Activity;
 }
 
+export interface NorthlineTelemetrySeries {
+  id: string;
+  label: string;
+  unit: 'loads' | '%';
+  samples: Array<{ observedAt: number; value: number; knowledge: Knowledge }>;
+}
+
+export interface NorthlineValidationValue {
+  id: string;
+  label: string;
+  value: string;
+}
+
+export interface NorthlineValidationStatus {
+  id: string;
+  label: string;
+  detail: string;
+  condition: Condition;
+  knowledge: Knowledge;
+}
+
+export interface NorthlineValidationEvent {
+  id: string;
+  summary: string;
+  occurredAt: string;
+  condition: Condition;
+  knowledge: Knowledge;
+}
+
 interface FunctionPresentation {
   dataState: 'ready' | 'loading' | 'refreshing' | 'partial' | 'unavailable';
   retainedData: boolean;
@@ -109,6 +142,12 @@ export interface NorthlineState {
   exceptions: OperationalException[];
   presentation: Record<NorthlineFunction, FunctionPresentation>;
   retention: { eventLimit: 250; retainedEventCount: number };
+  validation: {
+    values: NorthlineValidationValue[];
+    telemetry: NorthlineTelemetrySeries[];
+    statuses: NorthlineValidationStatus[];
+    events: NorthlineValidationEvent[];
+  };
   announcement: { id: number; message: string } | null;
 }
 
@@ -125,6 +164,9 @@ export type NorthlineAction =
       outcome: 'succeeded' | 'failed' | 'denied';
       completedAt: string;
     }
+  | { type: 'replace-validation-rows' }
+  | { type: 'replace-validation-telemetry' }
+  | { type: 'insert-validation-events' }
   | { type: 'receive-meaningful-update' };
 
 const observedAt = '2026-08-12T16:42:00-07:00';
@@ -135,6 +177,10 @@ function baselineLoads(): DispatchLoad[] {
       id: 'NL-2048',
       destination: 'Mesa distribution center',
       carrier: 'Northline fleet 12',
+      trailerId: 'TRL-412',
+      dispatchDoor: 'D-07',
+      sealState: 'verified',
+      palletCount: 26,
       cutoffAt: '2026-08-12T17:15:00-07:00',
       confirmedReleaseState: 'scheduled',
       requestedReleaseState: null,
@@ -147,6 +193,10 @@ function baselineLoads(): DispatchLoad[] {
       id: 'NL-2049',
       destination: 'Tempe retail route',
       carrier: 'Northline fleet 7',
+      trailerId: 'TRL-407',
+      dispatchDoor: 'D-04',
+      sealState: 'verified',
+      palletCount: 18,
       cutoffAt: '2026-08-12T17:40:00-07:00',
       confirmedReleaseState: 'scheduled',
       requestedReleaseState: null,
@@ -159,6 +209,10 @@ function baselineLoads(): DispatchLoad[] {
       id: 'NL-2050',
       destination: 'Scottsdale retail route',
       carrier: 'Desert Freight 31',
+      trailerId: 'TRL-831',
+      dispatchDoor: 'D-09',
+      sealState: 'unverified',
+      palletCount: 22,
       cutoffAt: '2026-08-12T17:00:00-07:00',
       confirmedReleaseState: 'held',
       requestedReleaseState: null,
@@ -203,6 +257,7 @@ function baselineState(): NorthlineState {
       ]),
     ) as NorthlineState['presentation'],
     retention: { eventLimit: 250, retainedEventCount: 0 },
+    validation: { values: [], telemetry: [], statuses: [], events: [] },
     announcement: null,
   };
 }
@@ -246,10 +301,44 @@ function applyMaximumFixture(state: NorthlineState): void {
     return {
       ...baseline,
       id: index === 0 ? 'NL-2048' : `NL-${2048 + index}`,
+      trailerId: `TRL-${412 + index}`,
+      dispatchDoor: `D-${String((index % 12) + 1).padStart(2, '0')}`,
+      sealState: index % 7 === 0 ? 'unverified' : 'verified',
+      palletCount: 18 + (index % 12),
       cutoffAt: new Date(Date.parse('2026-08-12T17:15:00-07:00') + index * 60_000).toISOString(),
       trailerTemperature: { ...baseline.trailerTemperature },
     };
   });
+  state.validation.values = Array.from({ length: 24 }, (_, index) => ({
+    id: `northline-value-${index + 1}`,
+    label: `Operational reference ${index + 1}`,
+    value: index % 2 === 0 ? `${40 + index} loads` : `${62 + index}%`,
+  }));
+  const windowStart = Date.parse('2026-08-12T15:30:00-07:00');
+  state.validation.telemetry = Array.from({ length: 8 }, (_, seriesIndex) => ({
+    id: `northline-telemetry-${seriesIndex + 1}`,
+    label: `Operational trend ${seriesIndex + 1}`,
+    unit: seriesIndex % 2 === 0 ? 'loads' : '%',
+    samples: Array.from({ length: 120 }, (_, sampleIndex) => ({
+      observedAt: windowStart + sampleIndex * 30_000,
+      value: 28 + seriesIndex * 6 + ((sampleIndex * (seriesIndex + 2)) % 20),
+      knowledge: 'confirmed' as const,
+    })),
+  }));
+  state.validation.statuses = Array.from({ length: 100 }, (_, index) => ({
+    id: `northline-status-${index + 1}`,
+    label: `Operational source ${index + 1}`,
+    detail: `Current authored status for source ${index + 1}.`,
+    condition: index % 17 === 0 ? ('caution' as const) : ('neutral' as const),
+    knowledge: index % 19 === 0 ? ('stale' as const) : ('confirmed' as const),
+  }));
+  state.validation.events = Array.from({ length: 250 }, (_, index) => ({
+    id: `northline-event-${index + 1}`,
+    summary: `Retained operations event ${index + 1}`,
+    occurredAt: new Date(Date.parse(observedAt) - index * 60_000).toISOString(),
+    condition: index % 23 === 0 ? ('caution' as const) : ('neutral' as const),
+    knowledge: 'confirmed' as const,
+  }));
   state.retention.retainedEventCount = 250;
 }
 
@@ -481,6 +570,49 @@ export function reduceNorthline(state: NorthlineState, action: NorthlineAction):
           },
         },
         announcement: { id: (state.announcement?.id ?? 0) + 1, message },
+      };
+    }
+    case 'replace-validation-rows':
+      return {
+        ...state,
+        revision: state.revision + 1,
+        dispatch: {
+          ...state.dispatch,
+          loads: state.dispatch.loads.map((load, index) =>
+            index < 20 ? { ...load, palletCount: load.palletCount + 1 } : load,
+          ),
+        },
+        announcement: null,
+      };
+    case 'replace-validation-telemetry':
+      return {
+        ...state,
+        revision: state.revision + 1,
+        validation: {
+          ...state.validation,
+          telemetry: state.validation.telemetry.map((series) => ({
+            ...series,
+            samples: series.samples.map((sample) => ({ ...sample, value: sample.value + 1 })),
+          })),
+        },
+        announcement: null,
+      };
+    case 'insert-validation-events': {
+      const inserted = Array.from({ length: 25 }, (_, index) => ({
+        id: `northline-inserted-event-${state.revision + 1}-${index + 1}`,
+        summary: `New retained operations event ${index + 1}`,
+        occurredAt: new Date(Date.parse(observedAt) + (index + 1) * 1000).toISOString(),
+        condition: 'neutral' as const,
+        knowledge: 'confirmed' as const,
+      }));
+      return {
+        ...state,
+        revision: state.revision + 1,
+        validation: {
+          ...state.validation,
+          events: [...inserted, ...state.validation.events].slice(0, state.retention.eventLimit),
+        },
+        announcement: null,
       };
     }
     case 'receive-meaningful-update': {

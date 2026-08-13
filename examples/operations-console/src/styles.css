@@ -37,7 +37,8 @@ main,
 .northline-readiness-copy,
 .northline-values,
 .northline-dispatch-workspace,
-.northline-load-facts {
+.northline-load-facts,
+.northline-maximum-fixture {
   display: grid;
   min-inline-size: 0;
 }
@@ -117,7 +118,8 @@ main {
 
 .northline-situation,
 .northline-function,
-.northline-dispatch-workspace {
+.northline-dispatch-workspace,
+.northline-maximum-fixture {
   gap: var(--wg-space-semantic-layout-section-comfortable);
 }
 
@@ -235,7 +237,18 @@ main {
 }
 
 .northline-load-table table {
-  min-inline-size: 70rem;
+  min-inline-size: 100rem;
+}
+
+.northline-validation-values,
+.northline-validation-telemetry {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--wg-space-semantic-layout-section-comfortable);
+}
+
+.northline-validation-values {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .northline-load-table td:last-child a,
@@ -273,6 +286,8 @@ footer {
   .northline-function-grid,
   .northline-values,
   .northline-load-facts,
+  .northline-validation-values,
+  .northline-validation-telemetry,
   .northline-filter-fields,
   .northline-function-selectors {
     grid-template-columns: minmax(0, 1fr);

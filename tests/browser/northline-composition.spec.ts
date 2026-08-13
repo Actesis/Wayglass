@@ -241,6 +241,7 @@ test('preserves focus, query context, and reading position through a new excepti
     .getByRole('link', { name: 'Inspect NL-2048' });
   await inspect.focus();
   await page.evaluate(() => window.scrollTo({ top: 240 }));
+  await page.evaluate(() => new Promise<void>((resolve) => requestAnimationFrame(() => resolve())));
   const priorScroll = await page.evaluate(() => window.scrollY);
 
   await page.evaluate(() => window.__northlineFixture?.receiveMeaningfulUpdate());

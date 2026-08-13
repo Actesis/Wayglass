@@ -1,8 +1,8 @@
 # Northline Cold Storage reference application
 
-**Status:** Phase 4C foundation, production composition, and operational investigation accepted;
-consequential dispatch-hold integration active on August 13, 2026. The accepted validation matrix
-remains ahead.
+**Status:** Phase 4C accepted on August 13, 2026. Automated, production visual, responsive,
+performance-bound, and supported-browser validation are complete; representative manual
+assistive-technology gates remain explicit public-release requirements.
 
 Northline Cold Storage is the private operations-console application defined by the accepted
 [Phase 4 reference-application contract](./phase-4-reference-applications.md). It tests whether a
@@ -109,5 +109,5 @@ Run `pnpm example:operations-console`, then open the local Vite URL. Human-reada
 
 ## Next slices
 
-1. Complete the accepted responsive, visual, accessibility, failure, recovery, performance, and
-   supported-browser record.
+1. Begin Phase 4D planning and implementation for the isolated Harbor Lab agent-supervision
+   reference application.

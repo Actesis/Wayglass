@@ -1,9 +1,9 @@
 # Phase 4 reference domains
 
-**Status:** Phase 4A and Phase 4B accepted on August 12, 2026. Cedar House automated, production
-visual, responsive, performance-bound, and supported-browser validation are complete; representative
-manual assistive-technology gates remain explicit public-release requirements. Phase 4C Northline
-Cold Storage foundations are active.
+**Status:** Phase 4A and Phase 4B accepted on August 12, 2026; Phase 4C accepted on August 13, 2026.
+Cedar House and Northline Cold Storage automated, production visual, responsive, performance-bound,
+and supported-browser validation are complete; representative manual assistive-technology gates
+remain explicit public-release requirements. Phase 4D is next.
 
 Phase 4 tests Wayglass in three distinct, credible application contexts:
 
@@ -114,6 +114,11 @@ staleness, optimistic behavior, media URLs, and storage. It must not introduce g
 room components until repeated evidence establishes a reusable contract.
 
 ### Phase 4C — Operations-console reference application
+
+**Accepted:** The Northline Cold Storage implementation and its
+[Phase 4C validation record](./accessibility/phase-4c-northline-validation.md) satisfy the milestone
+exit rule. Manual assistive-technology gates remain carried with release impact rather than being
+misrepresented as automated evidence.
 
 Build a multi-function operational workspace for monitoring and acting on a service or process under
 change. It must be a credible application rather than a renamed copy of Operational Activity.

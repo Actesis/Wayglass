@@ -101,8 +101,30 @@ describe('Northline application state', () => {
   it('creates the accepted maximum load and retention bounds deterministically', () => {
     const state = createNorthlineState('steady', 'maximum');
     expect(state.dispatch.loads).toHaveLength(80);
+    expect(state.validation.values).toHaveLength(24);
+    expect(state.validation.telemetry).toHaveLength(8);
+    expect(state.validation.telemetry.every(({ samples }) => samples.length === 120)).toBe(true);
+    expect(state.validation.statuses).toHaveLength(100);
+    expect(state.validation.events).toHaveLength(250);
     expect(state.retention).toEqual({ eventLimit: 250, retainedEventCount: 250 });
     expect(state).toEqual(createNorthlineState('steady', 'maximum'));
+  });
+
+  it('keeps validation mutations bounded, silent, and application-owned', () => {
+    const initial = createNorthlineState('steady', 'maximum');
+    const rows = reduceNorthline(initial, { type: 'replace-validation-rows' });
+    expect(rows.dispatch.loads[0]?.palletCount).toBe(initial.dispatch.loads[0]!.palletCount + 1);
+    expect(rows.dispatch.loads[20]).toBe(initial.dispatch.loads[20]);
+
+    const telemetry = reduceNorthline(rows, { type: 'replace-validation-telemetry' });
+    expect(telemetry.validation.telemetry[0]?.samples[0]?.value).toBe(
+      rows.validation.telemetry[0]!.samples[0]!.value + 1,
+    );
+
+    const events = reduceNorthline(telemetry, { type: 'insert-validation-events' });
+    expect(events.validation.events).toHaveLength(250);
+    expect(events.validation.events[0]?.id).toMatch(/^northline-inserted-event-/);
+    expect(events.announcement).toBeNull();
   });
 
   it('derives overview, focused, and tabular dispatch facts from the same load records', () => {
