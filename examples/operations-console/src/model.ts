@@ -75,6 +75,17 @@ export interface OperationalException {
   acknowledged: boolean;
 }
 
+export interface LoadTimelineEntry {
+  id: string;
+  loadId: string;
+  label: string;
+  detail: string;
+  occurredAt: string | null;
+  condition: Condition;
+  knowledge: Knowledge;
+  activity: Activity;
+}
+
 interface FunctionPresentation {
   dataState: 'ready' | 'loading' | 'refreshing' | 'partial' | 'unavailable';
   retainedData: boolean;
@@ -147,7 +158,7 @@ function baselineLoads(): DispatchLoad[] {
       id: 'NL-2050',
       destination: 'Scottsdale retail route',
       carrier: 'Desert Freight 31',
-      cutoffAt: '2026-08-12T18:05:00-07:00',
+      cutoffAt: '2026-08-12T17:00:00-07:00',
       confirmedReleaseState: 'held',
       requestedReleaseState: null,
       condition: 'neutral',
@@ -544,4 +555,41 @@ export function selectFunctionExceptions(
   value: NorthlineFunction,
 ): OperationalException[] {
   return state.exceptions.filter((exception) => exception.function === value);
+}
+
+export function selectLoadTimeline(state: NorthlineState, loadId: string): LoadTimelineEntry[] {
+  const load = selectLoad(state, loadId);
+  if (!load) return [];
+  const temperature = load.trailerTemperature;
+  return [
+    {
+      id: `${load.id}-temperature-current`,
+      loadId: load.id,
+      label:
+        temperature.knowledge === 'unavailable'
+          ? 'Trailer temperature unavailable'
+          : 'Trailer temperature observed',
+      detail:
+        temperature.value === null
+          ? 'No trustworthy current temperature is available.'
+          : `${temperature.value} ${temperature.unit}; knowledge is ${temperature.knowledge}.`,
+      occurredAt: temperature.observedAt,
+      condition: load.condition,
+      knowledge: temperature.knowledge,
+      activity: load.activity,
+    },
+    {
+      id: `${load.id}-release-scheduled`,
+      loadId: load.id,
+      label:
+        load.confirmedReleaseState === 'held'
+          ? 'Dispatch hold confirmed'
+          : 'Load scheduled for dispatch',
+      detail: `Confirmed release state: ${load.confirmedReleaseState}.`,
+      occurredAt: '2026-08-12T15:55:00-07:00',
+      condition: 'neutral',
+      knowledge: 'confirmed',
+      activity: load.activity,
+    },
+  ];
 }
