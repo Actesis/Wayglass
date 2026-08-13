@@ -13,6 +13,7 @@ export interface MergeApprovalPort {
     repository: string;
     targetBranch: string;
     proposedRevision: string;
+    expiresAt: string;
   }): Promise<MergeApprovalResult>;
 }
 

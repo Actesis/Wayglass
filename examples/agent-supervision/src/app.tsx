@@ -1,5 +1,9 @@
 import {
+  WgAlert,
+  WgBooleanValue,
+  WgButton,
   WgCanvas,
+  WgConfirmationDialog,
   WgElbow,
   WgEventLog,
   WgEventRecord,
@@ -12,12 +16,15 @@ import {
 import {
   useEffect,
   useReducer,
+  useRef,
   useSyncExternalStore,
+  type ComponentRef,
   type MouseEvent,
   type ReactNode,
 } from 'react';
 
 import {
+  approvalExpiresAt,
   createHarborState,
   harborFunctions,
   reduceHarbor,
@@ -29,6 +36,7 @@ import {
   type HarborState,
   type Knowledge,
 } from './model.js';
+import type { HarborClock, MergeApprovalPort } from './ports.js';
 import type { HarborRoute, HarborRouter } from './router.js';
 
 function routeTitle(route: HarborRoute): string {
@@ -39,12 +47,32 @@ function routeTitle(route: HarborRoute): string {
 
 type Navigate = (event: MouseEvent<HTMLAnchorElement>, route: HarborRoute) => void;
 
-export function HarborApp({ router }: { router: HarborRouter }) {
+interface HarborCommands {
+  showMergeConfirmation(invoker: HTMLElement): void;
+  requestMergeApproval(): Promise<void>;
+  requestPause(): void;
+  requestCancel(): void;
+  retryTask(): void;
+}
+
+export function HarborApp({
+  router,
+  controls,
+  clock,
+}: {
+  router: HarborRouter;
+  controls: MergeApprovalPort;
+  clock: HarborClock;
+}) {
   const routeState = useSyncExternalStore(router.subscribe, router.current);
   const [state, dispatch] = useReducer(reduceHarbor, routeState, (initial) =>
     createHarborState(initial.scenario, initial.fixture),
   );
+  const requestSequence = useRef(0);
+  const attemptSequence = useRef(1);
+  const mergeConfirmation = useRef<ComponentRef<typeof WgConfirmationDialog>>(null);
   const title = routeTitle(routeState.route);
+  const representativeTask = selectTask(state, 'HL-317');
 
   useEffect(() => {
     document.title = `${title} — Harbor Lab`;
@@ -59,6 +87,48 @@ export function HarborApp({ router }: { router: HarborRouter }) {
     event.preventDefault();
     router.navigate(route);
   }
+
+  const commands: HarborCommands = {
+    showMergeConfirmation(invoker) {
+      mergeConfirmation.current?.show({ invoker });
+    },
+    async requestMergeApproval() {
+      if (!representativeTask) return;
+      const requestId = `approval-hl-317-${++requestSequence.current}`;
+      const requestedAt = clock();
+      const expiresAt = approvalExpiresAt(requestedAt, state.approvalPolicy.lifetimeMinutes);
+      dispatch({
+        type: 'request-merge-approval',
+        requestId,
+        taskId: 'HL-317',
+        requestedAt,
+        expiresAt,
+      });
+      const result = await controls.requestMergeApproval({
+        requestId,
+        taskId: 'HL-317',
+        repository: representativeTask.repository,
+        targetBranch: representativeTask.targetBranch,
+        proposedRevision: representativeTask.proposedRevision,
+        expiresAt,
+      });
+      dispatch({ type: 'resolve-merge-approval', ...result });
+    },
+    requestPause() {
+      dispatch({ type: 'request-pause', taskId: 'HL-317', requestedAt: clock() });
+    },
+    requestCancel() {
+      dispatch({ type: 'request-cancel', taskId: 'HL-317', requestedAt: clock() });
+    },
+    retryTask() {
+      dispatch({
+        type: 'retry-task',
+        taskId: 'HL-317',
+        attemptId: `attempt-hl-317-${++attemptSequence.current}`,
+        createdAt: clock(),
+      });
+    },
+  };
 
   return (
     <WgThemeProvider
@@ -113,12 +183,25 @@ export function HarborApp({ router }: { router: HarborRouter }) {
               navigate={navigate}
             />
           ) : (
-            <TaskSummary state={state} router={router} navigate={navigate} />
+            <TaskSummary state={state} router={router} navigate={navigate} commands={commands} />
           )}
         </main>
         <p className="harbor-announcement" aria-live="polite" aria-atomic="true">
           {state.announcement?.message ?? ''}
         </p>
+        <WgConfirmationDialog
+          ref={mergeConfirmation}
+          dialogId="harbor-hl-317-merge"
+          actionLabel="Approve merge for HL-317"
+          cancelLabel="Keep HL-317 unapproved"
+          actionAppearance="primary"
+          attention="ordinary"
+          initialFocus="cancel"
+          onWgConfirmationAction={() => void commands.requestMergeApproval()}
+        >
+          <span slot="heading">Approve merge for HL-317?</span>
+          <p>{mergeConfirmationDescription(representativeTask, state, clock())}</p>
+        </WgConfirmationDialog>
         <footer slot="footer">
           <span>Harbor Lab local time · 2:30 PM</span>
           <span>
@@ -478,10 +561,12 @@ function TaskSummary({
   state,
   router,
   navigate,
+  commands,
 }: {
   state: HarborState;
   router: HarborRouter;
   navigate: Navigate;
+  commands: HarborCommands;
 }) {
   const investigation = selectTaskInvestigation(state, 'HL-317');
   if (!investigation) {
@@ -619,6 +704,10 @@ function TaskSummary({
           </p>
         </WgPanel>
       </div>
+      <div className="harbor-control-grid">
+        <MergeApprovalControl state={state} commands={commands} />
+        <ExecutionRecoveryControl state={state} commands={commands} />
+      </div>
       <WgEventLog
         className="harbor-tool-history"
         label="HL-317 retained task and tool history"
@@ -649,7 +738,7 @@ function TaskSummary({
             <span slot="summary">{record.summary}</span>
             <span slot="source">Source: {record.tool}</span>
             <span slot="category">Task: {record.taskId}</span>
-            <span slot="reference">Attempt: {task.attemptId}</span>
+            <span slot="reference">Attempt: {record.attemptId}</span>
           </WgEventRecord>
         ))}
       </WgEventLog>
@@ -664,12 +753,203 @@ function TaskSummary({
   );
 }
 
+function MergeApprovalControl({
+  state,
+  commands,
+}: {
+  state: HarborState;
+  commands: HarborCommands;
+}) {
+  const task = selectTask(state, 'HL-317');
+  if (!task) return null;
+  const request = state.approvalRequest;
+  const pending = request.state === 'pending';
+  const canRequest =
+    task.humanAttention === 'decision-required' &&
+    task.mergeState === 'not-merged' &&
+    task.state !== 'failed' &&
+    !pending;
+  const actionLabel =
+    task.mergeState === 'merged'
+      ? 'HL-317 merge confirmed'
+      : task.state === 'failed'
+        ? 'Create a retry before requesting approval'
+        : request.outcome === 'denied' || request.outcome === 'timed-out'
+          ? 'Request merge approval again for HL-317'
+          : 'Review merge approval for HL-317';
+  return (
+    <WgPanel purpose="control" emphasis="strong" label="Review and approval control for HL-317">
+      <h3 slot="heading">Review and approval · HL-317</h3>
+      <p>
+        Approval authorizes one attempt to merge the proposed revision into the named target branch.
+        It does not guarantee that the merge will succeed.
+      </p>
+      <div className="harbor-values">
+        <WgBooleanValue
+          label="Approval granted"
+          asserted={task.approvalState === 'granted'}
+          assertedLabel="Granted"
+          notAssertedLabel="Not granted"
+          knowledge="confirmed"
+          presentation="rail"
+        />
+        <WgKeyValue
+          label="Approval state"
+          value={task.approvalState.replace('-', ' ')}
+          knowledge="confirmed"
+        />
+        <WgKeyValue
+          label="Approval expiry"
+          value={request.expiresAt ? formatHarborTime(request.expiresAt) : 'No active approval'}
+          knowledge="confirmed"
+        />
+        <WgKeyValue
+          label="Confirmed target result"
+          value={task.mergeState === 'merged' ? 'Merged' : 'Not merged'}
+          knowledge="confirmed"
+        />
+      </div>
+      <WgButton
+        slot="actions"
+        appearance="primary"
+        pending={pending}
+        disabled={!canRequest}
+        onClick={(event) => commands.showMergeConfirmation(event.currentTarget)}
+      >
+        {actionLabel}
+        <span slot="pending-label">Requesting approval for HL-317</span>
+      </WgButton>
+      <ApprovalResult state={state} />
+    </WgPanel>
+  );
+}
+
+function ApprovalResult({ state }: { state: HarborState }) {
+  const request = state.approvalRequest;
+  const condition =
+    request.outcome === 'merged'
+      ? 'positive'
+      : request.outcome === 'denied' ||
+          request.outcome === 'timed-out' ||
+          request.outcome === 'merge-failed'
+        ? 'caution'
+        : 'neutral';
+  return (
+    <WgAlert
+      condition={condition}
+      announcement="off"
+      label="HL-317 merge approval result"
+      data-approval-state={request.state}
+      data-approval-outcome={request.outcome ?? 'none'}
+    >
+      <strong slot="heading">{approvalResultHeading(state)}</strong>
+      <p>{request.message || 'No merge approval request has been made.'}</p>
+    </WgAlert>
+  );
+}
+
+function approvalResultHeading(state: HarborState): string {
+  const request = state.approvalRequest;
+  if (request.state === 'pending') return 'Approval pending';
+  switch (request.outcome) {
+    case 'merged':
+      return 'Merge confirmed';
+    case 'denied':
+      return 'Permission denied';
+    case 'timed-out':
+      return 'Approval expired';
+    case 'merge-failed':
+      return 'Merge failed';
+    case null:
+      return 'Ready for a decision';
+  }
+}
+
+function ExecutionRecoveryControl({
+  state,
+  commands,
+}: {
+  state: HarborState;
+  commands: HarborCommands;
+}) {
+  const task = selectTask(state, 'HL-317');
+  if (!task) return null;
+  const request = state.executionRequest;
+  const requestPending = request.state === 'pending';
+  const canRequest = !requestPending && !['completed', 'failed', 'cancelled'].includes(task.state);
+  return (
+    <WgPanel
+      purpose="control"
+      emphasis="standard"
+      label="Execution and recovery controls for HL-317"
+    >
+      <h3 slot="heading">Execution and recovery · HL-317</h3>
+      <p>
+        Pause and cancellation record a request. An active tool step may finish, so neither control
+        claims that execution has stopped.
+      </p>
+      <div className="harbor-control-actions" slot="actions">
+        <WgButton
+          appearance="secondary"
+          pending={requestPending && request.kind === 'pause'}
+          disabled={!canRequest}
+          onClick={commands.requestPause}
+        >
+          Request pause for HL-317
+          <span slot="pending-label">Pause requested for HL-317</span>
+        </WgButton>
+        <WgButton
+          appearance="secondary"
+          pending={requestPending && request.kind === 'cancel'}
+          disabled={!canRequest}
+          onClick={commands.requestCancel}
+        >
+          Request cancellation for HL-317
+          <span slot="pending-label">Cancellation requested for HL-317</span>
+        </WgButton>
+        {task.state === 'failed' ? (
+          <WgButton appearance="primary" onClick={commands.retryTask}>
+            Retry HL-317 as a new attempt
+          </WgButton>
+        ) : null}
+      </div>
+      <WgAlert
+        condition={task.state === 'failed' ? 'caution' : 'neutral'}
+        announcement="off"
+        label="HL-317 execution request result"
+        data-execution-request={request.kind ?? 'none'}
+      >
+        <strong slot="heading">
+          {task.state === 'failed'
+            ? 'Recovery available'
+            : requestPending
+              ? 'Request recorded'
+              : 'No execution request pending'}
+        </strong>
+        <p>{request.message}</p>
+      </WgAlert>
+    </WgPanel>
+  );
+}
+
 function evidenceFreshnessLabel(ageMinutes: number | null, maximumAgeMinutes: number): string {
   if (ageMinutes === null) return 'Evidence age is unknown';
   if (ageMinutes > maximumAgeMinutes) {
     return `Evidence is ${ageMinutes} minutes old; ${maximumAgeMinutes}-minute policy exceeded`;
   }
   return `Evidence is current at ${ageMinutes} minutes old`;
+}
+
+function mergeConfirmationDescription(
+  task: ReturnType<typeof selectTask>,
+  state: HarborState,
+  requestedAt: string,
+): string {
+  if (!task) return 'The HL-317 task record is unavailable. No merge request will be made.';
+  const investigation = selectTaskInvestigation(state, task.id);
+  const evidenceAge = investigation?.evidenceAgeMinutes;
+  const expiresAt = approvalExpiresAt(requestedAt, state.approvalPolicy.lifetimeMinutes);
+  return `Repository ${task.repository}; target branch ${task.targetBranch}; proposed revision ${task.proposedRevision}. Evidence is ${evidenceAge === null || evidenceAge === undefined ? 'of unknown age' : `${evidenceAge} minutes old`} with ${task.evidence.confidence} confidence. Approval expires at ${formatHarborTime(expiresAt)} and authorizes one merge attempt. A failed attempt leaves the confirmed target branch unchanged, and this workflow provides no automatic reversal after a confirmed merge.`;
 }
 
 function formatHarborTime(value: string): string {

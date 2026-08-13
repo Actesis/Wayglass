@@ -26,6 +26,7 @@ export const harborScenarios = [
   'merge-confirmed',
   'new-tool-record',
   'pause-requested',
+  'cancel-requested',
 ] as const;
 
 export type HarborScenario = (typeof harborScenarios)[number];
@@ -77,6 +78,7 @@ export interface HarborAgent {
 export interface ToolRecord {
   id: string;
   taskId: string;
+  attemptId: string;
   tool: string;
   summary: string;
   occurredAt: string;
@@ -90,7 +92,15 @@ export interface ApprovalRequest {
   state: 'idle' | 'pending' | 'resolved';
   outcome: 'merged' | 'denied' | 'timed-out' | 'merge-failed' | null;
   requestedAt: string | null;
+  expiresAt: string | null;
   completedAt: string | null;
+  message: string;
+}
+
+export interface ExecutionRequest {
+  kind: 'pause' | 'cancel' | null;
+  state: 'idle' | 'pending';
+  requestedAt: string | null;
   message: string;
 }
 
@@ -109,8 +119,10 @@ export interface HarborState {
   agents: HarborAgent[];
   toolRecords: ToolRecord[];
   approvalRequest: ApprovalRequest;
+  executionRequest: ExecutionRequest;
   now: string;
   evidencePolicy: { maximumAgeMinutes: number };
+  approvalPolicy: { lifetimeMinutes: number };
   presentation: Record<HarborFunction, FunctionPresentation>;
   retention: { eventLimit: 250; retainedEventCount: number };
   announcement: { id: number; message: string } | null;
@@ -119,15 +131,22 @@ export interface HarborState {
 export type HarborAction =
   | { type: 'select-function'; value: HarborFunction }
   | { type: 'set-scenario'; value: HarborScenario; fixture: HarborFixture }
-  | { type: 'request-merge-approval'; requestId: string; taskId: string; requestedAt: string }
+  | {
+      type: 'request-merge-approval';
+      requestId: string;
+      taskId: string;
+      requestedAt: string;
+      expiresAt: string;
+    }
   | {
       type: 'resolve-merge-approval';
       requestId: string;
       outcome: 'merged' | 'denied' | 'timed-out' | 'merge-failed';
       completedAt: string;
     }
-  | { type: 'request-pause'; taskId: string }
-  | { type: 'retry-task'; taskId: string; attemptId: string }
+  | { type: 'request-pause'; taskId: string; requestedAt: string }
+  | { type: 'request-cancel'; taskId: string; requestedAt: string }
+  | { type: 'retry-task'; taskId: string; attemptId: string; createdAt: string }
   | { type: 'receive-tool-record'; record: ToolRecord };
 
 const observedAt = '2026-08-13T14:28:00-07:00';
@@ -238,6 +257,7 @@ function baselineState(): HarborState {
       {
         id: 'tool-hl-317-tests',
         taskId: 'HL-317',
+        attemptId: 'attempt-hl-317-1',
         tool: 'Synthetic test runner',
         summary: '148 tests completed; this record does not approve or perform a merge.',
         occurredAt: staleObservedAt,
@@ -247,6 +267,7 @@ function baselineState(): HarborState {
       {
         id: 'tool-hl-317-change',
         taskId: 'HL-317',
+        attemptId: 'attempt-hl-317-1',
         tool: 'Synthetic workspace editor',
         summary: 'Prepared the dependency revision; no repository merge was requested.',
         occurredAt: '2026-08-13T14:12:00-07:00',
@@ -256,6 +277,7 @@ function baselineState(): HarborState {
       {
         id: 'tool-hl-317-analysis',
         taskId: 'HL-317',
+        attemptId: 'attempt-hl-317-1',
         tool: 'Synthetic dependency analyzer',
         summary: 'Identified the authored dependency target and proposed a bounded revision.',
         occurredAt: '2026-08-13T14:02:00-07:00',
@@ -265,6 +287,7 @@ function baselineState(): HarborState {
       {
         id: 'tool-hl-317-intake',
         taskId: 'HL-317',
+        attemptId: 'attempt-hl-317-1',
         tool: 'Harbor work intake',
         summary: 'Accepted the authored maintenance request and created attempt 1.',
         occurredAt: '2026-08-13T13:50:00-07:00',
@@ -278,11 +301,19 @@ function baselineState(): HarborState {
       state: 'idle',
       outcome: null,
       requestedAt: null,
+      expiresAt: null,
       completedAt: null,
       message: '',
     },
+    executionRequest: {
+      kind: null,
+      state: 'idle',
+      requestedAt: null,
+      message: 'No pause or cancellation request is pending.',
+    },
     now: currentTime,
     evidencePolicy: { maximumAgeMinutes: 5 },
+    approvalPolicy: { lifetimeMinutes: 5 },
     presentation: Object.fromEntries(
       harborFunctions.map(({ value }) => [
         value,
@@ -330,6 +361,7 @@ function applyMaximumFixture(state: HarborState): void {
   state.toolRecords = Array.from({ length: 250 }, (_, index) => ({
     id: `tool-record-${index + 1}`,
     taskId: state.tasks[index % state.tasks.length]!.id,
+    attemptId: state.tasks[index % state.tasks.length]!.attemptId,
     tool: 'Synthetic workspace tool',
     summary: `Retained tool record ${index + 1}; no external effect is inferred.`,
     occurredAt: new Date(Date.parse(observedAt) - index * 60_000).toISOString(),
@@ -394,6 +426,7 @@ export function createHarborState(
         state: 'resolved',
         outcome: 'denied',
         requestedAt: observedAt,
+        expiresAt: '2026-08-13T14:33:00-07:00',
         completedAt: observedAt,
         message: 'Approval denied. The target branch remains unchanged.',
       };
@@ -401,7 +434,6 @@ export function createHarborState(
     case 'request-pending':
       if (task) {
         task.approvalState = 'pending';
-        task.activity = 'pending';
       }
       state.approvalRequest = {
         id: 'approval-pending',
@@ -409,6 +441,7 @@ export function createHarborState(
         state: 'pending',
         outcome: null,
         requestedAt: observedAt,
+        expiresAt: '2026-08-13T14:33:00-07:00',
         completedAt: null,
         message: 'Approval requested. No merge has occurred.',
       };
@@ -420,8 +453,9 @@ export function createHarborState(
         taskId: 'HL-317',
         state: 'resolved',
         outcome: 'timed-out',
-        requestedAt: observedAt,
-        completedAt: observedAt,
+        requestedAt: '2026-08-13T14:20:00-07:00',
+        expiresAt: '2026-08-13T14:25:00-07:00',
+        completedAt: '2026-08-13T14:25:00-07:00',
         message: 'Approval expired without a decision. The target branch remains unchanged.',
       };
       break;
@@ -438,6 +472,7 @@ export function createHarborState(
         state: 'resolved',
         outcome: 'merge-failed',
         requestedAt: observedAt,
+        expiresAt: '2026-08-13T14:33:00-07:00',
         completedAt: observedAt,
         message: 'Approval was granted, but the merge failed. The target branch remains unchanged.',
       };
@@ -451,6 +486,16 @@ export function createHarborState(
         task.activity = 'idle';
         task.humanAttention = 'none';
       }
+      state.approvalRequest = {
+        id: 'approval-merged',
+        taskId: 'HL-317',
+        state: 'resolved',
+        outcome: 'merged',
+        requestedAt: observedAt,
+        expiresAt: '2026-08-13T14:33:00-07:00',
+        completedAt: observedAt,
+        message: 'Merge confirmed on the target branch.',
+      };
       break;
     case 'recovered':
       if (task) {
@@ -466,6 +511,7 @@ export function createHarborState(
       state.toolRecords.unshift({
         id: 'tool-hl-317-policy',
         taskId: 'HL-317',
+        attemptId: 'attempt-hl-317-1',
         tool: 'Synthetic policy verifier',
         summary: 'A policy check completed; it does not approve or perform a merge.',
         occurredAt: '2026-08-13T14:23:00-07:00',
@@ -477,8 +523,25 @@ export function createHarborState(
       break;
     case 'pause-requested':
       if (task) task.activity = 'pending';
+      state.executionRequest = {
+        kind: 'pause',
+        state: 'pending',
+        requestedAt: observedAt,
+        message: 'Pause requested; the active tool step may finish before execution stops.',
+      };
       state.presentation.execution.message =
         'Pause requested; the active tool step may finish before execution stops.';
+      break;
+    case 'cancel-requested':
+      if (task) task.activity = 'pending';
+      state.executionRequest = {
+        kind: 'cancel',
+        state: 'pending',
+        requestedAt: observedAt,
+        message:
+          'Cancellation requested; the active tool step may finish and cancellation is not yet confirmed.',
+      };
+      state.presentation.execution.message = state.executionRequest.message;
       break;
     case 'steady':
       break;
@@ -502,22 +565,29 @@ export function reduceHarbor(state: HarborState, action: HarborAction): HarborSt
 
   switch (action.type) {
     case 'request-merge-approval':
-      if (!task) return state;
+      if (
+        !task ||
+        task.humanAttention !== 'decision-required' ||
+        task.mergeState === 'merged' ||
+        state.approvalRequest.state === 'pending'
+      )
+        return state;
       task.approvalState = 'pending';
-      task.activity = 'pending';
       next.approvalRequest = {
         id: action.requestId,
         taskId: action.taskId,
         state: 'pending',
         outcome: null,
         requestedAt: action.requestedAt,
+        expiresAt: action.expiresAt,
         completedAt: null,
         message: 'Approval requested. No merge has occurred.',
       };
       return next;
     case 'resolve-merge-approval':
       if (!task || state.approvalRequest.id !== action.requestId) return state;
-      task.activity = 'idle';
+      task.activity =
+        action.outcome === 'merged' || action.outcome === 'merge-failed' ? 'idle' : task.activity;
       task.approvalState =
         action.outcome === 'denied'
           ? 'denied'
@@ -552,8 +622,14 @@ export function reduceHarbor(state: HarborState, action: HarborAction): HarborSt
       };
       return next;
     case 'request-pause':
-      if (!task) return state;
+      if (!task || state.executionRequest.state === 'pending') return state;
       task.activity = 'pending';
+      next.executionRequest = {
+        kind: 'pause',
+        state: 'pending',
+        requestedAt: action.requestedAt,
+        message: 'Pause requested; the active tool step may finish before execution stops.',
+      };
       next.presentation = {
         ...state.presentation,
         execution: {
@@ -561,16 +637,79 @@ export function reduceHarbor(state: HarborState, action: HarborAction): HarborSt
           message: 'Pause requested; the active tool step may finish before execution stops.',
         },
       };
+      next.announcement = {
+        id: (state.announcement?.id ?? 0) + 1,
+        message: next.executionRequest.message,
+      };
+      return next;
+    case 'request-cancel':
+      if (!task || state.executionRequest.state === 'pending') return state;
+      task.activity = 'pending';
+      next.executionRequest = {
+        kind: 'cancel',
+        state: 'pending',
+        requestedAt: action.requestedAt,
+        message:
+          'Cancellation requested; the active tool step may finish and cancellation is not yet confirmed.',
+      };
+      next.presentation = {
+        ...state.presentation,
+        execution: { ...state.presentation.execution, message: next.executionRequest.message },
+      };
+      next.announcement = {
+        id: (state.announcement?.id ?? 0) + 1,
+        message: next.executionRequest.message,
+      };
       return next;
     case 'retry-task':
       if (!task || task.state !== 'failed') return state;
-      task.previousAttemptId = task.attemptId;
-      task.attemptId = action.attemptId;
-      task.state = 'queued';
-      task.activity = 'queued';
-      task.condition = 'neutral';
-      task.approvalState = 'idle';
-      task.mergeState = 'not-merged';
+      {
+        const previousAttemptId = task.attemptId;
+        task.previousAttemptId = task.attemptId;
+        task.attemptId = action.attemptId;
+        task.state = 'queued';
+        task.activity = 'queued';
+        task.condition = 'neutral';
+        task.approvalState = 'idle';
+        task.mergeState = 'not-merged';
+        task.humanAttention = 'review';
+        task.evidence.knowledge = 'stale';
+        task.evidence.confidence = 'low';
+        task.evidence.summary =
+          'Retained evidence belongs to the previous attempt; the new attempt has not produced current evidence.';
+        next.approvalRequest = {
+          id: null,
+          taskId: null,
+          state: 'idle',
+          outcome: null,
+          requestedAt: null,
+          expiresAt: null,
+          completedAt: null,
+          message: 'A new attempt must produce reviewable evidence before approval.',
+        };
+        next.executionRequest = {
+          kind: null,
+          state: 'idle',
+          requestedAt: null,
+          message: 'No pause or cancellation request is pending.',
+        };
+        const retryRecord: ToolRecord = {
+          id: `tool-${action.attemptId}-created`,
+          taskId: task.id,
+          attemptId: action.attemptId,
+          tool: 'Harbor recovery',
+          summary: `Created ${action.attemptId} linked to ${previousAttemptId}; no execution or merge result is claimed.`,
+          occurredAt: action.createdAt,
+          knowledge: 'confirmed',
+          condition: 'neutral',
+        };
+        next.toolRecords = [retryRecord, ...state.toolRecords].slice(0, state.retention.eventLimit);
+        next.retention = { ...state.retention, retainedEventCount: next.toolRecords.length };
+        next.announcement = {
+          id: (state.announcement?.id ?? 0) + 1,
+          message: `Retry created as ${action.attemptId}; previous attempt retained.`,
+        };
+      }
       return next;
     case 'receive-tool-record':
       next.revision += 1;
@@ -582,6 +721,10 @@ export function reduceHarbor(state: HarborState, action: HarborAction): HarborSt
 
 export function selectTask(state: HarborState, taskId: string): HarborTask | undefined {
   return state.tasks.find(({ id }) => id === taskId);
+}
+
+export function approvalExpiresAt(requestedAt: string, lifetimeMinutes: number): string {
+  return new Date(Date.parse(requestedAt) + lifetimeMinutes * 60_000).toISOString();
 }
 
 export interface HarborTaskInvestigation {

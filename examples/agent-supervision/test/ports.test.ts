@@ -18,6 +18,7 @@ describe('Harbor Lab deterministic merge approval adapter', () => {
       repository: 'harbor-lab/dependency-sentinel',
       targetBranch: 'main',
       proposedRevision: 'deps/harbor-client-4.8.2',
+      expiresAt: '2026-08-13T14:33:00-07:00',
     });
     expect(scheduler.pendingCount()).toBe(1);
     scheduler.resolveNext();
