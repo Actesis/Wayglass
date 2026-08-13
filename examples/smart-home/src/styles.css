@@ -1,0 +1,32 @@
+:root {
+  color: var(--wg-color-semantic-text-primary);
+  background: var(--wg-color-semantic-surface-canvas);
+}
+
+body {
+  margin: 0;
+}
+
+.cedar-header,
+.cedar-header nav,
+main,
+footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--wg-space-reference-3);
+  align-items: baseline;
+}
+
+.cedar-header h1,
+main h2,
+main p {
+  flex-basis: 100%;
+}
+
+.cedar-header a {
+  color: var(--wg-color-semantic-action-primary);
+}
+
+.cedar-announcement:empty {
+  display: none;
+}

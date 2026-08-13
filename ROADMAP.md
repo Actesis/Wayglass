@@ -286,8 +286,7 @@ and retains the boundaries accepted during Phase 2.
 
 ## Phase 4 — Reference domains
 
-Status: Formal roadmap accepted on August 12, 2026. Phase 4A active. Application implementation
-begins only after Phase 4A contracts and architecture are accepted.
+Status: Phase 4A accepted on August 12, 2026. Phase 4B Cedar House implementation active.
 
 The [formal Phase 4 plan](./docs/phase-4.md) treats the three reference applications as deployment
 proofs with application-owned state and workflows rather than as new public component families.
@@ -296,9 +295,9 @@ proofs with application-owned state and workflows rather than as new public comp
 
 - [x] Inventory reusable Phase 1–3 contracts and define one credible workflow per application.
 - [x] Specify application isolation, state, adapter, routing, renderer, and code-sharing boundaries.
-- [ ] Define shared scenario vocabulary, brand-adaptation rules, validation matrix, and performance
+- [x] Define shared scenario vocabulary, brand-adaptation rules, validation matrix, and performance
       bounds.
-- [ ] Draft and accept the required architecture and validation records.
+- [x] Draft and accept the required architecture and validation records.
 
 ### Phase 4B — Smart-home reference application
 

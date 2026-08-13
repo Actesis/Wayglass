@@ -1,7 +1,7 @@
 # Phase 4 reference-application validation plan
 
-**Status:** Proposed for Phase 4A on August 12, 2026. No reference-application implementation is
-authorized until this plan is reviewed and accepted.
+**Status:** Accepted for Phase 4A on August 12, 2026. This plan authorizes reference-application
+implementation within the accepted architecture and milestone contracts.
 
 This plan defines the evidence required from the Cedar House, Northline Cold Storage, and Harbor Lab
 reference applications. It extends the component-level evidence from Phases 1–3 into complete
