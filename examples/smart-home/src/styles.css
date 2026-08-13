@@ -251,6 +251,30 @@ main {
   gap: var(--wg-space-semantic-layout-function-comfortable);
 }
 
+.cedar-maximum-fixture,
+.cedar-validation-values,
+.cedar-validation-telemetry {
+  display: grid;
+  min-inline-size: 0;
+  gap: var(--wg-space-semantic-layout-section-comfortable);
+}
+
+.cedar-validation-values,
+.cedar-validation-telemetry {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.cedar-inventory {
+  columns: 4;
+  gap: var(--wg-space-semantic-function-gutter);
+  padding-inline-start: var(--wg-space-semantic-layout-function-comfortable);
+}
+
+.cedar-inventory li {
+  break-inside: avoid;
+  margin-block-end: var(--wg-space-reference-2);
+}
+
 .cedar-back-link {
   justify-self: start;
 }
@@ -336,6 +360,15 @@ footer {
 }
 
 @media (max-width: 40rem) {
+  wg-canvas {
+    --wg-space-semantic-page-compact: var(--wg-space-reference-2);
+  }
+
+  wg-panel {
+    --wg-component-panel-space: var(--wg-space-reference-2);
+    --wg-component-panel-space-section: var(--wg-space-reference-2);
+  }
+
   .cedar-header,
   .cedar-header nav,
   .cedar-function-grid,
@@ -345,6 +378,15 @@ footer {
   .cedar-maintenance-layout,
   .cedar-asset-facts {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cedar-validation-values,
+  .cedar-validation-telemetry {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cedar-inventory {
+    columns: 1;
   }
 
   .cedar-header,
@@ -366,7 +408,12 @@ footer {
   }
 
   .cedar-function {
-    padding: var(--wg-space-semantic-layout-function-compact);
+    padding: var(--wg-space-reference-2);
+  }
+
+  .cedar-values > * {
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
   }
 
   .cedar-function-selectors a {

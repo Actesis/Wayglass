@@ -1,8 +1,9 @@
 # Cedar House reference application
 
-**Status:** Phase 4B application foundations, household composition, and control workflows are
-accepted. Asset media and maintenance detail are proposed on August 12, 2026. Final validation
-remains the subsequent Phase 4B slice.
+**Status:** Phase 4B accepted on August 12, 2026. Automated, production visual, responsive,
+performance-bound, and supported-browser validation are complete. Representative manual
+assistive-technology gates remain carried with explicit public-release impact in the
+[Phase 4B validation record](../accessibility/phase-4b-cedar-house-validation.md).
 
 Cedar House is the private smart-home application defined by the accepted
 [Phase 4 reference-application contract](./phase-4-reference-applications.md). It tests household
@@ -89,6 +90,7 @@ Run `pnpm example:smart-home`, then open the local Vite URL. Human-readable path
 `/functions/access`, and `/assets/hvac-air-handler`. Query parameters may select `scenario`,
 `theme`, `density`, and `dir` without replacing route identity.
 
-## Next slices
+## Next milestone
 
-1. Complete the accepted browser, responsive, visual, performance, and assistive-technology record.
+Phase 4C builds the Northline Cold Storage operations-console reference application under the
+accepted application and validation contracts.

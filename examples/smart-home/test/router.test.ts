@@ -7,7 +7,7 @@ describe('Cedar House routes', () => {
     expect(
       readCedarRoute(
         new URL(
-          'https://wayglass.test/functions/access?scenario=secure-partial&theme=wayglass-light&density=compact&dir=rtl',
+          'https://wayglass.test/functions/access?scenario=secure-partial&theme=wayglass-light&density=compact&dir=rtl&fixture=maximum',
         ),
       ),
     ).toEqual({
@@ -16,6 +16,7 @@ describe('Cedar House routes', () => {
       theme: 'wayglass-light',
       density: 'compact',
       direction: 'rtl',
+      fixture: 'maximum',
     });
   });
 
@@ -26,6 +27,7 @@ describe('Cedar House routes', () => {
       theme: 'wayglass-dark',
       density: 'comfortable',
       direction: 'ltr',
+      fixture: 'standard',
     });
   });
 

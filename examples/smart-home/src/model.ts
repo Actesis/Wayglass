@@ -27,6 +27,7 @@ export const cedarScenarios = [
 ] as const;
 
 export type CedarScenario = (typeof cedarScenarios)[number];
+export type CedarFixture = 'standard' | 'maximum';
 export type Condition = 'neutral' | 'positive' | 'caution' | 'critical';
 export type Knowledge = 'confirmed' | 'stale' | 'unavailable' | 'unknown';
 export type Activity = 'idle' | 'pending';
@@ -70,7 +71,21 @@ export interface MaintenanceRecord {
   evidence: 'resident-recorded';
 }
 
+export interface HouseholdInventoryRecord {
+  id: string;
+  label: string;
+  kind: 'device' | 'asset';
+}
+
+export interface HouseholdTelemetrySeries {
+  id: string;
+  label: string;
+  unit: string;
+  samples: ReadonlyArray<{ observedAt: number; value: number; knowledge: 'confirmed' }>;
+}
+
 export interface CedarHouseState {
+  fixture: CedarFixture;
   scenario: CedarScenario;
   selectedFunction: CedarFunction;
   revision: number;
@@ -91,6 +106,11 @@ export interface CedarHouseState {
     mediaState: 'available' | 'loading' | 'unavailable';
     history: MaintenanceRecord[];
   };
+  validation: {
+    inventory: HouseholdInventoryRecord[];
+    values: Light[];
+    telemetry: HouseholdTelemetrySeries[];
+  };
   presentation: Record<
     CedarFunction,
     {
@@ -104,7 +124,7 @@ export interface CedarHouseState {
 
 export type CedarHouseAction =
   | { type: 'select-function'; value: CedarFunction }
-  | { type: 'set-scenario'; value: CedarScenario }
+  | { type: 'set-scenario'; value: CedarScenario; fixture: CedarFixture }
   | { type: 'request-porch-light'; requestedOn: boolean; requestId: string; requestedAt: string }
   | {
       type: 'resolve-porch-light';
@@ -120,7 +140,8 @@ export type CedarHouseAction =
       completedAt: string;
     }
   | { type: 'record-filter-replaced'; recordId: string; recordedAt: string }
-  | { type: 'receive-meaningful-update' };
+  | { type: 'receive-meaningful-update' }
+  | { type: 'replace-validation-telemetry' };
 
 const observedAt = '2026-08-12T18:30:00-07:00';
 
@@ -130,6 +151,7 @@ function emptyRequest(): HouseholdRequest {
 
 function baselineState(): CedarHouseState {
   return {
+    fixture: 'standard',
     scenario: 'steady',
     selectedFunction: 'comfort',
     revision: 0,
@@ -203,6 +225,7 @@ function baselineState(): CedarHouseState {
         },
       ],
     },
+    validation: { inventory: [], values: [], telemetry: [] },
     presentation: Object.fromEntries(
       cedarFunctions.map(({ value }) => [
         value,
@@ -221,9 +244,15 @@ function completedRequest(
   return { id, state, message, requestedAt: observedAt, completedAt: observedAt };
 }
 
-export function createCedarHouseState(scenario: CedarScenario = 'steady'): CedarHouseState {
+export function createCedarHouseState(
+  scenario: CedarScenario = 'steady',
+  fixture: CedarFixture = 'standard',
+): CedarHouseState {
   const state = baselineState();
   state.scenario = scenario;
+  state.fixture = fixture;
+
+  if (fixture === 'maximum') applyMaximumFixture(state);
 
   switch (scenario) {
     case 'initial-loading':
@@ -333,6 +362,42 @@ export function createCedarHouseState(scenario: CedarScenario = 'steady'): Cedar
   return state;
 }
 
+function applyMaximumFixture(state: CedarHouseState): void {
+  state.validation.inventory = Array.from({ length: 40 }, (_, index) => ({
+    id: `household-record-${index + 1}`,
+    label: index < 32 ? `Household device ${index + 1}` : `Household asset ${index - 31}`,
+    kind: index < 32 ? 'device' : 'asset',
+  }));
+  state.validation.values = Array.from({ length: 18 }, (_, index) => ({
+    id: `representative-value-${index + 1}`,
+    label: `Representative household value ${index + 1}`,
+    confirmedOn: index % 3 === 0,
+    requestedOn: null,
+    condition: 'neutral',
+    knowledge: 'confirmed',
+    activity: 'idle',
+    observedAt,
+  }));
+
+  const windowStart = Date.parse('2026-08-12T17:30:00-07:00');
+  state.validation.telemetry = Array.from({ length: 6 }, (_, seriesIndex) => ({
+    id: `household-telemetry-${seriesIndex + 1}`,
+    label: `Household telemetry ${seriesIndex + 1}`,
+    unit: seriesIndex % 2 === 0 ? 'W' : '%',
+    samples: Array.from({ length: 120 }, (_, sampleIndex) => ({
+      observedAt: windowStart + sampleIndex * 30_000,
+      value: 30 + seriesIndex * 8 + ((sampleIndex * (seriesIndex + 3)) % 24),
+      knowledge: 'confirmed' as const,
+    })),
+  }));
+  state.maintenance.history = Array.from({ length: 60 }, (_, index) => ({
+    id: `maintenance-record-${index + 1}`,
+    summary: index % 2 === 0 ? 'HVAC return filter replaced' : 'Air-handler access area inspected',
+    recordedAt: new Date(Date.parse(observedAt) - index * 7 * 24 * 60 * 60 * 1000).toISOString(),
+    evidence: 'resident-recorded' as const,
+  }));
+}
+
 function setAllPresentation(
   state: CedarHouseState,
   dataState: CedarHouseState['presentation'][CedarFunction]['dataState'],
@@ -353,7 +418,7 @@ export function reduceCedarHouse(
       return { ...state, selectedFunction: action.value };
     case 'set-scenario':
       return {
-        ...createCedarHouseState(action.value),
+        ...createCedarHouseState(action.value, action.fixture),
         selectedFunction: state.selectedFunction,
       };
     case 'request-porch-light':
@@ -482,6 +547,19 @@ export function reduceCedarHouse(
         ...state,
         revision: 1,
         energy: { ...state.energy, currentWatts: 1425, observedAt },
+        announcement: null,
+      };
+    case 'replace-validation-telemetry':
+      return {
+        ...state,
+        revision: state.revision + 1,
+        validation: {
+          ...state.validation,
+          telemetry: state.validation.telemetry.map((series) => ({
+            ...series,
+            samples: series.samples.map((sample) => ({ ...sample, value: sample.value + 1 })),
+          })),
+        },
         announcement: null,
       };
   }

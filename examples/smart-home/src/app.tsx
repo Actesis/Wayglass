@@ -10,11 +10,13 @@ import {
   WgMetric,
   WgPanel,
   WgStatusIndicator,
+  WgTelemetryStrip,
   WgThemeProvider,
   WgValueTile,
 } from '@wayglass/react';
 import {
   useEffect,
+  useLayoutEffect,
   useReducer,
   useRef,
   useSyncExternalStore,
@@ -22,6 +24,7 @@ import {
   type MouseEvent,
   type ReactNode,
 } from 'react';
+import { flushSync } from 'react-dom';
 
 import {
   cedarFunctions,
@@ -41,6 +44,17 @@ interface CedarCommands {
   showSecureConfirmation(invoker: HTMLElement): void;
 }
 
+declare global {
+  interface Window {
+    __cedarValidation?: {
+      constructionDuration?: number;
+      runMutation?: (
+        mutation: 'confirmed-control' | 'failed-control' | 'partial-secure' | 'telemetry',
+      ) => number;
+    };
+  }
+}
+
 function routeTitle(route: CedarRoute): string {
   switch (route.name) {
     case 'overview':
@@ -56,14 +70,16 @@ export function CedarHouseApp({
   router,
   controls,
   clock,
+  constructionStartedAt,
 }: {
   router: CedarRouter;
   controls: HouseholdControlPort;
   clock: CedarClock;
+  constructionStartedAt: number;
 }) {
   const routeState = useSyncExternalStore(router.subscribe, router.current);
-  const [state, dispatch] = useReducer(reduceCedarHouse, routeState.scenario, (scenario) =>
-    createCedarHouseState(scenario),
+  const [state, dispatch] = useReducer(reduceCedarHouse, routeState, (initialRoute) =>
+    createCedarHouseState(initialRoute.scenario, initialRoute.fixture),
   );
   const requestSequence = useRef(0);
   const secureConfirmation = useRef<ComponentRef<typeof WgConfirmationDialog>>(null);
@@ -74,8 +90,64 @@ export function CedarHouseApp({
   }, [title]);
 
   useEffect(() => {
-    dispatch({ type: 'set-scenario', value: routeState.scenario });
-  }, [routeState.scenario]);
+    dispatch({
+      type: 'set-scenario',
+      value: routeState.scenario,
+      fixture: routeState.fixture,
+    });
+  }, [routeState.fixture, routeState.scenario]);
+
+  useLayoutEffect(() => {
+    if (routeState.fixture !== 'maximum') return;
+    const validation = (window.__cedarValidation ??= {});
+    validation.constructionDuration ??= performance.now() - constructionStartedAt;
+  }, [constructionStartedAt, routeState.fixture]);
+
+  useEffect(() => {
+    if (routeState.fixture !== 'maximum') return;
+    const validation = (window.__cedarValidation ??= {});
+    validation.runMutation = (mutation) => {
+      const started = performance.now();
+      flushSync(() => {
+        if (mutation === 'telemetry') {
+          dispatch({ type: 'replace-validation-telemetry' });
+          return;
+        }
+        if (mutation === 'partial-secure') {
+          dispatch({ type: 'set-scenario', value: 'secure-partial', fixture: 'maximum' });
+          dispatch({
+            type: 'request-secure-house',
+            requestId: 'validation-secure',
+            requestedAt: clock(),
+          });
+          dispatch({
+            type: 'resolve-secure-house',
+            requestId: 'validation-secure',
+            outcome: 'partial',
+            completedAt: clock(),
+          });
+          return;
+        }
+        dispatch({ type: 'set-scenario', value: 'steady', fixture: 'maximum' });
+        dispatch({
+          type: 'request-porch-light',
+          requestedOn: true,
+          requestId: 'validation-porch',
+          requestedAt: clock(),
+        });
+        dispatch({
+          type: 'resolve-porch-light',
+          requestId: 'validation-porch',
+          outcome: mutation === 'confirmed-control' ? 'succeeded' : 'failed',
+          completedAt: clock(),
+        });
+      });
+      return performance.now() - started;
+    };
+    return () => {
+      delete validation.runMutation;
+    };
+  }, [clock, routeState.fixture]);
 
   function navigate(event: MouseEvent<HTMLAnchorElement>, route: CedarRoute) {
     if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
@@ -255,7 +327,80 @@ function Overview({
           />
         ))}
       </div>
+      {state.fixture === 'maximum' ? <MaximumFixture state={state} /> : null}
     </>
+  );
+}
+
+function MaximumFixture({ state }: { state: CedarHouseState }) {
+  const windowStart = state.validation.telemetry[0]?.samples[0]?.observedAt ?? 0;
+  const windowEnd = state.validation.telemetry[0]?.samples.at(-1)?.observedAt ?? 1;
+  return (
+    <section className="cedar-maximum-fixture" aria-labelledby="cedar-maximum-heading">
+      <WgElbow weight="strong">
+        <h2 id="cedar-maximum-heading">Validation-scale household context</h2>
+      </WgElbow>
+      <WgPanel purpose="information" emphasis="standard" label="Household inventory fixture">
+        <h3 slot="heading">Household inventory</h3>
+        <p>
+          {state.validation.inventory.length} deterministic devices and assets exercise application
+          coordination without representing a live integration.
+        </p>
+        <ol className="cedar-inventory" aria-label="Household inventory">
+          {state.validation.inventory.map((record) => (
+            <li key={record.id}>{record.label}</li>
+          ))}
+        </ol>
+      </WgPanel>
+      <WgPanel purpose="monitor" emphasis="standard" label="Representative household values">
+        <h3 slot="heading">Representative household values</h3>
+        <div className="cedar-validation-values">
+          {state.validation.values.map((value) => (
+            <WgBooleanValue
+              key={value.id}
+              data-validation-value={value.id}
+              label={value.label}
+              asserted={value.confirmedOn ?? false}
+              assertedLabel="On"
+              notAssertedLabel="Off"
+              knowledge={value.knowledge}
+              presentation="rail"
+            />
+          ))}
+        </div>
+      </WgPanel>
+      <div className="cedar-validation-telemetry">
+        {state.validation.telemetry.map((series) => {
+          const latest = series.samples.at(-1)?.value ?? 0;
+          return (
+            <WgTelemetryStrip
+              key={series.id}
+              data-validation-telemetry={series.id}
+              label={series.label}
+              samples={series.samples}
+              windowStart={windowStart}
+              windowEnd={windowEnd}
+              scaleMinimum={0}
+              scaleMaximum={100}
+              condition="neutral"
+              knowledge="confirmed"
+            >
+              <h3 slot="heading">{series.label}</h3>
+              <p slot="current">
+                {latest} {series.unit}
+              </p>
+              <time slot="window-start" dateTime="2026-08-12T17:30:00-07:00">
+                17:30
+              </time>
+              <time slot="window-end" dateTime="2026-08-12T18:29:30-07:00">
+                18:29
+              </time>
+              <p slot="summary">120 confirmed samples; latest value {latest}.</p>
+            </WgTelemetryStrip>
+          );
+        })}
+      </div>
+    </section>
   );
 }
 
