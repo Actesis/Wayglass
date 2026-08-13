@@ -73,6 +73,20 @@ describe('Northline application state', () => {
       completedAt: 'later',
     });
     expect(selectLoad(held, 'NL-2048')?.confirmedReleaseState).toBe('held');
+    expect(held.dispatch.holdRequest).toMatchObject({
+      state: 'succeeded',
+      message: 'NL-2048 is confirmed on dispatch hold.',
+    });
+  });
+
+  it('provides a deterministic confirmed-hold scenario without implying temperature certainty', () => {
+    const state = createNorthlineState('hold-confirmed');
+    expect(selectLoad(state, 'NL-2048')).toMatchObject({
+      confirmedReleaseState: 'held',
+      condition: 'caution',
+      trailerTemperature: { knowledge: 'stale' },
+    });
+    expect(state.dispatch.holdRequest.state).toBe('succeeded');
   });
 
   it('filters and authors sorting without mutating the source records', () => {

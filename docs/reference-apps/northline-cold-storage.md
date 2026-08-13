@@ -1,7 +1,8 @@
 # Northline Cold Storage reference application
 
-**Status:** Phase 4C foundation and production composition accepted; operational investigation
-active on August 13, 2026. Consequential control and the accepted validation matrix remain ahead.
+**Status:** Phase 4C foundation, production composition, and operational investigation accepted;
+consequential dispatch-hold integration active on August 13, 2026. The accepted validation matrix
+remains ahead.
 
 Northline Cold Storage is the private operations-console application defined by the accepted
 [Phase 4 reference-application contract](./phase-4-reference-applications.md). It tests whether a
@@ -78,6 +79,28 @@ The Dispatch workspace now adds the accepted primary investigation path:
 These choices remain application policy. Wayglass does not own load queries, sort order, exception
 identity, investigation meaning, or follow-latest behavior.
 
+## Consequential dispatch hold
+
+The focused `NL-2048` workflow composes the accepted confirmation and feedback surfaces around the
+application-owned dispatch port:
+
+- the initiating control repeats the Dispatch function and `NL-2048` target, and confirmation names
+  the confirmed current release state, schedule-and-custody consequence, and absent release path;
+- confirming closes the native modal before a correlated request begins; cancellation returns focus
+  to the initiating control without changing application state;
+- pending presentation retains `Scheduled` as confirmed truth while showing the requested `Held`
+  effect as activity rather than completion;
+- success alone changes the confirmed release state to `Held`; permission denial and request failure
+  retain `Scheduled`, explain what remains true, and keep a confirmation-protected retry available;
+- one application-owned polite live region announces the durable result while the inline alert
+  remains authoritative and does not announce independently; and
+- a stale response cannot resolve a newer request, and no hold-release control is exposed without
+  the authorization, fresh evidence, and audit consequence required by the Phase 4 contract.
+
+The dialog, button, alert, and known-state displays are production Wayglass components. Request
+identity, authorization outcome, timing, durable wording, release truth, and recovery remain
+Northline policy; no public domain API is introduced.
+
 ## Local use
 
 Run `pnpm example:operations-console`, then open the local Vite URL. Human-readable paths include
@@ -86,7 +109,5 @@ Run `pnpm example:operations-console`, then open the local Vite URL. Human-reada
 
 ## Next slices
 
-1. Add the consequential dispatch-hold confirmation, pending, denied, failed, and confirmed-result
-   workflow.
-2. Complete the accepted responsive, visual, accessibility, failure, recovery, performance, and
+1. Complete the accepted responsive, visual, accessibility, failure, recovery, performance, and
    supported-browser record.

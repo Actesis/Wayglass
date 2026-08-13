@@ -1,6 +1,8 @@
 import {
+  WgAlert,
   WgButton,
   WgCanvas,
+  WgConfirmationDialog,
   WgDataTable,
   WgElbow,
   WgFilterBar,
@@ -19,7 +21,9 @@ import {
 import {
   useEffect,
   useReducer,
+  useRef,
   useSyncExternalStore,
+  type ComponentRef,
   type Dispatch,
   type MouseEvent,
   type ReactNode,
@@ -41,6 +45,7 @@ import {
   type NorthlineFunction,
   type NorthlineState,
 } from './model.js';
+import type { DispatchHoldPort, NorthlineClock } from './ports.js';
 import type { NorthlineRoute, NorthlineRouter } from './router.js';
 
 declare global {
@@ -55,12 +60,28 @@ function routeTitle(route: NorthlineRoute): string {
   return northlineFunctions.find(({ value }) => value === route.value)?.label ?? route.value;
 }
 
-export function NorthlineApp({ router }: { router: NorthlineRouter }) {
+interface DispatchCommands {
+  requestHold(): Promise<void>;
+  showHoldConfirmation(invoker: HTMLElement): void;
+}
+
+export function NorthlineApp({
+  router,
+  controls,
+  clock,
+}: {
+  router: NorthlineRouter;
+  controls: DispatchHoldPort;
+  clock: NorthlineClock;
+}) {
   const routeState = useSyncExternalStore(router.subscribe, router.current);
   const [state, dispatch] = useReducer(reduceNorthline, routeState, (initial) =>
     createNorthlineState(initial.scenario, initial.fixture),
   );
+  const requestSequence = useRef(0);
+  const holdConfirmation = useRef<ComponentRef<typeof WgConfirmationDialog>>(null);
   const title = routeTitle(routeState.route);
+  const representativeLoad = selectLoad(state, 'NL-2048');
 
   useEffect(() => {
     document.title = `${title} — Northline Cold Storage`;
@@ -83,6 +104,28 @@ export function NorthlineApp({ router }: { router: NorthlineRouter }) {
     event.preventDefault();
     router.navigate(route);
   }
+
+  const commands: DispatchCommands = {
+    async requestHold() {
+      if (representativeLoad?.confirmedReleaseState !== 'scheduled') return;
+      const requestId = `dispatch-hold-${++requestSequence.current}`;
+      dispatch({
+        type: 'request-dispatch-hold',
+        requestId,
+        loadId: representativeLoad.id,
+        requestedAt: clock(),
+      });
+      const result = await controls.requestDispatchHold({
+        requestId,
+        loadId: representativeLoad.id,
+        confirmedReleaseState: 'scheduled',
+      });
+      dispatch({ type: 'resolve-dispatch-hold', ...result });
+    },
+    showHoldConfirmation(invoker) {
+      holdConfirmation.current?.show({ invoker });
+    },
+  };
 
   return (
     <WgThemeProvider
@@ -138,12 +181,31 @@ export function NorthlineApp({ router }: { router: NorthlineRouter }) {
               dispatch={dispatch}
             />
           ) : (
-            <LoadDetail state={state} router={router} navigate={navigate} dispatch={dispatch} />
+            <LoadDetail
+              state={state}
+              router={router}
+              navigate={navigate}
+              dispatch={dispatch}
+              commands={commands}
+            />
           )}
         </main>
         <p className="northline-announcement" aria-live="polite" aria-atomic="true">
           {state.announcement?.message ?? ''}
         </p>
+        <WgConfirmationDialog
+          ref={holdConfirmation}
+          dialogId="northline-dispatch-hold"
+          actionLabel="Place NL-2048 on dispatch hold"
+          cancelLabel="Keep NL-2048 scheduled"
+          actionAppearance="primary"
+          attention="ordinary"
+          initialFocus="cancel"
+          onWgConfirmationAction={() => void commands.requestHold()}
+        >
+          <span slot="heading">Place NL-2048 on dispatch hold?</span>
+          <p>{dispatchHoldConfirmationDescription(representativeLoad)}</p>
+        </WgConfirmationDialog>
         <footer slot="footer">
           <span>Northline local time · 4:48 PM</span>
           <span>
@@ -737,11 +799,13 @@ function LoadDetail({
   router,
   navigate,
   dispatch,
+  commands,
 }: {
   state: NorthlineState;
   router: NorthlineRouter;
   navigate: Navigate;
   dispatch: Dispatch<NorthlineAction>;
+  commands: DispatchCommands;
 }) {
   const load = selectLoad(state, 'NL-2048');
   if (!load) {
@@ -850,6 +914,7 @@ function LoadDetail({
             </WgButton>
           </WgPanel>
         ) : null}
+        <DispatchHoldControl load={load} state={state} commands={commands} />
         <a
           href={router.href({ name: 'function', value: 'dispatch' })}
           onClick={(event) => navigate(event, { name: 'function', value: 'dispatch' })}
@@ -859,6 +924,96 @@ function LoadDetail({
       </section>
     </div>
   );
+}
+
+function DispatchHoldControl({
+  load,
+  state,
+  commands,
+}: {
+  load: DispatchLoad;
+  state: NorthlineState;
+  commands: DispatchCommands;
+}) {
+  const request = state.dispatch.holdRequest;
+  const held = load.confirmedReleaseState === 'held';
+  const pending = request.state === 'pending' && request.loadId === load.id;
+  const canRequest = !held && !pending;
+  const actionLabel = held
+    ? 'Dispatch hold confirmed'
+    : request.state === 'failed' || request.state === 'denied'
+      ? 'Retry dispatch hold'
+      : 'Place NL-2048 on dispatch hold';
+  return (
+    <WgPanel purpose="control" emphasis="strong" label="Dispatch hold control for NL-2048">
+      <h3 slot="heading">Dispatch hold · NL-2048</h3>
+      <p>
+        A confirmed hold changes Dispatch schedule and custody. This reference workflow does not
+        include releasing the hold.
+      </p>
+      <WgKeyValue
+        label="Confirmed release state"
+        value={displayLabel(load.confirmedReleaseState)}
+      />
+      <WgButton
+        slot="actions"
+        appearance="primary"
+        pending={pending}
+        disabled={!canRequest}
+        onClick={(event) => commands.showHoldConfirmation(event.currentTarget)}
+      >
+        {actionLabel}
+        <span slot="pending-label">Requesting dispatch hold</span>
+      </WgButton>
+      <DispatchHoldResult state={request.state} message={request.message} />
+    </WgPanel>
+  );
+}
+
+function DispatchHoldResult({
+  state,
+  message,
+}: {
+  state: NorthlineState['dispatch']['holdRequest']['state'];
+  message: string;
+}) {
+  const condition =
+    state === 'succeeded'
+      ? 'positive'
+      : state === 'failed' || state === 'denied'
+        ? 'caution'
+        : 'neutral';
+  return (
+    <WgAlert
+      condition={condition}
+      announcement="off"
+      label="Dispatch hold request result"
+      data-request-state={state}
+    >
+      <strong slot="heading">{dispatchHoldStateLabel(state)}</strong>
+      <p>{message || 'No dispatch-hold request in progress.'}</p>
+    </WgAlert>
+  );
+}
+
+function dispatchHoldStateLabel(state: NorthlineState['dispatch']['holdRequest']['state']): string {
+  switch (state) {
+    case 'idle':
+      return 'Ready';
+    case 'pending':
+      return 'Pending confirmation';
+    case 'succeeded':
+      return 'Hold confirmed';
+    case 'failed':
+      return 'Release state unchanged';
+    case 'denied':
+      return 'Permission required';
+  }
+}
+
+function dispatchHoldConfirmationDescription(load: DispatchLoad | undefined): string {
+  const releaseState = load ? displayLabel(load.confirmedReleaseState) : 'Unavailable';
+  return `Confirmed current release state: ${releaseState}. Request a Dispatch hold for Northline load NL-2048. A confirmed hold changes schedule and custody, and this workflow does not include hold release.`;
 }
 
 function functionSummary(value: NorthlineFunction, state: NorthlineState): string {
