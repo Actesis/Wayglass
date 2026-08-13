@@ -5,6 +5,8 @@ import {
   WgConfirmationDialog,
   WgElbow,
   WgKeyValue,
+  WgMedia,
+  WgMediaViewer,
   WgMetric,
   WgPanel,
   WgStatusIndicator,
@@ -156,7 +158,18 @@ export function CedarHouseApp({
               commands={commands}
             />
           ) : (
-            <AssetPlaceholder router={router} navigate={navigate} />
+            <AssetDetail
+              state={state}
+              router={router}
+              navigate={navigate}
+              onRecordFilterReplaced={() => {
+                dispatch({
+                  type: 'record-filter-replaced',
+                  recordId: `filter-${++requestSequence.current}`,
+                  recordedAt: clock(),
+                });
+              }}
+            />
           )}
         </main>
         <p className="cedar-announcement" aria-live="polite" aria-atomic="true">
@@ -640,18 +653,189 @@ function functionSummary(value: CedarFunction, state: CedarHouseState): string {
   }
 }
 
-function AssetPlaceholder({ router, navigate }: { router: CedarRouter; navigate: Navigate }) {
+function AssetDetail({
+  state,
+  router,
+  navigate,
+  onRecordFilterReplaced,
+}: {
+  state: CedarHouseState;
+  router: CedarRouter;
+  navigate: Navigate;
+  onRecordFilterReplaced(): void;
+}) {
+  const viewer = useRef<ComponentRef<typeof WgMediaViewer>>(null);
+  const recordConfirmation = useRef<ComponentRef<typeof WgConfirmationDialog>>(null);
+  const mediaState =
+    state.maintenance.mediaState === 'available' ? 'ready' : state.maintenance.mediaState;
+  const imageSource = '/assets/cedar-house-air-handler.jpg';
+  const imageAlt =
+    'Tall gray air handler in a utility closet with the return filter visible in the lower front slot';
+
   return (
-    <WgPanel purpose="information" emphasis="strong" label="HVAC asset detail foundation">
-      <h2 slot="heading">HVAC asset detail</h2>
-      <p>The identifying image and maintenance inspection path arrive in the media slice.</p>
+    <div className="cedar-asset-detail">
       <a
-        slot="actions"
+        className="cedar-back-link"
         href={router.href({ name: 'function', value: 'maintenance' })}
         onClick={(event) => navigate(event, { name: 'function', value: 'maintenance' })}
       >
         Back to Maintenance
       </a>
-    </WgPanel>
+      <div className="cedar-asset-overview">
+        <figure className="cedar-asset-figure">
+          <WgMedia aspect="landscape" fit="contain" boundary="strong" state={mediaState}>
+            <img src={imageSource} width="1600" height="1200" alt={imageAlt} decoding="async" />
+            <p slot="loading">
+              Loading the equipment photo. The cabinet location and filter instructions remain
+              available below.
+            </p>
+            <p slot="unavailable">
+              Photo unavailable. Find the tall gray air-handler cabinet behind the louvered utility
+              closet door; the return-filter slot is near the floor.
+            </p>
+            {mediaState === 'ready' ? (
+              <WgButton
+                slot="inspection"
+                appearance="secondary"
+                onClick={(event) => viewer.current?.show({ invoker: event.currentTarget })}
+              >
+                Inspect full-size air-handler photo
+              </WgButton>
+            ) : null}
+          </WgMedia>
+          <figcaption>
+            Cedar House air handler in the utility closet. The return filter is visible in the lower
+            front slot.
+          </figcaption>
+        </figure>
+        <WgPanel purpose="information" emphasis="strong" label="Air-handler identification">
+          <h2 id="cedar-air-handler-identity" slot="heading">
+            Identify the air handler
+          </h2>
+          <div className="cedar-asset-facts">
+            <WgKeyValue label="Location" value="Louvered utility closet" />
+            <WgKeyValue label="Filter access" value="Lower front slot" />
+            <WgKeyValue
+              label="Equipment condition"
+              value={state.maintenance.airHandlerAvailable ? 'Available' : 'Needs service'}
+              condition={state.maintenance.airHandlerAvailable ? 'positive' : 'critical'}
+            />
+            <WgKeyValue
+              label="Last resident record"
+              value={formatCedarDate(state.maintenance.lastReplacedAt)}
+            />
+          </div>
+          <p>
+            The photo helps identify the cabinet and access slot. Confirm the installed filter size
+            and airflow arrow on the existing filter before obtaining a replacement.
+          </p>
+        </WgPanel>
+      </div>
+
+      <div className="cedar-maintenance-layout">
+        <WgPanel purpose="information" emphasis="standard" label="Return-filter instructions">
+          <h2 slot="heading">Replace the return filter</h2>
+          <ol className="cedar-maintenance-steps">
+            <li>Set the HVAC system control to Off before opening the filter slot.</li>
+            <li>Open the louvered utility closet and locate the lower front slot shown above.</li>
+            <li>
+              Note the existing airflow-arrow direction, remove the old filter, and insert a
+              matching replacement in the same direction.
+            </li>
+            <li>Close the filter slot, clear the work area, and restore the HVAC control.</li>
+          </ol>
+          <p>
+            Stop and use a qualified service professional if the cabinet is wet, damaged, or unsafe
+            to access.
+          </p>
+        </WgPanel>
+        <WgPanel purpose="control" emphasis="strong" label="Filter maintenance record">
+          <h2 slot="heading">Record the completed work</h2>
+          <WgStatusIndicator
+            label={
+              state.maintenance.filterDue ? 'HVAC return filter due' : 'Filter replacement recorded'
+            }
+            condition={state.maintenance.filterDue ? 'caution' : 'positive'}
+            knowledge="confirmed"
+          />
+          <p>
+            This creates a Cedar House resident record. It does not claim the HVAC equipment sensed
+            or verified the physical replacement.
+          </p>
+          <WgButton
+            appearance="primary"
+            disabled={!state.maintenance.filterDue}
+            onClick={(event) => recordConfirmation.current?.show({ invoker: event.currentTarget })}
+          >
+            {state.maintenance.filterDue ? 'Record filter replaced' : 'Filter replacement recorded'}
+          </WgButton>
+        </WgPanel>
+      </div>
+
+      <WgPanel purpose="information" emphasis="standard" label="Maintenance history">
+        <h2 slot="heading">Maintenance history</h2>
+        <p>Resident-entered service records for this Cedar House asset. Newest first.</p>
+        <ol className="cedar-history" aria-label="Maintenance history">
+          {state.maintenance.history.map((record) => (
+            <li key={record.id}>
+              <time dateTime={record.recordedAt}>{formatCedarDate(record.recordedAt)}</time>
+              <strong>{record.summary}</strong>
+              <span>Resident recorded · not sensor verified</span>
+            </li>
+          ))}
+        </ol>
+      </WgPanel>
+
+      <WgMediaViewer
+        ref={viewer}
+        viewerId="cedar-air-handler-photo"
+        state={mediaState}
+        initialView="fit"
+        closeLabel="Close air-handler photo"
+        zoomInLabel="Zoom in"
+        zoomOutLabel="Zoom out"
+        fitLabel="Fit image"
+        actualSizeLabel="Actual size"
+      >
+        <span slot="heading">Cedar House air handler</span>
+        <span slot="context">Utility closet · lower front return-filter slot</span>
+        <img src={imageSource} width="1600" height="1200" alt={imageAlt} decoding="async" />
+        <p slot="loading">Loading the full-size air-handler photo.</p>
+        <p slot="unavailable">
+          Full-size photo unavailable. The cabinet and filter location remain described on the asset
+          page.
+        </p>
+        <span slot="caption">
+          Use the image to identify the equipment; follow the written replacement steps on the asset
+          page.
+        </span>
+      </WgMediaViewer>
+
+      <WgConfirmationDialog
+        ref={recordConfirmation}
+        dialogId="record-filter-replacement"
+        actionLabel="Record filter replaced"
+        cancelLabel="Do not record"
+        actionAppearance="primary"
+        attention="ordinary"
+        initialFocus="cancel"
+        onWgConfirmationAction={onRecordFilterReplaced}
+      >
+        <span slot="heading">Record the Cedar House filter replacement?</span>
+        <p>
+          Add a resident-entered maintenance record and clear the due item. This does not represent
+          sensor verification.
+        </p>
+      </WgConfirmationDialog>
+    </div>
   );
+}
+
+function formatCedarDate(value: string | null): string {
+  if (!value) return 'No replacement recorded';
+  return new Intl.DateTimeFormat('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  }).format(new Date(value));
 }

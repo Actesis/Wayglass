@@ -92,4 +92,30 @@ describe('Cedar House application state', () => {
     expect(updated.announcement).toBeNull();
     expect(repeated).toBe(updated);
   });
+
+  it('records resident maintenance evidence without claiming sensor verification', () => {
+    const baseline = createCedarHouseState('maintenance-due');
+    const recorded = reduceCedarHouse(baseline, {
+      type: 'record-filter-replaced',
+      recordId: 'filter-current',
+      recordedAt: '2026-08-12T18:35:00-07:00',
+    });
+
+    expect(recorded.maintenance.filterDue).toBe(false);
+    expect(recorded.maintenance.lastReplacedAt).toBe('2026-08-12T18:35:00-07:00');
+    expect(recorded.maintenance.history[0]).toEqual({
+      id: 'filter-current',
+      summary: 'HVAC return filter replaced',
+      recordedAt: '2026-08-12T18:35:00-07:00',
+      evidence: 'resident-recorded',
+    });
+    expect(recorded.announcement?.message).toContain('not sensor verification');
+    expect(
+      reduceCedarHouse(recorded, {
+        type: 'record-filter-replaced',
+        recordId: 'filter-duplicate',
+        recordedAt: '2026-08-12T18:36:00-07:00',
+      }),
+    ).toBe(recorded);
+  });
 });

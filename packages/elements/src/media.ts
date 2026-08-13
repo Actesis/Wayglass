@@ -135,7 +135,7 @@ export class WgMedia extends WayglassElement {
       visibility: hidden;
     }
 
-    [part='state'] {
+    [part~='state'] {
       z-index: 1;
       display: none;
       min-inline-size: 0;
@@ -150,12 +150,12 @@ export class WgMedia extends WayglassElement {
       text-align: center;
     }
 
-    :host([state='loading']) [part='state-loading'],
-    :host([state='unavailable']) [part='state-unavailable'] {
+    :host([state='loading']) [part~='state-loading'],
+    :host([state='unavailable']) [part~='state-unavailable'] {
       display: grid;
     }
 
-    :host([state='loading']) [part='state-loading'] {
+    :host([state='loading']) [part~='state-loading'] {
       background: color-mix(in srgb, var(--wg-media-color-background) 84%, transparent);
     }
 
@@ -177,7 +177,7 @@ export class WgMedia extends WayglassElement {
         background: Canvas;
       }
 
-      [part='state'] {
+      [part~='state'] {
         color: CanvasText;
         background: Canvas;
       }

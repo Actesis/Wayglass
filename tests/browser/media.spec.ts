@@ -154,6 +154,23 @@ test('keeps retained pixels and explicit loading text in one stable viewport', a
 test('replaces broken media without hiding identity, state, or action', async ({ page }) => {
   await expect(page.locator('#missing-image')).toBeHidden();
   await expect(page.locator('#unavailable-copy')).toBeVisible();
+  const fallbackGeometry = await page.locator('#unavailable-media').evaluate((element) => {
+    const viewport = element.shadowRoot!.querySelector<HTMLElement>('[part="viewport"]')!;
+    const fallback = element.querySelector<HTMLElement>('#unavailable-copy')!;
+    const viewportBounds = viewport.getBoundingClientRect();
+    const fallbackBounds = fallback.getBoundingClientRect();
+    return {
+      stateDisplay: getComputedStyle(
+        element.shadowRoot!.querySelector<HTMLElement>('[part~="state-unavailable"]')!,
+      ).display,
+      contained:
+        fallbackBounds.top >= viewportBounds.top &&
+        fallbackBounds.bottom <= viewportBounds.bottom &&
+        fallbackBounds.left >= viewportBounds.left &&
+        fallbackBounds.right <= viewportBounds.right,
+    };
+  });
+  expect(fallbackGeometry).toEqual({ stateDisplay: 'grid', contained: true });
   await expect(page.locator('#persistent-state')).toHaveText('Email verification: confirmed.');
   await expect(page.locator('#persistent-action')).toBeVisible();
   await expect(page.locator('#persistent-action')).toBeEnabled();
@@ -239,7 +256,7 @@ test('retains neutral boundaries and useful fallback text in forced colors', asy
   });
   expect(result.active).toBe(true);
   expect(result.border).toBe('solid');
-  expect(result.stateDisplay).not.toBe('none');
+  expect(result.stateDisplay).toBe('grid');
   await expect(page.locator('#unavailable-copy')).toBeVisible();
 
   const results = await new AxeBuilder({ page }).disableRules(['color-contrast']).analyze();

@@ -1,8 +1,8 @@
 # Cedar House reference application
 
-**Status:** Phase 4B application foundations and household composition are accepted. Routine and
-consequential control workflows are proposed on August 12, 2026. Media and final validation remain
-subsequent Phase 4B slices.
+**Status:** Phase 4B application foundations, household composition, and control workflows are
+accepted. Asset media and maintenance detail are proposed on August 12, 2026. Final validation
+remains the subsequent Phase 4B slice.
 
 Cedar House is the private smart-home application defined by the accepted
 [Phase 4 reference-application contract](./phase-4-reference-applications.md). It tests household
@@ -60,6 +60,29 @@ private to Cedar House. Components report intent and render projections; they do
 household truth. Completed results receive one deliberate live announcement and remain visibly
 available in the owning control section afterward.
 
+## Asset media and maintenance
+
+The HVAC asset route composes the accepted native-media and focused-viewer contracts with
+Cedar-owned maintenance content:
+
+- a synthetic, unbranded 1600 by 1200 identifying photograph shows the full air-handler cabinet and
+  its lower return-filter slot without using embedded labels as interface content;
+- native alternative text, visible location and access facts, written replacement steps, equipment
+  condition, and maintenance actions remain outside the image;
+- loading and unavailable media preserve the same asset identity, written instructions, and record
+  action without implying an equipment failure;
+- an explicit inspection button opens one authored image in `wg-media-viewer`, with fit, bounded
+  actual-size inspection, native scrolling, Escape/close behavior, and focus return;
+- recent work uses a native ordered history inside an informational panel so evidence is not
+  mislabeled as operational condition; and
+- recording a replacement clears the due item and appends resident evidence only after confirmation.
+  The durable result explicitly says that no sensor verified the physical work.
+
+The application owns the same-origin image source, alternative text, dimensions, lifecycle,
+maintenance records, confirmation policy, and evidence meaning. Wayglass components neither fetch
+the image nor infer asset or maintenance truth. The source fixture was generated for this synthetic
+reference application without a person, logo, serial number, or third-party brand.
+
 ## Local use
 
 Run `pnpm example:smart-home`, then open the local Vite URL. Human-readable paths include `/`,
@@ -68,5 +91,4 @@ Run `pnpm example:smart-home`, then open the local Vite URL. Human-readable path
 
 ## Next slices
 
-1. Implement HVAC asset detail, identifying image, maintenance history, and media inspection.
-2. Complete the accepted browser, responsive, visual, performance, and assistive-technology record.
+1. Complete the accepted browser, responsive, visual, performance, and assistive-technology record.
