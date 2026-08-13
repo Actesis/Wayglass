@@ -45,6 +45,10 @@ export default defineConfig({
             text: 'Cedar House',
             link: '/reference-apps/cedar-house',
           },
+          {
+            text: 'Northline Cold Storage',
+            link: '/reference-apps/northline-cold-storage',
+          },
         ],
       },
       {

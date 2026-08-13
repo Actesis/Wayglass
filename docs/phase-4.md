@@ -3,7 +3,7 @@
 **Status:** Phase 4A and Phase 4B accepted on August 12, 2026. Cedar House automated, production
 visual, responsive, performance-bound, and supported-browser validation are complete; representative
 manual assistive-technology gates remain explicit public-release requirements. Phase 4C Northline
-Cold Storage is next.
+Cold Storage foundations are active.
 
 Phase 4 tests Wayglass in three distinct, credible application contexts:
 
