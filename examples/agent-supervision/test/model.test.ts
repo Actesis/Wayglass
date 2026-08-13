@@ -4,6 +4,7 @@ import {
   reduceHarbor,
   selectHarborOverview,
   selectTask,
+  selectTaskInvestigation,
   selectTasksRequiringDecision,
 } from '../src/model.js';
 
@@ -144,5 +145,40 @@ describe('Harbor Lab application state', () => {
       decisionsRequired: 1,
       confirmedMerges: 0,
     });
+  });
+
+  it('derives stable investigation records, evidence age, and worker context from shared truth', () => {
+    const current = selectTaskInvestigation(createHarborState('steady'), 'HL-317');
+    expect(current).toMatchObject({
+      evidenceAgeMinutes: 2,
+      evidenceFreshness: 'current',
+      assignedAgent: {
+        id: 'agent-delta',
+        availability: 'available',
+        activity: 'waiting',
+      },
+    });
+    expect(current?.toolRecords.map(({ id }) => id)).toEqual([
+      'tool-hl-317-tests',
+      'tool-hl-317-change',
+      'tool-hl-317-analysis',
+      'tool-hl-317-intake',
+    ]);
+
+    const stale = selectTaskInvestigation(createHarborState('stale-evidence'), 'HL-317');
+    expect(stale).toMatchObject({ evidenceAgeMinutes: 10, evidenceFreshness: 'stale' });
+    expect(stale?.task.mergeState).toBe('not-merged');
+  });
+
+  it('inserts a new task tool record without replacing retained investigation identity', () => {
+    const previous = selectTaskInvestigation(createHarborState('steady'), 'HL-317');
+    const updated = selectTaskInvestigation(createHarborState('new-tool-record'), 'HL-317');
+    expect(updated?.toolRecords[0]).toMatchObject({
+      id: 'tool-hl-317-policy',
+      tool: 'Synthetic policy verifier',
+    });
+    expect(updated?.toolRecords.slice(1).map(({ id }) => id)).toEqual(
+      previous?.toolRecords.map(({ id }) => id),
+    );
   });
 });

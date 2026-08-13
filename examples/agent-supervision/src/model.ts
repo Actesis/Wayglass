@@ -109,6 +109,8 @@ export interface HarborState {
   agents: HarborAgent[];
   toolRecords: ToolRecord[];
   approvalRequest: ApprovalRequest;
+  now: string;
+  evidencePolicy: { maximumAgeMinutes: number };
   presentation: Record<HarborFunction, FunctionPresentation>;
   retention: { eventLimit: 250; retainedEventCount: number };
   announcement: { id: number; message: string } | null;
@@ -128,7 +130,9 @@ export type HarborAction =
   | { type: 'retry-task'; taskId: string; attemptId: string }
   | { type: 'receive-tool-record'; record: ToolRecord };
 
-const observedAt = '2026-08-13T14:20:00-07:00';
+const observedAt = '2026-08-13T14:28:00-07:00';
+const staleObservedAt = '2026-08-13T14:20:00-07:00';
+const currentTime = '2026-08-13T14:30:00-07:00';
 
 function representativeTask(): HarborTask {
   return {
@@ -145,7 +149,7 @@ function representativeTask(): HarborTask {
     attemptId: 'attempt-hl-317-1',
     previousAttemptId: null,
     evidence: {
-      source: 'Synthetic test run 8841',
+      source: 'Synthetic evidence bundle 8841',
       observedAt,
       knowledge: 'confirmed',
       confidence: 'high',
@@ -236,7 +240,34 @@ function baselineState(): HarborState {
         taskId: 'HL-317',
         tool: 'Synthetic test runner',
         summary: '148 tests completed; this record does not approve or perform a merge.',
-        occurredAt: observedAt,
+        occurredAt: staleObservedAt,
+        knowledge: 'confirmed',
+        condition: 'neutral',
+      },
+      {
+        id: 'tool-hl-317-change',
+        taskId: 'HL-317',
+        tool: 'Synthetic workspace editor',
+        summary: 'Prepared the dependency revision; no repository merge was requested.',
+        occurredAt: '2026-08-13T14:12:00-07:00',
+        knowledge: 'confirmed',
+        condition: 'neutral',
+      },
+      {
+        id: 'tool-hl-317-analysis',
+        taskId: 'HL-317',
+        tool: 'Synthetic dependency analyzer',
+        summary: 'Identified the authored dependency target and proposed a bounded revision.',
+        occurredAt: '2026-08-13T14:02:00-07:00',
+        knowledge: 'confirmed',
+        condition: 'neutral',
+      },
+      {
+        id: 'tool-hl-317-intake',
+        taskId: 'HL-317',
+        tool: 'Harbor work intake',
+        summary: 'Accepted the authored maintenance request and created attempt 1.',
+        occurredAt: '2026-08-13T13:50:00-07:00',
         knowledge: 'confirmed',
         condition: 'neutral',
       },
@@ -250,13 +281,15 @@ function baselineState(): HarborState {
       completedAt: null,
       message: '',
     },
+    now: currentTime,
+    evidencePolicy: { maximumAgeMinutes: 5 },
     presentation: Object.fromEntries(
       harborFunctions.map(({ value }) => [
         value,
         { dataState: 'ready', retainedData: true, message: 'Current synthetic records.' },
       ]),
     ) as HarborState['presentation'],
-    retention: { eventLimit: 250, retainedEventCount: 1 },
+    retention: { eventLimit: 250, retainedEventCount: 4 },
     announcement: null,
   };
 }
@@ -330,6 +363,7 @@ export function createHarborState(
     case 'stale':
     case 'stale-evidence':
       if (task) {
+        task.evidence.observedAt = staleObservedAt;
         task.evidence.knowledge = 'stale';
         task.condition = 'caution';
         task.evidence.summary = 'Tests passed earlier, but the evidence is now outside policy age.';
@@ -430,10 +464,10 @@ export function createHarborState(
     case 'new-tool-record':
       state.revision = 1;
       state.toolRecords.unshift({
-        id: 'tool-hl-318-preview',
-        taskId: 'HL-318',
-        tool: 'Synthetic documentation preview',
-        summary: 'A preview was generated; no review or publication result is inferred.',
+        id: 'tool-hl-317-policy',
+        taskId: 'HL-317',
+        tool: 'Synthetic policy verifier',
+        summary: 'A policy check completed; it does not approve or perform a merge.',
         occurredAt: '2026-08-13T14:23:00-07:00',
         knowledge: 'confirmed',
         condition: 'neutral',
@@ -548,6 +582,44 @@ export function reduceHarbor(state: HarborState, action: HarborAction): HarborSt
 
 export function selectTask(state: HarborState, taskId: string): HarborTask | undefined {
   return state.tasks.find(({ id }) => id === taskId);
+}
+
+export interface HarborTaskInvestigation {
+  task: HarborTask;
+  assignedAgent: HarborAgent | null;
+  toolRecords: ToolRecord[];
+  evidenceAgeMinutes: number | null;
+  evidenceFreshness: 'current' | 'stale' | 'unknown';
+}
+
+export function selectTaskInvestigation(
+  state: HarborState,
+  taskId: string,
+): HarborTaskInvestigation | undefined {
+  const task = selectTask(state, taskId);
+  if (!task) return undefined;
+  const evidenceAgeMinutes = task.evidence.observedAt
+    ? Math.max(
+        0,
+        Math.floor((Date.parse(state.now) - Date.parse(task.evidence.observedAt)) / 60_000),
+      )
+    : null;
+  const evidenceFreshness =
+    evidenceAgeMinutes === null
+      ? 'unknown'
+      : task.evidence.knowledge === 'stale' ||
+          evidenceAgeMinutes > state.evidencePolicy.maximumAgeMinutes
+        ? 'stale'
+        : 'current';
+  return {
+    task,
+    assignedAgent: state.agents.find(({ id }) => id === task.assignedAgentId) ?? null,
+    toolRecords: state.toolRecords
+      .filter(({ taskId: recordTaskId }) => recordTaskId === taskId)
+      .toSorted((left, right) => Date.parse(right.occurredAt) - Date.parse(left.occurredAt)),
+    evidenceAgeMinutes,
+    evidenceFreshness,
+  };
 }
 
 export function selectTasksRequiringDecision(state: HarborState): HarborTask[] {
