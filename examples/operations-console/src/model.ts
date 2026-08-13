@@ -22,6 +22,7 @@ export const northlineScenarios = [
   'stale-trailer',
   'hold-denied',
   'hold-failed',
+  'hold-confirmed',
   'inserted-exception',
 ] as const;
 
@@ -334,6 +335,21 @@ export function createNorthlineState(
         message: 'Dispatch hold failed. NL-2048 remains scheduled.',
         requestedAt: observedAt,
         completedAt: observedAt,
+      };
+      break;
+    case 'hold-confirmed':
+      applyStaleTrailer(state);
+      state.dispatch.loads[0] = {
+        ...state.dispatch.loads[0]!,
+        confirmedReleaseState: 'held',
+      };
+      state.dispatch.holdRequest = {
+        id: 'hold-confirmed',
+        loadId: 'NL-2048',
+        state: 'succeeded',
+        message: 'NL-2048 is confirmed on dispatch hold.',
+        requestedAt: observedAt,
+        completedAt: '2026-08-12T16:43:00-07:00',
       };
       break;
     case 'meaningful-update':

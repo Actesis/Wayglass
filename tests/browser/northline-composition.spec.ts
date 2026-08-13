@@ -75,10 +75,9 @@ test('renders one contained native table from the same load truth as detail', as
   await representative.getByRole('link', { name: 'Inspect NL-2048' }).click();
   await expect(page).toHaveURL(/\/loads\/NL-2048\?.*scenario=stale-trailer/);
   await expect(page.getByRole('heading', { name: 'Load NL-2048', level: 1 })).toBeVisible();
-  await expect(page.locator('wg-key-value[label="Confirmed release state"]')).toHaveAttribute(
-    'value',
-    'Scheduled',
-  );
+  await expect(
+    page.locator('wg-key-value[label="Confirmed release state"]').first(),
+  ).toHaveAttribute('value', 'Scheduled');
   await expect(page.getByText(/does not infer that NL-2048 is safe or unsafe/)).toBeVisible();
 
   await page.goBack();
@@ -89,10 +88,9 @@ test('does not convert unavailable evidence into a release result', async ({ pag
   await openNorthline(page, '/loads/NL-2048', { scenario: 'unavailable' });
 
   await expect(page.locator('wg-status-indicator')).toHaveAttribute('knowledge', 'unavailable');
-  await expect(page.locator('wg-key-value[label="Confirmed release state"]')).toHaveAttribute(
-    'value',
-    'Scheduled',
-  );
+  await expect(
+    page.locator('wg-key-value[label="Confirmed release state"]').first(),
+  ).toHaveAttribute('value', 'Scheduled');
   await expect(page.getByText(/does not infer that NL-2048 is safe or unsafe/)).toBeVisible();
 });
 
@@ -128,10 +126,9 @@ test('records investigation ownership without changing evidence or release truth
 
   await page.getByRole('button', { name: 'Acknowledge investigation' }).click();
   await expect(page.getByRole('button', { name: 'Investigation acknowledged' })).toBeDisabled();
-  await expect(page.locator('wg-key-value[label="Confirmed release state"]')).toHaveAttribute(
-    'value',
-    'Scheduled',
-  );
+  await expect(
+    page.locator('wg-key-value[label="Confirmed release state"]').first(),
+  ).toHaveAttribute('value', 'Scheduled');
   await expect(page.locator('wg-key-value[label="Last trailer temperature"]')).toHaveAttribute(
     'knowledge',
     'stale',
@@ -139,6 +136,98 @@ test('records investigation ownership without changing evidence or release truth
 
   await page.getByRole('link', { name: 'Back to Dispatch' }).click();
   await expect(page.getByText('Investigation acknowledged').first()).toBeVisible();
+});
+
+test('confirms a consequential dispatch hold before changing confirmed release truth', async ({
+  page,
+}) => {
+  await openNorthline(page, '/loads/NL-2048');
+
+  const action = page.getByRole('button', { name: 'Place NL-2048 on dispatch hold' });
+  await action.click();
+  const dialog = page.getByRole('dialog', { name: 'Place NL-2048 on dispatch hold?' });
+  await expect(dialog).toBeVisible();
+  await expect(page.getByText(/Confirmed current release state: Scheduled/)).toBeVisible();
+  await expect(page.getByText(/does not include hold release/)).toBeVisible();
+
+  await dialog.getByRole('button', { name: 'Keep NL-2048 scheduled' }).click();
+  await expect(dialog).toBeHidden();
+  await expect(action).toBeFocused();
+  await expect(page.locator('wg-alert[data-request-state="idle"]')).toContainText(
+    'No dispatch-hold request in progress.',
+  );
+
+  await action.click();
+  await dialog.getByRole('button', { name: 'Place NL-2048 on dispatch hold' }).click();
+  await expect(dialog).toBeHidden();
+  await expect(page.locator('wg-button[pending]')).toHaveAttribute('pending', '');
+  await expect(
+    page.locator('wg-key-value[label="Confirmed release state"]').last(),
+  ).toHaveAttribute('value', 'Scheduled');
+  await expect(page.locator('wg-alert[data-request-state="pending"]')).toContainText(
+    'NL-2048 remains scheduled until confirmed',
+  );
+
+  await expect(page.locator('wg-alert[data-request-state="succeeded"]')).toContainText(
+    'NL-2048 is confirmed on dispatch hold.',
+  );
+  await expect(
+    page.locator('wg-key-value[label="Confirmed release state"]').last(),
+  ).toHaveAttribute('value', 'Held');
+  await expect(page.getByRole('button', { name: 'Dispatch hold confirmed' })).toBeDisabled();
+  await expect(page.locator('.northline-announcement')).toHaveText(
+    'NL-2048 is confirmed on dispatch hold.',
+  );
+});
+
+test('retains scheduled truth and a protected retry after permission denial', async ({ page }) => {
+  await openNorthline(page, '/loads/NL-2048', { scenario: 'hold-denied' });
+
+  await expect(page.locator('wg-alert[data-request-state="denied"]')).toContainText(
+    'Permission is required; NL-2048 remains scheduled.',
+  );
+  await expect(
+    page.locator('wg-key-value[label="Confirmed release state"]').last(),
+  ).toHaveAttribute('value', 'Scheduled');
+  await page.getByRole('button', { name: 'Retry dispatch hold' }).click();
+  await expect(page.getByRole('dialog', { name: 'Place NL-2048 on dispatch hold?' })).toBeVisible();
+});
+
+test('retains scheduled truth and durable recovery after a failed hold request', async ({
+  page,
+}) => {
+  await openNorthline(page, '/loads/NL-2048', { scenario: 'hold-failed' });
+
+  await expect(page.locator('wg-alert[data-request-state="failed"]')).toContainText(
+    'Dispatch hold failed. NL-2048 remains scheduled.',
+  );
+  await expect(page.getByRole('button', { name: 'Retry dispatch hold' })).toBeEnabled();
+  await expect(
+    page.locator('wg-key-value[label="Confirmed release state"]').last(),
+  ).toHaveAttribute('value', 'Scheduled');
+});
+
+test('contains the dispatch-hold decision at phone width without accessibility violations', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 320, height: 900 });
+  await openNorthline(page, '/loads/NL-2048');
+
+  await page.getByRole('button', { name: 'Place NL-2048 on dispatch hold' }).click();
+  const dialog = page.getByRole('dialog', { name: 'Place NL-2048 on dispatch hold?' });
+  await expect(dialog).toBeVisible();
+  const overflow = await page.evaluate(
+    () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+  );
+  expect(overflow).toBeLessThanOrEqual(1);
+  const actionsFit = await dialog.getByRole('button').evaluateAll((buttons) =>
+    buttons.every((button) => {
+      const bounds = button.getBoundingClientRect();
+      return bounds.height >= 44 && bounds.left >= 0 && bounds.right <= window.innerWidth;
+    }),
+  );
+  expect(actionsFit).toBe(true);
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
 });
 
 test('preserves focus, query context, and reading position through a new exception', async ({
