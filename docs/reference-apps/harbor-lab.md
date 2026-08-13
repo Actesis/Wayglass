@@ -1,8 +1,7 @@
 # Harbor Lab reference application
 
-**Status:** Phase 4D foundation and production composition accepted on August 13, 2026. Dense task
-and tool investigation, consequential approval controls, and the accepted validation matrix remain
-ahead.
+**Status:** Phase 4D foundation, production composition, and task investigation accepted on August
+13, 2026. Consequential approval controls and the accepted validation matrix remain ahead.
 
 Harbor Lab is the private AI-agent-supervision application defined by the accepted
 [Phase 4 reference-application contract](./phase-4-reference-applications.md). It tests whether an
@@ -46,6 +45,24 @@ These choices remain application policy. Wayglass does not own agents, tasks, ev
 attention, attempts, approvals, repositories, or confirmed external results. The production
 application routes are canonical and are not duplicated as whole-app Storybook stories.
 
+## Task investigation
+
+The `HL-317` route now provides a stable investigation surface before any consequential control is
+introduced. It includes:
+
+- proposed repository, target branch, and revision scope beside confirmed task and merge truth;
+- application-owned evidence source, observation time, fixed freshness policy, calculated age,
+  knowledge, and confidence without presenting confidence as correctness;
+- current attempt and previous-attempt identity beside assigned-worker availability and activity;
+- a newest-first `wg-event-log` projection of retained task and tool records with stable record IDs,
+  source, task, attempt, condition, and knowledge context; and
+- deterministic current, stale, refreshed, unavailable-worker, meaningful-update, maximum, and
+  loading foundations without making ordinary tool records live announcements.
+
+The app owns the fixed validation clock, five-minute evidence-age policy, retention window, record
+ordering, and task filtering. The event log is a production Wayglass component; its records do not
+become a public task, tool, agent, or evidence schema.
+
 ## Application ownership
 
 Harbor Lab owns agent protocols, task and attempt identity, repositories, revisions, evidence,
@@ -69,9 +86,7 @@ Run `pnpm example:agent-supervision`, then open the local Vite URL. Human-readab
 
 ## Next slices
 
-1. Add stable task and tool investigation with evidence provenance, freshness, confidence, and
-   bounded updates.
-2. Integrate the consequential merge-approval lifecycle, precise pause/cancel guarantees, linked
+1. Integrate the consequential merge-approval lifecycle, precise pause/cancel guarantees, linked
    retry, recovery, and durable feedback.
-3. Complete the accepted responsive, visual, accessibility, performance, and supported-browser
+2. Complete the accepted responsive, visual, accessibility, performance, and supported-browser
    record.

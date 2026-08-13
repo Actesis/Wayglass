@@ -81,7 +81,14 @@ test('keeps proposal, evidence, confidence, activity, and confirmed merge truth 
     'value',
     'Not merged',
   );
-  await expect(page.getByText(/Agent activity: waiting.*Task state: blocked/)).toBeVisible();
+  await expect(page.locator('wg-key-value[label="Task activity"]')).toHaveAttribute(
+    'value',
+    'waiting',
+  );
+  await expect(page.locator('wg-key-value[label="Task state"]')).toHaveAttribute(
+    'value',
+    'blocked',
+  );
 });
 
 test('does not convert an unavailable worker into a task or merge result', async ({ page }) => {

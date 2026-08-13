@@ -1,6 +1,8 @@
 import {
   WgCanvas,
   WgElbow,
+  WgEventLog,
+  WgEventRecord,
   WgKeyValue,
   WgMetric,
   WgPanel,
@@ -21,6 +23,7 @@ import {
   reduceHarbor,
   selectHarborOverview,
   selectTask,
+  selectTaskInvestigation,
   selectTasksRequiringDecision,
   type HarborFunction,
   type HarborState,
@@ -480,21 +483,30 @@ function TaskSummary({
   router: HarborRouter;
   navigate: Navigate;
 }) {
-  const task = selectTask(state, 'HL-317');
-  if (!task) {
+  const investigation = selectTaskInvestigation(state, 'HL-317');
+  if (!investigation) {
     return (
       <WgPanel purpose="information" emphasis="strong" label="Task loading">
         <p>Loading task records; no evidence, approval, or merge result is claimed.</p>
       </WgPanel>
     );
   }
+  const { task, assignedAgent, toolRecords, evidenceAgeMinutes, evidenceFreshness } = investigation;
   return (
-    <section className="harbor-task-summary" aria-label="HL-317 task summary">
+    <section className="harbor-task-summary" aria-label="HL-317 task investigation">
       <WgElbow weight="strong">
         <h2>{task.title}</h2>
       </WgElbow>
-      <div className="harbor-task-grid">
+      <a
+        className="harbor-task-return"
+        href={router.href({ name: 'function', value: 'review-approval' })}
+        onClick={(event) => navigate(event, { name: 'function', value: 'review-approval' })}
+      >
+        Back to Review and approval
+      </a>
+      <div className="harbor-task-overview-grid">
         <WgPanel purpose="information" emphasis="strong" label="Proposed change">
+          <h3 slot="heading">Proposed change</h3>
           <div className="harbor-values">
             <WgKeyValue label="Repository" value={task.repository} knowledge="confirmed" />
             <WgKeyValue label="Target branch" value={task.targetBranch} knowledge="confirmed" />
@@ -505,12 +517,63 @@ function TaskSummary({
             />
           </div>
         </WgPanel>
-        <WgPanel purpose="monitor" emphasis="strong" label="Decision evidence">
+        <WgPanel purpose="monitor" emphasis="strong" label="Current task state">
+          <h3 slot="heading">Current task state</h3>
           <div className="harbor-values">
             <WgStatusIndicator
-              label="HL-317 evidence state"
+              label={`HL-317 ${task.state}; human ${task.humanAttention.replace('-', ' ')}`}
               condition={task.condition}
               knowledge={presentationKnowledge(task.evidence.knowledge)}
+              activity={task.activity === 'pending' ? 'pending' : 'idle'}
+            />
+            <WgKeyValue label="Task state" value={task.state} knowledge="confirmed" />
+            <WgKeyValue label="Task activity" value={task.activity} knowledge="confirmed" />
+            <WgKeyValue
+              label="Confirmed merge state"
+              value={task.mergeState === 'merged' ? 'Merged' : 'Not merged'}
+              knowledge="confirmed"
+            />
+          </div>
+        </WgPanel>
+        <WgPanel purpose="information" emphasis="standard" label="Attempt and worker context">
+          <h3 slot="heading">Attempt and worker context</h3>
+          <div className="harbor-values">
+            <WgKeyValue label="Current attempt" value={task.attemptId} knowledge="confirmed" />
+            <WgKeyValue
+              label="Previous attempt"
+              value={task.previousAttemptId ?? 'No previous attempt'}
+              knowledge="confirmed"
+            />
+            <WgKeyValue
+              label="Assigned worker"
+              value={assignedAgent?.label ?? 'Unassigned'}
+              knowledge={assignedAgent ? 'confirmed' : 'unknown'}
+            />
+            <WgKeyValue
+              label="Worker availability"
+              value={assignedAgent?.availability ?? 'Unknown'}
+              knowledge={assignedAgent ? 'confirmed' : 'unknown'}
+            />
+            <WgKeyValue
+              label="Worker activity"
+              value={assignedAgent?.activity ?? 'Unknown'}
+              knowledge={assignedAgent ? 'confirmed' : 'unknown'}
+            />
+          </div>
+        </WgPanel>
+      </div>
+      <div className="harbor-investigation-grid">
+        <WgPanel purpose="monitor" emphasis="strong" label="Decision evidence">
+          <h3 slot="heading">Decision evidence</h3>
+          <div className="harbor-values">
+            <WgStatusIndicator
+              label={evidenceFreshnessLabel(
+                evidenceAgeMinutes,
+                state.evidencePolicy.maximumAgeMinutes,
+              )}
+              condition={evidenceFreshness === 'stale' ? 'caution' : 'neutral'}
+              knowledge={presentationKnowledge(task.evidence.knowledge)}
+              size="prominent"
             />
             <WgKeyValue
               label="Evidence source"
@@ -523,18 +586,75 @@ function TaskSummary({
               knowledge={presentationKnowledge(task.evidence.knowledge)}
             />
             <WgKeyValue
-              label="Confirmed merge state"
-              value={task.mergeState === 'merged' ? 'Merged' : 'Not merged'}
+              label="Evidence age"
+              value={evidenceAgeMinutes === null ? 'Unknown' : `${evidenceAgeMinutes} minutes`}
+              knowledge={presentationKnowledge(task.evidence.knowledge)}
+            />
+            <WgKeyValue
+              label="Freshness policy"
+              value={`${state.evidencePolicy.maximumAgeMinutes} minutes maximum`}
               knowledge="confirmed"
             />
+            <p>{task.evidence.summary}</p>
+            {task.evidence.observedAt ? (
+              <p className="harbor-evidence-time">
+                Observed{' '}
+                <time dateTime={task.evidence.observedAt}>
+                  {formatHarborTime(task.evidence.observedAt)}
+                </time>
+                .
+              </p>
+            ) : null}
           </div>
         </WgPanel>
+        <WgPanel purpose="information" emphasis="standard" label="Interpretation boundary">
+          <h3 slot="heading">Interpretation boundary</h3>
+          <p>
+            Tool completion, worker activity, and high confidence describe retained evidence. They
+            do not establish that the proposed revision is correct, approved, or merged.
+          </p>
+          <p>
+            The confirmed target-branch result remains{' '}
+            <strong>{task.mergeState === 'merged' ? 'merged' : 'not merged'}</strong>.
+          </p>
+        </WgPanel>
       </div>
-      <p className="harbor-task-note">
-        Agent activity: {task.activity}. Task state: {task.state}. Neither value establishes that
-        the proposed revision is correct or merged.
-      </p>
+      <WgEventLog
+        className="harbor-tool-history"
+        label="HL-317 retained task and tool history"
+        chronology="descending"
+        chronologyLabel="Newest retained record first"
+        busy={state.presentation.execution.dataState === 'refreshing'}
+      >
+        <h3 slot="heading">Task and tool history</h3>
+        <p slot="description">
+          {toolRecords.length} records for HL-317 are shown from the application-owned window of{' '}
+          {state.retention.retainedEventCount}. New records keep stable record identity and are not
+          announced individually.
+        </p>
+        {state.presentation.execution.dataState !== 'ready' ? (
+          <p slot="status">{state.presentation.execution.message}</p>
+        ) : null}
+        {toolRecords.map((record) => (
+          <WgEventRecord
+            key={record.id}
+            data-tool-record={record.id}
+            label={record.summary}
+            condition={record.condition}
+            knowledge={presentationKnowledge(record.knowledge)}
+          >
+            <time slot="time" dateTime={record.occurredAt}>
+              {formatHarborTime(record.occurredAt)}
+            </time>
+            <span slot="summary">{record.summary}</span>
+            <span slot="source">Source: {record.tool}</span>
+            <span slot="category">Task: {record.taskId}</span>
+            <span slot="reference">Attempt: {task.attemptId}</span>
+          </WgEventRecord>
+        ))}
+      </WgEventLog>
       <a
+        className="harbor-task-return"
         href={router.href({ name: 'function', value: 'review-approval' })}
         onClick={(event) => navigate(event, { name: 'function', value: 'review-approval' })}
       >
@@ -542,4 +662,21 @@ function TaskSummary({
       </a>
     </section>
   );
+}
+
+function evidenceFreshnessLabel(ageMinutes: number | null, maximumAgeMinutes: number): string {
+  if (ageMinutes === null) return 'Evidence age is unknown';
+  if (ageMinutes > maximumAgeMinutes) {
+    return `Evidence is ${ageMinutes} minutes old; ${maximumAgeMinutes}-minute policy exceeded`;
+  }
+  return `Evidence is current at ${ageMinutes} minutes old`;
+}
+
+function formatHarborTime(value: string): string {
+  return new Intl.DateTimeFormat('en-US', {
+    hour: 'numeric',
+    minute: '2-digit',
+    timeZone: 'America/Phoenix',
+    timeZoneName: 'short',
+  }).format(new Date(value));
 }

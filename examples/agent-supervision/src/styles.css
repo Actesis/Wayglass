@@ -36,7 +36,8 @@ main,
 .harbor-decision-copy,
 .harbor-values,
 .harbor-focused-layout,
-.harbor-task-summary {
+.harbor-task-summary,
+.harbor-investigation-grid {
   display: grid;
   min-inline-size: 0;
 }
@@ -58,7 +59,9 @@ main,
 .harbor-function-selectors small,
 .harbor-peer-consequence,
 .harbor-task-summary h2,
+.harbor-task-summary h3,
 .harbor-task-note,
+.harbor-evidence-time,
 footer span {
   margin: 0;
 }
@@ -130,11 +133,29 @@ main {
 }
 
 .harbor-function-grid,
-.harbor-task-grid {
+.harbor-task-overview-grid,
+.harbor-investigation-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--wg-space-semantic-function-gutter);
   align-items: start;
+}
+
+.harbor-task-overview-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.harbor-task-return {
+  justify-self: start;
+}
+
+.harbor-tool-history {
+  min-inline-size: 0;
+}
+
+.harbor-evidence-time {
+  color: var(--wg-color-semantic-text-secondary);
+  font-size: var(--wg-typography-size-label);
 }
 
 .harbor-function {
@@ -230,7 +251,8 @@ footer {
 
 @media (max-width: 48rem) {
   .harbor-function-grid,
-  .harbor-task-grid,
+  .harbor-task-overview-grid,
+  .harbor-investigation-grid,
   .harbor-function-selectors {
     grid-template-columns: 1fr;
   }
