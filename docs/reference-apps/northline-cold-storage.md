@@ -1,7 +1,7 @@
 # Northline Cold Storage reference application
 
-**Status:** Phase 4C foundation accepted and production composition active on August 13, 2026.
-Operational investigation, control, and the accepted validation matrix remain ahead.
+**Status:** Phase 4C foundation and production composition accepted; operational investigation
+active on August 13, 2026. Consequential control and the accepted validation matrix remain ahead.
 
 Northline Cold Storage is the private operations-console application defined by the accepted
 [Phase 4 reference-application contract](./phase-4-reference-applications.md). It tests whether a
@@ -58,6 +58,26 @@ third-party dependency or schema-driven data grid is introduced.
 The overview and focused routes are canonical application fixtures. They are not duplicated in
 Storybook, and their records, summaries, sorting, and retention policy remain Northline-owned.
 
+## Dispatch investigation
+
+The Dispatch workspace now adds the accepted primary investigation path:
+
+- application-owned load filtering and authored order use labeled native selects inside the
+  production filter-bar composition;
+- the native cutoff header is an equivalent authored sort control, and both controls preserve all
+  retained records rather than changing operational truth;
+- `NL-2048` remains a stable keyed row while the operator filters, sorts, enters detail, and
+  returns;
+- the detail route uses a production timeline whose current temperature entry is derived directly
+  from the same load observation shown in scalar, status, and table projections;
+- acknowledgement is a routine ownership record, not a claim that temperature was verified or the
+  release state changed; and
+- a deterministic inserted exception preserves filter, sort, focus, investigation ownership, reading
+  position, and the intentionally silent live region.
+
+These choices remain application policy. Wayglass does not own load queries, sort order, exception
+identity, investigation meaning, or follow-latest behavior.
+
 ## Local use
 
 Run `pnpm example:operations-console`, then open the local Vite URL. Human-readable paths include
@@ -66,9 +86,7 @@ Run `pnpm example:operations-console`, then open the local Vite URL. Human-reada
 
 ## Next slices
 
-1. Add filtering, authored sorting, investigation acknowledgement, and temporal load detail while
-   preserving route-return and reading context.
-2. Add the consequential dispatch-hold confirmation, pending, denied, failed, and confirmed-result
+1. Add the consequential dispatch-hold confirmation, pending, denied, failed, and confirmed-result
    workflow.
-3. Complete the accepted responsive, visual, accessibility, failure, recovery, performance, and
+2. Complete the accepted responsive, visual, accessibility, failure, recovery, performance, and
    supported-browser record.

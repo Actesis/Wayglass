@@ -1,20 +1,26 @@
 import {
+  WgButton,
   WgCanvas,
   WgDataTable,
   WgElbow,
+  WgFilterBar,
   WgKeyValue,
   WgMetric,
   WgPanel,
   WgScrollRegion,
+  WgSelect,
   WgStatusEntry,
   WgStatusIndicator,
   WgStatusList,
   WgThemeProvider,
+  WgTimeline,
+  WgTimelineItem,
 } from '@wayglass/react';
 import {
   useEffect,
   useReducer,
   useSyncExternalStore,
+  type Dispatch,
   type MouseEvent,
   type ReactNode,
 } from 'react';
@@ -27,11 +33,21 @@ import {
   selectDispatchSummary,
   selectFunctionExceptions,
   selectLoad,
+  selectLoadTimeline,
+  type DispatchFilter,
   type DispatchLoad,
+  type DispatchSort,
+  type NorthlineAction,
   type NorthlineFunction,
   type NorthlineState,
 } from './model.js';
 import type { NorthlineRoute, NorthlineRouter } from './router.js';
+
+declare global {
+  interface Window {
+    __northlineFixture?: { receiveMeaningfulUpdate(): void };
+  }
+}
 
 function routeTitle(route: NorthlineRoute): string {
   if (route.name === 'overview') return 'Outbound readiness';
@@ -52,6 +68,14 @@ export function NorthlineApp({ router }: { router: NorthlineRouter }) {
   useEffect(() => {
     dispatch({ type: 'set-scenario', value: routeState.scenario, fixture: routeState.fixture });
   }, [routeState.fixture, routeState.scenario]);
+  useEffect(() => {
+    window.__northlineFixture = {
+      receiveMeaningfulUpdate: () => dispatch({ type: 'receive-meaningful-update' }),
+    };
+    return () => {
+      delete window.__northlineFixture;
+    };
+  }, []);
 
   function navigate(event: MouseEvent<HTMLAnchorElement>, route: NorthlineRoute) {
     if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
@@ -104,16 +128,17 @@ export function NorthlineApp({ router }: { router: NorthlineRouter }) {
             <p>{routeDescription(routeState.route)}</p>
           </header>
           {routeState.route.name === 'overview' ? (
-            <Overview state={state} router={router} navigate={navigate} />
+            <Overview state={state} router={router} navigate={navigate} dispatch={dispatch} />
           ) : routeState.route.name === 'function' ? (
             <FocusedFunction
               value={routeState.route.value}
               state={state}
               router={router}
               navigate={navigate}
+              dispatch={dispatch}
             />
           ) : (
-            <LoadDetail state={state} router={router} navigate={navigate} />
+            <LoadDetail state={state} router={router} navigate={navigate} dispatch={dispatch} />
           )}
         </main>
         <p className="northline-announcement" aria-live="polite" aria-atomic="true">
@@ -148,10 +173,12 @@ function Overview({
   state,
   router,
   navigate,
+  dispatch,
 }: {
   state: NorthlineState;
   router: NorthlineRouter;
   navigate: Navigate;
+  dispatch: Dispatch<NorthlineAction>;
 }) {
   return (
     <>
@@ -164,6 +191,7 @@ function Overview({
             state={state}
             router={router}
             navigate={navigate}
+            dispatch={dispatch}
             overview
           />
         ))}
@@ -233,11 +261,13 @@ function FocusedFunction({
   state,
   router,
   navigate,
+  dispatch,
 }: {
   value: NorthlineFunction;
   state: NorthlineState;
   router: NorthlineRouter;
   navigate: Navigate;
+  dispatch: Dispatch<NorthlineAction>;
 }) {
   const dispatchAttention = selectDispatchSummary(state).needsAttention;
   return (
@@ -273,6 +303,7 @@ function FocusedFunction({
           state={state}
           router={router}
           navigate={navigate}
+          dispatch={dispatch}
           overview={false}
         />
       </div>
@@ -285,12 +316,14 @@ function FunctionRegion({
   state,
   router,
   navigate,
+  dispatch,
   overview,
 }: {
   value: NorthlineFunction;
   state: NorthlineState;
   router: NorthlineRouter;
   navigate: Navigate;
+  dispatch: Dispatch<NorthlineAction>;
   overview: boolean;
 }) {
   const definition = northlineFunctions.find((item) => item.value === value)!;
@@ -312,6 +345,7 @@ function FunctionRegion({
         state={state}
         router={router}
         navigate={navigate}
+        dispatch={dispatch}
         overview={overview}
       />
       {overview ? (
@@ -332,12 +366,14 @@ function FunctionContent({
   state,
   router,
   navigate,
+  dispatch,
   overview,
 }: {
   value: NorthlineFunction;
   state: NorthlineState;
   router: NorthlineRouter;
   navigate: Navigate;
+  dispatch: Dispatch<NorthlineAction>;
   overview: boolean;
 }) {
   switch (value) {
@@ -351,7 +387,7 @@ function FunctionContent({
       return overview ? (
         <DispatchSummary state={state} />
       ) : (
-        <DispatchWorkspace state={state} router={router} navigate={navigate} />
+        <DispatchWorkspace state={state} router={router} navigate={navigate} dispatch={dispatch} />
       );
   }
 }
@@ -476,15 +512,18 @@ function DispatchWorkspace({
   state,
   router,
   navigate,
+  dispatch,
 }: {
   state: NorthlineState;
   router: NorthlineRouter;
   navigate: Navigate;
+  dispatch: Dispatch<NorthlineAction>;
 }) {
   const loads = selectDispatchLoads(state);
   const exceptions = selectFunctionExceptions(state, 'dispatch');
   return (
     <div className="northline-dispatch-workspace">
+      <DispatchFilters state={state} dispatch={dispatch} />
       {exceptions.length > 0 ? (
         <WgStatusList label="Dispatch attention">
           <h3 slot="heading">Dispatch attention</h3>
@@ -505,15 +544,30 @@ function DispatchWorkspace({
                   ? 'Investigation acknowledged'
                   : 'Investigation not acknowledged'}
               </span>
-              {exception.loadId === 'NL-2048' ? (
-                <a
-                  slot="actions"
-                  href={router.href({ name: 'load', loadId: 'NL-2048' })}
-                  onClick={(event) => navigate(event, { name: 'load', loadId: 'NL-2048' })}
+              <div slot="actions" className="northline-investigation-actions">
+                {exception.loadId === 'NL-2048' ? (
+                  <a
+                    href={router.href({ name: 'load', loadId: 'NL-2048' })}
+                    onClick={(event) => navigate(event, { name: 'load', loadId: 'NL-2048' })}
+                  >
+                    Inspect NL-2048
+                  </a>
+                ) : null}
+                <WgButton
+                  appearance="secondary"
+                  disabled={exception.acknowledged}
+                  onClick={() =>
+                    dispatch({
+                      type: 'acknowledge-investigation',
+                      exceptionId: exception.id,
+                    })
+                  }
                 >
-                  Inspect NL-2048
-                </a>
-              ) : null}
+                  {exception.acknowledged
+                    ? 'Investigation acknowledged'
+                    : 'Acknowledge investigation'}
+                </WgButton>
+              </div>
             </WgStatusEntry>
           ))}
         </WgStatusList>
@@ -523,8 +577,74 @@ function DispatchWorkspace({
           <p>No current Dispatch exceptions.</p>
         </WgPanel>
       )}
-      <DispatchTable loads={loads} state={state} router={router} navigate={navigate} />
+      <DispatchTable
+        loads={loads}
+        state={state}
+        router={router}
+        navigate={navigate}
+        dispatch={dispatch}
+      />
     </div>
+  );
+}
+
+function DispatchFilters({
+  state,
+  dispatch,
+}: {
+  state: NorthlineState;
+  dispatch: Dispatch<NorthlineAction>;
+}) {
+  return (
+    <WgFilterBar label="Outbound load view">
+      <h3 slot="heading">Outbound load view</h3>
+      <p slot="description">
+        Filtering and authored order change the view, not the retained load records.
+      </p>
+      <form onSubmit={(event) => event.preventDefault()}>
+        <div className="northline-filter-fields">
+          <label htmlFor="northline-load-filter">Show</label>
+          <WgSelect>
+            <select
+              id="northline-load-filter"
+              name="filter"
+              value={state.dispatch.filter}
+              onChange={(event) =>
+                dispatch({
+                  type: 'set-dispatch-filter',
+                  value: event.currentTarget.value as DispatchFilter,
+                })
+              }
+            >
+              <option value="all">All loads</option>
+              <option value="needs-attention">Needs attention</option>
+              <option value="scheduled">Scheduled</option>
+              <option value="held">Held</option>
+            </select>
+          </WgSelect>
+          <label htmlFor="northline-load-sort">Order</label>
+          <WgSelect>
+            <select
+              id="northline-load-sort"
+              name="sort"
+              value={state.dispatch.sort}
+              onChange={(event) =>
+                dispatch({
+                  type: 'set-dispatch-sort',
+                  value: event.currentTarget.value as DispatchSort,
+                })
+              }
+            >
+              <option value="cutoff-ascending">Earliest cutoff first</option>
+              <option value="load-id">Load identifier</option>
+            </select>
+          </WgSelect>
+        </div>
+      </form>
+      <p slot="summary">
+        {selectDispatchLoads(state).length} of {state.dispatch.loads.length} retained loads shown.
+      </p>
+    </WgFilterBar>
   );
 }
 
@@ -533,11 +653,13 @@ function DispatchTable({
   state,
   router,
   navigate,
+  dispatch,
 }: {
   loads: DispatchLoad[];
   state: NorthlineState;
   router: NorthlineRouter;
   navigate: Navigate;
+  dispatch: Dispatch<NorthlineAction>;
 }) {
   return (
     <WgDataTable className="northline-load-table">
@@ -559,7 +681,19 @@ function DispatchTable({
                 scope="col"
                 aria-sort={state.dispatch.sort === 'cutoff-ascending' ? 'ascending' : 'none'}
               >
-                Cutoff
+                <button
+                  type="button"
+                  onClick={() =>
+                    dispatch({
+                      type: 'set-dispatch-sort',
+                      value:
+                        state.dispatch.sort === 'cutoff-ascending' ? 'load-id' : 'cutoff-ascending',
+                    })
+                  }
+                >
+                  Cutoff,{' '}
+                  {state.dispatch.sort === 'cutoff-ascending' ? 'earliest first' : 'unsorted'}
+                </button>
               </th>
               <th scope="col">Actions</th>
             </tr>
@@ -602,10 +736,12 @@ function LoadDetail({
   state,
   router,
   navigate,
+  dispatch,
 }: {
   state: NorthlineState;
   router: NorthlineRouter;
   navigate: Navigate;
+  dispatch: Dispatch<NorthlineAction>;
 }) {
   const load = selectLoad(state, 'NL-2048');
   if (!load) {
@@ -616,6 +752,10 @@ function LoadDetail({
       </WgPanel>
     );
   }
+  const timeline = selectLoadTimeline(state, load.id);
+  const representativeException = state.exceptions.find(
+    (exception) => exception.id === 'exception-nl-2048-temperature',
+  );
   return (
     <div className="northline-load-detail">
       <section
@@ -656,6 +796,60 @@ function LoadDetail({
             Its confirmed release state remains {load.confirmedReleaseState}.
           </p>
         </WgPanel>
+        <WgTimeline
+          label="NL-2048 evidence history"
+          chronology="descending"
+          chronologyLabel="Newest evidence first"
+        >
+          <h3 slot="heading">Evidence history</h3>
+          <p slot="description">
+            Current evidence and confirmed release history remain separate temporal records.
+          </p>
+          {timeline.map((entry) => (
+            <WgTimelineItem
+              key={entry.id}
+              data-timeline-id={entry.id}
+              label={entry.label}
+              condition={entry.condition}
+              knowledge={entry.knowledge}
+              activity={entry.activity}
+            >
+              {entry.occurredAt ? (
+                <time slot="time" dateTime={entry.occurredAt}>
+                  {formatTime(entry.occurredAt)}
+                </time>
+              ) : (
+                <span slot="time">No trustworthy observation time</span>
+              )}
+              <span slot="heading">{entry.label}</span>
+              <p>{entry.detail}</p>
+            </WgTimelineItem>
+          ))}
+        </WgTimeline>
+        {representativeException ? (
+          <WgPanel purpose="control" emphasis="standard" label="Temperature investigation">
+            <h3 slot="heading">Temperature investigation</h3>
+            <p>
+              Acknowledgement records that a coordinator has taken ownership. It does not verify
+              temperature or change the confirmed release state.
+            </p>
+            <WgButton
+              slot="actions"
+              appearance="secondary"
+              disabled={representativeException.acknowledged}
+              onClick={() =>
+                dispatch({
+                  type: 'acknowledge-investigation',
+                  exceptionId: representativeException.id,
+                })
+              }
+            >
+              {representativeException.acknowledged
+                ? 'Investigation acknowledged'
+                : 'Acknowledge investigation'}
+            </WgButton>
+          </WgPanel>
+        ) : null}
         <a
           href={router.href({ name: 'function', value: 'dispatch' })}
           onClick={(event) => navigate(event, { name: 'function', value: 'dispatch' })}

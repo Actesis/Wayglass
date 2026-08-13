@@ -121,6 +121,25 @@ main {
   gap: var(--wg-space-semantic-layout-section-comfortable);
 }
 
+.northline-filter-fields {
+  display: grid;
+  grid-template-columns: max-content minmax(12rem, 1fr) max-content minmax(12rem, 1fr);
+  align-items: center;
+  gap: var(--wg-space-reference-2) var(--wg-space-reference-3);
+}
+
+.northline-filter-fields label {
+  font-weight: var(--wg-typography-weight-medium);
+}
+
+.northline-investigation-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: end;
+  gap: var(--wg-space-reference-2);
+}
+
 .northline-readiness-copy {
   gap: var(--wg-space-reference-2);
   max-inline-size: 76ch;
@@ -254,6 +273,7 @@ footer {
   .northline-function-grid,
   .northline-values,
   .northline-load-facts,
+  .northline-filter-fields,
   .northline-function-selectors {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -275,6 +295,10 @@ footer {
   .northline-function-selectors a {
     border-radius: var(--wg-shape-radius-control);
     border-block-end-width: var(--wg-border-semantic-section);
+  }
+
+  .northline-investigation-actions {
+    justify-content: start;
   }
 }
 

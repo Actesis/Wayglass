@@ -1,6 +1,7 @@
 import '@wayglass/tokens/tokens.css';
 import '@wayglass/themes/themes.css';
 import '@wayglass/elements/data-table.css';
+import '@wayglass/elements/forms.css';
 import './styles.css';
 
 import { StrictMode } from 'react';
