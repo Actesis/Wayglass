@@ -141,9 +141,10 @@ retention, escalation, and audit policy.
 
 ### Phase 4D — AI-agent-supervision reference application
 
-**Active:** The isolated Harbor Lab foundation now establishes application-owned domain truth,
-native routes, deterministic scenarios, a merge-approval port, and unit tests. Production
-composition and workflow slices remain ahead.
+**Active:** The isolated Harbor Lab foundation and production composition now establish
+application-owned domain truth, native routes, deterministic scenarios, a merge-approval port,
+simultaneous overview, focused peer functions, and unit/browser tests. Investigation, consequential
+workflow, and validation slices remain ahead.
 
 Build a human-supervision workspace for agents, tasks, tool activity, uncertainty, approval, and
 recovery without anthropomorphic or falsely authoritative language.

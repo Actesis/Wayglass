@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
   createHarborState,
   reduceHarbor,
+  selectHarborOverview,
   selectTask,
   selectTasksRequiringDecision,
 } from '../src/model.js';
@@ -128,5 +129,20 @@ describe('Harbor Lab application state', () => {
     expect(state.toolRecords).toHaveLength(250);
     expect(state.toolRecords[0]?.id).toBe('tool-new');
     expect(selectTasksRequiringDecision(state)[0]?.id).toBe('HL-317');
+  });
+
+  it('derives overview counts without collapsing task, agent, decision, or merge meanings', () => {
+    const overview = selectHarborOverview(createHarborState('steady'));
+    expect(overview).toEqual({
+      queuedTasks: 1,
+      activeTasks: 2,
+      blockedTasks: 1,
+      failedTasks: 0,
+      completedTasks: 0,
+      availableAgents: 2,
+      runningAgents: 1,
+      decisionsRequired: 1,
+      confirmedMerges: 0,
+    });
   });
 });
