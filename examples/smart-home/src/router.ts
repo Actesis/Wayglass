@@ -61,6 +61,7 @@ export function cedarRoutePath(route: CedarRoute): string {
 
 export interface CedarRouter {
   current(): CedarRouteState;
+  href(route: CedarRoute): string;
   navigate(route: CedarRoute): void;
   subscribe(listener: () => void): () => void;
 }
@@ -76,6 +77,11 @@ export function createCedarRouter(browserWindow: Window): CedarRouter {
 
   return {
     current: () => routeState,
+    href: (route) => {
+      const current = new URL(browserWindow.location.href);
+      current.pathname = cedarRoutePath(route);
+      return `${current.pathname}${current.search}`;
+    },
     navigate: (route) => {
       const current = new URL(browserWindow.location.href);
       current.pathname = cedarRoutePath(route);

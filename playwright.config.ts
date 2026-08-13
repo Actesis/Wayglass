@@ -9,12 +9,19 @@ export default defineConfig({
     baseURL: 'http://127.0.0.1:4173',
     trace: 'on-first-retry',
   },
-  webServer: {
-    command:
-      'pnpm --filter @wayglass/tokens build && pnpm --filter @wayglass/themes build && pnpm --filter @wayglass/icons build && pnpm --filter @wayglass/elements build && pnpm --filter @wayglass/react build && pnpm exec vite --host 127.0.0.1 --port 4173 --strictPort',
-    url: 'http://127.0.0.1:4173/tests/browser/fixture/',
-    reuseExistingServer: true,
-  },
+  webServer: [
+    {
+      command:
+        'pnpm --filter @wayglass/tokens build && pnpm --filter @wayglass/themes build && pnpm --filter @wayglass/icons build && pnpm --filter @wayglass/elements build && pnpm --filter @wayglass/react build && pnpm exec vite --host 127.0.0.1 --port 4173 --strictPort',
+      url: 'http://127.0.0.1:4173/tests/browser/fixture/',
+      reuseExistingServer: true,
+    },
+    {
+      command: 'pnpm --filter @wayglass/example-smart-home dev --host 127.0.0.1 --strictPort',
+      url: 'http://127.0.0.1:6103/',
+      reuseExistingServer: true,
+    },
+  ],
   projects: [
     {
       name: 'chromium',
