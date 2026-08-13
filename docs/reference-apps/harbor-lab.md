@@ -1,7 +1,7 @@
 # Harbor Lab reference application
 
-**Status:** Phase 4D application foundation active on August 13, 2026. Production composition, dense
-task investigation, consequential approval controls, and the accepted validation matrix remain
+**Status:** Phase 4D foundation and production composition accepted on August 13, 2026. Dense task
+and tool investigation, consequential approval controls, and the accepted validation matrix remain
 ahead.
 
 Harbor Lab is the private AI-agent-supervision application defined by the accepted
@@ -23,10 +23,28 @@ The initial application foundation provides:
 - unit tests for routing, maximum bounds, retained truth, request identity, pause guarantees, retry
   identity, and deterministic effects.
 
-The small orientation surface proves that the application consumes production Wayglass packages. It
-is not the finished supervision workspace. Later slices add the multi-function overview and focused
-composition, task and tool investigation, explicit merge approval, recovery, responsive behavior,
-accessibility, performance, and supported-browser validation.
+The foundation proves that the application consumes production Wayglass packages. It is not the
+finished supervision workspace. Later slices add task and tool investigation, explicit merge
+approval, recovery, and the complete responsive, accessibility, performance, and supported-browser
+validation.
+
+## Supervision composition
+
+The first production composition provides:
+
+- a simultaneous overview with strongly separated Work intake, Execution, Review and approval, and
+  Outcome and recovery functions;
+- one dominant human-decision answer that identifies `HL-317`, stale test evidence, and confirmed
+  not-merged truth without treating worker activity as outcome;
+- focused function routes whose folder-like selector band retains concise peer summaries;
+- a persistent path to the `HL-317` decision while intake, execution, or recovery is selected;
+- scalar, status, and task-summary projections derived from the same application-owned records; and
+- loading, retained-refresh, partial, unavailable, stale, light, dark, compact, comfortable, phone,
+  desktop, and RTL-compatible foundations without duplicate interactive trees.
+
+These choices remain application policy. Wayglass does not own agents, tasks, evidence, confidence,
+attention, attempts, approvals, repositories, or confirmed external results. The production
+application routes are canonical and are not duplicated as whole-app Storybook stories.
 
 ## Application ownership
 
@@ -51,11 +69,9 @@ Run `pnpm example:agent-supervision`, then open the local Vite URL. Human-readab
 
 ## Next slices
 
-1. Compose the production overview and focused peer-function workspace from the shared Harbor Lab
-   application truth.
-2. Add stable task and tool investigation with evidence provenance, freshness, confidence, and
+1. Add stable task and tool investigation with evidence provenance, freshness, confidence, and
    bounded updates.
-3. Integrate the consequential merge-approval lifecycle, precise pause/cancel guarantees, linked
+2. Integrate the consequential merge-approval lifecycle, precise pause/cancel guarantees, linked
    retry, recovery, and durable feedback.
-4. Complete the accepted responsive, visual, accessibility, performance, and supported-browser
+3. Complete the accepted responsive, visual, accessibility, performance, and supported-browser
    record.

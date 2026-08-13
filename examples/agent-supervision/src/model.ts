@@ -553,3 +553,31 @@ export function selectTask(state: HarborState, taskId: string): HarborTask | und
 export function selectTasksRequiringDecision(state: HarborState): HarborTask[] {
   return state.tasks.filter(({ humanAttention }) => humanAttention === 'decision-required');
 }
+
+export interface HarborOverview {
+  queuedTasks: number;
+  activeTasks: number;
+  blockedTasks: number;
+  failedTasks: number;
+  completedTasks: number;
+  availableAgents: number;
+  runningAgents: number;
+  decisionsRequired: number;
+  confirmedMerges: number;
+}
+
+export function selectHarborOverview(state: HarborState): HarborOverview {
+  return {
+    queuedTasks: state.tasks.filter(({ state: taskState }) => taskState === 'queued').length,
+    activeTasks: state.tasks.filter(({ state: taskState }) =>
+      ['running', 'waiting', 'blocked'].includes(taskState),
+    ).length,
+    blockedTasks: state.tasks.filter(({ state: taskState }) => taskState === 'blocked').length,
+    failedTasks: state.tasks.filter(({ state: taskState }) => taskState === 'failed').length,
+    completedTasks: state.tasks.filter(({ state: taskState }) => taskState === 'completed').length,
+    availableAgents: state.agents.filter(({ availability }) => availability === 'available').length,
+    runningAgents: state.agents.filter(({ activity }) => activity === 'running').length,
+    decisionsRequired: selectTasksRequiringDecision(state).length,
+    confirmedMerges: state.tasks.filter(({ mergeState }) => mergeState === 'merged').length,
+  };
+}

@@ -12,17 +12,22 @@ test('orients the lead without conflating activity, evidence, confidence, or mer
   await expect(page.getByRole('region', { name: 'Supervision functions' })).toContainText(
     'Review and approval',
   );
-  const decision = page.getByText('Agent activity: waiting. Evidence: stale, confidence high.');
-  await expect(decision).toContainText('Confirmed merge state: not-merged');
+  await expect(page.getByText('1 task needs a human decision.')).toBeVisible();
+  await expect(
+    page.getByText(/test evidence is stale.*target branch is not merged/).first(),
+  ).toBeVisible();
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
 });
 
 test('navigates native task and function routes with browser history', async ({ page }) => {
   await page.goto(`${harborUrl}/`);
-  await page.getByRole('link', { name: 'HL-317' }).click();
+  await page
+    .getByLabel('Human decisions', { exact: true })
+    .getByRole('link', { name: 'Inspect HL-317' })
+    .click();
   await expect(page).toHaveURL(/\/tasks\/HL-317/);
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Task HL-317');
-  await page.getByRole('link', { name: 'Review and approval' }).click();
+  await page.getByRole('link', { name: 'Review and approval', exact: true }).click();
   await expect(page).toHaveURL(/\/functions\/review-approval/);
   await page.goBack();
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Task HL-317');
@@ -34,9 +39,9 @@ test('recomposes the foundation at phone width without hiding decision context',
   await page.setViewportSize({ width: 320, height: 900 });
   await page.goto(`${harborUrl}/?scenario=stale-evidence&fixture=maximum`);
   await expect(
-    page.getByRole('region', { name: 'Supervision functions' }).locator('article'),
+    page.getByRole('region', { name: 'Supervision functions' }).locator('[data-function]'),
   ).toHaveCount(4);
-  await expect(page.getByText('Confirmed merge state: not-merged')).toBeVisible();
+  await expect(page.getByText(/target branch is not merged/).first()).toBeVisible();
   const dimensions = await page.evaluate(() => ({
     clientWidth: document.documentElement.clientWidth,
     scrollWidth: document.documentElement.scrollWidth,
