@@ -1,6 +1,8 @@
 import {
   WgBooleanValue,
+  WgButton,
   WgCanvas,
+  WgConfirmationDialog,
   WgElbow,
   WgKeyValue,
   WgMetric,
@@ -12,7 +14,9 @@ import {
 import {
   useEffect,
   useReducer,
+  useRef,
   useSyncExternalStore,
+  type ComponentRef,
   type MouseEvent,
   type ReactNode,
 } from 'react';
@@ -26,7 +30,14 @@ import {
   type CedarFunction,
   type CedarHouseState,
 } from './model.js';
+import { type CedarClock, type HouseholdControlPort } from './ports.js';
 import { type CedarRoute, type CedarRouter } from './router.js';
+
+interface CedarCommands {
+  requestPorchLight(requestedOn: boolean): Promise<void>;
+  requestSecureHouse(): Promise<void>;
+  showSecureConfirmation(invoker: HTMLElement): void;
+}
 
 function routeTitle(route: CedarRoute): string {
   switch (route.name) {
@@ -39,11 +50,21 @@ function routeTitle(route: CedarRoute): string {
   }
 }
 
-export function CedarHouseApp({ router }: { router: CedarRouter }) {
+export function CedarHouseApp({
+  router,
+  controls,
+  clock,
+}: {
+  router: CedarRouter;
+  controls: HouseholdControlPort;
+  clock: CedarClock;
+}) {
   const routeState = useSyncExternalStore(router.subscribe, router.current);
   const [state, dispatch] = useReducer(reduceCedarHouse, routeState.scenario, (scenario) =>
     createCedarHouseState(scenario),
   );
+  const requestSequence = useRef(0);
+  const secureConfirmation = useRef<ComponentRef<typeof WgConfirmationDialog>>(null);
   const title = routeTitle(routeState.route);
 
   useEffect(() => {
@@ -64,6 +85,30 @@ export function CedarHouseApp({ router }: { router: CedarRouter }) {
 
   const activeFunction =
     routeState.route.name === 'function' ? routeState.route.value : state.selectedFunction;
+
+  const commands: CedarCommands = {
+    async requestPorchLight(requestedOn) {
+      const requestId = `porch-${++requestSequence.current}`;
+      dispatch({
+        type: 'request-porch-light',
+        requestedOn,
+        requestId,
+        requestedAt: clock(),
+      });
+      const result = await controls.requestPorchLight({ requestId, requestedOn });
+      dispatch({ type: 'resolve-porch-light', ...result });
+    },
+    async requestSecureHouse() {
+      const requestId = `secure-${++requestSequence.current}`;
+      const targetIds = state.access.points.map(({ id }) => id);
+      dispatch({ type: 'request-secure-house', requestId, requestedAt: clock() });
+      const result = await controls.requestSecureHouse({ requestId, targetIds });
+      dispatch({ type: 'resolve-secure-house', ...result });
+    },
+    showSecureConfirmation(invoker) {
+      secureConfirmation.current?.show({ invoker });
+    },
+  };
 
   return (
     <WgThemeProvider
@@ -101,13 +146,14 @@ export function CedarHouseApp({ router }: { router: CedarRouter }) {
             <p>{routeDescription(routeState.route)}</p>
           </header>
           {routeState.route.name === 'overview' ? (
-            <Overview state={state} router={router} navigate={navigate} />
+            <Overview state={state} router={router} navigate={navigate} commands={commands} />
           ) : routeState.route.name === 'function' ? (
             <FocusedFunction
               value={activeFunction}
               state={state}
               router={router}
               navigate={navigate}
+              commands={commands}
             />
           ) : (
             <AssetPlaceholder router={router} navigate={navigate} />
@@ -116,6 +162,19 @@ export function CedarHouseApp({ router }: { router: CedarRouter }) {
         <p className="cedar-announcement" aria-live="polite" aria-atomic="true">
           {state.announcement?.message ?? ''}
         </p>
+        <WgConfirmationDialog
+          ref={secureConfirmation}
+          dialogId="secure-cedar-house"
+          actionLabel="Secure Cedar House"
+          cancelLabel="Keep current access state"
+          actionAppearance="primary"
+          attention="ordinary"
+          initialFocus="cancel"
+          onWgConfirmationAction={() => void commands.requestSecureHouse()}
+        >
+          <span slot="heading">Secure Cedar House?</span>
+          <p>{secureConfirmationDescription(state)}</p>
+        </WgConfirmationDialog>
         <footer slot="footer">
           <span>Scenario: {state.scenario.replaceAll('-', ' ')}</span>
         </footer>
@@ -141,10 +200,12 @@ function Overview({
   state,
   router,
   navigate,
+  commands,
 }: {
   state: CedarHouseState;
   router: CedarRouter;
   navigate: Navigate;
+  commands: CedarCommands;
 }) {
   const reasons = selectUnsettledReasons(state);
   return (
@@ -156,11 +217,15 @@ function Overview({
         <WgPanel purpose="information" emphasis="strong" label="Evening readiness summary">
           <p className="cedar-readiness-copy">
             <strong>
-              {reasons.length === 0 ? 'Cedar House is settled.' : 'One item needs attention.'}
+              {reasons.length === 0
+                ? 'Cedar House is settled.'
+                : reasons.length === 1
+                  ? 'One item needs attention.'
+                  : `${reasons.length} items need attention.`}
             </strong>
             {reasons.length === 0
               ? ' Current household state is confirmed.'
-              : ` ${reasons[0]}. Comfort and equipment availability remain normal.`}
+              : ` ${reasons.join('. ')}. Comfort and equipment availability remain normal.`}
           </p>
         </WgPanel>
       </section>
@@ -172,6 +237,7 @@ function Overview({
             state={state}
             router={router}
             navigate={navigate}
+            commands={commands}
             overview
           />
         ))}
@@ -185,11 +251,13 @@ function FocusedFunction({
   state,
   router,
   navigate,
+  commands,
 }: {
   value: CedarFunction;
   state: CedarHouseState;
   router: CedarRouter;
   navigate: Navigate;
+  commands: CedarCommands;
 }) {
   return (
     <div className="cedar-focused-layout">
@@ -212,6 +280,7 @@ function FocusedFunction({
           state={state}
           router={router}
           navigate={navigate}
+          commands={commands}
           overview={false}
         />
       </div>
@@ -224,12 +293,14 @@ function FunctionRegion({
   state,
   router,
   navigate,
+  commands,
   overview,
 }: {
   value: CedarFunction;
   state: CedarHouseState;
   router: CedarRouter;
   navigate: Navigate;
+  commands: CedarCommands;
   overview: boolean;
 }) {
   const definition = cedarFunctions.find((item) => item.value === value)!;
@@ -246,7 +317,7 @@ function FunctionRegion({
       {presentation.dataState !== 'ready' ? (
         <p className="cedar-data-state">{presentation.message}</p>
       ) : null}
-      <FunctionContent value={value} state={state} prominent={!overview} />
+      <FunctionContent value={value} state={state} prominent={!overview} commands={commands} />
       {overview ? (
         <a
           className="cedar-function-link"
@@ -264,18 +335,20 @@ function FunctionContent({
   value,
   state,
   prominent,
+  commands,
 }: {
   value: CedarFunction;
   state: CedarHouseState;
   prominent: boolean;
+  commands: CedarCommands;
 }) {
   switch (value) {
     case 'comfort':
       return <Comfort state={state} prominent={prominent} />;
     case 'access':
-      return <Access state={state} prominent={prominent} />;
+      return <Access state={state} prominent={prominent} commands={commands} />;
     case 'lighting':
-      return <Lighting state={state} prominent={prominent} />;
+      return <Lighting state={state} prominent={prominent} commands={commands} />;
     case 'energy':
       return <Energy state={state} prominent={prominent} />;
     case 'maintenance':
@@ -288,6 +361,15 @@ function MonitorPanel({ heading, children }: { heading: string; children: ReactN
     <WgPanel purpose="monitor" emphasis="strong" label={heading}>
       <h3 slot="heading">{heading}</h3>
       <div className="cedar-values">{children}</div>
+    </WgPanel>
+  );
+}
+
+function ControlPanel({ heading, children }: { heading: string; children: ReactNode }) {
+  return (
+    <WgPanel purpose="control" emphasis="standard" label={heading}>
+      <h3 slot="heading">{heading}</h3>
+      {children}
     </WgPanel>
   );
 }
@@ -324,69 +406,163 @@ function Comfort({ state, prominent }: { state: CedarHouseState; prominent: bool
   );
 }
 
-function Access({ state, prominent }: { state: CedarHouseState; prominent: boolean }) {
+function Access({
+  state,
+  prominent,
+  commands,
+}: {
+  state: CedarHouseState;
+  prominent: boolean;
+  commands: CedarCommands;
+}) {
+  const request = state.access.secureRequest;
   return (
-    <MonitorPanel heading="Exterior access">
-      {state.access.points.length === 0 ? <p>Loading exterior access values.</p> : null}
-      {state.access.points.map((point) =>
-        point.asserted === null ? (
-          <WgStatusIndicator
-            key={point.id}
-            label={`${point.label} state unavailable`}
-            condition={point.condition}
-            knowledge={point.knowledge}
-          />
-        ) : (
-          <WgBooleanValue
-            key={point.id}
-            label={point.label}
-            asserted={point.asserted}
-            assertedLabel={point.assertedLabel}
-            notAssertedLabel={point.notAssertedLabel}
-            knowledge={point.knowledge}
-            presentation={prominent ? 'field' : 'rail'}
-          />
-        ),
-      )}
-    </MonitorPanel>
+    <div className="cedar-function-content">
+      <MonitorPanel heading="Exterior access">
+        {state.access.points.length === 0 ? <p>Loading exterior access values.</p> : null}
+        {state.access.points.map((point) =>
+          point.asserted === null ? (
+            <WgStatusIndicator
+              key={point.id}
+              label={`${point.label} state unavailable`}
+              condition={point.condition}
+              knowledge={point.knowledge}
+            />
+          ) : (
+            <WgBooleanValue
+              key={point.id}
+              label={point.label}
+              asserted={point.asserted}
+              assertedLabel={point.assertedLabel}
+              notAssertedLabel={point.notAssertedLabel}
+              knowledge={point.knowledge}
+              presentation={prominent ? 'field' : 'rail'}
+            />
+          ),
+        )}
+      </MonitorPanel>
+      <ControlPanel heading="Secure the house">
+        <p>Request confirmed exterior locks and garage-door closure together.</p>
+        <div className="cedar-control-actions">
+          <WgButton
+            appearance="primary"
+            pending={request.state === 'pending'}
+            disabled={state.access.points.length === 0}
+            onClick={(event) => commands.showSecureConfirmation(event.currentTarget)}
+          >
+            Secure Cedar House
+            <span slot="pending-label">Securing Cedar House</span>
+          </WgButton>
+        </div>
+        <ControlResult request={request} idleMessage="No whole-house access request in progress." />
+      </ControlPanel>
+    </div>
   );
 }
 
-function Lighting({ state, prominent }: { state: CedarHouseState; prominent: boolean }) {
+function Lighting({
+  state,
+  prominent,
+  commands,
+}: {
+  state: CedarHouseState;
+  prominent: boolean;
+  commands: CedarCommands;
+}) {
   const porch = selectPorchLight(state);
+  const request = state.lighting.porchRequest;
+  const requestedOn = !(porch?.confirmedOn ?? false);
   return (
-    <WgValueTile label="Porch light" emphasis={prominent ? 'prominent' : 'standard'}>
-      <h3 slot="heading">Porch light</h3>
-      {porch ? (
-        <WgBooleanValue
-          slot="value"
-          label="Porch light"
-          asserted={porch.confirmedOn ?? false}
-          assertedLabel="On"
-          notAssertedLabel="Off"
-          knowledge={porch.knowledge}
-          presentation={prominent ? 'field' : 'rail'}
+    <div className="cedar-function-content">
+      <WgValueTile label="Porch light" emphasis={prominent ? 'prominent' : 'standard'}>
+        <h3 slot="heading">Porch light</h3>
+        {porch ? (
+          <WgBooleanValue
+            slot="value"
+            label="Porch light"
+            asserted={porch.confirmedOn ?? false}
+            assertedLabel="On"
+            notAssertedLabel="Off"
+            knowledge={porch.knowledge}
+            presentation={prominent ? 'field' : 'rail'}
+          />
+        ) : (
+          <WgBooleanValue
+            slot="value"
+            label="Porch light"
+            assertedLabel="On"
+            notAssertedLabel="Off"
+            loading
+          />
+        )}
+        <WgStatusIndicator
+          slot="status"
+          label={porch?.activity === 'pending' ? 'Change requested' : 'Controller ready'}
+          condition="neutral"
+          activity={porch?.activity ?? 'idle'}
         />
-      ) : (
-        <WgBooleanValue
-          slot="value"
-          label="Porch light"
-          assertedLabel="On"
-          notAssertedLabel="Off"
-          loading
-        />
-      )}
-      <WgStatusIndicator
-        slot="status"
-        label={porch?.activity === 'pending' ? 'Change requested' : 'Controller ready'}
-        condition="neutral"
-        activity={porch?.activity ?? 'idle'}
-      />
-      <p>
-        {state.lighting.porchRequest.message || 'Routine exterior lighting control is available.'}
-      </p>
-    </WgValueTile>
+        <p>{request.message || 'Routine exterior lighting control is available.'}</p>
+      </WgValueTile>
+      <ControlPanel heading="Porch light control">
+        <p>The displayed value changes only after the controller confirms the request.</p>
+        <div className="cedar-control-actions">
+          <WgButton
+            appearance="secondary"
+            pending={request.state === 'pending'}
+            disabled={!porch || porch.knowledge === 'unavailable'}
+            onClick={() => void commands.requestPorchLight(requestedOn)}
+          >
+            Turn porch light {requestedOn ? 'on' : 'off'}
+            <span slot="pending-label">Requesting porch light {requestedOn ? 'on' : 'off'}</span>
+          </WgButton>
+        </div>
+        <ControlResult request={request} idleMessage="No porch-light request in progress." />
+      </ControlPanel>
+    </div>
   );
+}
+
+function ControlResult({
+  request,
+  idleMessage,
+}: {
+  request: CedarHouseState['lighting']['porchRequest'];
+  idleMessage: string;
+}) {
+  return (
+    <p className="cedar-control-result" data-request-state={request.state}>
+      <strong>{requestStateLabel(request.state)}:</strong> {request.message || idleMessage}
+    </p>
+  );
+}
+
+function requestStateLabel(state: CedarHouseState['lighting']['porchRequest']['state']): string {
+  switch (state) {
+    case 'idle':
+      return 'Ready';
+    case 'pending':
+      return 'Pending';
+    case 'succeeded':
+      return 'Confirmed';
+    case 'failed':
+      return 'Not changed';
+    case 'denied':
+      return 'Permission required';
+    case 'partial':
+      return 'Partially completed';
+  }
+}
+
+function secureConfirmationDescription(state: CedarHouseState): string {
+  const unavailable = state.access.points.filter(({ knowledge }) => knowledge === 'unavailable');
+  if (unavailable.length > 0) {
+    return `Request the front door lock and garage door for Cedar House. ${unavailable.map(({ label }) => label).join(' and ')} cannot currently confirm a result, so completion may be partial.`;
+  }
+  const open = state.access.points.filter(({ asserted }) => asserted === false);
+  if (open.length > 0) {
+    return `Request the front door lock and garage door for Cedar House. Current exception: ${open.map(({ label }) => label).join(' and ')} is open.`;
+  }
+  return 'Request the front door lock and garage door for Cedar House. Confirmed access values will remain visible while the request is pending.';
 }
 
 function Energy({ state, prominent }: { state: CedarHouseState; prominent: boolean }) {
@@ -431,6 +607,11 @@ function functionSummary(value: CedarFunction, state: CedarHouseState): string {
         ? 'Loading confirmed values'
         : `${state.comfort.indoorTemperature}°F · Air handler available`;
     case 'access': {
+      const request = state.access.secureRequest;
+      if (request.state === 'pending') return 'Securing house · Confirmed values retained';
+      if (request.state === 'partial') return 'Secure request partial · Garage unresolved';
+      if (request.state === 'denied') return 'Secure request denied · Values unchanged';
+      if (request.state === 'failed') return 'Secure request failed · Values unchanged';
       const unavailable = state.access.points.some(({ knowledge }) => knowledge === 'unavailable');
       const open = state.access.points.some(({ asserted }) => asserted === false);
       return unavailable
@@ -441,6 +622,13 @@ function functionSummary(value: CedarFunction, state: CedarHouseState): string {
     }
     case 'lighting': {
       const porch = selectPorchLight(state);
+      const request = state.lighting.porchRequest;
+      if (request.state === 'pending') {
+        return `Porch request pending · Confirmed ${porch?.confirmedOn ? 'on' : 'off'}`;
+      }
+      if (request.state === 'failed') {
+        return `Porch request failed · Still ${porch?.confirmedOn ? 'on' : 'off'}`;
+      }
       return porch ? `Porch light ${porch.confirmedOn ? 'on' : 'off'}` : 'Loading lighting values';
     }
     case 'energy':

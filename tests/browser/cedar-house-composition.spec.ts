@@ -48,7 +48,7 @@ test('keeps domain values independent from condition', async ({ page }) => {
   const garage = page.locator('wg-boolean-value[label="Garage door"]');
   await expect(garage).toHaveAttribute('not-asserted-label', 'Open');
   await expect(garage).not.toHaveAttribute('asserted');
-  await expect(page.getByText('Garage door is open')).toBeVisible();
+  await expect(page.locator('.cedar-readiness-copy')).toContainText('Garage door is open');
 
   const porch = page.locator('wg-boolean-value[label="Porch light"]');
   await expect(porch).toHaveAttribute('not-asserted-label', 'Off');
