@@ -1,4 +1,10 @@
-import { cedarFunctions, cedarScenarios, type CedarFunction, type CedarScenario } from './model.js';
+import {
+  cedarFunctions,
+  cedarScenarios,
+  type CedarFixture,
+  type CedarFunction,
+  type CedarScenario,
+} from './model.js';
 
 export type CedarRoute =
   | { name: 'overview' }
@@ -11,6 +17,7 @@ export interface CedarRouteState {
   theme: 'wayglass-dark' | 'wayglass-light';
   density: 'compact' | 'comfortable';
   direction: 'ltr' | 'rtl';
+  fixture: CedarFixture;
 }
 
 function acceptedValue<T extends string>(
@@ -45,6 +52,7 @@ export function readCedarRoute(url: URL): CedarRouteState {
       'comfortable',
     ),
     direction: acceptedValue(url.searchParams.get('dir'), ['ltr', 'rtl'], 'ltr'),
+    fixture: acceptedValue(url.searchParams.get('fixture'), ['standard', 'maximum'], 'standard'),
   };
 }
 

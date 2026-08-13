@@ -1,7 +1,9 @@
 # Phase 4 reference domains
 
-**Status:** Phase 4A accepted on August 12, 2026. Phase 4B Cedar House implementation is active
-under the accepted architecture and validation contracts.
+**Status:** Phase 4A and Phase 4B accepted on August 12, 2026. Cedar House automated, production
+visual, responsive, performance-bound, and supported-browser validation are complete; representative
+manual assistive-technology gates remain explicit public-release requirements. Phase 4C Northline
+Cold Storage is next.
 
 Phase 4 tests Wayglass in three distinct, credible application contexts:
 
@@ -86,6 +88,11 @@ review, and representative assistive-technology gates.
   questions before implementing an application.
 
 ### Phase 4B — Smart-home reference application
+
+**Accepted:** The Cedar House implementation and its
+[Phase 4B validation record](./accessibility/phase-4b-cedar-house-validation.md) satisfy the
+milestone exit rule. Manual assistive-technology gates remain carried with release impact rather
+than being misrepresented as automated evidence.
 
 Build the first complete domain proof around household awareness, asset context, and controlled
 change. The initial slice should include:

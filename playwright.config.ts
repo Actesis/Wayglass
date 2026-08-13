@@ -17,7 +17,8 @@ export default defineConfig({
       reuseExistingServer: true,
     },
     {
-      command: 'pnpm --filter @wayglass/example-smart-home dev --host 127.0.0.1 --strictPort',
+      command:
+        'pnpm --filter @wayglass/example-smart-home build && pnpm --filter @wayglass/example-smart-home exec vite preview --host 127.0.0.1 --port 6103 --strictPort',
       url: 'http://127.0.0.1:6103/',
       reuseExistingServer: true,
     },

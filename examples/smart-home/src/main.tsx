@@ -15,6 +15,7 @@ if (!root) throw new Error('Cedar House root was not found.');
 const router = createCedarRouter(window);
 const scenario = router.current().scenario;
 const clock = () => '2026-08-12T18:35:00-07:00';
+const constructionStartedAt = performance.now();
 const controls = createDeterministicHouseholdAdapter({
   clock,
   scheduler: (work) =>
@@ -34,6 +35,11 @@ const controls = createDeterministicHouseholdAdapter({
 
 createRoot(root).render(
   <StrictMode>
-    <CedarHouseApp router={router} controls={controls} clock={clock} />
+    <CedarHouseApp
+      router={router}
+      controls={controls}
+      clock={clock}
+      constructionStartedAt={constructionStartedAt}
+    />
   </StrictMode>,
 );

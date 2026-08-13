@@ -28,6 +28,16 @@ describe('Cedar House application state', () => {
     });
   });
 
+  it('creates the accepted maximum fixture deterministically', () => {
+    const state = createCedarHouseState('steady', 'maximum');
+    expect(state.validation.inventory).toHaveLength(40);
+    expect(state.validation.values).toHaveLength(18);
+    expect(state.validation.telemetry).toHaveLength(6);
+    expect(state.validation.telemetry.every(({ samples }) => samples.length === 120)).toBe(true);
+    expect(state.maintenance.history).toHaveLength(60);
+    expect(state).toEqual(createCedarHouseState('steady', 'maximum'));
+  });
+
   it('keeps requested porch-light value separate from confirmed truth', () => {
     const pending = reduceCedarHouse(createCedarHouseState(), {
       type: 'request-porch-light',
@@ -91,6 +101,16 @@ describe('Cedar House application state', () => {
     expect(updated.energy.currentWatts).toBe(1425);
     expect(updated.announcement).toBeNull();
     expect(repeated).toBe(updated);
+  });
+
+  it('replaces the complete telemetry fixture without announcing routine data', () => {
+    const baseline = createCedarHouseState('steady', 'maximum');
+    const updated = reduceCedarHouse(baseline, { type: 'replace-validation-telemetry' });
+    expect(updated.validation.telemetry[0]?.samples[0]?.value).toBe(
+      (baseline.validation.telemetry[0]?.samples[0]?.value ?? 0) + 1,
+    );
+    expect(updated.validation.telemetry).toHaveLength(6);
+    expect(updated.announcement).toBeNull();
   });
 
   it('records resident maintenance evidence without claiming sensor verification', () => {

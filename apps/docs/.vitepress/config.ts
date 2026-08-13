@@ -34,6 +34,10 @@ export default defineConfig({
         text: 'Phase 4 reference apps',
         items: [
           {
+            text: 'Phase 4B Cedar House validation',
+            link: '/accessibility/phase-4b-cedar-house-validation',
+          },
+          {
             text: 'Reference-application contract',
             link: '/reference-apps/phase-4-reference-applications',
           },
