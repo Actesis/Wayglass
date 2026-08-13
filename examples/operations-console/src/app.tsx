@@ -5,6 +5,8 @@ import {
   WgConfirmationDialog,
   WgDataTable,
   WgElbow,
+  WgEventLog,
+  WgEventRecord,
   WgFilterBar,
   WgKeyValue,
   WgMetric,
@@ -14,12 +16,14 @@ import {
   WgStatusEntry,
   WgStatusIndicator,
   WgStatusList,
+  WgTelemetryStrip,
   WgThemeProvider,
   WgTimeline,
   WgTimelineItem,
 } from '@wayglass/react';
 import {
   useEffect,
+  useLayoutEffect,
   useReducer,
   useRef,
   useSyncExternalStore,
@@ -28,6 +32,7 @@ import {
   type MouseEvent,
   type ReactNode,
 } from 'react';
+import { flushSync } from 'react-dom';
 
 import {
   createNorthlineState,
@@ -51,8 +56,15 @@ import type { NorthlineRoute, NorthlineRouter } from './router.js';
 declare global {
   interface Window {
     __northlineFixture?: { receiveMeaningfulUpdate(): void };
+    __northlineValidation?: {
+      constructionDuration?: number;
+      runMutation?: (mutation: NorthlineMutation) => number;
+    };
   }
 }
+
+type NorthlineMutation =
+  'filter-sort' | 'hold-lifecycle' | 'insert-events' | 'replace-rows' | 'telemetry';
 
 function routeTitle(route: NorthlineRoute): string {
   if (route.name === 'overview') return 'Outbound readiness';
@@ -69,10 +81,12 @@ export function NorthlineApp({
   router,
   controls,
   clock,
+  constructionStartedAt,
 }: {
   router: NorthlineRouter;
   controls: DispatchHoldPort;
   clock: NorthlineClock;
+  constructionStartedAt: number;
 }) {
   const routeState = useSyncExternalStore(router.subscribe, router.current);
   const [state, dispatch] = useReducer(reduceNorthline, routeState, (initial) =>
@@ -91,12 +105,64 @@ export function NorthlineApp({
   }, [routeState.fixture, routeState.scenario]);
   useEffect(() => {
     window.__northlineFixture = {
-      receiveMeaningfulUpdate: () => dispatch({ type: 'receive-meaningful-update' }),
+      receiveMeaningfulUpdate: () => {
+        const scrollPosition = window.scrollY;
+        flushSync(() => dispatch({ type: 'receive-meaningful-update' }));
+        window.scrollTo({ top: scrollPosition });
+      },
     };
     return () => {
       delete window.__northlineFixture;
     };
   }, []);
+  useLayoutEffect(() => {
+    if (routeState.fixture !== 'maximum') return;
+    const validation = (window.__northlineValidation ??= {});
+    validation.constructionDuration ??= performance.now() - constructionStartedAt;
+  }, [constructionStartedAt, routeState.fixture]);
+  useEffect(() => {
+    if (routeState.fixture !== 'maximum') return;
+    const validation = (window.__northlineValidation ??= {});
+    validation.runMutation = (mutation) => {
+      const started = performance.now();
+      flushSync(() => {
+        switch (mutation) {
+          case 'filter-sort':
+            dispatch({ type: 'set-dispatch-filter', value: 'needs-attention' });
+            dispatch({ type: 'set-dispatch-sort', value: 'load-id' });
+            break;
+          case 'hold-lifecycle':
+            dispatch({ type: 'set-scenario', value: 'stale-trailer', fixture: 'maximum' });
+            dispatch({
+              type: 'request-dispatch-hold',
+              requestId: 'validation-hold',
+              loadId: 'NL-2048',
+              requestedAt: clock(),
+            });
+            dispatch({
+              type: 'resolve-dispatch-hold',
+              requestId: 'validation-hold',
+              outcome: 'succeeded',
+              completedAt: clock(),
+            });
+            break;
+          case 'insert-events':
+            dispatch({ type: 'insert-validation-events' });
+            break;
+          case 'replace-rows':
+            dispatch({ type: 'replace-validation-rows' });
+            break;
+          case 'telemetry':
+            dispatch({ type: 'replace-validation-telemetry' });
+            break;
+        }
+      });
+      return performance.now() - started;
+    };
+    return () => {
+      delete validation.runMutation;
+    };
+  }, [clock, routeState.fixture]);
 
   function navigate(event: MouseEvent<HTMLAnchorElement>, route: NorthlineRoute) {
     if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
@@ -646,7 +712,108 @@ function DispatchWorkspace({
         navigate={navigate}
         dispatch={dispatch}
       />
+      {state.fixture === 'maximum' ? <MaximumDispatchFixture state={state} /> : null}
     </div>
+  );
+}
+
+function MaximumDispatchFixture({ state }: { state: NorthlineState }) {
+  const windowStart = state.validation.telemetry[0]?.samples[0]?.observedAt ?? 0;
+  const windowEnd = state.validation.telemetry[0]?.samples.at(-1)?.observedAt ?? 1;
+  return (
+    <section className="northline-maximum-fixture" aria-labelledby="northline-maximum-heading">
+      <WgElbow weight="strong">
+        <h3 id="northline-maximum-heading">Validation-scale operations context</h3>
+      </WgElbow>
+      <WgPanel purpose="monitor" emphasis="standard" label="Operational reference values">
+        <h4 slot="heading">Operational reference values</h4>
+        <div className="northline-validation-values">
+          {state.validation.values.map((value) => (
+            <WgKeyValue
+              key={value.id}
+              data-validation-value={value.id}
+              label={value.label}
+              value={value.value}
+            />
+          ))}
+        </div>
+      </WgPanel>
+      <div className="northline-validation-telemetry">
+        {state.validation.telemetry.map((series) => {
+          const latest = series.samples.at(-1)?.value ?? 0;
+          return (
+            <WgTelemetryStrip
+              key={series.id}
+              data-validation-telemetry={series.id}
+              label={series.label}
+              samples={series.samples}
+              windowStart={windowStart}
+              windowEnd={windowEnd}
+              scaleMinimum={0}
+              scaleMaximum={100}
+              condition="neutral"
+              knowledge="confirmed"
+            >
+              <h4 slot="heading">{series.label}</h4>
+              <p slot="current">
+                {latest} {series.unit}
+              </p>
+              <time slot="window-start" dateTime="2026-08-12T15:30:00-07:00">
+                15:30
+              </time>
+              <time slot="window-end" dateTime="2026-08-12T16:29:30-07:00">
+                16:29
+              </time>
+              <p slot="summary">120 confirmed samples; latest value {latest}.</p>
+            </WgTelemetryStrip>
+          );
+        })}
+      </div>
+      <WgStatusList label="Validation-scale operational sources">
+        <h4 slot="heading">Operational sources</h4>
+        <p slot="description">
+          One hundred application-owned status records exercise stable authored identity.
+        </p>
+        {state.validation.statuses.map((status) => (
+          <WgStatusEntry
+            key={status.id}
+            data-validation-status={status.id}
+            label={status.label}
+            condition={status.condition}
+            knowledge={status.knowledge}
+          >
+            <span slot="heading">{status.label}</span>
+            <p slot="description">{status.detail}</p>
+          </WgStatusEntry>
+        ))}
+      </WgStatusList>
+      <WgEventLog
+        label="Validation-scale retained operations events"
+        chronology="descending"
+        chronologyLabel="Newest retained event first"
+      >
+        <h4 slot="heading">Retained operations events</h4>
+        <p slot="description">
+          The 250-event window is bounded and ordered by Northline application policy.
+        </p>
+        {state.validation.events.map((event) => (
+          <WgEventRecord
+            key={event.id}
+            data-validation-event={event.id}
+            label={event.summary}
+            condition={event.condition}
+            knowledge={event.knowledge}
+          >
+            <time slot="time" dateTime={event.occurredAt}>
+              {formatTime(event.occurredAt)}
+            </time>
+            <span slot="summary">{event.summary}</span>
+            <span slot="source">Source: Northline operations fixture</span>
+            <span slot="category">Category: retained event</span>
+          </WgEventRecord>
+        ))}
+      </WgEventLog>
+    </section>
   );
 }
 
@@ -736,6 +903,10 @@ function DispatchTable({
               <th scope="col">Load</th>
               <th scope="col">Destination</th>
               <th scope="col">Carrier</th>
+              <th scope="col">Trailer</th>
+              <th scope="col">Door</th>
+              <th scope="col">Seal</th>
+              <th scope="col">Pallets</th>
               <th scope="col">Temperature</th>
               <th scope="col">Knowledge</th>
               <th scope="col">Release state</th>
@@ -766,6 +937,10 @@ function DispatchTable({
                 <th scope="row">{load.id}</th>
                 <td>{load.destination}</td>
                 <td>{load.carrier}</td>
+                <td>{load.trailerId}</td>
+                <td>{load.dispatchDoor}</td>
+                <td>{displayLabel(load.sealState)}</td>
+                <td>{load.palletCount}</td>
                 <td>{formatTemperature(load)}</td>
                 <td>{displayLabel(load.trailerTemperature.knowledge)}</td>
                 <td>{displayLabel(load.confirmedReleaseState)}</td>

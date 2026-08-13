@@ -17,6 +17,7 @@ if (!root) throw new Error('Northline Cold Storage root was not found.');
 const router = createNorthlineRouter(window);
 const scenario = router.current().scenario;
 const clock = () => '2026-08-12T16:49:00-07:00';
+const constructionStartedAt = performance.now();
 const controls = createDeterministicDispatchAdapter({
   clock,
   scheduler: (work) =>
@@ -33,6 +34,11 @@ const controls = createDeterministicDispatchAdapter({
 
 createRoot(root).render(
   <StrictMode>
-    <NorthlineApp router={router} controls={controls} clock={clock} />
+    <NorthlineApp
+      router={router}
+      controls={controls}
+      clock={clock}
+      constructionStartedAt={constructionStartedAt}
+    />
   </StrictMode>,
 );
