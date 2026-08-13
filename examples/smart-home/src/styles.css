@@ -9,6 +9,10 @@ body {
   margin: 0;
 }
 
+wg-media-viewer:not(:defined) {
+  display: none;
+}
+
 a {
   color: var(--wg-color-semantic-action-primary);
   font-weight: var(--wg-typography-weight-medium);
@@ -242,6 +246,79 @@ main {
   display: none;
 }
 
+.cedar-asset-detail {
+  display: grid;
+  gap: var(--wg-space-semantic-layout-function-comfortable);
+}
+
+.cedar-back-link {
+  justify-self: start;
+}
+
+.cedar-asset-overview,
+.cedar-maintenance-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--wg-space-semantic-function-gutter);
+  align-items: start;
+}
+
+.cedar-asset-figure {
+  display: grid;
+  min-inline-size: 0;
+  gap: var(--wg-space-reference-2);
+  margin: 0;
+}
+
+.cedar-asset-figure figcaption {
+  color: var(--wg-color-semantic-text-secondary);
+  font-size: var(--wg-typography-size-label);
+}
+
+.cedar-asset-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--wg-space-semantic-layout-section-comfortable);
+  margin-block-end: var(--wg-space-semantic-layout-section-comfortable);
+}
+
+.cedar-maintenance-steps {
+  display: grid;
+  gap: var(--wg-space-reference-3);
+  padding-inline-start: var(--wg-space-semantic-layout-function-comfortable);
+}
+
+.cedar-history {
+  display: grid;
+  gap: var(--wg-space-semantic-layout-section-comfortable);
+  margin-block: var(--wg-space-semantic-layout-section-comfortable) 0;
+  padding-inline-start: var(--wg-space-semantic-layout-function-comfortable);
+}
+
+.cedar-history li {
+  padding-inline-start: var(--wg-space-reference-2);
+}
+
+.cedar-history time,
+.cedar-history strong,
+.cedar-history span {
+  display: block;
+}
+
+.cedar-history time,
+.cedar-history span {
+  color: var(--wg-color-semantic-text-secondary);
+  font-size: var(--wg-typography-size-label);
+}
+
+.cedar-history strong {
+  margin-block: var(--wg-space-reference-1);
+}
+
+.cedar-asset-detail wg-button {
+  max-inline-size: 100%;
+}
+
 footer {
   display: flex;
   flex-wrap: wrap;
@@ -263,7 +340,10 @@ footer {
   .cedar-header nav,
   .cedar-function-grid,
   .cedar-values,
-  .cedar-function-selectors {
+  .cedar-function-selectors,
+  .cedar-asset-overview,
+  .cedar-maintenance-layout,
+  .cedar-asset-facts {
     grid-template-columns: minmax(0, 1fr);
   }
 

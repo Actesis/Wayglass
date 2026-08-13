@@ -63,6 +63,13 @@ export interface HouseholdRequest {
   completedAt: string | null;
 }
 
+export interface MaintenanceRecord {
+  id: string;
+  summary: string;
+  recordedAt: string;
+  evidence: 'resident-recorded';
+}
+
 export interface CedarHouseState {
   scenario: CedarScenario;
   selectedFunction: CedarFunction;
@@ -82,6 +89,7 @@ export interface CedarHouseState {
     airHandlerAvailable: boolean;
     lastReplacedAt: string | null;
     mediaState: 'available' | 'loading' | 'unavailable';
+    history: MaintenanceRecord[];
   };
   presentation: Record<
     CedarFunction,
@@ -111,6 +119,7 @@ export type CedarHouseAction =
       outcome: 'succeeded' | 'partial' | 'failed' | 'denied';
       completedAt: string;
     }
+  | { type: 'record-filter-replaced'; recordId: string; recordedAt: string }
   | { type: 'receive-meaningful-update' };
 
 const observedAt = '2026-08-12T18:30:00-07:00';
@@ -179,6 +188,20 @@ function baselineState(): CedarHouseState {
       airHandlerAvailable: true,
       lastReplacedAt: '2026-05-10T10:15:00-07:00',
       mediaState: 'available',
+      history: [
+        {
+          id: 'filter-2026-05-10',
+          summary: 'HVAC return filter replaced',
+          recordedAt: '2026-05-10T10:15:00-07:00',
+          evidence: 'resident-recorded',
+        },
+        {
+          id: 'inspection-2026-02-08',
+          summary: 'Air-handler access area inspected',
+          recordedAt: '2026-02-08T09:20:00-07:00',
+          evidence: 'resident-recorded',
+        },
+      ],
     },
     presentation: Object.fromEntries(
       cedarFunctions.map(({ value }) => [
@@ -426,6 +449,29 @@ export function reduceCedarHouse(
             message,
             completedAt: action.completedAt,
           },
+        },
+        announcement: { id: (state.announcement?.id ?? 0) + 1, message },
+      };
+    }
+    case 'record-filter-replaced': {
+      if (!state.maintenance.filterDue) return state;
+      const message =
+        'Filter replacement recorded for Cedar House. This is a resident record, not sensor verification.';
+      return {
+        ...state,
+        maintenance: {
+          ...state.maintenance,
+          filterDue: false,
+          lastReplacedAt: action.recordedAt,
+          history: [
+            {
+              id: action.recordId,
+              summary: 'HVAC return filter replaced',
+              recordedAt: action.recordedAt,
+              evidence: 'resident-recorded',
+            },
+            ...state.maintenance.history,
+          ],
         },
         announcement: { id: (state.announcement?.id ?? 0) + 1, message },
       };
