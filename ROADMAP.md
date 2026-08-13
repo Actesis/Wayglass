@@ -287,7 +287,7 @@ and retains the boundaries accepted during Phase 2.
 ## Phase 4 — Reference domains
 
 Status: Phase 4A and Phase 4B accepted on August 12, 2026; Phase 4C accepted on August 13, 2026.
-Phase 4D Harbor Lab is next.
+Phase 4D Harbor Lab application foundations are active.
 
 The [formal Phase 4 plan](./docs/phase-4.md) treats the three reference applications as deployment
 proofs with application-owned state and workflows rather than as new public component families.
@@ -319,6 +319,8 @@ proofs with application-owned state and workflows rather than as new public comp
 
 ### Phase 4D — AI-agent-supervision reference application
 
+- [x] Establish the private application, domain truth, routes, scenarios, approval port, and
+      unit-test foundation.
 - [ ] Define and implement a human-supervision workflow for agents, tasks, tools, uncertainty, and
       approval.
 - [ ] Prove independent activity, condition, confidence, human attention, consequential action, and

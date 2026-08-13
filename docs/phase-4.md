@@ -3,7 +3,7 @@
 **Status:** Phase 4A and Phase 4B accepted on August 12, 2026; Phase 4C accepted on August 13, 2026.
 Cedar House and Northline Cold Storage automated, production visual, responsive, performance-bound,
 and supported-browser validation are complete; representative manual assistive-technology gates
-remain explicit public-release requirements. Phase 4D is next.
+remain explicit public-release requirements. Phase 4D Harbor Lab foundations are active.
 
 Phase 4 tests Wayglass in three distinct, credible application contexts:
 
@@ -140,6 +140,10 @@ The application owns services, queues, incidents, records, queries, commands, au
 retention, escalation, and audit policy.
 
 ### Phase 4D — AI-agent-supervision reference application
+
+**Active:** The isolated Harbor Lab foundation now establishes application-owned domain truth,
+native routes, deterministic scenarios, a merge-approval port, and unit tests. Production
+composition and workflow slices remain ahead.
 
 Build a human-supervision workspace for agents, tasks, tool activity, uncertainty, approval, and
 recovery without anthropomorphic or falsely authoritative language.

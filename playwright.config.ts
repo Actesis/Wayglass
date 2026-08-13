@@ -28,6 +28,12 @@ export default defineConfig({
       url: 'http://127.0.0.1:6104/',
       reuseExistingServer: true,
     },
+    {
+      command:
+        'pnpm --filter @wayglass/example-agent-supervision build && pnpm --filter @wayglass/example-agent-supervision exec vite preview --host 127.0.0.1 --port 6105 --strictPort',
+      url: 'http://127.0.0.1:6105/',
+      reuseExistingServer: true,
+    },
   ],
   projects: [
     {

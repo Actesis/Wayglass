@@ -1,0 +1,133 @@
+:root {
+  color: var(--wg-color-semantic-text-primary);
+  background: var(--wg-color-semantic-surface-canvas);
+  font-family: var(--wg-typography-family-body);
+  line-height: var(--wg-typography-line-height-body);
+}
+
+body {
+  margin: 0;
+}
+
+a {
+  color: var(--wg-color-semantic-action-primary);
+  font-weight: var(--wg-typography-weight-medium);
+  text-underline-offset: var(--wg-space-reference-1);
+}
+
+a:focus-visible {
+  outline: var(--wg-border-width-strong) solid var(--wg-color-semantic-focus-ring);
+  outline-offset: var(--wg-space-reference-1);
+}
+
+.harbor-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--wg-space-semantic-layout-section-comfortable);
+}
+
+.harbor-identity,
+main,
+.harbor-page-heading,
+.harbor-decision {
+  display: grid;
+  min-inline-size: 0;
+}
+
+.harbor-identity {
+  gap: var(--wg-space-reference-1);
+}
+
+.harbor-identity p,
+.harbor-identity strong,
+.harbor-page-heading p,
+.harbor-page-heading h1,
+.harbor-functions h2,
+.harbor-functions p,
+.harbor-decision p,
+.harbor-foundation-note {
+  margin: 0;
+}
+
+.harbor-identity p,
+.harbor-page-heading > p:first-child,
+footer {
+  color: var(--wg-color-semantic-text-secondary);
+  font-size: var(--wg-typography-size-label);
+}
+
+.harbor-identity strong,
+.harbor-page-heading h1 {
+  font-family: var(--wg-typography-family-display);
+  font-size: var(--wg-typography-size-title);
+  line-height: var(--wg-typography-line-height-compact);
+}
+
+.harbor-header nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--wg-space-reference-2);
+}
+
+.harbor-header nav a {
+  min-block-size: var(--wg-size-touch-minimum);
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  padding-inline: var(--wg-space-reference-3);
+  border: var(--wg-border-width-standard) solid var(--wg-color-semantic-border-subtle);
+  border-radius: var(--wg-shape-radius-control);
+  color: var(--wg-color-semantic-text-primary);
+  background: var(--wg-color-semantic-surface-panel);
+  text-decoration: none;
+}
+
+.harbor-header nav a:hover,
+.harbor-header nav a[aria-current='page'] {
+  border-color: var(--wg-color-semantic-selection-indicator);
+  background: var(--wg-color-semantic-selection-surface);
+}
+
+main {
+  gap: var(--wg-space-semantic-layout-function-comfortable);
+}
+
+.harbor-page-heading,
+.harbor-decision {
+  gap: var(--wg-space-reference-2);
+}
+
+.harbor-page-heading > p:last-child,
+.harbor-foundation-note {
+  max-inline-size: 68ch;
+  color: var(--wg-color-semantic-text-secondary);
+}
+
+.harbor-functions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--wg-space-semantic-function-gutter);
+}
+
+.harbor-functions article {
+  display: grid;
+  gap: var(--wg-space-reference-2);
+  padding: var(--wg-space-semantic-layout-function-comfortable);
+  border: var(--wg-border-semantic-function) solid var(--wg-color-semantic-border-strong);
+  border-radius: var(--wg-shape-radius-panel);
+  background: var(--wg-color-semantic-surface-inset);
+}
+
+.harbor-functions article[data-active='true'] {
+  border-color: var(--wg-color-semantic-selection-indicator);
+  background: var(--wg-color-semantic-selection-surface);
+}
+
+/* 48rem is an app-local composition threshold, not a reusable Wayglass token. */
+@media (max-width: 48rem) {
+  .harbor-functions {
+    grid-template-columns: 1fr;
+  }
+}

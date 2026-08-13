@@ -38,6 +38,10 @@ export default defineConfig({
             link: '/accessibility/phase-4b-cedar-house-validation',
           },
           {
+            text: 'Phase 4C Northline validation',
+            link: '/accessibility/phase-4c-northline-validation',
+          },
+          {
             text: 'Reference-application contract',
             link: '/reference-apps/phase-4-reference-applications',
           },
@@ -48,6 +52,10 @@ export default defineConfig({
           {
             text: 'Northline Cold Storage',
             link: '/reference-apps/northline-cold-storage',
+          },
+          {
+            text: 'Harbor Lab',
+            link: '/reference-apps/harbor-lab',
           },
         ],
       },
