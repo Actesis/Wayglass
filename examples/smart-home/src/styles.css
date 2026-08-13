@@ -1,32 +1,264 @@
 :root {
   color: var(--wg-color-semantic-text-primary);
   background: var(--wg-color-semantic-surface-canvas);
+  font-family: var(--wg-typography-family-body);
+  line-height: var(--wg-typography-line-height-body);
 }
 
 body {
   margin: 0;
 }
 
-.cedar-header,
-.cedar-header nav,
-main,
-footer {
+a {
+  color: var(--wg-color-semantic-action-primary);
+  font-weight: var(--wg-typography-weight-medium);
+  text-underline-offset: var(--wg-space-reference-1);
+}
+
+a:focus-visible {
+  outline: var(--wg-border-width-strong) solid var(--wg-color-semantic-focus-ring);
+  outline-offset: var(--wg-space-reference-1);
+}
+
+.cedar-header {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--wg-space-reference-3);
-  align-items: baseline;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--wg-space-semantic-layout-section-comfortable);
 }
 
-.cedar-header h1,
-main h2,
-main p {
-  flex-basis: 100%;
+.cedar-identity {
+  display: grid;
+  gap: var(--wg-space-reference-1);
 }
 
-.cedar-header a {
-  color: var(--wg-color-semantic-action-primary);
+.cedar-identity p,
+.cedar-identity strong,
+.cedar-page-heading p,
+.cedar-function h2,
+.cedar-situation h2,
+.cedar-values p,
+.cedar-readiness-copy,
+.cedar-data-state,
+.cedar-function-selectors small,
+footer span {
+  margin: 0;
+}
+
+.cedar-identity p,
+.cedar-page-heading > p:first-child,
+footer {
+  color: var(--wg-color-semantic-text-secondary);
+  font-size: var(--wg-typography-size-label);
+}
+
+.cedar-identity strong {
+  font-family: var(--wg-typography-family-display);
+  font-size: var(--wg-typography-size-title);
+}
+
+.cedar-header nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--wg-space-reference-2);
+}
+
+.cedar-header nav a {
+  min-block-size: var(--wg-size-touch-minimum);
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  padding-inline: var(--wg-space-reference-3);
+  border: var(--wg-border-width-standard) solid var(--wg-color-semantic-border-subtle);
+  border-radius: var(--wg-shape-radius-control);
+  color: var(--wg-color-semantic-text-primary);
+  background: var(--wg-color-semantic-surface-panel);
+  text-decoration: none;
+}
+
+.cedar-header nav a:hover,
+.cedar-header nav a[aria-current='page'] {
+  border-color: var(--wg-color-semantic-selection-indicator);
+  background: var(--wg-color-semantic-selection-surface);
+}
+
+main {
+  display: grid;
+  gap: var(--wg-space-semantic-layout-function-comfortable);
+}
+
+.cedar-page-heading {
+  display: grid;
+  max-inline-size: 72rem;
+  gap: var(--wg-space-reference-2);
+}
+
+.cedar-page-heading h1 {
+  margin: 0;
+  font-family: var(--wg-typography-family-display);
+  font-size: var(--wg-typography-size-title);
+  line-height: var(--wg-typography-line-height-compact);
+}
+
+.cedar-page-heading > p:last-child {
+  max-inline-size: 64ch;
+  margin: 0;
+  color: var(--wg-color-semantic-text-secondary);
+}
+
+.cedar-situation,
+.cedar-function {
+  display: grid;
+  min-inline-size: 0;
+  gap: var(--wg-space-semantic-layout-section-comfortable);
+}
+
+.cedar-readiness-copy {
+  font-size: var(--wg-typography-size-body);
+}
+
+.cedar-function-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--wg-space-semantic-function-gutter);
+  align-items: start;
+}
+
+.cedar-function {
+  box-sizing: border-box;
+  padding: var(--wg-space-semantic-layout-function-comfortable);
+  border: var(--wg-border-semantic-function) solid var(--wg-color-semantic-border-strong);
+  border-radius: var(--wg-shape-radius-panel);
+  background: var(--wg-color-semantic-surface-inset);
+}
+
+.cedar-function[data-function='maintenance'] {
+  grid-column: 1 / -1;
+}
+
+.cedar-data-state {
+  padding: var(--wg-space-reference-2) var(--wg-space-reference-3);
+  border-inline-start: var(--wg-border-width-band) solid
+    var(--wg-color-semantic-condition-informational);
+  color: var(--wg-color-semantic-text-secondary);
+  background: var(--wg-color-semantic-surface-panel);
+}
+
+.cedar-values {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--wg-space-semantic-layout-section-comfortable);
+  align-items: start;
+}
+
+.cedar-function-link {
+  justify-self: start;
+}
+
+.cedar-focused-layout {
+  display: grid;
+  gap: var(--wg-space-semantic-function-gutter);
+}
+
+.cedar-function-selectors {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--wg-space-reference-2);
+  align-items: end;
+}
+
+.cedar-function-selectors a {
+  display: grid;
+  min-block-size: var(--wg-size-touch-minimum);
+  box-sizing: border-box;
+  gap: var(--wg-space-reference-1);
+  padding: var(--wg-space-reference-3);
+  border: var(--wg-border-semantic-section) solid var(--wg-color-semantic-border-subtle);
+  border-block-end-width: var(--wg-border-width-band);
+  border-radius: var(--wg-shape-radius-panel) var(--wg-shape-radius-panel) 0 0;
+  color: var(--wg-color-semantic-text-primary);
+  background: var(--wg-color-semantic-surface-panel);
+  text-decoration: none;
+}
+
+.cedar-function-selectors a:hover,
+.cedar-function-selectors a[aria-current='page'] {
+  border-color: var(--wg-color-semantic-selection-indicator);
+  background: var(--wg-color-semantic-selection-surface);
+}
+
+.cedar-function-selectors a[aria-current='page'] {
+  border-block-end-color: var(--wg-color-semantic-selection-indicator);
+}
+
+.cedar-function-selectors small {
+  color: var(--wg-color-semantic-text-secondary);
+  font-size: var(--wg-typography-size-metadata);
+  font-weight: var(--wg-typography-weight-regular);
+}
+
+.cedar-focused-surface .cedar-function {
+  min-block-size: 28rem;
 }
 
 .cedar-announcement:empty {
   display: none;
+}
+
+footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--wg-space-reference-3);
+}
+
+/*
+ * CSS custom properties cannot be used in media conditions. These private composition
+ * breakpoints mirror the intent of the locked phone-wide and desktop tokens without creating API.
+ */
+@media (max-width: 64rem) {
+  .cedar-function-selectors {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 40rem) {
+  .cedar-header,
+  .cedar-header nav,
+  .cedar-function-grid,
+  .cedar-values,
+  .cedar-function-selectors {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cedar-header,
+  .cedar-header nav {
+    display: grid;
+    inline-size: 100%;
+  }
+
+  .cedar-header nav a {
+    inline-size: 100%;
+  }
+
+  .cedar-function[data-function='maintenance'] {
+    grid-column: auto;
+  }
+
+  .cedar-function {
+    padding: var(--wg-space-semantic-layout-function-compact);
+  }
+
+  .cedar-function-selectors a {
+    border-radius: var(--wg-shape-radius-control);
+    border-block-end-width: var(--wg-border-semantic-section);
+  }
+}
+
+@media (forced-colors: active) {
+  .cedar-function,
+  .cedar-header nav a,
+  .cedar-function-selectors a {
+    border-color: CanvasText;
+  }
 }
