@@ -15,87 +15,273 @@ a {
   text-underline-offset: var(--wg-space-reference-1);
 }
 
-a:focus-visible {
+a:focus-visible,
+.northline-load-table th button:focus-visible {
   outline: var(--wg-border-width-strong) solid var(--wg-color-semantic-focus-ring);
   outline-offset: var(--wg-space-reference-1);
 }
 
-.northline-header,
-.northline-header nav {
+.northline-header {
   display: flex;
   flex-wrap: wrap;
   align-items: end;
   justify-content: space-between;
-  gap: var(--wg-space-reference-3);
+  gap: var(--wg-space-semantic-layout-section-comfortable);
 }
 
-.northline-header p,
-.northline-header strong,
-.northline-heading p,
-.northline-heading h1,
-.northline-functions h2,
-.northline-functions p,
-.northline-exception p,
-.northline-foundation-note {
+.northline-identity,
+main,
+.northline-page-heading,
+.northline-situation,
+.northline-function,
+.northline-readiness-copy,
+.northline-values,
+.northline-dispatch-workspace,
+.northline-load-facts {
+  display: grid;
+  min-inline-size: 0;
+}
+
+.northline-identity {
+  gap: var(--wg-space-reference-1);
+}
+
+.northline-identity p,
+.northline-identity strong,
+.northline-page-heading p,
+.northline-page-heading h1,
+.northline-situation h2,
+.northline-function h2,
+.northline-readiness-copy p,
+.northline-values p,
+.northline-data-state,
+.northline-function-selectors small,
+.northline-peer-consequence,
+.northline-load-facts p,
+footer span {
   margin: 0;
 }
 
-.northline-header > div,
-main,
-.northline-heading,
-.northline-exception {
-  display: grid;
+.northline-identity p,
+.northline-page-heading > p:first-child,
+footer {
+  color: var(--wg-color-semantic-text-secondary);
+  font-size: var(--wg-typography-size-label);
+}
+
+.northline-identity strong,
+.northline-page-heading h1 {
+  font-family: var(--wg-typography-family-display);
+  font-size: var(--wg-typography-size-title);
+  line-height: var(--wg-typography-line-height-compact);
+}
+
+.northline-header nav {
+  display: flex;
+  flex-wrap: wrap;
   gap: var(--wg-space-reference-2);
 }
 
-.northline-header strong,
-.northline-heading h1 {
-  font-family: var(--wg-typography-family-display);
-  font-size: var(--wg-typography-size-title);
+.northline-header nav a {
+  min-block-size: var(--wg-size-touch-minimum);
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  padding-inline: var(--wg-space-reference-3);
+  border: var(--wg-border-width-standard) solid var(--wg-color-semantic-border-subtle);
+  border-radius: var(--wg-shape-radius-control);
+  color: var(--wg-color-semantic-text-primary);
+  background: var(--wg-color-semantic-surface-panel);
+  text-decoration: none;
 }
 
-.northline-header p,
-.northline-heading > p:first-child,
-footer,
-.northline-foundation-note {
-  color: var(--wg-color-semantic-text-secondary);
-  font-size: var(--wg-typography-size-label);
+.northline-header nav a:hover,
+.northline-header nav a[aria-current='page'] {
+  border-color: var(--wg-color-semantic-selection-indicator);
+  background: var(--wg-color-semantic-selection-surface);
 }
 
 main {
   gap: var(--wg-space-semantic-layout-function-comfortable);
 }
 
-.northline-heading p:last-child {
-  max-inline-size: 64ch;
+.northline-page-heading {
+  max-inline-size: 72rem;
+  gap: var(--wg-space-reference-2);
 }
 
-.northline-functions {
+.northline-page-heading > p:last-child {
+  max-inline-size: 68ch;
+  color: var(--wg-color-semantic-text-secondary);
+}
+
+.northline-situation,
+.northline-function,
+.northline-dispatch-workspace {
+  gap: var(--wg-space-semantic-layout-section-comfortable);
+}
+
+.northline-readiness-copy {
+  gap: var(--wg-space-reference-2);
+  max-inline-size: 76ch;
+}
+
+.northline-function-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--wg-space-semantic-function-gutter);
+  align-items: start;
 }
 
-.northline-functions article {
-  min-inline-size: 0;
-  padding: var(--wg-space-semantic-layout-section-compact);
-  border-block-start: var(--wg-border-semantic-function) solid
-    var(--wg-color-semantic-border-strong);
+.northline-function {
+  box-sizing: border-box;
+  padding: var(--wg-space-semantic-layout-function-comfortable);
+  border: var(--wg-border-semantic-function) solid var(--wg-color-semantic-border-strong);
+  border-radius: var(--wg-shape-radius-panel);
   background: var(--wg-color-semantic-surface-inset);
 }
 
-.northline-functions article[data-active='true'] {
-  border-block-start-color: var(--wg-color-semantic-selection-indicator);
+.northline-data-state,
+.northline-peer-consequence {
+  padding: var(--wg-space-reference-2) var(--wg-space-reference-3);
+  border-inline-start: var(--wg-border-width-band) solid
+    var(--wg-color-semantic-condition-informational);
+  color: var(--wg-color-semantic-text-secondary);
+  background: var(--wg-color-semantic-surface-panel);
+}
+
+.northline-peer-consequence {
+  border-inline-start-color: var(--wg-color-semantic-condition-caution);
+  color: var(--wg-color-semantic-text-primary);
+}
+
+.northline-values,
+.northline-load-facts {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--wg-space-semantic-layout-section-comfortable);
+  align-items: start;
+}
+
+.northline-values p,
+.northline-load-facts p {
+  color: var(--wg-color-semantic-text-secondary);
+}
+
+.northline-function-link {
+  justify-self: start;
+}
+
+.northline-focused-layout,
+.northline-load-detail {
+  display: grid;
+  min-inline-size: 0;
+  gap: var(--wg-space-semantic-function-gutter);
+}
+
+.northline-function-selectors {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--wg-space-reference-2);
+  align-items: end;
+}
+
+.northline-function-selectors a {
+  display: grid;
+  min-block-size: var(--wg-size-touch-minimum);
+  box-sizing: border-box;
+  gap: var(--wg-space-reference-1);
+  padding: var(--wg-space-reference-3);
+  border: var(--wg-border-semantic-section) solid var(--wg-color-semantic-border-subtle);
+  border-block-end-width: var(--wg-border-width-band);
+  border-radius: var(--wg-shape-radius-panel) var(--wg-shape-radius-panel) 0 0;
+  color: var(--wg-color-semantic-text-primary);
+  background: var(--wg-color-semantic-surface-panel);
+  text-decoration: none;
+}
+
+.northline-function-selectors a:hover,
+.northline-function-selectors a[aria-current='page'] {
+  border-color: var(--wg-color-semantic-selection-indicator);
   background: var(--wg-color-semantic-selection-surface);
 }
 
-.northline-functions p,
-.northline-foundation-note {
-  max-inline-size: 72ch;
+.northline-function-selectors small {
+  color: var(--wg-color-semantic-text-secondary);
+  font-size: var(--wg-typography-size-metadata);
+  font-weight: var(--wg-typography-weight-regular);
 }
 
-@media (max-width: 48rem) {
-  .northline-functions {
-    grid-template-columns: 1fr;
+.northline-focused-surface .northline-function {
+  min-block-size: 28rem;
+}
+
+.northline-load-table table {
+  min-inline-size: 70rem;
+}
+
+.northline-load-table td:last-child a,
+.northline-load-table td:last-child span {
+  white-space: nowrap;
+}
+
+.northline-load-table td:last-child span {
+  color: var(--wg-color-semantic-text-secondary);
+}
+
+.northline-announcement:empty {
+  display: none;
+}
+
+footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--wg-space-reference-3);
+}
+
+/*
+ * CSS custom properties cannot be used in media conditions. These private composition
+ * breakpoints mirror the locked phone-wide and desktop intent without creating public API.
+ */
+@media (max-width: 64rem) {
+  .northline-function-selectors {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 40rem) {
+  .northline-header,
+  .northline-header nav,
+  .northline-function-grid,
+  .northline-values,
+  .northline-load-facts,
+  .northline-function-selectors {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .northline-header,
+  .northline-header nav {
+    display: grid;
+    inline-size: 100%;
+  }
+
+  .northline-header nav a {
+    inline-size: 100%;
+  }
+
+  .northline-function {
+    padding: var(--wg-space-semantic-layout-function-compact);
+  }
+
+  .northline-function-selectors a {
+    border-radius: var(--wg-shape-radius-control);
+    border-block-end-width: var(--wg-border-semantic-section);
+  }
+}
+
+@media (forced-colors: active) {
+  .northline-function,
+  .northline-header nav a,
+  .northline-function-selectors a {
+    border-color: CanvasText;
   }
 }

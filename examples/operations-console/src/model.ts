@@ -327,6 +327,7 @@ export function createNorthlineState(
       break;
     case 'meaningful-update':
     case 'inserted-exception':
+      applyStaleTrailer(state);
       state.revision = 1;
       state.exceptions.unshift({
         id: 'exception-nl-2051-door',
@@ -505,4 +506,42 @@ export function selectDispatchLoads(state: NorthlineState): DispatchLoad[] {
       ? left.id.localeCompare(right.id)
       : left.cutoffAt.localeCompare(right.cutoffAt),
   );
+}
+
+export interface DispatchSummary {
+  scheduled: number;
+  held: number;
+  needsAttention: number;
+  unknownTemperature: number;
+  earliestCutoffAt: string | null;
+}
+
+export function selectDispatchSummary(state: NorthlineState): DispatchSummary {
+  return state.dispatch.loads.reduce<DispatchSummary>(
+    (summary, load) => ({
+      scheduled: summary.scheduled + (load.confirmedReleaseState === 'scheduled' ? 1 : 0),
+      held: summary.held + (load.confirmedReleaseState === 'held' ? 1 : 0),
+      needsAttention:
+        summary.needsAttention +
+        (load.condition === 'caution' || load.condition === 'critical' ? 1 : 0),
+      unknownTemperature:
+        summary.unknownTemperature +
+        (load.trailerTemperature.knowledge === 'unavailable' ||
+        load.trailerTemperature.knowledge === 'unknown'
+          ? 1
+          : 0),
+      earliestCutoffAt:
+        summary.earliestCutoffAt === null || load.cutoffAt < summary.earliestCutoffAt
+          ? load.cutoffAt
+          : summary.earliestCutoffAt,
+    }),
+    { scheduled: 0, held: 0, needsAttention: 0, unknownTemperature: 0, earliestCutoffAt: null },
+  );
+}
+
+export function selectFunctionExceptions(
+  state: NorthlineState,
+  value: NorthlineFunction,
+): OperationalException[] {
+  return state.exceptions.filter((exception) => exception.function === value);
 }

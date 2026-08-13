@@ -118,6 +118,9 @@ importers:
 
   examples/operations-console:
     dependencies:
+      '@wayglass/elements':
+        specifier: workspace:*
+        version: link:../../packages/elements
       '@wayglass/react':
         specifier: workspace:*
         version: link:../../packages/react

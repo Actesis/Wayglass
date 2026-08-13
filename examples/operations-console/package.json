@@ -12,6 +12,7 @@
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
+    "@wayglass/elements": "workspace:*",
     "@wayglass/react": "workspace:*",
     "@wayglass/themes": "workspace:*",
     "@wayglass/tokens": "workspace:*",
