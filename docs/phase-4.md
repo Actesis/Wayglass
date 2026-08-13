@@ -1,8 +1,7 @@
 # Phase 4 reference domains
 
-**Status:** Formal roadmap accepted on August 12, 2026. Phase 4A reference-application architecture
-is active. No application implementation is authorized until its architecture and validation
-contracts are accepted.
+**Status:** Phase 4A accepted on August 12, 2026. Phase 4B Cedar House implementation is active
+under the accepted architecture and validation contracts.
 
 Phase 4 tests Wayglass in three distinct, credible application contexts:
 
@@ -58,14 +57,14 @@ Phase 4 will:
 Define the common rules and validation method before application code establishes accidental
 conventions.
 
-The proposed
+The accepted
 [Phase 4 reference-application contract](./reference-apps/phase-4-reference-applications.md)
 inventories the accepted Wayglass surface and defines one credible user, environment, shared truth,
 workflow, consequential action, failure envelope, and deliberate exclusion set for each application.
 The accepted
 [reference-application architecture decision](./architecture/adr/0030-isolated-reference-applications.md)
 keeps three private React applications, state, adapters, routes, fixtures, branding, and sharing
-thresholds outside production Wayglass packages. The proposed
+thresholds outside production Wayglass packages. The accepted
 [Phase 4 validation plan](./accessibility/phase-4-validation-plan.md) defines exact routes,
 scenarios, viewports, browser tiers, application fixtures, performance thresholds, production visual
 review, and representative assistive-technology gates.
@@ -199,7 +198,7 @@ Every reference application must:
 
 ## Validation strategy
 
-The proposed [Phase 4 validation plan](./accessibility/phase-4-validation-plan.md) publishes the
+The accepted [Phase 4 validation plan](./accessibility/phase-4-validation-plan.md) publishes the
 exact fixtures and thresholds. The baseline matrix includes:
 
 - unit tests for application state, selectors, request transitions, reconciliation, and scenario

@@ -37,6 +37,10 @@ export default defineConfig({
             text: 'Reference-application contract',
             link: '/reference-apps/phase-4-reference-applications',
           },
+          {
+            text: 'Cedar House',
+            link: '/reference-apps/cedar-house',
+          },
         ],
       },
       {

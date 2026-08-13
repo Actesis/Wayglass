@@ -1,9 +1,9 @@
 # Phase 4 reference-application contract
 
 **Status:** Accepted for Phase 4A on August 12, 2026. This contract defines the smallest credible
-workflow and existing Wayglass surface for each Phase 4 reference application. The proposed
-[ADR 0030](../architecture/adr/0030-isolated-reference-applications.md) now defines the application
-architecture for review; no implementation or public package API is authorized yet.
+workflow and existing Wayglass surface for each Phase 4 reference application. The accepted
+[ADR 0030](../architecture/adr/0030-isolated-reference-applications.md) defines the application
+architecture; implementation remains isolated from public package API.
 
 The [formal Phase 4 roadmap](../phase-4.md) requires three applications that test the design
 language under different domain pressure. This contract fixes what each application must prove
@@ -225,14 +225,14 @@ semantics, accessibility, and failure handling also match.
 
 ## Phase 4A handoff
 
-Acceptance of this contract authorizes the next Phase 4A planning slices:
+Phase 4A accepted these planning records:
 
-1. an architecture decision for three isolated private React applications, application-owned state
-   and adapters, deterministic scenarios, routing, production-package consumption, and code-sharing
-   thresholds; and
-2. the proposed [Phase 4 validation plan](../accessibility/phase-4-validation-plan.md), with exact
+1. [ADR 0030](../architecture/adr/0030-isolated-reference-applications.md) for three isolated
+   private React applications, application-owned state and adapters, deterministic scenarios,
+   routing, production-package consumption, and code-sharing thresholds; and
+2. the accepted [Phase 4 validation plan](../accessibility/phase-4-validation-plan.md), with exact
    fixtures, viewports, state coverage, performance envelopes, visual review, and representative
    assistive-technology gates.
 
-It does not authorize application scaffolding or a public domain component. Implementation begins
-only after both records are reviewed and accepted.
+Together they authorize isolated application implementation, but not a public domain component, live
+integration, deployment, or package publication.
