@@ -258,6 +258,10 @@ export default defineConfig({
         text: 'Accessibility',
         items: [
           {
+            text: 'Phase 4 validation plan',
+            link: '/accessibility/phase-4-validation-plan',
+          },
+          {
             text: 'Phase 3 validation plan',
             link: '/accessibility/phase-3-validation-plan',
           },

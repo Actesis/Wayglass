@@ -62,10 +62,13 @@ The proposed
 [Phase 4 reference-application contract](./reference-apps/phase-4-reference-applications.md)
 inventories the accepted Wayglass surface and defines one credible user, environment, shared truth,
 workflow, consequential action, failure envelope, and deliberate exclusion set for each application.
-The proposed
+The accepted
 [reference-application architecture decision](./architecture/adr/0030-isolated-reference-applications.md)
 keeps three private React applications, state, adapters, routes, fixtures, branding, and sharing
-thresholds outside production Wayglass packages.
+thresholds outside production Wayglass packages. The proposed
+[Phase 4 validation plan](./accessibility/phase-4-validation-plan.md) defines exact routes,
+scenarios, viewports, browser tiers, application fixtures, performance thresholds, production visual
+review, and representative assistive-technology gates.
 
 - Inventory the Phase 1–3 components, patterns, state contracts, media ownership, and application
   boundaries each reference domain can reuse.
@@ -196,7 +199,8 @@ Every reference application must:
 
 ## Validation strategy
 
-Phase 4A will publish exact fixtures and thresholds. The baseline matrix must include:
+The proposed [Phase 4 validation plan](./accessibility/phase-4-validation-plan.md) publishes the
+exact fixtures and thresholds. The baseline matrix includes:
 
 - unit tests for application state, selectors, request transitions, reconciliation, and scenario
   presets;
@@ -217,7 +221,7 @@ must be reported as formative evidence rather than a universal usability claim.
 
 ## Required decision records
 
-Phase 4A should begin with one architecture decision for reference-application isolation, state and
+Phase 4A includes an accepted architecture decision for reference-application isolation, state and
 adapter ownership, deterministic scenarios, renderer choice, routing, and code-sharing thresholds.
 Additional decisions are required only when an application introduces a consequential choice not
 already governed by Phase 1–3 contracts, such as application-owned paging, optimistic control,

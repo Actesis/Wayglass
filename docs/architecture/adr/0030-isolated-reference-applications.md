@@ -1,6 +1,6 @@
 # ADR 0030: Keep Phase 4 reference applications isolated and application-owned
 
-- Status: proposed
+- Status: accepted
 - Date: 2026-08-12
 
 ## Context
