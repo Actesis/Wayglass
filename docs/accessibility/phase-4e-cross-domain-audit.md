@@ -1,8 +1,9 @@
 # Phase 4E cross-domain semantic and brand audit
 
-**Status:** Accepted on August 14, 2026 as the first Phase 4E closeout checkpoint. Integrated
-end-to-end validation, final exact repository counts, formative first-glance evidence when
-available, and the roadmap disposition remain ahead.
+**Status:** Accepted on August 14, 2026 as the first Phase 4E closeout checkpoint. The subsequent
+[integrated validation](./phase-4e-integrated-validation.md) and
+[roadmap disposition](../phase-4-roadmap-disposition.md) complete Phase 4 while carrying formative
+and manual evidence with named release impact.
 
 This audit compares Cedar House, Northline Cold Storage, and Harbor Lab as one design-language
 proof. It does not replace the application validation records or claim completion of manual
@@ -69,10 +70,10 @@ The final Phase 4E validation record will publish the exact focused and reposito
 - Similarity did not justify promotion. Boolean value, status, panels, and feedback already use
   accepted production contracts; the domain records and compositions remain deliberately separate.
 
-## Remaining Phase 4E evidence
+## Subsequent Phase 4E evidence
 
-Phase 4E still requires the integrated representative workflow and complete repository matrices,
-final production visual review, explicit disposition of VoiceOver/Safari, NVDA/Firefox, and
-VoiceOver/iOS Safari gates, formative five-second first-glance evidence when representative people
-are available, and the Phase 4 roadmap disposition. No public assistive-technology or deployment
-claim is made by this checkpoint.
+The integrated representative workflow and complete repository matrices, final production visual
+review, application-boundary audit, explicit disposition of VoiceOver/Safari, NVDA/Firefox, and
+VoiceOver/iOS Safari gates, and final roadmap disposition are recorded in the linked closeout
+documents. Formative five-second first-glance evidence remains deferred until representative people
+are available. No public assistive-technology or deployment claim is made by this checkpoint.

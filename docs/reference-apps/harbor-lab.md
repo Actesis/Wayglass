@@ -112,4 +112,6 @@ Run `pnpm example:agent-supervision`, then open the local Vite URL. Human-readab
 The accepted [Phase 4D validation record](../accessibility/phase-4d-harbor-validation.md) documents
 the exact maximum fixture, responsive and supported-browser matrix, production visual review,
 performance evidence, package-boundary audit, and representative assistive-technology procedures.
-Phase 4E cross-domain validation and closeout remain ahead.
+The [Phase 4 roadmap disposition](../phase-4-roadmap-disposition.md) accepts Harbor as the
+agent-supervision proof. Its task, agent, evidence, approval, execution, and brand contracts remain
+application-owned; no agent framework or public task schema is promoted.

@@ -1,11 +1,12 @@
 # Phase 4 reference domains
 
-**Status:** Phase 4A and Phase 4B accepted on August 12, 2026; Phase 4C and Phase 4D accepted on
-August 13, 2026. The Phase 4E
+**Status:** Complete on August 14, 2026. Phase 4A and Phase 4B were accepted on August 12, 2026;
+Phase 4C and Phase 4D were accepted on August 13, 2026. The Phase 4E
 [cross-domain semantic and brand audit](./accessibility/phase-4e-cross-domain-audit.md) and
 [integrated validation](./accessibility/phase-4e-integrated-validation.md) were accepted on August
-14, 2026. The final roadmap disposition remains ahead. Representative manual assistive-technology
-gates remain tied to public-release claims.
+14, 2026. The final [roadmap disposition](./phase-4-roadmap-disposition.md) records successful
+compositions, rejected abstractions, evidence-driven candidates, and deferred evidence with release
+impact. Representative manual assistive-technology gates remain tied to public-release claims.
 
 Phase 4 tests Wayglass in three distinct, credible application contexts:
 
@@ -169,14 +170,16 @@ agent framework or imply that inferred output is confirmed truth.
 
 ### Phase 4E — Cross-domain validation and closeout
 
-**Cross-domain checkpoints accepted:** The
+**Phase 4E accepted:** The
 [semantic and brand audit](./accessibility/phase-4e-cross-domain-audit.md) confirms shared state and
 section meaning, corrects Northline's Boolean hold projection, and records distinct app-owned
 geometry and information architecture without adding package API. The
 [integrated validation record](./accessibility/phase-4e-integrated-validation.md) confirms all 222
 applicable reference-application cases and all 1,390 applicable repository browser cases pass,
 records the final production visual comparison and boundary audit, and carries the manual release
-gates without misrepresenting them as automated evidence. Final roadmap disposition remains ahead.
+gates without misrepresenting them as automated evidence. The final
+[roadmap disposition](./phase-4-roadmap-disposition.md) closes Phase 4 without promoting a new
+package API.
 
 Compare the three applications as one design-language proof rather than reviewing only isolated
 screens.
