@@ -34,6 +34,10 @@ authorization, audit meaning, and the 250-event retention boundary. A stale or u
 temperature never becomes evidence that a load is safe or unsafe. A pending, denied, or failed hold
 request never changes the confirmed release state.
 
+The Phase 4E cross-domain audit aligns the displayed dispatch-hold value with the accepted Boolean
+contract: `Applied` and `Not applied` are application-authored labels over confirmed Northline
+state, not health colors or a new public load schema.
+
 No service connection, package publication, domain component, data-grid dependency, chart package,
 or release-hold reversal is part of this foundation.
 
