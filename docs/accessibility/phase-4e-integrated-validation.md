@@ -1,9 +1,10 @@
 # Phase 4E integrated validation
 
-**Status:** Automated, supported-browser, responsive, performance-bound, production visual, and
-application-boundary validation completed on August 14, 2026. Representative VoiceOver/Safari and
-NVDA/Firefox reviews remain explicit public-release gates. VoiceOver with iOS Safari remains
-required before claiming mobile assistive-technology support.
+**Status:** Accepted on August 14, 2026. Automated, supported-browser, responsive,
+performance-bound, production visual, and application-boundary validation is complete. The final
+[roadmap disposition](../phase-4-roadmap-disposition.md) closes Phase 4. Representative
+VoiceOver/Safari and NVDA/Firefox reviews remain explicit public-release gates. VoiceOver with iOS
+Safari remains required before claiming mobile assistive-technology support.
 
 This record integrates the accepted Cedar House, Northline Cold Storage, and Harbor Lab validation
 evidence under the [Phase 4 validation plan](./phase-4-validation-plan.md), the
@@ -96,11 +97,11 @@ request. Automated browser, semantic, and Axe results do not satisfy these gates
 
 ## Closeout disposition
 
-The technical integrated-validation checkpoint passes. Phase 4 still requires its roadmap
-disposition to record successful compositions, rejected abstractions, evidence-driven candidates,
-and the final status of deferred work. Any promotion remains a separate reviewed contract and ADR.
-The manual gates above remain tied to release claims rather than being mislabeled as completed Phase
-4 implementation evidence.
+The technical integrated-validation checkpoint passes. The
+[roadmap disposition](../phase-4-roadmap-disposition.md) records successful compositions, rejected
+abstractions, evidence-driven candidates, and the final status of deferred work. Any promotion
+remains a separate reviewed contract and ADR. The manual gates above remain tied to release claims
+rather than being mislabeled as completed Phase 4 implementation evidence.
 
 ## Reproduce
 

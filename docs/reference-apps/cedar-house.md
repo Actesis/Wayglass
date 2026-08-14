@@ -90,7 +90,8 @@ Run `pnpm example:smart-home`, then open the local Vite URL. Human-readable path
 `/functions/access`, and `/assets/hvac-air-handler`. Query parameters may select `scenario`,
 `theme`, `density`, and `dir` without replacing route identity.
 
-## Next milestone
+## Phase 4 disposition
 
-Phase 4C builds the Northline Cold Storage operations-console reference application under the
-accepted application and validation contracts.
+The [Phase 4 roadmap disposition](../phase-4-roadmap-disposition.md) accepts Cedar House as the
+household-domain proof. Its records, routes, adapters, controls, media, maintenance workflow, and
+brand layer remain application-owned; no device, room, or service abstraction is promoted.

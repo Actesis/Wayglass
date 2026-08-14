@@ -111,7 +111,8 @@ Run `pnpm example:operations-console`, then open the local Vite URL. Human-reada
 `/`, `/functions/dispatch`, and `/loads/NL-2048`. Query parameters may select `scenario`, `theme`,
 `density`, `dir`, and `fixture` without replacing route identity.
 
-## Next slices
+## Phase 4 disposition
 
-1. Begin Phase 4D planning and implementation for the isolated Harbor Lab agent-supervision
-   reference application.
+The [Phase 4 roadmap disposition](../phase-4-roadmap-disposition.md) accepts Northline as the
+operations-domain proof. Its records, queries, retention, dispatch workflow, and brand layer remain
+application-owned; no load, incident, grid, paging, or command abstraction is promoted.

@@ -19,7 +19,8 @@ export default defineConfig({
       {
         text: 'System',
         items: [
-          { text: 'Phase 4 plan', link: '/phase-4' },
+          { text: 'Phase 4 roadmap disposition', link: '/phase-4-roadmap-disposition' },
+          { text: 'Phase 4 delivery plan', link: '/phase-4' },
           { text: 'Phase 3 roadmap disposition', link: '/phase-3-roadmap-disposition' },
           {
             text: 'Phase 3H production-surface audit',
@@ -33,6 +34,18 @@ export default defineConfig({
       {
         text: 'Phase 4 reference apps',
         items: [
+          {
+            text: 'Phase 4E integrated validation',
+            link: '/accessibility/phase-4e-integrated-validation',
+          },
+          {
+            text: 'Phase 4E cross-domain audit',
+            link: '/accessibility/phase-4e-cross-domain-audit',
+          },
+          {
+            text: 'Phase 4D Harbor Lab validation',
+            link: '/accessibility/phase-4d-harbor-validation',
+          },
           {
             text: 'Phase 4B Cedar House validation',
             link: '/accessibility/phase-4b-cedar-house-validation',
