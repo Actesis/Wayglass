@@ -1,5 +1,6 @@
 import {
   WgAlert,
+  WgBooleanValue,
   WgButton,
   WgCanvas,
   WgConfirmationDialog,
@@ -1013,9 +1014,13 @@ function LoadDetail({
               knowledge={load.trailerTemperature.knowledge}
               size="prominent"
             />
-            <WgKeyValue
-              label="Confirmed release state"
-              value={displayLabel(load.confirmedReleaseState)}
+            <WgBooleanValue
+              label="Dispatch hold"
+              asserted={load.confirmedReleaseState === 'held'}
+              assertedLabel="Applied"
+              notAssertedLabel="Not applied"
+              knowledge="confirmed"
+              presentation="rail"
             />
             <WgKeyValue label="Destination" value={load.destination} />
             <WgKeyValue label="Carrier" value={load.carrier} />
@@ -1126,9 +1131,13 @@ function DispatchHoldControl({
         A confirmed hold changes Dispatch schedule and custody. This reference workflow does not
         include releasing the hold.
       </p>
-      <WgKeyValue
-        label="Confirmed release state"
-        value={displayLabel(load.confirmedReleaseState)}
+      <WgBooleanValue
+        label="Dispatch hold"
+        asserted={held}
+        assertedLabel="Applied"
+        notAssertedLabel="Not applied"
+        knowledge="confirmed"
+        presentation="rail"
       />
       <WgButton
         slot="actions"

@@ -1,10 +1,10 @@
 # Phase 4 reference domains
 
 **Status:** Phase 4A and Phase 4B accepted on August 12, 2026; Phase 4C and Phase 4D accepted on
-August 13, 2026. Cedar House, Northline Cold Storage, and Harbor Lab automated, production visual,
-responsive, performance-bound, and supported-browser validation are complete; representative manual
-assistive-technology gates remain explicit public-release requirements. Phase 4E cross-domain
-validation and closeout remain ahead.
+August 13, 2026. The Phase 4E
+[cross-domain semantic and brand audit](./accessibility/phase-4e-cross-domain-audit.md) was accepted
+on August 14, 2026. Integrated closeout validation, the final roadmap disposition, and
+representative manual assistive-technology gates remain ahead.
 
 Phase 4 tests Wayglass in three distinct, credible application contexts:
 
@@ -167,6 +167,12 @@ authorization, execution, logs, retention, approvals, and audit guarantees. Phas
 agent framework or imply that inferred output is confirmed truth.
 
 ### Phase 4E — Cross-domain validation and closeout
+
+**Cross-domain checkpoint accepted:** The
+[semantic and brand audit](./accessibility/phase-4e-cross-domain-audit.md) confirms shared state and
+section meaning, corrects Northline's Boolean hold projection, and records distinct app-owned
+geometry and information architecture without adding package API. Integrated validation and final
+disposition remain ahead.
 
 Compare the three applications as one design-language proof rather than reviewing only isolated
 screens.

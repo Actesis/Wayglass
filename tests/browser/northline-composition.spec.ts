@@ -75,9 +75,10 @@ test('renders one contained native table from the same load truth as detail', as
   await representative.getByRole('link', { name: 'Inspect NL-2048' }).click();
   await expect(page).toHaveURL(/\/loads\/NL-2048\?.*scenario=stale-trailer/);
   await expect(page.getByRole('heading', { name: 'Load NL-2048', level: 1 })).toBeVisible();
-  await expect(
-    page.locator('wg-key-value[label="Confirmed release state"]').first(),
-  ).toHaveAttribute('value', 'Scheduled');
+  await expect(page.locator('wg-boolean-value[label="Dispatch hold"]').first()).not.toHaveAttribute(
+    'asserted',
+    '',
+  );
   await expect(page.getByText(/does not infer that NL-2048 is safe or unsafe/)).toBeVisible();
 
   await page.goBack();
@@ -88,9 +89,10 @@ test('does not convert unavailable evidence into a release result', async ({ pag
   await openNorthline(page, '/loads/NL-2048', { scenario: 'unavailable' });
 
   await expect(page.locator('wg-status-indicator')).toHaveAttribute('knowledge', 'unavailable');
-  await expect(
-    page.locator('wg-key-value[label="Confirmed release state"]').first(),
-  ).toHaveAttribute('value', 'Scheduled');
+  await expect(page.locator('wg-boolean-value[label="Dispatch hold"]').first()).not.toHaveAttribute(
+    'asserted',
+    '',
+  );
   await expect(page.getByText(/does not infer that NL-2048 is safe or unsafe/)).toBeVisible();
 });
 
@@ -126,9 +128,10 @@ test('records investigation ownership without changing evidence or release truth
 
   await page.getByRole('button', { name: 'Acknowledge investigation' }).click();
   await expect(page.getByRole('button', { name: 'Investigation acknowledged' })).toBeDisabled();
-  await expect(
-    page.locator('wg-key-value[label="Confirmed release state"]').first(),
-  ).toHaveAttribute('value', 'Scheduled');
+  await expect(page.locator('wg-boolean-value[label="Dispatch hold"]').first()).not.toHaveAttribute(
+    'asserted',
+    '',
+  );
   await expect(page.locator('wg-key-value[label="Last trailer temperature"]')).toHaveAttribute(
     'knowledge',
     'stale',
@@ -161,9 +164,10 @@ test('confirms a consequential dispatch hold before changing confirmed release t
   await dialog.getByRole('button', { name: 'Place NL-2048 on dispatch hold' }).click();
   await expect(dialog).toBeHidden();
   await expect(page.locator('wg-button[pending]')).toHaveAttribute('pending', '');
-  await expect(
-    page.locator('wg-key-value[label="Confirmed release state"]').last(),
-  ).toHaveAttribute('value', 'Scheduled');
+  await expect(page.locator('wg-boolean-value[label="Dispatch hold"]').last()).not.toHaveAttribute(
+    'asserted',
+    '',
+  );
   await expect(page.locator('wg-alert[data-request-state="pending"]')).toContainText(
     'NL-2048 remains scheduled until confirmed',
   );
@@ -171,9 +175,10 @@ test('confirms a consequential dispatch hold before changing confirmed release t
   await expect(page.locator('wg-alert[data-request-state="succeeded"]')).toContainText(
     'NL-2048 is confirmed on dispatch hold.',
   );
-  await expect(
-    page.locator('wg-key-value[label="Confirmed release state"]').last(),
-  ).toHaveAttribute('value', 'Held');
+  await expect(page.locator('wg-boolean-value[label="Dispatch hold"]').last()).toHaveAttribute(
+    'asserted',
+    '',
+  );
   await expect(page.getByRole('button', { name: 'Dispatch hold confirmed' })).toBeDisabled();
   await expect(page.locator('.northline-announcement')).toHaveText(
     'NL-2048 is confirmed on dispatch hold.',
@@ -186,9 +191,10 @@ test('retains scheduled truth and a protected retry after permission denial', as
   await expect(page.locator('wg-alert[data-request-state="denied"]')).toContainText(
     'Permission is required; NL-2048 remains scheduled.',
   );
-  await expect(
-    page.locator('wg-key-value[label="Confirmed release state"]').last(),
-  ).toHaveAttribute('value', 'Scheduled');
+  await expect(page.locator('wg-boolean-value[label="Dispatch hold"]').last()).not.toHaveAttribute(
+    'asserted',
+    '',
+  );
   await page.getByRole('button', { name: 'Retry dispatch hold' }).click();
   await expect(page.getByRole('dialog', { name: 'Place NL-2048 on dispatch hold?' })).toBeVisible();
 });
@@ -202,9 +208,10 @@ test('retains scheduled truth and durable recovery after a failed hold request',
     'Dispatch hold failed. NL-2048 remains scheduled.',
   );
   await expect(page.getByRole('button', { name: 'Retry dispatch hold' })).toBeEnabled();
-  await expect(
-    page.locator('wg-key-value[label="Confirmed release state"]').last(),
-  ).toHaveAttribute('value', 'Scheduled');
+  await expect(page.locator('wg-boolean-value[label="Dispatch hold"]').last()).not.toHaveAttribute(
+    'asserted',
+    '',
+  );
 });
 
 test('contains the dispatch-hold decision at phone width without accessibility violations', async ({

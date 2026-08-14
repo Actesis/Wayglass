@@ -9,6 +9,11 @@ body {
   margin: 0;
 }
 
+/* Harbor's app-owned brand layer uses the tight signal radius and banded function selectors. */
+wg-theme-provider {
+  --wg-shape-radius-panel: var(--wg-shape-radius-signal);
+}
+
 a {
   color: var(--wg-color-semantic-action-primary);
   font-weight: var(--wg-typography-weight-medium);
@@ -142,6 +147,18 @@ main {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--wg-space-semantic-function-gutter);
   align-items: start;
+}
+
+.harbor-function-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.harbor-function-grid .harbor-function[data-function='review-approval'] {
+  grid-column: span 2;
+}
+
+.harbor-function-grid .harbor-function[data-function='outcome-recovery'] {
+  grid-column: span 4;
 }
 
 .harbor-task-overview-grid {
@@ -281,6 +298,15 @@ footer {
 
 /* 64rem and 48rem are app-local composition thresholds, not reusable Wayglass tokens. */
 @media (max-width: 64rem) {
+  .harbor-function-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .harbor-function-grid .harbor-function[data-function='review-approval'],
+  .harbor-function-grid .harbor-function[data-function='outcome-recovery'] {
+    grid-column: span 2;
+  }
+
   .harbor-function-selectors {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     border-block-end: 0;
@@ -301,5 +327,10 @@ footer {
   .harbor-validation-telemetry,
   .harbor-function-selectors {
     grid-template-columns: 1fr;
+  }
+
+  .harbor-function-grid .harbor-function[data-function='review-approval'],
+  .harbor-function-grid .harbor-function[data-function='outcome-recovery'] {
+    grid-column: auto;
   }
 }

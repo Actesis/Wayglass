@@ -9,6 +9,11 @@ body {
   margin: 0;
 }
 
+/* Northline's app-owned brand layer is compact and squared without changing semantic colors. */
+wg-theme-provider {
+  --wg-shape-radius-panel: var(--wg-shape-radius-control);
+}
+
 a {
   color: var(--wg-color-semantic-action-primary);
   font-weight: var(--wg-typography-weight-medium);
