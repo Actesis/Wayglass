@@ -1,7 +1,7 @@
 # Harbor Lab reference application
 
-**Status:** Phase 4D foundation, production composition, and task investigation accepted on August
-13, 2026. Consequential approval controls and the accepted validation matrix remain ahead.
+**Status:** Phase 4D foundation, production composition, task investigation, and consequential
+workflow accepted on August 13, 2026. The accepted validation matrix remains ahead.
 
 Harbor Lab is the private AI-agent-supervision application defined by the accepted
 [Phase 4 reference-application contract](./phase-4-reference-applications.md). It tests whether an
@@ -63,6 +63,28 @@ The app owns the fixed validation clock, five-minute evidence-age policy, retent
 ordering, and task filtering. The event log is a production Wayglass component; its records do not
 become a public task, tool, agent, or evidence schema.
 
+## Consequential workflow
+
+The `HL-317` investigation now completes its awareness, decision, action, and confirmation loop:
+
+- a scoped native confirmation names the repository, target branch, proposed revision, evidence age
+  and confidence, five-minute approval lifetime, one-attempt effect, failure behavior, and lack of
+  automatic reversal after a confirmed merge;
+- the closed dialog emits intent while Harbor Lab owns requested approval, expiry, authorization,
+  pending state, adapter outcome, confirmed target result, and one deliberate announcement;
+- granted approval is a Boolean value independent of merge success, so merge failure retains
+  `Granted` beside confirmed `Not merged` truth;
+- denial and timeout leave the target branch unchanged and expose a fresh decision path;
+- retry creates a new linked attempt, retains the failed attempt and tool history, invalidates the
+  prior approval, and claims no current evidence or execution result; and
+- pause and cancellation controls state only that a request was recorded and that an active tool
+  step may finish. They never present `paused`, `cancelled`, or `stopped` without adapter
+  confirmation.
+
+The deterministic merge port remains app-local and synthetic. Confirmation is not authorization or
+audit evidence, and no real repository, identity provider, agent runtime, or execution service is
+connected.
+
 ## Application ownership
 
 Harbor Lab owns agent protocols, task and attempt identity, repositories, revisions, evidence,
@@ -86,7 +108,5 @@ Run `pnpm example:agent-supervision`, then open the local Vite URL. Human-readab
 
 ## Next slices
 
-1. Integrate the consequential merge-approval lifecycle, precise pause/cancel guarantees, linked
-   retry, recovery, and durable feedback.
-2. Complete the accepted responsive, visual, accessibility, performance, and supported-browser
+1. Complete the accepted responsive, visual, accessibility, performance, and supported-browser
    record.

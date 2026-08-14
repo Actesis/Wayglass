@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+  approvalExpiresAt,
   createHarborState,
   reduceHarbor,
   selectHarborOverview,
@@ -49,13 +50,16 @@ describe('Harbor Lab application state', () => {
       requestId: 'approval-1',
       taskId: 'HL-317',
       requestedAt: '2026-08-13T14:25:00-07:00',
+      expiresAt: '2026-08-13T14:30:00-07:00',
     });
     expect(selectTask(state, 'HL-317')).toMatchObject({
       approvalState: 'pending',
       mergeState: 'not-merged',
-      activity: 'pending',
+      activity: 'waiting',
     });
     expect(state.approvalRequest.message).toContain('No merge has occurred');
+    expect(state.approvalRequest.expiresAt).toBe('2026-08-13T14:30:00-07:00');
+    expect(approvalExpiresAt('2026-08-13T14:25:00-07:00', 5)).toBe('2026-08-13T21:30:00.000Z');
   });
 
   it('ignores a stale approval response and resolves a matching request durably', () => {
@@ -64,6 +68,7 @@ describe('Harbor Lab application state', () => {
       requestId: 'approval-current',
       taskId: 'HL-317',
       requestedAt: '2026-08-13T14:25:00-07:00',
+      expiresAt: '2026-08-13T14:30:00-07:00',
     });
     expect(
       reduceHarbor(pending, {
@@ -91,9 +96,27 @@ describe('Harbor Lab application state', () => {
     const state = reduceHarbor(createHarborState('steady'), {
       type: 'request-pause',
       taskId: 'HL-317',
+      requestedAt: '2026-08-13T14:25:00-07:00',
     });
     expect(state.presentation.execution.message).toContain('active tool step may finish');
     expect(selectTask(state, 'HL-317')?.activity).toBe('pending');
+    expect(state.executionRequest).toMatchObject({ kind: 'pause', state: 'pending' });
+    expect(state.announcement?.message).toContain('active tool step may finish');
+  });
+
+  it('records cancellation intent without claiming that execution stopped', () => {
+    const state = reduceHarbor(createHarborState('steady'), {
+      type: 'request-cancel',
+      taskId: 'HL-317',
+      requestedAt: '2026-08-13T14:25:00-07:00',
+    });
+    expect(selectTask(state, 'HL-317')).toMatchObject({
+      state: 'blocked',
+      activity: 'pending',
+      mergeState: 'not-merged',
+    });
+    expect(state.executionRequest).toMatchObject({ kind: 'cancel', state: 'pending' });
+    expect(state.executionRequest.message).toContain('cancellation is not yet confirmed');
   });
 
   it('creates a new linked retry attempt without overwriting failed history', () => {
@@ -101,13 +124,19 @@ describe('Harbor Lab application state', () => {
       type: 'retry-task',
       taskId: 'HL-317',
       attemptId: 'attempt-hl-317-2',
+      createdAt: '2026-08-13T14:25:00-07:00',
     });
     expect(selectTask(state, 'HL-317')).toMatchObject({
       state: 'queued',
       attemptId: 'attempt-hl-317-2',
       previousAttemptId: 'attempt-hl-317-1',
       mergeState: 'not-merged',
+      humanAttention: 'review',
     });
+    expect(state.approvalRequest).toMatchObject({ state: 'idle', outcome: null });
+    expect(state.toolRecords[0]?.summary).toContain('linked to attempt-hl-317-1');
+    expect(state.toolRecords[0]?.attemptId).toBe('attempt-hl-317-2');
+    expect(state.toolRecords[1]?.attemptId).toBe('attempt-hl-317-1');
   });
 
   it('builds the exact foundation maximum and bounds inserted tool history', () => {
@@ -120,6 +149,7 @@ describe('Harbor Lab application state', () => {
       record: {
         id: 'tool-new',
         taskId: 'HL-317',
+        attemptId: 'attempt-hl-317-1',
         tool: 'Synthetic verifier',
         summary: 'New retained evidence.',
         occurredAt: '2026-08-13T14:27:00-07:00',
