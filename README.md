@@ -27,6 +27,9 @@ Accessibility, legal, safety, and security requirements override that order wher
 
 Supporting foundations:
 
+- [`docs/phase-5.md`](./docs/phase-5.md) proposes a gated ecosystem roadmap for release governance,
+  application guidance, token interchange, charts, icon and design tooling, Home Assistant, and
+  demand-driven framework wrappers.
 - [`docs/phase-4.md`](./docs/phase-4.md) maps the completed smart-home, operations-console, and
   AI-agent-supervision reference applications to their common acceptance criteria.
 - [`docs/phase-4-roadmap-disposition.md`](./docs/phase-4-roadmap-disposition.md) closes Phase 4 and

@@ -6,6 +6,7 @@ export default defineConfig({
   cleanUrls: true,
   themeConfig: {
     nav: [
+      { text: 'Phase 5', link: '/phase-5' },
       { text: 'Phase 4', link: '/phase-4' },
       { text: 'Phase 3', link: '/phase-3' },
       { text: 'Phase 2', link: '/phase-2' },
@@ -19,6 +20,7 @@ export default defineConfig({
       {
         text: 'System',
         items: [
+          { text: 'Phase 5 proposed roadmap', link: '/phase-5' },
           { text: 'Phase 4 roadmap disposition', link: '/phase-4-roadmap-disposition' },
           { text: 'Phase 4 delivery plan', link: '/phase-4' },
           { text: 'Phase 3 roadmap disposition', link: '/phase-3-roadmap-disposition' },
