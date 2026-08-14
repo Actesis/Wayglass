@@ -2,9 +2,10 @@
 
 **Status:** Phase 4A and Phase 4B accepted on August 12, 2026; Phase 4C and Phase 4D accepted on
 August 13, 2026. The Phase 4E
-[cross-domain semantic and brand audit](./accessibility/phase-4e-cross-domain-audit.md) was accepted
-on August 14, 2026. Integrated closeout validation, the final roadmap disposition, and
-representative manual assistive-technology gates remain ahead.
+[cross-domain semantic and brand audit](./accessibility/phase-4e-cross-domain-audit.md) and
+[integrated validation](./accessibility/phase-4e-integrated-validation.md) were accepted on August
+14, 2026. The final roadmap disposition remains ahead. Representative manual assistive-technology
+gates remain tied to public-release claims.
 
 Phase 4 tests Wayglass in three distinct, credible application contexts:
 
@@ -168,11 +169,14 @@ agent framework or imply that inferred output is confirmed truth.
 
 ### Phase 4E — Cross-domain validation and closeout
 
-**Cross-domain checkpoint accepted:** The
+**Cross-domain checkpoints accepted:** The
 [semantic and brand audit](./accessibility/phase-4e-cross-domain-audit.md) confirms shared state and
 section meaning, corrects Northline's Boolean hold projection, and records distinct app-owned
-geometry and information architecture without adding package API. Integrated validation and final
-disposition remain ahead.
+geometry and information architecture without adding package API. The
+[integrated validation record](./accessibility/phase-4e-integrated-validation.md) confirms all 222
+applicable reference-application cases and all 1,390 applicable repository browser cases pass,
+records the final production visual comparison and boundary audit, and carries the manual release
+gates without misrepresenting them as automated evidence. Final roadmap disposition remains ahead.
 
 Compare the three applications as one design-language proof rather than reviewing only isolated
 screens.
