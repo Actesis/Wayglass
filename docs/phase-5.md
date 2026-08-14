@@ -1,8 +1,8 @@
 # Phase 5 ecosystem roadmap
 
-**Status:** Proposed on August 14, 2026 for review. This roadmap commits only the Phase 5A planning
-and architecture work. Every later ecosystem track requires its own accepted charter before
-implementation, and an exploration may conclude with no new package.
+**Status:** Accepted on August 14, 2026. Phase 5A planning and architecture are in progress. Every
+later ecosystem track requires its own accepted charter before implementation, and an exploration
+may conclude with no new package.
 
 Phase 5 extends Wayglass beyond the core design language and its three reference domains. `SPEC.md`
 names six ecosystem areas to explore: charts, Home Assistant integration, icon tooling, Figma
@@ -96,6 +96,12 @@ capabilities must not force their dependencies on core consumers.
 ### Phase 5A — Ecosystem architecture and release governance
 
 Define the boundaries used to evaluate every later track.
+
+The accepted
+[ecosystem artifact architecture decision](./architecture/adr/0031-ecosystem-artifact-architecture.md)
+defines the artifact tiers, inward dependency direction, optional-dependency isolation, naming,
+foundation release family, independent ecosystem versioning, support ownership, and promotion
+thresholds used by the remaining Phase 5A records.
 
 - inventory current packages, exports, browser and framework support, private application proofs,
   documentation surfaces, and carried release gates;
