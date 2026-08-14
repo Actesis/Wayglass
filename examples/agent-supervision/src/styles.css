@@ -38,7 +38,8 @@ main,
 .harbor-focused-layout,
 .harbor-task-summary,
 .harbor-investigation-grid,
-.harbor-control-grid {
+.harbor-control-grid,
+.harbor-maximum-fixture {
   display: grid;
   min-inline-size: 0;
 }
@@ -161,6 +162,40 @@ main {
   gap: var(--wg-space-reference-2);
 }
 
+.harbor-maximum-fixture {
+  gap: var(--wg-space-semantic-layout-section-comfortable);
+}
+
+.harbor-validation-values,
+.harbor-validation-telemetry {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--wg-space-semantic-layout-section-comfortable);
+}
+
+.harbor-validation-values {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.harbor-task-table table {
+  min-inline-size: 86rem;
+  inline-size: 100%;
+  border-collapse: collapse;
+}
+
+.harbor-task-table th,
+.harbor-task-table td {
+  padding: var(--wg-space-reference-2) var(--wg-space-reference-3);
+  border-block-end: var(--wg-border-width-standard) solid var(--wg-color-semantic-border-subtle);
+  text-align: start;
+  vertical-align: top;
+}
+
+.harbor-task-table thead th {
+  color: var(--wg-color-semantic-text-secondary);
+  background: var(--wg-color-semantic-surface-inset);
+}
+
 .harbor-evidence-time {
   color: var(--wg-color-semantic-text-secondary);
   font-size: var(--wg-typography-size-label);
@@ -262,6 +297,8 @@ footer {
   .harbor-task-overview-grid,
   .harbor-investigation-grid,
   .harbor-control-grid,
+  .harbor-validation-values,
+  .harbor-validation-telemetry,
   .harbor-function-selectors {
     grid-template-columns: 1fr;
   }

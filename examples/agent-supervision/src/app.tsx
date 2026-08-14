@@ -4,17 +4,21 @@ import {
   WgButton,
   WgCanvas,
   WgConfirmationDialog,
+  WgDataTable,
   WgElbow,
   WgEventLog,
   WgEventRecord,
   WgKeyValue,
   WgMetric,
   WgPanel,
+  WgScrollRegion,
   WgStatusIndicator,
+  WgTelemetryStrip,
   WgThemeProvider,
 } from '@wayglass/react';
 import {
   useEffect,
+  useLayoutEffect,
   useReducer,
   useRef,
   useSyncExternalStore,
@@ -22,6 +26,7 @@ import {
   type MouseEvent,
   type ReactNode,
 } from 'react';
+import { flushSync } from 'react-dom';
 
 import {
   approvalExpiresAt,
@@ -38,6 +43,22 @@ import {
 } from './model.js';
 import type { HarborClock, MergeApprovalPort } from './ports.js';
 import type { HarborRoute, HarborRouter } from './router.js';
+
+type HarborMutation =
+  | 'approval-lifecycle'
+  | 'retry-attempt'
+  | 'insert-tool-records'
+  | 'replace-task-rows'
+  | 'telemetry';
+
+declare global {
+  interface Window {
+    __harborValidation?: {
+      constructionDuration?: number;
+      runMutation?: (mutation: HarborMutation) => number;
+    };
+  }
+}
 
 function routeTitle(route: HarborRoute): string {
   if (route.name === 'overview') return 'Supervision overview';
@@ -59,10 +80,12 @@ export function HarborApp({
   router,
   controls,
   clock,
+  constructionStartedAt,
 }: {
   router: HarborRouter;
   controls: MergeApprovalPort;
   clock: HarborClock;
+  constructionStartedAt: number;
 }) {
   const routeState = useSyncExternalStore(router.subscribe, router.current);
   const [state, dispatch] = useReducer(reduceHarbor, routeState, (initial) =>
@@ -80,6 +103,60 @@ export function HarborApp({
   useEffect(() => {
     dispatch({ type: 'set-scenario', value: routeState.scenario, fixture: routeState.fixture });
   }, [routeState.fixture, routeState.scenario]);
+  useLayoutEffect(() => {
+    if (routeState.fixture !== 'maximum') return;
+    const validation = (window.__harborValidation ??= {});
+    validation.constructionDuration ??= performance.now() - constructionStartedAt;
+  }, [constructionStartedAt, routeState.fixture]);
+  useEffect(() => {
+    if (routeState.fixture !== 'maximum') return;
+    const validation = (window.__harborValidation ??= {});
+    validation.runMutation = (mutation) => {
+      const started = performance.now();
+      flushSync(() => {
+        switch (mutation) {
+          case 'approval-lifecycle':
+            dispatch({ type: 'set-scenario', value: 'steady', fixture: 'maximum' });
+            dispatch({
+              type: 'request-merge-approval',
+              requestId: 'validation-approval',
+              taskId: 'HL-317',
+              requestedAt: clock(),
+              expiresAt: approvalExpiresAt(clock(), 5),
+            });
+            dispatch({
+              type: 'resolve-merge-approval',
+              requestId: 'validation-approval',
+              outcome: 'merged',
+              completedAt: clock(),
+            });
+            break;
+          case 'retry-attempt':
+            dispatch({ type: 'set-scenario', value: 'merge-failed', fixture: 'maximum' });
+            dispatch({
+              type: 'retry-task',
+              taskId: 'HL-317',
+              attemptId: `attempt-hl-317-validation-${state.revision + 1}`,
+              createdAt: clock(),
+            });
+            break;
+          case 'insert-tool-records':
+            dispatch({ type: 'insert-validation-tool-records' });
+            break;
+          case 'replace-task-rows':
+            dispatch({ type: 'replace-validation-task-rows' });
+            break;
+          case 'telemetry':
+            dispatch({ type: 'replace-validation-telemetry' });
+            break;
+        }
+      });
+      return performance.now() - started;
+    };
+    return () => {
+      delete validation.runMutation;
+    };
+  }, [clock, routeState.fixture, state.revision]);
 
   function navigate(event: MouseEvent<HTMLAnchorElement>, route: HarborRoute) {
     if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
@@ -742,6 +819,7 @@ function TaskSummary({
           </WgEventRecord>
         ))}
       </WgEventLog>
+      {state.fixture === 'maximum' ? <MaximumHarborFixture state={state} /> : null}
       <a
         className="harbor-task-return"
         href={router.href({ name: 'function', value: 'review-approval' })}
@@ -749,6 +827,131 @@ function TaskSummary({
       >
         Back to Review and approval
       </a>
+    </section>
+  );
+}
+
+function MaximumHarborFixture({ state }: { state: HarborState }) {
+  const windowStart = state.validation.telemetry[0]?.samples[0]?.observedAt ?? 0;
+  const windowEnd = state.validation.telemetry[0]?.samples.at(-1)?.observedAt ?? 1;
+  return (
+    <section className="harbor-maximum-fixture" aria-labelledby="harbor-maximum-heading">
+      <WgElbow weight="strong">
+        <h3 id="harbor-maximum-heading">Validation-scale supervision context</h3>
+      </WgElbow>
+      <WgPanel purpose="monitor" emphasis="standard" label="Supervision reference values">
+        <h4 slot="heading">Supervision reference values</h4>
+        <div className="harbor-validation-values">
+          {state.validation.values.map((value) => (
+            <WgKeyValue
+              key={value.id}
+              data-validation-value={value.id}
+              label={value.label}
+              value={value.value}
+              knowledge={presentationKnowledge(value.knowledge)}
+            />
+          ))}
+        </div>
+      </WgPanel>
+      <div className="harbor-validation-telemetry">
+        {state.validation.telemetry.map((series) => {
+          const latest = series.samples.at(-1)?.value ?? 0;
+          return (
+            <WgTelemetryStrip
+              key={series.id}
+              data-validation-telemetry={series.id}
+              label={series.label}
+              samples={series.samples}
+              windowStart={windowStart}
+              windowEnd={windowEnd}
+              scaleMinimum={0}
+              scaleMaximum={100}
+              condition="neutral"
+              knowledge="confirmed"
+            >
+              <h4 slot="heading">{series.label}</h4>
+              <p slot="current">
+                {latest} {series.unit}
+              </p>
+              <time slot="window-start" dateTime="2026-08-13T13:30:00-07:00">
+                13:30
+              </time>
+              <time slot="window-end" dateTime="2026-08-13T14:29:30-07:00">
+                14:29
+              </time>
+              <p slot="summary">120 confirmed samples; latest value {latest}.</p>
+            </WgTelemetryStrip>
+          );
+        })}
+      </div>
+      <WgDataTable className="harbor-task-table">
+        <p slot="context">60 retained tasks · 10 application-owned columns</p>
+        <WgScrollRegion axis="inline" label="Harbor retained task records table">
+          <table>
+            <caption>Harbor retained task records</caption>
+            <thead>
+              <tr>
+                <th scope="col">Task</th>
+                <th scope="col">Title</th>
+                <th scope="col">State</th>
+                <th scope="col">Condition</th>
+                <th scope="col">Activity</th>
+                <th scope="col">Human attention</th>
+                <th scope="col">Assigned worker</th>
+                <th scope="col">Attempt</th>
+                <th scope="col">Evidence knowledge</th>
+                <th scope="col">Merge result</th>
+              </tr>
+            </thead>
+            <tbody>
+              {state.tasks.map((task) => (
+                <tr key={task.id} data-validation-task={task.id}>
+                  <th scope="row">{task.id}</th>
+                  <td>{task.title}</td>
+                  <td>{task.state}</td>
+                  <td>{task.condition}</td>
+                  <td>{task.activity}</td>
+                  <td>{task.humanAttention.replace('-', ' ')}</td>
+                  <td>{task.assignedAgentId ?? 'Unassigned'}</td>
+                  <td>{task.attemptId}</td>
+                  <td>{task.evidence.knowledge}</td>
+                  <td>{task.mergeState === 'merged' ? 'Merged' : 'Not merged'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </WgScrollRegion>
+        <p slot="feedback">
+          Worker activity, evidence knowledge, approval, and confirmed merge result remain separate.
+        </p>
+      </WgDataTable>
+      <WgEventLog
+        label="Validation-scale retained task and tool events"
+        chronology="descending"
+        chronologyLabel="Newest retained event first"
+      >
+        <h4 slot="heading">Retained task and tool events</h4>
+        <p slot="description">
+          The 250-event window is bounded and ordered by Harbor Lab application policy.
+        </p>
+        {state.toolRecords.map((record) => (
+          <WgEventRecord
+            key={record.id}
+            data-validation-event={record.id}
+            label={record.summary}
+            condition={record.condition}
+            knowledge={presentationKnowledge(record.knowledge)}
+          >
+            <time slot="time" dateTime={record.occurredAt}>
+              {formatHarborTime(record.occurredAt)}
+            </time>
+            <span slot="summary">{record.summary}</span>
+            <span slot="source">Source: {record.tool}</span>
+            <span slot="category">Task: {record.taskId}</span>
+            <span slot="reference">Attempt: {record.attemptId}</span>
+          </WgEventRecord>
+        ))}
+      </WgEventLog>
     </section>
   );
 }
