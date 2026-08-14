@@ -144,6 +144,10 @@ describe('Harbor Lab application state', () => {
     expect(state.tasks).toHaveLength(60);
     expect(state.agents).toHaveLength(12);
     expect(state.toolRecords).toHaveLength(250);
+    expect(state.validation.values).toHaveLength(24);
+    expect(state.validation.telemetry).toHaveLength(6);
+    expect(state.validation.telemetry.every(({ samples }) => samples.length === 120)).toBe(true);
+    expect(selectTasksRequiringDecision(state).map(({ id }) => id)).toEqual(['HL-317']);
     state = reduceHarbor(state, {
       type: 'receive-tool-record',
       record: {
@@ -160,6 +164,26 @@ describe('Harbor Lab application state', () => {
     expect(state.toolRecords).toHaveLength(250);
     expect(state.toolRecords[0]?.id).toBe('tool-new');
     expect(selectTasksRequiringDecision(state)[0]?.id).toBe('HL-317');
+  });
+
+  it('mutates validation-scale tasks, telemetry, and retained events without fabricated outcomes', () => {
+    const initial = createHarborState('steady', 'maximum');
+    const rows = reduceHarbor(initial, { type: 'replace-validation-task-rows' });
+    expect(rows.tasks[0]?.title).toContain('reviewed 1');
+    expect(rows.tasks[20]?.title).toBe(initial.tasks[20]?.title);
+    expect(rows.announcement).toBeNull();
+
+    const telemetry = reduceHarbor(initial, { type: 'replace-validation-telemetry' });
+    expect(telemetry.validation.telemetry[0]?.samples[0]?.value).toBe(
+      (initial.validation.telemetry[0]?.samples[0]?.value ?? 0) + 1,
+    );
+    expect(telemetry.announcement).toBeNull();
+
+    const events = reduceHarbor(initial, { type: 'insert-validation-tool-records' });
+    expect(events.toolRecords).toHaveLength(250);
+    expect(events.toolRecords[0]?.id).toBe('harbor-inserted-tool-1-1');
+    expect(selectTask(events, 'HL-317')?.mergeState).toBe('not-merged');
+    expect(events.announcement).toBeNull();
   });
 
   it('derives overview counts without collapsing task, agent, decision, or merge meanings', () => {

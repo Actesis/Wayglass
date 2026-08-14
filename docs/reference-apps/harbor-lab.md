@@ -1,7 +1,8 @@
 # Harbor Lab reference application
 
-**Status:** Phase 4D foundation, production composition, task investigation, and consequential
-workflow accepted on August 13, 2026. The accepted validation matrix remains ahead.
+**Status:** Phase 4D implementation and automated, production visual, responsive, performance-bound,
+and supported-browser validation accepted on August 13, 2026. Representative manual
+assistive-technology gates remain explicit public-release requirements.
 
 Harbor Lab is the private AI-agent-supervision application defined by the accepted
 [Phase 4 reference-application contract](./phase-4-reference-applications.md). It tests whether an
@@ -106,7 +107,9 @@ Run `pnpm example:agent-supervision`, then open the local Vite URL. Human-readab
 `/`, `/functions/review-approval`, and `/tasks/HL-317`. Query parameters may select `scenario`,
 `theme`, `density`, `dir`, and `fixture` without replacing route identity.
 
-## Next slices
+## Validation status
 
-1. Complete the accepted responsive, visual, accessibility, performance, and supported-browser
-   record.
+The accepted [Phase 4D validation record](../accessibility/phase-4d-harbor-validation.md) documents
+the exact maximum fixture, responsive and supported-browser matrix, production visual review,
+performance evidence, package-boundary audit, and representative assistive-technology procedures.
+Phase 4E cross-domain validation and closeout remain ahead.

@@ -1,9 +1,10 @@
 # Phase 4 reference domains
 
-**Status:** Phase 4A and Phase 4B accepted on August 12, 2026; Phase 4C accepted on August 13, 2026.
-Cedar House and Northline Cold Storage automated, production visual, responsive, performance-bound,
-and supported-browser validation are complete; representative manual assistive-technology gates
-remain explicit public-release requirements. Phase 4D Harbor Lab foundations are active.
+**Status:** Phase 4A and Phase 4B accepted on August 12, 2026; Phase 4C and Phase 4D accepted on
+August 13, 2026. Cedar House, Northline Cold Storage, and Harbor Lab automated, production visual,
+responsive, performance-bound, and supported-browser validation are complete; representative manual
+assistive-technology gates remain explicit public-release requirements. Phase 4E cross-domain
+validation and closeout remain ahead.
 
 Phase 4 tests Wayglass in three distinct, credible application contexts:
 
@@ -141,12 +142,10 @@ retention, escalation, and audit policy.
 
 ### Phase 4D — AI-agent-supervision reference application
 
-**Active:** The isolated Harbor Lab foundation, production composition, task investigation, and
-consequential workflow now establish application-owned domain truth, native routes, deterministic
-scenarios, a merge-approval port, simultaneous overview, focused peer functions, evidence provenance
-and freshness, retained task and tool history, explicit scoped approval, denial, timeout, merge
-failure, linked retry, bounded execution requests, and unit/browser tests. The formal validation
-slice remains ahead.
+**Accepted:** The Harbor Lab implementation and its
+[Phase 4D validation record](./accessibility/phase-4d-harbor-validation.md) satisfy the milestone
+exit rule. Manual assistive-technology gates remain carried with release impact rather than being
+misrepresented as automated evidence.
 
 Build a human-supervision workspace for agents, tasks, tool activity, uncertainty, approval, and
 recovery without anthropomorphic or falsely authoritative language.

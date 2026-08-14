@@ -86,6 +86,24 @@ export interface ToolRecord {
   condition: Condition;
 }
 
+export interface HarborTelemetrySeries {
+  id: string;
+  label: string;
+  unit: 'tasks' | '%';
+  samples: Array<{
+    observedAt: number;
+    value: number;
+    knowledge: 'confirmed' | 'stale' | 'unavailable' | 'unknown';
+  }>;
+}
+
+export interface HarborValidationValue {
+  id: string;
+  label: string;
+  value: string;
+  knowledge: Knowledge;
+}
+
 export interface ApprovalRequest {
   id: string | null;
   taskId: string | null;
@@ -125,6 +143,10 @@ export interface HarborState {
   approvalPolicy: { lifetimeMinutes: number };
   presentation: Record<HarborFunction, FunctionPresentation>;
   retention: { eventLimit: 250; retainedEventCount: number };
+  validation: {
+    values: HarborValidationValue[];
+    telemetry: HarborTelemetrySeries[];
+  };
   announcement: { id: number; message: string } | null;
 }
 
@@ -147,6 +169,9 @@ export type HarborAction =
   | { type: 'request-pause'; taskId: string; requestedAt: string }
   | { type: 'request-cancel'; taskId: string; requestedAt: string }
   | { type: 'retry-task'; taskId: string; attemptId: string; createdAt: string }
+  | { type: 'replace-validation-task-rows' }
+  | { type: 'replace-validation-telemetry' }
+  | { type: 'insert-validation-tool-records' }
   | { type: 'receive-tool-record'; record: ToolRecord };
 
 const observedAt = '2026-08-13T14:28:00-07:00';
@@ -321,6 +346,7 @@ function baselineState(): HarborState {
       ]),
     ) as HarborState['presentation'],
     retention: { eventLimit: 250, retainedEventCount: 4 },
+    validation: { values: [], telemetry: [] },
     announcement: null,
   };
 }
@@ -343,6 +369,12 @@ function applyMaximumFixture(state: HarborState): void {
       ...task,
       id: index === 0 ? 'HL-317' : `HL-${317 + index}`,
       attemptId: `attempt-hl-${317 + index}-1`,
+      humanAttention:
+        index === 0
+          ? 'decision-required'
+          : task.humanAttention === 'decision-required'
+            ? 'review'
+            : task.humanAttention,
       evidence: { ...task.evidence },
     };
   });
@@ -367,6 +399,23 @@ function applyMaximumFixture(state: HarborState): void {
     occurredAt: new Date(Date.parse(observedAt) - index * 60_000).toISOString(),
     knowledge: 'confirmed' as const,
     condition: 'neutral' as const,
+  }));
+  state.validation.values = Array.from({ length: 24 }, (_, index) => ({
+    id: `harbor-value-${index + 1}`,
+    label: `Supervision reference ${index + 1}`,
+    value: index % 2 === 0 ? `${8 + index} tasks` : `${61 + index}%`,
+    knowledge: index % 11 === 0 ? ('stale' as const) : ('confirmed' as const),
+  }));
+  const windowStart = Date.parse('2026-08-13T13:30:00-07:00');
+  state.validation.telemetry = Array.from({ length: 6 }, (_, seriesIndex) => ({
+    id: `harbor-telemetry-${seriesIndex + 1}`,
+    label: `Supervision trend ${seriesIndex + 1}`,
+    unit: seriesIndex % 2 === 0 ? ('tasks' as const) : ('%' as const),
+    samples: Array.from({ length: 120 }, (_, sampleIndex) => ({
+      observedAt: windowStart + sampleIndex * 30_000,
+      value: 12 + seriesIndex * 7 + ((sampleIndex * (seriesIndex + 2)) % 24),
+      knowledge: 'confirmed' as const,
+    })),
   }));
   state.retention.retainedEventCount = 250;
 }
@@ -716,6 +765,54 @@ export function reduceHarbor(state: HarborState, action: HarborAction): HarborSt
       next.toolRecords = [action.record, ...state.toolRecords].slice(0, state.retention.eventLimit);
       next.retention = { ...state.retention, retainedEventCount: next.toolRecords.length };
       return next;
+    case 'replace-validation-task-rows':
+      return {
+        ...state,
+        revision: state.revision + 1,
+        tasks: state.tasks.map((task, index) =>
+          index < 20
+            ? {
+                ...task,
+                title: `${task.title} · reviewed ${state.revision + 1}`,
+                evidence: { ...task.evidence },
+              }
+            : task,
+        ),
+        announcement: null,
+      };
+    case 'replace-validation-telemetry':
+      return {
+        ...state,
+        revision: state.revision + 1,
+        validation: {
+          ...state.validation,
+          telemetry: state.validation.telemetry.map((series) => ({
+            ...series,
+            samples: series.samples.map((sample) => ({ ...sample, value: sample.value + 1 })),
+          })),
+        },
+        announcement: null,
+      };
+    case 'insert-validation-tool-records': {
+      const inserted = Array.from({ length: 25 }, (_, index) => ({
+        id: `harbor-inserted-tool-${state.revision + 1}-${index + 1}`,
+        taskId: state.tasks[(index + 1) % state.tasks.length]?.id ?? 'HL-317',
+        attemptId: state.tasks[(index + 1) % state.tasks.length]?.attemptId ?? 'attempt-hl-317-1',
+        tool: 'Synthetic validation tool',
+        summary: `New retained tool record ${index + 1}; no external effect is inferred.`,
+        occurredAt: new Date(Date.parse(observedAt) + (index + 1) * 1000).toISOString(),
+        knowledge: 'confirmed' as const,
+        condition: 'neutral' as const,
+      }));
+      const toolRecords = [...inserted, ...state.toolRecords].slice(0, state.retention.eventLimit);
+      return {
+        ...state,
+        revision: state.revision + 1,
+        toolRecords,
+        retention: { ...state.retention, retainedEventCount: toolRecords.length },
+        announcement: null,
+      };
+    }
   }
 }
 

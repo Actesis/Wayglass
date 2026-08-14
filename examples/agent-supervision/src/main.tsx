@@ -15,6 +15,7 @@ if (!root) throw new Error('Harbor Lab root was not found.');
 const router = createHarborRouter(window);
 const scenario = router.current().scenario;
 const clock = () => '2026-08-13T14:31:00-07:00';
+const constructionStartedAt = performance.now();
 const controls = createDeterministicMergeApprovalAdapter({
   clock,
   scheduler: (work) =>
@@ -33,6 +34,11 @@ const controls = createDeterministicMergeApprovalAdapter({
 
 createRoot(root).render(
   <StrictMode>
-    <HarborApp router={router} controls={controls} clock={clock} />
+    <HarborApp
+      router={router}
+      controls={controls}
+      clock={clock}
+      constructionStartedAt={constructionStartedAt}
+    />
   </StrictMode>,
 );
