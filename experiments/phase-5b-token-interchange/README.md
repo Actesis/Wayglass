@@ -82,3 +82,11 @@ The informational measurement is separate from normal gates and requires an exac
 ```sh
 WAYGLASS_SOURCE_REVISION=<full-checked-out-commit> pnpm experiment:phase5b:measure
 ```
+
+The formal determinism fingerprint is also separate. It authenticates an exact clean commit and
+prints stable web and exchange hashes for comparison across supported runtimes, locales, time zones,
+and launch directories:
+
+```sh
+WAYGLASS_SOURCE_REVISION=<full-checked-out-commit> pnpm experiment:phase5b:fingerprint
+```
