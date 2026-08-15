@@ -9,6 +9,7 @@ import { createDtcgExchange, type DtcgExchange } from '../src/dtcg.js';
 import { compareDtcgArtifacts, verifyDtcgExchange } from '../src/evidence.js';
 import { createNormalizedTokenGraph, type NormalizedTokenGraph } from '../src/normalize.js';
 import { createWayglassTokenGraph } from '../src/source.js';
+import { createWebTokenCss } from '../src/web.js';
 
 const policy = {
   defaultTheme: 'wayglass-dark',
@@ -118,6 +119,35 @@ describe('DTCG exchange evidence', () => {
       changed: ['tokens.json'],
       removed: [],
     });
+  });
+
+  it('carries one authoritative value change through both outputs without identity drift', () => {
+    const graph = createWayglassTokenGraph();
+    const changedGraph: NormalizedTokenGraph = {
+      ...graph,
+      tokens: graph.tokens.map((token) =>
+        token.source === 'color.reference.blue.500' ? { ...token, value: '#508dff' } : token,
+      ),
+    };
+    const baselineExchange = exchange(graph);
+    const changedExchange = exchange(changedGraph);
+
+    expect(createWebTokenCss(changedGraph)).toBe(
+      createWebTokenCss(graph).replace(
+        '--wg-color-reference-blue-500: #4f8cff;',
+        '--wg-color-reference-blue-500: #508dff;',
+      ),
+    );
+    expect(compareDtcgArtifacts(baselineExchange, changedExchange)).toEqual({
+      added: [],
+      changed: ['tokens.json'],
+      removed: [],
+    });
+    expect(changedExchange.manifest.identities).toEqual(baselineExchange.manifest.identities);
+    expect(changedExchange.manifest.omittedTokens).toEqual(baselineExchange.manifest.omittedTokens);
+    expect(changedExchange.manifest.omittedOverrides).toEqual(
+      baselineExchange.manifest.omittedOverrides,
+    );
   });
 
   it('rejects duplicate output paths and invalid source revisions before returning artifacts', () => {
