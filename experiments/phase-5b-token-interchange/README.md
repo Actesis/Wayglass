@@ -49,6 +49,28 @@ qualifies Style Dictionary 5.5.1 for a possible future isolated prototype but do
 approve a dependency. `@tokens-studio/sd-transforms` remains conditional on a later decision to use
 Tokens Studio as an authorized source.
 
+## Candidate output contract
+
+The in-memory DTCG candidate contains exactly seven files:
+
+```text
+tokens.json
+modes/density/comfortable.json
+modes/density/compact.json
+modes/theme/wayglass-dark.json
+modes/theme/wayglass-light.json
+resolver.json
+wayglass-manifest.json
+```
+
+The manifest labels the set `partial-dtcg-2025.10-candidate`, retains the source revision and all
+reversible identities, measures every non-manifest artifact, and accounts for all omissions. This is
+an executable test contract, not a checked-in generated release or supported public artifact. The
+[documentation and cleanup validation](./evidence/documentation-and-cleanup-validation.md) records
+the retained and removed proof inventory.
+
+## Local commands
+
 Run the focused gates from the repository root:
 
 ```sh

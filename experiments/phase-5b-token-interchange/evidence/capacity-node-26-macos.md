@@ -1,5 +1,9 @@
 # Phase 5B capacity evidence — Node 26 on macOS
 
+> **Historical status:** This was the first capacity run. `P5B-E08` was later completed for the
+> corrected supported minimum by the retained [Node 22.13 run](./capacity-node-22-13-macos.md). The
+> pending minimum-runtime note below records this run's original limitation.
+
 This is retained partial evidence for charter row `P5B-E08`. It records observations rather than
 creating performance budgets or release thresholds.
 
