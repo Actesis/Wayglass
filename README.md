@@ -131,7 +131,7 @@ Supporting foundations:
 
 Requirements:
 
-- Node.js 22.12 or newer
+- Node.js 22.13 or newer
 - pnpm 11.9
 
 ```bash
