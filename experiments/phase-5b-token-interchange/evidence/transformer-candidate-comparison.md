@@ -26,8 +26,8 @@ security, capability, parity, and cost checks against the then-current exact ver
 Observed on 2026-08-15 from:
 
 - the exact npm registry manifests and tarballs for
-  [`style-dictionary@5.5.1`](https://www.npmjs.com/package/style-dictionary/v/5.5.1) and
-  [`@tokens-studio/sd-transforms@2.0.3`](https://www.npmjs.com/package/@tokens-studio/sd-transforms/v/2.0.3);
+  [`style-dictionary@5.5.1`](https://registry.npmjs.org/style-dictionary/5.5.1) and
+  [`@tokens-studio/sd-transforms@2.0.3`](https://registry.npmjs.org/@tokens-studio%2fsd-transforms/2.0.3);
 - the tagged
   [Style Dictionary manifest](https://github.com/style-dictionary/style-dictionary/blob/v5.5.1/package.json)
   and

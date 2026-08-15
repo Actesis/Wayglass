@@ -1,5 +1,9 @@
 # Phase 5B capacity evidence — Node 22.12 on macOS
 
+> **Historical adverse evidence:** Node 22.12 was the declared minimum when this run occurred. The
+> repository now requires Node 22.13 because pinned pnpm 11.9.0 cannot run on 22.12. The retained
+> [Node 22.13 run](./capacity-node-22-13-macos.md) covers the corrected supported minimum.
+
 This completes the minimum-runtime half of charter row `P5B-E08`. It records observations rather
 than creating performance budgets or release thresholds.
 
