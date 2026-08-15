@@ -16,8 +16,12 @@ deterministic graph and applies the existing web transform. It establishes:
 - an explicit boundary between portable token data and web-only selector, `color-scheme`, and
   forced-colors policy.
 
-The transform returns strings in memory and does not replace production output. The experiment does
-not emit a DTCG document yet.
+The transforms return strings in memory and do not replace production output. The second transform
+produces nested DTCG 2025.10 token and mode documents, an orthogonal theme/density resolver, and a
+Wayglass manifest. The manifest labels the result a partial candidate and accounts for four omitted
+tokens: DTCG dimensions allow only `px` and `rem`, while the current web system intentionally uses
+`ch` for one intrinsic measure, an alias to that measure, and `fr` for two grid ratios. The proof
+does not claim complete interchange or DTCG conformance.
 
 Run the focused gates from the repository root:
 
