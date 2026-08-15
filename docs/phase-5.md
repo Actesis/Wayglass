@@ -113,6 +113,13 @@ The accepted [ecosystem-exploration record](./governance/ecosystem-exploration-r
 questions, bounded private proofs, dependency review, precommitted criteria, evidence integrity,
 revision triggers, cleanup, and explicit outcomes for every Phase 5B–5F investigation.
 
+The accepted [application-author guide](./guides/application-authoring.md) publishes the proven
+Phase 4 method without defining an application framework. The
+[application-validation boundary](./governance/application-validation-boundary.md) keeps domain
+fixtures and policy harnesses local, retains the existing viewport constants as the only current
+`@wayglass/testing` candidate surface, and requires repeated public-contract evidence before any new
+helper is proposed.
+
 - inventory current packages, exports, browser and framework support, private application proofs,
   documentation surfaces, and carried release gates;
 - accept an ecosystem architecture decision covering artifact tiers, naming, dependency isolation,

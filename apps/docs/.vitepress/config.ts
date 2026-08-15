@@ -84,6 +84,19 @@ export default defineConfig({
         ],
       },
       {
+        text: 'Application authors',
+        items: [
+          {
+            text: 'Building a Wayglass application',
+            link: '/guides/application-authoring',
+          },
+          {
+            text: 'Validation recipe boundary',
+            link: '/governance/application-validation-boundary',
+          },
+        ],
+      },
+      {
         text: 'Foundations',
         items: [
           { text: 'Introduction', link: '/foundations/' },
