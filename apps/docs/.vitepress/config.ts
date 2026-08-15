@@ -22,6 +22,14 @@ export default defineConfig({
         items: [
           { text: 'Phase 5 proposed roadmap', link: '/phase-5' },
           { text: 'Release governance', link: '/governance/release-governance' },
+          {
+            text: 'Ecosystem exploration record',
+            link: '/governance/ecosystem-exploration-record',
+          },
+          {
+            text: 'Phase 5 exploration template',
+            link: '/governance/templates/phase-5-exploration-template',
+          },
           { text: 'Phase 4 roadmap disposition', link: '/phase-4-roadmap-disposition' },
           { text: 'Phase 4 delivery plan', link: '/phase-4' },
           { text: 'Phase 3 roadmap disposition', link: '/phase-3-roadmap-disposition' },
