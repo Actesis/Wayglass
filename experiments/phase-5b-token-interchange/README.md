@@ -21,7 +21,13 @@ produces nested DTCG 2025.10 token and mode documents, an orthogonal theme/densi
 Wayglass manifest. The manifest labels the result a partial candidate and accounts for four omitted
 tokens: DTCG dimensions allow only `px` and `rem`, while the current web system intentionally uses
 `ch` for one intrinsic measure, an alias to that measure, and `fr` for two grid ratios. The proof
-does not claim complete interchange or DTCG conformance.
+does not claim complete interchange or DTCG conformance. The manifest also records a caller-supplied
+source commit, the pinned schema version, every reversible identity, and SHA-256 plus UTF-8 byte
+measurements for each non-manifest artifact. Pure in-memory verification and comparison helpers
+detect inventory changes, content tampering, and targeted artifact drift before any future
+filesystem replacement is authorized. Process-interruption and atomic-replacement evidence remains
+pending because the proof has no filesystem writer yet; adding one requires a separately reviewed
+slice rather than implying recovery behavior from an in-memory transform.
 
 Run the focused gates from the repository root:
 

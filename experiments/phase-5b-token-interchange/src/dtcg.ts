@@ -1,3 +1,5 @@
+import { createHash } from 'node:crypto';
+
 import { convertDtcgValue, type DtcgConversionSuccess } from './dtcg-values.js';
 import type {
   ModeAxis,
@@ -13,6 +15,7 @@ type JsonObject = Record<string, unknown>;
 export interface DtcgResolverPolicy {
   readonly defaultTheme: string;
   readonly defaultDensity: string;
+  readonly sourceRevision: string;
 }
 
 export interface DtcgOmission {
@@ -25,9 +28,18 @@ export interface DtcgExchange {
   readonly manifest: {
     readonly status: 'partial-dtcg-2025.10-candidate';
     readonly sourceAuthority: 'Wayglass TypeScript definitions';
+    readonly sourceRevision: string;
+    readonly schemaVersion: '2025.10';
     readonly includedTokens: number;
     readonly omittedTokens: readonly DtcgOmission[];
     readonly omittedOverrides: readonly DtcgOmission[];
+    readonly identities: readonly {
+      readonly source: string;
+      readonly exchange: string;
+    }[];
+    readonly artifacts: Readonly<
+      Record<string, { readonly sha256: string; readonly bytes: number }>
+    >;
   };
 }
 
@@ -239,37 +251,65 @@ function stringify(value: unknown): string {
   return `${JSON.stringify(value, null, 2)}\n`;
 }
 
+function artifactMeasurement(content: string): { readonly sha256: string; readonly bytes: number } {
+  return {
+    sha256: createHash('sha256').update(content, 'utf8').digest('hex'),
+    bytes: Buffer.byteLength(content, 'utf8'),
+  };
+}
+
+function setDocument(documents: Map<string, JsonObject>, path: string, document: JsonObject): void {
+  if (documents.has(path)) {
+    throw new Error(`DTCG exchange output path "${path}" is duplicated.`);
+  }
+  documents.set(path, document);
+}
+
 export function createDtcgExchange(
   graph: NormalizedTokenGraph,
   policy: DtcgResolverPolicy,
 ): DtcgExchange {
+  if (!/^[0-9a-f]{7,64}$/i.test(policy.sourceRevision)) {
+    throw new Error('DTCG exchange source revision must be a 7–64 character hexadecimal commit.');
+  }
+
   const { included, omitted } = evaluateTokens(graph);
   const tokens = new Map(graph.tokens.map((token) => [token.source, token]));
   const omittedOverrides: DtcgOmission[] = [];
   const documents = new Map<string, JsonObject>();
-  documents.set('tokens.json', baseDocument(graph, included));
+  setDocument(documents, 'tokens.json', baseDocument(graph, included));
   for (const mode of graph.modes) {
-    documents.set(modePath(mode), modeDocument(mode, tokens, included, omittedOverrides));
+    setDocument(documents, modePath(mode), modeDocument(mode, tokens, included, omittedOverrides));
   }
-  documents.set('resolver.json', resolverDocument(graph, policy));
+  setDocument(documents, 'resolver.json', resolverDocument(graph, policy));
+
+  const artifactFiles = Object.fromEntries(
+    [...documents.entries()]
+      .sort(([left], [right]) => compareText(left, right))
+      .map(([path, document]) => [path, stringify(document)]),
+  );
 
   const manifest = {
     status: 'partial-dtcg-2025.10-candidate' as const,
     sourceAuthority: 'Wayglass TypeScript definitions' as const,
+    sourceRevision: policy.sourceRevision,
+    schemaVersion: '2025.10' as const,
     includedTokens: included.size,
     omittedTokens: omitted,
     omittedOverrides: omittedOverrides.sort((left, right) =>
       compareText(left.source, right.source),
     ),
+    identities: graph.tokens.map((token) => ({
+      source: token.source,
+      exchange: token.exchangePath.join('.'),
+    })),
+    artifacts: Object.fromEntries(
+      Object.entries(artifactFiles).map(([path, content]) => [path, artifactMeasurement(content)]),
+    ),
   };
-  documents.set('wayglass-manifest.json', manifest);
 
   return {
-    files: Object.fromEntries(
-      [...documents.entries()]
-        .sort(([left], [right]) => compareText(left, right))
-        .map(([path, document]) => [path, stringify(document)]),
-    ),
+    files: { ...artifactFiles, 'wayglass-manifest.json': stringify(manifest) },
     manifest,
   };
 }
