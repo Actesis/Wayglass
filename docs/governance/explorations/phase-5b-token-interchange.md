@@ -6,7 +6,7 @@
 | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Record ID          | `P5B-TOKEN-INTERCHANGE-001`                                                                                                                                                                                                                                                                        |
 | Roadmap track      | Phase 5B — Design-token interchange and platform transforms                                                                                                                                                                                                                                        |
-| Lifecycle state    | `proposed`                                                                                                                                                                                                                                                                                         |
+| Lifecycle state    | `charter-accepted`                                                                                                                                                                                                                                                                                 |
 | Revision           | `1`                                                                                                                                                                                                                                                                                                |
 | Owner              | Wayglass maintainers                                                                                                                                                                                                                                                                               |
 | Evidence reviewers | Project owner and a Wayglass maintainer                                                                                                                                                                                                                                                            |
@@ -23,9 +23,9 @@ semantics, creating a second source of truth, or imposing build tooling on runti
 
 ### Revision history
 
-| Revision | Date       | Change           | Evidence still valid | Approval |
-| -------- | ---------- | ---------------- | -------------------- | -------- |
-| 1        | 2026-08-15 | Initial proposal | None                 | Pending  |
+| Revision | Date       | Change           | Evidence still valid | Approval                                |
+| -------- | ---------- | ---------------- | -------------------- | --------------------------------------- |
+| 1        | 2026-08-15 | Initial proposal | None                 | Accepted by project owner on 2026-08-15 |
 
 ## User, task, and consequence
 
@@ -277,11 +277,13 @@ milestone.
 - **Reasoning:** Pending evidence.
 - **Retained ownership and boundaries:** Pending.
 - **Known limitations:** Pending.
-- **Follow-up authorized:** No proof implementation until this charter is accepted.
-- **Remaining approvals and gates:** charter acceptance, any dependency approval, evidence review,
-  artifact disposition, implementation contract if accepted, and release governance.
-- **Cleanup completed:** Not applicable before proof work.
+- **Follow-up authorized:** the bounded private proof under
+  `experiments/phase-5b-token-interchange/`, beginning with the normalized graph and reversible
+  identity mapping. No production artifact or public surface is authorized.
+- **Remaining approvals and gates:** any dependency approval, completed evidence review, artifact
+  disposition, implementation contract if accepted, and release governance.
+- **Cleanup completed:** Not yet; the bounded proof is underway.
 
-Acceptance of this charter would authorize only the bounded private proof. It would not accept an
-artifact candidate or authorize permanent implementation, package creation, publication, Figma
+Acceptance of this charter authorizes only the bounded private proof. It does not accept an artifact
+candidate or authorize permanent implementation, package creation, publication, Figma
 synchronization, platform support, or deployment.
