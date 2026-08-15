@@ -1,8 +1,8 @@
 # Phase 5 ecosystem roadmap
 
-**Status:** Accepted on August 14, 2026. Phase 5A planning and architecture are in progress. Every
-later ecosystem track requires its own accepted charter before implementation, and an exploration
-may conclude with no new package.
+**Status:** Accepted on August 14, 2026. Phase 5A was completed on August 15, 2026. Every later
+ecosystem track requires its own accepted charter before implementation, and an exploration may
+conclude with no new package.
 
 Phase 5 extends Wayglass beyond the core design language and its three reference domains. `SPEC.md`
 names six ecosystem areas to explore: charts, Home Assistant integration, icon tooling, Figma
@@ -127,6 +127,12 @@ VitePress documentation at `/`, Storybook at `/storybook/`, and only explicitly 
 walkthroughs under `/walkthroughs/`. Independent builds remain separate inputs to one deterministic,
 versioned deployment artifact. No Cloudflare configuration or deployment is authorized yet.
 
+The accepted [Phase 5 validation plan](./accessibility/phase-5-validation-plan.md) defines common
+evidence stages and tier-specific matrices for foundation and optional runtime, framework bindings,
+integrations, build tools, design artifacts, and documentation surfaces. It completes Phase 5A while
+carrying publication, deployment, assistive-technology, provider, design-tool, and framework choices
+to the milestones that own them.
+
 - inventory current packages, exports, browser and framework support, private application proofs,
   documentation surfaces, and carried release gates;
 - accept an ecosystem architecture decision covering artifact tiers, naming, dependency isolation,
@@ -142,6 +148,9 @@ versioned deployment artifact. No Cloudflare configuration or deployment is auth
 
 Exit requires an accepted architecture decision, release-governance contract, validation plan, and
 explicitly carried questions. No runtime ecosystem implementation enters Phase 5A.
+
+**Exit disposition:** Complete on August 15, 2026. The accepted records above satisfy every Phase 5A
+outcome without publishing, deploying, connecting a provider, or adding runtime ecosystem scope.
 
 ### Phase 5B — Design-token interchange and platform transforms
 
@@ -322,5 +331,6 @@ revise, or reject disposition; accepted artifacts satisfy their tier-specific va
 application boundaries remain intact; package, deployment, and support claims are explicit; and all
 unresolved human, provider, device, or operational evidence has a named owner and release impact.
 
-The next step after accepting this roadmap is Phase 5A: draft the ecosystem architecture decision,
-release-governance contract, and validation plan before implementing an ecosystem package.
+The next step after completing Phase 5A is to charter the Phase 5B design-token interchange
+exploration. The charter must precommit its comparison baselines, canonical-ownership question,
+transform proofs, evidence matrix, stop conditions, and cleanup before prototype implementation.
