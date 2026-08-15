@@ -25,9 +25,16 @@ does not claim complete interchange or DTCG conformance. The manifest also recor
 source commit, the pinned schema version, every reversible identity, and SHA-256 plus UTF-8 byte
 measurements for each non-manifest artifact. Pure in-memory verification and comparison helpers
 detect inventory changes, content tampering, and targeted artifact drift before any future
-filesystem replacement is authorized. Process-interruption and atomic-replacement evidence remains
-pending because the proof has no filesystem writer yet; adding one requires a separately reviewed
-slice rather than implying recovery behavior from an in-memory transform.
+filesystem replacement is authorized.
+
+The experiment-only writer stores verified artifacts in immutable, content-addressed release
+directories and atomically renames `current.json` to accept a release. Replacement is opt-in;
+identical writes are idempotent. Ordinary partial-write failures remove their stage, while injected
+process-interruption fixtures after staging and after release commit leave the previous pointer
+unchanged. Recovery removes only recognized temporary names and unreferenced hexadecimal releases.
+The injection models process termination at those boundaries; power-loss durability and operating
+systems outside the repository test environment are not claimed. Concurrent writers are also outside
+this proof; a permanent implementation would need locking or compare-and-swap semantics.
 
 Run the focused gates from the repository root:
 
