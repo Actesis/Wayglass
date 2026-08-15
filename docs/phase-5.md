@@ -108,12 +108,17 @@ states, versioning, package contents, clean evidence, one-time registry bootstra
 publishing, human approval, provenance, recovery, and the explicit decisions that still block any
 publication.
 
+The accepted [ecosystem-exploration record](./governance/ecosystem-exploration-record.md) and its
+[canonical template](./governance/templates/phase-5-exploration-template.md) define neutral decision
+questions, bounded private proofs, dependency review, precommitted criteria, evidence integrity,
+revision triggers, cleanup, and explicit outcomes for every Phase 5B–5F investigation.
+
 - inventory current packages, exports, browser and framework support, private application proofs,
   documentation surfaces, and carried release gates;
 - accept an ecosystem architecture decision covering artifact tiers, naming, dependency isolation,
   version coupling, support ownership, and promotion thresholds;
 - define the release-governance contract without publishing a package;
-- define a common exploration record with success, stop, defer, and rejection outcomes;
+- define a common exploration record with success, stop, defer, revision, and rejection outcomes;
 - publish the Phase 4 application-author guidance and decide whether validation recipes remain
   documentation, local harnesses, or narrow public-behavior helpers;
 - decide whether the documentation site, Storybook, and selected synthetic walkthroughs share one
