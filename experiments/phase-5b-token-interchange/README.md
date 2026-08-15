@@ -36,8 +36,19 @@ The injection models process termination at those boundaries; power-loss durabil
 systems outside the repository test environment are not claimed. Concurrent writers are also outside
 this proof; a permanent implementation would need locking or compare-and-swap semantics.
 
+The capacity harness constructs the reviewed corpus and an exact 10× token/override replica, then
+measures normalization plus both in-memory transforms without imposing a threshold. The retained
+[Node 26/macOS result](./evidence/capacity-node-26-macos.md) is partial `P5B-E08` evidence; the
+repository-minimum Node 22.12 rerun remains pending.
+
 Run the focused gates from the repository root:
 
 ```sh
 pnpm experiment:phase5b:check
+```
+
+The informational measurement is separate from normal gates and requires an exact clean commit:
+
+```sh
+WAYGLASS_SOURCE_REVISION=<full-checked-out-commit> pnpm experiment:phase5b:measure
 ```
