@@ -156,6 +156,12 @@ outcome without publishing, deploying, connecting a provider, or adding runtime 
 
 Establish the data contract that downstream design and build tools would consume.
 
+The proposed
+[Phase 5B design-token interchange charter](./governance/explorations/phase-5b-token-interchange.md)
+precommits the ownership question, DTCG 2025.10 comparison baseline, one-way source authority, two
+bounded transforms, evidence matrix, failure cases, stop conditions, and cleanup. No proof work or
+dependency is authorized until that charter is accepted.
+
 - compare the current authored definitions and generated CSS, TypeScript, and JSON with a documented
   interchange model, including current Design Tokens Community Group conventions;
 - preserve semantic, component, density, motion, typography, and mechanical-token distinctions;

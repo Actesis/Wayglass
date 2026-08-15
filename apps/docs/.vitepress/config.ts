@@ -21,6 +21,10 @@ export default defineConfig({
         text: 'System',
         items: [
           { text: 'Phase 5 proposed roadmap', link: '/phase-5' },
+          {
+            text: 'Phase 5B token-interchange charter',
+            link: '/governance/explorations/phase-5b-token-interchange',
+          },
           { text: 'Release governance', link: '/governance/release-governance' },
           {
             text: 'Ecosystem exploration record',
