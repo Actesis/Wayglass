@@ -44,6 +44,11 @@ supported runtimes for `P5B-E08`. The earlier
 [Node 22.12/macOS](./evidence/capacity-node-22-macos.md) run remains historical adverse evidence:
 the transforms execute there, but pinned pnpm 11.9.0 does not.
 
+The retained [transformer-candidate comparison](./evidence/transformer-candidate-comparison.md)
+qualifies Style Dictionary 5.5.1 for a possible future isolated prototype but does not add or
+approve a dependency. `@tokens-studio/sd-transforms` remains conditional on a later decision to use
+Tokens Studio as an authorized source.
+
 Run the focused gates from the repository root:
 
 ```sh
