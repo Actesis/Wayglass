@@ -120,6 +120,13 @@ fixtures and policy harnesses local, retains the existing viewport constants as 
 `@wayglass/testing` candidate surface, and requires repeated public-contract evidence before any new
 helper is proposed.
 
+The accepted
+[Cloudflare documentation-delivery decision](./architecture/adr/0032-unified-cloudflare-documentation-delivery.md)
+assigns `wayglass.hoagsoftworks.com` one composed Workers Static Assets deployment: normative
+VitePress documentation at `/`, Storybook at `/storybook/`, and only explicitly admitted synthetic
+walkthroughs under `/walkthroughs/`. Independent builds remain separate inputs to one deterministic,
+versioned deployment artifact. No Cloudflare configuration or deployment is authorized yet.
+
 - inventory current packages, exports, browser and framework support, private application proofs,
   documentation surfaces, and carried release gates;
 - accept an ecosystem architecture decision covering artifact tiers, naming, dependency isolation,
