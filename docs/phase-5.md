@@ -103,6 +103,11 @@ defines the artifact tiers, inward dependency direction, optional-dependency iso
 foundation release family, independent ecosystem versioning, support ownership, and promotion
 thresholds used by the remaining Phase 5A records.
 
+The accepted [release-governance contract](./governance/release-governance.md) defines candidate
+states, versioning, package contents, clean evidence, one-time registry bootstrap, tokenless staged
+publishing, human approval, provenance, recovery, and the explicit decisions that still block any
+publication.
+
 - inventory current packages, exports, browser and framework support, private application proofs,
   documentation surfaces, and carried release gates;
 - accept an ecosystem architecture decision covering artifact tiers, naming, dependency isolation,
