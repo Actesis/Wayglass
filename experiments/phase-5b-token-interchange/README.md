@@ -4,16 +4,20 @@ This private experiment implements only the bounded proof accepted in
 [`P5B-TOKEN-INTERCHANGE-001`](../../docs/governance/explorations/phase-5b-token-interchange.md). It
 is not a workspace package, production export, interchange conformance claim, or release candidate.
 
-The first slice normalizes the reviewed `@wayglass/tokens` and `@wayglass/themes` sources into a
-deterministic graph. It establishes:
+The proof currently normalizes the reviewed `@wayglass/tokens` and `@wayglass/themes` sources into a
+deterministic graph and applies the existing web transform. It establishes:
 
 - reversible Wayglass identity and nested exchange paths;
 - DTCG `$root` placement for tokens that also own child paths;
 - explicit reference, semantic, and component layers;
-- preserved token types, descriptions, values, aliases, themes, and densities; and
-- failure before output work for invalid identities, collisions, or missing override references.
+- preserved token types, descriptions, values, aliases, themes, and densities;
+- failure before output work for invalid identities, collisions, or missing override references;
+- byte-for-byte parity with the production base-token and theme/density CSS compilers; and
+- an explicit boundary between portable token data and web-only selector, `color-scheme`, and
+  forced-colors policy.
 
-It intentionally emits no CSS or DTCG document yet. Those are separate proof slices over this graph.
+The transform returns strings in memory and does not replace production output. The experiment does
+not emit a DTCG document yet.
 
 Run the focused gates from the repository root:
 

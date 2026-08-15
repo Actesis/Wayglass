@@ -1,0 +1,56 @@
+import type { WebTransformPolicy } from './web.js';
+
+/**
+ * Proof-local transcription of the current @wayglass/themes web policy.
+ * Exact parity tests make drift visible. This is not portable token data or new authority.
+ */
+export const currentWebPolicy = {
+  defaultTheme: 'wayglass-dark',
+  themeOrder: ['wayglass-dark', 'wayglass-light'],
+  densityOrder: ['compact', 'comfortable'],
+  colorSchemes: {
+    'wayglass-dark': 'dark',
+    'wayglass-light': 'light',
+  },
+  forcedColors: {
+    'color.semantic.action.active': 'Highlight',
+    'color.semantic.action.critical': 'Highlight',
+    'color.semantic.action.hover': 'Highlight',
+    'color.semantic.action.primary': 'Highlight',
+    'color.semantic.activity.idle': 'CanvasText',
+    'color.semantic.activity.pending': 'Highlight',
+    'color.semantic.border.strong': 'CanvasText',
+    'color.semantic.border.subtle': 'CanvasText',
+    'color.semantic.condition.caution': 'CanvasText',
+    'color.semantic.condition.critical': 'CanvasText',
+    'color.semantic.condition.informational': 'CanvasText',
+    'color.semantic.condition.neutral': 'CanvasText',
+    'color.semantic.condition.positive': 'CanvasText',
+    'color.semantic.data.series.1': 'CanvasText',
+    'color.semantic.data.series.2': 'CanvasText',
+    'color.semantic.data.change': 'CanvasText',
+    'color.semantic.focus.ring': 'Highlight',
+    'color.semantic.knowledge.confirmed': 'CanvasText',
+    'color.semantic.knowledge.conflicting': 'CanvasText',
+    'color.semantic.knowledge.inferred': 'CanvasText',
+    'color.semantic.knowledge.stale': 'CanvasText',
+    'color.semantic.knowledge.unavailable': 'CanvasText',
+    'color.semantic.knowledge.unknown': 'CanvasText',
+    'color.semantic.selection.indicator': 'Highlight',
+    'color.semantic.selection.surface': 'Canvas',
+    'color.semantic.selection.text': 'CanvasText',
+    'color.semantic.section.control': 'Highlight',
+    'color.semantic.section.information': 'CanvasText',
+    'color.semantic.section.monitor': 'CanvasText',
+    'color.semantic.structure.band': 'CanvasText',
+    'color.semantic.surface.canvas': 'Canvas',
+    'color.semantic.surface.inset': 'Canvas',
+    'color.semantic.surface.panel': 'Canvas',
+    'color.semantic.surface.raised': 'Canvas',
+    'color.semantic.text.inverse': 'HighlightText',
+    'color.semantic.text.primary': 'CanvasText',
+    'color.semantic.text.secondary': 'CanvasText',
+    'color.semantic.value.asserted': 'Highlight',
+    'color.semantic.value.not-asserted': 'CanvasText',
+  },
+} as const satisfies WebTransformPolicy;
