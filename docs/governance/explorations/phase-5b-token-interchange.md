@@ -6,8 +6,8 @@
 | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Record ID          | `P5B-TOKEN-INTERCHANGE-001`                                                                                                                                                                                                                                                                        |
 | Roadmap track      | Phase 5B — Design-token interchange and platform transforms                                                                                                                                                                                                                                        |
-| Lifecycle state    | `evidence-complete`                                                                                                                                                                                                                                                                                |
-| Revision           | `2`                                                                                                                                                                                                                                                                                                |
+| Lifecycle state    | `dispositioned`                                                                                                                                                                                                                                                                                    |
+| Revision           | `3`                                                                                                                                                                                                                                                                                                |
 | Owner              | Wayglass maintainers                                                                                                                                                                                                                                                                               |
 | Evidence reviewers | Project owner and a Wayglass maintainer                                                                                                                                                                                                                                                            |
 | Created            | 2026-08-15                                                                                                                                                                                                                                                                                         |
@@ -27,6 +27,7 @@ semantics, creating a second source of truth, or imposing build tooling on runti
 | -------- | ---------- | --------------------------- | ----------------------- | --------------------------------------- |
 | 1        | 2026-08-15 | Initial proposal            | None                    | Accepted by project owner on 2026-08-15 |
 | 2        | 2026-08-15 | Formal validation completed | All revision 1 evidence | Prepared for project-owner disposition  |
+| 3        | 2026-08-15 | Artifact candidate accepted | All revision 2 evidence | Accepted by project owner on 2026-08-15 |
 
 ## User, task, and consequence
 
@@ -277,18 +278,37 @@ evidence.
 
 ## Disposition
 
-- **Outcome:** Pending.
-- **Decision date and approver:** Pending.
-- **Reasoning:** The bounded evidence is complete; project-owner review and outcome selection are
-  pending.
-- **Retained ownership and boundaries:** Pending.
-- **Known limitations:** Pending.
-- **Follow-up authorized:** evidence review and disposition only. No proof scope expansion,
-  production artifact, dependency, or public surface is authorized.
-- **Remaining approvals and gates:** project-owner evidence review, artifact disposition,
-  implementation contract if accepted, any dependency approval, and release governance.
-- **Cleanup completed:** Temporary runtimes and caches are removed; the private proof and evidence
-  are retained pending disposition.
+- **Outcome:** Accept artifact candidate.
+- **Decision date and approver:** 2026-08-15, project owner.
+- **Reasoning:** The private proof demonstrates that a Wayglass-owned normalized graph and one-way
+  transforms provide enforceable identity preservation, semantic checks, deterministic generation,
+  targeted drift reporting, and safer failure behavior that documentation alone cannot provide. The
+  candidate produces the current web artifacts without meaningful drift and a truthful partial
+  exchange artifact without making generated output authoritative. The evidence supports a narrow
+  build-and-validation artifact, but not a package or interoperability promise.
+- **Retained ownership and boundaries:** Wayglass maintainers own the candidate normalized contract,
+  validation policy, and deterministic transforms as build and validation tooling. Reviewed
+  TypeScript token and mode definitions remain authoritative. Foundation runtime packages,
+  application brand policy, DTCG specifications, design-tool imports, and non-web platform
+  transforms remain outside this candidate's ownership.
+- **Known limitations:** The exchange includes 524 of 528 tokens and explicitly omits four
+  unrepresentable dimensions; it is not DTCG-conformant or externally validated. No design tool,
+  non-web platform, or independent consumer has used it. Cross-runtime evidence covers one
+  macOS/APFS host, and writer recovery uses controlled interruption fixtures rather than power-loss
+  or concurrent-writer tests.
+- **Follow-up authorized:** prepare a separate implementation contract and consequential ADR for a
+  private in-repository build-and-validation artifact. That proposal may define how the accepted
+  normalized graph and one-way web and exchange transforms replace duplicated generation paths. It
+  may not create a public package, schema, dependency, or compatibility claim without another
+  explicit decision.
+- **Remaining approvals and gates:** accept the implementation contract and ADR; choose permanent
+  private placement, ownership, compatibility, and migration policy; require an actual external
+  consumer before proposing package status; repeat dependency review before adoption; and satisfy
+  release governance before any publication or public support claim.
+- **Cleanup completed:** Temporary runtimes, downloaded archives, candidate dependencies, generated
+  output, and caches are removed. The private proof and evidence are retained as the accepted
+  candidate baseline and remain outside production packages.
 
-Evidence completion does not accept an artifact candidate or authorize permanent implementation,
-package creation, publication, Figma synchronization, platform support, or deployment.
+This disposition accepts only a private artifact candidate. It does not authorize permanent
+implementation, package creation, publication, Figma synchronization, design-tool compatibility,
+platform support, deployment, or a DTCG conformance claim.
