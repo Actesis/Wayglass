@@ -38,8 +38,10 @@ this proof; a permanent implementation would need locking or compare-and-swap se
 
 The capacity harness constructs the reviewed corpus and an exact 10× token/override replica, then
 measures normalization plus both in-memory transforms without imposing a threshold. The retained
-[Node 26/macOS result](./evidence/capacity-node-26-macos.md) is partial `P5B-E08` evidence; the
-repository-minimum Node 22.12 rerun remains pending.
+[Node 26/macOS](./evidence/capacity-node-26-macos.md) and
+[Node 22.12/macOS](./evidence/capacity-node-22-macos.md) results cover the current and minimum
+runtimes for `P5B-E08`. Node 22.12 executes the transforms, but pinned pnpm 11.9.0 requires Node
+22.13 or later; that repository runtime-contract mismatch remains adverse evidence.
 
 Run the focused gates from the repository root:
 
