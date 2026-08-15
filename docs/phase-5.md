@@ -1,8 +1,8 @@
 # Phase 5 ecosystem roadmap
 
-**Status:** Accepted on August 14, 2026. Phase 5A was completed on August 15, 2026. Every later
-ecosystem track requires its own accepted charter before implementation, and an exploration may
-conclude with no new package.
+**Status:** Accepted on August 14, 2026. Phases 5A and 5B were completed on August 15, 2026. Every
+later ecosystem track requires its own accepted charter before implementation, and an exploration
+may conclude with no new package.
 
 Phase 5 extends Wayglass beyond the core design language and its three reference domains. `SPEC.md`
 names six ecosystem areas to explore: charts, Home Assistant integration, icon tooling, Figma
@@ -156,11 +156,12 @@ outcome without publishing, deploying, connecting a provider, or adding runtime 
 
 Establish the data contract that downstream design and build tools would consume.
 
-The proposed
-[Phase 5B design-token interchange charter](./governance/explorations/phase-5b-token-interchange.md)
-precommits the ownership question, DTCG 2025.10 comparison baseline, one-way source authority, two
-bounded transforms, evidence matrix, failure cases, stop conditions, and cleanup. No proof work or
-dependency is authorized until that charter is accepted.
+The accepted and dispositioned
+[Phase 5B design-token interchange record](./governance/explorations/phase-5b-token-interchange.md)
+answers the ownership question against the DTCG 2025.10 comparison baseline. Its bounded private
+proof validates one-way source authority, deterministic web and partial exchange transforms,
+semantic preservation, failure behavior, capacity, and repository isolation without adding a
+dependency or public surface.
 
 - compare the current authored definitions and generated CSS, TypeScript, and JSON with a documented
   interchange model, including current Design Tokens Community Group conventions;
@@ -175,6 +176,13 @@ dependency is authorized until that charter is accepted.
 Exit may accept a formal schema and tooling package, retain the existing compiler with documented
 exports, or reject a proposed interchange. Figma synchronization is not implemented until this
 ownership decision is stable.
+
+**Exit disposition:** Complete on August 15, 2026. A narrow private build-and-validation artifact
+candidate is accepted because machine-enforced identity, semantic validation, deterministic output,
+and targeted drift add safety beyond documentation alone. A separate implementation contract and ADR
+are required before productionization. Package status, public schema, dependency adoption,
+publication, DTCG conformance, design-tool compatibility, and non-web platform support remain
+unapproved.
 
 ### Phase 5C — Rich visualization exploration
 
