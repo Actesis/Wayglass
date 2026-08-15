@@ -279,6 +279,10 @@ export default defineConfig({
             text: 'ADR 0030: Isolated reference applications',
             link: '/architecture/adr/0030-isolated-reference-applications',
           },
+          {
+            text: 'ADR 0031: Ecosystem artifact architecture',
+            link: '/architecture/adr/0031-ecosystem-artifact-architecture',
+          },
         ],
       },
       {
