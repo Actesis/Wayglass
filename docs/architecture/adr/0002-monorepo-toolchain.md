@@ -2,6 +2,7 @@
 
 - Status: accepted
 - Date: 2026-07-27
+- Amended: 2026-08-15 — align the Node floor with pnpm 11.9's executable requirement
 
 ## Context
 
@@ -16,7 +17,7 @@ Compile production packages from strict TypeScript using the requirements in `SP
 
 ## Consequences
 
-The repository requires Node.js 22.12 or newer and pnpm 11.9. Tasks remain runnable without GitHub
+The repository requires Node.js 22.13 or newer and pnpm 11.9. Tasks remain runnable without GitHub
 Actions. A future CI system should call the same root scripts rather than introduce a parallel
 workflow.
 
