@@ -6,6 +6,7 @@ import { createWayglassTokenGraph } from '../src/source.js';
 const resolverPolicy = {
   defaultTheme: 'wayglass-dark',
   defaultDensity: 'compact',
+  sourceRevision: '0123456789abcdef0123456789abcdef01234567',
 } as const;
 
 function exchange() {
