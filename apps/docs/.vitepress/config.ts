@@ -305,6 +305,10 @@ export default defineConfig({
             text: 'ADR 0031: Ecosystem artifact architecture',
             link: '/architecture/adr/0031-ecosystem-artifact-architecture',
           },
+          {
+            text: 'ADR 0032: Cloudflare documentation delivery',
+            link: '/architecture/adr/0032-unified-cloudflare-documentation-delivery',
+          },
         ],
       },
       {
