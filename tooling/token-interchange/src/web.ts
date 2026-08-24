@@ -124,6 +124,23 @@ export function createWebTokenCss(graph: NormalizedTokenGraph): string {
   return `@layer wayglass.tokens {\n  :root {\n${tokenDeclarations}\n  }\n}\n`;
 }
 
+export function createLegacyTokenJson(graph: NormalizedTokenGraph): string {
+  const document = Object.fromEntries(
+    [...graph.tokens]
+      .sort((left, right) => compareText(left.source, right.source))
+      .map((token) => [
+        token.source,
+        {
+          $type: token.type,
+          $value: token.value,
+          $description: token.description,
+        },
+      ]),
+  );
+
+  return `${JSON.stringify(document, null, 2)}\n`;
+}
+
 function aliasEntries(graph: NormalizedTokenGraph): readonly (readonly [string, string])[] {
   return graph.tokens.flatMap((token) =>
     token.alias

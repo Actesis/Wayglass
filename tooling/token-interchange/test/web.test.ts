@@ -1,11 +1,12 @@
 import { describe, expect, it } from 'vitest';
 
 import { createThemeCss } from '../../../packages/themes/src/css.js';
-import { createCss } from '../../../packages/tokens/src/compiler.js';
+import { createCss, createJson } from '../../../packages/tokens/src/compiler.js';
 import { tokens } from '../../../packages/tokens/src/definitions.js';
 import { createWayglassTokenGraph } from '../src/source.js';
 import { currentWebPolicy } from '../src/web-policy.js';
 import {
+  createLegacyTokenJson,
   createWebThemeCss,
   createWebTokenCss,
   tokenNameToWebCustomProperty,
@@ -21,6 +22,12 @@ describe('normalized graph web transform', () => {
     const graph = createWayglassTokenGraph();
 
     expect(createWebTokenCss(graph)).toBe(createCss(tokens));
+  });
+
+  it('reproduces the legacy flat token JSON byte for byte', () => {
+    const graph = createWayglassTokenGraph();
+
+    expect(createLegacyTokenJson(graph)).toBe(createJson(tokens));
   });
 
   it('reproduces the current theme and density CSS byte for byte', () => {
@@ -39,11 +46,36 @@ describe('normalized graph web transform', () => {
     const graph = createWayglassTokenGraph();
     const before = structuredClone(graph);
 
-    const first = [createWebTokenCss(graph), createWebThemeCss(graph, currentWebPolicy)];
-    const second = [createWebTokenCss(graph), createWebThemeCss(graph, currentWebPolicy)];
+    const first = [
+      createWebTokenCss(graph),
+      createLegacyTokenJson(graph),
+      createWebThemeCss(graph, currentWebPolicy),
+    ];
+    const second = [
+      createWebTokenCss(graph),
+      createLegacyTokenJson(graph),
+      createWebThemeCss(graph, currentWebPolicy),
+    ];
 
     expect(second).toEqual(first);
     expect(graph).toEqual(before);
+  });
+
+  it('orders legacy JSON by identity rather than normalized input order', () => {
+    const graph = createWayglassTokenGraph();
+    const reversed = { ...graph, tokens: [...graph.tokens].reverse() };
+
+    expect(createLegacyTokenJson(reversed)).toBe(createLegacyTokenJson(graph));
+  });
+
+  it('preserves aliases and tuple values without resolving or coercing them', () => {
+    const document = JSON.parse(createLegacyTokenJson(createWayglassTokenGraph())) as Record<
+      string,
+      { readonly $value: unknown }
+    >;
+
+    expect(document['color.semantic.surface.canvas']?.$value).toBe('{color.reference.ink.950}');
+    expect(document['motion.easing.standard']?.$value).toEqual([0.2, 0, 0, 1]);
   });
 
   it('requires exact theme and density order coverage', () => {
