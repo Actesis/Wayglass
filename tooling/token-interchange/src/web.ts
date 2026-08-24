@@ -1,11 +1,11 @@
-import type { TokenPrimitive } from '../../../packages/tokens/src/definitions.js';
+import type { TokenPrimitive } from '../../../packages/tokens/src/definitions.ts';
 
 import type {
   ModeAxis,
   NormalizedMode,
   NormalizedToken,
   NormalizedTokenGraph,
-} from './normalize.js';
+} from './normalize.ts';
 
 export interface WebTransformPolicy {
   readonly defaultTheme: string;

@@ -1,10 +1,10 @@
 import {
   densityTokenOverrides,
   themeTokenOverrides,
-} from '../../../packages/themes/src/definitions.js';
-import { tokens } from '../../../packages/tokens/src/definitions.js';
+} from '../../../packages/themes/src/definitions.ts';
+import { tokens } from '../../../packages/tokens/src/definitions.ts';
 
-import { createNormalizedTokenGraph } from './normalize.js';
+import { createNormalizedTokenGraph } from './normalize.ts';
 
 export function createWayglassTokenGraph() {
   return createNormalizedTokenGraph({

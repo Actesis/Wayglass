@@ -1,6 +1,6 @@
-import type { TokenType } from '../../../packages/tokens/src/definitions.js';
+import type { TokenType } from '../../../packages/tokens/src/definitions.ts';
 
-import type { NormalizedToken } from './normalize.js';
+import type { NormalizedToken } from './normalize.ts';
 
 export type DtcgType = Exclude<TokenType, 'fontSize'> | 'dimension';
 

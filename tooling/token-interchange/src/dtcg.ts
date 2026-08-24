@@ -1,12 +1,12 @@
 import { createHash } from 'node:crypto';
 
-import { convertDtcgValue, type DtcgConversionSuccess } from './dtcg-values.js';
+import { convertDtcgValue, type DtcgConversionSuccess } from './dtcg-values.ts';
 import type {
   ModeAxis,
   NormalizedMode,
   NormalizedToken,
   NormalizedTokenGraph,
-} from './normalize.js';
+} from './normalize.ts';
 
 const wayglassExtension = 'com.wayglass';
 

@@ -2,9 +2,9 @@ import type {
   TokenDefinition,
   TokenPrimitive,
   TokenType,
-} from '../../../packages/tokens/src/definitions.js';
+} from '../../../packages/tokens/src/definitions.ts';
 
-import { compareIdentity, createIdentityIndex, type TokenIdentity } from './identity.js';
+import { compareIdentity, createIdentityIndex, type TokenIdentity } from './identity.ts';
 
 export type TokenLayer = 'reference' | 'semantic' | 'component';
 export type TokenConcern = 'motion' | 'typography' | 'visual';

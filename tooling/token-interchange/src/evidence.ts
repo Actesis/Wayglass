@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 
-import type { DtcgExchange } from './dtcg.js';
+import type { DtcgExchange } from './dtcg.ts';
 
 export interface ArtifactDrift {
   readonly added: readonly string[];

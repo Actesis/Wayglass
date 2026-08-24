@@ -40,8 +40,13 @@ export class TokenToolingDiagnostic extends Error {
   readonly code: string;
   readonly exitCode: TokenToolingExitCode;
 
-  constructor(code: string, message: string, exitCode: TokenToolingExitCode) {
-    super(message);
+  constructor(
+    code: string,
+    message: string,
+    exitCode: TokenToolingExitCode,
+    options?: ErrorOptions,
+  ) {
+    super(message, options);
     this.name = 'TokenToolingDiagnostic';
     this.code = code;
     this.exitCode = exitCode;

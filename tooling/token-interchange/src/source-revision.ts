@@ -1,4 +1,4 @@
-import { tokenToolingExitCode, TokenToolingDiagnostic } from './command.js';
+import { tokenToolingExitCode, TokenToolingDiagnostic } from './command.ts';
 
 export interface RepositorySourceState {
   readonly headRevision: string;

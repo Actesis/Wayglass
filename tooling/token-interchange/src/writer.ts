@@ -2,8 +2,8 @@ import { createHash, randomUUID } from 'node:crypto';
 import { lstat, mkdir, mkdtemp, open, readFile, readdir, rename, rm } from 'node:fs/promises';
 import { dirname, join, parse, posix, resolve } from 'node:path';
 
-import type { DtcgExchange } from './dtcg.js';
-import { verifyDtcgExchange } from './evidence.js';
+import type { DtcgExchange } from './dtcg.ts';
+import { verifyDtcgExchange } from './evidence.ts';
 
 const pointerName = 'current.json';
 const releasesName = 'releases';
