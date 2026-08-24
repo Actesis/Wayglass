@@ -1,17 +1,20 @@
 import { performance } from 'node:perf_hooks';
 import { resourceUsage } from 'node:process';
 
-import { createDtcgExchange } from './dtcg.js';
-import type { TokenIdentity } from './identity.js';
+import { createDtcgExchange } from '../../../tooling/token-interchange/src/dtcg.js';
+import type { TokenIdentity } from '../../../tooling/token-interchange/src/identity.js';
 import type {
   NormalizedMode,
   NormalizedOverride,
   NormalizedToken,
   NormalizedTokenGraph,
-} from './normalize.js';
-import { createWayglassTokenGraph } from './source.js';
-import { createWebThemeCss, createWebTokenCss } from './web.js';
-import { currentWebPolicy } from './web-policy.js';
+} from '../../../tooling/token-interchange/src/normalize.js';
+import { createWayglassTokenGraph } from '../../../tooling/token-interchange/src/source.js';
+import { currentWebPolicy } from '../../../tooling/token-interchange/src/web-policy.js';
+import {
+  createWebThemeCss,
+  createWebTokenCss,
+} from '../../../tooling/token-interchange/src/web.js';
 
 export interface CapacityStatistics {
   readonly maximumMilliseconds: number;

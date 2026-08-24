@@ -24,7 +24,7 @@
     "example:operations-console": "pnpm --filter @wayglass/example-operations-console dev",
     "example:smart-home": "pnpm --filter @wayglass/example-smart-home dev",
     "example:vanilla": "pnpm --filter @wayglass/example-vanilla dev",
-    "experiment:phase5b:check": "pnpm experiment:phase5b:typecheck && pnpm experiment:phase5b:test",
+    "experiment:phase5b:check": "pnpm token-tooling:core:check && pnpm experiment:phase5b:typecheck && pnpm experiment:phase5b:test",
     "experiment:phase5b:fingerprint": "vitest run --root experiments/phase-5b-token-interchange --config vitest.validation.config.ts --reporter=verbose",
     "experiment:phase5b:measure": "vitest run --root experiments/phase-5b-token-interchange --config vitest.measurement.config.ts --reporter=verbose",
     "experiment:phase5b:test": "vitest run --root experiments/phase-5b-token-interchange --config vitest.config.ts",
@@ -39,6 +39,9 @@
     "test:browser:install": "playwright install chromium firefox webkit",
     "test:coverage": "turbo run test:coverage",
     "tokens:build": "pnpm --filter @wayglass/tokens build",
+    "token-tooling:core:check": "pnpm token-tooling:core:typecheck && pnpm token-tooling:core:test",
+    "token-tooling:core:test": "vitest run --root tooling/token-interchange --config vitest.config.ts",
+    "token-tooling:core:typecheck": "tsc --noEmit -p tooling/token-interchange/tsconfig.json",
     "typecheck": "turbo run typecheck"
   },
   "devDependencies": {

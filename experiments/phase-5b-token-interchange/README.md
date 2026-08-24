@@ -1,11 +1,15 @@
 # Phase 5B token-interchange proof
 
-This private experiment implements only the bounded proof accepted in
-[`P5B-TOKEN-INTERCHANGE-001`](../../docs/governance/explorations/phase-5b-token-interchange.md). It
-is not a workspace package, production export, interchange conformance claim, or release candidate.
+This directory retains the bounded proof and disposition evidence accepted in
+[`P5B-TOKEN-INTERCHANGE-001`](../../docs/governance/explorations/phase-5b-token-interchange.md). The
+accepted pure graph, identity, transform, comparison, and focused-test core now lives in
+[`tooling/token-interchange/`](../../tooling/token-interchange/). The remaining experiment code
+exercises capacity, filesystem recovery, and authenticated fingerprints against that permanent core.
+Neither location is a workspace package, production export, interchange conformance claim, or
+release candidate.
 
-The proof currently normalizes the reviewed `@wayglass/tokens` and `@wayglass/themes` sources into a
-deterministic graph and applies the existing web transform. It establishes:
+The permanent core normalizes the reviewed `@wayglass/tokens` and `@wayglass/themes` sources into a
+deterministic graph and applies the existing web transform. The retained proof establishes:
 
 - reversible Wayglass identity and nested exchange paths;
 - DTCG `$root` placement for tokens that also own child paths;
