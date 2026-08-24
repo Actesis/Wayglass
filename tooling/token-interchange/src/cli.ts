@@ -40,7 +40,22 @@ const handlers: TokenToolingCommandHandlers = {
       `WG-TOKEN-CHECK-OK: ${summary.tokens} tokens, ${summary.overrides} overrides, ${summary.webArtifacts} web artifacts, and ${summary.exchangeFiles} exchange files verified at ${summary.sourceRevision}.`,
     );
   },
-  generateWeb: () => unavailable('generate:web'),
+  generateWeb: async () => {
+    try {
+      const { generateWebArtifacts } = await import('./generate-web.ts');
+      const result = await generateWebArtifacts();
+      io.stdout(
+        `WG-TOKEN-GENERATE-WEB-OK: ${result.created.length} created, ${result.updated.length} updated, and ${result.unchanged.length} unchanged.`,
+      );
+    } catch (error) {
+      throw new TokenToolingDiagnostic(
+        'WG-TOKEN-WEB-001',
+        'Web artifact generation failed; inspect tracked outputs and tool-owned sibling temporaries before retrying.',
+        tokenToolingExitCode.failure,
+        { cause: error },
+      );
+    }
+  },
   generateExchange: () => unavailable('generate:exchange'),
   verify: () => unavailable('verify'),
   measure: () => unavailable('measure'),

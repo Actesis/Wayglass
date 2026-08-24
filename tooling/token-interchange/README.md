@@ -7,8 +7,8 @@ workspace package, npm package, public API, supported schema, or DTCG conformanc
 
 ## Current implementation stage
 
-Stages 1 through 5 now provide the proven transform core, private command contract, permanent
-exchange writer, and write-free repository check:
+Stages 1 through 6 now provide the proven transform core, private command contract, permanent
+writers, write-free repository check, and production web-generation integration:
 
 - canonical-source adapters;
 - reversible identity mapping;
@@ -27,7 +27,9 @@ exchange writer, and write-free repository check:
 - accepted-release verification, bounded cleanup, traversal rejection, and symbolic-link rejection
   before recovery changes filesystem state; and
 - an executable check that validates the authored source, compares all three tracked web artifacts,
-  verifies the complete exchange in memory, and reports the exact checked-out revision.
+  verifies the complete exchange in memory, and reports the exact checked-out revision; and
+- one explicit web command that validates and writes token CSS, legacy flat JSON, and theme CSS
+  through sibling temporary files and atomic replacement with rollback.
 
 The reviewed TypeScript definitions under `packages/tokens/src/` and `packages/themes/src/` remain
 the only authoring authority. Pure modules in `src/` return data or strings. The writer performs
@@ -36,8 +38,10 @@ import-time writes, network access, registration, telemetry, environment mutatio
 
 The root launcher uses the supported Node runtime's built-in TypeScript stripping rather than a new
 loader dependency. Its handlers dynamically import source and effect modules only after command
-dispatch, so `--help` does not load the token source. Production package generators and outputs are
-unchanged. The remaining
+dispatch, so `--help` does not load the token source. The root build runs web generation once before
+Turbo compiles packages in the existing dependency order. Package-local build scripts now compile
+TypeScript only; their retained legacy generator modules remain parity evidence until the final
+migration matrix permits removal. The remaining
 [`experiments/phase-5b-token-interchange/`](../../experiments/phase-5b-token-interchange/) code owns
 only transitional capacity measurement, authenticated fingerprinting, and retained disposition
 evidence; it imports this permanent core rather than carrying a duplicate.
@@ -54,6 +58,7 @@ From the repository root:
 
 ```sh
 pnpm token-tooling:check
+pnpm token-tooling:generate:web
 pnpm token-tooling:core:check
 ```
 
@@ -63,14 +68,21 @@ web family byte for byte with the tracked package artifacts, verifies the exchan
 hashes, and prints a stable summary. It resolves repository inputs from its own module location and
 therefore also works when the root script is launched from another directory.
 
+`token-tooling:generate:web` constructs the same validated graph and replaces only the three owned
+tracked artifacts. It first stages and verifies every changed file beside its destination. If
+staging or replacement fails, it removes its temporary files and restores every destination already
+replaced during that operation. Identical generation performs no replacement. The root `build`,
+`tokens:build`, and `themes:build` scripts invoke this command before compilation; ordinary package
+scripts do not run a second writer.
+
 The ordinary Phase 5B check runs the permanent core and the remaining proof boundary:
 
 ```sh
 pnpm experiment:phase5b:check
 ```
 
-The ordinary check writes nothing. Test commands write only temporary fixtures and no accepted token
-or exchange output. The launcher recognizes the future command shapes, but generation,
+The ordinary check writes nothing. Test commands write only temporary fixtures and no accepted
+exchange output. The launcher recognizes the future command shapes, but exchange generation,
 existing-release verification, and measurement return exit code `2` until their effects are wired in
 later parity-gated stages.
 
@@ -78,8 +90,6 @@ later parity-gated stages.
 
 This stage does not authorize or provide:
 
-- generation of production package files through the new core;
-- production-package filesystem integration;
 - checked-in or published exchange output;
 - a public package, CLI, module, schema, or compatibility promise;
 - DTCG conformance, design-tool import, non-web platform support, or bidirectional editing; or
