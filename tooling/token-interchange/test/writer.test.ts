@@ -1,16 +1,17 @@
 import { createHash } from 'node:crypto';
-import { mkdir, mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, readdir, rm, symlink, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
 import { afterEach, describe, expect, it } from 'vitest';
 
-import { createDtcgExchange } from '../../../tooling/token-interchange/src/dtcg.js';
-import type { NormalizedTokenGraph } from '../../../tooling/token-interchange/src/normalize.js';
-import { createWayglassTokenGraph } from '../../../tooling/token-interchange/src/source.js';
+import { createDtcgExchange } from '../src/dtcg.js';
+import type { NormalizedTokenGraph } from '../src/normalize.js';
+import { createWayglassTokenGraph } from '../src/source.js';
 import {
   readDtcgExchangePointer,
   recoverDtcgExchangeRoot,
+  recoverStaleDtcgExchangeLock,
   writeDtcgExchange,
 } from '../src/writer.js';
 
@@ -20,6 +21,16 @@ const policy = {
   defaultDensity: 'compact',
   sourceRevision: '0123456789abcdef0123456789abcdef01234567',
 } as const;
+const lockName = '.wayglass-token-tooling.lock';
+const lockOwner = '01234567-89ab-4cde-8fab-0123456789ab';
+
+async function writeLock(destination: string, pid = 4242): Promise<void> {
+  await writeFile(
+    join(destination, lockName),
+    `${JSON.stringify({ format: 1, owner: lockOwner, pid }, null, 2)}\n`,
+    'utf8',
+  );
+}
 
 async function root(): Promise<string> {
   const path = await mkdtemp(join(tmpdir(), 'wayglass-phase5b-'));
@@ -92,6 +103,7 @@ describe('DTCG exchange filesystem writer', () => {
     ).rejects.toThrow('Simulated DTCG exchange write failure after 2 files.');
     expect(await readDtcgExchangePointer(destination)).toBeUndefined();
     expect(await readdir(join(destination, 'releases'))).toEqual([]);
+    expect(await readdir(destination)).not.toContain(lockName);
   });
 
   it('recovers an interrupted stage without changing the accepted release', async () => {
@@ -153,6 +165,20 @@ describe('DTCG exchange filesystem writer', () => {
     expect(await readFile(join(destination, userPointerTemp), 'utf8')).toBe('keep');
   });
 
+  it('preserves an unverified hexadecimal directory rather than assuming ownership', async () => {
+    const destination = await root();
+    const first = await writeDtcgExchange(exchange(), destination);
+    const unknownRelease = 'e'.repeat(64);
+    await mkdir(join(destination, 'releases', unknownRelease));
+    await writeFile(join(destination, 'releases', unknownRelease, 'user.txt'), 'keep', 'utf8');
+
+    const recovery = await recoverDtcgExchangeRoot(destination);
+    expect(recovery).toMatchObject({ retainedRelease: first.release, removedReleases: [] });
+    expect(await readFile(join(destination, 'releases', unknownRelease, 'user.txt'), 'utf8')).toBe(
+      'keep',
+    );
+  });
+
   it('rejects corrupt pointers and references to missing accepted releases', async () => {
     const destination = await root();
     await writeFile(join(destination, 'current.json'), '{bad json', 'utf8');
@@ -198,5 +224,94 @@ describe('DTCG exchange filesystem writer', () => {
       'DTCG exchange artifact path "../escape.json" is unsafe.',
     );
     expect(await readDtcgExchangePointer(destination)).toBeUndefined();
+  });
+
+  it('fails safely when another writer owns the exclusive lock', async () => {
+    const destination = await root();
+    await writeLock(destination, process.pid);
+
+    await expect(writeDtcgExchange(exchange(), destination)).rejects.toThrow(
+      `DTCG exchange writer lock is held by process ${process.pid}`,
+    );
+    expect(await readFile(join(destination, lockName), 'utf8')).toContain(lockOwner);
+    expect(await readDtcgExchangePointer(destination)).toBeUndefined();
+  });
+
+  it('removes only a verified stale lock through explicit recovery', async () => {
+    const destination = await root();
+    await writeLock(destination);
+
+    await expect(
+      recoverStaleDtcgExchangeLock(destination, { processState: () => 'live' }),
+    ).rejects.toThrow('belongs to live process 4242');
+    await expect(
+      recoverStaleDtcgExchangeLock(destination, { processState: () => 'unverifiable' }),
+    ).rejects.toThrow('cannot be verified as absent');
+    expect(await readdir(destination)).toContain(lockName);
+
+    await expect(
+      recoverStaleDtcgExchangeLock(destination, { processState: () => 'absent' }),
+    ).resolves.toEqual({ status: 'removed', pid: 4242 });
+    expect(await readdir(destination)).not.toContain(lockName);
+    await expect(recoverStaleDtcgExchangeLock(destination)).resolves.toEqual({
+      status: 'absent',
+    });
+  });
+
+  it('refuses to recover an invalid or symbolic writer lock', async () => {
+    const destination = await root();
+    await writeFile(join(destination, lockName), '{bad json', 'utf8');
+    await expect(recoverStaleDtcgExchangeLock(destination)).rejects.toThrow(
+      'lock is not valid JSON and is unverifiable',
+    );
+
+    await rm(join(destination, lockName));
+    const target = join(destination, 'user-lock-data');
+    await writeFile(target, 'keep', 'utf8');
+    await symlink(target, join(destination, lockName));
+    await expect(recoverStaleDtcgExchangeLock(destination)).rejects.toThrow(
+      'lock must be a regular file and is unverifiable',
+    );
+    expect(await readFile(target, 'utf8')).toBe('keep');
+  });
+
+  it('verifies the accepted release before recovery removes orphaned material', async () => {
+    const destination = await root();
+    const accepted = await writeDtcgExchange(exchange(), destination);
+    const acceptedDirectory = join(destination, 'releases', accepted.release);
+    await writeFile(join(acceptedDirectory, 'tokens.json'), '{}\n', 'utf8');
+    const orphan = 'f'.repeat(64);
+    await mkdir(join(destination, 'releases', orphan));
+
+    await expect(recoverDtcgExchangeRoot(destination)).rejects.toThrow(
+      'failed SHA-256 verification',
+    );
+    expect(await readdir(join(destination, 'releases'))).toContain(orphan);
+    expect((await readDtcgExchangePointer(destination))?.release).toBe(accepted.release);
+  });
+
+  it('rejects extra release files and symbolic-link traversal during verification', async () => {
+    const destination = await root();
+    const accepted = await writeDtcgExchange(exchange(), destination);
+    const acceptedDirectory = join(destination, 'releases', accepted.release);
+    await writeFile(join(acceptedDirectory, 'unknown.txt'), 'keep', 'utf8');
+    await expect(recoverDtcgExchangeRoot(destination)).rejects.toThrow('has invalid inventory');
+
+    await rm(join(acceptedDirectory, 'unknown.txt'));
+    const tokensPath = join(acceptedDirectory, 'tokens.json');
+    const outside = join(destination, 'outside.json');
+    await writeFile(outside, await readFile(tokensPath, 'utf8'), 'utf8');
+    await rm(tokensPath);
+    await symlink(outside, tokensPath);
+    await expect(recoverDtcgExchangeRoot(destination)).rejects.toThrow(
+      'release contains symbolic link "tokens.json"',
+    );
+  });
+
+  it('rejects empty and filesystem-root destinations before writing', async () => {
+    await expect(writeDtcgExchange(exchange(), ' ')).rejects.toThrow('must not be empty');
+    await expect(writeDtcgExchange(exchange(), '/')).rejects.toThrow(
+      'must not be a filesystem root',
+    );
   });
 });

@@ -4,9 +4,8 @@ This directory retains the bounded proof and disposition evidence accepted in
 [`P5B-TOKEN-INTERCHANGE-001`](../../docs/governance/explorations/phase-5b-token-interchange.md). The
 accepted pure graph, identity, transform, comparison, and focused-test core now lives in
 [`tooling/token-interchange/`](../../tooling/token-interchange/). The remaining experiment code
-exercises capacity, filesystem recovery, and authenticated fingerprints against that permanent core.
-Neither location is a workspace package, production export, interchange conformance claim, or
-release candidate.
+exercises capacity and authenticated fingerprints against that permanent core. Neither location is a
+workspace package, production export, interchange conformance claim, or release candidate.
 
 The permanent core normalizes the reviewed `@wayglass/tokens` and `@wayglass/themes` sources into a
 deterministic graph and applies the existing web transform. The retained proof establishes:
@@ -31,14 +30,11 @@ measurements for each non-manifest artifact. Pure in-memory verification and com
 detect inventory changes, content tampering, and targeted artifact drift before any future
 filesystem replacement is authorized.
 
-The experiment-only writer stores verified artifacts in immutable, content-addressed release
-directories and atomically renames `current.json` to accept a release. Replacement is opt-in;
-identical writes are idempotent. Ordinary partial-write failures remove their stage, while injected
-process-interruption fixtures after staging and after release commit leave the previous pointer
-unchanged. Recovery removes only recognized temporary names and unreferenced hexadecimal releases.
-The injection models process termination at those boundaries; power-loss durability and operating
-systems outside the repository test environment are not claimed. Concurrent writers are also outside
-this proof; a permanent implementation would need locking or compare-and-swap semantics.
+The accepted writer and its failure fixtures now live in the permanent tooling directory. It adds
+the single-writer lock and conservative stale-lock recovery that were intentionally absent from the
+proof. This directory retains the original validation record, including the proof's narrower
+concurrency and durability limitations, as historical evidence rather than duplicate executable
+code.
 
 The capacity harness constructs the reviewed corpus and an exact 10× token/override replica, then
 measures normalization plus both in-memory transforms without imposing a threshold. The retained
