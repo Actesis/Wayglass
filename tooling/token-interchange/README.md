@@ -7,8 +7,9 @@ workspace package, npm package, public API, supported schema, or DTCG conformanc
 
 ## Current implementation stage
 
-Stages 1 through 6 now provide the proven transform core, private command contract, permanent
-writers, write-free repository check, and production web-generation integration:
+Stages 1 through 7 now provide the proven transform core, private command contract, permanent
+writers, write-free repository check, production web-generation integration, and retained validation
+mechanisms:
 
 - canonical-source adapters;
 - reversible identity mapping;
@@ -29,7 +30,10 @@ writers, write-free repository check, and production web-generation integration:
 - an executable check that validates the authored source, compares all three tracked web artifacts,
   verifies the complete exchange in memory, and reports the exact checked-out revision; and
 - one explicit web command that validates and writes token CSS, legacy flat JSON, and theme CSS
-  through sibling temporary files and atomic replacement with rollback.
+  through sibling temporary files and atomic replacement with rollback;
+- explicit private exchange generation and verification effects over immutable releases;
+- one authenticated, threshold-free capacity measurement for the current and 10× corpora; and
+- one complete deterministic fingerprint for cross-environment comparison.
 
 The reviewed TypeScript definitions under `packages/tokens/src/` and `packages/themes/src/` remain
 the only authoring authority. Pure modules in `src/` return data or strings. The writer performs
@@ -41,10 +45,9 @@ loader dependency. Its handlers dynamically import source and effect modules onl
 dispatch, so `--help` does not load the token source. The root build runs web generation once before
 Turbo compiles packages in the existing dependency order. Package-local build scripts now compile
 TypeScript only; their retained legacy generator modules remain parity evidence until the final
-migration matrix permits removal. The remaining
+removal stage. The remaining
 [`experiments/phase-5b-token-interchange/`](../../experiments/phase-5b-token-interchange/) code owns
-only transitional capacity measurement, authenticated fingerprinting, and retained disposition
-evidence; it imports this permanent core rather than carrying a duplicate.
+only transitional copies and retained disposition evidence pending the accepted Stage 8 removal.
 
 The permanent writer rejects filesystem-root destinations, unsafe artifact paths, symbolic links in
 owned paths, corrupt pointers, unverifiable locks, and unverified accepted releases. A live or
@@ -60,6 +63,10 @@ From the repository root:
 pnpm token-tooling:check
 pnpm token-tooling:generate:web
 pnpm token-tooling:core:check
+pnpm token-tooling:generate:exchange -- --source-revision <full-sha> --output <path>
+pnpm token-tooling:verify -- --output <path>
+pnpm token-tooling:measure -- --source-revision <full-sha>
+WAYGLASS_SOURCE_REVISION=<full-sha> pnpm token-tooling:fingerprint
 ```
 
 `token-tooling:check` is the ordinary write-free command. It loads the reviewed TypeScript source,
@@ -75,6 +82,18 @@ replaced during that operation. Identical generation performs no replacement. Th
 `tokens:build`, and `themes:build` scripts invoke this command before compilation; ordinary package
 scripts do not run a second writer.
 
+Private exchange generation accepts only an explicit repository-local or operating-system temporary
+directory. It rejects unrelated nonempty directories and canonicalizes existing ancestors so a
+symbolic link cannot disguise an out-of-scope destination. Generation authenticates the full source
+revision and requires no tracked changes, writes an immutable content-addressed release, and
+atomically advances `current.json`. Verification rechecks the accepted inventory, manifest,
+revision, byte counts, and SHA-256 hashes without accepting generated data as source.
+
+`token-tooling:measure` authenticates the same clean revision and reports cold work, 30 warm
+repetitions, peak resident memory, output size, and the exact current and 10× synthetic corpora. It
+is informational and imposes no threshold. `token-tooling:fingerprint` prints all three web and all
+seven exchange artifact measurements for comparison across the supported runtime matrix.
+
 The ordinary Phase 5B check runs the permanent core and the remaining proof boundary:
 
 ```sh
@@ -82,9 +101,8 @@ pnpm experiment:phase5b:check
 ```
 
 The ordinary check writes nothing. Test commands write only temporary fixtures and no accepted
-exchange output. The launcher recognizes the future command shapes, but exchange generation,
-existing-release verification, and measurement return exit code `2` until their effects are wired in
-later parity-gated stages.
+exchange output. Exchange commands write only to their required explicit output root. No private
+exchange release is checked into a package or repository artifact.
 
 ## Blocked claims
 

@@ -121,13 +121,14 @@ function requireRevision(value: string | undefined): string {
 }
 
 export function parseTokenToolingCommand(arguments_: readonly string[]): TokenToolingCommand {
-  const [commandName, ...options] = arguments_;
+  const [commandName, ...rawOptions] = arguments_;
   if (commandName === undefined) {
     throw usageError('WG-TOKEN-USAGE-001', 'A token-tooling command is required.');
   }
   if (!isCommandName(commandName)) {
     throw usageError('WG-TOKEN-USAGE-002', `Unknown token-tooling command "${commandName}".`);
   }
+  const options = rawOptions[0] === '--' ? rawOptions.slice(1) : rawOptions;
 
   if (commandName === 'check' || commandName === 'generate:web') {
     assertKnownOptions(options, []);
