@@ -7,7 +7,8 @@ workspace package, npm package, public API, supported schema, or DTCG conformanc
 
 ## Current implementation stage
 
-Stages 1 and 2 now provide the proven pure core and the private command contract:
+Stages 1 through 4 now provide the proven transform core, private command contract, and permanent
+exchange writer:
 
 - canonical-source adapters;
 - reversible identity mapping;
@@ -20,18 +21,28 @@ Stages 1 and 2 now provide the proven pure core and the private command contract
 - redacted, code-prefixed diagnostics;
 - help dispatch that invokes no source-loading or command handler; and
 - exact source-revision and clean-tracked-checkout authentication for generation and measurement
-  handlers.
+  handlers;
+- immutable content-addressed exchange releases and atomic pointer replacement;
+- a non-replacing single-writer lock with explicit, process-checked stale-lock recovery; and
+- accepted-release verification, bounded cleanup, traversal rejection, and symbolic-link rejection
+  before recovery changes filesystem state.
 
 The reviewed TypeScript definitions under `packages/tokens/src/` and `packages/themes/src/` remain
-the only authoring authority. Modules in `src/` return data or strings and perform no import-time
-writes, network access, registration, telemetry, environment mutation, or process exit.
+the only authoring authority. Pure modules in `src/` return data or strings. The writer performs
+filesystem work only when its exported functions are explicitly called. No module performs
+import-time writes, network access, registration, telemetry, environment mutation, or process exit.
 
 Command effects remain injected: this stage establishes and tests the boundary without exposing a
 partially implemented root launcher. Production package generators and outputs are unchanged. The
 remaining [`experiments/phase-5b-token-interchange/`](../../experiments/phase-5b-token-interchange/)
-code owns only transitional capacity measurement, filesystem-writer proof, authenticated
-fingerprinting, and retained disposition evidence; it imports this permanent core rather than
-carrying a duplicate.
+code owns only transitional capacity measurement, authenticated fingerprinting, and retained
+disposition evidence; it imports this permanent core rather than carrying a duplicate.
+
+The permanent writer rejects filesystem-root destinations, unsafe artifact paths, symbolic links in
+owned paths, corrupt pointers, unverifiable locks, and unverified accepted releases. A live or
+unverifiable lock is never removed automatically. Stale-lock recovery is a separate explicit
+operation and removes the lock only after the recorded process is confirmed absent. Power-loss
+durability, distributed filesystems, concurrent recovery, and multiple hosts remain unsupported.
 
 ## Local validation
 
@@ -47,17 +58,16 @@ The ordinary Phase 5B check runs the permanent core and the remaining proof boun
 pnpm experiment:phase5b:check
 ```
 
-These commands write no accepted token or exchange output. The implementation contract's root
-launcher, command effects, generation, verification, measurement, locking, and recovery behavior
-belong to later parity-gated stages.
+These validation commands write only temporary test fixtures and no accepted token or exchange
+output. The implementation contract's root launcher, production generation effects, existing-release
+verification command, and measurement command belong to later parity-gated stages.
 
 ## Blocked claims
 
 This stage does not authorize or provide:
 
 - generation of production package files through the new core;
-- a runnable root command or filesystem/process adapter;
-- a permanent filesystem writer or concurrent-writer lock;
+- a runnable root command or production-package filesystem integration;
 - checked-in or published exchange output;
 - a public package, CLI, module, schema, or compatibility promise;
 - DTCG conformance, design-tool import, non-web platform support, or bidirectional editing; or
