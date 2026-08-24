@@ -1,10 +1,10 @@
 # Token-tooling implementation contract
 
-**Status:** Proposed for project-owner acceptance on August 15, 2026. This contract implements the
-accepted artifact-candidate disposition in
+**Status:** Accepted by the project owner on August 24, 2026. This contract implements the accepted
+artifact-candidate disposition in
 [`P5B-TOKEN-INTERCHANGE-001`](./explorations/phase-5b-token-interchange.md). It authorizes no code
-migration until accepted and does not approve a package, dependency, publication, or compatibility
-claim.
+migration beyond its staged boundaries and does not approve a package, dependency, publication, or
+compatibility claim.
 
 ## Purpose
 

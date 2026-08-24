@@ -1,7 +1,7 @@
 # ADR 0033: Use one private normalized graph for token generation
 
-- Status: proposed
-- Date: 2026-08-15
+- Status: accepted
+- Date: 2026-08-24
 
 ## Context
 
