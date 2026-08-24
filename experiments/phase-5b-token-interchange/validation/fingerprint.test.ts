@@ -5,10 +5,13 @@ import { resolve } from 'node:path';
 
 import { describe, expect, it } from 'vitest';
 
-import { createDtcgExchange } from '../src/dtcg.js';
-import { createWayglassTokenGraph } from '../src/source.js';
-import { currentWebPolicy } from '../src/web-policy.js';
-import { createWebThemeCss, createWebTokenCss } from '../src/web.js';
+import { createDtcgExchange } from '../../../tooling/token-interchange/src/dtcg.js';
+import { createWayglassTokenGraph } from '../../../tooling/token-interchange/src/source.js';
+import { currentWebPolicy } from '../../../tooling/token-interchange/src/web-policy.js';
+import {
+  createWebThemeCss,
+  createWebTokenCss,
+} from '../../../tooling/token-interchange/src/web.js';
 
 function measure(content: string): { readonly sha256: string; readonly bytes: number } {
   return {

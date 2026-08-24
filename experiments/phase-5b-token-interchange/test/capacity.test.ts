@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { measureTokenExchangeCapacity, scaleNormalizedTokenGraph } from '../src/capacity.js';
-import { createWayglassTokenGraph } from '../src/source.js';
+import { createWayglassTokenGraph } from '../../../tooling/token-interchange/src/source.js';
 
 const revision = '0123456789abcdef0123456789abcdef01234567';
 

@@ -5,9 +5,9 @@ import { join } from 'node:path';
 
 import { afterEach, describe, expect, it } from 'vitest';
 
-import { createDtcgExchange } from '../src/dtcg.js';
-import type { NormalizedTokenGraph } from '../src/normalize.js';
-import { createWayglassTokenGraph } from '../src/source.js';
+import { createDtcgExchange } from '../../../tooling/token-interchange/src/dtcg.js';
+import type { NormalizedTokenGraph } from '../../../tooling/token-interchange/src/normalize.js';
+import { createWayglassTokenGraph } from '../../../tooling/token-interchange/src/source.js';
 import {
   readDtcgExchangePointer,
   recoverDtcgExchangeRoot,
