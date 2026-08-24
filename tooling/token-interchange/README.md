@@ -47,7 +47,10 @@ Turbo compiles packages in the existing dependency order. Package-local build sc
 TypeScript only; their retained legacy generator modules remain parity evidence until the final
 removal stage. The remaining
 [`experiments/phase-5b-token-interchange/`](../../experiments/phase-5b-token-interchange/) code owns
-only transitional copies and retained disposition evidence pending the accepted Stage 8 removal.
+only transitional copies and retained disposition evidence pending the accepted Stage 8 removal. The
+retained [Stage 7 validation matrix](./evidence/stage-7-validation-matrix.md) records the exact
+runtime, deterministic, failure, capacity, package, browser, documentation, and clean-build results
+and their limitations.
 
 The permanent writer rejects filesystem-root destinations, unsafe artifact paths, symbolic links in
 owned paths, corrupt pointers, unverifiable locks, and unverified accepted releases. A live or
