@@ -20,10 +20,14 @@ export default defineConfig({
       {
         text: 'System',
         items: [
-          { text: 'Phase 5 proposed roadmap', link: '/phase-5' },
+          { text: 'Phase 5 ecosystem roadmap', link: '/phase-5' },
           {
-            text: 'Phase 5B token-interchange charter',
+            text: 'Phase 5B token-interchange record',
             link: '/governance/explorations/phase-5b-token-interchange',
+          },
+          {
+            text: 'Token-tooling implementation contract',
+            link: '/governance/token-tooling-implementation-contract',
           },
           { text: 'Release governance', link: '/governance/release-governance' },
           {
@@ -312,6 +316,10 @@ export default defineConfig({
           {
             text: 'ADR 0032: Cloudflare documentation delivery',
             link: '/architecture/adr/0032-unified-cloudflare-documentation-delivery',
+          },
+          {
+            text: 'ADR 0033: Private token tooling',
+            link: '/architecture/adr/0033-private-token-tooling-architecture',
           },
         ],
       },

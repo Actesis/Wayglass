@@ -179,10 +179,12 @@ ownership decision is stable.
 
 **Exit disposition:** Complete on August 15, 2026. A narrow private build-and-validation artifact
 candidate is accepted because machine-enforced identity, semantic validation, deterministic output,
-and targeted drift add safety beyond documentation alone. A separate implementation contract and ADR
-are required before productionization. Package status, public schema, dependency adoption,
-publication, DTCG conformance, design-tool compatibility, and non-web platform support remain
-unapproved.
+and targeted drift add safety beyond documentation alone. The accepted
+[implementation contract](./governance/token-tooling-implementation-contract.md) and
+[ADR 0033](./architecture/adr/0033-private-token-tooling-architecture.md) define the permanent
+private boundary and staged implementation authority. Package status, public schema, dependency
+adoption, publication, DTCG conformance, design-tool compatibility, and non-web platform support
+remain unapproved.
 
 ### Phase 5C — Rich visualization exploration
 
