@@ -1,4 +1,4 @@
-import type { WebTransformPolicy } from './web.js';
+import type { WebTransformPolicy } from './web.ts';
 
 /**
  * Proof-local transcription of the current @wayglass/themes web policy.

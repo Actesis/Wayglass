@@ -16,7 +16,7 @@
   },
   "scripts": {
     "build": "turbo run build",
-    "check": "pnpm format:check && pnpm lint && pnpm experiment:phase5b:check && pnpm typecheck && pnpm test && pnpm build",
+    "check": "pnpm format:check && pnpm lint && pnpm token-tooling:check && pnpm experiment:phase5b:check && pnpm typecheck && pnpm test && pnpm build",
     "docs:build": "pnpm --filter @wayglass/docs build",
     "docs:dev": "pnpm --filter @wayglass/docs dev",
     "example:agent-supervision": "pnpm --filter @wayglass/example-agent-supervision dev",
@@ -42,6 +42,7 @@
     "token-tooling:core:check": "pnpm token-tooling:core:typecheck && pnpm token-tooling:core:test",
     "token-tooling:core:test": "vitest run --root tooling/token-interchange --config vitest.config.ts",
     "token-tooling:core:typecheck": "tsc --noEmit -p tooling/token-interchange/tsconfig.json",
+    "token-tooling:check": "node --experimental-strip-types tooling/token-interchange/src/cli.ts check",
     "typecheck": "turbo run typecheck"
   },
   "devDependencies": {
