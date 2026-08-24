@@ -16,7 +16,7 @@
     "./tokens.json": "./dist/tokens.json"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.build.json && node scripts/build.mjs",
+    "build": "tsc -p tsconfig.build.json",
     "test": "vitest run --root ../.. packages/tokens/test",
     "test:coverage": "vitest run --coverage --root ../.. packages/tokens/test",
     "typecheck": "tsc --noEmit -p tsconfig.json"
