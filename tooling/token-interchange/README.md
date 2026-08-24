@@ -12,7 +12,7 @@ Stages 1 and 2 now provide the proven pure core and the private command contract
 - canonical-source adapters;
 - reversible identity mapping;
 - normalized graph construction and semantic validation;
-- byte-compatible token and theme CSS transforms;
+- byte-compatible token CSS, legacy flat token JSON, and theme CSS transforms;
 - partial DTCG 2025.10 value and exchange projection;
 - manifest verification and artifact comparison; and
 - explicit parsing for the five accepted command shapes;
@@ -57,7 +57,6 @@ This stage does not authorize or provide:
 
 - generation of production package files through the new core;
 - a runnable root command or filesystem/process adapter;
-- legacy flat `tokens.json` parity;
 - a permanent filesystem writer or concurrent-writer lock;
 - checked-in or published exchange output;
 - a public package, CLI, module, schema, or compatibility promise;
