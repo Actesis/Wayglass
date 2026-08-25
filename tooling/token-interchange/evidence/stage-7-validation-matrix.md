@@ -134,10 +134,11 @@ described as a clean single-command browser run.
 
 The temporary Node runtime and exchange output were removed after measurement. No exchange release,
 pointer, writer lock, stage, browser trace, generated token drift, dependency change, or accepted
-output remains in the repository. Existing ignored experiment and tooling-local dependency caches
-remain unchanged and are not package or exchange outputs.
+output remains in the repository. At the time of this matrix, ignored experiment and tooling-local
+dependency caches were not package or exchange outputs; the experiment cache was subsequently
+removed during Stage 8.
 
 This matrix covers one macOS/APFS host. It does not establish cross-platform filesystem durability,
 DTCG conformance, external-tool compatibility, publication readiness, a public API, or a support
-contract. The browser qualification and project-owner review are the explicit decision points before
-Stage 8 removes legacy compilers and the retained Phase 5B proof.
+contract. The project owner accepted the qualified browser result before Stage 8 removed the legacy
+writers and executable Phase 5B proof.
