@@ -1,8 +1,8 @@
 # Phase 5 ecosystem roadmap
 
-**Status:** Accepted on August 14, 2026. Phases 5A and 5B were completed on August 15, 2026. Every
-later ecosystem track requires its own accepted charter before implementation, and an exploration
-may conclude with no new package.
+**Status:** Accepted on August 14, 2026. Phases 5A and 5B are complete, and the Phase 5C
+rich-visualization charter is proposed. Every later ecosystem track requires its own accepted
+charter before implementation, and an exploration may conclude with no new package.
 
 Phase 5 extends Wayglass beyond the core design language and its three reference domains. `SPEC.md`
 names six ecosystem areas to explore: charts, Home Assistant integration, icon tooling, Figma
@@ -190,6 +190,12 @@ remain unapproved.
 
 Evaluate a chart capability against needs that `wg-telemetry-strip` intentionally does not serve.
 
+The proposed
+[Phase 5C rich-visualization charter](./governance/explorations/phase-5c-rich-visualization.md)
+precommits a four-series time-window task, native and dependency-backed comparison baselines,
+application ownership, exact non-visual equivalence, performance and bundle budgets, supported
+browser evidence, stop criteria, and cleanup before any private proof begins.
+
 - use a credible task requiring multiple series, scales, legends, thresholds, annotations, exact
   point inspection, or range comparison;
 - compare native and lightweight authored approaches with candidate rendering dependencies;
@@ -347,6 +353,6 @@ revise, or reject disposition; accepted artifacts satisfy their tier-specific va
 application boundaries remain intact; package, deployment, and support claims are explicit; and all
 unresolved human, provider, device, or operational evidence has a named owner and release impact.
 
-The next step after completing Phase 5A is to charter the Phase 5B design-token interchange
-exploration. The charter must precommit its comparison baselines, canonical-ownership question,
-transform proofs, evidence matrix, stop conditions, and cleanup before prototype implementation.
+The next step after completing Phase 5B is project-owner review of the proposed Phase 5C
+rich-visualization charter. Proof code and candidate dependencies remain blocked until the charter's
+task, bounds, budgets, evidence matrix, stop conditions, and cleanup are accepted.

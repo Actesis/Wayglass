@@ -26,6 +26,10 @@ export default defineConfig({
             link: '/governance/explorations/phase-5b-token-interchange',
           },
           {
+            text: 'Phase 5C rich-visualization charter',
+            link: '/governance/explorations/phase-5c-rich-visualization',
+          },
+          {
             text: 'Token-tooling implementation contract',
             link: '/governance/token-tooling-implementation-contract',
           },
