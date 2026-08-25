@@ -6,12 +6,12 @@
 | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Record ID          | `P5C-RICH-VISUALIZATION-001`                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 | Roadmap track      | Phase 5C — Rich visualization exploration                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| Lifecycle state    | `proposed`                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| Revision           | `1`                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| Lifecycle state    | `revised`                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| Revision           | `2`                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | Owner              | Wayglass maintainers                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | Evidence reviewers | Project owner and a Wayglass maintainer                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | Created            | 2026-08-24                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| Last reviewed      | 2026-08-24                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| Last reviewed      | 2026-08-25                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | Target decision    | After the bounded proof and evidence review; no calendar deadline                                                                                                                                                                                                                                                                                                                                                                                                          |
 | Related records    | [Phase 5 roadmap](../../phase-5.md), [ecosystem-exploration contract](../ecosystem-exploration-record.md), [ADR 0031](../../architecture/adr/0031-ecosystem-artifact-architecture.md), [Phase 5 validation plan](../../accessibility/phase-5-validation-plan.md), [telemetry-strip contract](../../data/telemetry-strip.md), [ADR 0025](../../architecture/adr/0025-telemetry-rendering-and-accessible-equivalence.md), and [release governance](../release-governance.md) |
 
@@ -23,9 +23,10 @@ runtime artifact?
 
 ### Revision history
 
-| Revision | Date       | Change           | Evidence still valid | Approval |
-| -------- | ---------- | ---------------- | -------------------- | -------- |
-| 1        | 2026-08-24 | Initial proposal | None                 | Pending  |
+| Revision | Date       | Change                                        | Evidence still valid                            | Approval                                |
+| -------- | ---------- | --------------------------------------------- | ----------------------------------------------- | --------------------------------------- |
+| 1        | 2026-08-24 | Initial proposal                              | None                                            | Accepted by project owner on 2026-08-25 |
+| 2        | 2026-08-25 | Add the D3 proof's required declaration graph | Revision 1 except its incomplete dependency set | Pending                                 |
 
 ## User, task, and consequence
 
@@ -117,14 +118,34 @@ that this ownership improves on native application composition enough to justify
 
 ## Dependency proposal
 
-No package is approved or installed by this proposal. Charter acceptance would authorize exact
-proof-only root development dependencies for the private experiment; promotion requires a fresh
-dependency decision.
+No package has been installed. Revision 1 acceptance authorized its named proof, but pre-install
+inspection showed that the D3 runtime modules do not ship TypeScript declarations. This revision
+asks the project owner to accept the complete exact proof-only root development dependency set.
+Promotion still requires a fresh dependency decision.
 
-| Candidate and exact version                                                                                                                                                                     | Placement                                         | Missing existing capability                                                                                         | License and notices                                | Health, security, and update owner                                                                  | Cost measurement                                                                                          | Runtime implications                                                                       | Effects and transitives                                                                                                                       | Replacement and removal                                         | Proof-only approval        |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- | -------------------------- |
-| [`uplot@1.6.32`](https://registry.npmjs.org/uplot/1.6.32)                                                                                                                                       | Root dev dependency used only by the experiment   | Dense time-series Canvas rendering, scale layout, cursor calculation, and bounded updates                           | MIT; retain exact license finding in evidence      | Exact release, repository activity, advisories, and maintainer health rechecked before installation | Record lock graph, installed and packed bytes, production bundle gzip, parse work, memory, and timings    | Optional proof bundle only; no foundation import or browser-floor change                   | Registry metadata reports zero direct dependencies; verify tarball scripts, globals, network, and telemetry before use                        | Remove dependency, lock entries, adapter, bundles, and caches   | Pending charter acceptance |
-| [`d3-array@3.2.4`](https://registry.npmjs.org/d3-array/3.2.4), [`d3-scale@4.0.2`](https://registry.npmjs.org/d3-scale/4.0.2), and [`d3-shape@3.2.0`](https://registry.npmjs.org/d3-shape/3.2.0) | Root dev dependencies used only by the experiment | Reviewed numeric extents, linear scales, ticks, and SVG path construction without adopting a complete chart runtime | ISC; retain exact licenses and notices in evidence | Exact releases, repositories, advisories, and maintainer health rechecked before installation       | Record direct and transitive graph, installed and packed bytes, tree-shaken gzip, parse work, and timings | Optional proof bundle only; authored SVG, interaction, and semantics remain Wayglass-owned | Known registry metadata names `internmap`, formatting, interpolation, time, and path modules; verify the exact lock graph and package scripts | Remove dependencies, lock entries, adapter, bundles, and caches | Pending charter acceptance |
+| Candidate and exact version                                                                                                                                                                                                               | Placement                                                     | Missing existing capability                                                                                                                   | License and notices                                           | Health, security, and update owner                                                                  | Cost measurement                                                                                                            | Runtime implications                                                                       | Effects and transitives                                                                                                                       | Replacement and removal                                                 | Proof-only approval           |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------- |
+| [`uplot@1.6.32`](https://registry.npmjs.org/uplot/1.6.32)                                                                                                                                                                                 | Root dev dependency used only by the experiment               | Dense time-series Canvas rendering, scale layout, cursor calculation, and bounded updates                                                     | MIT; retain exact license finding in evidence                 | Exact release, repository activity, advisories, and maintainer health rechecked before installation | Record lock graph, installed and packed bytes, production bundle gzip, parse work, memory, and timings                      | Optional proof bundle only; no foundation import or browser-floor change                   | Registry metadata reports zero direct dependencies; verify tarball scripts, globals, network, and telemetry before use                        | Remove dependency, lock entries, adapter, bundles, and caches           | Pending revision 2 acceptance |
+| [`d3-array@3.2.4`](https://registry.npmjs.org/d3-array/3.2.4), [`d3-scale@4.0.2`](https://registry.npmjs.org/d3-scale/4.0.2), and [`d3-shape@3.2.0`](https://registry.npmjs.org/d3-shape/3.2.0)                                           | Root dev dependencies used only by the experiment             | Reviewed numeric extents, linear scales, ticks, and SVG path construction without adopting a complete chart runtime                           | ISC; retain exact licenses and notices in evidence            | Exact releases, repositories, advisories, and maintainer health rechecked before installation       | Record direct and transitive graph, installed and packed bytes, tree-shaken gzip, parse work, and timings                   | Optional proof bundle only; authored SVG, interaction, and semantics remain Wayglass-owned | Known registry metadata names `internmap`, formatting, interpolation, time, and path modules; verify the exact lock graph and package scripts | Remove dependencies, lock entries, adapter, bundles, and caches         | Pending revision 2 acceptance |
+| [`@types/d3-array@3.2.2`](https://registry.npmjs.org/@types/d3-array/3.2.2), [`@types/d3-scale@4.0.9`](https://registry.npmjs.org/@types/d3-scale/4.0.9), and [`@types/d3-shape@3.2.0`](https://registry.npmjs.org/@types/d3-shape/3.2.0) | Root dev dependencies used only for strict proof typechecking | The exact D3 runtime packages provide no `types` or `typings` entry; local ambient declarations would hide compatibility and maintenance cost | MIT; type-only notices remain part of the dependency evidence | DefinitelyTyped owns declarations; Wayglass owns version compatibility and update review            | Record 328,602 unpacked bytes for the three direct declaration packages plus the two exact resolved declaration transitives | Erased during compilation and excluded from production bundles; no runtime import          | `@types/d3-scale` resolves `@types/d3-time@3.0.4`; `@types/d3-shape` resolves `@types/d3-path@3.1.1`; `@types/d3-array` has no dependency     | Remove direct type packages, resolved lock entries, imports, and caches | Pending revision 2 acceptance |
+
+### Pre-install dependency screen
+
+Read-only inspection on 2026-08-25 used Node 26.4.0 and npm 11.17.0 on arm64 macOS 26.5.2. It
+downloaded the seven named candidate tarballs to an operating-system temporary directory and
+resolved their graph into a temporary package lock with scripts disabled. It found:
+
+- matching registry integrity and package measurements for every exact tarball;
+- MIT for uPlot and the declaration packages, and ISC for the D3 runtime modules;
+- built-in declarations for uPlot and no built-in declarations for the three D3 runtime modules;
+- 16 resolved packages when the three direct declaration packages are included;
+- no `preinstall`, `install`, or `postinstall` hook in the resolved lock;
+- zero known vulnerabilities across all severities from `npm audit` at the time of review; and
+- no candidate code was installed, imported, bundled, or executed.
+
+Registry and advisory findings are dated evidence, not a permanent security guarantee. The
+repository install remains blocked until revision 2 is accepted, and the resulting pnpm lock graph
+must be compared with this temporary resolution before candidate code executes.
 
 Screening metadata on 2026-08-24 also identified `chart.js@4.5.1` (MIT) and
 `@observablehq/plot@0.6.17` (ISC) as maintained comparison references. Their registry unpacked
@@ -167,7 +188,7 @@ bounded task. Registry unpacked size is screening metadata, not a browser-bundle
   artifact-candidate disposition.
 - **External effects:** no network at runtime, credentials, personal or provider data, analytics,
   publication, deployment, external mutation, persistence, clipboard, downloads, or telemetry.
-  Dependency metadata research is read-only; install is blocked until charter acceptance.
+  Dependency metadata research is read-only; install is blocked until revision 2 acceptance.
 - **Retained evidence:** accepted charter revisions, exact dependency and license inventory, source
   commit, fixture manifest, bundle reports, raw timing and memory output, browser results, task
   transcripts, screenshots for visual states, deviations, limitations, and disposition.
@@ -266,8 +287,13 @@ artifact, network, public wrapper, or claimed SSR behavior.
 
 ### Deviations and adverse evidence
 
-None yet. Record failed candidates, budget misses, browser differences, assistive-technology
-friction, and evidence favoring application composition without narrowing the envelope after work.
+The pre-install screen found that the D3 runtime candidates lack built-in TypeScript declarations.
+Revision 2 exposes the three required direct declaration packages and two resolved type-only
+transitives instead of hiding that cost behind local ambient declarations. This finding does not
+change the task, tier, runtime candidate, budgets, browser matrix, or revision 1 ownership evidence.
+
+Record future failed candidates, budget misses, browser differences, assistive-technology friction,
+and evidence favoring application composition without narrowing the envelope after work.
 
 ### Claims not supported
 
@@ -285,9 +311,9 @@ operational conclusions.
 - **Retained ownership and boundaries:** Pending; application data and policy ownership remain fixed
   regardless of outcome.
 - **Known limitations:** Pending evidence; the charter limitations already apply.
-- **Follow-up authorized:** Read-only review of this proposal only until the project owner accepts
-  the charter.
-- **Remaining approvals and gates:** charter acceptance before proof code or dependency
+- **Follow-up authorized:** Read-only review of revision 2 only until the project owner accepts its
+  complete proof dependency set.
+- **Remaining approvals and gates:** revision 2 acceptance before proof code or dependency
   installation; a separate implementation contract and ADR after any artifact-candidate disposition;
   release governance before publication.
 - **Cleanup completed:** Not applicable before proof work.
