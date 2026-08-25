@@ -1,7 +1,8 @@
 # Phase 5 ecosystem roadmap
 
-**Status:** Accepted on August 14, 2026. Phases 5A and 5B are complete, and the Phase 5C
-rich-visualization charter is proposed. Every later ecosystem track requires its own accepted
+**Status:** Accepted on August 14, 2026. Phases 5A and 5B are complete. The Phase 5C charter was
+accepted on August 25, 2026 and is under revision after its pre-install dependency screen exposed
+the D3 proof's separate declaration packages. Every later ecosystem track requires its own accepted
 charter before implementation, and an exploration may conclude with no new package.
 
 Phase 5 extends Wayglass beyond the core design language and its three reference domains. `SPEC.md`
@@ -190,7 +191,7 @@ remain unapproved.
 
 Evaluate a chart capability against needs that `wg-telemetry-strip` intentionally does not serve.
 
-The proposed
+The revised
 [Phase 5C rich-visualization charter](./governance/explorations/phase-5c-rich-visualization.md)
 precommits a four-series time-window task, native and dependency-backed comparison baselines,
 application ownership, exact non-visual equivalence, performance and bundle budgets, supported
@@ -353,6 +354,6 @@ revise, or reject disposition; accepted artifacts satisfy their tier-specific va
 application boundaries remain intact; package, deployment, and support claims are explicit; and all
 unresolved human, provider, device, or operational evidence has a named owner and release impact.
 
-The next step after completing Phase 5B is project-owner review of the proposed Phase 5C
-rich-visualization charter. Proof code and candidate dependencies remain blocked until the charter's
-task, bounds, budgets, evidence matrix, stop conditions, and cleanup are accepted.
+The next step after completing Phase 5B is project-owner review of Phase 5C charter revision 2.
+Proof code and candidate dependencies remain blocked until the complete D3 declaration graph joins
+the already accepted task, bounds, budgets, evidence matrix, stop conditions, and cleanup.
