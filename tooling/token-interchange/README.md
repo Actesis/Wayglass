@@ -7,9 +7,9 @@ workspace package, npm package, public API, supported schema, or DTCG conformanc
 
 ## Current implementation stage
 
-Stages 1 through 7 now provide the proven transform core, private command contract, permanent
-writers, write-free repository check, production web-generation integration, and retained validation
-mechanisms:
+Stages 1 through 8 provide the proven transform core, private command contract, permanent writers,
+write-free repository check, production web-generation integration, retained validation mechanisms,
+and final migration away from the proof implementation:
 
 - canonical-source adapters;
 - reversible identity mapping;
@@ -43,14 +43,14 @@ import-time writes, network access, registration, telemetry, environment mutatio
 The root launcher uses the supported Node runtime's built-in TypeScript stripping rather than a new
 loader dependency. Its handlers dynamically import source and effect modules only after command
 dispatch, so `--help` does not load the token source. The root build runs web generation once before
-Turbo compiles packages in the existing dependency order. Package-local build scripts now compile
-TypeScript only; their retained legacy generator modules remain parity evidence until the final
-removal stage. The remaining
-[`experiments/phase-5b-token-interchange/`](../../experiments/phase-5b-token-interchange/) code owns
-only transitional copies and retained disposition evidence pending the accepted Stage 8 removal. The
-retained [Stage 7 validation matrix](./evidence/stage-7-validation-matrix.md) records the exact
-runtime, deterministic, failure, capacity, package, browser, documentation, and clean-build results
-and their limitations.
+Turbo compiles packages in the existing dependency order. Package-local build scripts compile
+TypeScript only. The superseded package-local writers and executable proof under
+`experiments/phase-5b-token-interchange/` were removed after the Stage 7 matrix established
+permanent coverage. Exported pure package helpers remain public compatibility surfaces and
+exact-parity oracles; they are not writers and were not removed. The retained
+[Stage 7 validation matrix](./evidence/stage-7-validation-matrix.md),
+[Stage 8 migration record](./evidence/stage-8-final-migration.md), and
+[historical proof evidence](./evidence/phase-5b-proof/) record the results and limitations.
 
 The permanent writer rejects filesystem-root destinations, unsafe artifact paths, symbolic links in
 owned paths, corrupt pointers, unverifiable locks, and unverified accepted releases. A live or
@@ -97,10 +97,12 @@ repetitions, peak resident memory, output size, and the exact current and 10× s
 is informational and imposes no threshold. `token-tooling:fingerprint` prints all three web and all
 seven exchange artifact measurements for comparison across the supported runtime matrix.
 
-The ordinary Phase 5B check runs the permanent core and the remaining proof boundary:
+The ordinary repository check invokes both the write-free artifact check and the permanent focused
+core gates. They may also be run directly:
 
 ```sh
-pnpm experiment:phase5b:check
+pnpm token-tooling:check
+pnpm token-tooling:core:check
 ```
 
 The ordinary check writes nothing. Test commands write only temporary fixtures and no accepted

@@ -1,5 +1,8 @@
 # Phase 5B documentation and cleanup validation
 
+> Historical record: Stage 8 relocated this evidence and removed the experiment implementation.
+> Paths, inventory, and commands below describe the repository on 2026-08-15.
+
 This records charter row `P5B-E10` on 2026-08-15. It validates the private proof's documentation,
 links, sample contract, unsupported-claim boundaries, repository isolation, and cleanup state. It
 does not approve the proof, complete the other evidence rows, or make an artifact public.
@@ -29,8 +32,8 @@ formal disposition.
 
 The review covers:
 
-- [`P5B-TOKEN-INTERCHANGE-001`](../../../docs/governance/explorations/phase-5b-token-interchange.md);
-- the [experiment guide](../README.md);
+- [`P5B-TOKEN-INTERCHANGE-001`](../../../../docs/governance/explorations/phase-5b-token-interchange.md);
+- the archived [experiment guide](./proof-guide.md);
 - every retained record in this `evidence/` directory; and
 - the VitePress include at `apps/docs/governance/explorations/phase-5b-token-interchange.md`.
 

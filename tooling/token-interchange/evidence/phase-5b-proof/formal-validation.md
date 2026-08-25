@@ -1,5 +1,8 @@
 # Phase 5B formal validation
 
+> Historical record: Stage 8 relocated this evidence and removed the experiment implementation.
+> Commands and paths below describe the proof at its authenticated validation commit.
+
 This record consolidates charter rows `P5B-E01` through `P5B-E10` on 2026-08-15. It moves the
 private proof to evidence review; it does not accept an artifact, approve a dependency, establish a
 public contract, or authorize publication.

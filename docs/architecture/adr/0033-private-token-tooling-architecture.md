@@ -156,6 +156,6 @@ credentials, versions, and target review belong to Phase 5D and require their ow
 
 - [Token-tooling implementation contract](../../governance/token-tooling-implementation-contract.md)
 - [Phase 5B exploration and disposition](../../governance/explorations/phase-5b-token-interchange.md)
-- [Phase 5B formal validation](https://github.com/Actesis/Wayglass/blob/main/experiments/phase-5b-token-interchange/evidence/formal-validation.md)
+- [Phase 5B formal validation](https://github.com/Actesis/Wayglass/blob/main/tooling/token-interchange/evidence/phase-5b-proof/formal-validation.md)
 - [ADR 0031: ecosystem artifact architecture](./0031-ecosystem-artifact-architecture.md)
 - [Phase 5 validation plan](../../accessibility/phase-5-validation-plan.md)

@@ -1,11 +1,15 @@
 # Phase 5B token-interchange proof
 
+> Historical record: this guide describes the bounded experiment before Stage 8 removed its
+> executable code and commands. Use the [permanent tooling guide](../../README.md) for current
+> commands. The referenced implementation remains recoverable through version control.
+
 This directory retains the bounded proof and disposition evidence accepted in
-[`P5B-TOKEN-INTERCHANGE-001`](../../docs/governance/explorations/phase-5b-token-interchange.md). The
-accepted pure graph, identity, transform, comparison, and focused-test core now lives in
-[`tooling/token-interchange/`](../../tooling/token-interchange/). The remaining experiment code
-exercises capacity and authenticated fingerprints against that permanent core. Neither location is a
-workspace package, production export, interchange conformance claim, or release candidate.
+[`P5B-TOKEN-INTERCHANGE-001`](../../../../docs/governance/explorations/phase-5b-token-interchange.md).
+The accepted pure graph, identity, transform, comparison, and focused-test core now lives in
+[`tooling/token-interchange/`](../../). At the time of validation, the remaining experiment code
+exercised capacity and authenticated fingerprints against that permanent core. Neither location was
+a workspace package, production export, interchange conformance claim, or release candidate.
 
 The permanent core normalizes the reviewed `@wayglass/tokens` and `@wayglass/themes` sources into a
 deterministic graph and applies the existing web transform. The retained proof establishes:
@@ -38,16 +42,15 @@ code.
 
 The capacity harness constructs the reviewed corpus and an exact 10× token/override replica, then
 measures normalization plus both in-memory transforms without imposing a threshold. The retained
-[Node 26/macOS](./evidence/capacity-node-26-macos.md) and
-[Node 22.13/macOS](./evidence/capacity-node-22-13-macos.md) results cover the current and minimum
-supported runtimes for `P5B-E08`. The earlier
-[Node 22.12/macOS](./evidence/capacity-node-22-macos.md) run remains historical adverse evidence:
-the transforms execute there, but pinned pnpm 11.9.0 does not.
+[Node 26/macOS](./capacity-node-26-macos.md) and [Node 22.13/macOS](./capacity-node-22-13-macos.md)
+results cover the current and minimum supported runtimes for `P5B-E08`. The earlier
+[Node 22.12/macOS](./capacity-node-22-macos.md) run remains historical adverse evidence: the
+transforms execute there, but pinned pnpm 11.9.0 does not.
 
-The retained [transformer-candidate comparison](./evidence/transformer-candidate-comparison.md)
-qualifies Style Dictionary 5.5.1 for a possible future isolated prototype but does not add or
-approve a dependency. `@tokens-studio/sd-transforms` remains conditional on a later decision to use
-Tokens Studio as an authorized source.
+The retained [transformer-candidate comparison](./transformer-candidate-comparison.md) qualifies
+Style Dictionary 5.5.1 for a possible future isolated prototype but does not add or approve a
+dependency. `@tokens-studio/sd-transforms` remains conditional on a later decision to use Tokens
+Studio as an authorized source.
 
 ## Candidate output contract
 
@@ -66,12 +69,12 @@ wayglass-manifest.json
 The manifest labels the set `partial-dtcg-2025.10-candidate`, retains the source revision and all
 reversible identities, measures every non-manifest artifact, and accounts for all omissions. This is
 an executable test contract, not a checked-in generated release or supported public artifact. The
-[documentation and cleanup validation](./evidence/documentation-and-cleanup-validation.md) records
-the retained and removed proof inventory.
+[documentation and cleanup validation](./documentation-and-cleanup-validation.md) records the
+retained and removed proof inventory.
 
-## Local commands
+## Historical commands
 
-Run the focused gates from the repository root:
+These commands were used by the bounded proof and were removed in Stage 8:
 
 ```sh
 pnpm experiment:phase5b:check
