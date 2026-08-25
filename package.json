@@ -45,6 +45,10 @@
     "token-tooling:core:typecheck": "tsc --noEmit -p tooling/token-interchange/tsconfig.json",
     "token-tooling:check": "node --experimental-strip-types tooling/token-interchange/src/cli.ts check",
     "token-tooling:generate:web": "node --experimental-strip-types tooling/token-interchange/src/cli.ts generate:web",
+    "token-tooling:fingerprint": "vitest run --root tooling/token-interchange --config vitest.validation.config.ts --reporter=verbose",
+    "token-tooling:generate:exchange": "node --experimental-strip-types tooling/token-interchange/src/cli.ts generate:exchange",
+    "token-tooling:measure": "node --experimental-strip-types tooling/token-interchange/src/cli.ts measure",
+    "token-tooling:verify": "node --experimental-strip-types tooling/token-interchange/src/cli.ts verify",
     "typecheck": "turbo run typecheck"
   },
   "devDependencies": {

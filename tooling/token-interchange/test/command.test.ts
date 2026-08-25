@@ -32,6 +32,7 @@ describe('token-tooling command parsing', () => {
     expect(
       parseTokenToolingCommand([
         'generate:exchange',
+        '--',
         '--output',
         '.token-output',
         '--source-revision',

@@ -321,6 +321,17 @@ async function verifyAcceptedRelease(root: string, pointer: DtcgExchangePointer)
   verifyDtcgExchange(exchange);
 }
 
+export async function verifyDtcgExchangeRoot(root: string): Promise<DtcgExchangePointer> {
+  const resolvedRoot = assertOutputRoot(root);
+  await assertDirectory(resolvedRoot, 'DTCG exchange output root');
+  const pointer = await readDtcgExchangePointer(resolvedRoot);
+  if (!pointer) {
+    throw new Error('DTCG exchange output root has no accepted current release.');
+  }
+  await verifyAcceptedRelease(resolvedRoot, pointer);
+  return pointer;
+}
+
 async function isVerifiedOrphanRelease(root: string, release: string): Promise<boolean> {
   try {
     const manifestContent = await readContainedFile(
