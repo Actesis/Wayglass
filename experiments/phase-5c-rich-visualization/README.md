@@ -5,9 +5,9 @@ This private experiment implements the bounded proof accepted in
 It is not a workspace package, production export, public Custom Element, chart grammar, or release
 candidate.
 
-## Current slice
+## Implemented slices
 
-The first slice owns only the shared deterministic input boundary and queue-investigation fixture:
+The foundation slice owns the shared deterministic input boundary and queue-investigation fixture:
 
 - one fixed 24-hour window at 30-second intervals;
 - four aligned series and 2,880 samples per series, for 11,520 points total;
@@ -18,9 +18,20 @@ The first slice owns only the shared deterministic input boundary and queue-inve
 - known first-breach and recovery answers used to validate every later adapter; and
 - fail-fast validation for malformed, ambiguous, misaligned, or out-of-envelope input.
 
-The native SVG/HTML, uPlot, and D3-assisted SVG adapters are intentionally absent from this slice.
-The exact proof-only dependencies are installed and locked after the accepted pre-install screen,
-but no candidate library is imported or executed yet.
+The native baseline slice adds:
+
+- dependency-free authored SVG geometry for all series, the threshold, annotation, gaps, and
+  knowledge marks;
+- four non-color line patterns plus semantic data colors;
+- persistent native-HTML exact inspection with previous/next sample and series controls;
+- native checkboxes for series visibility while retaining at least one visible series;
+- pointer selection that updates the same persistent inspector rather than a hover-only tooltip;
+- a shared application-owned summary and lazily mounted native table containing all exact points;
+- normalized SVG resizing without a listener, observer, registration, or global mutation; and
+- focused model tests plus a private Playwright smoke, keyboard, table, containment, and Axe check.
+
+The uPlot and D3-assisted SVG adapters remain absent. Their exact proof-only dependencies are
+installed and locked, but no candidate library is imported or executed yet.
 
 ## Commands
 
@@ -38,6 +49,8 @@ write outside the test runner's ordinary cache.
 
 The dated dependency and fixture findings are retained in
 [`evidence/dependency-and-fixture-foundation.md`](./evidence/dependency-and-fixture-foundation.md).
+The first adapter findings are retained in
+[`evidence/native-baseline.md`](./evidence/native-baseline.md).
 
 ## Ownership boundary
 

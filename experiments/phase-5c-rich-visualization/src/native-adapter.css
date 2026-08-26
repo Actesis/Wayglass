@@ -1,0 +1,282 @@
+/* Private proof styles consume existing semantic tokens. Normalized SVG coordinates, line patterns,
+   marker sizes, and hit widths are fixed mechanics that preserve series and knowledge distinctions. */
+
+.p5c-proof {
+  display: grid;
+  gap: var(--wg-space-semantic-layout-section-comfortable);
+  max-inline-size: 90rem;
+  margin-inline: auto;
+  padding: var(--wg-space-semantic-page-comfortable);
+  color: var(--wg-color-semantic-text-primary);
+  background: var(--wg-color-semantic-surface-canvas);
+  font-family: var(--wg-typography-family-body);
+}
+
+.p5c-proof h1,
+.p5c-proof h2,
+.p5c-proof h3 {
+  font-family: var(--wg-typography-family-display);
+}
+
+.p5c-native,
+.p5c-equivalence {
+  display: grid;
+  gap: var(--wg-space-semantic-section-comfortable);
+  padding: var(--wg-component-panel-space);
+  border: var(--wg-border-width-standard) solid var(--wg-color-semantic-border-subtle);
+  border-radius: var(--wg-component-panel-radius);
+  background: var(--wg-color-semantic-surface-panel);
+}
+
+.p5c-native h2,
+.p5c-native h3,
+.p5c-equivalence h2,
+.p5c-native p,
+.p5c-equivalence p,
+.p5c-native dl {
+  margin: 0;
+}
+
+.p5c-context,
+.p5c-exact-value {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: var(--wg-space-semantic-layout-related-compact)
+    var(--wg-space-semantic-layout-section-compact);
+}
+
+.p5c-context dt,
+.p5c-exact-value dt {
+  color: var(--wg-color-semantic-text-secondary);
+}
+
+.p5c-context dd,
+.p5c-exact-value dd {
+  margin: 0;
+}
+
+.p5c-visual {
+  min-inline-size: 0;
+  padding: var(--wg-space-semantic-section-compact);
+  border: var(--wg-border-width-standard) solid var(--wg-color-semantic-border-subtle);
+  border-radius: var(--wg-component-surface-radius);
+  background: var(--wg-color-semantic-surface-inset);
+}
+
+.p5c-visual svg {
+  display: block;
+  inline-size: 100%;
+  min-block-size: 16rem;
+  overflow: visible;
+}
+
+.p5c-threshold {
+  stroke: var(--wg-color-semantic-condition-caution);
+  stroke-width: 3;
+  stroke-dasharray: 12 6;
+}
+
+.p5c-annotation {
+  stroke: var(--wg-color-semantic-data-change);
+  stroke-width: 3;
+  stroke-dasharray: 3 5;
+}
+
+.p5c-series-line {
+  fill: none;
+  stroke: var(--wg-color-semantic-data-series-1);
+  stroke-width: 3;
+  vector-effect: non-scaling-stroke;
+}
+
+.p5c-visual [data-series-id][hidden] {
+  display: none;
+}
+
+[data-series-index='1'] .p5c-series-line,
+[data-series-index='3'] .p5c-series-line {
+  stroke: var(--wg-color-semantic-data-series-2);
+}
+
+[data-series-index='1'] .p5c-series-line {
+  stroke-dasharray: 14 5;
+}
+
+[data-series-index='2'] .p5c-series-line {
+  stroke-dasharray: 3 5;
+}
+
+[data-series-index='3'] .p5c-series-line {
+  stroke-dasharray: 14 5 3 5;
+}
+
+.p5c-knowledge-mark,
+.p5c-gap-mark {
+  fill: var(--wg-color-semantic-surface-inset);
+  stroke: var(--wg-color-semantic-text-primary);
+  stroke-width: 3;
+  vector-effect: non-scaling-stroke;
+}
+
+.p5c-knowledge-mark[data-knowledge='conflicting'] {
+  fill: var(--wg-color-semantic-knowledge-conflicting);
+  stroke-width: 5;
+}
+
+.p5c-knowledge-mark[data-knowledge='unknown'] {
+  stroke-dasharray: 2 2;
+}
+
+.p5c-gap-mark {
+  stroke: var(--wg-color-semantic-knowledge-unavailable);
+  stroke-dasharray: 5 5;
+}
+
+.p5c-hit-target {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 18;
+  pointer-events: stroke;
+  cursor: crosshair;
+}
+
+.p5c-selection-line,
+.p5c-selection-mark {
+  stroke: var(--wg-color-semantic-selection-indicator);
+  stroke-width: 4;
+  vector-effect: non-scaling-stroke;
+}
+
+.p5c-selection-line {
+  stroke-dasharray: 2 4;
+}
+
+.p5c-selection-mark {
+  fill: var(--wg-color-semantic-selection-surface);
+}
+
+.p5c-window {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--wg-space-semantic-layout-related-compact);
+  color: var(--wg-color-semantic-text-secondary);
+}
+
+.p5c-series-controls,
+.p5c-inspector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--wg-space-semantic-layout-related-comfortable);
+  align-items: center;
+  padding: var(--wg-space-semantic-section-compact);
+  border: var(--wg-border-width-standard) solid var(--wg-color-semantic-border-subtle);
+  border-radius: var(--wg-component-surface-radius);
+}
+
+.p5c-series-controls label,
+.p5c-inspector-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--wg-space-semantic-layout-related-compact);
+  align-items: center;
+}
+
+.p5c-series-controls label::before {
+  inline-size: 2rem;
+  border-block-start: 3px solid var(--wg-color-semantic-data-series-1);
+  content: '';
+}
+
+.p5c-series-controls label[data-series-index='1']::before,
+.p5c-series-controls label[data-series-index='3']::before {
+  border-color: var(--wg-color-semantic-data-series-2);
+  border-style: dashed;
+}
+
+.p5c-series-controls label[data-series-index='2']::before {
+  border-style: dotted;
+}
+
+.p5c-inspector button {
+  padding: var(--wg-space-semantic-control-block) var(--wg-space-semantic-control-inline);
+  border: var(--wg-border-width-standard) solid var(--wg-component-button-color-border);
+  border-radius: var(--wg-component-button-radius);
+  color: var(--wg-color-semantic-text-primary);
+  background: var(--wg-color-semantic-surface-raised);
+  font: inherit;
+}
+
+.p5c-inspector button:focus-visible,
+.p5c-series-controls input:focus-visible,
+.p5c-exact-table summary:focus-visible {
+  outline: var(--wg-component-focus-ring-width) solid var(--wg-component-focus-ring-color);
+  outline-offset: var(--wg-component-focus-ring-offset);
+}
+
+.p5c-exact-table summary {
+  cursor: pointer;
+}
+
+.p5c-table-scroll {
+  max-block-size: 32rem;
+  overflow: auto;
+  margin-block-start: var(--wg-space-semantic-section-compact);
+  border: var(--wg-border-width-standard) solid var(--wg-color-semantic-border-subtle);
+}
+
+.p5c-table-scroll table {
+  inline-size: 100%;
+  border-collapse: collapse;
+  background: var(--wg-component-data-table-color-table-background);
+}
+
+.p5c-table-scroll caption,
+.p5c-table-scroll th,
+.p5c-table-scroll td {
+  padding: var(--wg-component-data-table-space-cell-block)
+    var(--wg-component-data-table-space-cell-inline);
+  text-align: start;
+}
+
+.p5c-table-scroll th,
+.p5c-table-scroll td {
+  border-block-end: var(--wg-border-width-standard) solid
+    var(--wg-component-data-table-color-row-separator);
+}
+
+.p5c-table-scroll thead {
+  position: sticky;
+  inset-block-start: 0;
+  background: var(--wg-component-data-table-color-background);
+}
+
+@media (max-width: 40rem) {
+  .p5c-proof {
+    padding: var(--wg-space-semantic-page-compact);
+  }
+
+  .p5c-context,
+  .p5c-exact-value {
+    grid-template-columns: 1fr;
+  }
+
+  .p5c-visual svg {
+    min-block-size: 12rem;
+  }
+}
+
+@media (forced-colors: active) {
+  .p5c-series-line,
+  .p5c-threshold,
+  .p5c-annotation,
+  .p5c-knowledge-mark,
+  .p5c-gap-mark,
+  .p5c-selection-line,
+  .p5c-selection-mark {
+    stroke: CanvasText;
+  }
+
+  .p5c-selection-mark {
+    fill: Canvas;
+  }
+}
