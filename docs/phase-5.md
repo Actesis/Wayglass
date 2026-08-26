@@ -1,9 +1,9 @@
 # Phase 5 ecosystem roadmap
 
-**Status:** Accepted on August 14, 2026. Phases 5A and 5B are complete. The Phase 5C charter was
-accepted on August 25, 2026 and is under revision after its pre-install dependency screen exposed
-the D3 proof's separate declaration packages. Every later ecosystem track requires its own accepted
-charter before implementation, and an exploration may conclude with no new package.
+**Status:** Accepted on August 14, 2026. Phases 5A and 5B are complete. Phase 5C charter revision 2
+was accepted on August 25, 2026, and its bounded private proof is underway. Every later ecosystem
+track requires its own accepted charter before implementation, and an exploration may conclude with
+no new package.
 
 Phase 5 extends Wayglass beyond the core design language and its three reference domains. `SPEC.md`
 names six ecosystem areas to explore: charts, Home Assistant integration, icon tooling, Figma
@@ -191,7 +191,7 @@ remain unapproved.
 
 Evaluate a chart capability against needs that `wg-telemetry-strip` intentionally does not serve.
 
-The revised
+The accepted
 [Phase 5C rich-visualization charter](./governance/explorations/phase-5c-rich-visualization.md)
 precommits a four-series time-window task, native and dependency-backed comparison baselines,
 application ownership, exact non-visual equivalence, performance and bundle budgets, supported
@@ -354,6 +354,6 @@ revise, or reject disposition; accepted artifacts satisfy their tier-specific va
 application boundaries remain intact; package, deployment, and support claims are explicit; and all
 unresolved human, provider, device, or operational evidence has a named owner and release impact.
 
-The next step after completing Phase 5B is project-owner review of Phase 5C charter revision 2.
-Proof code and candidate dependencies remain blocked until the complete D3 declaration graph joins
-the already accepted task, bounds, budgets, evidence matrix, stop conditions, and cleanup.
+The current Phase 5C step is the bounded private proof. Its shared deterministic input and maximum
+queue fixture precede the native SVG/HTML baseline, then the uPlot Canvas and D3-assisted SVG
+adapters. Evidence and cleanup remain mandatory before disposition.
