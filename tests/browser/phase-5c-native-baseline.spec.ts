@@ -30,7 +30,7 @@ test.describe('Phase 5C native baseline', () => {
       .locator('[data-series-id="review"] .p5c-hit-target')
       .dispatchEvent('click', { clientX: bounds!.x + bounds!.width * 0.75 });
     await expect(adapter.locator('[data-inspector-series]')).toHaveText('Review queue');
-    await expect(adapter.locator('[data-inspector-time]')).not.toHaveText('2026-08-18 00:00 UTC');
+    await expect(adapter.locator('[data-inspector-time]')).toHaveText('2026-08-18 17:56 UTC');
   });
 
   test('preserves native visibility controls and the complete exact table', async ({ page }) => {
