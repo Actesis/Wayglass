@@ -1,12 +1,12 @@
 import type { RichVisualizationInput } from './model.js';
 
-export interface NativeSelectionState {
+export interface InspectionState {
   readonly seriesIndex: number;
   readonly sampleIndex: number;
   readonly visibleSeriesIds: readonly string[];
 }
 
-export function createNativeSelection(input: RichVisualizationInput): NativeSelectionState {
+export function createInspectionState(input: RichVisualizationInput): InspectionState {
   return {
     seriesIndex: 0,
     sampleIndex: 0,
@@ -14,21 +14,21 @@ export function createNativeSelection(input: RichVisualizationInput): NativeSele
   };
 }
 
-export function moveNativeSample(
+export function moveInspectionSample(
   input: RichVisualizationInput,
-  state: NativeSelectionState,
+  state: InspectionState,
   delta: number,
-): NativeSelectionState {
+): InspectionState {
   const sampleCount = input.series[state.seriesIndex]?.points.length ?? 0;
   const sampleIndex = Math.min(Math.max(state.sampleIndex + delta, 0), sampleCount - 1);
   return sampleIndex === state.sampleIndex ? state : { ...state, sampleIndex };
 }
 
-export function moveNativeSeries(
+export function moveInspectionSeries(
   input: RichVisualizationInput,
-  state: NativeSelectionState,
+  state: InspectionState,
   delta: number,
-): NativeSelectionState {
+): InspectionState {
   const visibleIndexes = input.series
     .map(({ id }, index) => (state.visibleSeriesIds.includes(id) ? index : -1))
     .filter((index) => index >= 0);
@@ -40,12 +40,12 @@ export function moveNativeSeries(
   return seriesIndex === state.seriesIndex ? state : { ...state, seriesIndex };
 }
 
-export function setNativeSeriesVisibility(
+export function setInspectionSeriesVisibility(
   input: RichVisualizationInput,
-  state: NativeSelectionState,
+  state: InspectionState,
   seriesId: string,
   visible: boolean,
-): NativeSelectionState {
+): InspectionState {
   const candidateIndex = input.series.findIndex(({ id }) => id === seriesId);
   if (candidateIndex < 0) return state;
 
@@ -66,12 +66,12 @@ export function setNativeSeriesVisibility(
   return { ...state, seriesIndex, visibleSeriesIds };
 }
 
-export function selectNativePoint(
+export function selectInspectionPoint(
   input: RichVisualizationInput,
-  state: NativeSelectionState,
+  state: InspectionState,
   seriesId: string,
   observedAt: number,
-): NativeSelectionState {
+): InspectionState {
   const seriesIndex = input.series.findIndex(({ id }) => id === seriesId);
   if (seriesIndex < 0 || !state.visibleSeriesIds.includes(seriesId)) return state;
 

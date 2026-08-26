@@ -18,7 +18,7 @@
   font-family: var(--wg-typography-family-display);
 }
 
-.p5c-native,
+.p5c-adapter,
 .p5c-equivalence {
   display: grid;
   gap: var(--wg-space-semantic-section-comfortable);
@@ -28,12 +28,12 @@
   background: var(--wg-color-semantic-surface-panel);
 }
 
-.p5c-native h2,
-.p5c-native h3,
+.p5c-adapter h2,
+.p5c-adapter h3,
 .p5c-equivalence h2,
-.p5c-native p,
+.p5c-adapter p,
 .p5c-equivalence p,
-.p5c-native dl {
+.p5c-adapter dl {
   margin: 0;
 }
 
@@ -160,6 +160,31 @@
   justify-content: space-between;
   gap: var(--wg-space-semantic-layout-related-compact);
   color: var(--wg-color-semantic-text-secondary);
+}
+
+.p5c-interaction {
+  display: grid;
+  gap: var(--wg-space-semantic-layout-related-comfortable);
+}
+
+.p5c-uplot-host {
+  inline-size: 100%;
+  min-inline-size: 0;
+  overflow: hidden;
+}
+
+.p5c-uplot-host .uplot {
+  max-inline-size: 100%;
+  font-family: var(--wg-typography-family-body);
+}
+
+.p5c-uplot-host .u-over {
+  cursor: crosshair;
+}
+
+.p5c-uplot-host .u-cursor-x {
+  border-color: var(--wg-color-semantic-selection-indicator);
+  border-width: 2px;
 }
 
 .p5c-series-controls,

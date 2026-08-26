@@ -1,5 +1,4 @@
-import type { Knowledge } from '../../../packages/core/src/state.js';
-
+import { mountInspection, type InspectionHandle } from './inspection.js';
 import type { RichVisualizationInput } from './model.js';
 import {
   createNativeGeometry,
@@ -9,20 +8,13 @@ import {
   nativeY,
   type NativeKnowledgeMark,
 } from './native-geometry.js';
-import {
-  createNativeSelection,
-  moveNativeSample,
-  moveNativeSeries,
-  selectNativePoint,
-  setNativeSeriesVisibility,
-  type NativeSelectionState,
-} from './selection.js';
+import type { InspectionState } from './selection.js';
 
 const svgNamespace = 'http://www.w3.org/2000/svg';
 
 export interface NativeBaselineHandle {
   readonly root: HTMLElement;
-  getState(): NativeSelectionState;
+  getState(): InspectionState;
   destroy(): void;
 }
 
@@ -41,17 +33,6 @@ function svgElement<K extends keyof SVGElementTagNameMap>(name: K): SVGElementTa
 
 function setSvgAttributes(node: SVGElement, attributes: Readonly<Record<string, string | number>>) {
   for (const [name, value] of Object.entries(attributes)) node.setAttribute(name, String(value));
-}
-
-function knowledgeLabel(knowledge: Knowledge): string {
-  return `${knowledge.slice(0, 1).toUpperCase()}${knowledge.slice(1)}`;
-}
-
-function appendDescriptionItem(list: HTMLDListElement, label: string, value: string, hook: string) {
-  list.append(element('dt', label));
-  const description = element('dd', value);
-  description.dataset[hook] = '';
-  list.append(description);
 }
 
 function appendKnowledgeMark(group: SVGGElement, mark: NativeKnowledgeMark) {
@@ -85,10 +66,9 @@ export function mountNativeBaseline(
   input: RichVisualizationInput,
 ): NativeBaselineHandle {
   const geometry = createNativeGeometry(input);
-  let state = createNativeSelection(input);
 
   const root = element('section');
-  root.className = 'p5c-native';
+  root.className = 'p5c-adapter p5c-native';
   root.setAttribute('aria-labelledby', `${input.id}-native-heading`);
 
   const heading = element('h2', 'Native SVG and HTML baseline');
@@ -171,8 +151,7 @@ export function mountNativeBaseline(
         1,
       );
       const observedAt = input.windowStart + ratio * (input.windowEnd - input.windowStart);
-      state = selectNativePoint(input, state, seriesGeometry.seriesId, observedAt);
-      renderState();
+      inspection.selectPoint(seriesGeometry.seriesId, observedAt);
     });
     group.append(hitPath);
     seriesGroups.set(seriesGeometry.seriesId, group);
@@ -200,77 +179,12 @@ export function mountNativeBaseline(
   visual.append(windowLabels);
   root.append(visual);
 
-  const visibility = element('fieldset');
-  visibility.className = 'p5c-series-controls';
-  visibility.append(element('legend', 'Visible series'));
-  const visibilityInputs = new Map<string, HTMLInputElement>();
-  for (const [seriesIndex, series] of input.series.entries()) {
-    const label = element('label');
-    label.dataset.seriesIndex = String(seriesIndex);
-    const checkbox = element('input');
-    checkbox.type = 'checkbox';
-    checkbox.checked = true;
-    checkbox.addEventListener('change', () => {
-      state = setNativeSeriesVisibility(input, state, series.id, checkbox.checked);
-      checkbox.checked = state.visibleSeriesIds.includes(series.id);
-      renderState();
-    });
-    visibilityInputs.set(series.id, checkbox);
-    label.append(checkbox, element('span', series.label));
-    visibility.append(label);
-  }
-  root.append(visibility);
-
-  const inspector = element('section');
-  inspector.className = 'p5c-inspector';
-  const inspectorHeading = element('h3', 'Persistent exact inspection');
-  inspector.append(inspectorHeading);
-
-  const navigation = element('div');
-  navigation.className = 'p5c-inspector-controls';
-  navigation.setAttribute('aria-label', 'Exact inspection navigation');
-  const previousSeries = element('button', 'Previous series');
-  const previousSample = element('button', 'Previous sample');
-  const nextSample = element('button', 'Next sample');
-  const nextSeries = element('button', 'Next series');
-  for (const button of [previousSeries, previousSample, nextSample, nextSeries])
-    button.type = 'button';
-  previousSeries.addEventListener('click', () => {
-    state = moveNativeSeries(input, state, -1);
-    renderState();
-  });
-  nextSeries.addEventListener('click', () => {
-    state = moveNativeSeries(input, state, 1);
-    renderState();
-  });
-  previousSample.addEventListener('click', () => {
-    state = moveNativeSample(input, state, -1);
-    renderState();
-  });
-  nextSample.addEventListener('click', () => {
-    state = moveNativeSample(input, state, 1);
-    renderState();
-  });
-  navigation.append(previousSeries, previousSample, nextSample, nextSeries);
-  inspector.append(navigation);
-
-  const exact = element('dl');
-  exact.className = 'p5c-exact-value';
-  appendDescriptionItem(exact, 'Series', '', 'inspectorSeries');
-  appendDescriptionItem(exact, 'Observed at', '', 'inspectorTime');
-  appendDescriptionItem(exact, 'Value', '', 'inspectorValue');
-  appendDescriptionItem(exact, 'Knowledge', '', 'inspectorKnowledge');
-  inspector.append(exact);
-  root.append(inspector);
-
-  function renderState() {
+  function renderState(state: InspectionState) {
     const selectedSeries = input.series[state.seriesIndex]!;
     const selectedPoint = selectedSeries.points[state.sampleIndex]!;
     for (const series of input.series) {
       const visible = state.visibleSeriesIds.includes(series.id);
       seriesGroups.get(series.id)?.toggleAttribute('hidden', !visible);
-      const checkbox = visibilityInputs.get(series.id);
-      if (checkbox) checkbox.checked = visible;
     }
 
     const x = nativeX(input, selectedPoint.observedAt);
@@ -284,29 +198,17 @@ export function mountNativeBaseline(
       selectionMark.setAttribute('cy', String(nativeY(input, selectedPoint.value)));
     }
     selectionMark.dataset.seriesIndex = String(state.seriesIndex);
-
-    const values = {
-      inspectorSeries: selectedSeries.label,
-      inspectorTime: selectedPoint.formattedObservedAt,
-      inspectorValue: selectedPoint.formattedValue,
-      inspectorKnowledge: knowledgeLabel(selectedPoint.knowledge),
-    };
-    for (const [hook, value] of Object.entries(values)) {
-      const output = exact.querySelector<HTMLElement>(
-        `[data-${hook.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`)}]`,
-      );
-      if (output) output.textContent = value;
-    }
-    previousSample.disabled = state.sampleIndex === 0;
-    nextSample.disabled = state.sampleIndex === selectedSeries.points.length - 1;
   }
 
-  renderState();
+  const inspection: InspectionHandle = mountInspection(root, input, renderState);
   container.append(root);
 
   return {
     root,
-    getState: () => state,
-    destroy: () => root.remove(),
+    getState: () => inspection.getState(),
+    destroy: () => {
+      inspection.destroy();
+      root.remove();
+    },
   };
 }
