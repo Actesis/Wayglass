@@ -30,8 +30,21 @@ The native baseline slice adds:
 - normalized SVG resizing without a listener, observer, registration, or global mutation; and
 - focused model tests plus a private Playwright smoke, keyboard, table, containment, and Axe check.
 
-The uPlot and D3-assisted SVG adapters remain absent. Their exact proof-only dependencies are
-installed and locked, but no candidate library is imported or executed yet.
+The uPlot Canvas slice adds:
+
+- full-resolution aligned uPlot data with explicit null gaps and the fixed authored scale;
+- a single non-semantic Canvas while shared native HTML retains context, visibility controls,
+  navigation, and persistent exact inspection;
+- four non-color series patterns, semantic data colors, and Wayglass-owned Canvas overlays for the
+  threshold, annotation, gaps, and observation knowledge;
+- pointer selection into the same shared inspector used by the native baseline;
+- contained responsive sizing through one cancellable animation frame and a disconnected
+  `ResizeObserver`; and
+- focused model tests plus private Chromium, Firefox, and WebKit smoke, interaction, containment,
+  and Axe checks.
+
+The D3-assisted SVG adapter remains absent. Its exact proof-only dependencies are installed and
+locked, but no D3 candidate library is imported or executed yet.
 
 ## Commands
 
@@ -50,7 +63,8 @@ write outside the test runner's ordinary cache.
 The dated dependency and fixture findings are retained in
 [`evidence/dependency-and-fixture-foundation.md`](./evidence/dependency-and-fixture-foundation.md).
 The first adapter findings are retained in
-[`evidence/native-baseline.md`](./evidence/native-baseline.md).
+[`evidence/native-baseline.md`](./evidence/native-baseline.md). The uPlot adapter findings are
+retained in [`evidence/uplot-canvas-baseline.md`](./evidence/uplot-canvas-baseline.md).
 
 ## Ownership boundary
 
