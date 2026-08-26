@@ -43,8 +43,20 @@ The uPlot Canvas slice adds:
 - focused model tests plus private Chromium, Firefox, and WebKit smoke, interaction, containment,
   and Axe checks.
 
-The D3-assisted SVG adapter remains absent. Its exact proof-only dependencies are installed and
-locked, but no D3 candidate library is imported or executed yet.
+The D3-assisted SVG slice adds:
+
+- `d3-array` pairing, `d3-scale` authored-domain mapping, and `d3-shape` line generation without a
+  general chart runtime or inferred scale;
+- the same full-resolution series, explicit gaps, knowledge marks, threshold, and annotation as the
+  native SVG baseline;
+- one shared authored-SVG renderer and native-HTML inspection contract for the native and D3
+  calculations, keeping semantics and interaction out of D3;
+- normalized view-box resize without an observer, listener, timer, or global mutation; and
+- focused geometry tests plus private Chromium, Firefox, and WebKit smoke, interaction, containment,
+  and Axe checks.
+
+All three bounded adapters are now implemented. Comparative performance, bundle, resource,
+adaptation, manual assistive-technology, and disposition evidence remains intentionally separate.
 
 ## Commands
 
@@ -64,7 +76,9 @@ The dated dependency and fixture findings are retained in
 [`evidence/dependency-and-fixture-foundation.md`](./evidence/dependency-and-fixture-foundation.md).
 The first adapter findings are retained in
 [`evidence/native-baseline.md`](./evidence/native-baseline.md). The uPlot adapter findings are
-retained in [`evidence/uplot-canvas-baseline.md`](./evidence/uplot-canvas-baseline.md).
+retained in [`evidence/uplot-canvas-baseline.md`](./evidence/uplot-canvas-baseline.md). The
+D3-assisted adapter findings are retained in
+[`evidence/d3-assisted-svg-baseline.md`](./evidence/d3-assisted-svg-baseline.md).
 
 ## Ownership boundary
 

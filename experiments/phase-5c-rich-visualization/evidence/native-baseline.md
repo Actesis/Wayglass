@@ -44,9 +44,9 @@ primary text token for that neutral control surface, after which the browser Axe
 
 This slice does not establish construction, update, inspection, memory, or bundle budgets; the
 complete visual, zoom, RTL, forced-color, grayscale, reduced-motion, touch, and long-label matrix;
-manual VoiceOver or NVDA task success; or comparative maintenance value. Those remain pending until
-the three adapters share the same harness. The lazy table has been validated for row and column
-completeness, not timed as part of adapter construction.
+manual VoiceOver or NVDA task success; or comparative maintenance value. All three adapters now
+share the harness, so those measurements and matrices are the next evidence step. The lazy table has
+been validated for row and column completeness, not timed as part of adapter construction.
 
 ## Reproduction
 

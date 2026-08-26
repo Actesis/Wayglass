@@ -1,42 +1,22 @@
 import type { Knowledge } from '../../../packages/core/src/state.js';
 
 import type { RichVisualizationInput, RichVisualizationPoint } from './model.js';
+import {
+  svgPlot,
+  svgViewBox,
+  type SvgGeometry,
+  type SvgKnowledgeMark,
+  type SvgKnowledgePath,
+  type SvgSeriesGeometry,
+} from './svg-geometry.js';
 
-// These normalized coordinates are private rendering mechanics. Exposing them as theme tokens would
-// create a meaningless API and allow themes to break the fixed proof geometry.
-export const nativeViewBox = { width: 1_000, height: 400 } as const;
-export const nativePlot = {
-  inlineStart: 80,
-  inlineEnd: 976,
-  blockStart: 24,
-  blockEnd: 352,
-} as const;
+export const nativePlot = svgPlot;
+export const nativeViewBox = svgViewBox;
 
-export interface NativeKnowledgePath {
-  readonly knowledge: Knowledge;
-  readonly data: string;
-}
-
-export interface NativeKnowledgeMark {
-  readonly pointId: string;
-  readonly knowledge: Knowledge;
-  readonly x: number;
-  readonly y: number | null;
-}
-
-export interface NativeSeriesGeometry {
-  readonly seriesId: string;
-  readonly seriesIndex: number;
-  readonly paths: readonly NativeKnowledgePath[];
-  readonly hitPath: string;
-  readonly marks: readonly NativeKnowledgeMark[];
-}
-
-export interface NativeGeometry {
-  readonly thresholdY: number;
-  readonly annotationX: number;
-  readonly series: readonly NativeSeriesGeometry[];
-}
+export type NativeKnowledgePath = SvgKnowledgePath;
+export type NativeKnowledgeMark = SvgKnowledgeMark;
+export type NativeSeriesGeometry = SvgSeriesGeometry;
+export type NativeGeometry = SvgGeometry;
 
 function round(value: number): number {
   return Number(value.toFixed(3));
@@ -44,17 +24,17 @@ function round(value: number): number {
 
 export function nativeX(input: RichVisualizationInput, observedAt: number): number {
   return round(
-    nativePlot.inlineStart +
+    svgPlot.inlineStart +
       ((observedAt - input.windowStart) / (input.windowEnd - input.windowStart)) *
-        (nativePlot.inlineEnd - nativePlot.inlineStart),
+        (svgPlot.inlineEnd - svgPlot.inlineStart),
   );
 }
 
 export function nativeY(input: RichVisualizationInput, value: number): number {
   return round(
-    nativePlot.blockEnd -
+    svgPlot.blockEnd -
       ((value - input.scaleMinimum) / (input.scaleMaximum - input.scaleMinimum)) *
-        (nativePlot.blockEnd - nativePlot.blockStart),
+        (svgPlot.blockEnd - svgPlot.blockStart),
   );
 }
 

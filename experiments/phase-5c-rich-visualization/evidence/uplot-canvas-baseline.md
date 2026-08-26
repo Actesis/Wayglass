@@ -54,8 +54,8 @@ cancels it during teardown. The warning is absent from the corrected visual and 
 This slice does not establish construction, update, inspection, memory, installed-size, production
 bundle, gzip, or parse budgets. It also does not complete the zoom, RTL, forced-color, grayscale,
 reduced-motion, touch, long-label, manual VoiceOver, NVDA, physical tablet, or repeated teardown
-matrix. Comparative maintenance value and complete dependency removal remain pending until the
-D3-assisted adapter shares the harness.
+matrix. All three adapters now share the harness; comparative maintenance value, complete dependency
+removal, and the precommitted measurements remain pending.
 
 ## Reproduction
 
