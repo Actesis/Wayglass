@@ -43,6 +43,19 @@ function semanticColor(styles: CSSStyleDeclaration, name: string): string {
 }
 
 function readPalette(root: HTMLElement): UPlotSemanticPalette {
+  if (matchMedia('(forced-colors: active)').matches) {
+    return {
+      seriesOne: 'CanvasText',
+      seriesTwo: 'CanvasText',
+      annotation: 'CanvasText',
+      caution: 'CanvasText',
+      conflict: 'Canvas',
+      inset: 'Canvas',
+      selection: 'Highlight',
+      text: 'CanvasText',
+      unavailable: 'CanvasText',
+    };
+  }
   const styles = getComputedStyle(root);
   return {
     seriesOne: semanticColor(styles, '--wg-color-semantic-data-series-1'),

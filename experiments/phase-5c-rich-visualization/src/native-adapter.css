@@ -3,13 +3,15 @@
 
 .p5c-proof {
   display: grid;
-  gap: var(--wg-space-semantic-layout-section-comfortable);
+  gap: var(--wg-component-layout-space-section);
   max-inline-size: 90rem;
   margin-inline: auto;
-  padding: var(--wg-space-semantic-page-comfortable);
+  padding-block: var(--wg-component-canvas-space-block);
+  padding-inline: var(--wg-component-canvas-space-inline);
   color: var(--wg-color-semantic-text-primary);
   background: var(--wg-color-semantic-surface-canvas);
   font-family: var(--wg-typography-family-body);
+  overflow-wrap: anywhere;
 }
 
 .p5c-proof h1,
@@ -21,7 +23,7 @@
 .p5c-adapter,
 .p5c-equivalence {
   display: grid;
-  gap: var(--wg-space-semantic-section-comfortable);
+  gap: var(--wg-component-panel-space-section);
   padding: var(--wg-component-panel-space);
   border: var(--wg-border-width-standard) solid var(--wg-color-semantic-border-subtle);
   border-radius: var(--wg-component-panel-radius);
@@ -55,7 +57,25 @@
   margin: 0;
 }
 
+.p5c-context dt,
+.p5c-context dd,
+.p5c-exact-value dt,
+.p5c-exact-value dd,
+.p5c-window span,
+.p5c-series-controls span,
+.p5c-equivalence p,
+.p5c-table-scroll caption,
+.p5c-table-scroll th,
+.p5c-table-scroll td {
+  /* Application-authored localized text and formatted values choose their own bidi paragraph
+     direction without changing the direction of the surrounding controls or layout. */
+  unicode-bidi: plaintext;
+}
+
 .p5c-visual {
+  /* The bounded time axis retains physical left-to-right chronology inside either document
+     direction so its plotted geometry and authored start/end labels cannot disagree. */
+  direction: ltr;
   min-inline-size: 0;
   padding: var(--wg-space-semantic-section-compact);
   border: var(--wg-border-width-standard) solid var(--wg-color-semantic-border-subtle);
@@ -157,6 +177,7 @@
 
 .p5c-window {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   gap: var(--wg-space-semantic-layout-related-compact);
   color: var(--wg-color-semantic-text-secondary);
@@ -212,14 +233,19 @@
   content: '';
 }
 
-.p5c-series-controls label[data-series-index='1']::before,
-.p5c-series-controls label[data-series-index='3']::before {
+.p5c-series-controls label[data-series-index='1']::before {
   border-color: var(--wg-color-semantic-data-series-2);
   border-style: dashed;
 }
 
 .p5c-series-controls label[data-series-index='2']::before {
   border-style: dotted;
+}
+
+.p5c-series-controls label[data-series-index='3']::before {
+  border-block-start-width: 5px;
+  border-color: var(--wg-color-semantic-data-series-2);
+  border-style: double;
 }
 
 .p5c-inspector button {
@@ -276,10 +302,6 @@
 }
 
 @media (max-width: 40rem) {
-  .p5c-proof {
-    padding: var(--wg-space-semantic-page-compact);
-  }
-
   .p5c-context,
   .p5c-exact-value {
     grid-template-columns: 1fr;
