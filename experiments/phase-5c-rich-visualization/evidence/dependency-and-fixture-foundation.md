@@ -47,5 +47,5 @@ pnpm audit --audit-level low
 pnpm experiment:phase5c:check
 ```
 
-The focused gate now performs strict typechecking and 28 deterministic proof tests, including the
+The focused gate now performs strict typechecking and 30 deterministic proof tests, including the
 retained model and fixture checks. The ordinary repository `check` includes that gate.

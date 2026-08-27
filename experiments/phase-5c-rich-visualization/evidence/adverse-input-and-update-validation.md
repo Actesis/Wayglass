@@ -64,5 +64,5 @@ pnpm exec playwright test --config playwright.phase5c-performance.config.ts
 This evidence exercises deterministic synchronous replacement, not streaming, partial transport,
 provider, persistence, retry, or concurrency behavior. The proof deliberately has no built-in
 user-facing error panel: applications own failure presentation and must not convert an input error
-into inferred operational status. Manual assistive-technology review and final maintenance and
-dependency disposition remain separate.
+into inferred operational status. Manual assistive-technology review and final owner disposition
+remain separate; the maintenance and dependency comparisons are retained in later evidence.
