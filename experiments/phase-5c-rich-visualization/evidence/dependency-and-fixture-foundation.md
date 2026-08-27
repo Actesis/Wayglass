@@ -2,7 +2,7 @@
 
 **Recorded:** 2026-08-25  
 **Scope:** partial evidence for `P5C-E02`, `P5C-E08`, and `P5C-E09`  
-**Disposition:** foundation accepted for the next proof slice; evidence rows remain incomplete
+**Disposition:** foundation accepted; the later dependency and isolation audit is complete
 
 ## Accepted dependency graph
 
@@ -14,8 +14,9 @@ transitives; and the three direct declaration packages resolve two declaration d
 The 2026-08-25 `pnpm audit --audit-level low` report did not name any candidate package. It did name
 six advisories in existing repository development-tool paths: three high and three moderate. Those
 findings are not caused by or traversed through the Phase 5C candidates, but the repository-wide
-audit is therefore not clean. Dependency and bundle evidence remains pending until the adapters
-record installed and packed size, production bundle gzip, parse cost, removal, and a fresh dated
+audit is therefore not clean. The later
+[`dependency-and-isolation-audit.md`](./dependency-and-isolation-audit.md) records installed and
+packed size, production bundle gzip, parse/evaluation cost, removal boundaries, and a fresh dated
 audit.
 
 No candidate library is imported or executed by this slice. Foundation packages do not import the
@@ -34,7 +35,7 @@ renderer-specific normalization:
 - fail-fast errors for duplicate identity, ordering, alignment, bounds, scale, and gap violations.
 
 The canonical serialized fixture SHA-256 is
-`8d93bc846259eec49a78f2730b0d2eb03854b0bd89d9a67a7380974800a1a68c`. Tests pin the hash and the
+`9975d323221772846d7b973adff1ee66bd9c52d07c75da891159d450c4c4db7a`. Tests pin the hash and the
 authored answers: Review breaches first at 08:00 UTC, and all queues recover within 15 minutes of
 the 14:00 UTC intervention.
 
@@ -46,5 +47,5 @@ pnpm audit --audit-level low
 pnpm experiment:phase5c:check
 ```
 
-The focused gate performs strict typechecking and 10 deterministic model and fixture tests. The
-ordinary repository `check` includes that gate.
+The focused gate now performs strict typechecking and 28 deterministic proof tests, including the
+retained model and fixture checks. The ordinary repository `check` includes that gate.

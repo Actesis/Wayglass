@@ -99,9 +99,9 @@ The adverse-input and update slice adds:
 - nine cross-browser adapter tests plus a post-validation performance and teardown rerun.
 
 All three bounded adapters and the named-desktop comparative measurement are now implemented. The
-automated responsive/non-color and task-interaction matrices also pass. Manual assistive-technology,
-complete dependency review, maintenance review, owner review, and disposition evidence remain
-intentionally separate.
+automated responsive/non-color, task-interaction, dependency, maintenance, complete-removal, and
+runtime-isolation matrices also pass. Manual assistive-technology, owner review, and disposition
+evidence remain intentionally separate.
 
 ## Commands
 
@@ -115,6 +115,7 @@ pnpm exec playwright test --config playwright.phase5c-performance.config.ts
 pnpm exec playwright test tests/browser/phase-5c-adaptation.spec.ts
 pnpm exec playwright test tests/browser/phase-5c-task-interaction.spec.ts
 pnpm exec playwright test tests/browser/phase-5c-adverse-update.spec.ts
+pnpm exec playwright test tests/browser/phase-5c-isolation.spec.ts
 ```
 
 The ordinary repository `check` includes the focused proof typecheck and tests. Tests use no
@@ -136,6 +137,9 @@ pointer, touch, and exact-label findings are retained in
 [`evidence/task-interaction-validation.md`](./evidence/task-interaction-validation.md). Adverse
 input, transactional replacement, and post-validation performance findings are retained in
 [`evidence/adverse-input-and-update-validation.md`](./evidence/adverse-input-and-update-validation.md).
+Dependency, maintenance, removal, bundle parse/evaluation, and cross-browser isolation findings are
+retained in
+[`evidence/dependency-and-isolation-audit.md`](./evidence/dependency-and-isolation-audit.md).
 
 ## Ownership boundary
 
