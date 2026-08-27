@@ -1,4 +1,4 @@
-import { createD3Geometry } from './d3-geometry.js';
+import { createD3Geometry, d3X, d3Y } from './d3-geometry.js';
 import type { RichVisualizationInput } from './model.js';
 import { mountSvgBaseline, type SvgBaselineHandle } from './svg-adapter.js';
 
@@ -8,13 +8,12 @@ export function mountD3Baseline(
   container: HTMLElement,
   input: RichVisualizationInput,
 ): D3BaselineHandle {
-  const geometry = createD3Geometry(input);
   return mountSvgBaseline(container, input, {
     className: 'p5c-d3',
     heading: 'D3-assisted SVG baseline',
     headingSuffix: 'd3',
-    geometry,
-    x: (observedAt) => Number(geometry.xScale(observedAt).toFixed(3)),
-    y: (value) => Number(geometry.yScale(value).toFixed(3)),
+    geometry: createD3Geometry,
+    x: d3X,
+    y: d3Y,
   });
 }

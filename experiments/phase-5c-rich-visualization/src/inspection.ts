@@ -13,7 +13,35 @@ import {
 export interface InspectionHandle {
   getState(): InspectionState;
   selectPoint(seriesId: string, observedAt: number): void;
+  replaceInput(input: RichVisualizationInput): void;
   destroy(): void;
+}
+
+export function assertCompatibleReplacement(
+  previous: RichVisualizationInput,
+  next: RichVisualizationInput,
+): void {
+  const incompatible =
+    previous.id !== next.id ||
+    previous.windowStart !== next.windowStart ||
+    previous.windowEnd !== next.windowEnd ||
+    previous.scaleMinimum !== next.scaleMinimum ||
+    previous.scaleMaximum !== next.scaleMaximum ||
+    previous.series.length !== next.series.length ||
+    previous.series.some((series, seriesIndex) => {
+      const replacement = next.series[seriesIndex];
+      return (
+        replacement?.id !== series.id ||
+        replacement.points.length !== series.points.length ||
+        series.points.some((point, pointIndex) => replacement.points[pointIndex]?.id !== point.id)
+      );
+    });
+
+  if (incompatible) {
+    throw new Error(
+      'P5C_REPLACEMENT_SHAPE: replacement input must retain the proof identity, window, scale, series order, and point identities.',
+    );
+  }
 }
 
 function element<K extends keyof HTMLElementTagNameMap>(
@@ -41,6 +69,7 @@ export function mountInspection(
   input: RichVisualizationInput,
   onStateChange: (state: InspectionState) => void,
 ): InspectionHandle {
+  let currentInput = input;
   let state = createInspectionState(input);
   const region = element('div');
   region.className = 'p5c-interaction';
@@ -49,6 +78,7 @@ export function mountInspection(
   visibility.className = 'p5c-series-controls';
   visibility.append(element('legend', 'Visible series'));
   const visibilityInputs = new Map<string, HTMLInputElement>();
+  const visibilityLabels = new Map<string, HTMLElement>();
   for (const [seriesIndex, series] of input.series.entries()) {
     const label = element('label');
     label.dataset.seriesIndex = String(seriesIndex);
@@ -56,11 +86,13 @@ export function mountInspection(
     checkbox.type = 'checkbox';
     checkbox.checked = true;
     checkbox.addEventListener('change', () => {
-      state = setInspectionSeriesVisibility(input, state, series.id, checkbox.checked);
+      state = setInspectionSeriesVisibility(currentInput, state, series.id, checkbox.checked);
       renderState();
     });
     visibilityInputs.set(series.id, checkbox);
-    label.append(checkbox, element('span', series.label));
+    const text = element('span', series.label);
+    visibilityLabels.set(series.id, text);
+    label.append(checkbox, text);
     visibility.append(label);
   }
   region.append(visibility);
@@ -80,19 +112,19 @@ export function mountInspection(
     button.type = 'button';
   }
   previousSeries.addEventListener('click', () => {
-    state = moveInspectionSeries(input, state, -1);
+    state = moveInspectionSeries(currentInput, state, -1);
     renderState();
   });
   nextSeries.addEventListener('click', () => {
-    state = moveInspectionSeries(input, state, 1);
+    state = moveInspectionSeries(currentInput, state, 1);
     renderState();
   });
   previousSample.addEventListener('click', () => {
-    state = moveInspectionSample(input, state, -1);
+    state = moveInspectionSample(currentInput, state, -1);
     renderState();
   });
   nextSample.addEventListener('click', () => {
-    state = moveInspectionSample(input, state, 1);
+    state = moveInspectionSample(currentInput, state, 1);
     renderState();
   });
   navigation.append(previousSeries, previousSample, nextSample, nextSeries);
@@ -109,9 +141,9 @@ export function mountInspection(
   container.append(region);
 
   function renderState() {
-    const selectedSeries = input.series[state.seriesIndex]!;
+    const selectedSeries = currentInput.series[state.seriesIndex]!;
     const selectedPoint = selectedSeries.points[state.sampleIndex]!;
-    for (const series of input.series) {
+    for (const series of currentInput.series) {
       const checkbox = visibilityInputs.get(series.id);
       if (checkbox) checkbox.checked = state.visibleSeriesIds.includes(series.id);
     }
@@ -138,7 +170,16 @@ export function mountInspection(
   return {
     getState: () => state,
     selectPoint: (seriesId, observedAt) => {
-      state = selectInspectionPoint(input, state, seriesId, observedAt);
+      state = selectInspectionPoint(currentInput, state, seriesId, observedAt);
+      renderState();
+    },
+    replaceInput: (nextInput) => {
+      assertCompatibleReplacement(currentInput, nextInput);
+      currentInput = nextInput;
+      for (const series of currentInput.series) {
+        const label = visibilityLabels.get(series.id);
+        if (label) label.textContent = series.label;
+      }
       renderState();
     },
     destroy: () => region.remove(),

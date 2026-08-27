@@ -1,4 +1,8 @@
-import { mountInspection, type InspectionHandle } from './inspection.js';
+import {
+  assertCompatibleReplacement,
+  mountInspection,
+  type InspectionHandle,
+} from './inspection.js';
 import type { RichVisualizationInput } from './model.js';
 import type { InspectionState } from './selection.js';
 import { svgPlot, svgViewBox, type SvgGeometry, type SvgKnowledgeMark } from './svg-geometry.js';
@@ -8,6 +12,7 @@ const svgNamespace = 'http://www.w3.org/2000/svg';
 export interface SvgBaselineHandle {
   readonly root: HTMLElement;
   getState(): InspectionState;
+  replaceInput(input: RichVisualizationInput): void;
   destroy(): void;
 }
 
@@ -15,9 +20,9 @@ export interface SvgBaselineOptions {
   readonly className: string;
   readonly heading: string;
   readonly headingSuffix: string;
-  readonly geometry: SvgGeometry;
-  x(observedAt: number): number;
-  y(value: number): number;
+  geometry(input: RichVisualizationInput): SvgGeometry;
+  x(input: RichVisualizationInput, observedAt: number): number;
+  y(input: RichVisualizationInput, value: number): number;
 }
 
 function element<K extends keyof HTMLElementTagNameMap>(
@@ -68,6 +73,11 @@ export function mountSvgBaseline(
   input: RichVisualizationInput,
   options: SvgBaselineOptions,
 ): SvgBaselineHandle {
+  let currentInput = input;
+  let seriesGroups = new Map<string, SVGGElement>();
+  let selectionLine = svgElement('line');
+  let selectionMark = svgElement('circle');
+
   const root = element('section');
   root.className = `p5c-adapter ${options.className}`;
   root.setAttribute('aria-labelledby', `${input.id}-${options.headingSuffix}-heading`);
@@ -78,13 +88,18 @@ export function mountSvgBaseline(
 
   const context = element('dl');
   context.className = 'p5c-context';
+  const scaleValue = element('dd');
+  const thresholdLabel = element('dt');
+  const thresholdValue = element('dd');
+  const annotationLabel = element('dt');
+  const annotationValue = element('dd');
   context.append(
     element('dt', 'Scale'),
-    element('dd', `${input.formattedScaleMinimum}–${input.formattedScaleMaximum}`),
-    element('dt', input.threshold.label),
-    element('dd', input.threshold.formattedValue),
-    element('dt', input.annotation.label),
-    element('dd', `${input.annotation.formattedObservedAt}. ${input.annotation.detail}`),
+    scaleValue,
+    thresholdLabel,
+    thresholdValue,
+    annotationLabel,
+    annotationValue,
   );
   root.append(context);
 
@@ -97,92 +112,107 @@ export function mountSvgBaseline(
     'aria-hidden': 'true',
     focusable: 'false',
   });
-
-  const threshold = svgElement('line');
-  setSvgAttributes(threshold, {
-    x1: svgPlot.inlineStart,
-    x2: svgPlot.inlineEnd,
-    y1: options.geometry.thresholdY,
-    y2: options.geometry.thresholdY,
-  });
-  threshold.classList.add('p5c-threshold');
-  svg.append(threshold);
-
-  const annotation = svgElement('line');
-  setSvgAttributes(annotation, {
-    x1: options.geometry.annotationX,
-    x2: options.geometry.annotationX,
-    y1: svgPlot.blockStart,
-    y2: svgPlot.blockEnd,
-  });
-  annotation.classList.add('p5c-annotation');
-  svg.append(annotation);
-
-  const seriesGroups = new Map<string, SVGGElement>();
-  for (const seriesGeometry of options.geometry.series) {
-    const group = svgElement('g');
-    group.dataset.seriesId = seriesGeometry.seriesId;
-    group.dataset.seriesIndex = String(seriesGeometry.seriesIndex);
-    for (const candidatePath of seriesGeometry.paths) {
-      const path = svgElement('path');
-      setSvgAttributes(path, { d: candidatePath.data });
-      path.classList.add('p5c-series-line');
-      path.dataset.knowledge = candidatePath.knowledge;
-      group.append(path);
-    }
-    for (const mark of seriesGeometry.marks) appendKnowledgeMark(group, mark);
-
-    const hitPath = svgElement('path');
-    setSvgAttributes(hitPath, { d: seriesGeometry.hitPath });
-    hitPath.classList.add('p5c-hit-target');
-    hitPath.addEventListener('click', (event) => {
-      const bounds = svg.getBoundingClientRect();
-      const normalizedX = ((event.clientX - bounds.left) / bounds.width) * svgViewBox.width;
-      const ratio = Math.min(
-        Math.max(
-          (normalizedX - svgPlot.inlineStart) / (svgPlot.inlineEnd - svgPlot.inlineStart),
-          0,
-        ),
-        1,
-      );
-      inspection.selectPoint(
-        seriesGeometry.seriesId,
-        input.windowStart + ratio * (input.windowEnd - input.windowStart),
-      );
-    });
-    group.append(hitPath);
-    seriesGroups.set(seriesGeometry.seriesId, group);
-    svg.append(group);
-  }
-
-  const selectionLine = svgElement('line');
-  selectionLine.classList.add('p5c-selection-line');
-  setSvgAttributes(selectionLine, { y1: svgPlot.blockStart, y2: svgPlot.blockEnd });
-  const selectionMark = svgElement('circle');
-  selectionMark.classList.add('p5c-selection-mark');
-  selectionMark.setAttribute('r', '7');
-  svg.append(selectionLine, selectionMark);
   visual.append(svg);
 
   const windowLabels = element('div');
   windowLabels.className = 'p5c-window';
-  windowLabels.append(
-    element('span', input.formattedWindowStart),
-    element('span', input.formattedWindowEnd),
-  );
+  const windowStart = element('span');
+  const windowEnd = element('span');
+  windowLabels.append(windowStart, windowEnd);
   visual.append(windowLabels);
   root.append(visual);
 
+  function renderGeometry() {
+    const geometry = options.geometry(currentInput);
+    const fragment = document.createDocumentFragment();
+    seriesGroups = new Map();
+
+    const threshold = svgElement('line');
+    setSvgAttributes(threshold, {
+      x1: svgPlot.inlineStart,
+      x2: svgPlot.inlineEnd,
+      y1: geometry.thresholdY,
+      y2: geometry.thresholdY,
+    });
+    threshold.classList.add('p5c-threshold');
+    fragment.append(threshold);
+
+    const annotation = svgElement('line');
+    setSvgAttributes(annotation, {
+      x1: geometry.annotationX,
+      x2: geometry.annotationX,
+      y1: svgPlot.blockStart,
+      y2: svgPlot.blockEnd,
+    });
+    annotation.classList.add('p5c-annotation');
+    fragment.append(annotation);
+
+    for (const seriesGeometry of geometry.series) {
+      const group = svgElement('g');
+      group.dataset.seriesId = seriesGeometry.seriesId;
+      group.dataset.seriesIndex = String(seriesGeometry.seriesIndex);
+      for (const candidatePath of seriesGeometry.paths) {
+        const path = svgElement('path');
+        setSvgAttributes(path, { d: candidatePath.data });
+        path.classList.add('p5c-series-line');
+        path.dataset.knowledge = candidatePath.knowledge;
+        group.append(path);
+      }
+      for (const mark of seriesGeometry.marks) appendKnowledgeMark(group, mark);
+
+      const hitPath = svgElement('path');
+      setSvgAttributes(hitPath, { d: seriesGeometry.hitPath });
+      hitPath.classList.add('p5c-hit-target');
+      hitPath.addEventListener('click', (event) => {
+        const bounds = svg.getBoundingClientRect();
+        const normalizedX = ((event.clientX - bounds.left) / bounds.width) * svgViewBox.width;
+        const ratio = Math.min(
+          Math.max(
+            (normalizedX - svgPlot.inlineStart) / (svgPlot.inlineEnd - svgPlot.inlineStart),
+            0,
+          ),
+          1,
+        );
+        inspection.selectPoint(
+          seriesGeometry.seriesId,
+          currentInput.windowStart + ratio * (currentInput.windowEnd - currentInput.windowStart),
+        );
+      });
+      group.append(hitPath);
+      seriesGroups.set(seriesGeometry.seriesId, group);
+      fragment.append(group);
+    }
+
+    selectionLine = svgElement('line');
+    selectionLine.classList.add('p5c-selection-line');
+    setSvgAttributes(selectionLine, { y1: svgPlot.blockStart, y2: svgPlot.blockEnd });
+    selectionMark = svgElement('circle');
+    selectionMark.classList.add('p5c-selection-mark');
+    selectionMark.setAttribute('r', '7');
+    fragment.append(selectionLine, selectionMark);
+    svg.replaceChildren(fragment);
+  }
+
+  function renderContext() {
+    scaleValue.textContent = `${currentInput.formattedScaleMinimum}–${currentInput.formattedScaleMaximum}`;
+    thresholdLabel.textContent = currentInput.threshold.label;
+    thresholdValue.textContent = currentInput.threshold.formattedValue;
+    annotationLabel.textContent = currentInput.annotation.label;
+    annotationValue.textContent = `${currentInput.annotation.formattedObservedAt}. ${currentInput.annotation.detail}`;
+    windowStart.textContent = currentInput.formattedWindowStart;
+    windowEnd.textContent = currentInput.formattedWindowEnd;
+  }
+
   function renderState(state: InspectionState) {
-    const selectedSeries = input.series[state.seriesIndex]!;
+    const selectedSeries = currentInput.series[state.seriesIndex]!;
     const selectedPoint = selectedSeries.points[state.sampleIndex]!;
-    for (const series of input.series) {
+    for (const series of currentInput.series) {
       seriesGroups
         .get(series.id)
         ?.toggleAttribute('hidden', !state.visibleSeriesIds.includes(series.id));
     }
 
-    const x = options.x(selectedPoint.observedAt);
+    const x = options.x(currentInput, selectedPoint.observedAt);
     selectionLine.setAttribute('x1', String(x));
     selectionLine.setAttribute('x2', String(x));
     if (selectedPoint.value === null) {
@@ -190,17 +220,26 @@ export function mountSvgBaseline(
     } else {
       selectionMark.removeAttribute('hidden');
       selectionMark.setAttribute('cx', String(x));
-      selectionMark.setAttribute('cy', String(options.y(selectedPoint.value)));
+      selectionMark.setAttribute('cy', String(options.y(currentInput, selectedPoint.value)));
     }
     selectionMark.dataset.seriesIndex = String(state.seriesIndex);
   }
 
+  renderContext();
+  renderGeometry();
   const inspection: InspectionHandle = mountInspection(root, input, renderState);
   container.append(root);
 
   return {
     root,
     getState: () => inspection.getState(),
+    replaceInput: (nextInput) => {
+      assertCompatibleReplacement(currentInput, nextInput);
+      currentInput = nextInput;
+      renderContext();
+      renderGeometry();
+      inspection.replaceInput(nextInput);
+    },
     destroy: () => {
       inspection.destroy();
       root.remove();

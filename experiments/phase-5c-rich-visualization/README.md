@@ -55,8 +55,19 @@ The D3-assisted SVG slice adds:
 - focused geometry tests plus private Chromium, Firefox, and WebKit smoke, interaction, containment,
   and Axe checks.
 
-All three bounded adapters are now implemented. Comparative performance, bundle, resource,
-adaptation, manual assistive-technology, and disposition evidence remains intentionally separate.
+The comparative-measurement slice adds:
+
+- fixed-envelope in-place replacement for all three adapters, with stable inspector focus,
+  selection, and semantic HTML;
+- explicit rejection of replacement input that changes proof identity, window, scale, series order,
+  or point identities;
+- isolated production JavaScript bundle measurements for each self-contained adapter;
+- construction, exact-inspection, and replacement timing from a minified production build; and
+- 60-update teardown checks for retained heap, adapter DOM, resize observers, and animation frames.
+
+All three bounded adapters and the named-desktop comparative measurement are now implemented.
+Adaptation, manual assistive-technology, complete dependency review, maintenance review, and
+disposition evidence remain intentionally separate.
 
 ## Commands
 
@@ -66,6 +77,7 @@ From the repository root:
 pnpm experiment:phase5c:check
 pnpm experiment:phase5c:typecheck
 pnpm experiment:phase5c:test
+pnpm exec playwright test --config playwright.phase5c-performance.config.ts
 ```
 
 The ordinary repository `check` includes the focused proof typecheck and tests. Tests use no
@@ -78,7 +90,9 @@ The first adapter findings are retained in
 [`evidence/native-baseline.md`](./evidence/native-baseline.md). The uPlot adapter findings are
 retained in [`evidence/uplot-canvas-baseline.md`](./evidence/uplot-canvas-baseline.md). The
 D3-assisted adapter findings are retained in
-[`evidence/d3-assisted-svg-baseline.md`](./evidence/d3-assisted-svg-baseline.md).
+[`evidence/d3-assisted-svg-baseline.md`](./evidence/d3-assisted-svg-baseline.md). Production bundle,
+timing, replacement, and resource findings are retained in
+[`evidence/comparative-measurements.md`](./evidence/comparative-measurements.md).
 
 ## Ownership boundary
 

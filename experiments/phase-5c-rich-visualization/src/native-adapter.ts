@@ -12,8 +12,8 @@ export function mountNativeBaseline(
     className: 'p5c-native',
     heading: 'Native SVG and HTML baseline',
     headingSuffix: 'native',
-    geometry: createNativeGeometry(input),
-    x: (observedAt) => nativeX(input, observedAt),
-    y: (value) => nativeY(input, value),
+    geometry: createNativeGeometry,
+    x: nativeX,
+    y: nativeY,
   });
 }

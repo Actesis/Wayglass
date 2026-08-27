@@ -11,3 +11,4 @@ test-results/
 playwright-report/
 blob-report/
 *.tsbuildinfo
+experiments/phase-5c-rich-visualization/.benchmark-dist/
