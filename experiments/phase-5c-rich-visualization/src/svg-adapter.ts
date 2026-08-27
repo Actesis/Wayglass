@@ -3,7 +3,7 @@ import {
   mountInspection,
   type InspectionHandle,
 } from './inspection.js';
-import type { RichVisualizationInput } from './model.js';
+import { assertRichVisualizationInput, type RichVisualizationInput } from './model.js';
 import type { InspectionState } from './selection.js';
 import { svgPlot, svgViewBox, type SvgGeometry, type SvgKnowledgeMark } from './svg-geometry.js';
 
@@ -73,6 +73,7 @@ export function mountSvgBaseline(
   input: RichVisualizationInput,
   options: SvgBaselineOptions,
 ): SvgBaselineHandle {
+  assertRichVisualizationInput(input);
   let currentInput = input;
   let seriesGroups = new Map<string, SVGGElement>();
   let selectionLine = svgElement('line');

@@ -1,6 +1,6 @@
 import type { Knowledge } from '../../../packages/core/src/state.js';
 
-import type { RichVisualizationInput } from './model.js';
+import { assertRichVisualizationInput, type RichVisualizationInput } from './model.js';
 import {
   createInspectionState,
   moveInspectionSample,
@@ -21,6 +21,7 @@ export function assertCompatibleReplacement(
   previous: RichVisualizationInput,
   next: RichVisualizationInput,
 ): void {
+  assertRichVisualizationInput(next);
   const incompatible =
     previous.id !== next.id ||
     previous.windowStart !== next.windowStart ||
@@ -174,7 +175,7 @@ export function mountInspection(
       renderState();
     },
     replaceInput: (nextInput) => {
-      assertCompatibleReplacement(currentInput, nextInput);
+      // The owning adapter validates compatibility before mutating rendered or inspection state.
       currentInput = nextInput;
       for (const series of currentInput.series) {
         const label = visibilityLabels.get(series.id);

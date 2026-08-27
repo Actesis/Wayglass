@@ -359,5 +359,6 @@ queue fixture, native SVG/HTML baseline, uPlot Canvas adapter, D3-assisted SVG a
 named-desktop production bundle, timing, replacement, and resource measurements are implemented. The
 desktop budgets and automated responsive/non-color adaptation matrix pass. Sighted keyboard,
 pointer, touch, complete-task, and exact-table evidence also pass across the supported browser
-matrix. Manual assistive-technology work, complete dependency and maintenance review, owner review,
-cleanup, and disposition remain separately gated.
+matrix. The complete adverse-input boundary and transactional replacement matrix also pass. Manual
+assistive-technology work, complete dependency and maintenance review, owner review, cleanup, and
+disposition remain separately gated.
