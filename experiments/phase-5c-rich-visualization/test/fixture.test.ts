@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest';
 
 import {
   createQueueInvestigationFixture,
+  queueInvestigationAdaptationFixture,
   queueInvestigationReplacementFixture,
   queueFixtureExpectedTaskAnswers,
   queueFixtureInterventionIndex,
@@ -75,6 +76,16 @@ describe('Phase 5C deterministic queue fixture', () => {
       formattedValue: '37 items',
     });
     expect(Object.isFrozen(queueInvestigationReplacementFixture)).toBe(true);
+  });
+
+  it('provides validated long application-authored labels without changing the envelope', () => {
+    expect(Object.isFrozen(queueInvestigationAdaptationFixture)).toBe(true);
+    expect(queueInvestigationAdaptationFixture.id).toBe(queueInvestigationFixture.id);
+    expect(queueInvestigationAdaptationFixture.series.map(({ id }) => id)).toEqual(
+      queueInvestigationFixture.series.map(({ id }) => id),
+    );
+    expect(queueInvestigationAdaptationFixture.series[0]!.label.length).toBeGreaterThan(40);
+    expect(queueInvestigationAdaptationFixture.annotation.detail.length).toBeGreaterThan(80);
   });
 
   it('encodes the authored first-breach answer independently of series order', () => {

@@ -65,9 +65,22 @@ The comparative-measurement slice adds:
 - construction, exact-inspection, and replacement timing from a minified production build; and
 - 60-update teardown checks for retained heap, adapter DOM, resize observers, and animation frames.
 
-All three bounded adapters and the named-desktop comparative measurement are now implemented.
-Adaptation, manual assistive-technology, complete dependency review, maintenance review, and
-disposition evidence remain intentionally separate.
+The responsive and non-color adaptation slice adds:
+
+- reproducible private proof states for official themes, densities, direction, grayscale, and long
+  localized application text;
+- genuine compact/comfortable mapping and contained 320/1,440-pixel layouts;
+- long-text reflow at 200% root text in both themes without truncation or page overflow;
+- physical left-to-right chronology inside direction-neutral RTL composition, with bidi isolation
+  for application-authored labels and formatted values;
+- four distinct non-color series and legend patterns; and
+- forced-color Canvas system colors plus retained SVG, grayscale, reduced-motion, persistent HTML,
+  and exact-table meaning.
+
+All three bounded adapters and the named-desktop comparative measurement are now implemented. The
+automated responsive and non-color adaptation matrix also passes. Task interaction, manual
+assistive-technology, complete dependency review, maintenance review, and disposition evidence
+remain intentionally separate.
 
 ## Commands
 
@@ -78,6 +91,7 @@ pnpm experiment:phase5c:check
 pnpm experiment:phase5c:typecheck
 pnpm experiment:phase5c:test
 pnpm exec playwright test --config playwright.phase5c-performance.config.ts
+pnpm exec playwright test tests/browser/phase-5c-adaptation.spec.ts
 ```
 
 The ordinary repository `check` includes the focused proof typecheck and tests. Tests use no
@@ -92,7 +106,9 @@ retained in [`evidence/uplot-canvas-baseline.md`](./evidence/uplot-canvas-baseli
 D3-assisted adapter findings are retained in
 [`evidence/d3-assisted-svg-baseline.md`](./evidence/d3-assisted-svg-baseline.md). Production bundle,
 timing, replacement, and resource findings are retained in
-[`evidence/comparative-measurements.md`](./evidence/comparative-measurements.md).
+[`evidence/comparative-measurements.md`](./evidence/comparative-measurements.md). Responsive,
+theme/density, RTL, long-text, and non-color findings are retained in
+[`evidence/adaptation-validation.md`](./evidence/adaptation-validation.md).
 
 ## Ownership boundary
 

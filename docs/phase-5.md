@@ -357,6 +357,6 @@ unresolved human, provider, device, or operational evidence has a named owner an
 The current Phase 5C step is the bounded private proof. Its shared deterministic input, maximum
 queue fixture, native SVG/HTML baseline, uPlot Canvas adapter, D3-assisted SVG adapter, and
 named-desktop production bundle, timing, replacement, and resource measurements are implemented. The
-desktop budgets pass. Responsive and non-color adaptation, supported-browser task evidence, manual
-assistive-technology work, complete dependency and maintenance review, cleanup, and disposition
-remain separately gated.
+desktop budgets and automated responsive/non-color adaptation matrix pass. Sighted keyboard,
+pointer, and touch task evidence, manual assistive-technology work, complete dependency and
+maintenance review, cleanup, and disposition remain separately gated.

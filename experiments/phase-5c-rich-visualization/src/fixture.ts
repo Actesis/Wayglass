@@ -168,3 +168,38 @@ export function createQueueInvestigationReplacementFixture(): RichVisualizationI
 }
 
 export const queueInvestigationReplacementFixture = createQueueInvestigationReplacementFixture();
+
+export function createQueueInvestigationAdaptationFixture(): RichVisualizationInput {
+  const input = {
+    ...queueInvestigationFixture,
+    title: 'Untersuchung der Warteschlangen für regionsübergreifende Arbeitsweiterleitung',
+    summary:
+      'Die Anwendung meldet eine vorsichtige Schwellenüberschreitung, eine bestätigte Weiterleitungsmaßnahme und ausdrücklich gekennzeichnete Wissenslücken über das vollständige Beobachtungsfenster.',
+    formattedWindowStart: 'Dienstag, 18. August 2026, 00:00 koordinierte Weltzeit',
+    formattedWindowEnd: 'Mittwoch, 19. August 2026, 00:00 koordinierte Weltzeit',
+    series: queueInvestigationFixture.series.map((series, seriesIndex) => ({
+      ...series,
+      label: [
+        'Warteschlange für ausführliche manuelle Überprüfung',
+        'Warteschlange für neu eingegangene Arbeitsanforderungen',
+        'Warteschlange für regionsübergreifende Klassifizierung',
+        'Warteschlange für bestätigte ausgehende Weiterleitung',
+      ][seriesIndex]!,
+    })),
+    threshold: {
+      ...queueInvestigationFixture.threshold,
+      label: 'Von der Anwendung festgelegter Vorsichtsschwellenwert',
+    },
+    annotation: {
+      ...queueInvestigationFixture.annotation,
+      label: 'Bestätigte regionsübergreifende Weiterleitungsmaßnahme',
+      detail:
+        'Die Anwendung hat eingehende Arbeit um 14:00 Uhr koordinierter Weltzeit neu verteilt.',
+    },
+  } satisfies RichVisualizationInput;
+
+  assertRichVisualizationInput(input);
+  return deepFreeze(input);
+}
+
+export const queueInvestigationAdaptationFixture = createQueueInvestigationAdaptationFixture();
