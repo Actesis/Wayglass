@@ -36,7 +36,9 @@ test.describe('Phase 5C uPlot Canvas adapter', () => {
     const bounds = await overlay.boundingBox();
     expect(bounds).not.toBeNull();
     await page.mouse.click(bounds!.x + bounds!.width * 0.75, bounds!.y + bounds!.height * 0.25);
-    await expect(adapter.locator('[data-inspector-time]')).not.toHaveText('2026-08-18 00:00 UTC');
+    await expect(adapter.locator('[data-inspector-time]')).not.toHaveText(
+      '2026-08-18 00:00:00 UTC',
+    );
   });
 
   test('resizes without overflow and has no detectable accessibility violations', async ({

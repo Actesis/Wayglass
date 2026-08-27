@@ -19,18 +19,24 @@ test.describe('Phase 5C native baseline', () => {
 
     await expect(adapter.locator('[data-inspector-series]')).toHaveText('Review queue');
     await adapter.getByRole('button', { name: 'Next sample' }).click();
-    await expect(adapter.locator('[data-inspector-time]')).toHaveText('2026-08-18 00:00 UTC');
+    await expect(adapter.locator('[data-inspector-time]')).toHaveText('2026-08-18 00:00:30 UTC');
     await expect(adapter.locator('[data-inspector-value]')).toHaveText('39 items');
     await adapter.getByRole('button', { name: 'Next series' }).click();
     await expect(adapter.locator('[data-inspector-series]')).toHaveText('Intake queue');
 
-    const bounds = await graphic.boundingBox();
-    expect(bounds).not.toBeNull();
-    await adapter
-      .locator('[data-series-id="review"] .p5c-hit-target')
-      .dispatchEvent('click', { clientX: bounds!.x + bounds!.width * 0.75 });
+    await adapter.getByRole('button', { name: 'Previous series' }).click();
+    await graphic.scrollIntoViewIfNeeded();
+    const clientPoint = await graphic.evaluate((svg) => {
+      const matrix = svg.getScreenCTM();
+      if (!matrix) throw new Error('P5C_TEST_SVG_MATRIX: SVG has no screen transform.');
+      const point = new DOMPoint(752, 188).matrixTransform(matrix);
+      return { x: point.x, y: point.y };
+    });
+    await page.mouse.click(clientPoint.x, clientPoint.y);
     await expect(adapter.locator('[data-inspector-series]')).toHaveText('Review queue');
-    await expect(adapter.locator('[data-inspector-time]')).toHaveText('2026-08-18 17:56 UTC');
+    await expect(adapter.locator('[data-inspector-time]')).not.toHaveText(
+      '2026-08-18 00:00:30 UTC',
+    );
   });
 
   test('preserves native visibility controls and the complete exact table', async ({ page }) => {

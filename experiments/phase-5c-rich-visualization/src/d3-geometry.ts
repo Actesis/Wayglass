@@ -47,7 +47,6 @@ export function createD3Geometry(input: RichVisualizationInput): D3Geometry {
     yScale,
     series: input.series.map((series, seriesIndex) => {
       const paths = new Map<Knowledge, string[]>();
-      const hitPaths: string[] = [];
       const marks: SvgKnowledgeMark[] = [];
 
       for (const point of series.points) {
@@ -68,14 +67,12 @@ export function createD3Geometry(input: RichVisualizationInput): D3Geometry {
         const knowledgePaths = paths.get(current.knowledge) ?? [];
         knowledgePaths.push(path);
         paths.set(current.knowledge, knowledgePaths);
-        hitPaths.push(path);
       }
 
       return {
         seriesId: series.id,
         seriesIndex,
         paths: Array.from(paths, ([knowledge, data]) => ({ knowledge, data: data.join(' ') })),
-        hitPath: hitPaths.join(' '),
         marks,
       };
     }),

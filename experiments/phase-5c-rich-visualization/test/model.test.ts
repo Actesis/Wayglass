@@ -68,6 +68,19 @@ describe('Phase 5C shared input boundary', () => {
     const misaligned = mutableFixture();
     points(misaligned, 1)[10]!.observedAt = (points(misaligned, 1)[10]!.observedAt as number) + 1;
     expect(() => assertRichVisualizationInput(misaligned)).toThrow('P5C_INPUT_ALIGNMENT');
+
+    const ambiguousFormattedTime = mutableFixture();
+    points(ambiguousFormattedTime)[1]!.formattedObservedAt =
+      points(ambiguousFormattedTime)[0]!.formattedObservedAt;
+    expect(() => assertRichVisualizationInput(ambiguousFormattedTime)).toThrow(
+      'P5C_INPUT_FORMATTED_TIME_DUPLICATE',
+    );
+
+    const misalignedFormattedTime = mutableFixture();
+    points(misalignedFormattedTime, 1)[10]!.formattedObservedAt = 'Different authored time';
+    expect(() => assertRichVisualizationInput(misalignedFormattedTime)).toThrow(
+      'P5C_INPUT_FORMATTED_TIME_ALIGNMENT',
+    );
   });
 
   it('rejects values outside the scale and semantically ambiguous gaps', () => {

@@ -152,11 +152,12 @@
   stroke-dasharray: 5 5;
 }
 
-.p5c-hit-target {
-  fill: none;
-  stroke: transparent;
-  stroke-width: 18;
-  pointer-events: stroke;
+.p5c-plot-hit-area {
+  fill: transparent;
+  pointer-events: all;
+}
+
+.p5c-visual svg {
   cursor: crosshair;
 }
 
@@ -227,6 +228,10 @@
   align-items: center;
 }
 
+.p5c-series-controls label {
+  min-block-size: var(--wg-component-button-size-minimum);
+}
+
 .p5c-series-controls label::before {
   inline-size: 2rem;
   border-block-start: 3px solid var(--wg-color-semantic-data-series-1);
@@ -259,7 +264,8 @@
 
 .p5c-inspector button:focus-visible,
 .p5c-series-controls input:focus-visible,
-.p5c-exact-table summary:focus-visible {
+.p5c-exact-table summary:focus-visible,
+.p5c-table-scroll:focus-visible {
   outline: var(--wg-component-focus-ring-width) solid var(--wg-component-focus-ring-color);
   outline-offset: var(--wg-component-focus-ring-offset);
 }

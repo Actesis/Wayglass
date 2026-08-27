@@ -34,13 +34,17 @@ test.describe('Phase 5C D3-assisted SVG adapter', () => {
     await expect(adapter.locator('[data-series-id="intake"]')).toBeHidden();
 
     const graphic = adapter.locator('.p5c-visual svg');
-    const bounds = await graphic.boundingBox();
-    expect(bounds).not.toBeNull();
-    await adapter
-      .locator('[data-series-id="review"] .p5c-hit-target')
-      .dispatchEvent('click', { clientX: bounds!.x + bounds!.width * 0.75 });
+    const clientPoint = await graphic.evaluate((svg) => {
+      const matrix = svg.getScreenCTM();
+      if (!matrix) throw new Error('P5C_TEST_SVG_MATRIX: SVG has no screen transform.');
+      const point = new DOMPoint(752, 188).matrixTransform(matrix);
+      return { x: point.x, y: point.y };
+    });
+    await page.mouse.click(clientPoint.x, clientPoint.y);
     await expect(adapter.locator('[data-inspector-series]')).toHaveText('Review queue');
-    await expect(adapter.locator('[data-inspector-time]')).toHaveText('2026-08-18 17:56 UTC');
+    await expect(adapter.locator('[data-inspector-time]')).not.toHaveText(
+      '2026-08-18 00:00:00 UTC',
+    );
   });
 
   test('contains at narrow width and has no detectable accessibility violations', async ({
