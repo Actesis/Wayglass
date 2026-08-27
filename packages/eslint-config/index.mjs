@@ -9,6 +9,7 @@ export default tseslint.config(
   {
     ignores: [
       '**/coverage/**',
+      '**/.benchmark-dist/**',
       '**/dist/**',
       '**/.vitepress/cache/**',
       '**/node_modules/**',

@@ -355,6 +355,8 @@ application boundaries remain intact; package, deployment, and support claims ar
 unresolved human, provider, device, or operational evidence has a named owner and release impact.
 
 The current Phase 5C step is the bounded private proof. Its shared deterministic input, maximum
-queue fixture, native SVG/HTML baseline, uPlot Canvas adapter, and D3-assisted SVG adapter are
-implemented. Comparative measurements and the remaining adaptation, assistive-technology, and
-cleanup evidence come next; disposition remains separately gated.
+queue fixture, native SVG/HTML baseline, uPlot Canvas adapter, D3-assisted SVG adapter, and
+named-desktop production bundle, timing, replacement, and resource measurements are implemented. The
+desktop budgets pass. Responsive and non-color adaptation, supported-browser task evidence, manual
+assistive-technology work, complete dependency and maintenance review, cleanup, and disposition
+remain separately gated.

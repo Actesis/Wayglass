@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest';
 
 import {
   createQueueInvestigationFixture,
+  queueInvestigationReplacementFixture,
   queueFixtureExpectedTaskAnswers,
   queueFixtureInterventionIndex,
   queueFixtureSampleCount,
@@ -61,6 +62,19 @@ describe('Phase 5C deterministic queue fixture', () => {
     expect(new Set(allPoints.map(({ knowledge }) => knowledge))).toEqual(
       new Set(['confirmed', 'inferred', 'stale', 'unknown', 'conflicting', 'unavailable']),
     );
+  });
+
+  it('provides a compatible full-series replacement with updated exact values', () => {
+    expect(queueInvestigationReplacementFixture).not.toBe(queueInvestigationFixture);
+    expect(queueInvestigationReplacementFixture.series.map(({ id }) => id)).toEqual(
+      queueInvestigationFixture.series.map(({ id }) => id),
+    );
+    expect(queueInvestigationReplacementFixture.series[0]!.points[0]).toMatchObject({
+      id: queueInvestigationFixture.series[0]!.points[0]!.id,
+      value: 37,
+      formattedValue: '37 items',
+    });
+    expect(Object.isFrozen(queueInvestigationReplacementFixture)).toBe(true);
   });
 
   it('encodes the authored first-breach answer independently of series order', () => {

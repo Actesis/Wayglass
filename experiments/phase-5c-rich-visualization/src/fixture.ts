@@ -144,3 +144,27 @@ export function createQueueInvestigationFixture(): RichVisualizationInput {
 }
 
 export const queueInvestigationFixture = createQueueInvestigationFixture();
+
+export function createQueueInvestigationReplacementFixture(): RichVisualizationInput {
+  const input = {
+    ...queueInvestigationFixture,
+    summary:
+      'A complete later sample revision preserves the authored window, scale, identities, threshold, and annotation.',
+    series: queueInvestigationFixture.series.map((series) => ({
+      ...series,
+      points: series.points.map((point) => {
+        const value = point.value === null ? null : Math.min(point.value + 1, 120);
+        return {
+          ...point,
+          value,
+          formattedValue: value === null ? 'Unavailable' : `${value} items`,
+        };
+      }),
+    })),
+  } satisfies RichVisualizationInput;
+
+  assertRichVisualizationInput(input);
+  return deepFreeze(input);
+}
+
+export const queueInvestigationReplacementFixture = createQueueInvestigationReplacementFixture();

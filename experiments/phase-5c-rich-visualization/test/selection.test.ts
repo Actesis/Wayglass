@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
-import { queueInvestigationFixture } from '../src/fixture.js';
+import { queueInvestigationFixture, queueInvestigationReplacementFixture } from '../src/fixture.js';
+import { assertCompatibleReplacement } from '../src/inspection.js';
 import {
   createInspectionState,
   moveInspectionSample,
@@ -59,5 +60,17 @@ describe('Phase 5C shared inspection state', () => {
       sampleIndex: 1_200,
       visibleSeriesIds: initial.visibleSeriesIds,
     });
+  });
+
+  it('accepts stable replacement identity and rejects a changed proof envelope', () => {
+    expect(() =>
+      assertCompatibleReplacement(queueInvestigationFixture, queueInvestigationReplacementFixture),
+    ).not.toThrow();
+    expect(() =>
+      assertCompatibleReplacement(queueInvestigationFixture, {
+        ...queueInvestigationReplacementFixture,
+        windowEnd: queueInvestigationReplacementFixture.windowEnd + 30_000,
+      }),
+    ).toThrow(/P5C_REPLACEMENT_SHAPE/);
   });
 });

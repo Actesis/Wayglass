@@ -16,13 +16,26 @@ function round(value: number): number {
   return Number(value.toFixed(3));
 }
 
-export function createD3Geometry(input: RichVisualizationInput): D3Geometry {
+function createD3Scales(input: RichVisualizationInput) {
   const xScale = scaleLinear<number, number>()
     .domain([input.windowStart, input.windowEnd])
     .range([svgPlot.inlineStart, svgPlot.inlineEnd]);
   const yScale = scaleLinear<number, number>()
     .domain([input.scaleMinimum, input.scaleMaximum])
     .range([svgPlot.blockEnd, svgPlot.blockStart]);
+  return { xScale, yScale };
+}
+
+export function d3X(input: RichVisualizationInput, observedAt: number): number {
+  return round(createD3Scales(input).xScale(observedAt));
+}
+
+export function d3Y(input: RichVisualizationInput, value: number): number {
+  return round(createD3Scales(input).yScale(value));
+}
+
+export function createD3Geometry(input: RichVisualizationInput): D3Geometry {
+  const { xScale, yScale } = createD3Scales(input);
   const segmentLine = line<RichVisualizationPoint>()
     .x(({ observedAt }) => round(xScale(observedAt)))
     .y(({ value }) => round(yScale(value!)));

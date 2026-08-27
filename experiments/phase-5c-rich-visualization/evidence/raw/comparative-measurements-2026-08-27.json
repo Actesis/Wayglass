@@ -1,0 +1,129 @@
+{
+  "recordedAt": "2026-08-27T06:26:30-07:00",
+  "baseCommit": "516a665",
+  "measurementRevision": "Phase 5C comparative-measurement worktree",
+  "environment": {
+    "hardware": "Mac mini Mac16,10; Apple M4 10-core; 16 GB",
+    "operatingSystem": "macOS 26.5.2 arm64",
+    "node": "26.4.0",
+    "pnpm": "11.9.0",
+    "playwright": "1.62.0",
+    "chromium": "151.0.7922.34",
+    "viewportCssPixels": { "width": 1280, "height": 720 },
+    "adapterInlineSizeCssPixels": 1000
+  },
+  "method": {
+    "servedFrom": "minified production Vite build and preview",
+    "warmups": 5,
+    "measuredRuns": 30,
+    "updatesPerAdapterForResourceCheck": 60,
+    "fixtureSeries": 4,
+    "samplesPerSeries": 2880,
+    "totalPoints": 11520,
+    "bundleTarget": "es2022",
+    "bundleMinifier": "esbuild",
+    "bundleEntries": "self-contained adapter library entries; CSS excluded from JavaScript budget"
+  },
+  "bundleBytes": {
+    "native": { "raw": 11336, "gzip": 3719 },
+    "uplot": { "raw": 89757, "gzip": 29886 },
+    "d3": { "raw": 43049, "gzip": 13815 }
+  },
+  "timingsMilliseconds": {
+    "native": {
+      "construction": {
+        "samples": [
+          4.2, 4.3, 4.2, 4.5, 4.5, 4.2, 4.5, 4.7, 4, 5, 3.9, 4, 4.3, 3.9, 3.9, 4.1, 4.1, 4, 4.7,
+          3.9, 3.7, 4.1, 4.2, 4.1, 4.8, 4, 3.8, 3.9, 4, 4
+        ],
+        "median": 4.1,
+        "p95": 4.8,
+        "maximum": 5
+      },
+      "inspection": {
+        "samples": [
+          0.2, 0, 0.1, 0, 0, 0, 0, 0, 0, 0, 0, 0.1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0
+        ],
+        "median": 0,
+        "p95": 0.1,
+        "maximum": 0.2
+      },
+      "replacement": {
+        "samples": [
+          4.9, 4.3, 3.8, 3.9, 6.5, 6.5, 4, 3.8, 3.9, 4, 3.8, 4.3, 3.8, 3.8, 3.9, 3.9, 4, 4.5, 3.8,
+          4, 3.9, 3.9, 4.5, 3.8, 3.8, 3.9, 3.8, 4, 4.3, 3.7
+        ],
+        "median": 3.9,
+        "p95": 6.5,
+        "maximum": 6.5
+      }
+    },
+    "uplot": {
+      "construction": {
+        "samples": [
+          0.4, 0.2, 0.3, 0.4, 0.6, 0.3, 0.4, 0.2, 0.2, 0.2, 0.2, 0.3, 0.2, 0.4, 0.4, 0.3, 0.2, 0.3,
+          0.3, 0.2, 0.4, 0.2, 0.3, 0.3, 0.3, 0.2, 0.3, 0.3, 0.2, 0.3
+        ],
+        "median": 0.3,
+        "p95": 0.4,
+        "maximum": 0.6
+      },
+      "inspection": {
+        "samples": [
+          0, 0, 0, 0.1, 0, 0, 0.1, 0, 0.1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0
+        ],
+        "median": 0,
+        "p95": 0.1,
+        "maximum": 0.1
+      },
+      "replacement": {
+        "samples": [
+          0.5, 0.5, 0.5, 0.5, 0.4, 0.5, 0.5, 0.4, 0.4, 0.6, 0.5, 0.5, 0.5, 0.4, 0.5, 0.6, 0.5, 0.5,
+          0.5, 0.6, 0.5, 0.4, 0.6, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5
+        ],
+        "median": 0.5,
+        "p95": 0.6,
+        "maximum": 0.6
+      }
+    },
+    "d3": {
+      "construction": {
+        "samples": [
+          6.2, 6.5, 5.8, 6.2, 5.9, 6, 5.9, 5.7, 6.5, 5.7, 5.8, 6.2, 5.8, 5.8, 5.9, 6.2, 5.8, 5.9,
+          6.2, 5.6, 5.7, 6.3, 5.5, 5.8, 5.9, 6.1, 5.7, 5.9, 6.2, 5.8
+        ],
+        "median": 5.9,
+        "p95": 6.5,
+        "maximum": 6.5
+      },
+      "inspection": {
+        "samples": [
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.1, 0, 0, 0.1, 0, 0, 0,
+          0
+        ],
+        "median": 0,
+        "p95": 0.1,
+        "maximum": 0.1
+      },
+      "replacement": {
+        "samples": [
+          7.3, 6, 5.9, 6, 6.4, 6.1, 6, 6.4, 6.2, 6, 6.6, 6, 6.1, 6, 6.5, 5.9, 6.1, 6.4, 6, 8.9, 5.9,
+          5.9, 5.9, 6.2, 5.9, 6, 6.3, 6.3, 6, 6.5
+        ],
+        "median": 6.1,
+        "p95": 7.3,
+        "maximum": 8.9
+      }
+    }
+  },
+  "resources": {
+    "postWarmupHeapBytes": 3951712,
+    "postUpdateAndCollectionHeapBytes": 4144392,
+    "retainedHeapRatio": 1.048759,
+    "remainingAdapterNodes": 0,
+    "activeResizeObservers": 0,
+    "pendingAnimationFrames": 0
+  }
+}

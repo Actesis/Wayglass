@@ -2,7 +2,11 @@ import 'uplot/dist/uPlot.min.css';
 
 import uPlot from 'uplot';
 
-import { mountInspection, type InspectionHandle } from './inspection.js';
+import {
+  assertCompatibleReplacement,
+  mountInspection,
+  type InspectionHandle,
+} from './inspection.js';
 import type { RichVisualizationInput } from './model.js';
 import type { InspectionState } from './selection.js';
 import { createUPlotData, createUPlotSeries, type UPlotPalette } from './uplot-model.js';
@@ -11,6 +15,7 @@ export interface UPlotBaselineHandle {
   readonly root: HTMLElement;
   readonly chart: uPlot;
   getState(): InspectionState;
+  replaceInput(input: RichVisualizationInput): void;
   destroy(): void;
 }
 
@@ -72,13 +77,14 @@ function drawLine(
 }
 
 function createSemanticOverlay(
-  input: RichVisualizationInput,
+  getInput: () => RichVisualizationInput,
   palette: UPlotSemanticPalette,
 ): uPlot.Plugin {
   return {
     hooks: {
       draw: [
         (chart) => {
+          const input = getInput();
           const { ctx, bbox } = chart;
           const ratio = uPlot.pxRatio;
           ctx.save();
@@ -148,18 +154,30 @@ function createSemanticOverlay(
   };
 }
 
-function appendContext(root: HTMLElement, input: RichVisualizationInput) {
+function appendContext(root: HTMLElement) {
   const context = element('dl');
   context.className = 'p5c-context';
+  const scaleValue = element('dd');
+  const thresholdLabel = element('dt');
+  const thresholdValue = element('dd');
+  const annotationLabel = element('dt');
+  const annotationValue = element('dd');
   context.append(
     element('dt', 'Scale'),
-    element('dd', `${input.formattedScaleMinimum}–${input.formattedScaleMaximum}`),
-    element('dt', input.threshold.label),
-    element('dd', input.threshold.formattedValue),
-    element('dt', input.annotation.label),
-    element('dd', `${input.annotation.formattedObservedAt}. ${input.annotation.detail}`),
+    scaleValue,
+    thresholdLabel,
+    thresholdValue,
+    annotationLabel,
+    annotationValue,
   );
   root.append(context);
+  return (nextInput: RichVisualizationInput) => {
+    scaleValue.textContent = `${nextInput.formattedScaleMinimum}–${nextInput.formattedScaleMaximum}`;
+    thresholdLabel.textContent = nextInput.threshold.label;
+    thresholdValue.textContent = nextInput.threshold.formattedValue;
+    annotationLabel.textContent = nextInput.annotation.label;
+    annotationValue.textContent = `${nextInput.annotation.formattedObservedAt}. ${nextInput.annotation.detail}`;
+  };
 }
 
 function heightForWidth(width: number): number {
@@ -171,6 +189,7 @@ export function mountUPlotBaseline(
   container: HTMLElement,
   input: RichVisualizationInput,
 ): UPlotBaselineHandle {
+  let currentInput = input;
   const root = element('section');
   root.className = 'p5c-adapter p5c-uplot';
   root.setAttribute('aria-labelledby', `${input.id}-uplot-heading`);
@@ -180,7 +199,8 @@ export function mountUPlotBaseline(
   const heading = element('h2', 'uPlot Canvas baseline');
   heading.id = `${input.id}-uplot-heading`;
   root.append(heading);
-  appendContext(root, input);
+  const renderContext = appendContext(root);
+  renderContext(input);
 
   const visual = element('div');
   visual.className = 'p5c-visual';
@@ -190,10 +210,9 @@ export function mountUPlotBaseline(
   visual.append(chartHost);
   const windowLabels = element('div');
   windowLabels.className = 'p5c-window';
-  windowLabels.append(
-    element('span', input.formattedWindowStart),
-    element('span', input.formattedWindowEnd),
-  );
+  const windowStart = element('span', input.formattedWindowStart);
+  const windowEnd = element('span', input.formattedWindowEnd);
+  windowLabels.append(windowStart, windowEnd);
   visual.append(windowLabels);
   root.append(visual);
   container.append(root);
@@ -219,7 +238,7 @@ export function mountUPlotBaseline(
         drag: { x: false, y: false, setScale: false },
       },
       padding: [24, 24, 24, 24],
-      plugins: [createSemanticOverlay(input, palette)],
+      plugins: [createSemanticOverlay(() => currentInput, palette)],
     },
     createUPlotData(input),
     chartHost,
@@ -228,18 +247,21 @@ export function mountUPlotBaseline(
 
   function renderState(state: InspectionState) {
     root.dataset.visibleSeriesIds = state.visibleSeriesIds.join(' ');
-    for (const [seriesIndex, series] of input.series.entries()) {
+    for (const [seriesIndex, series] of currentInput.series.entries()) {
       chart.setSeries(seriesIndex + 1, { show: state.visibleSeriesIds.includes(series.id) }, false);
     }
 
-    const point = input.series[state.seriesIndex]!.points[state.sampleIndex]!;
+    const point = currentInput.series[state.seriesIndex]!.points[state.sampleIndex]!;
     const left =
-      ((point.observedAt - input.windowStart) / (input.windowEnd - input.windowStart)) *
+      ((point.observedAt - currentInput.windowStart) /
+        (currentInput.windowEnd - currentInput.windowStart)) *
       (chart.bbox.width / uPlot.pxRatio);
     const top =
       point.value === null
         ? 0
-        : (1 - (point.value - input.scaleMinimum) / (input.scaleMaximum - input.scaleMinimum)) *
+        : (1 -
+            (point.value - currentInput.scaleMinimum) /
+              (currentInput.scaleMaximum - currentInput.scaleMinimum)) *
           (chart.bbox.height / uPlot.pxRatio);
     chart.setCursor({ left, top }, false);
     chart.setLegend({ idx: state.sampleIndex }, false);
@@ -254,12 +276,14 @@ export function mountUPlotBaseline(
     const sampleIndex = chart.posToIdx(left);
     let closestSeriesIndex = inspection.getState().seriesIndex;
     let closestDistance = Number.POSITIVE_INFINITY;
-    for (const [seriesIndex, series] of input.series.entries()) {
+    for (const [seriesIndex, series] of currentInput.series.entries()) {
       if (!inspection.getState().visibleSeriesIds.includes(series.id)) continue;
       const value = series.points[sampleIndex]?.value;
       if (value === null || value === undefined) continue;
       const y =
-        (1 - (value - input.scaleMinimum) / (input.scaleMaximum - input.scaleMinimum)) *
+        (1 -
+          (value - currentInput.scaleMinimum) /
+            (currentInput.scaleMaximum - currentInput.scaleMinimum)) *
         bounds.height;
       const distance = Math.abs(y - top);
       if (distance < closestDistance) {
@@ -267,8 +291,8 @@ export function mountUPlotBaseline(
         closestSeriesIndex = seriesIndex;
       }
     }
-    const point = input.series[closestSeriesIndex]!.points[sampleIndex]!;
-    inspection.selectPoint(input.series[closestSeriesIndex]!.id, point.observedAt);
+    const point = currentInput.series[closestSeriesIndex]!.points[sampleIndex]!;
+    inspection.selectPoint(currentInput.series[closestSeriesIndex]!.id, point.observedAt);
   };
   chart.over.addEventListener('click', handleClick);
 
@@ -286,6 +310,18 @@ export function mountUPlotBaseline(
     root,
     chart,
     getState: () => inspection.getState(),
+    replaceInput: (nextInput) => {
+      assertCompatibleReplacement(currentInput, nextInput);
+      currentInput = nextInput;
+      root.dataset.thresholdId = nextInput.threshold.id;
+      root.dataset.annotationId = nextInput.annotation.id;
+      renderContext(nextInput);
+      windowStart.textContent = nextInput.formattedWindowStart;
+      windowEnd.textContent = nextInput.formattedWindowEnd;
+      chart.setData(createUPlotData(nextInput), false);
+      inspection.replaceInput(nextInput);
+      chart.redraw();
+    },
     destroy: () => {
       resizeObserver.disconnect();
       cancelAnimationFrame(resizeFrame);
