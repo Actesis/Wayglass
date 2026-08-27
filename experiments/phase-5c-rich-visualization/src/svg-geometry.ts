@@ -26,7 +26,6 @@ export interface SvgSeriesGeometry {
   readonly seriesId: string;
   readonly seriesIndex: number;
   readonly paths: readonly SvgKnowledgePath[];
-  readonly hitPath: string;
   readonly marks: readonly SvgKnowledgeMark[];
 }
 

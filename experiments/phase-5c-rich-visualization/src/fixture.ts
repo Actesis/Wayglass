@@ -34,7 +34,7 @@ export const queueFixtureExpectedTaskAnswers = deepFreeze({
 });
 
 function formatTimestamp(timestamp: number): string {
-  return `${new Date(timestamp).toISOString().slice(0, 16).replace('T', ' ')} UTC`;
+  return `${new Date(timestamp).toISOString().slice(0, 19).replace('T', ' ')} UTC`;
 }
 
 function knowledgeAt(

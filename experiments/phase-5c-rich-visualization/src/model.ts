@@ -173,6 +173,7 @@ export function assertRichVisualizationInput(
   const seriesIds = new Set<string>();
   const pointIds = new Set<string>();
   let referenceTimestamps: readonly number[] | undefined;
+  let referenceFormattedTimestamps: readonly string[] | undefined;
 
   for (const [seriesIndex, rawSeries] of series.entries()) {
     const seriesPath = `input.series[${seriesIndex}]`;
@@ -194,6 +195,8 @@ export function assertRichVisualizationInput(
     }
 
     const timestamps: number[] = [];
+    const formattedTimestamps: string[] = [];
+    const seenFormattedTimestamps = new Set<string>();
     let priorTimestamp = Number.NEGATIVE_INFINITY;
 
     for (const [pointIndex, rawPoint] of points.entries()) {
@@ -217,10 +220,19 @@ export function assertRichVisualizationInput(
       }
       priorTimestamp = point.observedAt;
       timestamps.push(point.observedAt);
+      if (seenFormattedTimestamps.has(point.formattedObservedAt)) {
+        fail(
+          'FORMATTED_TIME_DUPLICATE',
+          `${pointPath}.formattedObservedAt must distinguish every exact observation.`,
+        );
+      }
+      seenFormattedTimestamps.add(point.formattedObservedAt);
+      formattedTimestamps.push(point.formattedObservedAt);
     }
 
     if (referenceTimestamps === undefined) {
       referenceTimestamps = timestamps;
+      referenceFormattedTimestamps = formattedTimestamps;
       continue;
     }
 
@@ -229,6 +241,17 @@ export function assertRichVisualizationInput(
       timestamps.some((timestamp, index) => timestamp !== referenceTimestamps?.[index])
     ) {
       fail('ALIGNMENT', `${seriesPath}.points must share the first series timestamp sequence.`);
+    }
+
+    if (
+      formattedTimestamps.some(
+        (formattedTimestamp, index) => formattedTimestamp !== referenceFormattedTimestamps?.[index],
+      )
+    ) {
+      fail(
+        'FORMATTED_TIME_ALIGNMENT',
+        `${seriesPath}.points must share the first series formatted timestamp sequence.`,
+      );
     }
   }
 

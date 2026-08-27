@@ -26,6 +26,9 @@ export function mountApplicationEquivalence(
   details.append(element('summary', 'Inspect all exact queue observations'));
   const tableHost = element('div');
   tableHost.className = 'p5c-table-scroll';
+  tableHost.tabIndex = 0;
+  tableHost.setAttribute('role', 'region');
+  tableHost.setAttribute('aria-label', 'Exact queue observations');
   details.append(tableHost);
 
   let tableMounted = false;

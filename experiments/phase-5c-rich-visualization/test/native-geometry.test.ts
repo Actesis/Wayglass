@@ -38,7 +38,9 @@ describe('Phase 5C native SVG geometry', () => {
     expect(
       new Set(geometry.series.flatMap(({ marks }) => marks.map(({ knowledge }) => knowledge))),
     ).toEqual(new Set(['inferred', 'stale', 'unknown', 'conflicting', 'unavailable']));
-    expect(geometry.series.every(({ hitPath }) => hitPath.length > 0)).toBe(true);
+    expect(geometry.series.every(({ paths }) => paths.every(({ data }) => data.length > 0))).toBe(
+      true,
+    );
   });
 
   it('breaks paths at gaps instead of interpolating unavailable observations', () => {
@@ -48,6 +50,8 @@ describe('Phase 5C native SVG geometry', () => {
       queueInvestigationFixture,
       queueInvestigationFixture.series[2]!.points[361]!.observedAt,
     );
-    expect(classification.hitPath).not.toContain(` ${unavailableX} `);
+    expect(classification.paths.every(({ data }) => !data.includes(` ${unavailableX} `))).toBe(
+      true,
+    );
   });
 });

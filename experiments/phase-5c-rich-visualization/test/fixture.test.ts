@@ -41,8 +41,8 @@ describe('Phase 5C deterministic queue fixture', () => {
     const second = createQueueInvestigationFixture();
 
     expect(first).toEqual(second);
-    expect(sha256(first)).toBe('8d93bc846259eec49a78f2730b0d2eb03854b0bd89d9a67a7380974800a1a68c');
-    expect(sha256(second)).toBe('8d93bc846259eec49a78f2730b0d2eb03854b0bd89d9a67a7380974800a1a68c');
+    expect(sha256(first)).toBe('9975d323221772846d7b973adff1ee66bd9c52d07c75da891159d450c4c4db7a');
+    expect(sha256(second)).toBe('9975d323221772846d7b973adff1ee66bd9c52d07c75da891159d450c4c4db7a');
     expect(Object.isFrozen(first)).toBe(true);
     expect(Object.isFrozen(first.series)).toBe(true);
     expect(Object.isFrozen(first.series[0]?.points)).toBe(true);

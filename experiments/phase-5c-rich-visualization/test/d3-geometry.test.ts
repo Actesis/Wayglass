@@ -25,7 +25,7 @@ describe('Phase 5C D3-assisted SVG geometry', () => {
       native.series.map(({ seriesId }) => seriesId),
     );
     expect(d3.series.map(({ marks }) => marks)).toEqual(native.series.map(({ marks }) => marks));
-    expect(d3.series.every(({ hitPath }) => hitPath.length > 0)).toBe(true);
+    expect(d3.series.every(({ paths }) => paths.every(({ data }) => data.length > 0))).toBe(true);
     expect(d3.series.map(({ paths }) => paths.map(({ knowledge }) => knowledge))).toEqual(
       native.series.map(({ paths }) => paths.map(({ knowledge }) => knowledge)),
     );
@@ -37,6 +37,8 @@ describe('Phase 5C D3-assisted SVG geometry', () => {
     const point = queueInvestigationFixture.series[2]!.points[361]!;
     const unavailableCoordinate = `${Number(geometry.xScale(point.observedAt).toFixed(3))},`;
     expect(point.value).toBeNull();
-    expect(classification.hitPath).not.toContain(unavailableCoordinate);
+    expect(classification.paths.every(({ data }) => !data.includes(unavailableCoordinate))).toBe(
+      true,
+    );
   });
 });

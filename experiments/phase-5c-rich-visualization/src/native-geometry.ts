@@ -52,7 +52,6 @@ export function createNativeGeometry(input: RichVisualizationInput): NativeGeome
     annotationX: nativeX(input, input.annotation.observedAt),
     series: input.series.map((series, seriesIndex) => {
       const paths = new Map<Knowledge, string[]>();
-      const hitCommands: string[] = [];
       const marks: NativeKnowledgeMark[] = [];
 
       for (let pointIndex = 0; pointIndex < series.points.length; pointIndex += 1) {
@@ -74,7 +73,6 @@ export function createNativeGeometry(input: RichVisualizationInput): NativeGeome
         const knowledgeCommands = paths.get(point.knowledge) ?? [];
         knowledgeCommands.push(command);
         paths.set(point.knowledge, knowledgeCommands);
-        hitCommands.push(command);
       }
 
       return {
@@ -84,7 +82,6 @@ export function createNativeGeometry(input: RichVisualizationInput): NativeGeome
           knowledge,
           data: commands.join(' '),
         })),
-        hitPath: hitCommands.join(' '),
         marks,
       };
     }),

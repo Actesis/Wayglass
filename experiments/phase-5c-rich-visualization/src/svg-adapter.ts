@@ -127,6 +127,16 @@ export function mountSvgBaseline(
     const fragment = document.createDocumentFragment();
     seriesGroups = new Map();
 
+    const plotHitArea = svgElement('rect');
+    setSvgAttributes(plotHitArea, {
+      x: svgPlot.inlineStart,
+      y: svgPlot.blockStart,
+      width: svgPlot.inlineEnd - svgPlot.inlineStart,
+      height: svgPlot.blockEnd - svgPlot.blockStart,
+    });
+    plotHitArea.classList.add('p5c-plot-hit-area');
+    fragment.append(plotHitArea);
+
     const threshold = svgElement('line');
     setSvgAttributes(threshold, {
       x1: svgPlot.inlineStart,
@@ -159,26 +169,6 @@ export function mountSvgBaseline(
         group.append(path);
       }
       for (const mark of seriesGeometry.marks) appendKnowledgeMark(group, mark);
-
-      const hitPath = svgElement('path');
-      setSvgAttributes(hitPath, { d: seriesGeometry.hitPath });
-      hitPath.classList.add('p5c-hit-target');
-      hitPath.addEventListener('click', (event) => {
-        const bounds = svg.getBoundingClientRect();
-        const normalizedX = ((event.clientX - bounds.left) / bounds.width) * svgViewBox.width;
-        const ratio = Math.min(
-          Math.max(
-            (normalizedX - svgPlot.inlineStart) / (svgPlot.inlineEnd - svgPlot.inlineStart),
-            0,
-          ),
-          1,
-        );
-        inspection.selectPoint(
-          seriesGeometry.seriesId,
-          currentInput.windowStart + ratio * (currentInput.windowEnd - currentInput.windowStart),
-        );
-      });
-      group.append(hitPath);
       seriesGroups.set(seriesGeometry.seriesId, group);
       fragment.append(group);
     }
@@ -228,6 +218,24 @@ export function mountSvgBaseline(
   renderContext();
   renderGeometry();
   const inspection: InspectionHandle = mountInspection(root, input, renderState);
+  const selectFromPointer = (event: MouseEvent) => {
+    const screenMatrix = svg.getScreenCTM();
+    if (!screenMatrix) return;
+    const pointer = new DOMPoint(event.clientX, event.clientY).matrixTransform(
+      screenMatrix.inverse(),
+    );
+    const ratio = Math.min(
+      Math.max((pointer.x - svgPlot.inlineStart) / (svgPlot.inlineEnd - svgPlot.inlineStart), 0),
+      1,
+    );
+    const selectedSeries = currentInput.series[inspection.getState().seriesIndex];
+    if (!selectedSeries) return;
+    inspection.selectPoint(
+      selectedSeries.id,
+      currentInput.windowStart + ratio * (currentInput.windowEnd - currentInput.windowStart),
+    );
+  };
+  svg.addEventListener('click', selectFromPointer);
   container.append(root);
 
   return {
@@ -241,6 +249,7 @@ export function mountSvgBaseline(
       inspection.replaceInput(nextInput);
     },
     destroy: () => {
+      svg.removeEventListener('click', selectFromPointer);
       inspection.destroy();
       root.remove();
     },

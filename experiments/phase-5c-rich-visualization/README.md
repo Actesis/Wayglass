@@ -77,10 +77,21 @@ The responsive and non-color adaptation slice adds:
 - forced-color Canvas system colors plus retained SVG, grayscale, reduced-motion, persistent HTML,
   and exact-table meaning.
 
+The task-interaction slice adds:
+
+- one complete maximum-fixture investigation through the authored summary, exact table, and every
+  adapter;
+- unique second-resolution exact labels enforced by the shared input boundary;
+- native keyboard and touch-sized controls with persistent focus and exact HTML output;
+- one coarse pointer contract across SVG and Canvas: native series choice, whole-plot time choice,
+  and native adjacent-sample refinement; and
+- explicit first/last, caution-crossing, intervention, recovery, and unavailable-gap validation in
+  Chromium, Firefox, and WebKit.
+
 All three bounded adapters and the named-desktop comparative measurement are now implemented. The
-automated responsive and non-color adaptation matrix also passes. Task interaction, manual
-assistive-technology, complete dependency review, maintenance review, and disposition evidence
-remain intentionally separate.
+automated responsive/non-color and task-interaction matrices also pass. Manual assistive-technology,
+complete dependency review, maintenance review, owner review, and disposition evidence remain
+intentionally separate.
 
 ## Commands
 
@@ -92,6 +103,7 @@ pnpm experiment:phase5c:typecheck
 pnpm experiment:phase5c:test
 pnpm exec playwright test --config playwright.phase5c-performance.config.ts
 pnpm exec playwright test tests/browser/phase-5c-adaptation.spec.ts
+pnpm exec playwright test tests/browser/phase-5c-task-interaction.spec.ts
 ```
 
 The ordinary repository `check` includes the focused proof typecheck and tests. Tests use no
@@ -108,7 +120,9 @@ D3-assisted adapter findings are retained in
 timing, replacement, and resource findings are retained in
 [`evidence/comparative-measurements.md`](./evidence/comparative-measurements.md). Responsive,
 theme/density, RTL, long-text, and non-color findings are retained in
-[`evidence/adaptation-validation.md`](./evidence/adaptation-validation.md).
+[`evidence/adaptation-validation.md`](./evidence/adaptation-validation.md). Complete task, keyboard,
+pointer, touch, and exact-label findings are retained in
+[`evidence/task-interaction-validation.md`](./evidence/task-interaction-validation.md).
 
 ## Ownership boundary
 

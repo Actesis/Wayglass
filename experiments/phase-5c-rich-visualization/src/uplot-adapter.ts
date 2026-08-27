@@ -285,27 +285,13 @@ export function mountUPlotBaseline(
   const handleClick = (event: MouseEvent) => {
     const bounds = chart.over.getBoundingClientRect();
     const left = Math.min(Math.max(event.clientX - bounds.left, 0), bounds.width);
-    const top = Math.min(Math.max(event.clientY - bounds.top, 0), bounds.height);
-    const sampleIndex = chart.posToIdx(left);
-    let closestSeriesIndex = inspection.getState().seriesIndex;
-    let closestDistance = Number.POSITIVE_INFINITY;
-    for (const [seriesIndex, series] of currentInput.series.entries()) {
-      if (!inspection.getState().visibleSeriesIds.includes(series.id)) continue;
-      const value = series.points[sampleIndex]?.value;
-      if (value === null || value === undefined) continue;
-      const y =
-        (1 -
-          (value - currentInput.scaleMinimum) /
-            (currentInput.scaleMaximum - currentInput.scaleMinimum)) *
-        bounds.height;
-      const distance = Math.abs(y - top);
-      if (distance < closestDistance) {
-        closestDistance = distance;
-        closestSeriesIndex = seriesIndex;
-      }
-    }
-    const point = currentInput.series[closestSeriesIndex]!.points[sampleIndex]!;
-    inspection.selectPoint(currentInput.series[closestSeriesIndex]!.id, point.observedAt);
+    const selectedSeries = currentInput.series[inspection.getState().seriesIndex];
+    if (!selectedSeries) return;
+    const ratio = bounds.width === 0 ? 0 : left / bounds.width;
+    inspection.selectPoint(
+      selectedSeries.id,
+      currentInput.windowStart + ratio * (currentInput.windowEnd - currentInput.windowStart),
+    );
   };
   chart.over.addEventListener('click', handleClick);
 
