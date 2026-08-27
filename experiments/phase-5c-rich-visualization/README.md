@@ -88,6 +88,16 @@ The task-interaction slice adds:
 - explicit first/last, caution-crossing, intervention, recovery, and unavailable-gap validation in
   Chromium, Firefox, and WebKit.
 
+The adverse-input and update slice adds:
+
+- fail-fast validation before any adapter DOM is mounted;
+- transactional validation before a replacement can mutate state or rendered data;
+- explicit empty, malformed, non-finite, out-of-bounds, duplicate, unsorted, misaligned, oversized,
+  and semantic-conflict coverage;
+- preservation of the last valid inspection, geometry, focus, and later update capability after a
+  rejected replacement; and
+- nine cross-browser adapter tests plus a post-validation performance and teardown rerun.
+
 All three bounded adapters and the named-desktop comparative measurement are now implemented. The
 automated responsive/non-color and task-interaction matrices also pass. Manual assistive-technology,
 complete dependency review, maintenance review, owner review, and disposition evidence remain
@@ -104,6 +114,7 @@ pnpm experiment:phase5c:test
 pnpm exec playwright test --config playwright.phase5c-performance.config.ts
 pnpm exec playwright test tests/browser/phase-5c-adaptation.spec.ts
 pnpm exec playwright test tests/browser/phase-5c-task-interaction.spec.ts
+pnpm exec playwright test tests/browser/phase-5c-adverse-update.spec.ts
 ```
 
 The ordinary repository `check` includes the focused proof typecheck and tests. Tests use no
@@ -122,7 +133,9 @@ timing, replacement, and resource findings are retained in
 theme/density, RTL, long-text, and non-color findings are retained in
 [`evidence/adaptation-validation.md`](./evidence/adaptation-validation.md). Complete task, keyboard,
 pointer, touch, and exact-label findings are retained in
-[`evidence/task-interaction-validation.md`](./evidence/task-interaction-validation.md).
+[`evidence/task-interaction-validation.md`](./evidence/task-interaction-validation.md). Adverse
+input, transactional replacement, and post-validation performance findings are retained in
+[`evidence/adverse-input-and-update-validation.md`](./evidence/adverse-input-and-update-validation.md).
 
 ## Ownership boundary
 

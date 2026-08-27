@@ -72,5 +72,16 @@ describe('Phase 5C shared inspection state', () => {
         windowEnd: queueInvestigationReplacementFixture.windowEnd + 30_000,
       }),
     ).toThrow(/P5C_REPLACEMENT_SHAPE/);
+
+    const invalidSameShape = structuredClone(queueInvestigationReplacementFixture);
+    const invalidPoint = invalidSameShape.series[0]!.points[0]! as {
+      value: number | null;
+      formattedValue: string;
+    };
+    invalidPoint.value = 121;
+    invalidPoint.formattedValue = '121 items';
+    expect(() => assertCompatibleReplacement(queueInvestigationFixture, invalidSameShape)).toThrow(
+      /P5C_INPUT_POINT_SCALE/,
+    );
   });
 });

@@ -7,7 +7,7 @@ import {
   mountInspection,
   type InspectionHandle,
 } from './inspection.js';
-import type { RichVisualizationInput } from './model.js';
+import { assertRichVisualizationInput, type RichVisualizationInput } from './model.js';
 import type { InspectionState } from './selection.js';
 import { createUPlotData, createUPlotSeries, type UPlotPalette } from './uplot-model.js';
 
@@ -202,6 +202,7 @@ export function mountUPlotBaseline(
   container: HTMLElement,
   input: RichVisualizationInput,
 ): UPlotBaselineHandle {
+  assertRichVisualizationInput(input);
   let currentInput = input;
   const root = element('section');
   root.className = 'p5c-adapter p5c-uplot';

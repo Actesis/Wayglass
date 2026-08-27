@@ -29,6 +29,14 @@ describe('Phase 5C shared input boundary', () => {
   });
 
   it('rejects series and sample counts outside the accepted envelope', () => {
+    const emptySeries = mutableFixture();
+    emptySeries.series = [];
+    expect(() => assertRichVisualizationInput(emptySeries)).toThrow('P5C_INPUT_SERIES_COUNT');
+
+    const emptyPoints = mutableFixture();
+    series(emptyPoints)[0]!.points = [];
+    expect(() => assertRichVisualizationInput(emptyPoints)).toThrow('P5C_INPUT_SAMPLE_COUNT');
+
     const tooManySeries = mutableFixture();
     tooManySeries.series = Array.from(
       { length: richVisualizationMaximumSeries + 1 },
@@ -44,6 +52,22 @@ describe('Phase 5C shared input boundary', () => {
     });
     expect(points(tooManyPoints)).toHaveLength(richVisualizationMaximumSamplesPerSeries + 1);
     expect(() => assertRichVisualizationInput(tooManyPoints)).toThrow('P5C_INPUT_SAMPLE_COUNT');
+  });
+
+  it('rejects malformed records, non-finite numbers, out-of-window points, and unknown knowledge', () => {
+    expect(() => assertRichVisualizationInput(null)).toThrow('P5C_INPUT_RECORD');
+
+    const nonFiniteValue = mutableFixture();
+    points(nonFiniteValue)[0]!.value = Number.NaN;
+    expect(() => assertRichVisualizationInput(nonFiniteValue)).toThrow('P5C_INPUT_NUMBER');
+
+    const outsideWindow = mutableFixture();
+    points(outsideWindow)[0]!.observedAt = queueInvestigationFixture.windowStart - 1;
+    expect(() => assertRichVisualizationInput(outsideWindow)).toThrow('P5C_INPUT_POINT_WINDOW');
+
+    const unknownKnowledge = mutableFixture();
+    points(unknownKnowledge)[0]!.knowledge = 'probable';
+    expect(() => assertRichVisualizationInput(unknownKnowledge)).toThrow('P5C_INPUT_KNOWLEDGE');
   });
 
   it('rejects duplicate identities, unordered samples, and misaligned timestamps', () => {
