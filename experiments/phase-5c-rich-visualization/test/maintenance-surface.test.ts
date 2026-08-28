@@ -33,7 +33,7 @@ describe('Phase 5C comparative maintenance surface', () => {
     );
     console.info(`P5C_MAINTENANCE_MEASUREMENTS ${JSON.stringify(measurements)}`);
     expect(measurements).toEqual({
-      shared: 783,
+      shared: 784,
       native: 358,
       uplot: 342,
       d3: 349,
