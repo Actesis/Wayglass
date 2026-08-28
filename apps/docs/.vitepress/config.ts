@@ -30,6 +30,10 @@ export default defineConfig({
             link: '/governance/explorations/phase-5c-rich-visualization',
           },
           {
+            text: 'Phase 5D-A icon-tooling charter',
+            link: '/governance/explorations/phase-5d-icon-tooling',
+          },
+          {
             text: 'Token-tooling implementation contract',
             link: '/governance/token-tooling-implementation-contract',
           },

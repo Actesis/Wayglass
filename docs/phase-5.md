@@ -223,6 +223,15 @@ desktop release gate and is not represented as passing.
 
 Treat code assets, authoring automation, and designer-facing libraries as related but distinct.
 
+Phase 5D is intentionally sequenced. The proposed
+[Phase 5D-A icon-tooling charter](./governance/explorations/phase-5d-icon-tooling.md) first asks
+whether Wayglass needs private source, validation, generation, drift, and review tooling for the
+existing optional icon runtime. It records—but does not repair—the current difference between the
+accepted icon contract and implementation. Phase 5D-B will require its own design-artifact charter,
+named Figma workspace and access model, target versions, reviewer, version linkage, backup, and
+drift plan. Phase 5D-A can be rejected or accepted without presuming that a Figma library or plugin
+should exist.
+
 - audit the existing foundation and control icon catalog, SVG contract, naming, directionality,
   optical alignment, and accessible-use guidance;
 - define import, normalization, validation, preview, and generated-export needs before choosing an
