@@ -7,12 +7,10 @@ const windowStart = Date.UTC(2026, 7, 18, 0, 0, 0);
 const svgPlotStart = 80;
 const svgPlotEnd = 976;
 
-type AdapterName = 'native' | 'uplot' | 'd3';
+type AdapterName = 'native';
 
 const adapters: ReadonlyArray<{ name: AdapterName; selector: string }> = [
   { name: 'native', selector: '.p5c-native' },
-  { name: 'uplot', selector: '.p5c-uplot' },
-  { name: 'd3', selector: '.p5c-d3' },
 ];
 
 async function selectSeries(adapter: Locator, currentIndex: number, targetIndex: number) {
@@ -37,25 +35,12 @@ async function settleExactSample(adapter: Locator, targetIndex: number) {
 async function pointerSelect(
   page: Page,
   adapter: Locator,
-  adapterName: AdapterName,
   seriesIndex: number,
   sampleIndex: number,
   currentSeriesIndex: number,
 ) {
   const ratio = sampleIndex / (sampleCount - 1);
   await selectSeries(adapter, currentSeriesIndex, seriesIndex);
-  if (adapterName === 'uplot') {
-    const overlay = adapter.locator('.u-over');
-    await overlay.scrollIntoViewIfNeeded();
-    const bounds = await overlay.boundingBox();
-    expect(bounds).not.toBeNull();
-    const safeRatio = ratio === 1 ? 0.99 : ratio;
-    const localX = Math.min(Math.max(bounds!.width * safeRatio, 1), bounds!.width - 1);
-    await overlay.click({ position: { x: localX, y: bounds!.height / 2 } });
-    await settleExactSample(adapter, sampleIndex);
-    return seriesIndex;
-  }
-
   const normalizedX = svgPlotStart + ratio * (svgPlotEnd - svgPlotStart);
   const graphic = adapter.locator('.p5c-visual svg');
   await graphic.scrollIntoViewIfNeeded();
@@ -156,25 +141,25 @@ test.describe('Phase 5C complete task and interaction', () => {
   test('uses persistent exact inspection for task landmarks, gaps, and boundaries', async ({
     page,
   }) => {
-    for (const { name, selector } of adapters) {
+    for (const { selector } of adapters) {
       const adapter = page.locator(selector);
       let currentSeries = 0;
 
-      currentSeries = await pointerSelect(page, adapter, name, 0, 0, currentSeries);
+      currentSeries = await pointerSelect(page, adapter, 0, 0, currentSeries);
       await expectInspection(adapter, {
         series: 'Review queue',
         time: '2026-08-18 00:00:00 UTC',
         value: '36 items',
       });
 
-      currentSeries = await pointerSelect(page, adapter, name, 0, 960, currentSeries);
+      currentSeries = await pointerSelect(page, adapter, 0, 960, currentSeries);
       await expectInspection(adapter, {
         series: 'Review queue',
         time: '2026-08-18 08:00:00 UTC',
         value: '86 items',
       });
 
-      currentSeries = await pointerSelect(page, adapter, name, 2, 360, currentSeries);
+      currentSeries = await pointerSelect(page, adapter, 2, 360, currentSeries);
       await expectInspection(adapter, {
         series: 'Classification queue',
         time: '2026-08-18 03:00:00 UTC',
@@ -182,21 +167,21 @@ test.describe('Phase 5C complete task and interaction', () => {
         knowledge: 'Unavailable',
       });
 
-      currentSeries = await pointerSelect(page, adapter, name, 3, 1_680, currentSeries);
+      currentSeries = await pointerSelect(page, adapter, 3, 1_680, currentSeries);
       await expectInspection(adapter, {
         series: 'Dispatch queue',
         time: '2026-08-18 14:00:00 UTC',
         value: '95 items',
       });
 
-      currentSeries = await pointerSelect(page, adapter, name, 3, 1_704, currentSeries);
+      currentSeries = await pointerSelect(page, adapter, 3, 1_704, currentSeries);
       await expectInspection(adapter, {
         series: 'Dispatch queue',
         time: '2026-08-18 14:12:00 UTC',
         value: '76 items',
       });
 
-      await pointerSelect(page, adapter, name, 3, sampleCount - 1, currentSeries);
+      await pointerSelect(page, adapter, 3, sampleCount - 1, currentSeries);
       await expectInspection(adapter, {
         series: 'Dispatch queue',
         time: '2026-08-18 23:59:30 UTC',

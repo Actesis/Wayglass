@@ -7,8 +7,6 @@ import { build } from 'vite';
 const experimentRoot = fileURLToPath(new URL('..', import.meta.url));
 const entries = {
   native: fileURLToPath(new URL('../src/native-adapter.ts', import.meta.url)),
-  uplot: fileURLToPath(new URL('../src/uplot-adapter.ts', import.meta.url)),
-  d3: fileURLToPath(new URL('../src/d3-adapter.ts', import.meta.url)),
 } as const;
 
 function summarize(samples: readonly number[]) {
@@ -57,8 +55,8 @@ async function measureEntry(name: string, entry: string) {
   };
 }
 
-describe('Phase 5C isolated production JavaScript budgets', () => {
-  it('keeps every self-contained adapter entry below the candidate budget', async () => {
+describe('Phase 5C retained native production JavaScript budget', () => {
+  it('keeps the self-contained candidate entry below the accepted budget', async () => {
     const measurements = Object.fromEntries(
       await Promise.all(
         Object.entries(entries).map(async ([name, entry]) => [
@@ -69,10 +67,6 @@ describe('Phase 5C isolated production JavaScript budgets', () => {
     );
     console.info(`P5C_BUNDLE_MEASUREMENTS ${JSON.stringify(measurements)}`);
     expect(measurements.native!.gzipBytes).toBeLessThan(40 * 1_024);
-    expect(measurements.uplot!.gzipBytes).toBeLessThan(40 * 1_024);
-    expect(measurements.d3!.gzipBytes).toBeLessThan(40 * 1_024);
     expect(measurements.native!.parseAndEvaluationMilliseconds.maximum).toBeLessThan(50);
-    expect(measurements.uplot!.parseAndEvaluationMilliseconds.maximum).toBeLessThan(50);
-    expect(measurements.d3!.parseAndEvaluationMilliseconds.maximum).toBeLessThan(50);
   });
 });

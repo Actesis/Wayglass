@@ -2,8 +2,8 @@
 
 **Recorded:** 2026-08-26  
 **Scope:** partial evidence for `P5C-E01` through `P5C-E06`, `P5C-E09`, and `P5C-E10`  
-**Disposition:** baseline retained as the dependency-free comparison; evidence rows remain
-incomplete
+**Disposition:** accepted on 2026-08-28 as the dependency-free private artifact candidate; permanent
+implementation remains deferred pending an independent consumer
 
 ## Implemented boundary
 

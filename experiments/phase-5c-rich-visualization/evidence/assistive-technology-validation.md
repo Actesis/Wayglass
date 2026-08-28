@@ -3,8 +3,9 @@
 **Prepared:** 2026-08-27  
 **Scope:** `P5C-E03` and the non-visual portion of `P5C-E01`  
 **Proof route:** `/experiments/phase-5c-rich-visualization/?candidate=native`  
-**Disposition:** automated semantic preflight passes; VoiceOver/Safari and NVDA/Firefox human task
-transcripts remain required before candidate disposition
+**Disposition:** automated semantic preflight and the fixed VoiceOver/Safari human task pass.
+Charter revision 3 carries the unavailable NVDA/Firefox transcript as an explicit open desktop
+release gate rather than a private-exploration blocker.
 
 ## Why the native-only route exists
 
@@ -40,9 +41,10 @@ pass or an accessibility violation. The retained cross-browser test instead asse
 table's region, table name, headers, target rows, and quiet announcement boundary directly; the
 required VoiceOver/Safari transcript remains the authoritative WebKit human result.
 
-This preflight inspects browser semantics and behavior. It cannot prove spoken output, browse-mode
-navigation, table-header announcement, verbosity, or human task success, so it does not complete
-`P5C-E03`.
+This preflight inspects browser semantics and behavior. It cannot by itself prove spoken output,
+browse-mode navigation, table-header announcement, verbosity, or human task success. The completed
+VoiceOver/Safari transcript below supplies that human result for the private disposition; the
+carried NVDA/Firefox omission remains a release limitation.
 
 The first semantic pass found that the inspection buttons' label was attached to a generic `div`.
 The label did not establish an explicit control group. The corrected proof assigns `role="group"`;
@@ -96,28 +98,35 @@ Record exact Windows, Firefox, and NVDA versions and the tested commit. Use the 
 route and repeat the seven steps above with NVDA browse mode and Firefox. Use NVDA table-navigation
 commands and NVDA Find where appropriate. VoiceOver results cannot substitute for this pairing.
 
+This transcript remains `Pending`. The project owner accepted its omission from the private Phase 5C
+disposition on 2026-08-28 because Windows/NVDA access is not currently available. The omission does
+not count as a pass and cannot support a desktop screen-reader compatibility, support, or release
+claim. Complete the transcript against the retained proof before release candidacy.
+
 ## Transcript record
 
 For each pairing, record:
 
-| Field                                | VoiceOver / Safari | NVDA / Firefox |
-| ------------------------------------ | ------------------ | -------------- |
-| Date and tester                      | Pending            | Pending        |
-| OS version                           | Pending            | Pending        |
-| Browser version                      | Pending            | Pending        |
-| Assistive-technology version         | Pending            | Pending        |
-| Commit                               | Pending            | Pending        |
-| Orientation and single-owner result  | Pending            | Pending        |
-| Controls and focus result            | Pending            | Pending        |
-| Exact-table names and headers result | Pending            | Pending        |
-| Four task answers                    | Pending            | Pending        |
-| Unsolicited or duplicate speech      | Pending            | Pending        |
-| Defect or corrective PR              | Pending            | Pending        |
-| Overall result                       | Pending            | Pending        |
+| Field                                | VoiceOver / Safari                                                      | NVDA / Firefox |
+| ------------------------------------ | ----------------------------------------------------------------------- | -------------- |
+| Date and tester                      | 2026-08-28; project owner                                               | Pending        |
+| OS version                           | macOS 26.5.2                                                            | Pending        |
+| Browser version                      | Safari 26.5.2                                                           | Pending        |
+| Assistive-technology version         | VoiceOver 10                                                            | Pending        |
+| Commit                               | `4875ba4`                                                               | Pending        |
+| Orientation and single-owner result  | Pass: stable source order, one semantic owner, and no announced graphic | Pending        |
+| Controls and focus result            | Pass: named states update and activated controls retain focus           | Pending        |
+| Exact-table names and headers result | Pass: disclosure, region, caption, headers, and target rows are usable  | Pending        |
+| Four task answers                    | Pass: all four expected answers were obtained from the non-visual path  | Pending        |
+| Unsolicited or duplicate speech      | Pass: none observed                                                     | Pending        |
+| Defect or corrective PR              | None                                                                    | Pending        |
+| Overall result                       | Pass: all seven fixed protocol steps completed successfully             | Pending        |
 
 A failure must retain the observed announcement or navigation problem and corrective PR. Do not
-weaken the task, table size, candidate, or expected answer after a result. Both pairings must pass
-against the same proof revision before final artifact-candidate disposition.
+weaken the task, table size, candidate, or expected answer after a result. VoiceOver/Safari must
+pass before final artifact-candidate disposition. NVDA/Firefox must pass against the retained proof
+before any desktop screen-reader support or release claim; its accepted omission does not broaden
+the private disposition.
 
 ## Reproduction
 

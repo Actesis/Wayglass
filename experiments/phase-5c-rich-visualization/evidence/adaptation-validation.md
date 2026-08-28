@@ -4,7 +4,8 @@
 **Environment:** macOS 26.5.2 arm64; Node 26.4.0; pnpm 11.9.0; Playwright 1.62.0; current bundled
 Chromium, Firefox, and WebKit  
 **Revision:** Phase 5C adaptation worktree based on merge commit `74111d2`  
-**Disposition:** automated `P5C-E05` and `P5C-E06` envelopes pass; owner review pending
+**Disposition:** automated `P5C-E05` and `P5C-E06` envelopes pass; accepted by the project owner on
+2026-08-28 for the private native-candidate disposition
 
 All three private adapters consumed the same full 4-series, 11,520-point fixture. A second validated
 fixture changed only application-authored title, summary, series labels, formatted window labels,

@@ -4,8 +4,8 @@
 **Environment:** Mac mini Mac16,10, Apple M4 10-core, 16 GB; macOS 26.5.2 arm64; Node 26.4.0; pnpm
 11.9.0; Playwright 1.62.0; Chromium 151.0.7922.34  
 **Revision:** Phase 5C comparative-measurement worktree based on `516a665`  
-**Disposition:** desktop measurement budgets pass; `P5C-E07`, `P5C-E08`, and `P5C-E10` remain
-partial
+**Disposition:** desktop measurement budgets pass and support the accepted private native candidate;
+low-power-device performance claims remain deferred
 
 The three adapters consumed the same frozen 4-series, 2,880-sample-per-series fixture without
 downsampling. Measurements ran from a minified ES2022 Vite production build at a 1,000 CSS-pixel
@@ -47,13 +47,14 @@ not silently remount and hide focus loss.
 
 ## Reproduction and limitations
 
-Run the retained production measurement with:
+Run the retained native production measurement with:
 
 ```sh
 pnpm exec playwright test --config playwright.phase5c-performance.config.ts
 ```
 
-The exact samples and byte counts are retained in
+This current command verifies only the retained native candidate after cleanup. The exact original
+three-candidate samples and byte counts are retained in
 [`raw/comparative-measurements-2026-08-27.json`](./raw/comparative-measurements-2026-08-27.json).
 
 These timings cover one named desktop and Chromium. They do not establish a supported-browser timing

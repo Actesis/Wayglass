@@ -6,7 +6,7 @@ import { describe, expect, it } from 'vitest';
 
 const repositoryRoot = fileURLToPath(new URL('../../..', import.meta.url));
 const experimentRoot = join(repositoryRoot, 'experiments/phase-5c-rich-visualization');
-const candidatePackages = [
+const rejectedPackages = [
   '@types/d3-array',
   '@types/d3-scale',
   '@types/d3-shape',
@@ -37,41 +37,20 @@ function filesBelow(root: string): string[] {
   });
 }
 
-describe('Phase 5C dependency and runtime isolation', () => {
-  it('keeps exact candidates at the private root development boundary', () => {
+describe('Phase 5C rejected-candidate cleanup and isolation', () => {
+  it('removes rejected packages and keeps the retained proof private', () => {
     const rootManifest = json(join(repositoryRoot, 'package.json'));
-    const developmentDependencies = rootManifest.devDependencies as Record<string, string>;
-    const exactVersions = {
-      '@types/d3-array': '3.2.2',
-      '@types/d3-scale': '4.0.9',
-      '@types/d3-shape': '3.2.0',
-      'd3-array': '3.2.4',
-      'd3-scale': '4.0.2',
-      'd3-shape': '3.2.0',
-      uplot: '1.6.32',
-    };
+    const manifestText = readFileSync(join(repositoryRoot, 'package.json'), 'utf8');
+    const lockText = readFileSync(join(repositoryRoot, 'pnpm-lock.yaml'), 'utf8');
 
     expect(rootManifest.private).toBe(true);
     expect(rootManifest).not.toHaveProperty('exports');
     expect(rootManifest).not.toHaveProperty('dependencies');
-    expect(
-      Object.fromEntries(candidatePackages.map((name) => [name, developmentDependencies[name]])),
-    ).toEqual(exactVersions);
-
-    const workspaceManifestPaths = [
-      ...filesBelow(join(repositoryRoot, 'apps')),
-      ...filesBelow(join(repositoryRoot, 'examples')),
-      ...filesBelow(join(repositoryRoot, 'packages')),
-    ].filter((path) => path.endsWith('package.json'));
-
-    for (const manifestPath of workspaceManifestPaths) {
-      const manifestText = readFileSync(manifestPath, 'utf8');
-      for (const candidate of candidatePackages) {
-        expect(
-          manifestText,
-          `${relative(repositoryRoot, manifestPath)} contains ${candidate}`,
-        ).not.toContain(`"${candidate}"`);
-      }
+    for (const candidate of rejectedPackages) {
+      expect(manifestText, `root manifest contains ${candidate}`).not.toContain(`"${candidate}"`);
+      expect(lockText, `lockfile contains ${candidate}`).not.toMatch(
+        new RegExp(`(?:^|/)${candidate.replace('/', '\\/')}@`, 'm'),
+      );
     }
 
     const workspaceDefinition = readFileSync(join(repositoryRoot, 'pnpm-workspace.yaml'), 'utf8');
@@ -79,44 +58,25 @@ describe('Phase 5C dependency and runtime isolation', () => {
     expect(filesBelow(experimentRoot).some((path) => path.endsWith('package.json'))).toBe(false);
   });
 
-  it('keeps candidate imports and side effects inside their explicit proof adapters', () => {
-    const productionRoots = ['apps', 'examples', 'packages'];
-    const productionSource = productionRoots.flatMap((root) =>
-      filesBelow(join(repositoryRoot, root)).filter((path) =>
-        ['.js', '.jsx', '.ts', '.tsx'].includes(extname(path)),
-      ),
+  it('retains no executable import or side effect from rejected candidates', () => {
+    const executableSource = ['apps', 'examples', 'packages', 'experiments', 'tests'].flatMap(
+      (root) =>
+        filesBelow(join(repositoryRoot, root)).filter((path) =>
+          ['.js', '.jsx', '.ts', '.tsx'].includes(extname(path)),
+        ),
     );
 
-    for (const sourcePath of productionSource) {
+    for (const sourcePath of executableSource) {
       const source = readFileSync(sourcePath, 'utf8');
-      for (const runtimeCandidate of ['uplot', 'd3-array', 'd3-scale', 'd3-shape']) {
-        expect(
-          source,
-          `${relative(repositoryRoot, sourcePath)} imports ${runtimeCandidate}`,
-        ).not.toMatch(
-          new RegExp(`(?:from\\s+|import\\s*\\()\\s*['"]${runtimeCandidate}(?:/[^'"]*)?['"]`),
-        );
-      }
+      expect(
+        source,
+        `${relative(repositoryRoot, sourcePath)} imports a rejected visualization dependency`,
+      ).not.toMatch(/(?:from\s+|import\s*\()\s*['"](?:uplot|d3-(?:array|scale|shape))/);
     }
 
-    const proofSource = filesBelow(join(experimentRoot, 'src')).filter((path) =>
+    for (const sourcePath of filesBelow(join(experimentRoot, 'src')).filter((path) =>
       ['.js', '.ts'].includes(extname(path)),
-    );
-    const candidateImporters = proofSource
-      .filter((path) =>
-        /(?:from\s+|import\s*\()\s*['"](?:uplot|d3-(?:array|scale|shape))/.test(
-          readFileSync(path, 'utf8'),
-        ),
-      )
-      .map((path) => relative(experimentRoot, path))
-      .sort();
-
-    expect(candidateImporters).toEqual([
-      'src/d3-geometry.ts',
-      'src/uplot-adapter.ts',
-      'src/uplot-model.ts',
-    ]);
-    for (const sourcePath of proofSource) {
+    )) {
       const source = readFileSync(sourcePath, 'utf8');
       expect(
         source,

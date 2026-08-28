@@ -189,26 +189,6 @@
   gap: var(--wg-space-semantic-layout-related-comfortable);
 }
 
-.p5c-uplot-host {
-  inline-size: 100%;
-  min-inline-size: 0;
-  overflow: hidden;
-}
-
-.p5c-uplot-host .uplot {
-  max-inline-size: 100%;
-  font-family: var(--wg-typography-family-body);
-}
-
-.p5c-uplot-host .u-over {
-  cursor: crosshair;
-}
-
-.p5c-uplot-host .u-cursor-x {
-  border-color: var(--wg-color-semantic-selection-indicator);
-  border-width: 2px;
-}
-
 .p5c-series-controls,
 .p5c-inspector {
   display: flex;

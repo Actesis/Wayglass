@@ -4,8 +4,8 @@
 **Environment:** macOS 26.5.2 arm64; Node 26.4.0; pnpm 11.9.0; Playwright 1.62.0; current bundled
 Chromium, Firefox, and WebKit  
 **Revision:** Phase 5C adverse-update worktree based on merge commit `71c9522`  
-**Disposition:** automated `P5C-E02` and `P5C-E10` adverse-input envelopes pass; owner review
-pending
+**Disposition:** automated `P5C-E02` and `P5C-E10` adverse-input envelopes pass; accepted by the
+project owner on 2026-08-28 for the private native-candidate disposition
 
 All three private adapters now validate the shared input boundary before mounting and validate a
 replacement before checking compatibility or mutating adapter state. Failure is synchronous and uses

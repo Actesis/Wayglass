@@ -30,8 +30,8 @@ test.describe('Phase 5C visual adaptation', () => {
           await expect(page.locator('body')).toHaveAttribute('data-wg-theme', theme);
           await expect(page.locator('body')).toHaveAttribute('data-wg-density', density);
           expect(await overflow(page)).toBeLessThanOrEqual(1);
-          await expect(page.locator('.p5c-adapter')).toHaveCount(3);
-          await expect(page.locator('.p5c-inspector')).toHaveCount(3);
+          await expect(page.locator('.p5c-adapter')).toHaveCount(1);
+          await expect(page.locator('.p5c-inspector')).toHaveCount(1);
 
           if (width === 1440) {
             const presentation = await page.locator('.p5c-proof').evaluate((element) => {
@@ -138,8 +138,7 @@ test.describe('Phase 5C visual adaptation', () => {
     expect(adaptation.legendPatterns).toEqual(['solid', 'dashed', 'dotted', 'double']);
     expect(adaptation.thresholdPattern).not.toBe(adaptation.annotationPattern);
     expect(adaptation.moving).toBe(0);
-    await expect(page.locator('.p5c-uplot canvas')).toBeVisible();
-    await expect(page.locator('.p5c-uplot [data-inspector-value]')).toBeVisible();
+    await expect(page.locator('.p5c-native [data-inspector-value]')).toBeVisible();
     expect(await overflow(page)).toBeLessThanOrEqual(1);
 
     const results = await new AxeBuilder({ page }).disableRules(['color-contrast']).analyze();
