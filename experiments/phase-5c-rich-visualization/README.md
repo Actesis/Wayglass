@@ -140,6 +140,8 @@ input, transactional replacement, and post-validation performance findings are r
 Dependency, maintenance, removal, bundle parse/evaluation, and cross-browser isolation findings are
 retained in
 [`evidence/dependency-and-isolation-audit.md`](./evidence/dependency-and-isolation-audit.md).
+Comparative owned-source, lifecycle, and candidate findings are retained in
+[`evidence/maintenance-and-candidate-comparison.md`](./evidence/maintenance-and-candidate-comparison.md).
 
 ## Ownership boundary
 

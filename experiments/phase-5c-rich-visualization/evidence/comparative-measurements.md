@@ -35,8 +35,9 @@ uPlot is the fastest candidate in this fixture but carries the largest JavaScrip
 Canvas, resize observer, and animation-frame lifecycle. The native renderer has the smallest bundle
 and the second-fastest construction and replacement results, at the cost of owning its coordinate
 and path calculations. The D3-assisted renderer is larger and slower than the native renderer here
-without changing the shared observable output or semantic inspection. D3 therefore needs a clear
-maintenance or calculation-safety advantage in the later review to justify its dependency cost.
+without changing the shared observable output or semantic inspection. The later
+[`maintenance-and-candidate-comparison.md`](./maintenance-and-candidate-comparison.md) finds no
+maintenance or calculation-safety advantage sufficient to justify that dependency cost.
 
 Fixed-envelope replacement preserves the proof identity, window, scale, series order and IDs, point
 count, and point IDs. Within that envelope, values, formatted values, labels, thresholds, and
@@ -59,5 +60,7 @@ These timings cover one named desktop and Chromium. They do not establish a supp
 claim, 4x CPU-throttled result, physical low-power-tablet result, touch or responsive adaptation, or
 manual assistive-technology evidence. Forced-collection heap and explicit DOM, observer, and
 animation-frame tracking are resource proxies; browser JavaScript does not expose an enumeration of
-every event listener. Dependency license, advisory, transitive, parse, maintenance, and
-complete-removal review also remains separate.
+every event listener. The later
+[`dependency-and-isolation-audit.md`](./dependency-and-isolation-audit.md) and
+[`maintenance-and-candidate-comparison.md`](./maintenance-and-candidate-comparison.md) complete the
+dependency, parse, maintenance, and complete-removal review.
