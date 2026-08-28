@@ -18,14 +18,14 @@ silently describing a different source surface.
 
 | Owned surface            | Files                                                                | Nonblank physical lines |
 | ------------------------ | -------------------------------------------------------------------- | ----------------------: |
-| Shared by every renderer | model validation, selection, inspector, and proof styling            |                     783 |
+| Shared by every renderer | model validation, selection, inspector, and proof styling            |                     784 |
 | Native renderer          | shared SVG renderer/geometry boundary plus native geometry and entry |                     358 |
 | uPlot renderer           | Canvas adapter, overlays, normalization, and entry                   |                     342 |
 | D3 renderer              | shared SVG renderer/geometry boundary plus D3 geometry and entry     |                     349 |
 
-The complete owned path is therefore 1,141 lines for native, 1,125 for uPlot, and 1,132 for D3—a
+The complete owned path is therefore 1,142 lines for native, 1,126 for uPlot, and 1,133 for D3—a
 maximum difference of 16 lines, or about 1.4% of the native path. None of the dependencies produces
-a materially smaller Wayglass-owned implementation. The dominant 783-line semantic and interaction
+a materially smaller Wayglass-owned implementation. The dominant 784-line semantic and interaction
 surface is intentionally common because moving it into generated SVG or Canvas would create a
 second, less reliable owner.
 

@@ -116,6 +116,7 @@ pnpm exec playwright test tests/browser/phase-5c-adaptation.spec.ts
 pnpm exec playwright test tests/browser/phase-5c-task-interaction.spec.ts
 pnpm exec playwright test tests/browser/phase-5c-adverse-update.spec.ts
 pnpm exec playwright test tests/browser/phase-5c-isolation.spec.ts
+pnpm exec playwright test tests/browser/phase-5c-assistive-preflight.spec.ts
 ```
 
 The ordinary repository `check` includes the focused proof typecheck and tests. Tests use no
@@ -142,6 +143,9 @@ retained in
 [`evidence/dependency-and-isolation-audit.md`](./evidence/dependency-and-isolation-audit.md).
 Comparative owned-source, lifecycle, and candidate findings are retained in
 [`evidence/maintenance-and-candidate-comparison.md`](./evidence/maintenance-and-candidate-comparison.md).
+The native-only semantic preflight and fixed VoiceOver/Safari and NVDA/Firefox transcript protocol
+are retained in
+[`evidence/assistive-technology-validation.md`](./evidence/assistive-technology-validation.md).
 
 ## Ownership boundary
 

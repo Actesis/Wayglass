@@ -2,16 +2,17 @@ import '../../../packages/tokens/dist/tokens.css';
 import '../../../packages/themes/dist/themes.css';
 import './native-adapter.css';
 
-import { mountD3Baseline } from './d3-adapter.js';
 import { mountApplicationEquivalence } from './equivalence.js';
 import { queueInvestigationAdaptationFixture, queueInvestigationFixture } from './fixture.js';
-import { mountNativeBaseline } from './native-adapter.js';
-import { mountUPlotBaseline } from './uplot-adapter.js';
 
 const proof = document.querySelector<HTMLElement>('[data-p5c-proof]');
 if (!proof) throw new Error('P5C_DEMO_ROOT: the proof root is missing.');
 
 const parameters = new URLSearchParams(window.location.search);
+const candidate = parameters.get('candidate');
+if (candidate !== null && !['all', 'native', 'uplot', 'd3'].includes(candidate)) {
+  throw new Error(`P5C_CANDIDATE: unsupported private proof candidate "${candidate}".`);
+}
 const theme = parameters.get('theme');
 const density = parameters.get('density');
 const direction = parameters.get('dir');
@@ -28,7 +29,16 @@ const fixture =
   parameters.get('longLabels') === 'true'
     ? queueInvestigationAdaptationFixture
     : queueInvestigationFixture;
-mountNativeBaseline(proof, fixture);
-mountUPlotBaseline(proof, fixture);
-mountD3Baseline(proof, fixture);
+if (candidate === null || candidate === 'all' || candidate === 'native') {
+  const { mountNativeBaseline } = await import('./native-adapter.js');
+  mountNativeBaseline(proof, fixture);
+}
+if (candidate === null || candidate === 'all' || candidate === 'uplot') {
+  const { mountUPlotBaseline } = await import('./uplot-adapter.js');
+  mountUPlotBaseline(proof, fixture);
+}
+if (candidate === null || candidate === 'all' || candidate === 'd3') {
+  const { mountD3Baseline } = await import('./d3-adapter.js');
+  mountD3Baseline(proof, fixture);
+}
 mountApplicationEquivalence(proof, fixture);

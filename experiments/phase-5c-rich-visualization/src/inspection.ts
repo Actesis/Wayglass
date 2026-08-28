@@ -104,6 +104,7 @@ export function mountInspection(
 
   const navigation = element('div');
   navigation.className = 'p5c-inspector-controls';
+  navigation.setAttribute('role', 'group');
   navigation.setAttribute('aria-label', 'Exact inspection navigation');
   const previousSeries = element('button', 'Previous series');
   const previousSample = element('button', 'Previous sample');
