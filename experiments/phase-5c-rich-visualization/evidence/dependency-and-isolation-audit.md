@@ -5,7 +5,7 @@
 **Environment:** Node 26.4.0; pnpm 11.9.0; Vite 8.1.5; Playwright 1.62.0; current Chromium, Firefox,
 and WebKit project browsers  
 **Disposition:** automated dependency, bundle, maintenance, removal, and runtime-isolation checks
-pass; promotion remains unapproved
+pass; uPlot and D3 were rejected and removed, while promotion remains unapproved
 
 ## Exact proof dependency graph
 
@@ -111,7 +111,6 @@ audit verifies the complete removal boundary without prematurely deleting eviden
 ```sh
 pnpm experiment:phase5c:check
 pnpm exec vitest run --root experiments/phase-5c-rich-visualization --config vitest.config.ts test/bundle-budget.test.ts --reporter=verbose --disableConsoleIntercept
-pnpm exec playwright test tests/browser/phase-5c-isolation.spec.ts
 pnpm audit --audit-level low
 ```
 

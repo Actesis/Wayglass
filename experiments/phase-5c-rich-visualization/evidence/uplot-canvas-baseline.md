@@ -2,7 +2,8 @@
 
 **Recorded:** 2026-08-26  
 **Scope:** partial evidence for `P5C-E01` through `P5C-E06`, `P5C-E08` through `P5C-E10`  
-**Disposition:** candidate adapter retained for comparison; evidence rows remain incomplete
+**Disposition:** rejected on 2026-08-28; historical evidence retained and executable adapter,
+dependency, tests, and lock entries removed
 
 ## Implemented boundary
 
@@ -49,17 +50,14 @@ produced a browser `ResizeObserver loop completed with undelivered notifications
 adapter now coalesces measurement and resize into one cancellable animation frame and explicitly
 cancels it during teardown. The warning is absent from the corrected visual and browser checks.
 
-## Remaining evidence
+## Evidence completed before rejection
 
-This slice does not establish construction, update, inspection, memory, installed-size, production
-bundle, gzip, or parse budgets. It also does not complete the zoom, RTL, forced-color, grayscale,
-reduced-motion, touch, long-label, manual VoiceOver, NVDA, physical tablet, or repeated teardown
-matrix. All three adapters now share the harness; comparative maintenance value, complete dependency
-removal, and the precommitted measurements remain pending.
+This slice alone did not establish the later construction, update, inspection, memory,
+installed-size, production-bundle, adaptation, assistive-technology, or teardown evidence. The
+retained comparative records completed those planned measurements before rejecting uPlot. The
+executable adapter and its tests are intentionally absent after cleanup.
 
 ## Reproduction
 
-```sh
-pnpm experiment:phase5c:check
-pnpm exec playwright test tests/browser/phase-5c-native-baseline.spec.ts tests/browser/phase-5c-uplot-adapter.spec.ts
-```
+The rejected adapter can be inspected at tested proof commit `4875ba4`; it is not reproducible from
+the dispositioned tree without deliberately restoring rejected code and dependencies.

@@ -5,7 +5,7 @@
 Chromium, Firefox, and WebKit  
 **Revision:** Phase 5C task-interaction worktree based on merge commit `ebe18f8`  
 **Disposition:** automated portions of `P5C-E01`, `P5C-E02`, and `P5C-E04` pass; owner review and
-named assistive-technology transcripts remain pending
+VoiceOver/Safari are complete, while NVDA/Firefox remains an accepted release-gate omission
 
 The automated matrix ran 12 tests, all passing. Every browser completed the same maximum-fixture
 investigation through the shared application-authored summary, native exact table, persistent
@@ -79,9 +79,9 @@ pnpm experiment:phase5c:check
 pnpm exec playwright test tests/browser/phase-5c-task-interaction.spec.ts
 ```
 
-This slice is deterministic synthetic evidence, not a representative deployed user study. It does
-not complete VoiceOver/Safari, NVDA/Firefox, a physical touch device, low-power performance, or
-final disposition. The later
-[`maintenance-and-candidate-comparison.md`](./maintenance-and-candidate-comparison.md) completes the
-source and ownership comparison. The summary, formatted values, thresholds, annotation, and task
-conclusion remain application-owned.
+This slice is deterministic synthetic evidence, not a representative deployed user study. The later
+VoiceOver/Safari task passed and final disposition was accepted. NVDA/Firefox, a physical touch
+device, and low-power performance remain outside this slice and cannot support release claims. The
+later [`maintenance-and-candidate-comparison.md`](./maintenance-and-candidate-comparison.md)
+completes the source and ownership comparison. The summary, formatted values, thresholds,
+annotation, and task conclusion remain application-owned.

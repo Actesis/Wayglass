@@ -3,7 +3,9 @@
 This private experiment implements the bounded proof accepted in
 [`P5C-RICH-VISUALIZATION-001`](../../docs/governance/explorations/phase-5c-rich-visualization.md).
 It is not a workspace package, production export, public Custom Element, chart grammar, or release
-candidate.
+candidate. The accepted disposition retains only the native SVG/HTML candidate; the rejected uPlot
+and D3 executable adapters and dependencies have been removed while their historical evidence is
+preserved below.
 
 ## Implemented slices
 
@@ -30,7 +32,7 @@ The native baseline slice adds:
 - normalized SVG resizing without a listener, observer, registration, or global mutation; and
 - focused model tests plus a private Playwright smoke, keyboard, table, containment, and Axe check.
 
-The uPlot Canvas slice adds:
+The removed uPlot Canvas comparison slice demonstrated:
 
 - full-resolution aligned uPlot data with explicit null gaps and the fixed authored scale;
 - a single non-semantic Canvas while shared native HTML retains context, visibility controls,
@@ -43,7 +45,7 @@ The uPlot Canvas slice adds:
 - focused model tests plus private Chromium, Firefox, and WebKit smoke, interaction, containment,
   and Axe checks.
 
-The D3-assisted SVG slice adds:
+The removed D3-assisted SVG comparison slice demonstrated:
 
 - `d3-array` pairing, `d3-scale` authored-domain mapping, and `d3-shape` line generation without a
   general chart runtime or inferred scale;
@@ -98,10 +100,11 @@ The adverse-input and update slice adds:
   rejected replacement; and
 - nine cross-browser adapter tests plus a post-validation performance and teardown rerun.
 
-All three bounded adapters and the named-desktop comparative measurement are now implemented. The
-automated responsive/non-color, task-interaction, dependency, maintenance, complete-removal, and
-runtime-isolation matrices also pass. Manual assistive-technology, owner review, and disposition
-evidence remain intentionally separate.
+The complete comparison, automated matrices, and VoiceOver/Safari task pass support the accepted
+native candidate. uPlot and D3 are rejected and removed because neither materially reduced the
+Wayglass-owned contract or justified its dependency and lifecycle cost. Charter revision 3 carries
+the unavailable NVDA/Firefox transcript as an explicit desktop release gate that did not block the
+private disposition and does not count as a pass.
 
 ## Commands
 
@@ -115,7 +118,6 @@ pnpm exec playwright test --config playwright.phase5c-performance.config.ts
 pnpm exec playwright test tests/browser/phase-5c-adaptation.spec.ts
 pnpm exec playwright test tests/browser/phase-5c-task-interaction.spec.ts
 pnpm exec playwright test tests/browser/phase-5c-adverse-update.spec.ts
-pnpm exec playwright test tests/browser/phase-5c-isolation.spec.ts
 pnpm exec playwright test tests/browser/phase-5c-assistive-preflight.spec.ts
 ```
 
@@ -151,5 +153,5 @@ are retained in
 
 The fixture stands in for application-owned validated and formatted input. Wayglass does not derive
 the unit, scale, threshold, annotation meaning, state axes, summary, or operational conclusion from
-geometry. Later adapters must consume this same frozen object without mutation or candidate-specific
-normalization that changes meaning.
+geometry. Any later implementation must consume this same frozen object without mutation or
+candidate-specific normalization that changes meaning.

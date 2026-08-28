@@ -26,14 +26,14 @@ type BenchmarkMount = (container: HTMLElement, input: unknown) => BenchmarkHandl
 interface BrowserBenchmarkHarness {
   readonly fixture: unknown;
   readonly replacement: unknown;
-  readonly mounts: Readonly<Record<'native' | 'uplot' | 'd3', BenchmarkMount>>;
+  readonly mounts: Readonly<Record<'native', BenchmarkMount>>;
 }
 
 type BenchmarkWindow = typeof window & {
   readonly __p5cBenchmark: BrowserBenchmarkHarness;
 };
 
-test.describe('Phase 5C comparative performance', () => {
+test.describe('Phase 5C retained native performance', () => {
   test.skip(
     ({ browserName }) => browserName !== 'chromium',
     'The named desktop baseline is Chromium.',

@@ -2,8 +2,8 @@
 
 **Recorded:** 2026-08-27  
 **Scope:** comparative maintenance portion of `P5C-E01` and success criteria 4–5  
-**Disposition:** comparison complete; native SVG/HTML is the sole provisional artifact candidate,
-while named assistive-technology evidence still blocks final disposition
+**Disposition:** comparison complete; native SVG/HTML was accepted as the sole artifact candidate on
+2026-08-28, and the rejected dependency-backed executable candidates were removed
 
 ## Comparable ownership
 
@@ -107,5 +107,6 @@ pnpm exec vitest run --root experiments/phase-5c-rich-visualization --config vit
 
 Line inventory does not measure cognitive complexity, defect density, upstream quality, or future
 change frequency. The recommendation combines that inventory with retained task, adverse-input,
-browser, bundle, performance, resource, dependency, maintenance, and isolation evidence. Manual
-screen-reader results and owner disposition remain separate.
+browser, bundle, performance, resource, dependency, maintenance, and isolation evidence. The later
+VoiceOver/Safari result and owner disposition accepted the native candidate; NVDA/Firefox remains a
+separate desktop release gate.

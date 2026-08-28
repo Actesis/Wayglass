@@ -2,8 +2,8 @@
 
 **Recorded:** 2026-08-26  
 **Scope:** partial evidence for `P5C-E01` through `P5C-E06`, `P5C-E08` through `P5C-E10`  
-**Disposition:** candidate calculation adapter retained for comparison; evidence rows remain
-incomplete
+**Disposition:** rejected on 2026-08-28; historical evidence retained and executable adapter,
+dependencies, tests, and lock entries removed
 
 ## Implemented boundary
 
@@ -52,17 +52,14 @@ The geometry tests independently compare D3 output with the native baseline for 
 knowledge ordering, marks, authored bounds, threshold, annotation, and explicit gap breaks. D3 path
 serialization differs internally, but no authored meaning or observable interaction changes.
 
-## Remaining evidence
+## Evidence completed before rejection
 
-This slice does not establish construction, update, inspection, memory, installed-size, production
-bundle, gzip, parse, or complete-removal budgets. It also does not complete the zoom, RTL,
-forced-color, grayscale, reduced-motion, touch, long-label, manual VoiceOver, NVDA, physical tablet,
-or repeated teardown matrix. Those comparative measurements and adaptation checks are now unblocked
-because all three adapters share the fixed harness.
+This slice alone did not establish the later construction, update, inspection, memory,
+installed-size, production-bundle, adaptation, assistive-technology, or teardown evidence. The
+retained comparative records completed those planned measurements before rejecting D3. The
+executable adapter and its tests are intentionally absent after cleanup.
 
 ## Reproduction
 
-```sh
-pnpm experiment:phase5c:check
-pnpm exec playwright test tests/browser/phase-5c-native-baseline.spec.ts tests/browser/phase-5c-uplot-adapter.spec.ts tests/browser/phase-5c-d3-adapter.spec.ts
-```
+The rejected adapter can be inspected at tested proof commit `4875ba4`; it is not reproducible from
+the dispositioned tree without deliberately restoring rejected code and dependencies.

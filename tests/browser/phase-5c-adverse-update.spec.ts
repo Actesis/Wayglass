@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 
 const proofPath = '/experiments/phase-5c-rich-visualization/';
 
-for (const candidate of ['native', 'uplot', 'd3'] as const) {
+for (const candidate of ['native'] as const) {
   test(`Phase 5C ${candidate} adapter rejects adverse input transactionally`, async ({ page }) => {
     await page.goto(proofPath);
     const result = await page.evaluate(async (selectedCandidate) => {
@@ -12,16 +12,8 @@ for (const candidate of ['native', 'uplot', 'd3'] as const) {
       const nativeModule = await import(
         /* @vite-ignore */ '/experiments/phase-5c-rich-visualization/src/native-adapter.ts'
       );
-      const uplotModule = await import(
-        /* @vite-ignore */ '/experiments/phase-5c-rich-visualization/src/uplot-adapter.ts'
-      );
-      const d3Module = await import(
-        /* @vite-ignore */ '/experiments/phase-5c-rich-visualization/src/d3-adapter.ts'
-      );
       const mount = {
         native: nativeModule.mountNativeBaseline,
-        uplot: uplotModule.mountUPlotBaseline,
-        d3: d3Module.mountD3Baseline,
       }[selectedCandidate];
       const host = document.createElement('div');
       host.style.inlineSize = '1000px';
@@ -47,10 +39,7 @@ for (const candidate of ['native', 'uplot', 'd3'] as const) {
       const before = {
         state: JSON.stringify(handle.getState()),
         value: inspectorValue.textContent,
-        geometry:
-          selectedCandidate === 'uplot'
-            ? String(handle.chart.data[1]?.[1])
-            : handle.root.querySelector<SVGPathElement>('.p5c-series-line')?.getAttribute('d'),
+        geometry: handle.root.querySelector<SVGPathElement>('.p5c-series-line')?.getAttribute('d'),
       };
 
       const invalidReplacement = structuredClone(fixtureModule.queueInvestigationFixture);
@@ -65,10 +54,7 @@ for (const candidate of ['native', 'uplot', 'd3'] as const) {
       const afterInvalidReplacement = {
         state: JSON.stringify(handle.getState()),
         value: inspectorValue.textContent,
-        geometry:
-          selectedCandidate === 'uplot'
-            ? String(handle.chart.data[1]?.[1])
-            : handle.root.querySelector<SVGPathElement>('.p5c-series-line')?.getAttribute('d'),
+        geometry: handle.root.querySelector<SVGPathElement>('.p5c-series-line')?.getAttribute('d'),
         focusPreserved: document.activeElement === nextSample,
       };
 

@@ -1,9 +1,9 @@
 # Phase 5 ecosystem roadmap
 
-**Status:** Accepted on August 14, 2026. Phases 5A and 5B are complete. Phase 5C charter revision 2
-was accepted on August 25, 2026, and its bounded private proof is underway. Every later ecosystem
-track requires its own accepted charter before implementation, and an exploration may conclude with
-no new package.
+**Status:** Accepted on August 14, 2026. Phases 5A, 5B, and 5C are complete. Phase 5C accepted a
+narrow native SVG/HTML artifact candidate on August 28, 2026, while deferring implementation until a
+named independent consumer exists. Every later ecosystem track requires its own accepted charter
+before implementation, and an exploration may conclude with no new package.
 
 Phase 5 extends Wayglass beyond the core design language and its three reference domains. `SPEC.md`
 names six ecosystem areas to explore: charts, Home Assistant integration, icon tooling, Figma
@@ -212,6 +212,13 @@ browser evidence, stop criteria, and cleanup before any private proof begins.
 Phase 5C must not turn compact telemetry into a universal chart or hide exact values behind pointer
 interaction. A private feasibility proof precedes any public component contract.
 
+**Exit disposition:** Complete on August 28, 2026. The native SVG/HTML interaction and
+exact-equivalence contract is accepted as a narrow optional-runtime artifact candidate; uPlot and D3
+are rejected for the bounded form and their executable code and dependency graph are removed.
+Permanent implementation, package work, and a stable public API are deferred until a named
+independent application consumer demonstrates the complete task. NVDA/Firefox remains an explicit
+desktop release gate and is not represented as passing.
+
 ### Phase 5D — Icon tooling and design-library bridge
 
 Treat code assets, authoring automation, and designer-facing libraries as related but distinct.
@@ -354,11 +361,13 @@ revise, or reject disposition; accepted artifacts satisfy their tier-specific va
 application boundaries remain intact; package, deployment, and support claims are explicit; and all
 unresolved human, provider, device, or operational evidence has a named owner and release impact.
 
-The current Phase 5C step is the bounded private proof. Its shared deterministic input, maximum
-queue fixture, native SVG/HTML baseline, uPlot Canvas adapter, D3-assisted SVG adapter, and
-named-desktop production bundle, timing, replacement, and resource measurements are implemented. The
-desktop budgets and automated responsive/non-color adaptation matrix pass. Sighted keyboard,
-pointer, touch, complete-task, and exact-table evidence also pass across the supported browser
-matrix. The complete adverse-input boundary and transactional replacement matrix also pass. Manual
-assistive-technology work, complete dependency and maintenance review, owner review, cleanup, and
-disposition remain separately gated.
+The completed Phase 5C proof used a shared deterministic input, maximum queue fixture, native
+SVG/HTML baseline, uPlot Canvas adapter, D3-assisted SVG adapter, and named-desktop production
+bundle, timing, replacement, and resource measurements. Desktop budgets; responsive and non-color
+adaptation; sighted keyboard, pointer, touch, complete-task, and exact-table behavior; adverse-input
+and transactional replacement behavior; dependency and maintenance review; the automated semantic
+preflight; and VoiceOver/Safari all pass within the recorded limitations. Charter revision 3 carries
+the unavailable Windows NVDA/Firefox task transcript as an explicit desktop release obligation; it
+did not block the private disposition and cannot support a desktop screen-reader claim until
+completed. The rejected dependency-backed adapters have been removed; the native candidate and
+historical evidence remain private pending an independent-consumer trigger.
