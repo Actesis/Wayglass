@@ -16,7 +16,7 @@
   },
   "scripts": {
     "build": "pnpm token-tooling:generate:web && turbo run build",
-    "check": "pnpm format:check && pnpm lint && pnpm token-tooling:check && pnpm token-tooling:core:check && pnpm experiment:phase5c:check && pnpm typecheck && pnpm test && pnpm build",
+    "check": "pnpm format:check && pnpm lint && pnpm token-tooling:check && pnpm token-tooling:core:check && pnpm experiment:phase5c:check && pnpm experiment:phase5d:check && pnpm typecheck && pnpm test && pnpm build",
     "docs:build": "pnpm --filter @wayglass/docs build",
     "docs:dev": "pnpm --filter @wayglass/docs dev",
     "example:agent-supervision": "pnpm --filter @wayglass/example-agent-supervision dev",
@@ -27,6 +27,9 @@
     "experiment:phase5c:check": "pnpm experiment:phase5c:typecheck && pnpm experiment:phase5c:test",
     "experiment:phase5c:test": "vitest run --root experiments/phase-5c-rich-visualization --config vitest.config.ts",
     "experiment:phase5c:typecheck": "tsc --noEmit -p experiments/phase-5c-rich-visualization/tsconfig.json",
+    "experiment:phase5d:check": "pnpm experiment:phase5d:typecheck && pnpm experiment:phase5d:test",
+    "experiment:phase5d:test": "vitest run --root experiments/phase-5d-icon-tooling --config vitest.config.ts",
+    "experiment:phase5d:typecheck": "tsc --noEmit -p experiments/phase-5d-icon-tooling/tsconfig.json",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint .",
