@@ -49,6 +49,7 @@ describe('Phase 5D-A deterministic generation and drift', () => {
 
     expect(detectGeneratedArtifactDrift(actual, expected)).toEqual([
       { artifact: 'runtime-catalog.ts', kind: 'changed' },
+      { artifact: 'review-index.html', kind: 'missing' },
       { artifact: 'source-manifest.json', kind: 'missing' },
       { artifact: 'untracked.svg', kind: 'unexpected' },
     ]);

@@ -28,6 +28,12 @@ locales, time zones, and source orders. It also measures 50 generations of an ex
 500-glyph catalog against the charter's two-second and 256-MiB bounds. The synthetic catalog tests
 capacity only; it is not evidence of demand or catalog eligibility.
 
+The static-review slice generates a script-free HTML index from the same validated source. It shows
+both review themes, three exact sizes, LTR and RTL geometry, metadata, named-reference and
+owning-control cases, an icon-absent task, and a missing preview. Focused Playwright coverage checks
+the page in Chromium, Firefox, and WebKit with Axe, forced colors, grayscale, reduced motion, and
+200% text.
+
 Domain neutrality and icon meaning remain human review decisions. The validator deliberately does
 not infer semantic names, labels, direction, or catalog eligibility from geometry.
 
