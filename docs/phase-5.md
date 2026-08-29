@@ -255,8 +255,10 @@ source, validation, deterministic-generation, drift, and static-review artifact 
 not promote the full proof or authorize runtime migration or package publication. The accepted
 [`@wayglass/icons` runtime-contract reconciliation](./governance/icon-runtime-contract-reconciliation.md)
 keeps the Phase 2C foundation API authoritative and classifies the current package as incomplete. A
-separate implementation contract and architecture decision come next, followed by minimum-Node and
-Linux validation before permanent implementation acceptance.
+proposed [implementation contract](./governance/icon-tooling-implementation-contract.md) and
+[ADR 0034](./architecture/adr/0034-private-icon-pipeline-architecture.md) define the trimmed
+permanent boundary. Project-owner acceptance comes next, followed by the unchanged proof on Node
+22.13/Linux before any production migration begins.
 
 Phase 5D-B design-library work was deferred by the project owner on August 29, 2026. It may restart
 only when a named Figma workspace, access model, exact target versions, reviewer, backup policy,

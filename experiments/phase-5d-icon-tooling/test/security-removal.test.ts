@@ -161,7 +161,13 @@ describe('Phase 5D dependency, network, and removal boundary', () => {
       'tests/browser/phase-5d-runtime-isolation.spec.ts',
     ]);
     expect(plan.retainHistoricalRecords).toEqual([
+      'apps/docs/architecture/adr/0034-private-icon-pipeline-architecture.md',
+      'apps/docs/governance/icon-runtime-contract-reconciliation.md',
+      'apps/docs/governance/icon-tooling-implementation-contract.md',
       'apps/docs/governance/explorations/phase-5d-icon-tooling.md',
+      'docs/architecture/adr/0034-private-icon-pipeline-architecture.md',
+      'docs/governance/icon-runtime-contract-reconciliation.md',
+      'docs/governance/icon-tooling-implementation-contract.md',
       'docs/governance/explorations/phase-5d-icon-tooling.md',
       'docs/phase-5.md',
       'experiments/phase-5d-icon-tooling/evidence/',
@@ -197,7 +203,9 @@ describe('Phase 5D dependency, network, and removal boundary', () => {
     expect(externalReferences).toEqual(
       [
         'apps/docs/governance/explorations/phase-5d-icon-tooling.md',
+        'docs/architecture/adr/0034-private-icon-pipeline-architecture.md',
         'docs/governance/explorations/phase-5d-icon-tooling.md',
+        'docs/governance/icon-tooling-implementation-contract.md',
         'docs/phase-5.md',
         'package.json',
         'tests/browser/phase-5d-icon-review.spec.ts',

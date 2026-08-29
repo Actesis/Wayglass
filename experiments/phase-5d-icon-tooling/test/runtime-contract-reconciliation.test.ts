@@ -37,9 +37,9 @@ describe('Phase 5D runtime-contract reconciliation', () => {
     expect(runtime).toContain("this.setAttribute('aria-hidden', 'true');");
     expect(runtime).not.toContain('declare label:');
     expect(Object.keys(manifest.exports)).toEqual(['.']);
-    expect(roadmap).toMatch(
-      /A\s+separate implementation contract and architecture decision come next/,
-    );
+    expect(roadmap).toContain('./governance/icon-tooling-implementation-contract.md');
+    expect(roadmap).toContain('./architecture/adr/0034-private-icon-pipeline-architecture.md');
+    expect(roadmap).toContain('Project-owner acceptance comes next');
   });
 
   it('records the project-owner deferral of Phase 5D-B', () => {

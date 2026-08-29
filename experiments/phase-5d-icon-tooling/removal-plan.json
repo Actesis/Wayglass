@@ -17,7 +17,13 @@
   ],
   "removeFromRootCheck": "pnpm experiment:phase5d:check && ",
   "retainHistoricalRecords": [
+    "apps/docs/architecture/adr/0034-private-icon-pipeline-architecture.md",
+    "apps/docs/governance/icon-runtime-contract-reconciliation.md",
+    "apps/docs/governance/icon-tooling-implementation-contract.md",
     "apps/docs/governance/explorations/phase-5d-icon-tooling.md",
+    "docs/architecture/adr/0034-private-icon-pipeline-architecture.md",
+    "docs/governance/icon-runtime-contract-reconciliation.md",
+    "docs/governance/icon-tooling-implementation-contract.md",
     "docs/governance/explorations/phase-5d-icon-tooling.md",
     "docs/phase-5.md",
     "experiments/phase-5d-icon-tooling/evidence/"
