@@ -2,9 +2,9 @@
 
 **Status:** Accepted on August 14, 2026. Phases 5A, 5B, and 5C are complete. Phase 5D-A accepted a
 trimmed private icon build-and-validation candidate and its authoritative runtime reconciliation on
-August 29, 2026; its implementation contract and minimum-runtime validation remain. Phase 5D-B is
-deferred. Every later ecosystem track requires its own accepted charter before implementation, and
-an exploration may conclude with no new package.
+August 29, 2026; its minimum-runtime validation remains. Phase 5D-B is deferred. Every later
+ecosystem track requires its own accepted charter before implementation, and an exploration may
+conclude with no new package.
 
 Phase 5 extends Wayglass beyond the core design language and its three reference domains. `SPEC.md`
 names six ecosystem areas to explore: charts, Home Assistant integration, icon tooling, Figma
@@ -255,10 +255,10 @@ source, validation, deterministic-generation, drift, and static-review artifact 
 not promote the full proof or authorize runtime migration or package publication. The accepted
 [`@wayglass/icons` runtime-contract reconciliation](./governance/icon-runtime-contract-reconciliation.md)
 keeps the Phase 2C foundation API authoritative and classifies the current package as incomplete. A
-proposed [implementation contract](./governance/icon-tooling-implementation-contract.md) and
+accepted [implementation contract](./governance/icon-tooling-implementation-contract.md) and
 [ADR 0034](./architecture/adr/0034-private-icon-pipeline-architecture.md) define the trimmed
-permanent boundary. Project-owner acceptance comes next, followed by the unchanged proof on Node
-22.13/Linux before any production migration begins.
+permanent boundary. The unchanged proof on Node 22.13/Linux comes next and must pass before any
+production migration begins.
 
 Phase 5D-B design-library work was deferred by the project owner on August 29, 2026. It may restart
 only when a named Figma workspace, access model, exact target versions, reviewer, backup policy,

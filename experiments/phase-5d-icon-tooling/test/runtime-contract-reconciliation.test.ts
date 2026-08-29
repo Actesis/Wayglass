@@ -39,7 +39,7 @@ describe('Phase 5D runtime-contract reconciliation', () => {
     expect(Object.keys(manifest.exports)).toEqual(['.']);
     expect(roadmap).toContain('./governance/icon-tooling-implementation-contract.md');
     expect(roadmap).toContain('./architecture/adr/0034-private-icon-pipeline-architecture.md');
-    expect(roadmap).toContain('Project-owner acceptance comes next');
+    expect(roadmap).toContain('The unchanged proof on Node 22.13/Linux comes next');
   });
 
   it('records the project-owner deferral of Phase 5D-B', () => {
