@@ -21,7 +21,7 @@ const expectedEvidence = [
 ] as const;
 
 describe('Phase 5D evidence documentation and cleanup', () => {
-  it('indexes every retained evidence record and marks the charter evidence-complete', () => {
+  it('indexes every retained evidence record and marks the charter dispositioned', () => {
     const evidenceFiles = readdirSync(evidenceRoot)
       .filter((name) => name.endsWith('.md'))
       .sort();
@@ -30,9 +30,10 @@ describe('Phase 5D evidence documentation and cleanup', () => {
 
     expect(evidenceFiles).toEqual([...expectedEvidence].sort());
     for (const evidence of expectedEvidence) expect(readme).toContain(`evidence/${evidence}`);
-    expect(charter).toContain('| Lifecycle state    | `evidence-complete`');
+    expect(charter).toContain('| Lifecycle state    | `dispositioned`');
     expect(charter).toContain('### Claims not supported');
-    expect(charter).toContain('Proposed; awaiting project-owner approval');
+    expect(charter).toContain('Accepted by the project owner on 2026-08-29');
+    expect(charter).toContain('../icon-runtime-contract-reconciliation.md');
     for (const id of Array.from({ length: 9 }, (_, index) => `P5D-A-E0${index + 1}`))
       expect(charter).toContain(`\`${id}\``);
   });

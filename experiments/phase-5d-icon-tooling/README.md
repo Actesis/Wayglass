@@ -64,6 +64,8 @@ candidate artifacts to enforce drift; they never repair or replace them.
 
 The current contract and runtime inventory is retained in
 [`evidence/current-contract-and-source-inventory.md`](./evidence/current-contract-and-source-inventory.md).
+The project-owner-approved disposition and authoritative runtime decision are recorded in the
+[`@wayglass/icons` runtime-contract reconciliation](../../docs/governance/icon-runtime-contract-reconciliation.md).
 Deterministic generation and drift findings are retained in
 [`evidence/deterministic-generation-and-drift.md`](./evidence/deterministic-generation-and-drift.md).
 Environment and capacity findings are retained in

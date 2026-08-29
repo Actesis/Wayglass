@@ -1,9 +1,10 @@
 # Phase 5 ecosystem roadmap
 
-**Status:** Accepted on August 14, 2026. Phases 5A, 5B, and 5C are complete. Phase 5C accepted a
-narrow native SVG/HTML artifact candidate on August 28, 2026, while deferring implementation until a
-named independent consumer exists. Every later ecosystem track requires its own accepted charter
-before implementation, and an exploration may conclude with no new package.
+**Status:** Accepted on August 14, 2026. Phases 5A, 5B, and 5C are complete. Phase 5D-A accepted a
+trimmed private icon build-and-validation candidate and its authoritative runtime reconciliation on
+August 29, 2026; its implementation contract and minimum-runtime validation remain. Phase 5D-B is
+deferred. Every later ecosystem track requires its own accepted charter before implementation, and
+an exploration may conclude with no new package.
 
 Phase 5 extends Wayglass beyond the core design language and its three reference domains. `SPEC.md`
 names six ecosystem areas to explore: charts, Home Assistant integration, icon tooling, Figma
@@ -223,8 +224,8 @@ desktop release gate and is not represented as passing.
 
 Treat code assets, authoring automation, and designer-facing libraries as related but distinct.
 
-Phase 5D is intentionally sequenced. The proposed
-[Phase 5D-A icon-tooling charter](./governance/explorations/phase-5d-icon-tooling.md) first asks
+Phase 5D is intentionally sequenced. The accepted and dispositioned
+[Phase 5D-A icon-tooling charter](./governance/explorations/phase-5d-icon-tooling.md) first asked
 whether Wayglass needs private source, validation, generation, drift, and review tooling for the
 existing optional icon runtime. It records—but does not repair—the current difference between the
 accepted icon contract and implementation. Phase 5D-B will require its own design-artifact charter,
@@ -249,12 +250,17 @@ Icon tooling may ship without a Figma component library, and Figma guidance may 
 automated plugin. The milestone accepts only artifacts that can be maintained and versioned with the
 code contracts they represent.
 
-Phase 5D-A evidence is complete as of August 29, 2026. Its proposed disposition accepts a trimmed
-private source, validation, deterministic-generation, drift, and static-review artifact candidate;
-it does not promote the full proof or authorize runtime migration, package publication, or Phase
-5D-B work. Project-owner disposition approval remains pending. The current `@wayglass/icons`
-contract mismatch and minimum-Node/Linux validation remain explicit gates before permanent
-implementation can be accepted.
+Phase 5D-A was dispositioned on August 29, 2026. The accepted outcome retains a trimmed private
+source, validation, deterministic-generation, drift, and static-review artifact candidate; it does
+not promote the full proof or authorize runtime migration or package publication. The accepted
+[`@wayglass/icons` runtime-contract reconciliation](./governance/icon-runtime-contract-reconciliation.md)
+keeps the Phase 2C foundation API authoritative and classifies the current package as incomplete. A
+separate implementation contract and architecture decision come next, followed by minimum-Node and
+Linux validation before permanent implementation acceptance.
+
+Phase 5D-B design-library work was deferred by the project owner on August 29, 2026. It may restart
+only when a named Figma workspace, access model, exact target versions, reviewer, backup policy,
+version linkage, and drift plan are available.
 
 ### Phase 5E — Home Assistant integration proof
 

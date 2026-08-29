@@ -9,6 +9,11 @@ exports, stories, and automated browser coverage are implemented. Evidence is re
 `wg-icon` and the first official catalog remain intentionally deferred until Phase 2D selects the
 controls that consume them.
 
+The icon API below remains authoritative after the accepted
+[`@wayglass/icons` runtime-contract reconciliation](../governance/icon-runtime-contract-reconciliation.md).
+The current private package is an incomplete implementation of this contract; its root export,
+implicit `more` default, and always-decorative behavior do not replace the accepted API.
+
 These contracts cover the remaining behaviorless or near-behaviorless foundations: typography,
 icons, visually hidden content, focus rings, surfaces, and dividers. They define the public boundary
 before token additions or component implementation begin.
