@@ -19,9 +19,10 @@ the automated suite also repeats the matrix in one worker while reversing the se
 The in-worker test restores the original process working directory and environment values in a
 `finally` block. Separate filtered Vitest invocations started from the experiment and repository
 roots confirm that process-start environment does not affect committed output. The result completes
-current-Node locale, time-zone, working-directory, and order evidence. Minimum Node 22.13 remains
-open because that runtime is not installed on the named desktop and the repository has no CI runner.
-No runtime was downloaded or installed to manufacture evidence.
+current-Node locale, time-zone, working-directory, and order evidence. The later
+[Node 22/Linux prerequisite validation](./node-22-linux-validation.md) completes the accepted
+minimum-runtime gate on a separate GitHub-hosted Linux system with identical committed bytes and
+diagnostics.
 
 ## Capacity result
 
@@ -45,10 +46,11 @@ authenticated the same source fingerprint.
 
 ## Limits retained
 
-The timing is a named-desktop measurement, not a support guarantee. Linux, multi-host, cold-process,
-and minimum-Node results remain unavailable. The synthetic records intentionally repeat simple
-geometry, so this evidence validates the accepted count envelope rather than every possible maximum
-primitive/command combination.
+The timing is a named-desktop measurement, not a support guarantee. Linux capacity, repeated Linux
+hosts, and multi-distribution results remain unavailable; the separate minimum-runtime run validates
+determinism and behavior, not comparative performance. The synthetic records intentionally repeat
+simple geometry, so this evidence validates the accepted count envelope rather than every possible
+maximum primitive/command combination.
 
 Five-glyph warm and cold-process generation plus the completed maintenance comparison are retained
 in [`maintenance-and-task-comparison.md`](./maintenance-and-task-comparison.md).

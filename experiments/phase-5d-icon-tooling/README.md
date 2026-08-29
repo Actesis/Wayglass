@@ -72,7 +72,9 @@ and [ADR 0034](../../docs/architecture/adr/0034-private-icon-pipeline-architectu
 Deterministic generation and drift findings are retained in
 [`evidence/deterministic-generation-and-drift.md`](./evidence/deterministic-generation-and-drift.md).
 Environment and capacity findings are retained in
-[`evidence/environment-and-capacity.md`](./evidence/environment-and-capacity.md). Static visual and
+[`evidence/environment-and-capacity.md`](./evidence/environment-and-capacity.md). The completed
+minimum-environment prerequisite is retained in
+[`evidence/node-22-linux-validation.md`](./evidence/node-22-linux-validation.md). Static visual and
 accessibility findings are retained in
 [`evidence/static-review-and-accessibility.md`](./evidence/static-review-and-accessibility.md).
 Runtime-boundary findings are retained in

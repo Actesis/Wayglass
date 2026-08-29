@@ -205,6 +205,7 @@ describe('Phase 5D dependency, network, and removal boundary', () => {
         'apps/docs/governance/explorations/phase-5d-icon-tooling.md',
         'docs/architecture/adr/0034-private-icon-pipeline-architecture.md',
         'docs/governance/explorations/phase-5d-icon-tooling.md',
+        'docs/governance/icon-runtime-contract-reconciliation.md',
         'docs/governance/icon-tooling-implementation-contract.md',
         'docs/phase-5.md',
         'package.json',

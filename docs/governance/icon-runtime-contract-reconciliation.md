@@ -64,9 +64,11 @@ and removal harnesses remain outside the permanent tooling boundary.
 
 - Permanent tooling and runtime migration are governed by the accepted
   [implementation contract](./icon-tooling-implementation-contract.md) and
-  [ADR 0034](../architecture/adr/0034-private-icon-pipeline-architecture.md); their minimum-
-  environment gate remains unsatisfied.
-- Permanent implementation acceptance requires the planned Node 22.13/Linux validation.
+  [ADR 0034](../architecture/adr/0034-private-icon-pipeline-architecture.md). Their minimum-
+  environment prerequisite passed on Node 22.13/Linux on August 29, 2026, as recorded in the
+  [retained evidence](https://github.com/Actesis/Wayglass/blob/main/experiments/phase-5d-icon-tooling/evidence/node-22-linux-validation.md).
+- Permanent implementation acceptance still requires every later validation stage in the accepted
+  implementation contract; satisfying the prerequisite does not approve the finished tool.
 - A public contribution workflow requires an independent contributor task.
 - Phase 5D-B design-library work is deferred by the project owner. It may restart only with a named
   Figma workspace, access model, exact supported versions, reviewer, backup policy, version linkage,
