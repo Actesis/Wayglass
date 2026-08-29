@@ -66,6 +66,9 @@ The current contract and runtime inventory is retained in
 [`evidence/current-contract-and-source-inventory.md`](./evidence/current-contract-and-source-inventory.md).
 The project-owner-approved disposition and authoritative runtime decision are recorded in the
 [`@wayglass/icons` runtime-contract reconciliation](../../docs/governance/icon-runtime-contract-reconciliation.md).
+The proposed permanent boundary is recorded in the
+[icon-tooling implementation contract](../../docs/governance/icon-tooling-implementation-contract.md)
+and [ADR 0034](../../docs/architecture/adr/0034-private-icon-pipeline-architecture.md).
 Deterministic generation and drift findings are retained in
 [`evidence/deterministic-generation-and-drift.md`](./evidence/deterministic-generation-and-drift.md).
 Environment and capacity findings are retained in

@@ -38,6 +38,10 @@ export default defineConfig({
             link: '/governance/icon-runtime-contract-reconciliation',
           },
           {
+            text: 'Icon-tooling implementation contract',
+            link: '/governance/icon-tooling-implementation-contract',
+          },
+          {
             text: 'Token-tooling implementation contract',
             link: '/governance/token-tooling-implementation-contract',
           },
@@ -332,6 +336,10 @@ export default defineConfig({
           {
             text: 'ADR 0033: Private token tooling',
             link: '/architecture/adr/0033-private-token-tooling-architecture',
+          },
+          {
+            text: 'ADR 0034: Private icon pipeline',
+            link: '/architecture/adr/0034-private-icon-pipeline-architecture',
           },
         ],
       },
