@@ -46,8 +46,8 @@ jobs:
           sha256sum experiments/phase-5d-icon-tooling/generated/runtime-catalog.ts
           sha256sum experiments/phase-5d-icon-tooling/generated/source-manifest.json
 
-      - name: Materialize ignored web build inputs
-        run: pnpm token-tooling:generate:web
+      - name: Materialize ignored package build outputs
+        run: pnpm build
 
       - name: Run the complete repository gate
         run: pnpm check
