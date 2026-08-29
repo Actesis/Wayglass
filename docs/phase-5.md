@@ -249,6 +249,13 @@ Icon tooling may ship without a Figma component library, and Figma guidance may 
 automated plugin. The milestone accepts only artifacts that can be maintained and versioned with the
 code contracts they represent.
 
+Phase 5D-A evidence is complete as of August 29, 2026. Its proposed disposition accepts a trimmed
+private source, validation, deterministic-generation, drift, and static-review artifact candidate;
+it does not promote the full proof or authorize runtime migration, package publication, or Phase
+5D-B work. Project-owner disposition approval remains pending. The current `@wayglass/icons`
+contract mismatch and minimum-Node/Linux validation remain explicit gates before permanent
+implementation can be accepted.
+
 ### Phase 5E — Home Assistant integration proof
 
 Use one optional smart-home integration to test the ecosystem boundary under real external state.

@@ -64,9 +64,17 @@ candidate artifacts to enforce drift; they never repair or replace them.
 
 The current contract and runtime inventory is retained in
 [`evidence/current-contract-and-source-inventory.md`](./evidence/current-contract-and-source-inventory.md).
+Deterministic generation and drift findings are retained in
+[`evidence/deterministic-generation-and-drift.md`](./evidence/deterministic-generation-and-drift.md).
+Environment and capacity findings are retained in
+[`evidence/environment-and-capacity.md`](./evidence/environment-and-capacity.md). Static visual and
+accessibility findings are retained in
+[`evidence/static-review-and-accessibility.md`](./evidence/static-review-and-accessibility.md).
 Runtime-boundary findings are retained in
 [`evidence/runtime-compatibility-and-isolation.md`](./evidence/runtime-compatibility-and-isolation.md).
 Security, dependency-history, and cleanup findings are retained in
 [`evidence/security-dependency-and-removal.md`](./evidence/security-dependency-and-removal.md). Task
 and maintenance findings are retained in
 [`evidence/maintenance-and-task-comparison.md`](./evidence/maintenance-and-task-comparison.md).
+Documentation, cleanup, and the proposed disposition are retained in
+[`evidence/documentation-cleanup-and-proposed-disposition.md`](./evidence/documentation-cleanup-and-proposed-disposition.md).
