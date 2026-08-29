@@ -39,6 +39,10 @@ bundle checks compare current production geometry, keep the directional fixture 
 generator and validator code from the candidate graph, and prove that a clean no-icon core consumer
 receives neither icon nor proof modules.
 
+The security-and-removal slice exercises explicit active, external, hidden, styled, and text-bearing
+input attacks; audits executable imports and side-effect APIs; and keeps a machine-checked removal
+plan that leaves production packages and dependency graphs untouched.
+
 Domain neutrality and icon meaning remain human review decisions. The validator deliberately does
 not infer semantic names, labels, direction, or catalog eligibility from geometry.
 
@@ -58,3 +62,5 @@ The current contract and runtime inventory is retained in
 [`evidence/current-contract-and-source-inventory.md`](./evidence/current-contract-and-source-inventory.md).
 Runtime-boundary findings are retained in
 [`evidence/runtime-compatibility-and-isolation.md`](./evidence/runtime-compatibility-and-isolation.md).
+Security, dependency-history, and cleanup findings are retained in
+[`evidence/security-dependency-and-removal.md`](./evidence/security-dependency-and-removal.md).

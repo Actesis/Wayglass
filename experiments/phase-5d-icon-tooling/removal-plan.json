@@ -1,0 +1,25 @@
+{
+  "deletePaths": [
+    "experiments/phase-5d-icon-tooling/generated/",
+    "experiments/phase-5d-icon-tooling/src/",
+    "experiments/phase-5d-icon-tooling/test/",
+    "experiments/phase-5d-icon-tooling/README.md",
+    "experiments/phase-5d-icon-tooling/removal-plan.json",
+    "experiments/phase-5d-icon-tooling/tsconfig.json",
+    "experiments/phase-5d-icon-tooling/vitest.config.ts",
+    "tests/browser/phase-5d-icon-review.spec.ts",
+    "tests/browser/phase-5d-runtime-isolation.spec.ts"
+  ],
+  "removeRootScripts": [
+    "experiment:phase5d:check",
+    "experiment:phase5d:test",
+    "experiment:phase5d:typecheck"
+  ],
+  "removeFromRootCheck": "pnpm experiment:phase5d:check && ",
+  "retainHistoricalRecords": [
+    "apps/docs/governance/explorations/phase-5d-icon-tooling.md",
+    "docs/governance/explorations/phase-5d-icon-tooling.md",
+    "docs/phase-5.md",
+    "experiments/phase-5d-icon-tooling/evidence/"
+  ]
+}
