@@ -16,7 +16,7 @@
   },
   "scripts": {
     "build": "pnpm token-tooling:generate:web && turbo run build",
-    "check": "pnpm format:check && pnpm lint && pnpm token-tooling:check && pnpm token-tooling:core:check && pnpm experiment:phase5c:check && pnpm experiment:phase5d:check && pnpm typecheck && pnpm test && pnpm build",
+    "check": "pnpm format:check && pnpm lint && pnpm build && pnpm token-tooling:check && pnpm token-tooling:core:check && pnpm experiment:phase5c:check && pnpm experiment:phase5d:check && pnpm typecheck && pnpm test",
     "docs:build": "pnpm --filter @wayglass/docs build",
     "docs:dev": "pnpm --filter @wayglass/docs dev",
     "example:agent-supervision": "pnpm --filter @wayglass/example-agent-supervision dev",
