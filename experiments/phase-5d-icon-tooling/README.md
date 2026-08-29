@@ -34,6 +34,11 @@ owning-control cases, an icon-absent task, and a missing preview. Focused Playwr
 the page in Chromium, Firefox, and WebKit with Axe, forced colors, grayscale, reduced motion, and
 200% text.
 
+The runtime-isolation slice adds a pure descriptor adapter over the generated catalog. In-memory
+bundle checks compare current production geometry, keep the directional fixture private, exclude
+generator and validator code from the candidate graph, and prove that a clean no-icon core consumer
+receives neither icon nor proof modules.
+
 Domain neutrality and icon meaning remain human review decisions. The validator deliberately does
 not infer semantic names, labels, direction, or catalog eligibility from geometry.
 
@@ -51,3 +56,5 @@ candidate artifacts to enforce drift; they never repair or replace them.
 
 The current contract and runtime inventory is retained in
 [`evidence/current-contract-and-source-inventory.md`](./evidence/current-contract-and-source-inventory.md).
+Runtime-boundary findings are retained in
+[`evidence/runtime-compatibility-and-isolation.md`](./evidence/runtime-compatibility-and-isolation.md).
