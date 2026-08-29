@@ -15,6 +15,7 @@ const expectedEvidence = [
   'documentation-cleanup-and-proposed-disposition.md',
   'environment-and-capacity.md',
   'maintenance-and-task-comparison.md',
+  'node-22-linux-validation.md',
   'runtime-compatibility-and-isolation.md',
   'security-dependency-and-removal.md',
   'static-review-and-accessibility.md',

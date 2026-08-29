@@ -36,6 +36,8 @@ describe('Phase 5D private icon-tooling contract', () => {
 
     expect(contract).toContain('0. run the unchanged accepted proof');
     expect(contract).toContain('Node 22.13 and Linux');
+    expect(contract).toContain('**Stage 0 result:** Passed on August 29, 2026.');
+    expect(contract).toContain('node-22-linux-validation.md');
     expect(contract).toContain('are not permanent tooling');
     expect(contract).toContain('Phase 5D-B remains deferred');
     expect(decision).toContain('- Status: accepted');

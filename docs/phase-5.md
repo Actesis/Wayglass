@@ -2,7 +2,7 @@
 
 **Status:** Accepted on August 14, 2026. Phases 5A, 5B, and 5C are complete. Phase 5D-A accepted a
 trimmed private icon build-and-validation candidate and its authoritative runtime reconciliation on
-August 29, 2026; its minimum-runtime validation remains. Phase 5D-B is deferred. Every later
+August 29, 2026; its Node 22/Linux prerequisite now passes. Phase 5D-B is deferred. Every later
 ecosystem track requires its own accepted charter before implementation, and an exploration may
 conclude with no new package.
 
@@ -254,11 +254,13 @@ Phase 5D-A was dispositioned on August 29, 2026. The accepted outcome retains a 
 source, validation, deterministic-generation, drift, and static-review artifact candidate; it does
 not promote the full proof or authorize runtime migration or package publication. The accepted
 [`@wayglass/icons` runtime-contract reconciliation](./governance/icon-runtime-contract-reconciliation.md)
-keeps the Phase 2C foundation API authoritative and classifies the current package as incomplete. A
+keeps the Phase 2C foundation API authoritative and classifies the current package as incomplete. An
 accepted [implementation contract](./governance/icon-tooling-implementation-contract.md) and
 [ADR 0034](./architecture/adr/0034-private-icon-pipeline-architecture.md) define the trimmed
-permanent boundary. The unchanged proof on Node 22.13/Linux comes next and must pass before any
-production migration begins.
+permanent boundary. Stage 0 passed on Node 22.13/Linux with identical authenticated proof bytes and
+diagnostics. The next authorized implementation step is the pure tooling extraction of the four-
+glyph catalog, types, validator, generator, drift logic, and focused fixtures; runtime migration
+remains a later staged review.
 
 Phase 5D-B design-library work was deferred by the project owner on August 29, 2026. It may restart
 only when a named Figma workspace, access model, exact target versions, reviewer, backup policy,
