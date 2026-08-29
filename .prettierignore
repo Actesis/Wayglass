@@ -8,6 +8,7 @@ pnpm-lock.yaml
 playwright-report
 storybook-static
 test-results
+experiments/phase-5d-icon-tooling/generated
 DESIGN_PRINCIPLES.md
 SPEC.md
 VISION.md

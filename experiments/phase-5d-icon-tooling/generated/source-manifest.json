@@ -1,0 +1,32 @@
+{
+  "catalogSchemaVersion": 1,
+  "iconCount": 5,
+  "icons": [
+    {
+      "direction": "mirrors-in-rtl",
+      "fingerprint": "1c0e37a70ac49c6473c2c7387b086ea65cfb32ed105e3b8597005cee5edea681",
+      "id": "arrow-inline-start"
+    },
+    {
+      "direction": "neutral",
+      "fingerprint": "c4d49587786755abf28a5cf973e6834badc4049625b3c8b3a4f04275b67f3817",
+      "id": "close"
+    },
+    {
+      "direction": "neutral",
+      "fingerprint": "f18dccfc0c8e32e3b104ec3e0edee23a600692baedaaad85ea93354b12974ab9",
+      "id": "menu"
+    },
+    {
+      "direction": "neutral",
+      "fingerprint": "bc095294bc150a662ef3694ee99e41e8e9379e52b240dda1f9abce78e5df7802",
+      "id": "more"
+    },
+    {
+      "direction": "neutral",
+      "fingerprint": "3bc2124143d61e01976d51c17a40f1de3956747b1616329bd64963f0d4f22ad3",
+      "id": "refresh"
+    }
+  ],
+  "sourceFingerprint": "62d784f216ccc1dd4faae7f624574e54b58b811b3d4a4400ce7db2a71f4a1412"
+}
