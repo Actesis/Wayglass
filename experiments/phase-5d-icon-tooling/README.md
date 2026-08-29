@@ -43,6 +43,10 @@ The security-and-removal slice exercises explicit active, external, hidden, styl
 input attacks; audits executable imports and side-effect APIs; and keeps a machine-checked removal
 plan that leaves production packages and dependency graphs untouched.
 
+The maintenance-comparison slice performs the fixed add-and-revise task against both the current
+manual source and the canonical proof source. It records synchronized decisions, missing manual
+surfaces, generated drift, owned lines, output bytes, and 50 warm plus 50 cold-process generations.
+
 Domain neutrality and icon meaning remain human review decisions. The validator deliberately does
 not infer semantic names, labels, direction, or catalog eligibility from geometry.
 
@@ -63,4 +67,6 @@ The current contract and runtime inventory is retained in
 Runtime-boundary findings are retained in
 [`evidence/runtime-compatibility-and-isolation.md`](./evidence/runtime-compatibility-and-isolation.md).
 Security, dependency-history, and cleanup findings are retained in
-[`evidence/security-dependency-and-removal.md`](./evidence/security-dependency-and-removal.md).
+[`evidence/security-dependency-and-removal.md`](./evidence/security-dependency-and-removal.md). Task
+and maintenance findings are retained in
+[`evidence/maintenance-and-task-comparison.md`](./evidence/maintenance-and-task-comparison.md).

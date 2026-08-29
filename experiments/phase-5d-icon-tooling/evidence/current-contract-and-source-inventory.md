@@ -3,8 +3,8 @@
 **Recorded:** 2026-08-28  
 **Source revision:** merge commit `554fb79`  
 **Scope:** current baseline for `P5D-A-E01` and input to `P5D-A-E02`  
-**Disposition:** inventory complete; production reconciliation and artifact disposition remain
-separate
+**Disposition:** inventory and same-task comparison complete; production reconciliation and artifact
+disposition remain separate
 
 ## Runtime and package inventory
 
@@ -68,3 +68,6 @@ pnpm experiment:phase5d:check
 
 No command changes `@wayglass/icons`, installs a dependency, connects a design tool, or generates a
 production artifact.
+
+The completed manual-versus-tooling task run and maintenance measurements are retained in
+[`maintenance-and-task-comparison.md`](./maintenance-and-task-comparison.md).
