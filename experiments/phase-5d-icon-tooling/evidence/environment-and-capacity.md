@@ -49,3 +49,6 @@ The timing is a named-desktop measurement, not a support guarantee. Linux, multi
 and minimum-Node results remain unavailable. The synthetic records intentionally repeat simple
 geometry, so this evidence validates the accepted count envelope rather than every possible maximum
 primitive/command combination.
+
+Five-glyph warm and cold-process generation plus the completed maintenance comparison are retained
+in [`maintenance-and-task-comparison.md`](./maintenance-and-task-comparison.md).
