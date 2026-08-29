@@ -1,11 +1,11 @@
 # Icon-tooling implementation contract
 
-**Status:** Proposed for project-owner acceptance on August 29, 2026. This contract implements the
-accepted artifact-candidate disposition in
-[`P5D-ICON-TOOLING-001`](./explorations/phase-5d-icon-tooling.md) against the accepted
+**Status:** Accepted by the project owner on August 29, 2026. This contract implements the accepted
+artifact-candidate disposition in [`P5D-ICON-TOOLING-001`](./explorations/phase-5d-icon-tooling.md)
+against the accepted
 [`@wayglass/icons` runtime reconciliation](./icon-runtime-contract-reconciliation.md). It authorizes
-no code migration until accepted and until the minimum-Node/Linux prerequisite passes. It does not
-approve a package, dependency, publication, Figma work, or public compatibility claim.
+code migration only through its staged boundaries after the minimum-Node/Linux prerequisite passes.
+It does not approve a package, dependency, publication, Figma work, or public compatibility claim.
 
 ## Purpose
 

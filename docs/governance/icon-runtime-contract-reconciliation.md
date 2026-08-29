@@ -62,9 +62,10 @@ and removal harnesses remain outside the permanent tooling boundary.
 
 ## Deferred and blocked claims
 
-- Permanent tooling and runtime migration require acceptance of the proposed
+- Permanent tooling and runtime migration are governed by the accepted
   [implementation contract](./icon-tooling-implementation-contract.md) and
-  [ADR 0034](../architecture/adr/0034-private-icon-pipeline-architecture.md).
+  [ADR 0034](../architecture/adr/0034-private-icon-pipeline-architecture.md); their minimum-
+  environment gate remains unsatisfied.
 - Permanent implementation acceptance requires the planned Node 22.13/Linux validation.
 - A public contribution workflow requires an independent contributor task.
 - Phase 5D-B design-library work is deferred by the project owner. It may restart only with a named

@@ -7,13 +7,11 @@ import { describe, expect, it } from 'vitest';
 const repositoryRoot = fileURLToPath(new URL('../../..', import.meta.url));
 const readRepositoryFile = (path: string) => readFileSync(join(repositoryRoot, path), 'utf8');
 
-describe('Phase 5D private icon-tooling proposal', () => {
+describe('Phase 5D private icon-tooling contract', () => {
   it('defines one private source and the exact authenticated output set', () => {
     const contract = readRepositoryFile('docs/governance/icon-tooling-implementation-contract.md');
 
-    expect(contract).toContain(
-      '**Status:** Proposed for project-owner acceptance on August 29, 2026.',
-    );
+    expect(contract).toContain('**Status:** Accepted by the project owner on August 29, 2026.');
     expect(contract).toContain('`tooling/icon-pipeline/src/catalog.ts`');
     for (const output of [
       'packages/icons/src/generated/catalog.ts',
@@ -40,7 +38,7 @@ describe('Phase 5D private icon-tooling proposal', () => {
     expect(contract).toContain('Node 22.13 and Linux');
     expect(contract).toContain('are not permanent tooling');
     expect(contract).toContain('Phase 5D-B remains deferred');
-    expect(decision).toContain('- Status: proposed');
+    expect(decision).toContain('- Status: accepted');
     expect(decision).toContain('one private catalog');
     expect(decision).toContain('Keep runtime behavior separate from generated data');
     expect(decision).toContain('Gate migration on the minimum environment');

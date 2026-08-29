@@ -1,6 +1,6 @@
 # ADR 0034: Generate icon runtime data and review artifacts from one private catalog
 
-- Status: proposed
+- Status: accepted
 - Date: 2026-08-29
 
 ## Context
