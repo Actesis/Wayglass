@@ -23,6 +23,11 @@ The deterministic-generation slice adds:
 - stable changed, missing, and unexpected-artifact diagnostics; and
 - failure-before-output behavior for invalid source.
 
+The environment-and-capacity slice checks current-Node output across two working directories,
+locales, time zones, and source orders. It also measures 50 generations of an explicitly synthetic
+500-glyph catalog against the charter's two-second and 256-MiB bounds. The synthetic catalog tests
+capacity only; it is not evidence of demand or catalog eligibility.
+
 Domain neutrality and icon meaning remain human review decisions. The validator deliberately does
 not infer semantic names, labels, direction, or catalog eligibility from geometry.
 
