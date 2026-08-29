@@ -1,0 +1,17 @@
+{
+  "artifacts": [
+    {
+      "bytes": 4662,
+      "name": "runtime-catalog.ts",
+      "sha256": "7abbc73a5ffef957e03787c2c0b2e794d2c6726abd64a67ad0e1c9554b728d40"
+    },
+    {
+      "bytes": 938,
+      "name": "source-manifest.json",
+      "sha256": "5a052d8a54012a247831a280d4aacca763f932d8447fcfaf2b1e10db586f5aa3"
+    }
+  ],
+  "generator": "phase-5d-icon-tooling",
+  "generatorSchemaVersion": 1,
+  "sourceFingerprint": "62d784f216ccc1dd4faae7f624574e54b58b811b3d4a4400ce7db2a71f4a1412"
+}

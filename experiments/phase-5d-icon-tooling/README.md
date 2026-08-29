@@ -15,6 +15,14 @@ The source-foundation slice provides:
   ambiguous input; and
 - immutable validated copies with no mutation of authored input.
 
+The deterministic-generation slice adds:
+
+- a pure generator whose output is independent of authored catalog order;
+- a runtime-catalog candidate, source manifest, and output manifest with SHA-256 fingerprints;
+- committed candidate artifacts checked byte for byte by the proof suite;
+- stable changed, missing, and unexpected-artifact diagnostics; and
+- failure-before-output behavior for invalid source.
+
 Domain neutrality and icon meaning remain human review decisions. The validator deliberately does
 not infer semantic names, labels, direction, or catalog eligibility from geometry.
 
@@ -27,7 +35,8 @@ pnpm experiment:phase5d:test
 ```
 
 The proof uses no network, credentials, personal data, design-tool access, new dependency, runtime
-registration, production package import, or filesystem write.
+registration, production package import, or generator filesystem write. Tests read the committed
+candidate artifacts to enforce drift; they never repair or replace them.
 
 The current contract and runtime inventory is retained in
 [`evidence/current-contract-and-source-inventory.md`](./evidence/current-contract-and-source-inventory.md).
