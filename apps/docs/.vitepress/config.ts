@@ -34,6 +34,10 @@ export default defineConfig({
             link: '/governance/explorations/phase-5d-icon-tooling',
           },
           {
+            text: 'Icon runtime-contract reconciliation',
+            link: '/governance/icon-runtime-contract-reconciliation',
+          },
+          {
             text: 'Token-tooling implementation contract',
             link: '/governance/token-tooling-implementation-contract',
           },
