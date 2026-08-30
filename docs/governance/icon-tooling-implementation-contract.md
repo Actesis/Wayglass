@@ -235,6 +235,17 @@ write-free check verifies the committed set, and repeated generation is byte-sta
 runtime still owns its inline geometry and imports no generated data; Stage 4 is the next authorized
 implementation boundary.
 
+**Stage 4A result:** Implemented on August 30, 2026. The private `@wayglass/icons` runtime now has
+one side-effect-free implementation behind both its root and `/icon` exports and renders only the
+generated inert catalog. The runtime removes the implicit glyph fallback; implements decorative and
+labeled-image semantics, semantic sizes, explicit and automatic logical direction, the `svg` part,
+the two accepted custom properties, and forced-color preservation; and retains duplicate-safe
+explicit registration with no focus, slots, or events. Unit and package-boundary coverage pins the
+API, exact generated rendering, synthetic mirroring policy, missing-name behavior, entry-point
+identity, and optional-package isolation. The legacy coordinate fixture remains until final proof
+cleanup. Stage 4B browser, accessibility, visual, and Storybook evidence is the next implementation
+boundary; Stage 4 is not yet complete.
+
 0. run the unchanged accepted proof and its deterministic outputs on Node 22.13 and Linux; stop and
    revise this contract if the minimum environment changes bytes, diagnostics, or accepted behavior;
 1. move only the canonical four-glyph catalog, source types, validator, pure generator, drift logic,

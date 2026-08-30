@@ -17,6 +17,12 @@ This decision does not change production code. The next implementation contract 
 decision must preserve the reconciled surface below and define how the accepted private tooling
 produces it.
 
+**Implementation progress:** Stage 4A implemented the reconciled runtime core on August 30, 2026.
+The root and `/icon` exports now share one side-effect-free implementation over generated inert
+data, and the accepted name, label, size, direction, styling, registration, and missing-name
+behavior has unit and package-boundary coverage. Stage 4B browser, accessibility, visual, Storybook,
+and packed-output evidence remains required before the runtime migration is complete.
+
 ## Reconciled surface
 
 | Surface           | Accepted decision                                                                                                                                                         | Current state and implementation consequence                                                                                                  |

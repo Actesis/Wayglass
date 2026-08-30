@@ -128,6 +128,6 @@ describe('Phase 5D runtime and package isolation', () => {
     const iconManifest = JSON.parse(
       readFileSync(join(repositoryRoot, 'packages/icons/package.json'), 'utf8'),
     ) as { exports: Record<string, unknown> };
-    expect(Object.keys(iconManifest.exports)).toEqual(['.']);
+    expect(Object.keys(iconManifest.exports)).toEqual(['.', './icon']);
   });
 });

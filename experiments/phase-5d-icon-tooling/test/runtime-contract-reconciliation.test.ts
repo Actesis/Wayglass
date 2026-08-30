@@ -23,7 +23,7 @@ describe('Phase 5D runtime-contract reconciliation', () => {
     expect(foundationContract).toContain('../governance/icon-runtime-contract-reconciliation.md');
   });
 
-  it('records that reconciliation does not silently migrate the current runtime', () => {
+  it('records the reviewed Stage 4A runtime migration', () => {
     const record = readRepositoryFile('docs/governance/icon-runtime-contract-reconciliation.md');
     const roadmap = readRepositoryFile('docs/phase-5.md');
     const runtime = readRepositoryFile('packages/icons/src/index.ts');
@@ -33,14 +33,16 @@ describe('Phase 5D runtime-contract reconciliation', () => {
 
     expect(record).toContain('This decision does not change production code.');
     expect(record).toContain('authorizes no production source change');
-    expect(runtime).toContain("this.name = 'more';");
-    expect(runtime).toContain("this.setAttribute('aria-hidden', 'true');");
-    expect(runtime).not.toContain('declare label:');
-    expect(Object.keys(manifest.exports)).toEqual(['.']);
+    expect(record).toContain('**Implementation progress:** Stage 4A implemented');
+    expect(runtime.trim()).toBe("export * from './icon.js';");
+    expect(readRepositoryFile('packages/icons/src/runtime.ts')).toContain(
+      "from './generated/catalog.js'",
+    );
+    expect(Object.keys(manifest.exports)).toEqual(['.', './icon']);
     expect(roadmap).toContain('./governance/icon-tooling-implementation-contract.md');
     expect(roadmap).toContain('./architecture/adr/0034-private-icon-pipeline-architecture.md');
     expect(roadmap).toContain('Stage 0 passed on Node 22.13/Linux');
-    expect(roadmap).toMatch(/The next authorized implementation step is Stage 4/);
+    expect(roadmap).toMatch(/The next authorized implementation step is\s+Stage 4B/);
   });
 
   it('records the project-owner deferral of Phase 5D-B', () => {
