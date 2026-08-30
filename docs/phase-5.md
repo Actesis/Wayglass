@@ -258,9 +258,11 @@ keeps the Phase 2C foundation API authoritative and classifies the current packa
 accepted [implementation contract](./governance/icon-tooling-implementation-contract.md) and
 [ADR 0034](./architecture/adr/0034-private-icon-pipeline-architecture.md) define the trimmed
 permanent boundary. Stage 0 passed on Node 22.13/Linux with identical authenticated proof bytes and
-diagnostics. The next authorized implementation step is the pure tooling extraction of the four-
-glyph catalog, types, validator, generator, drift logic, and focused fixtures; runtime migration
-remains a later staged review.
+diagnostics. Stage 1 extracted the four-glyph catalog, types, immutable validator, deterministic
+in-memory generator, write-free drift logic, and focused fixtures into the permanent private path
+without adding effects, dependencies, generated production files, or runtime integration. The next
+authorized implementation step is Stage 2's explicit command and transactional filesystem-writer
+boundary; runtime migration remains a later staged review.
 
 Phase 5D-B design-library work was deferred by the project owner on August 29, 2026. It may restart
 only when a named Figma workspace, access model, exact target versions, reviewer, backup policy,

@@ -208,6 +208,13 @@ diagnostics under Node 22.13.0 and pnpm 11.9.0 on Ubuntu 24.04.4. The retained
 also records the repository's adverse clean-checkout bootstrap finding and subsequent ordering
 correction. No production migration occurred during validation.
 
+**Stage 1 result:** Implemented on August 30, 2026. The permanent private path now contains the
+canonical four-glyph catalog, closed source types, immutable validator, deterministic in-memory
+four-output generator, write-free drift logic, synthetic directional fixture, and focused adverse,
+determinism, review, and isolation tests. It adds no package, dependency, command, filesystem
+writer, generated production file, runtime import, or public API. Stage 2 is the next authorized
+implementation boundary.
+
 0. run the unchanged accepted proof and its deterministic outputs on Node 22.13 and Linux; stop and
    revise this contract if the minimum environment changes bytes, diagnostics, or accepted behavior;
 1. move only the canonical four-glyph catalog, source types, validator, pure generator, drift logic,
