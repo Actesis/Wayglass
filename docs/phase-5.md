@@ -260,9 +260,12 @@ accepted [implementation contract](./governance/icon-tooling-implementation-cont
 permanent boundary. Stage 0 passed on Node 22.13/Linux with identical authenticated proof bytes and
 diagnostics. Stage 1 extracted the four-glyph catalog, types, immutable validator, deterministic
 in-memory generator, write-free drift logic, and focused fixtures into the permanent private path
-without adding effects, dependencies, generated production files, or runtime integration. The next
-authorized implementation step is Stage 2's explicit command and transactional filesystem-writer
-boundary; runtime migration remains a later staged review.
+without adding effects, dependencies, generated production files, or runtime integration. Stage 2
+added the fixed-path commands, manifest integrity checks, exclusive lock, journaled staging,
+manifest-last atomic replacement, rollback, and conservative stale-lock recovery. The next
+authorized implementation step is Stage 3's generation and authentication of the exact four
+permanent outputs with current runtime geometry parity; runtime migration remains a later staged
+review.
 
 Phase 5D-B design-library work was deferred by the project owner on August 29, 2026. It may restart
 only when a named Figma workspace, access model, exact target versions, reviewer, backup policy,

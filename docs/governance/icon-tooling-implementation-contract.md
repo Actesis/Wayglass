@@ -215,6 +215,16 @@ determinism, review, and isolation tests. It adds no package, dependency, comman
 writer, generated production file, runtime import, or public API. Stage 2 is the next authorized
 implementation boundary.
 
+**Stage 2 result:** Implemented on August 30, 2026. The private commands now provide stable help,
+option, runtime, success, drift, failure, and recovery behavior over one fixed repository adapter.
+The effect boundary verifies exact manifest inventory, acquires a non-replacing lock, journals prior
+files, stages and verifies candidate bytes, replaces the output manifest last, rolls back ordinary
+failures, and conservatively recovers an interrupted stale lock only after process-absence and
+committed-set verification. Traversal, symlink escape, live and unverifiable locks, partial writes,
+interruption, cleanup, and similarly prefixed files have focused adverse coverage. No generated
+production output or runtime migration occurs in this stage. Stage 3 is the next authorized
+implementation boundary.
+
 0. run the unchanged accepted proof and its deterministic outputs on Node 22.13 and Linux; stop and
    revise this contract if the minimum environment changes bytes, diagnostics, or accepted behavior;
 1. move only the canonical four-glyph catalog, source types, validator, pure generator, drift logic,

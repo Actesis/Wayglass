@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 
-import type { IconRecord } from './types.js';
-import { validateIconCatalog } from './validation.js';
+import type { IconRecord } from './types.ts';
+import { validateIconCatalog } from './validation.ts';
 
 export const generatedArtifactPaths = [
   'packages/icons/src/generated/catalog.ts',
@@ -12,6 +12,10 @@ export const generatedArtifactPaths = [
 
 export type GeneratedArtifactPath = (typeof generatedArtifactPaths)[number];
 export type GeneratedIconArtifacts = Readonly<Record<GeneratedArtifactPath, string>>;
+
+export interface IconGenerationContext {
+  readonly iconPackageVersion: string;
+}
 
 const runtimePath = generatedArtifactPaths[0];
 const sourceManifestPath = generatedArtifactPaths[1];
@@ -151,7 +155,15 @@ ${themeReview(catalog, 'dark')}
 `;
 }
 
-export function generateIconArtifacts(input: unknown): GeneratedIconArtifacts {
+export function generateIconArtifacts(
+  input: unknown,
+  context: IconGenerationContext,
+): GeneratedIconArtifacts {
+  if (
+    !/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$/.test(context.iconPackageVersion)
+  ) {
+    throw new Error('WG_ICON_GENERATION_VERSION: icon package version must be valid semver.');
+  }
   const catalog = [...validateIconCatalog(input)].sort((left, right) =>
     compareText(left.id, right.id),
   );
@@ -161,6 +173,7 @@ export function generateIconArtifacts(input: unknown): GeneratedIconArtifacts {
   const sourceManifest = canonicalJson({
     catalogSchemaVersion: 1,
     contractRevision: 1,
+    iconPackageVersion: context.iconPackageVersion,
     iconCount: catalog.length,
     icons: catalog.map((icon) => ({
       accessibleUse: icon.accessibleUse,

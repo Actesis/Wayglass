@@ -1,4 +1,4 @@
-import type { IconRecord } from './types.js';
+import type { IconRecord } from './types.ts';
 
 const provenance = { author: 'Wayglass', license: 'Apache-2.0' } as const;
 const stroke = { fill: 'none', stroke: 'currentColor' } as const;

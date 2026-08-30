@@ -32,6 +32,8 @@
     "experiment:phase5d:typecheck": "tsc --noEmit -p experiments/phase-5d-icon-tooling/tsconfig.json",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "icon-tooling:check": "node --experimental-strip-types tooling/icon-pipeline/src/cli.ts check",
+    "icon-tooling:generate": "node --experimental-strip-types tooling/icon-pipeline/src/cli.ts generate",
     "lint": "eslint .",
     "storybook": "pnpm --filter @wayglass/storybook dev",
     "storybook:build": "pnpm --filter @wayglass/storybook build",

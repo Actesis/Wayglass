@@ -1,4 +1,4 @@
-import { generatedArtifactPaths, type GeneratedIconArtifacts } from './generation.js';
+import { generatedArtifactPaths, type GeneratedIconArtifacts } from './generation.ts';
 
 export interface ArtifactDrift {
   readonly artifact: string;
