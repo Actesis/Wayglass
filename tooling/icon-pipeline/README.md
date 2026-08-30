@@ -33,7 +33,7 @@ An interrupted process can leave the lock and exact owner-suffixed stages or bac
 for review. After confirming the PID recorded in the regular-file lock is absent, run:
 
 ```sh
-node --experimental-strip-types tooling/icon-pipeline/src/cli.ts recover
+node --disable-warning=ExperimentalWarning --experimental-strip-types tooling/icon-pipeline/src/cli.ts recover
 ```
 
 Recovery touches only exact paths journaled by that lock, rejects symlinks, restores the prior set,
