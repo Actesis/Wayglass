@@ -52,6 +52,11 @@ repository gate. This limitation belongs to repository bootstrap ordering, not t
 the unchanged proof ran and passed before either bootstrap step. It should be corrected separately
 before claiming that a new contributor can run `pnpm check` immediately after `pnpm install`.
 
+**Follow-up:** The subsequent bootstrap-order correction moved the root gate's existing `pnpm build`
+step ahead of token validation, typechecking, and tests. A focused test now prevents those consumers
+from moving ahead of the build again, and an isolated checkout confirms that `pnpm check`
+self-bootstraps after `pnpm install`.
+
 ## Limits and cleanup
 
 This is one GitHub-hosted Linux image, not a multi-distribution or repeated-run support matrix. The

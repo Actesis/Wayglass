@@ -205,8 +205,8 @@ Implementation proceeds in reviewable stages:
 **Stage 0 result:** Passed on August 29, 2026. The unchanged proof produced identical bytes and
 diagnostics under Node 22.13.0 and pnpm 11.9.0 on Ubuntu 24.04.4. The retained
 [minimum-environment evidence](https://github.com/Actesis/Wayglass/blob/main/experiments/phase-5d-icon-tooling/evidence/node-22-linux-validation.md)
-also records the repository's separate clean-checkout bootstrap limitation. No production migration
-occurred during validation.
+also records the repository's adverse clean-checkout bootstrap finding and subsequent ordering
+correction. No production migration occurred during validation.
 
 0. run the unchanged accepted proof and its deterministic outputs on Node 22.13 and Linux; stop and
    revise this contract if the minimum environment changes bytes, diagnostics, or accepted behavior;
