@@ -3,11 +3,11 @@
 This directory owns Wayglass's private, repository-only icon source and generation path. It is not a
 workspace package, public API, arbitrary SVG parser, or application icon service.
 
-Stages 1 and 2 contain the reviewed four-glyph catalog, closed source types, strict immutable
+Stages 1 through 3 contain the reviewed four-glyph catalog, closed source types, strict immutable
 validation, deterministic in-memory generation, manifest verification, drift comparison, explicit
-commands, and the transactional filesystem boundary. The tool adds no package, dependency, runtime
-import, or public API. Committing generated production output and migrating the runtime require
-later staged reviews under the accepted
+commands, the transactional filesystem boundary, and the first authenticated permanent output set.
+The tool adds no package, dependency, runtime import, or public API. Migrating the runtime requires
+a later staged review under the accepted
 [implementation contract](../../docs/governance/icon-tooling-implementation-contract.md).
 
 The fixed repository commands are:
@@ -21,8 +21,10 @@ pnpm icon-tooling:generate
 drift without writing. `generate` accepts no destination and writes only those paths. It acquires
 the exclusive `.wayglass-icon-tooling.lock`, journals prior-file presence, stages and verifies all
 changed bytes, replaces the output manifest last, and restores the previous set after ordinary
-failure. Stage 3 will create and review the first committed output set; until then, a repository
-check correctly reports the four outputs as missing.
+failure. The four committed outputs are generated files and must not be edited by hand. Change the
+canonical catalog or generator, run `generate`, review the source and output manifests plus the
+static review index, and commit the complete set. A clean repository `check` must verify four icons
+and four artifacts without modifying any file.
 
 An interrupted process can leave the lock and exact owner-suffixed stages or backups. Preserve them
 for review. After confirming the PID recorded in the regular-file lock is absent, run:
@@ -45,4 +47,6 @@ pnpm exec vitest run --root tooling/icon-pipeline --config vitest.config.ts
 
 `src/catalog.ts` is the only official geometry and metadata authority. Applications continue to own
 icon selection, text, accessible names, state, and domain meaning. The synthetic directional fixture
-under `test/` exists only to exercise logical-direction review behavior.
+under `test/` exists only to exercise logical-direction review behavior. The Stage 3 parity fixture
+temporarily pins every coordinate in the superseded inline runtime; it is removed with that runtime
+after the generated catalog becomes the sole production geometry path.

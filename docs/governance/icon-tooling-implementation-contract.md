@@ -225,6 +225,16 @@ interruption, cleanup, and similarly prefixed files have focused adverse coverag
 production output or runtime migration occurs in this stage. Stage 3 is the next authorized
 implementation boundary.
 
+**Stage 3 result:** Implemented on August 30, 2026. The explicit writer generated and authenticated
+the exact four assigned permanent outputs from the reviewed `close`, `menu`, `more`, and `refresh`
+catalog. The source manifest binds all four records and `@wayglass/icons` version `0.0.0` to the
+catalog fingerprint; the output manifest binds the runtime module, source manifest, and static
+review index to their SHA-256 hashes and byte counts. Retained parity coverage pins every legacy
+runtime coordinate, paint role, name, order, and neutral direction to the generated inert data. The
+write-free check verifies the committed set, and repeated generation is byte-stable. The production
+runtime still owns its inline geometry and imports no generated data; Stage 4 is the next authorized
+implementation boundary.
+
 0. run the unchanged accepted proof and its deterministic outputs on Node 22.13 and Linux; stop and
    revise this contract if the minimum environment changes bytes, diagnostics, or accepted behavior;
 1. move only the canonical four-glyph catalog, source types, validator, pure generator, drift logic,

@@ -1,0 +1,53 @@
+{
+  "catalogSchemaVersion": 1,
+  "contractRevision": 1,
+  "iconCount": 4,
+  "iconPackageVersion": "0.0.0",
+  "icons": [
+    {
+      "accessibleUse": "reinforcement-only",
+      "category": "control",
+      "direction": "neutral",
+      "fingerprint": "c4d49587786755abf28a5cf973e6834badc4049625b3c8b3a4f04275b67f3817",
+      "id": "close",
+      "provenance": {
+        "author": "Wayglass",
+        "license": "Apache-2.0"
+      }
+    },
+    {
+      "accessibleUse": "reinforcement-only",
+      "category": "control",
+      "direction": "neutral",
+      "fingerprint": "f18dccfc0c8e32e3b104ec3e0edee23a600692baedaaad85ea93354b12974ab9",
+      "id": "menu",
+      "provenance": {
+        "author": "Wayglass",
+        "license": "Apache-2.0"
+      }
+    },
+    {
+      "accessibleUse": "reinforcement-only",
+      "category": "control",
+      "direction": "neutral",
+      "fingerprint": "bc095294bc150a662ef3694ee99e41e8e9379e52b240dda1f9abce78e5df7802",
+      "id": "more",
+      "provenance": {
+        "author": "Wayglass",
+        "license": "Apache-2.0"
+      }
+    },
+    {
+      "accessibleUse": "reinforcement-only",
+      "category": "control",
+      "direction": "neutral",
+      "fingerprint": "3bc2124143d61e01976d51c17a40f1de3956747b1616329bd64963f0d4f22ad3",
+      "id": "refresh",
+      "provenance": {
+        "author": "Wayglass",
+        "license": "Apache-2.0"
+      }
+    }
+  ],
+  "sourceFingerprint": "387c7504621cd95d34b57261d31d51f7d7a217c6044f9797e5dd5d764a36dbc9"
+}
