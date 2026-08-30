@@ -1,0 +1,22 @@
+{
+  "artifacts": [
+    {
+      "bytes": 3884,
+      "path": "packages/icons/src/generated/catalog.ts",
+      "sha256": "0ee50919542652fe6a979dd3ad2e80dc72c4360314689b7f55a9eb01c0675c15"
+    },
+    {
+      "bytes": 1492,
+      "path": "tooling/icon-pipeline/generated/source-manifest.json",
+      "sha256": "fdb07b075750014ac3b11cdc21c74a8df8e926041c3e59620925eda2ed5b4254"
+    },
+    {
+      "bytes": 22718,
+      "path": "tooling/icon-pipeline/generated/review-index.html",
+      "sha256": "2e853105f73001a2a061df64b05737b6857e482dbdc3ea5e49696a0c48dc704f"
+    }
+  ],
+  "generator": "wayglass-icon-pipeline",
+  "generatorSchemaVersion": 1,
+  "sourceFingerprint": "387c7504621cd95d34b57261d31d51f7d7a217c6044f9797e5dd5d764a36dbc9"
+}

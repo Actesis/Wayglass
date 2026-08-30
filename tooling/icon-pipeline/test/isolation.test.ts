@@ -7,10 +7,14 @@ import { describe, expect, it } from 'vitest';
 const toolRoot = fileURLToPath(new URL('..', import.meta.url));
 const repositoryRoot = fileURLToPath(new URL('../../..', import.meta.url));
 
-describe('Stage 1 isolation', () => {
-  it('has no package, generated output, or runtime dependency', () => {
+describe('private icon-pipeline isolation', () => {
+  it('has no package or runtime dependency and owns only the assigned generated outputs', () => {
     expect(existsSync(join(toolRoot, 'package.json'))).toBe(false);
-    expect(existsSync(join(toolRoot, 'generated'))).toBe(false);
+    expect(readdirSync(join(toolRoot, 'generated')).sort()).toEqual([
+      'output-manifest.json',
+      'review-index.html',
+      'source-manifest.json',
+    ]);
     expect(readdirSync(join(toolRoot, 'src')).sort()).toEqual([
       'catalog.ts',
       'cli.ts',
@@ -24,9 +28,9 @@ describe('Stage 1 isolation', () => {
       'validation.ts',
       'writer.ts',
     ]);
-    expect(readFileSync(join(repositoryRoot, 'packages/icons/src/index.ts'), 'utf8')).not.toContain(
-      'tooling/icon-pipeline',
-    );
+    const runtime = readFileSync(join(repositoryRoot, 'packages/icons/src/index.ts'), 'utf8');
+    expect(runtime).not.toContain('tooling/icon-pipeline');
+    expect(runtime).not.toContain('./generated/catalog');
   });
 
   it('keeps pure sources free of effects and registration', () => {

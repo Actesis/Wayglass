@@ -9,6 +9,8 @@ playwright-report
 storybook-static
 test-results
 experiments/phase-5d-icon-tooling/generated
+packages/icons/src/generated
+tooling/icon-pipeline/generated
 DESIGN_PRINCIPLES.md
 SPEC.md
 VISION.md

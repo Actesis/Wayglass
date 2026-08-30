@@ -262,10 +262,12 @@ diagnostics. Stage 1 extracted the four-glyph catalog, types, immutable validato
 in-memory generator, write-free drift logic, and focused fixtures into the permanent private path
 without adding effects, dependencies, generated production files, or runtime integration. Stage 2
 added the fixed-path commands, manifest integrity checks, exclusive lock, journaled staging,
-manifest-last atomic replacement, rollback, and conservative stale-lock recovery. The next
-authorized implementation step is Stage 3's generation and authentication of the exact four
-permanent outputs with current runtime geometry parity; runtime migration remains a later staged
-review.
+manifest-last atomic replacement, rollback, and conservative stale-lock recovery. Stage 3 generated
+and authenticated the exact four permanent outputs, linked them to the private icon package version,
+and retained exact name, order, coordinate, direction, and paint parity with the current inline
+runtime. The next authorized implementation step is Stage 4's `/icon` export and reconciled runtime
+migration over the generated inert data, including the required unit, accessibility, direction,
+browser, Storybook, and package-boundary coverage.
 
 Phase 5D-B design-library work was deferred by the project owner on August 29, 2026. It may restart
 only when a named Figma workspace, access model, exact target versions, reviewer, backup policy,

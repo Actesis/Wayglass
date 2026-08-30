@@ -46,7 +46,7 @@ describe('Phase 5D private icon-tooling contract', () => {
     expect(decision).toContain('Gate migration on the minimum environment');
   });
 
-  it('publishes Stage 1 in documentation without migrating production', () => {
+  it('publishes Stage 3 outputs in documentation without migrating production', () => {
     const roadmap = readRepositoryFile('docs/phase-5.md');
     const charter = readRepositoryFile('docs/governance/explorations/phase-5d-icon-tooling.md');
     const docsConfig = readRepositoryFile('apps/docs/.vitepress/config.ts');
@@ -62,13 +62,23 @@ describe('Phase 5D private icon-tooling contract', () => {
     expect(Object.keys(manifest.exports)).toEqual(['.']);
     expect(existsSync(join(repositoryRoot, 'tooling/icon-pipeline/src/catalog.ts'))).toBe(true);
     expect(existsSync(join(repositoryRoot, 'tooling/icon-pipeline/src/generation.ts'))).toBe(true);
-    expect(existsSync(join(repositoryRoot, 'packages/icons/src/generated/catalog.ts'))).toBe(false);
-    expect(roadmap).toMatch(/The next\s+authorized implementation step is Stage 3/);
+    for (const output of [
+      'packages/icons/src/generated/catalog.ts',
+      'tooling/icon-pipeline/generated/source-manifest.json',
+      'tooling/icon-pipeline/generated/output-manifest.json',
+      'tooling/icon-pipeline/generated/review-index.html',
+    ]) {
+      expect(existsSync(join(repositoryRoot, output))).toBe(true);
+    }
+    expect(roadmap).toMatch(/The next authorized implementation step is Stage 4/);
     expect(readRepositoryFile('docs/governance/icon-tooling-implementation-contract.md')).toContain(
       '**Stage 1 result:** Implemented on August 30, 2026.',
     );
     expect(readRepositoryFile('docs/governance/icon-tooling-implementation-contract.md')).toContain(
       '**Stage 2 result:** Implemented on August 30, 2026.',
+    );
+    expect(readRepositoryFile('docs/governance/icon-tooling-implementation-contract.md')).toContain(
+      '**Stage 3 result:** Implemented on August 30, 2026.',
     );
     expect(readRepositoryFile('package.json')).toContain('"icon-tooling:check"');
     expect(readRepositoryFile('package.json')).toContain('"icon-tooling:generate"');
