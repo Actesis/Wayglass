@@ -46,7 +46,7 @@ describe('Phase 5D private icon-tooling contract', () => {
     expect(decision).toContain('Gate migration on the minimum environment');
   });
 
-  it('publishes the proposal in documentation without migrating production', () => {
+  it('publishes Stage 1 in documentation without migrating production', () => {
     const roadmap = readRepositoryFile('docs/phase-5.md');
     const charter = readRepositoryFile('docs/governance/explorations/phase-5d-icon-tooling.md');
     const docsConfig = readRepositoryFile('apps/docs/.vitepress/config.ts');
@@ -60,6 +60,12 @@ describe('Phase 5D private icon-tooling contract', () => {
     expect(docsConfig).toContain('/governance/icon-tooling-implementation-contract');
     expect(docsConfig).toContain('/architecture/adr/0034-private-icon-pipeline-architecture');
     expect(Object.keys(manifest.exports)).toEqual(['.']);
-    expect(existsSync(join(repositoryRoot, 'tooling/icon-pipeline'))).toBe(false);
+    expect(existsSync(join(repositoryRoot, 'tooling/icon-pipeline/src/catalog.ts'))).toBe(true);
+    expect(existsSync(join(repositoryRoot, 'tooling/icon-pipeline/src/generation.ts'))).toBe(true);
+    expect(existsSync(join(repositoryRoot, 'packages/icons/src/generated/catalog.ts'))).toBe(false);
+    expect(roadmap).toMatch(/The next\s+authorized implementation step is Stage 2/);
+    expect(readRepositoryFile('docs/governance/icon-tooling-implementation-contract.md')).toContain(
+      '**Stage 1 result:** Implemented on August 30, 2026.',
+    );
   });
 });
