@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wayglass icon runtime</title>
+    <link rel="stylesheet" href="/packages/tokens/dist/tokens.css" />
+    <link rel="stylesheet" href="/packages/themes/dist/themes.css" />
+    <style>
+      body {
+        margin: 0;
+      }
+
+      main {
+        box-sizing: border-box;
+        min-block-size: 100vh;
+        padding: var(--wg-space-semantic-page-comfortable);
+        color: var(--wg-color-semantic-text-primary);
+        background: var(--wg-color-semantic-surface-canvas);
+        font-family: var(--wg-typography-family-body);
+      }
+
+      .stack,
+      section,
+      figure,
+      .direction-sample {
+        display: grid;
+        min-inline-size: 0;
+        gap: var(--wg-space-reference-3);
+      }
+
+      .stack {
+        /* Private fixture width keeps the evidence scannable without adding a public token. */
+        max-inline-size: 72rem;
+        margin-inline: auto;
+        gap: var(--wg-space-reference-6);
+      }
+
+      .catalog,
+      .examples {
+        display: grid;
+        /* Private fixture mechanics keep cards useful at wide and narrow review sizes. */
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+        gap: var(--wg-space-reference-4);
+      }
+
+      figure,
+      .example,
+      .direction-sample {
+        min-inline-size: 0;
+        margin: 0;
+        padding: var(--wg-space-reference-4);
+        border: var(--wg-border-width-standard) solid var(--wg-color-semantic-border-subtle);
+        border-radius: var(--wg-shape-radius-control);
+        background: var(--wg-color-semantic-surface-panel);
+      }
+
+      .icon-row,
+      .focus-order {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--wg-space-reference-4);
+      }
+
+      .custom-icon {
+        --wg-icon-color: var(--wg-color-semantic-action-primary);
+        /* Deliberately non-semantic override proves the public custom-property hook. */
+        --wg-icon-size: 2.5rem;
+      }
+
+      h1,
+      h2,
+      p {
+        margin-block: 0;
+        overflow-wrap: anywhere;
+      }
+
+      @media (max-width: 24rem) {
+        main {
+          padding: var(--wg-space-semantic-page-compact);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <wg-theme-provider id="theme" theme="wayglass-dark" density="compact">
+      <main>
+        <div class="stack">
+          <header>
+            <p>Optional reinforcement</p>
+            <h1>Icon runtime validation</h1>
+            <p>Text and owning controls retain meaning when every icon is absent.</p>
+          </header>
+
+          <section aria-labelledby="catalog-heading">
+            <h2 id="catalog-heading">Generated catalog and semantic sizes</h2>
+            <div class="catalog">
+              <figure data-icon="close">
+                <figcaption>close</figcaption>
+                <div class="icon-row">
+                  <wg-icon name="close" size="compact"></wg-icon>
+                  <wg-icon name="close" size="standard"></wg-icon>
+                  <wg-icon name="close" size="prominent"></wg-icon>
+                </div>
+              </figure>
+              <figure data-icon="menu">
+                <figcaption>menu</figcaption>
+                <div class="icon-row">
+                  <wg-icon name="menu" size="compact"></wg-icon>
+                  <wg-icon name="menu" size="standard"></wg-icon>
+                  <wg-icon name="menu" size="prominent"></wg-icon>
+                </div>
+              </figure>
+              <figure data-icon="more">
+                <figcaption>more</figcaption>
+                <div class="icon-row">
+                  <wg-icon name="more" size="compact"></wg-icon>
+                  <wg-icon name="more" size="standard"></wg-icon>
+                  <wg-icon name="more" size="prominent"></wg-icon>
+                </div>
+              </figure>
+              <figure data-icon="refresh">
+                <figcaption>refresh</figcaption>
+                <div class="icon-row">
+                  <wg-icon name="refresh" size="compact"></wg-icon>
+                  <wg-icon name="refresh" size="standard"></wg-icon>
+                  <wg-icon name="refresh" size="prominent"></wg-icon>
+                </div>
+              </figure>
+            </div>
+          </section>
+
+          <section aria-labelledby="semantics-heading">
+            <h2 id="semantics-heading">Accessible-use boundaries</h2>
+            <div class="examples">
+              <div class="example">
+                <p><wg-icon id="decorative" name="refresh"></wg-icon> Refresh records</p>
+              </div>
+              <div class="example">
+                <wg-icon id="labeled" name="refresh" label="Refresh records"></wg-icon>
+                <p>A named reference without owning a control.</p>
+              </div>
+              <div class="example">
+                <wg-icon id="missing" label="Missing icon"></wg-icon>
+                <wg-icon id="unknown" name="not-in-catalog" label="Unknown icon"></wg-icon>
+                <p>Missing and unknown names render no fallback.</p>
+              </div>
+              <div class="example">
+                <wg-icon id="no-slot" name="menu"><span>Unrendered child</span></wg-icon>
+                <p>The icon exposes no slot.</p>
+              </div>
+            </div>
+          </section>
+
+          <section aria-labelledby="presentation-heading">
+            <h2 id="presentation-heading">Direction and styling contracts</h2>
+            <div class="examples">
+              <div class="direction-sample" dir="rtl">
+                <p>Inherited RTL</p>
+                <div class="icon-row">
+                  <wg-icon id="auto-rtl" name="close" direction="auto"></wg-icon>
+                  <wg-icon id="explicit-ltr" name="close" direction="ltr"></wg-icon>
+                </div>
+              </div>
+              <div class="direction-sample" dir="ltr">
+                <p>Explicit RTL</p>
+                <wg-icon id="explicit-rtl" name="close" direction="rtl"></wg-icon>
+              </div>
+              <div class="example">
+                <wg-icon id="custom" class="custom-icon" name="menu"></wg-icon>
+                <p>Public size and color hooks.</p>
+              </div>
+              <div class="example">
+                <wg-icon id="invalid" name="menu" size="large" direction="logical"></wg-icon>
+                <p>Invalid presentation values normalize to defaults.</p>
+              </div>
+            </div>
+          </section>
+
+          <section aria-labelledby="interaction-heading">
+            <h2 id="interaction-heading">Inert interaction boundary</h2>
+            <div class="focus-order">
+              <button id="before" type="button">Before icon</button>
+              <wg-icon id="inert" name="more" label="More options reference"></wg-icon>
+              <button id="after" type="button">After icon</button>
+            </div>
+          </section>
+        </div>
+      </main>
+    </wg-theme-provider>
+
+    <script type="module">
+      import { defineWgThemeProvider } from '/packages/elements/dist/theme-provider.js';
+      import { defineWgIcon } from '/packages/icons/dist/icon.js';
+
+      defineWgThemeProvider();
+      defineWgIcon();
+    </script>
+  </body>
+</html>

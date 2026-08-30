@@ -6,13 +6,15 @@
 **Implementation:** The public utility stylesheet, `wg-surface`, `wg-divider`, tokens, framework
 exports, stories, and automated browser coverage are implemented. Evidence is recorded in the
 [Phase 2C foundation substrate validation](../accessibility/phase-2c-foundations-validation.md). The
-`wg-icon` Stage 4A runtime core now implements this accepted API over authenticated generated data
-with unit and package-boundary coverage. Its complete browser, accessibility, visual, and Storybook
-evidence remains the next Stage 4B boundary.
+`wg-icon` Stage 4 now implements this accepted API over authenticated generated data with unit,
+package-boundary, supported-browser, automated accessibility, visual, Storybook, and packed-output
+coverage. Evidence is recorded in the
+[Phase 5D icon-runtime validation](../accessibility/phase-5d-icon-runtime-validation.md).
 
 The icon API below remains authoritative after the accepted
 [`@wayglass/icons` runtime-contract reconciliation](../governance/icon-runtime-contract-reconciliation.md).
-The current private package remains unreleased while its Stage 4 validation is completed.
+The current private package remains unreleased while repository integration and final icon-tooling
+validation continue.
 
 These contracts cover the remaining behaviorless or near-behaviorless foundations: typography,
 icons, visually hidden content, focus rings, surfaces, and dividers. They define the public boundary

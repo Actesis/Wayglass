@@ -3,12 +3,14 @@
 This directory owns Wayglass's private, repository-only icon source and generation path. It is not a
 workspace package, public API, arbitrary SVG parser, or application icon service.
 
-Stages 1 through 4A contain the reviewed four-glyph catalog, closed source types, strict immutable
+Stages 1 through 4 contain the reviewed four-glyph catalog, closed source types, strict immutable
 validation, deterministic in-memory generation, manifest verification, drift comparison, explicit
 commands, the transactional filesystem boundary, and the first authenticated permanent output set.
-The runtime package now consumes only the generated inert catalog; no production package imports
-this private tooling. Completing browser, accessibility, visual, and Storybook evidence requires the
-next staged review under the accepted
+The runtime package consumes only the generated inert catalog; no production package imports this
+private tooling. Its browser, accessibility, visual, Storybook, and packed-output evidence is
+recorded in the
+[Phase 5D icon-runtime validation](../../docs/accessibility/phase-5d-icon-runtime-validation.md).
+Stage 5 repository-validation integration is next under the accepted
 [implementation contract](../../docs/governance/icon-tooling-implementation-contract.md).
 
 The fixed repository commands are:
