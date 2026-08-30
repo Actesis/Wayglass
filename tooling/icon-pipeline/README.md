@@ -10,7 +10,9 @@ The runtime package consumes only the generated inert catalog; no production pac
 private tooling. Its browser, accessibility, visual, Storybook, and packed-output evidence is
 recorded in the
 [Phase 5D icon-runtime validation](../../docs/accessibility/phase-5d-icon-runtime-validation.md).
-Stage 5 repository-validation integration is next under the accepted
+Stage 5 repository-validation integration and its retained
+[validation matrix](./evidence/stage-5-validation-matrix.md) are complete. Stage 6 proof cleanup is
+next under the accepted
 [implementation contract](../../docs/governance/icon-tooling-implementation-contract.md).
 
 The fixed repository commands are:

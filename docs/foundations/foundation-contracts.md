@@ -13,8 +13,8 @@ coverage. Evidence is recorded in the
 
 The icon API below remains authoritative after the accepted
 [`@wayglass/icons` runtime-contract reconciliation](../governance/icon-runtime-contract-reconciliation.md).
-The current private package remains unreleased while repository integration and final icon-tooling
-validation continue.
+The current private package remains unreleased. Runtime and repository validation are complete;
+legacy proof cleanup and release governance remain separate.
 
 These contracts cover the remaining behaviorless or near-behaviorless foundations: typography,
 icons, visually hidden content, focus rings, surfaces, and dividers. They define the public boundary

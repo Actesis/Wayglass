@@ -2,8 +2,9 @@
 
 **Status:** Stage 4B completed on August 30, 2026. The private `@wayglass/icons` runtime migration
 now has supported-browser, automated accessibility, production Storybook, visual, and packed-output
-evidence. Stage 5 repository-validation integration remains next. This record does not publish the
-package or make a public compatibility or assistive-technology support claim.
+evidence. This record does not publish the package or make a public compatibility or
+assistive-technology support claim. Stage 5 subsequently passed in the retained
+[icon-tooling validation matrix](/accessibility/phase-5d-icon-tooling-validation).
 
 This evidence validates the accepted
 [`@wayglass/icons` runtime reconciliation](../governance/icon-runtime-contract-reconciliation.md)

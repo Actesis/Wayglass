@@ -23,7 +23,9 @@ size, direction, styling, registration, missing-name, and interaction behavior n
 package-boundary, supported-browser, automated accessibility, visual, Storybook, and packed-output
 coverage. Exact results and carried manual gates are recorded in the
 [Phase 5D icon-runtime validation](../accessibility/phase-5d-icon-runtime-validation.md). Stage 5
-repository-validation integration remains next.
+repository-validation integration also passed on August 30, 2026, as recorded in the
+[icon-tooling validation matrix](/accessibility/phase-5d-icon-tooling-validation). Stage 6 proof
+cleanup remains next; the runtime contract is unchanged.
 
 ## Reconciled surface
 

@@ -269,9 +269,13 @@ runtime. Stage 4 completed the single runtime implementation, component-specific
 rendering, missing-name behavior, accessibility modes, semantic sizes, logical direction, styling
 hooks, registration, unit/package-boundary coverage, and the focused supported-browser,
 accessibility, visual, Storybook, and packed-output evidence recorded in the
-[Phase 5D icon-runtime validation](./accessibility/phase-5d-icon-runtime-validation.md). Stage 5 is
-the next authorized implementation step: wire the write-free check into ordinary repository
-validation and complete the remaining environment, package, clean-build, and documentation matrices.
+[Phase 5D icon-runtime validation](./accessibility/phase-5d-icon-runtime-validation.md). Stage 5
+wired the write-free check into ordinary repository validation and completed the minimum/current
+runtime, clean-build, supported-browser, visual, accessibility, package, dependency, and
+documentation matrix recorded in the
+[Phase 5D icon-tooling validation](/accessibility/phase-5d-icon-tooling-validation). Stage 6 proof
+cleanup is the next authorized implementation step; it must retain historical evidence and remove
+only the superseded executable proof after project-owner review.
 
 Phase 5D-B design-library work was deferred by the project owner on August 29, 2026. It may restart
 only when a named Figma workspace, access model, exact target versions, reviewer, backup policy,

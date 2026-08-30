@@ -23,7 +23,7 @@ describe('Phase 5D runtime-contract reconciliation', () => {
     expect(foundationContract).toContain('../governance/icon-runtime-contract-reconciliation.md');
   });
 
-  it('records the reviewed and validated Stage 4 runtime migration', () => {
+  it('records the reviewed runtime migration and completed Stage 5 integration', () => {
     const record = readRepositoryFile('docs/governance/icon-runtime-contract-reconciliation.md');
     const roadmap = readRepositoryFile('docs/phase-5.md');
     const runtime = readRepositoryFile('packages/icons/src/index.ts');
@@ -42,7 +42,8 @@ describe('Phase 5D runtime-contract reconciliation', () => {
     expect(roadmap).toContain('./governance/icon-tooling-implementation-contract.md');
     expect(roadmap).toContain('./architecture/adr/0034-private-icon-pipeline-architecture.md');
     expect(roadmap).toContain('Stage 0 passed on Node 22.13/Linux');
-    expect(roadmap).toMatch(/Stage 5 is\s+the next authorized implementation step/);
+    expect(record).toMatch(/Stage 5\s+repository-validation integration also passed/);
+    expect(roadmap).toMatch(/Stage 6 proof\s+cleanup is the next authorized implementation step/);
   });
 
   it('records the project-owner deferral of Phase 5D-B', () => {
