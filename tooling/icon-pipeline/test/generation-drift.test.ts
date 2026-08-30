@@ -6,15 +6,17 @@ import { generateIconArtifacts, generatedArtifactPaths } from '../src/generation
 import { directionalFixture } from './fixtures.js';
 
 describe('pure icon artifact generation', () => {
+  const context = { iconPackageVersion: '0.0.0' } as const;
+
   it('is deterministic across repeated and reordered input', () => {
-    const first = generateIconArtifacts(iconCatalog);
-    expect(generateIconArtifacts(iconCatalog)).toEqual(first);
-    expect(generateIconArtifacts([...iconCatalog].reverse())).toEqual(first);
+    const first = generateIconArtifacts(iconCatalog, context);
+    expect(generateIconArtifacts(iconCatalog, context)).toEqual(first);
+    expect(generateIconArtifacts([...iconCatalog].reverse(), context)).toEqual(first);
     expect(Object.keys(first)).toEqual(generatedArtifactPaths);
   });
 
   it('keeps runtime data inert and manifests authenticated without recursion', () => {
-    const artifacts = generateIconArtifacts(iconCatalog);
+    const artifacts = generateIconArtifacts(iconCatalog, context);
     const runtime = artifacts['packages/icons/src/generated/catalog.ts'];
     const source = JSON.parse(
       artifacts['tooling/icon-pipeline/generated/source-manifest.json'],
@@ -40,7 +42,7 @@ describe('pure icon artifact generation', () => {
   });
 
   it('creates a static token-backed review with all required contexts', () => {
-    const html = generateIconArtifacts([...iconCatalog, directionalFixture])[
+    const html = generateIconArtifacts([...iconCatalog, directionalFixture], context)[
       'tooling/icon-pipeline/generated/review-index.html'
     ];
     expect(html).not.toMatch(/<script\b/i);
@@ -64,7 +66,7 @@ describe('pure icon artifact generation', () => {
   });
 
   it('reports changed, missing, then sorted unexpected paths', () => {
-    const expected = generateIconArtifacts(iconCatalog);
+    const expected = generateIconArtifacts(iconCatalog, context);
     const actual = {
       ...expected,
       [generatedArtifactPaths[0]]: 'changed',

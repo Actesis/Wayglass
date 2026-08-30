@@ -63,9 +63,14 @@ describe('Phase 5D private icon-tooling contract', () => {
     expect(existsSync(join(repositoryRoot, 'tooling/icon-pipeline/src/catalog.ts'))).toBe(true);
     expect(existsSync(join(repositoryRoot, 'tooling/icon-pipeline/src/generation.ts'))).toBe(true);
     expect(existsSync(join(repositoryRoot, 'packages/icons/src/generated/catalog.ts'))).toBe(false);
-    expect(roadmap).toMatch(/The next\s+authorized implementation step is Stage 2/);
+    expect(roadmap).toMatch(/The next\s+authorized implementation step is Stage 3/);
     expect(readRepositoryFile('docs/governance/icon-tooling-implementation-contract.md')).toContain(
       '**Stage 1 result:** Implemented on August 30, 2026.',
     );
+    expect(readRepositoryFile('docs/governance/icon-tooling-implementation-contract.md')).toContain(
+      '**Stage 2 result:** Implemented on August 30, 2026.',
+    );
+    expect(readRepositoryFile('package.json')).toContain('"icon-tooling:check"');
+    expect(readRepositoryFile('package.json')).toContain('"icon-tooling:generate"');
   });
 });

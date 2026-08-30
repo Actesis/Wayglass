@@ -1,11 +1,11 @@
-import type { IconPaint, IconPathCommand, IconPrimitive, IconRecord } from './types.js';
+import type { IconPaint, IconPathCommand, IconPrimitive, IconRecord } from './types.ts';
 
 export class IconSourceError extends Error {
-  constructor(
-    readonly code: string,
-    message: string,
-  ) {
+  readonly code: string;
+
+  constructor(code: string, message: string) {
     super(`${code}: ${message}`);
+    this.code = code;
     this.name = 'IconSourceError';
   }
 }
