@@ -28,9 +28,11 @@ describe('private icon-pipeline isolation', () => {
       'validation.ts',
       'writer.ts',
     ]);
-    const runtime = readFileSync(join(repositoryRoot, 'packages/icons/src/index.ts'), 'utf8');
+    const runtime = ['index.ts', 'icon.ts', 'runtime.ts']
+      .map((file) => readFileSync(join(repositoryRoot, 'packages/icons/src', file), 'utf8'))
+      .join('\n');
     expect(runtime).not.toContain('tooling/icon-pipeline');
-    expect(runtime).not.toContain('./generated/catalog');
+    expect(runtime).toContain('./generated/catalog.js');
   });
 
   it('keeps pure sources free of effects and registration', () => {

@@ -46,7 +46,7 @@ describe('Phase 5D private icon-tooling contract', () => {
     expect(decision).toContain('Gate migration on the minimum environment');
   });
 
-  it('publishes Stage 3 outputs in documentation without migrating production', () => {
+  it('publishes Stage 4A runtime migration without completing browser validation', () => {
     const roadmap = readRepositoryFile('docs/phase-5.md');
     const charter = readRepositoryFile('docs/governance/explorations/phase-5d-icon-tooling.md');
     const docsConfig = readRepositoryFile('apps/docs/.vitepress/config.ts');
@@ -59,7 +59,7 @@ describe('Phase 5D private icon-tooling contract', () => {
     expect(charter).toContain('../icon-tooling-implementation-contract.md');
     expect(docsConfig).toContain('/governance/icon-tooling-implementation-contract');
     expect(docsConfig).toContain('/architecture/adr/0034-private-icon-pipeline-architecture');
-    expect(Object.keys(manifest.exports)).toEqual(['.']);
+    expect(Object.keys(manifest.exports)).toEqual(['.', './icon']);
     expect(existsSync(join(repositoryRoot, 'tooling/icon-pipeline/src/catalog.ts'))).toBe(true);
     expect(existsSync(join(repositoryRoot, 'tooling/icon-pipeline/src/generation.ts'))).toBe(true);
     for (const output of [
@@ -70,7 +70,7 @@ describe('Phase 5D private icon-tooling contract', () => {
     ]) {
       expect(existsSync(join(repositoryRoot, output))).toBe(true);
     }
-    expect(roadmap).toMatch(/The next authorized implementation step is Stage 4/);
+    expect(roadmap).toMatch(/The next authorized implementation step is\s+Stage 4B/);
     expect(readRepositoryFile('docs/governance/icon-tooling-implementation-contract.md')).toContain(
       '**Stage 1 result:** Implemented on August 30, 2026.',
     );
@@ -79,6 +79,9 @@ describe('Phase 5D private icon-tooling contract', () => {
     );
     expect(readRepositoryFile('docs/governance/icon-tooling-implementation-contract.md')).toContain(
       '**Stage 3 result:** Implemented on August 30, 2026.',
+    );
+    expect(readRepositoryFile('docs/governance/icon-tooling-implementation-contract.md')).toContain(
+      '**Stage 4A result:** Implemented on August 30, 2026.',
     );
     expect(readRepositoryFile('package.json')).toContain('"icon-tooling:check"');
     expect(readRepositoryFile('package.json')).toContain('"icon-tooling:generate"');

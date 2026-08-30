@@ -5,14 +5,14 @@
 
 **Implementation:** The public utility stylesheet, `wg-surface`, `wg-divider`, tokens, framework
 exports, stories, and automated browser coverage are implemented. Evidence is recorded in the
-[Phase 2C foundation substrate validation](../accessibility/phase-2c-foundations-validation.md).
-`wg-icon` and the first official catalog remain intentionally deferred until Phase 2D selects the
-controls that consume them.
+[Phase 2C foundation substrate validation](../accessibility/phase-2c-foundations-validation.md). The
+`wg-icon` Stage 4A runtime core now implements this accepted API over authenticated generated data
+with unit and package-boundary coverage. Its complete browser, accessibility, visual, and Storybook
+evidence remains the next Stage 4B boundary.
 
 The icon API below remains authoritative after the accepted
 [`@wayglass/icons` runtime-contract reconciliation](../governance/icon-runtime-contract-reconciliation.md).
-The current private package is an incomplete implementation of this contract; its root export,
-implicit `more` default, and always-decorative behavior do not replace the accepted API.
+The current private package remains unreleased while its Stage 4 validation is completed.
 
 These contracts cover the remaining behaviorless or near-behaviorless foundations: typography,
 icons, visually hidden content, focus rings, surfaces, and dividers. They define the public boundary
@@ -142,6 +142,11 @@ None.
 - `--wg-icon-size`
 
 The default color is `currentColor`. Forced-colors mode preserves the current system text color.
+
+The package root is a side-effect-free convenience barrel for the same symbols exported by
+`@wayglass/icons/icon`; it is not a second implementation. Invalid `size` and `direction` attributes
+normalize to their documented defaults. A missing or unknown `name` remains decorative and renders
+nothing even when a label is present, so an inaccessible or misleading phantom image is not exposed.
 
 ### Content rules
 

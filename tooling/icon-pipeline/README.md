@@ -3,11 +3,12 @@
 This directory owns Wayglass's private, repository-only icon source and generation path. It is not a
 workspace package, public API, arbitrary SVG parser, or application icon service.
 
-Stages 1 through 3 contain the reviewed four-glyph catalog, closed source types, strict immutable
+Stages 1 through 4A contain the reviewed four-glyph catalog, closed source types, strict immutable
 validation, deterministic in-memory generation, manifest verification, drift comparison, explicit
 commands, the transactional filesystem boundary, and the first authenticated permanent output set.
-The tool adds no package, dependency, runtime import, or public API. Migrating the runtime requires
-a later staged review under the accepted
+The runtime package now consumes only the generated inert catalog; no production package imports
+this private tooling. Completing browser, accessibility, visual, and Storybook evidence requires the
+next staged review under the accepted
 [implementation contract](../../docs/governance/icon-tooling-implementation-contract.md).
 
 The fixed repository commands are:
@@ -48,5 +49,5 @@ pnpm exec vitest run --root tooling/icon-pipeline --config vitest.config.ts
 `src/catalog.ts` is the only official geometry and metadata authority. Applications continue to own
 icon selection, text, accessible names, state, and domain meaning. The synthetic directional fixture
 under `test/` exists only to exercise logical-direction review behavior. The Stage 3 parity fixture
-temporarily pins every coordinate in the superseded inline runtime; it is removed with that runtime
-after the generated catalog becomes the sole production geometry path.
+temporarily pins every coordinate from the superseded inline runtime; it remains through migration
+validation and is removed with the executable proof during final cleanup.

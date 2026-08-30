@@ -58,11 +58,16 @@ function nonblankLines(root: string): number {
     }, 0);
 }
 
-function manualRuntimeDryRun() {
-  const runtimePath = join(repositoryRoot, 'packages/icons/src/index.ts');
-  const testPath = join(repositoryRoot, 'packages/icons/test/icons.test.ts');
-  const originalRuntime = readFileSync(runtimePath, 'utf8');
-  const originalTest = readFileSync(testPath, 'utf8');
+function recordedManualRuntimeDryRun() {
+  // The production runtime now consumes generated data. These minimal retained strings preserve
+  // the accepted pre-migration comparison without treating deleted inline source as authoritative.
+  const originalRuntime = `
+export const iconNames = ['close', 'menu', 'more', 'refresh'] as const;
+const path = {
+  close: svg\`<path d="M6 6l12 12M18 6L6 18" />\`,
+};
+`;
+  const originalTest = `expect(iconNames).toEqual(['close', 'menu', 'more', 'refresh']);`;
   const runtime = originalRuntime
     .replace(
       "['close', 'menu', 'more', 'refresh']",
@@ -134,7 +139,7 @@ describe('Phase 5D add-and-revise maintenance comparison', () => {
     expect(generatedArtifactNames.filter((name) => baseline[name] !== contribution[name])).toEqual(
       generatedArtifactNames,
     );
-    expect(manualRuntimeDryRun()).toEqual({
+    expect(recordedManualRuntimeDryRun()).toEqual({
       authoredFilesChanged: 2,
       synchronizedRepresentationsChanged: 4,
       unsupportedTaskSurfaces: [
