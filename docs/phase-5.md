@@ -265,11 +265,13 @@ added the fixed-path commands, manifest integrity checks, exclusive lock, journa
 manifest-last atomic replacement, rollback, and conservative stale-lock recovery. Stage 3 generated
 and authenticated the exact four permanent outputs, linked them to the private icon package version,
 and retained exact name, order, coordinate, direction, and paint parity with the current inline
-runtime. Stage 4A completed the single runtime implementation, component-specific export, generated
+runtime. Stage 4 completed the single runtime implementation, component-specific export, generated
 rendering, missing-name behavior, accessibility modes, semantic sizes, logical direction, styling
-hooks, registration, and unit/package-boundary coverage. The next authorized implementation step is
-Stage 4B's browser, automated accessibility, visual, Storybook, and packed-output evidence; Stage 4
-remains incomplete until that evidence passes.
+hooks, registration, unit/package-boundary coverage, and the focused supported-browser,
+accessibility, visual, Storybook, and packed-output evidence recorded in the
+[Phase 5D icon-runtime validation](./accessibility/phase-5d-icon-runtime-validation.md). Stage 5 is
+the next authorized implementation step: wire the write-free check into ordinary repository
+validation and complete the remaining environment, package, clean-build, and documentation matrices.
 
 Phase 5D-B design-library work was deferred by the project owner on August 29, 2026. It may restart
 only when a named Figma workspace, access model, exact target versions, reviewer, backup policy,

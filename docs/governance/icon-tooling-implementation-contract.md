@@ -243,8 +243,18 @@ the two accepted custom properties, and forced-color preservation; and retains d
 explicit registration with no focus, slots, or events. Unit and package-boundary coverage pins the
 API, exact generated rendering, synthetic mirroring policy, missing-name behavior, entry-point
 identity, and optional-package isolation. The legacy coordinate fixture remains until final proof
-cleanup. Stage 4B browser, accessibility, visual, and Storybook evidence is the next implementation
-boundary; Stage 4 is not yet complete.
+cleanup. At this checkpoint, Stage 4B browser, accessibility, visual, and Storybook evidence
+remained the next implementation boundary and Stage 4 was not yet complete.
+
+**Stage 4B result:** Implemented on August 30, 2026. The runtime now has a focused 24-case matrix
+across Chromium, Firefox, and WebKit covering entry points, registration, generated geometry,
+semantic sizes, accessibility modes, missing names, logical direction, styling hooks, inertness,
+themes, forced colors, reduced motion, and narrow 200% text reflow. Production-backed dark and light
+visual review and Storybook stories passed, and the private packed output excludes tooling,
+fixtures, manifests, and review artifacts. The retained
+[icon-runtime validation](../accessibility/phase-5d-icon-runtime-validation.md) records exact
+results, limitations, and package evidence. Stage 4 is complete; Stage 5 repository-validation
+integration is the next authorized implementation boundary.
 
 0. run the unchanged accepted proof and its deterministic outputs on Node 22.13 and Linux; stop and
    revise this contract if the minimum environment changes bytes, diagnostics, or accepted behavior;

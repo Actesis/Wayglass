@@ -42,6 +42,10 @@ export default defineConfig({
             link: '/governance/icon-tooling-implementation-contract',
           },
           {
+            text: 'Phase 5D icon-runtime validation',
+            link: '/accessibility/phase-5d-icon-runtime-validation',
+          },
+          {
             text: 'Token-tooling implementation contract',
             link: '/governance/token-tooling-implementation-contract',
           },

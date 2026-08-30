@@ -1,0 +1,59 @@
+.wg-icon-story {
+  box-sizing: border-box;
+  min-block-size: 100vh;
+  padding: var(--wg-space-semantic-page-comfortable);
+  color: var(--wg-color-semantic-text-primary);
+  background: var(--wg-color-semantic-surface-canvas);
+  font-family: var(--wg-typography-family-body);
+}
+
+.wg-icon-story__stack,
+.wg-icon-story section,
+.wg-icon-story figure {
+  display: grid;
+  gap: var(--wg-space-reference-3);
+}
+
+.wg-icon-story__stack {
+  /* Private preview width keeps the catalog scannable without adding a public layout token. */
+  max-inline-size: 72rem;
+  margin-inline: auto;
+  gap: var(--wg-space-reference-6);
+}
+
+.wg-icon-story__catalog,
+.wg-icon-story__examples {
+  display: grid;
+  /* Private preview mechanics keep the cards useful without adding public layout tokens. */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  gap: var(--wg-space-reference-4);
+}
+
+.wg-icon-story figure,
+.wg-icon-story__example {
+  min-inline-size: 0;
+  margin: 0;
+  padding: var(--wg-space-reference-4);
+  border: var(--wg-border-width-standard) solid var(--wg-color-semantic-border-subtle);
+  border-radius: var(--wg-shape-radius-control);
+  background: var(--wg-color-semantic-surface-panel);
+}
+
+.wg-icon-story__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--wg-space-reference-4);
+}
+
+.wg-icon-story h1,
+.wg-icon-story h2,
+.wg-icon-story p {
+  margin-block: 0;
+}
+
+@media (max-width: 24rem) {
+  .wg-icon-story {
+    padding: var(--wg-space-semantic-page-compact);
+  }
+}
