@@ -34,6 +34,10 @@ export default defineConfig({
             link: '/governance/explorations/phase-5d-icon-tooling',
           },
           {
+            text: 'Phase 5E Home Assistant charter',
+            link: '/governance/explorations/phase-5e-home-assistant',
+          },
+          {
             text: 'Icon runtime-contract reconciliation',
             link: '/governance/icon-runtime-contract-reconciliation',
           },
