@@ -16,7 +16,7 @@
   },
   "scripts": {
     "build": "pnpm token-tooling:generate:web && turbo run build",
-    "check": "pnpm format:check && pnpm lint && pnpm build && pnpm icon-tooling:check && pnpm icon-tooling:core:check && pnpm token-tooling:check && pnpm token-tooling:core:check && pnpm experiment:phase5c:check && pnpm typecheck && pnpm test",
+    "check": "pnpm format:check && pnpm lint && pnpm build && pnpm icon-tooling:check && pnpm icon-tooling:core:check && pnpm token-tooling:check && pnpm token-tooling:core:check && pnpm experiment:phase5c:check && pnpm experiment:phase5e:check && pnpm typecheck && pnpm test",
     "docs:build": "pnpm --filter @wayglass/docs build",
     "docs:dev": "pnpm --filter @wayglass/docs dev",
     "example:agent-supervision": "pnpm --filter @wayglass/example-agent-supervision dev",
@@ -27,6 +27,9 @@
     "experiment:phase5c:check": "pnpm experiment:phase5c:typecheck && pnpm experiment:phase5c:test",
     "experiment:phase5c:test": "vitest run --root experiments/phase-5c-rich-visualization --config vitest.config.ts",
     "experiment:phase5c:typecheck": "tsc --noEmit -p experiments/phase-5c-rich-visualization/tsconfig.json",
+    "experiment:phase5e:check": "pnpm experiment:phase5e:typecheck && pnpm experiment:phase5e:test",
+    "experiment:phase5e:test": "vitest run --root experiments/phase-5e-home-assistant --config vitest.config.ts",
+    "experiment:phase5e:typecheck": "tsc --noEmit -p experiments/phase-5e-home-assistant/tsconfig.json",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "icon-tooling:check": "node --disable-warning=ExperimentalWarning --experimental-strip-types tooling/icon-pipeline/src/cli.ts check",

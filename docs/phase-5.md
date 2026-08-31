@@ -1,11 +1,12 @@
 # Phase 5 ecosystem roadmap
 
 **Status:** Accepted on August 14, 2026. Phases 5A, 5B, 5C, and 5D-A are complete. Phase 5D-B is
-deferred. The proposed
-[Phase 5E Home Assistant charter](./governance/explorations/phase-5e-home-assistant.md) now awaits
-project-owner review; it authorizes no proof, credential, network connection, dependency, or live
-environment while proposed. Every ecosystem track requires its own accepted charter before
-implementation, and an exploration may conclude with no new package.
+deferred. The project owner accepted the
+[Phase 5E Home Assistant charter](./governance/explorations/phase-5e-home-assistant.md) on August
+30, 2026, and its first credential-free provider-model stage is implemented. No live environment,
+credential, dependency, package, or public compatibility claim is authorized. Every ecosystem track
+requires its own accepted charter before implementation, and an exploration may conclude with no new
+package.
 
 Phase 5 extends Wayglass beyond the core design language and its three reference domains. `SPEC.md`
 names six ecosystem areas to explore: charts, Home Assistant integration, icon tooling, Figma
@@ -289,12 +290,15 @@ version linkage, and drift plan are available.
 
 Use one optional smart-home integration to test the ecosystem boundary under real external state.
 
-The proposed
+The accepted
 [Phase 5E Home Assistant integration charter](./governance/explorations/phase-5e-home-assistant.md)
 defines revision 1 as a credential-free, dependency-free, fixture-driven proof over four synthetic
 entities. It explicitly separates provider acknowledgement from later provider-reported state and
 keeps a live installation, token, and mutation set behind a separate approval after synthetic
-evidence. No implementation begins until the charter is accepted.
+evidence. Stage 1 now provides the closed projected provider contract, immutable four-entity
+reducer, ordering and connection-knowledge behavior, and request/acknowledgement/effect separation.
+Stage 2 adds the deterministic fake transport, authentication outcomes, command envelopes, and
+reconnect behavior without a live network.
 
 - define the smallest credible user-owned deployment and data set; synthetic fixtures remain the
   default automated evidence;
