@@ -263,8 +263,19 @@ Node 22.13 and Node 26.4, four locale/time-zone/launch-directory drift cases, a 
 repository gate, the focused 24-case Chromium/Firefox/WebKit and Axe matrix, production visual
 review, private package inspection, and dependency audit. The retained
 [Stage 5 validation matrix](/accessibility/phase-5d-icon-tooling-validation) records exact hashes,
-results, reused evidence, limitations, and the Node 22 warning correction. Stage 5 is complete;
-Stage 6 proof cleanup is the next authorized implementation boundary and has not begun.
+results, reused evidence, limitations, and the Node 22 warning correction. Stage 5 completed the
+validation prerequisite for the separately reviewed Stage 6 cleanup below.
+
+**Stage 6 result:** Implemented and validated on August 30, 2026 after project-owner review of the
+Stage 5 matrix. The executable experiment, its generated candidates, proof-only browser cases, three
+root experiment commands, root-gate invocation, removal manifest, and migration-only legacy
+coordinate oracle are removed. All nine historical experiment evidence records, governance
+decisions, the permanent source/generator/writer/runtime, authenticated outputs, repository drift
+gate, and supported-browser coverage remain. A permanent cleanup test keeps the retired paths absent
+and the retained records discoverable. The retained
+[Stage 6 cleanup record](/accessibility/phase-5d-icon-tooling-cleanup) maps each removed proof
+surface to permanent coverage or historical evidence. Phase 5D-A implementation is complete; Phase
+5D-B remains deferred and no publication or public-tooling authority is implied.
 
 0. run the unchanged accepted proof and its deterministic outputs on Node 22.13 and Linux; stop and
    revise this contract if the minimum environment changes bytes, diagnostics, or accepted behavior;

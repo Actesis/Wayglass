@@ -25,7 +25,9 @@ coverage. Exact results and carried manual gates are recorded in the
 [Phase 5D icon-runtime validation](../accessibility/phase-5d-icon-runtime-validation.md). Stage 5
 repository-validation integration also passed on August 30, 2026, as recorded in the
 [icon-tooling validation matrix](/accessibility/phase-5d-icon-tooling-validation). Stage 6 proof
-cleanup remains next; the runtime contract is unchanged.
+cleanup subsequently removed the executable experiment and migration-only coordinate oracle while
+preserving historical evidence and permanent coverage. Phase 5D-A is complete; the runtime contract
+is unchanged.
 
 ## Reconciled surface
 

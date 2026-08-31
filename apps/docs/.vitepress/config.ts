@@ -50,6 +50,10 @@ export default defineConfig({
             link: '/accessibility/phase-5d-icon-tooling-validation',
           },
           {
+            text: 'Phase 5D icon-tooling cleanup',
+            link: '/accessibility/phase-5d-icon-tooling-cleanup',
+          },
+          {
             text: 'Token-tooling implementation contract',
             link: '/governance/token-tooling-implementation-contract',
           },
