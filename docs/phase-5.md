@@ -273,9 +273,12 @@ accessibility, visual, Storybook, and packed-output evidence recorded in the
 wired the write-free check into ordinary repository validation and completed the minimum/current
 runtime, clean-build, supported-browser, visual, accessibility, package, dependency, and
 documentation matrix recorded in the
-[Phase 5D icon-tooling validation](/accessibility/phase-5d-icon-tooling-validation). Stage 6 proof
-cleanup is the next authorized implementation step; it must retain historical evidence and remove
-only the superseded executable proof after project-owner review.
+[Phase 5D icon-tooling validation](/accessibility/phase-5d-icon-tooling-validation). Stage 6 then
+removed only the superseded executable experiment, proof-only browser cases, root experiment
+commands, and migration-only coordinate oracle after project-owner review. The nine historical
+evidence records and all permanent behavior coverage remain, as mapped in the
+[Phase 5D icon-tooling cleanup](/accessibility/phase-5d-icon-tooling-cleanup). Phase 5D-A is
+complete. Phase 5D-B remains deferred; Phase 5E is the next uncompleted Phase 5 exploration.
 
 Phase 5D-B design-library work was deferred by the project owner on August 29, 2026. It may restart
 only when a named Figma workspace, access model, exact target versions, reviewer, backup policy,

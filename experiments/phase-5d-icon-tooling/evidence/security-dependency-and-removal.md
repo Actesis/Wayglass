@@ -34,11 +34,13 @@ free as recorded in `P5D-A-E03`.
 
 ## Complete removal
 
-[`removal-plan.json`](../removal-plan.json) is an exact machine-checked cleanup boundary. Removal
-deletes the private source, generated artifacts, tests, configs, command documentation, removal
-manifest, and two browser proofs; removes the three root scripts; and removes the Phase 5D
-invocation from the root check chain. The production packages, exports, workspace definition,
-dependency graph, lockfile, and generated foundation artifacts require no change.
+The archived
+[`removal-plan.json`](https://github.com/Actesis/Wayglass/blob/da5b975b7526ec47a3927b336446cd97f6e04868/experiments/phase-5d-icon-tooling/removal-plan.json)
+was the exact machine-checked cleanup boundary. Removal deletes the private source, generated
+artifacts, tests, configs, command documentation, removal manifest, and two browser proofs; removes
+the three root scripts; and removes the Phase 5D invocation from the root check chain. The
+production packages, exports, workspace definition, dependency graph, lockfile, and generated
+foundation artifacts require no change.
 
 The evidence directory, Phase 5 roadmap, charter, and VitePress include are deliberately retained as
 historical decision records. Automated repository scanning verifies that every reference outside the

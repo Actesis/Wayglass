@@ -5,7 +5,7 @@
 - Host: Apple silicon, macOS 26.5.2, APFS
 - Current runtime: Node 26.4.0 and pnpm 11.9.0
 - Minimum runtime: authenticated Node 22.13.0 macOS arm64 archive and pnpm 11.9.0
-- Reviewer: project-owner review pending
+- Reviewer: approved by the project owner on 2026-08-30
 
 ## Result
 
@@ -31,9 +31,13 @@ ran `TURBO_FORCE=true pnpm check`. The gate passed with:
 - all 14 build tasks executed with zero cache hits, including VitePress and Storybook production
   builds;
 - all 20 typecheck tasks and all 20 package test tasks executed with zero cache hits;
-- the 56-test permanent icon-pipeline suite, 40-test retained Phase 5D proof, token drift gates,
-  formatting, linting, and application tests included in the ordinary sequence; and
+- the 40-test retained Phase 5D proof, token drift gates, formatting, linting, and application tests
+  included in the ordinary sequence; and
 - no tracked change after generation, build, drift verification, typechecking, or tests.
+
+The 56-test permanent icon-pipeline suite passed separately on both runtimes during Stage 5. The
+Stage 6 cleanup replaced the retired experiment invocation with the permanent suite in the ordinary
+root gate, making that relationship explicit rather than relying on overlapping proof coverage.
 
 A diagnostic attempt placed the clean checkout under `/tmp`. The icon stages passed, but an existing
 token-tooling adverse test took its permitted-temporary-root branch instead of its repository-root
@@ -130,9 +134,9 @@ Playwright engines, deterministic local fixtures, and a local private package ta
 establish power-loss or distributed-filesystem durability, public contribution readiness, Figma
 compatibility, package publication, registry integrity, or public assistive-technology support.
 
-Stage 5 is complete. Stage 6 may remove the superseded executable proof and legacy parity fixture
-only after project-owner review of this matrix confirms that every accepted behavior is mapped to
-the permanent path. Historical evidence and governing decisions must remain.
+Stage 5 is complete. The project owner approved this matrix, and Stage 6 subsequently removed the
+superseded executable proof and legacy parity fixture after mapping accepted behavior to the
+permanent path. Historical evidence and governing decisions remain.
 
 ## Reproduce
 

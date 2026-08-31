@@ -11,9 +11,10 @@ private tooling. Its browser, accessibility, visual, Storybook, and packed-outpu
 recorded in the
 [Phase 5D icon-runtime validation](../../docs/accessibility/phase-5d-icon-runtime-validation.md).
 Stage 5 repository-validation integration and its retained
-[validation matrix](./evidence/stage-5-validation-matrix.md) are complete. Stage 6 proof cleanup is
-next under the accepted
-[implementation contract](../../docs/governance/icon-tooling-implementation-contract.md).
+[validation matrix](./evidence/stage-5-validation-matrix.md) are complete. Stage 6 removed the
+superseded executable proof and migration-only coordinate oracle while preserving its historical
+records and permanent behavior coverage. The retained
+[cleanup record](./evidence/stage-6-cleanup.md) maps the retired surfaces to their permanent owners.
 
 The fixed repository commands are:
 
@@ -46,12 +47,13 @@ unless the recovery implementation itself is under maintainer repair.
 Run the focused implementation checks with:
 
 ```sh
-pnpm exec tsc --noEmit -p tooling/icon-pipeline/tsconfig.json
-pnpm exec vitest run --root tooling/icon-pipeline --config vitest.config.ts
+pnpm icon-tooling:core:check
 ```
+
+The ordinary root `pnpm check` runs the write-free artifact check and this permanent focused suite.
 
 `src/catalog.ts` is the only official geometry and metadata authority. Applications continue to own
 icon selection, text, accessible names, state, and domain meaning. The synthetic directional fixture
-under `test/` exists only to exercise logical-direction review behavior. The Stage 3 parity fixture
-temporarily pins every coordinate from the superseded inline runtime; it remains through migration
-validation and is removed with the executable proof during final cleanup.
+under `test/` exists only to exercise logical-direction review behavior. Exact generated geometry
+remains covered by the runtime tests and authenticated outputs; the migration-only copy of the old
+inline coordinates was retired in Stage 6.
