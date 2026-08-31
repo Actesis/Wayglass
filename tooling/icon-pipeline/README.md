@@ -10,7 +10,9 @@ The runtime package consumes only the generated inert catalog; no production pac
 private tooling. Its browser, accessibility, visual, Storybook, and packed-output evidence is
 recorded in the
 [Phase 5D icon-runtime validation](../../docs/accessibility/phase-5d-icon-runtime-validation.md).
-Stage 5 repository-validation integration is next under the accepted
+Stage 5 repository-validation integration and its retained
+[validation matrix](./evidence/stage-5-validation-matrix.md) are complete. Stage 6 proof cleanup is
+next under the accepted
 [implementation contract](../../docs/governance/icon-tooling-implementation-contract.md).
 
 The fixed repository commands are:
@@ -33,7 +35,7 @@ An interrupted process can leave the lock and exact owner-suffixed stages or bac
 for review. After confirming the PID recorded in the regular-file lock is absent, run:
 
 ```sh
-node --experimental-strip-types tooling/icon-pipeline/src/cli.ts recover
+node --disable-warning=ExperimentalWarning --experimental-strip-types tooling/icon-pipeline/src/cli.ts recover
 ```
 
 Recovery touches only exact paths journaled by that lock, rejects symlinks, restores the prior set,

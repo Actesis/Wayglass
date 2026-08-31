@@ -256,6 +256,16 @@ fixtures, manifests, and review artifacts. The retained
 results, limitations, and package evidence. Stage 4 is complete; Stage 5 repository-validation
 integration is the next authorized implementation boundary.
 
+**Stage 5 result:** Implemented and validated on August 30, 2026. The write-free icon check now runs
+exactly once in the ordinary repository gate after bootstrap build output exists, with permanent
+ordering coverage. The authenticated implementation commit passes the permanent 56-test suite on
+Node 22.13 and Node 26.4, four locale/time-zone/launch-directory drift cases, a cache-bypassed clean
+repository gate, the focused 24-case Chromium/Firefox/WebKit and Axe matrix, production visual
+review, private package inspection, and dependency audit. The retained
+[Stage 5 validation matrix](/accessibility/phase-5d-icon-tooling-validation) records exact hashes,
+results, reused evidence, limitations, and the Node 22 warning correction. Stage 5 is complete;
+Stage 6 proof cleanup is the next authorized implementation boundary and has not begun.
+
 0. run the unchanged accepted proof and its deterministic outputs on Node 22.13 and Linux; stop and
    revise this contract if the minimum environment changes bytes, diagnostics, or accepted behavior;
 1. move only the canonical four-glyph catalog, source types, validator, pure generator, drift logic,

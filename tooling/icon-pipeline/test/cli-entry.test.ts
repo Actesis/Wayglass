@@ -7,10 +7,14 @@ import { describe, expect, it } from 'vitest';
 const cli = fileURLToPath(new URL('../src/cli.ts', import.meta.url));
 
 function run(...args: string[]) {
-  return spawnSync(process.execPath, ['--experimental-strip-types', cli, ...args], {
-    cwd: tmpdir(),
-    encoding: 'utf8',
-  });
+  return spawnSync(
+    process.execPath,
+    ['--disable-warning=ExperimentalWarning', '--experimental-strip-types', cli, ...args],
+    {
+      cwd: tmpdir(),
+      encoding: 'utf8',
+    },
+  );
 }
 
 describe('Node strip-only CLI entry', () => {

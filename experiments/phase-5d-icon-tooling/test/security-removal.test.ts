@@ -203,6 +203,7 @@ describe('Phase 5D dependency, network, and removal boundary', () => {
     expect(externalReferences).toEqual(
       [
         'apps/docs/governance/explorations/phase-5d-icon-tooling.md',
+        'docs/accessibility/phase-5d-icon-runtime-validation.md',
         'docs/architecture/adr/0034-private-icon-pipeline-architecture.md',
         'docs/governance/explorations/phase-5d-icon-tooling.md',
         'docs/governance/icon-runtime-contract-reconciliation.md',

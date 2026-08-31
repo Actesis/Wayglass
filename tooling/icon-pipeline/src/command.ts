@@ -39,7 +39,7 @@ const help = `Wayglass private icon tooling
 Usage:
   pnpm icon-tooling:check
   pnpm icon-tooling:generate
-  node --experimental-strip-types tooling/icon-pipeline/src/cli.ts recover
+  node --disable-warning=ExperimentalWarning --experimental-strip-types tooling/icon-pipeline/src/cli.ts recover
 
 Commands:
   check     Validate source and compare the four committed artifacts without writing

@@ -46,7 +46,7 @@ describe('Phase 5D private icon-tooling contract', () => {
     expect(decision).toContain('Gate migration on the minimum environment');
   });
 
-  it('publishes the completed Stage 4 runtime migration and validation', () => {
+  it('publishes the completed Stage 5 integration and validation', () => {
     const roadmap = readRepositoryFile('docs/phase-5.md');
     const charter = readRepositoryFile('docs/governance/explorations/phase-5d-icon-tooling.md');
     const docsConfig = readRepositoryFile('apps/docs/.vitepress/config.ts');
@@ -70,7 +70,7 @@ describe('Phase 5D private icon-tooling contract', () => {
     ]) {
       expect(existsSync(join(repositoryRoot, output))).toBe(true);
     }
-    expect(roadmap).toMatch(/Stage 5 is\s+the next authorized implementation step/);
+    expect(roadmap).toMatch(/Stage 6 proof\s+cleanup is the next authorized implementation step/);
     expect(readRepositoryFile('docs/governance/icon-tooling-implementation-contract.md')).toContain(
       '**Stage 1 result:** Implemented on August 30, 2026.',
     );
@@ -86,11 +86,20 @@ describe('Phase 5D private icon-tooling contract', () => {
     expect(readRepositoryFile('docs/governance/icon-tooling-implementation-contract.md')).toContain(
       '**Stage 4B result:** Implemented on August 30, 2026.',
     );
+    expect(readRepositoryFile('docs/governance/icon-tooling-implementation-contract.md')).toContain(
+      '**Stage 5 result:** Implemented and validated on August 30, 2026.',
+    );
     expect(existsSync(join(repositoryRoot, 'tests/browser/icons.spec.ts'))).toBe(true);
     expect(existsSync(join(repositoryRoot, 'apps/storybook/stories/icons.stories.ts'))).toBe(true);
     expect(
       existsSync(join(repositoryRoot, 'docs/accessibility/phase-5d-icon-runtime-validation.md')),
     ).toBe(true);
+    expect(
+      existsSync(
+        join(repositoryRoot, 'tooling/icon-pipeline/evidence/stage-5-validation-matrix.md'),
+      ),
+    ).toBe(true);
+    expect(docsConfig).toContain('/accessibility/phase-5d-icon-tooling-validation');
     expect(readRepositoryFile('package.json')).toContain('"icon-tooling:check"');
     expect(readRepositoryFile('package.json')).toContain('"icon-tooling:generate"');
   });
