@@ -54,3 +54,10 @@ The proof deliberately validates only the projected provider fields and bounded 
 uses. It does not claim that the projection accepts every field in a complete live Home Assistant
 message. A live smoke, provider compatibility claim, permanent artifact, and security update policy
 remain separately gated by disposition and a revised implementation contract.
+
+Retained stage records:
+
+- [Stage 1 provider model](./evidence/stage-1-provider-model.md)
+- [Stage 2 fake port](./evidence/stage-2-fake-port.md)
+- [Stage 3 scale and isolation](./evidence/stage-3-scale-and-isolation.md)
+- [Stage 4 proposed disposition](./evidence/stage-4-proposed-disposition.md)
