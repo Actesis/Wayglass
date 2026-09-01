@@ -42,6 +42,10 @@ export default defineConfig({
             link: '/governance/explorations/phase-5f-framework-wrapper',
           },
           {
+            text: 'Phase 5G closeout plan',
+            link: '/accessibility/phase-5g-closeout-plan',
+          },
+          {
             text: 'Icon runtime-contract reconciliation',
             link: '/governance/icon-runtime-contract-reconciliation',
           },

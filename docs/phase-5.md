@@ -4,9 +4,10 @@
 5D-B is deferred. The project owner accepted the Phase 5F framework-wrapper exploration as deferred
 on September 1, 2026: no named non-React consumer, direct-use gap, or framework compatibility
 maintainer currently exists. No additional wrapper, dependency, package, prototype, or compatibility
-claim is authorized. Phase 5G ecosystem integration and disposition is the next active milestone.
-Every ecosystem track requires its own accepted charter before implementation, and an exploration
-may conclude with no new package.
+claim is authorized. The
+[Phase 5G ecosystem closeout plan](./accessibility/phase-5g-closeout-plan.md) is proposed for
+project-owner review as the next active milestone. Every ecosystem track requires its own accepted
+charter before implementation, and an exploration may conclude with no new package.
 
 Phase 5 extends Wayglass beyond the core design language and its three reference domains. `SPEC.md`
 names six ecosystem areas to explore: charts, Home Assistant integration, icon tooling, Figma
@@ -357,6 +358,12 @@ advance.
 ### Phase 5G — Ecosystem integration and disposition
 
 Close the phase across accepted, rejected, and deferred tracks.
+
+The proposed [Phase 5G closeout plan](./accessibility/phase-5g-closeout-plan.md) divides the final
+work into ledger and baseline reconciliation, integrated automated and browser validation, artifact
+isolation and local package audit, documentation-system coherence without deployment, and final
+human-gate and roadmap disposition review. It explicitly permits Phase 5 to close with packages
+private and documentation undeployed while preserving every corresponding release and launch gate.
 
 - run the complete repository and accepted ecosystem validation matrices;
 - verify optional packages do not enlarge core install, runtime, registration, or support behavior;
