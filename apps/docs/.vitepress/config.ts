@@ -131,6 +131,10 @@ export default defineConfig({
             link: '/guides/application-authoring',
           },
           {
+            text: 'External-state integrations',
+            link: '/guides/external-state-integrations',
+          },
+          {
             text: 'Validation recipe boundary',
             link: '/governance/application-validation-boundary',
           },
