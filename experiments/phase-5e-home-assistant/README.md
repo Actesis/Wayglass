@@ -11,6 +11,14 @@ Run its fixed repository gate with:
 pnpm experiment:phase5e:check
 ```
 
+Stage 3 adds reproducible post-build isolation, capacity, and comparison commands:
+
+```sh
+pnpm experiment:phase5e:audit
+pnpm experiment:phase5e:measure --output /tmp/phase5e-capacity.json --revision working-tree --pnpm 11.9.0
+pnpm experiment:phase5e:compare --output /tmp/phase5e-comparison.json --revision working-tree
+```
+
 Stage 1 contains a closed projection of the provider state and `state_changed` fields required by
 the proof, four synthetic application bindings, immutable validation, and a pure reducer. Provider
 `off` remains an uninterpreted reported value. `unknown`, `unavailable`, and disconnection affect
@@ -35,7 +43,14 @@ They contain no real endpoint, entity, account, token, personal data, or device 
 imports do not connect, read environment credentials, register elements, or mutate global state. A
 future live smoke requires a separately approved environment and credential record.
 
+Stage 3 validates the same semantics over 100 bindings and 1,000 ordered and adverse messages,
+compares the candidate with a direct application-owned implementation, and audits source, built
+outputs, dependencies, secrets, endpoints, imports, and an executable removal plan. The retained
+evidence covers Node 22.13/Linux and the current maintainer runtime. The direct implementation is
+smaller for one application; the candidate is materially larger but centralizes validation,
+ordering, knowledge, and acknowledgement/effect safety.
+
 The proof deliberately validates only the projected provider fields and bounded wire envelopes it
 uses. It does not claim that the projection accepts every field in a complete live Home Assistant
-message. Stage 3 owns capacity, runtime, dependency, bundle, secret, comparison, and removal
-evidence before disposition; a live smoke remains separately gated.
+message. A live smoke, provider compatibility claim, permanent artifact, and security update policy
+remain separately gated by disposition and a revised implementation contract.

@@ -3,7 +3,7 @@ import type {
   HomeAssistantState,
   HomeAssistantStateChangedEvent,
   JsonValue,
-} from './types.js';
+} from './types.ts';
 
 const entityIdPattern = /^[a-z0-9_]+\.[a-z0-9_]+$/;
 const bindingKeyPattern = /^[a-z][a-z0-9-]*$/;
@@ -13,11 +13,11 @@ const eventKeys = ['data', 'event_type', 'time_fired'] as const;
 const eventDataKeys = ['entity_id', 'new_state', 'old_state'] as const;
 
 export class HomeAssistantContractError extends Error {
-  constructor(
-    readonly code: string,
-    message: string,
-  ) {
+  readonly code: string;
+
+  constructor(code: string, message: string) {
     super(`${code}: ${message}`);
+    this.code = code;
     this.name = 'HomeAssistantContractError';
   }
 }
