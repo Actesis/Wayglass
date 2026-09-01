@@ -1,8 +1,8 @@
 # Phase 5G integrated validation
 
-**Status:** Stage 5G-A completed on September 1, 2026. `P5G-E01` passes. Stages 5G-B through 5G-E
-remain pending; this record does not authorize publication, deployment, candidate promotion, or a
-new compatibility or support claim.
+**Status:** Stages 5G-A and 5G-B completed on September 1, 2026. `P5G-E01` through `P5G-E03` pass.
+Stages 5G-C through 5G-E remain pending; this record does not authorize publication, deployment,
+candidate promotion, or a new compatibility or support claim.
 
 This is the cumulative evidence record for the accepted
 [Phase 5G closeout plan](./phase-5g-closeout-plan.md). Results are added by stage so an unavailable,
@@ -101,17 +101,99 @@ The browser command reports the versions pinned by the installed Playwright pack
 managed-browser directories were checked separately for local presence. It does not launch a
 browser. Browser execution belongs to Stage 5G-B.
 
+## Stage 5G-B — Integrated automated and browser matrix
+
+### Authoritative source and clean environment
+
+The passing run used detached clean checkout `26652321299d5c3146c9f360627c68ddd3f57f7a`. That commit
+contains the two portability corrections found by the earlier clean attempts. The checkout began
+without `node_modules`, build output, browser output, or a local Turbo cache.
+
+| Command                                             | Result                                                                                                                                                                    |
+| --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pnpm install --frozen-lockfile`                    | Passed; all 375 packages were fetched for the clean checkout, the committed lockfile was accepted without resolution changes, and both declared install scripts completed |
+| `TURBO_CACHE_DIR=.turbo-phase5g-b-final pnpm check` | Passed; the build phase executed 14 of 14 tasks with zero cache hits, followed by all focused tooling checks, typechecks, and unit suites                                 |
+| `pnpm exec playwright test --list`                  | Scheduled 1,506 cases in 54 files: 502 per engine                                                                                                                         |
+| `pnpm test:browser`                                 | Passed on the first permitted launch in 3.1 minutes: 1,458 passed, 48 intentionally skipped, zero failed, and no retry or flaky result                                    |
+
+The six cache hits reported during each later Turbo typecheck and test phase were build
+prerequisites created earlier in the same command and isolated cache. They were not replayed from
+another checkout. Generated token files were created in the clean worktree, then authenticated
+against source commit `2665232`; the final tracked tree remained unchanged.
+
+### Automated repository coverage
+
+- All 14 scheduled builds passed, including VitePress, Storybook, Vanilla, React, the three
+  reference applications, production packages, themes, tokens, icons, and testing support.
+- Icon generation and four generated artifacts passed integrity checks; 58 private icon-tooling
+  tests passed.
+- Token web generation, 528-token and 197-override drift checks, three web artifacts, seven exchange
+  files, and 93 private token-tooling tests passed.
+- The retained Phase 5C proof passed typechecking and all 24 unit tests.
+- All 20 scheduled workspace typecheck tasks and all 20 scheduled workspace test tasks passed.
+  Packages or applications with no unit files exited successfully only where their manifest already
+  declares `--passWithNoTests`; browser behavior is covered separately below.
+
+### Supported-browser accounting
+
+| Engine                 | Scheduled |    Passed | Intentionally skipped | Failed |
+| ---------------------- | --------: | --------: | --------------------: | -----: |
+| Chromium 151.0.7922.34 |       502 |       502 |                     0 |      0 |
+| Firefox 153.0          |       502 |       478 |                    24 |      0 |
+| WebKit 26.5            |       502 |       478 |                    24 |      0 |
+| **Total**              | **1,506** | **1,458** |                **48** |  **0** |
+
+The 24 non-Chromium cases per engine are explicitly coded Chromium-only timing thresholds or Tier B
+presentation permutations. They are not unavailable browsers or runtime skips. Chromium executed
+those cases. Firefox and WebKit still executed the shared cross-engine functional, semantic,
+keyboard, focus, form, responsive, forced-color, reduced-motion, accessibility, and retained Phase
+5C task coverage.
+
+Across the matrix, the accepted themes and densities, phone/desktop/wall compositions, 200% text,
+long content, RTL, forced colors, grayscale, reduced motion, keyboard, pointer/touch-sized controls,
+focus retention/restoration, native forms and dialogs, Axe scans, explicit registration, reference
+applications, React wrappers, media, and exact telemetry paths passed. The retained Phase 5C native
+candidate passed its shared summary/table equivalence, quiet nonvisual path, persistent inspection,
+keyboard and touch controls, adverse update, replacement, adaptation, and supported-browser cases;
+its timing and retained-heap budgets passed in Chromium as intentionally scoped.
+
+### Corrections and adverse-run log
+
+1. The first sandboxed frozen install could not resolve npm and was stopped during DNS retries. The
+   same command passed with authorized network access. No dependency or lockfile changed.
+2. The first clean check at baseline `3a1331c` found that exchange-output validation reached the
+   nonempty-directory check when the repository itself lived below the OS temporary root. The tool
+   now rejects the canonical repository root before considering allowed parent roots, and the test
+   names the temporary-checkout case explicitly.
+3. That first worktree also revealed shared Git-worktree Turbo cache reuse. Every authoritative
+   rerun used a new checkout and a fresh explicit worktree-local cache directory.
+4. The second clean check at `1388b3a` found that the outside-boundary test assumed the repository's
+   parent could not be the temporary root. The fixture now starts at the filesystem root, which is
+   outside both allowed boundaries on macOS, Linux, and Windows. The final clean check passed all 93
+   token-tooling tests.
+5. The sandboxed browser launch could not bind `127.0.0.1:4173`; zero tests ran. The identical
+   authorized command then passed on its first launch with all four local fixture servers.
+6. Vite logged one non-failing dependency pre-scan warning for a root fixture's bare `lit` import;
+   the fixture and all affected routes resolved and passed in every engine. Storybook also retained
+   its existing large-chunk warning. Both observations carry into Stage 5G-C's dependency and bundle
+   audit; neither was treated as a browser failure or silently removed.
+
+No failed test was rerun into a pass, and no product failure was classified as environmental. The
+two failed clean checks led to committed corrections and wholly new clean checkouts.
+
 ## Evidence status
 
 | Evidence ID         | Result  | Basis and limitation                                                                                                                                                                     |
 | ------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `P5G-E01`           | Passed  | Every started track has one accepted state, retained boundary, cleanup result, unsupported-claim boundary, and objective gate. The one vocabulary mismatch was revisioned and corrected. |
-| `P5G-E02`–`P5G-E03` | Pending | Stage 5G-B clean frozen install, uncached repository checks, and supported-browser matrix have not run for closeout.                                                                     |
+| `P5G-E02`           | Passed  | A clean frozen install and isolated-cache repository check passed at `2665232`; every scheduled build, tooling check, typecheck, and unit task completed.                                |
+| `P5G-E03`           | Passed  | The full three-engine matrix passed 1,458 cases with 48 explicit Chromium-only skips and no failure, retry, or flaky result.                                                             |
 | `P5G-E04`–`P5G-E06` | Pending | Stage 5G-C package, isolation, security, advisory, provenance, and license evidence has not run.                                                                                         |
 | `P5G-E07`–`P5G-E08` | Pending | Stage 5G-D documentation-system and deployment-boundary evidence has not run.                                                                                                            |
 | `P5G-E09`–`P5G-E10` | Pending | Stage 5G-E carried-gate and final project-owner disposition remain open.                                                                                                                 |
 
 ## Next stage
 
-Stage 5G-B performs a frozen install and the uncached integrated automated and supported-browser
-matrix. A failure, skip, unavailable browser, or environmental rerun will be recorded explicitly.
+Stage 5G-C audits artifact isolation, local package contents, dependency and peer graphs, security,
+privacy, advisories, provenance, notices, and licenses without changing package privacy or
+publishing anything.
