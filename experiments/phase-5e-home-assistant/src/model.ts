@@ -73,6 +73,36 @@ function activeRequest(request: ProviderRequest | null | undefined): request is 
   return request?.phase === 'pending' || request?.phase === 'acknowledged';
 }
 
+function completeRequest(
+  state: HomeAssistantIntegrationState,
+  input: {
+    readonly key: string;
+    readonly requestId: string;
+    readonly completedAt: string;
+    readonly phase: 'cancelled' | 'failed';
+    readonly errorCode: string;
+  },
+): HomeAssistantIntegrationState {
+  const entity = state.entities[input.key];
+  const request = entity?.request;
+  if (entity === undefined || !activeRequest(request) || request.id !== input.requestId)
+    return state;
+  const completedAt = validTimestamp(input.completedAt, 'completedAt');
+  if (Date.parse(completedAt) < Date.parse(request.requestedAt)) {
+    throw new HomeAssistantContractError('P5E_HA_REQUEST_ORDER', 'completion precedes request');
+  }
+  return replaceEntity(state, {
+    ...entity,
+    activity: 'idle',
+    request: {
+      ...request,
+      phase: input.phase,
+      completedAt,
+      errorCode: input.errorCode,
+    },
+  });
+}
+
 function recordFromProvider(
   current: ProviderEntityRecord,
   provider: HomeAssistantState,
@@ -299,6 +329,41 @@ export function timeoutRequest(
       completedAt: timedOutAt,
       errorCode: 'confirmation-timeout',
     },
+  });
+}
+
+export function cancelRequest(
+  state: HomeAssistantIntegrationState,
+  input: { readonly key: string; readonly requestId: string; readonly cancelledAt: string },
+): HomeAssistantIntegrationState {
+  return completeRequest(state, {
+    key: input.key,
+    requestId: input.requestId,
+    completedAt: input.cancelledAt,
+    phase: 'cancelled',
+    errorCode: 'request-cancelled',
+  });
+}
+
+export function failRequest(
+  state: HomeAssistantIntegrationState,
+  input: {
+    readonly key: string;
+    readonly requestId: string;
+    readonly failedAt: string;
+    readonly errorCode: string;
+  },
+): HomeAssistantIntegrationState {
+  const errorCode = input.errorCode.trim();
+  if (!/^[a-z][a-z0-9-]{0,63}$/.test(errorCode)) {
+    throw new HomeAssistantContractError('P5E_HA_REQUEST_ERROR', 'error code is invalid');
+  }
+  return completeRequest(state, {
+    key: input.key,
+    requestId: input.requestId,
+    completedAt: input.failedAt,
+    phase: 'failed',
+    errorCode,
   });
 }
 
