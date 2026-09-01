@@ -32,7 +32,7 @@ export type ProviderConnection = 'connected' | 'disconnected';
 export type ProviderKnowledge = 'confirmed' | 'stale' | 'unknown' | 'unavailable';
 export type ProviderActivity = 'idle' | 'pending';
 export type ProviderRequestPhase =
-  'pending' | 'acknowledged' | 'confirmed' | 'failed' | 'timed-out';
+  'pending' | 'acknowledged' | 'confirmed' | 'failed' | 'timed-out' | 'cancelled';
 
 export interface ProviderRequest {
   readonly id: string;

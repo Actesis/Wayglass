@@ -61,7 +61,7 @@ function entityId(value: unknown): string {
   return value;
 }
 
-function jsonValue(value: unknown, depth = 0): JsonValue {
+export function validateJsonValue(value: unknown, depth = 0): JsonValue {
   if (depth > 8) {
     throw new HomeAssistantContractError('P5E_HA_ATTRIBUTE_DEPTH', 'attribute nesting exceeds 8');
   }
@@ -82,7 +82,7 @@ function jsonValue(value: unknown, depth = 0): JsonValue {
         'attribute array exceeds 128 items',
       );
     }
-    return Object.freeze(value.map((item) => jsonValue(item, depth + 1)));
+    return Object.freeze(value.map((item) => validateJsonValue(item, depth + 1)));
   }
   if (!plainRecord(value)) {
     throw new HomeAssistantContractError('P5E_HA_ATTRIBUTE_VALUE', 'attribute is not JSON data');
@@ -95,7 +95,7 @@ function jsonValue(value: unknown, depth = 0): JsonValue {
     );
   }
   return Object.freeze(
-    Object.fromEntries(entries.map(([key, item]) => [key, jsonValue(item, depth + 1)])),
+    Object.fromEntries(entries.map(([key, item]) => [key, validateJsonValue(item, depth + 1)])),
   );
 }
 
@@ -153,7 +153,7 @@ export function validateProviderState(input: unknown): HomeAssistantState {
   return Object.freeze({
     entity_id: entityId(input.entity_id),
     state: input.state,
-    attributes: jsonValue(input.attributes) as Readonly<Record<string, JsonValue>>,
+    attributes: validateJsonValue(input.attributes) as Readonly<Record<string, JsonValue>>,
     last_changed: lastChanged,
     last_updated: lastUpdated,
   });

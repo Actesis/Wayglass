@@ -295,10 +295,11 @@ The accepted
 defines revision 1 as a credential-free, dependency-free, fixture-driven proof over four synthetic
 entities. It explicitly separates provider acknowledgement from later provider-reported state and
 keeps a live installation, token, and mutation set behind a separate approval after synthetic
-evidence. Stage 1 now provides the closed projected provider contract, immutable four-entity
-reducer, ordering and connection-knowledge behavior, and request/acknowledgement/effect separation.
-Stage 2 adds the deterministic fake transport, authentication outcomes, command envelopes, and
-reconnect behavior without a live network.
+evidence. Stage 1 provides the closed projected provider contract, immutable four-entity reducer,
+ordering and connection-knowledge behavior, and request/acknowledgement/effect separation. Stage 2
+now provides the deterministic fake port, authentication outcomes, correlated command/result/event
+envelopes, local cancellation, deduplication, safe logs, and bounded reconnect behavior without a
+live network. Stage 3 scale-and-isolation evidence is next.
 
 - define the smallest credible user-owned deployment and data set; synthetic fixtures remain the
   default automated evidence;

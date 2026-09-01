@@ -27,6 +27,7 @@ describe('Phase 5E private proof boundary', () => {
     expect(executable).not.toMatch(
       /\b(?:fetch|WebSocket|XMLHttpRequest|EventSource|sendBeacon)\b|process\.env|customElements\.define|Authorization|Bearer\s|access[_-]?token/i,
     );
+    expect(executable).not.toMatch(/\b(?:setTimeout|setInterval|Date\.now|Math\.random)\b/);
   });
 
   it('limits imports to local modules and existing test tools', () => {
