@@ -46,6 +46,10 @@ export default defineConfig({
             link: '/accessibility/phase-5g-closeout-plan',
           },
           {
+            text: 'Phase 5G integrated validation',
+            link: '/accessibility/phase-5g-integrated-validation',
+          },
+          {
             text: 'Icon runtime-contract reconciliation',
             link: '/governance/icon-runtime-contract-reconciliation',
           },
