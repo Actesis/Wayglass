@@ -4,8 +4,10 @@
 deferred. The project owner accepted the Phase 5E Home Assistant exploration as guidance only on
 August 31, 2026; its historical evidence is retained and its executable proof was removed. No live
 environment, credential, dependency, package, adapter, or public compatibility claim is authorized.
-Phase 5F is the next uncompleted exploration. Every ecosystem track requires its own accepted
-charter before implementation, and an exploration may conclude with no new package.
+The [Phase 5F framework-wrapper proposal](./governance/explorations/phase-5f-framework-wrapper.md)
+is ready for project-owner review and recommends deferral: no named non-React consumer, direct-use
+gap, or framework compatibility maintainer currently exists. Every ecosystem track requires its own
+accepted charter before implementation, and an exploration may conclude with no new package.
 
 Phase 5 extends Wayglass beyond the core design language and its three reference domains. `SPEC.md`
 names six ecosystem areas to explore: charts, Home Assistant integration, icon tooling, Figma
@@ -328,6 +330,14 @@ fixtures, screenshots, logs, or browser bundle.
 ### Phase 5F — Additional framework wrapper evaluation
 
 Select a framework from demonstrated consumer demand rather than popularity alone.
+
+The September 1 repository demand audit found no qualifying consumer. React is the only application
+framework in workspace manifests. VitePress's Vue runtime remains a private documentation
+implementation detail under ADR 0003; the docs app authors no Vue component, imports no Vue API or
+production Wayglass element, and must not duplicate Storybook's interactive fixtures. The
+[Phase 5F proposal](./governance/explorations/phase-5f-framework-wrapper.md) therefore recommends
+deferring framework selection and proof until a named real application demonstrates a reproducible
+gap in direct Custom Element use and a maintainer accepts the exact compatibility range.
 
 - name the consumer, framework version, rendering mode, Custom Element integration gaps, form and
   event semantics, and server-rendering expectations;

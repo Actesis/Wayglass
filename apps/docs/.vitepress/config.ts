@@ -38,6 +38,10 @@ export default defineConfig({
             link: '/governance/explorations/phase-5e-home-assistant',
           },
           {
+            text: 'Phase 5F framework-wrapper proposal',
+            link: '/governance/explorations/phase-5f-framework-wrapper',
+          },
+          {
             text: 'Icon runtime-contract reconciliation',
             link: '/governance/icon-runtime-contract-reconciliation',
           },
