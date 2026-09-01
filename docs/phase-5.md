@@ -5,8 +5,9 @@
 on September 1, 2026: no named non-React consumer, direct-use gap, or framework compatibility
 maintainer currently exists. No additional wrapper, dependency, package, prototype, or compatibility
 claim is authorized. The
-[Phase 5G ecosystem closeout plan](./accessibility/phase-5g-closeout-plan.md) is proposed for
-project-owner review as the next active milestone. Every ecosystem track requires its own accepted
+[Phase 5G ecosystem closeout plan](./accessibility/phase-5g-closeout-plan.md) was accepted by the
+project owner on September 1, 2026. Stage 5G-A reconciles the lifecycle ledger and repository
+baseline; Stage 5G-B is the next active milestone. Every ecosystem track requires its own accepted
 charter before implementation, and an exploration may conclude with no new package.
 
 Phase 5 extends Wayglass beyond the core design language and its three reference domains. `SPEC.md`
@@ -359,11 +360,16 @@ advance.
 
 Close the phase across accepted, rejected, and deferred tracks.
 
-The proposed [Phase 5G closeout plan](./accessibility/phase-5g-closeout-plan.md) divides the final
+The accepted [Phase 5G closeout plan](./accessibility/phase-5g-closeout-plan.md) divides the final
 work into ledger and baseline reconciliation, integrated automated and browser validation, artifact
 isolation and local package audit, documentation-system coherence without deployment, and final
 human-gate and roadmap disposition review. It explicitly permits Phase 5 to close with packages
 private and documentation undeployed while preserving every corresponding release and launch gate.
+
+Stage 5G-A records the exact source and toolchain baseline, reconciles every Phase 5 lifecycle and
+retained artifact, and passes `P5G-E01` in the
+[integrated-validation ledger](./accessibility/phase-5g-integrated-validation.md). Stage 5G-B next
+runs the clean frozen install, uncached repository checks, and full supported-browser matrix.
 
 - run the complete repository and accepted ecosystem validation matrices;
 - verify optional packages do not enlarge core install, runtime, registration, or support behavior;
