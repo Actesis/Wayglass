@@ -6,13 +6,13 @@
 | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Record ID          | `P5E-HOME-ASSISTANT-001`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | Roadmap track      | Phase 5E — Home Assistant integration proof                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| Lifecycle state    | `proposed`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| Lifecycle state    | `charter-accepted`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | Revision           | `1`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | Owner              | Wayglass maintainers                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | Evidence reviewers | Project owner and a Wayglass maintainer                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | Created            | 2026-08-30                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | Last reviewed      | 2026-08-30                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| Target decision    | Project-owner review of this charter, followed by the bounded fixture proof if accepted                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Target decision    | Evidence-complete and disposition review after the four bounded proof stages                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | Related records    | [Phase 5 roadmap](../../phase-5.md), [ecosystem-exploration contract](../ecosystem-exploration-record.md), [ADR 0031](../../architecture/adr/0031-ecosystem-artifact-architecture.md), [Phase 5 validation plan](../../accessibility/phase-5-validation-plan.md), [application-validation boundary](../application-validation-boundary.md), [Cedar House brief](../../reference-apps/cedar-house.md), and [controlled operational requests](../../architecture/adr/0014-controlled-operational-requests.md) |
 
 ### Decision question
@@ -22,9 +22,9 @@ protocol and an application's existing Wayglass state and control model?
 
 ### Revision history
 
-| Revision | Date       | Change                                                               | Evidence still valid | Approval |
-| -------- | ---------- | -------------------------------------------------------------------- | -------------------- | -------- |
-| 1        | 2026-08-30 | Initial credential-free, fixture-driven integration charter proposed | None                 | Pending  |
+| Revision | Date       | Change                                                       | Evidence still valid | Approval      |
+| -------- | ---------- | ------------------------------------------------------------ | -------------------- | ------------- |
+| 1        | 2026-08-30 | Credential-free, fixture-driven integration charter accepted | None                 | Project owner |
 
 ## User, task, and consequence
 
@@ -151,7 +151,7 @@ dependency record.
 | Runtime and browser implications                  | Node-only proof; no browser transport or support claim                                                                    |
 | Network, telemetry, scripts, globals, transitives | No live network, telemetry, install script, global mutation, or transitive graph                                          |
 | Replacement and removal                           | Delete the private proof and commands; retain charter evidence                                                            |
-| Proof-only approval                               | Pending project-owner approval of revision 1                                                                              |
+| Proof-only approval                               | Accepted by the project owner on 2026-08-30 for revision 1 only                                                           |
 
 ## Bounded proof
 
@@ -200,6 +200,29 @@ dependency record.
   network, bundle, import, dependency, and log scans; minimum/current Node; capacity measurements;
   clean removal simulation; `pnpm check`; docs build; `git diff --check`; and unchanged production
   browser regression coverage.
+
+### Staged proof plan
+
+1. **Provider model:** implement the closed projected state/event contract, four synthetic bindings,
+   immutable reducer, ordering, connection knowledge, and request/acknowledgement/effect separation.
+2. **Fake port:** add the bounded authentication and command envelopes, deterministic transport,
+   unauthorized/disconnect/reconnect behavior, cancellation, retry/backoff, deduplication, and safe
+   logging evidence.
+3. **Scale and isolation:** run the fixed capacity/performance matrix, minimum/current runtime,
+   dependency/bundle/secret scans, comparison baseline, and executable removal simulation.
+4. **Disposition:** complete every evidence row, record adverse findings and limitations, clean up
+   rejected surfaces, and seek an accept-artifact, guidance-only, defer, revise, or reject decision.
+
+**Stage 1 result:** Implemented on August 30, 2026. The private proof now validates and freezes the
+projected provider state and `state_changed` fields used by the charter, applies the exact four
+synthetic bindings through one pure reducer, rejects malformed and duplicate identities and unsafe
+attribute envelopes, ignores unselected/duplicate/out-of-order updates, preserves reported values
+through disconnection as stale knowledge, and separates request, acknowledgement, failure, timeout,
+and later matching provider-effect confirmation. It adds no package, dependency, lockfile change,
+network, credential, browser surface, production import, or public API. The retained
+[Stage 1 provider-model evidence](https://github.com/Actesis/Wayglass/blob/main/experiments/phase-5e-home-assistant/evidence/stage-1-provider-model.md)
+records the exact boundary and unsupported claims. Stage 2 fake-port work is the next authorized
+implementation boundary.
 
 ## Criteria fixed before work
 
@@ -309,7 +332,8 @@ or publication readiness.
 - **Reasoning:** pending.
 - **Retained ownership and boundaries:** pending.
 - **Known limitations:** pending.
-- **Follow-up authorized:** no proof work until this revision reaches `charter-accepted`.
+- **Follow-up authorized:** the four private proof stages fixed above; no live connection,
+  dependency, production artifact, or public surface.
 - **Remaining approvals and gates:** charter approval; then evidence-complete and disposition
   review; separate live environment/credential approval; separate implementation and release
   governance if an artifact is accepted.
