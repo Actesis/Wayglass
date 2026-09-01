@@ -1,12 +1,11 @@
 # Phase 5 ecosystem roadmap
 
-**Status:** Accepted on August 14, 2026. Phases 5A, 5B, 5C, and 5D-A are complete. Phase 5D-B is
-deferred. The project owner accepted the
-[Phase 5E Home Assistant charter](./governance/explorations/phase-5e-home-assistant.md) on August
-30, 2026; its three credential-free implementation stages are evidence-complete and await the
-fourth-stage disposition. No live environment, credential, dependency, package, or public
-compatibility claim is authorized. Every ecosystem track requires its own accepted charter before
-implementation, and an exploration may conclude with no new package.
+**Status:** Accepted on August 14, 2026. Phases 5A, 5B, 5C, 5D-A, and 5E are complete. Phase 5D-B is
+deferred. The project owner accepted the Phase 5E Home Assistant exploration as guidance only on
+August 31, 2026; its historical evidence is retained and its executable proof was removed. No live
+environment, credential, dependency, package, adapter, or public compatibility claim is authorized.
+Phase 5F is the next uncompleted exploration. Every ecosystem track requires its own accepted
+charter before implementation, and an exploration may conclude with no new package.
 
 Phase 5 extends Wayglass beyond the core design language and its three reference domains. `SPEC.md`
 names six ecosystem areas to explore: charts, Home Assistant integration, icon tooling, Figma
@@ -280,7 +279,8 @@ removed only the superseded executable experiment, proof-only browser cases, roo
 commands, and migration-only coordinate oracle after project-owner review. The nine historical
 evidence records and all permanent behavior coverage remain, as mapped in the
 [Phase 5D icon-tooling cleanup](/accessibility/phase-5d-icon-tooling-cleanup). Phase 5D-A is
-complete. Phase 5D-B remains deferred; Phase 5E is the next uncompleted Phase 5 exploration.
+complete. Phase 5D-B remains deferred. Phase 5E is complete; Phase 5F is the next uncompleted Phase
+5 exploration.
 
 Phase 5D-B design-library work was deferred by the project owner on August 29, 2026. It may restart
 only when a named Figma workspace, access model, exact target versions, reviewer, backup policy,
@@ -301,11 +301,13 @@ provides the deterministic fake port, authentication outcomes, correlated comman
 envelopes, local cancellation, deduplication, safe logs, and bounded reconnect behavior without a
 live network. Stage 3 passes the 100-entity/1,000-message capacity matrix on Node 22.13/Linux and
 current macOS, records the direct application comparison, proves production/bundle/dependency/secret
-isolation and clean removal, and leaves existing browser regressions green. Stage 4 disposition is
-next. Its current proposal is to accept the semantic boundary as guidance and an application-owned
-example pattern while declining a Wayglass adapter: safer failure behavior is reusable, but the
-candidate is substantially larger than direct mapping and has no second consumer or compatibility
-owner. Evidence completion and the proposal do not authorize a package or live connection.
+isolation and clean removal, and leaves existing browser regressions green. In Stage 4, the project
+owner accepted the semantic boundary as
+[external-state integration guidance](./guides/external-state-integrations.md) and a bounded Home
+Assistant application recipe while declining a Wayglass adapter: safer failure behavior is reusable,
+but the candidate is substantially larger than direct mapping and has no second consumer or
+compatibility owner. Historical evidence remains, while the executable proof and its root commands
+were removed. The accepted outcome does not authorize a package or live connection.
 
 - define the smallest credible user-owned deployment and data set; synthetic fixtures remain the
   default automated evidence;
