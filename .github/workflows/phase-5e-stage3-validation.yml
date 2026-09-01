@@ -26,9 +26,9 @@ jobs:
       - name: Record capacity, comparison, and isolation evidence
         run: |
           mkdir -p phase-5e-stage3-evidence
+          pnpm experiment:phase5e:audit --output phase-5e-stage3-evidence/isolation-node-22-linux.json --revision "$GITHUB_SHA"
           pnpm experiment:phase5e:measure --output phase-5e-stage3-evidence/capacity-node-22-linux.json --revision "$GITHUB_SHA" --pnpm 11.9.0
           pnpm experiment:phase5e:compare --output phase-5e-stage3-evidence/comparison-node-22-linux.json --revision "$GITHUB_SHA"
-          pnpm experiment:phase5e:audit --output phase-5e-stage3-evidence/isolation-node-22-linux.json --revision "$GITHUB_SHA"
       - uses: actions/upload-artifact@v4
         with:
           name: phase-5e-stage3-node-22-linux
