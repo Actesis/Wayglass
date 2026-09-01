@@ -6,13 +6,13 @@ import type {
   ProviderEntityRecord,
   ProviderKnowledge,
   ProviderRequest,
-} from './types.js';
+} from './types.ts';
 import {
   HomeAssistantContractError,
   validateBindings,
   validateSnapshot,
   validateStateChangedEvent,
-} from './validation.js';
+} from './validation.ts';
 
 const emptyAttributes = Object.freeze({});
 

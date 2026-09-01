@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "removePaths": ["experiments/phase-5e-home-assistant"],
+  "rootScripts": [
+    "experiment:phase5e:audit",
+    "experiment:phase5e:check",
+    "experiment:phase5e:compare",
+    "experiment:phase5e:measure",
+    "experiment:phase5e:test",
+    "experiment:phase5e:typecheck"
+  ],
+  "rootCheckEntries": ["pnpm experiment:phase5e:check", "pnpm experiment:phase5e:audit"],
+  "retainedReferences": [
+    ".github/workflows/phase-5e-stage3-validation.yml",
+    "apps/docs/.vitepress/config.ts",
+    "apps/docs/governance/explorations/phase-5e-home-assistant.md",
+    "docs/governance/explorations/phase-5e-home-assistant.md",
+    "docs/phase-5.md"
+  ]
+}

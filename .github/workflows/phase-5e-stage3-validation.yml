@@ -1,0 +1,37 @@
+name: Phase 5E Stage 3 validation
+
+on:
+  push:
+    branches:
+      - codex/phase-5e-stage-3-scale-isolation
+
+permissions:
+  contents: read
+
+jobs:
+  node-22-linux:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.9.0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22.13.0
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm check
+      - name: Record capacity, comparison, and isolation evidence
+        run: |
+          mkdir -p phase-5e-stage3-evidence
+          pnpm experiment:phase5e:measure --output phase-5e-stage3-evidence/capacity-node-22-linux.json --revision "$GITHUB_SHA" --pnpm 11.9.0
+          pnpm experiment:phase5e:compare --output phase-5e-stage3-evidence/comparison-node-22-linux.json --revision "$GITHUB_SHA"
+          pnpm experiment:phase5e:audit --output phase-5e-stage3-evidence/isolation-node-22-linux.json --revision "$GITHUB_SHA"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: phase-5e-stage3-node-22-linux
+          path: phase-5e-stage3-evidence
+          if-no-files-found: error
+          retention-days: 7
