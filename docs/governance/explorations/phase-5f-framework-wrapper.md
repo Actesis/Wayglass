@@ -6,13 +6,13 @@
 | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Record ID          | `P5F-FRAMEWORK-WRAPPER-001`                                                                                                                                                                                                                                                                                                             |
 | Roadmap track      | Phase 5F — Additional framework wrapper evaluation                                                                                                                                                                                                                                                                                      |
-| Lifecycle state    | `proposed`                                                                                                                                                                                                                                                                                                                              |
-| Revision           | `1`                                                                                                                                                                                                                                                                                                                                     |
+| Lifecycle state    | `dispositioned`                                                                                                                                                                                                                                                                                                                         |
+| Revision           | `2`                                                                                                                                                                                                                                                                                                                                     |
 | Owner              | Wayglass maintainers                                                                                                                                                                                                                                                                                                                    |
 | Evidence reviewers | Project owner and a Wayglass maintainer                                                                                                                                                                                                                                                                                                 |
 | Created            | 2026-09-01                                                                                                                                                                                                                                                                                                                              |
 | Last reviewed      | 2026-09-01                                                                                                                                                                                                                                                                                                                              |
-| Target decision    | Project-owner review of the recommendation to defer until a named consumer exists                                                                                                                                                                                                                                                       |
+| Target decision    | Deferred until the accepted objective restart triggers are met                                                                                                                                                                                                                                                                          |
 | Related records    | [Phase 5 roadmap](../../phase-5.md), [ecosystem-exploration contract](../ecosystem-exploration-record.md), [ADR 0003](../../architecture/adr/0003-documentation-surfaces.md), [ADR 0031](../../architecture/adr/0031-ecosystem-artifact-architecture.md), and [Phase 5 validation plan](../../accessibility/phase-5-validation-plan.md) |
 
 ### Decision question
@@ -22,9 +22,10 @@ consumer task demonstrates that direct Custom Element use is insufficient?
 
 ### Revision history
 
-| Revision | Date       | Change                                                                  | Evidence still valid | Approval |
-| -------- | ---------- | ----------------------------------------------------------------------- | -------------------- | -------- |
-| 1        | 2026-09-01 | Initial demand audit and proposal to defer before selecting a framework | None                 | Pending  |
+| Revision | Date       | Change                                                                  | Evidence still valid    | Approval      |
+| -------- | ---------- | ----------------------------------------------------------------------- | ----------------------- | ------------- |
+| 1        | 2026-09-01 | Initial demand audit and proposal to defer before selecting a framework | None                    | Project owner |
+| 2        | 2026-09-01 | Defer disposition accepted; no framework or proof selected              | All revision 1 evidence | Project owner |
 
 ## User, task, and consequence
 
@@ -229,11 +230,11 @@ outside the accepted React baseline.
 
 ## Disposition
 
-The proposal recommends **defer** because no named additional-framework consumer, failing task,
-direct-use gap, or compatibility maintainer exists. This is not yet an accepted disposition.
+The project owner accepted **defer** on September 1, 2026, because no named additional-framework
+consumer, failing task, direct-use gap, or compatibility maintainer exists.
 
-- **Outcome:** pending; proposal recommends defer.
-- **Decision date and approver:** pending project-owner review.
+- **Outcome:** defer.
+- **Decision date and approver:** project owner, 2026-09-01.
 - **Reasoning:** the prerequisite demand evidence fails before framework selection. A speculative
   proof cannot establish a Wayglass ownership advantage and would create unsupported package and
   compatibility obligations.
@@ -241,11 +242,12 @@ direct-use gap, or compatibility maintainer exists. This is not yet an accepted 
   behavior; `@wayglass/react` remains the only accepted framework binding; other consumers use
   direct Custom Elements or application-local glue unless a revised charter is accepted.
 - **Known limitations:** repository demand does not represent every external Wayglass consumer.
-- **Follow-up authorized:** review this defer recommendation only; no dependency, prototype,
-  package, generated wrapper, public API, or framework support claim.
-- **Remaining approvals and gates:** project-owner disposition plus every objective restart trigger
-  in the defer table before implementation authority can be requested.
+- **Follow-up authorized:** none until an objective restart trigger is met and this record is
+  revised and accepted. No dependency, prototype, package, generated wrapper, public API, or
+  framework support claim is authorized.
+- **Remaining approvals and gates:** every objective restart trigger in the defer table, followed by
+  a revised charter and project-owner acceptance before implementation authority can be requested.
 - **Cleanup completed:** no implementation, dependency, export, output, credential, or external
   effect was created.
 
-Acceptance as an artifact candidate would not authorize publication or permanent implementation.
+This deferred outcome creates no artifact, compatibility promise, or publication authority.

@@ -1,13 +1,12 @@
 # Phase 5 ecosystem roadmap
 
-**Status:** Accepted on August 14, 2026. Phases 5A, 5B, 5C, 5D-A, and 5E are complete. Phase 5D-B is
-deferred. The project owner accepted the Phase 5E Home Assistant exploration as guidance only on
-August 31, 2026; its historical evidence is retained and its executable proof was removed. No live
-environment, credential, dependency, package, adapter, or public compatibility claim is authorized.
-The [Phase 5F framework-wrapper proposal](./governance/explorations/phase-5f-framework-wrapper.md)
-is ready for project-owner review and recommends deferral: no named non-React consumer, direct-use
-gap, or framework compatibility maintainer currently exists. Every ecosystem track requires its own
-accepted charter before implementation, and an exploration may conclude with no new package.
+**Status:** Accepted on August 14, 2026. Phases 5A, 5B, 5C, 5D-A, 5E, and 5F are complete. Phase
+5D-B is deferred. The project owner accepted the Phase 5F framework-wrapper exploration as deferred
+on September 1, 2026: no named non-React consumer, direct-use gap, or framework compatibility
+maintainer currently exists. No additional wrapper, dependency, package, prototype, or compatibility
+claim is authorized. Phase 5G ecosystem integration and disposition is the next active milestone.
+Every ecosystem track requires its own accepted charter before implementation, and an exploration
+may conclude with no new package.
 
 Phase 5 extends Wayglass beyond the core design language and its three reference domains. `SPEC.md`
 names six ecosystem areas to explore: charts, Home Assistant integration, icon tooling, Figma
@@ -281,8 +280,8 @@ removed only the superseded executable experiment, proof-only browser cases, roo
 commands, and migration-only coordinate oracle after project-owner review. The nine historical
 evidence records and all permanent behavior coverage remain, as mapped in the
 [Phase 5D icon-tooling cleanup](/accessibility/phase-5d-icon-tooling-cleanup). Phase 5D-A is
-complete. Phase 5D-B remains deferred. Phase 5E is complete; Phase 5F is the next uncompleted Phase
-5 exploration.
+complete. Phase 5D-B remains deferred. Phases 5E and 5F are complete; Phase 5G is the next active
+Phase 5 milestone.
 
 Phase 5D-B design-library work was deferred by the project owner on August 29, 2026. It may restart
 only when a named Figma workspace, access model, exact target versions, reviewer, backup policy,
@@ -334,10 +333,12 @@ Select a framework from demonstrated consumer demand rather than popularity alon
 The September 1 repository demand audit found no qualifying consumer. React is the only application
 framework in workspace manifests. VitePress's Vue runtime remains a private documentation
 implementation detail under ADR 0003; the docs app authors no Vue component, imports no Vue API or
-production Wayglass element, and must not duplicate Storybook's interactive fixtures. The
-[Phase 5F proposal](./governance/explorations/phase-5f-framework-wrapper.md) therefore recommends
-deferring framework selection and proof until a named real application demonstrates a reproducible
-gap in direct Custom Element use and a maintainer accepts the exact compatibility range.
+production Wayglass element, and must not duplicate Storybook's interactive fixtures. The project
+owner accepted the
+[Phase 5F deferred disposition](./governance/explorations/phase-5f-framework-wrapper.md) on
+September 1, 2026. Framework selection and proof may restart only when a named real application
+demonstrates a reproducible gap in direct Custom Element use and a maintainer accepts the exact
+compatibility range.
 
 - name the consumer, framework version, rendering mode, Custom Element integration gaps, form and
   event semantics, and server-rendering expectations;
