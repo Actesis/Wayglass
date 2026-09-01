@@ -362,6 +362,14 @@ or publication readiness.
 
 ## Disposition
 
+The
+[Stage 4 proposed disposition](../../../experiments/phase-5e-home-assistant/evidence/stage-4-proposed-disposition.md)
+recommends **accept guidance only**. The reusable separation of reported value, knowledge,
+acknowledgement, and later provider effect should become integration guidance and an
+application-owned example pattern. The 977-line candidate surface, 257-line direct baseline, single
+synthetic consumer, and absent compatibility owner weigh against accepting provider runtime code.
+This is a proposal, not an accepted outcome; the project owner may accept or revise it.
+
 - **Outcome:** evidence complete; disposition pending.
 - **Decision date and approver:** pending.
 - **Reasoning:** pending.

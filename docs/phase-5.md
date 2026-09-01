@@ -302,7 +302,10 @@ envelopes, local cancellation, deduplication, safe logs, and bounded reconnect b
 live network. Stage 3 passes the 100-entity/1,000-message capacity matrix on Node 22.13/Linux and
 current macOS, records the direct application comparison, proves production/bundle/dependency/secret
 isolation and clean removal, and leaves existing browser regressions green. Stage 4 disposition is
-next; evidence completion does not authorize a package or live connection.
+next. Its current proposal is to accept the semantic boundary as guidance and an application-owned
+example pattern while declining a Wayglass adapter: safer failure behavior is reusable, but the
+candidate is substantially larger than direct mapping and has no second consumer or compatibility
+owner. Evidence completion and the proposal do not authorize a package or live connection.
 
 - define the smallest credible user-owned deployment and data set; synthetic fixtures remain the
   default automated evidence;
