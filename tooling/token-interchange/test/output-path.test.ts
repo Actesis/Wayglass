@@ -15,10 +15,13 @@ describe('private exchange output policy', () => {
     );
   });
 
-  it('rejects the repository itself and destinations outside repository or temporary roots', async () => {
+  it('rejects the repository itself even when the checkout is under a temporary root', async () => {
     await expect(resolveExchangeOutputPath('.', repositoryRoot)).rejects.toThrow(
       /inside the repository or an operating-system temporary directory/,
     );
+  });
+
+  it('rejects destinations outside repository or temporary roots', async () => {
     await expect(
       resolveExchangeOutputPath('wayglass-output', dirname(repositoryRoot)),
     ).rejects.toThrow(/inside the repository or an operating-system temporary directory/);
