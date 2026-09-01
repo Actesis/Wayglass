@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "evidenceIds": ["P5E-E05", "P5E-E06", "P5E-E08"],
+  "subjectRevision": "fd5f517f1710e91fa87de14baf9348d075cb1b8c",
+  "productionSourceFilesScanned": 210,
+  "builtFilesScanned": 861,
+  "proofExecutableFilesScanned": 27,
+  "lockfileProofReferences": 0,
+  "productionMarkerMatches": [],
+  "builtMarkerMatches": [],
+  "secretMatches": [],
+  "endpointMatches": [],
+  "unexpectedRetainedReferences": [],
+  "simulatedRootScriptsRemaining": 38,
+  "pass": true
+}

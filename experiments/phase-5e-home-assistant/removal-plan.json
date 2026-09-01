@@ -11,7 +11,6 @@
   ],
   "rootCheckEntries": ["pnpm experiment:phase5e:check", "pnpm experiment:phase5e:audit"],
   "retainedReferences": [
-    ".github/workflows/phase-5e-stage3-validation.yml",
     "apps/docs/.vitepress/config.ts",
     "apps/docs/governance/explorations/phase-5e-home-assistant.md",
     "docs/governance/explorations/phase-5e-home-assistant.md",

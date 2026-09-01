@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "evidenceId": "P5E-E09",
+  "subjectRevision": "fd5f517f1710e91fa87de14baf9348d075cb1b8c",
+  "measuredAt": "2026-09-01T04:29:45.806Z",
+  "scope": "same four-entity snapshot, change, removal, and acknowledged-then-confirmed request task",
+  "directApplicationOwned": {
+    "files": [
+      "experiments/phase-5e-home-assistant/src/direct-baseline.ts",
+      "experiments/phase-5e-home-assistant/test/direct-baseline.test.ts"
+    ],
+    "totalLines": 281,
+    "nonblankLines": 257,
+    "repeatedEntityLiteralSites": 8,
+    "runtimeEnvelopeValidation": false,
+    "stableProviderDiagnostics": false,
+    "acceptsMalformedTimestamp": true,
+    "removal": "delete two application-owned files or retain them as local integration code"
+  },
+  "candidateBoundary": {
+    "files": [
+      "experiments/phase-5e-home-assistant/src/model.ts",
+      "experiments/phase-5e-home-assistant/src/types.ts",
+      "experiments/phase-5e-home-assistant/src/validation.ts",
+      "experiments/phase-5e-home-assistant/test/model.test.ts",
+      "experiments/phase-5e-home-assistant/test/validation.test.ts"
+    ],
+    "totalLines": 1058,
+    "nonblankLines": 977,
+    "applicationBindingRecords": 4,
+    "runtimeEnvelopeValidation": true,
+    "stableProviderDiagnostics": true,
+    "acceptsMalformedTimestamp": false,
+    "removal": "delete the private proof and root proof scripts; no production consumer changes"
+  },
+  "sharedApplicationPolicy": [
+    "entity selection",
+    "labels and formatting",
+    "condition and desired-state meaning",
+    "command authorization",
+    "optimistic and timeout policy"
+  ],
+  "interpretation": "The direct path is smaller for one application; the candidate centralizes validation, ordering, knowledge, and acknowledgement/effect safety for potential reuse."
+}

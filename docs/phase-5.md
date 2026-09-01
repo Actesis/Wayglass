@@ -3,10 +3,10 @@
 **Status:** Accepted on August 14, 2026. Phases 5A, 5B, 5C, and 5D-A are complete. Phase 5D-B is
 deferred. The project owner accepted the
 [Phase 5E Home Assistant charter](./governance/explorations/phase-5e-home-assistant.md) on August
-30, 2026, and its first credential-free provider-model stage is implemented. No live environment,
-credential, dependency, package, or public compatibility claim is authorized. Every ecosystem track
-requires its own accepted charter before implementation, and an exploration may conclude with no new
-package.
+30, 2026; its three credential-free implementation stages are evidence-complete and await the
+fourth-stage disposition. No live environment, credential, dependency, package, or public
+compatibility claim is authorized. Every ecosystem track requires its own accepted charter before
+implementation, and an exploration may conclude with no new package.
 
 Phase 5 extends Wayglass beyond the core design language and its three reference domains. `SPEC.md`
 names six ecosystem areas to explore: charts, Home Assistant integration, icon tooling, Figma
@@ -297,9 +297,12 @@ entities. It explicitly separates provider acknowledgement from later provider-r
 keeps a live installation, token, and mutation set behind a separate approval after synthetic
 evidence. Stage 1 provides the closed projected provider contract, immutable four-entity reducer,
 ordering and connection-knowledge behavior, and request/acknowledgement/effect separation. Stage 2
-now provides the deterministic fake port, authentication outcomes, correlated command/result/event
+provides the deterministic fake port, authentication outcomes, correlated command/result/event
 envelopes, local cancellation, deduplication, safe logs, and bounded reconnect behavior without a
-live network. Stage 3 scale-and-isolation evidence is next.
+live network. Stage 3 passes the 100-entity/1,000-message capacity matrix on Node 22.13/Linux and
+current macOS, records the direct application comparison, proves production/bundle/dependency/secret
+isolation and clean removal, and leaves existing browser regressions green. Stage 4 disposition is
+next; evidence completion does not authorize a package or live connection.
 
 - define the smallest credible user-owned deployment and data set; synthetic fixtures remain the
   default automated evidence;
