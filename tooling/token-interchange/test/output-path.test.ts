@@ -1,4 +1,4 @@
-import { dirname, join } from 'node:path';
+import { join, parse } from 'node:path';
 
 import { describe, expect, it } from 'vitest';
 
@@ -23,7 +23,7 @@ describe('private exchange output policy', () => {
 
   it('rejects destinations outside repository or temporary roots', async () => {
     await expect(
-      resolveExchangeOutputPath('wayglass-output', dirname(repositoryRoot)),
+      resolveExchangeOutputPath('wayglass-output', parse(repositoryRoot).root),
     ).rejects.toThrow(/inside the repository or an operating-system temporary directory/);
     await expect(resolveExchangeOutputPath('packages/tokens/src', repositoryRoot)).rejects.toThrow(
       /nonempty and has no recognized Wayglass exchange state/,
