@@ -1,8 +1,9 @@
 # Phase 5G integrated validation
 
-**Status:** Stages 5G-A through 5G-D completed on September 1, 2026. `P5G-E01` through `P5G-E08`
-pass. Stage 5G-E remains pending; this record does not authorize publication, deployment, candidate
-promotion, or a new compatibility or support claim.
+**Status:** Stages 5G-A through 5G-D and the Stage 5G-E carried-gate reconciliation completed on
+September 1, 2026. `P5G-E01` through `P5G-E09` pass. `P5G-E10` and Phase 5 completion remain pending
+project-owner review of the proposed roadmap disposition; this record does not authorize
+publication, deployment, candidate promotion, or a new compatibility or support claim.
 
 This is the cumulative evidence record for the accepted
 [Phase 5G closeout plan](./phase-5g-closeout-plan.md). Results are added by stage so an unavailable,
@@ -439,22 +440,97 @@ formatting, lint, all 14 builds, icon and token generated-artifact checks, both 
 the Phase 5C experiment, type checking, and package tests. The documentation package executed the
 new include-wrapper regression test as part of the 20-task test schedule.
 
+## Stage 5G-E — Carried gates and proposed final disposition
+
+### Evidence classification
+
+The final reconciliation classifies results before applying them:
+
+- **Automated evidence** covers the exact builds, generated artifacts, unit and browser suites,
+  package rehearsals, scans, fixtures, and named-machine measurements recorded in Stages 5G-A
+  through 5G-D.
+- **Observed evidence** covers only the project-owner VoiceOver/Safari tasks recorded for tabs,
+  selected controls, and all seven fixed Phase 5C visualization tasks. It is not generalized to
+  unrun components, applications, NVDA/Firefox, iOS, or representative users.
+- **Inferred evidence** covers bounded source, dependency, output, ownership, privacy, and absence
+  conclusions. It does not prove external consumer, provider, device, design-tool, registry,
+  Cloudflare-account, or production behavior.
+
+The [proposed Phase 5 roadmap disposition](../phase-5-roadmap-disposition.md) preserves those
+categories and maps every omission to an owner, exact closeout treatment, and blocked claim.
+
+### Reconciled carried-gate result
+
+The earlier closeout ledger was substantively correct but omitted the Phase 5B token tool's named
+independent-consumer gate. The source exploration record and Stage 5G-A ledger already retained that
+requirement. The closeout plan and proposed final disposition now include it explicitly; this is a
+ledger-coherence correction, not a new gate.
+
+The final carried ledger covers:
+
+- Windows NVDA/Firefox, remaining macOS VoiceOver/Safari procedures, iOS VoiceOver/Safari, and
+  real-profile autofill and password-manager review;
+- representative five-second first-glance sessions and low-power physical-device measurements;
+- independent token, visualization, and icon consumers or contributors;
+- a live Home Assistant environment, a second provider consumer, and compatibility/security
+  ownership;
+- the named Figma workspace and design ownership prerequisites;
+- a named additional-framework consumer, exact environment, demonstrated gap, and maintainer;
+- real deployment and battle testing in the project owner's intended application;
+- npm registry, provenance, workflow, human approval, recovery, and support prerequisites; and
+- every ADR 0032 Cloudflare implementation, preview, routing, ownership, rollback, DNS, and launch
+  prerequisite.
+
+Each gate has an owner and blocks only its named promotion or support claim. Windows access remains
+open exactly as the project owner directed. None is represented as completed, and none blocks the
+private, undeployed Phase 5 closeout proposed for review. This satisfies `P5G-E09`.
+
+### Decisions awaiting project-owner review
+
+The proposed disposition asks the project owner to make five linked but explicit decisions:
+
+1. complete Phase 5 with its accepted, private, guidance-only, rejected, and deferred outcomes;
+2. keep all packages private at `0.0.0` and open no npm release through closeout;
+3. keep documentation, Storybook, examples, and walkthroughs undeployed and open no Cloudflare
+   implementation or launch through closeout;
+4. preserve the carried gates until an exact later proposal satisfies or scopes them; and
+5. center the next planning activity on the intended real-world application, v1 scope, and separate
+   npm and Cloudflare proposals.
+
+The proposal identifies private repository support without implying SemVer, registry, compatibility,
+security-response, or consumer-support promises. Token and icon tooling remain permanent private
+infrastructure; native visualization remains private evidence; Home Assistant remains guidance only;
+Figma and additional-framework work remain deferred. The rejected uPlot and D3 code does not return.
+
+Drafting and validating that complete decision record does not satisfy the human approval itself.
+`P5G-E10` remains pending until the project owner accepts or revises
+`phase-5-roadmap-disposition.md`. No package, repository, npm, Cloudflare, DNS, provider,
+design-tool, or support state changed during Stage 5G-E.
+
+### Stage-change validation
+
+The root `pnpm check` gate passed after the proposed disposition, carried ledger, VitePress wrapper,
+and navigation entry were added. Formatting, lint, all builds, generated-artifact checks, tooling
+and experiment checks, type checking, and package tests completed; the VitePress build resolved the
+new page and the include-containment test passed.
+
 ## Evidence status
 
-| Evidence ID         | Result  | Basis and limitation                                                                                                                                                                               |
-| ------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `P5G-E01`           | Passed  | Every started track has one accepted state, retained boundary, cleanup result, unsupported-claim boundary, and objective gate. The one vocabulary mismatch was revisioned and corrected.           |
-| `P5G-E02`           | Passed  | A clean frozen install and isolated-cache repository check passed at `2665232`; every scheduled build, tooling check, typecheck, and unit task completed.                                          |
-| `P5G-E03`           | Passed  | The full three-engine matrix passed 1,458 cases with 48 explicit Chromium-only skips and no failure, retry, or flaky result.                                                                       |
-| `P5G-E04`           | Passed  | Static, packed, isolated-consumer, registration, dependency, and bundle checks preserve foundation direction; audit-only overrides are explicitly not registry-install evidence.                   |
-| `P5G-E05`           | Passed  | Seven local tarballs were inspected and hashed; contents, metadata, notices, maps, dependencies, licenses, advisories, provenance blocks, and release blockers are now explicit.                   |
-| `P5G-E06`           | Passed  | Source, outputs, maps, evidence, and configuration scans found no credential, personal-path, unexpected package network/storage, telemetry, lifecycle-script, or provider-runtime leak.            |
-| `P5G-E07`           | Passed  | Fresh same-revision builds, generated integrity, include and export checks, 20,156 internal-link checks, fixture ownership, privacy, claims, output inventories, and adverse results are recorded. |
-| `P5G-E08`           | Passed  | No deployment implementation or state exists; every ADR 0032 account, assembler, base-path, routing, header, ownership, preview, rollback, DNS, and launch prerequisite is mapped.                 |
-| `P5G-E09`–`P5G-E10` | Pending | Stage 5G-E carried-gate and final project-owner disposition remain open.                                                                                                                           |
+| Evidence ID | Result  | Basis and limitation                                                                                                                                                                               |
+| ----------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `P5G-E01`   | Passed  | Every started track has one accepted state, retained boundary, cleanup result, unsupported-claim boundary, and objective gate. The one vocabulary mismatch was revisioned and corrected.           |
+| `P5G-E02`   | Passed  | A clean frozen install and isolated-cache repository check passed at `2665232`; every scheduled build, tooling check, typecheck, and unit task completed.                                          |
+| `P5G-E03`   | Passed  | The full three-engine matrix passed 1,458 cases with 48 explicit Chromium-only skips and no failure, retry, or flaky result.                                                                       |
+| `P5G-E04`   | Passed  | Static, packed, isolated-consumer, registration, dependency, and bundle checks preserve foundation direction; audit-only overrides are explicitly not registry-install evidence.                   |
+| `P5G-E05`   | Passed  | Seven local tarballs were inspected and hashed; contents, metadata, notices, maps, dependencies, licenses, advisories, provenance blocks, and release blockers are now explicit.                   |
+| `P5G-E06`   | Passed  | Source, outputs, maps, evidence, and configuration scans found no credential, personal-path, unexpected package network/storage, telemetry, lifecycle-script, or provider-runtime leak.            |
+| `P5G-E07`   | Passed  | Fresh same-revision builds, generated integrity, include and export checks, 20,156 internal-link checks, fixture ownership, privacy, claims, output inventories, and adverse results are recorded. |
+| `P5G-E08`   | Passed  | No deployment implementation or state exists; every ADR 0032 account, assembler, base-path, routing, header, ownership, preview, rollback, DNS, and launch prerequisite is mapped.                 |
+| `P5G-E09`   | Passed  | Every carried human, provider, device, consumer, design-tool, release, deployment, and battle-testing omission has an owner, exact treatment, and bounded claim impact.                            |
+| `P5G-E10`   | Pending | The complete proposed roadmap disposition exists, but final acceptance is reserved for project-owner review.                                                                                       |
 
 ## Next stage
 
-Stage 5G-E reconciles every carried human and external gate, then presents the final Phase 5 roadmap
-disposition and the separate keep-private, keep-undeployed, release, and deployment decisions for
-project-owner review.
+The project owner reviews `phase-5-roadmap-disposition.md`. Acceptance passes `P5G-E10` and closes
+Phase 5 without publishing or deploying; a requested revision keeps Phase 5 active until the
+decision record is corrected and accepted.

@@ -9,9 +9,10 @@ claim is authorized. The
 project owner on September 1, 2026. Stages 5G-A through 5G-C complete the lifecycle ledger,
 repository baseline, clean integrated checks, supported-browser matrix, package and isolation audit,
 and dated security, advisory, license, and provenance review. Stage 5G-D completes the fresh local
-documentation-system and undeployed-Cloudflare-boundary audit; Stage 5G-E is the next active
-milestone. Every ecosystem track requires its own accepted charter before implementation, and an
-exploration may conclude with no new package.
+documentation-system and undeployed-Cloudflare-boundary audit. Stage 5G-E now completes the
+carried-gate reconciliation and presents the proposed roadmap disposition; project-owner acceptance
+is the remaining Phase 5 gate. Every ecosystem track requires its own accepted charter before
+implementation, and an exploration may conclude with no new package.
 
 Phase 5 extends Wayglass beyond the core design language and its three reference domains. `SPEC.md`
 names six ecosystem areas to explore: charts, Home Assistant integration, icon tooling, Figma
@@ -378,8 +379,9 @@ local package, isolated-consumer, dependency, security, privacy, advisory, licen
 audits. Every package remains private and not release-ready. Stage 5G-D passes `P5G-E07` and
 `P5G-E08` after fresh VitePress, Storybook, example, token, and icon builds; documentation coherence
 corrections; link, import, claim, privacy, and output checks; and a complete map of ADR 0032's
-unimplemented deployment gates. Stage 5G-E next records the carried-gate ledger and final project
-owner disposition.
+unimplemented deployment gates. Stage 5G-E passes `P5G-E09` by recording the complete carried-gate
+ledger and presents the [proposed roadmap disposition](./phase-5-roadmap-disposition.md). `P5G-E10`
+and Phase 5 completion remain pending project-owner acceptance.
 
 - run the complete repository and accepted ecosystem validation matrices;
 - verify optional packages do not enlarge core install, runtime, registration, or support behavior;
