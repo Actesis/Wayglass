@@ -5,8 +5,8 @@ import {
   createJson,
   tokenNameToCssCustomProperty,
   validateTokens,
-} from '../src/compiler.js';
-import { tokens } from '../src/definitions.js';
+  tokens,
+} from '../src/index.js';
 
 function relativeLuminance(hex: string): number {
   const channels = [1, 3, 5].map(
