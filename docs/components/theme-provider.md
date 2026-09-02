@@ -19,8 +19,8 @@ A context host and one default content slot.
 
 ## Variants
 
-Official Phase 1 themes are `wayglass-dark` and `wayglass-light`. Theme selection may also be
-`system`. Density is `compact` or `comfortable`.
+Official themes are `wayglass-dark` and `wayglass-light`. Theme selection may also be `system`.
+Density is `compact` or `comfortable`.
 
 ## States
 
@@ -74,9 +74,9 @@ None.
 
 ### Properties
 
-- `theme: Phase1ThemeName | 'system'`
+- `theme: ThemeName | 'system'`
 - `density: DensityName`
-- `readonly resolvedTheme: Phase1ThemeName`
+- `readonly resolvedTheme: ThemeName`
 
 ### Slots
 
@@ -119,4 +119,4 @@ sizes, and no flash caused by asynchronous resolution.
 ## Open Questions
 
 Wayglass High Contrast and Wayglass Dim remain planned compatible additions. They are not included
-in `Phase1ThemeName` and cannot be selected by this provider yet.
+in `ThemeName` and cannot be selected by this provider yet.

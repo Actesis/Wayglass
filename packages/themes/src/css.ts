@@ -3,7 +3,7 @@ import { tokenNameToCssCustomProperty, tokens } from '@wayglass/tokens';
 import {
   densityNames,
   densityTokenOverrides,
-  phase1ThemeNames,
+  themeNames,
   themeTokenOverrides,
 } from './definitions.js';
 
@@ -30,7 +30,7 @@ function contextualAliases(): Readonly<Record<string, string>> {
   );
 }
 
-function themeRule(themeName: (typeof phase1ThemeNames)[number]): string {
+function themeRule(themeName: (typeof themeNames)[number]): string {
   const rootSelector = themeName === 'wayglass-dark' ? ':root,\n  ' : '';
   const colorScheme = themeName === 'wayglass-dark' ? 'dark' : 'light';
   const contextualThemeTokens = {
@@ -92,7 +92,7 @@ const forcedColorOverrides = {
 function forcedColorsRule(): string {
   const selectors = [
     ':root',
-    ...phase1ThemeNames.map((themeName) => `:where([data-wg-theme='${themeName}'])`),
+    ...themeNames.map((themeName) => `:where([data-wg-theme='${themeName}'])`),
   ].join(',\n    ');
   const overrides = Object.entries(forcedColorOverrides)
     .sort(([left], [right]) => left.localeCompare(right))
@@ -103,7 +103,7 @@ function forcedColorsRule(): string {
 }
 
 export function createThemeCss(): string {
-  const themes = phase1ThemeNames.map(themeRule).join('\n\n  ');
+  const themes = themeNames.map(themeRule).join('\n\n  ');
   const densities = densityNames.map(densityRule).join('\n\n  ');
 
   return `@layer wayglass.themes {\n  ${themes}\n\n  ${densities}\n\n  ${forcedColorsRule()}\n}\n`;

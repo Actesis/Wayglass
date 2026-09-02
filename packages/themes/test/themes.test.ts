@@ -6,14 +6,13 @@ import {
   createThemeCss,
   densityNames,
   isDensityName,
-  isPhase1ThemeName,
+  isThemeName,
   isThemeSelectionName,
-  phase1ThemeNames,
-  plannedThemeNames,
+  themeNames,
   resolveSystemTheme,
   themeTokenOverrides,
 } from '../src/index.js';
-import type { Phase1ThemeName } from '../src/index.js';
+import type { ThemeName } from '../src/index.js';
 
 function relativeLuminance(hex: string): number {
   const channels = [1, 3, 5].map(
@@ -35,7 +34,7 @@ function contrastRatio(foreground: string, background: string): number {
   return (lighter + 0.05) / (darker + 0.05);
 }
 
-function themeColor(theme: Phase1ThemeName, target: TokenName): string {
+function themeColor(theme: ThemeName, target: TokenName): string {
   const source = themeTokenOverrides[theme][target];
   const value = source ? tokens[source].value : undefined;
 
@@ -46,16 +45,15 @@ function themeColor(theme: Phase1ThemeName, target: TokenName): string {
   return value;
 }
 
-describe('Phase 1 themes', () => {
-  it('distinguishes implemented themes from planned themes', () => {
-    expect(phase1ThemeNames).toEqual(['wayglass-dark', 'wayglass-light']);
-    expect(plannedThemeNames).toEqual(['wayglass-high-contrast', 'wayglass-dim']);
+describe('themes', () => {
+  it('lists implemented themes and densities', () => {
+    expect(themeNames).toEqual(['wayglass-dark', 'wayglass-light']);
     expect(densityNames).toEqual(['compact', 'comfortable']);
   });
 
   it('validates public theme and density names', () => {
-    expect(isPhase1ThemeName('wayglass-dark')).toBe(true);
-    expect(isPhase1ThemeName('wayglass-dim')).toBe(false);
+    expect(isThemeName('wayglass-dark')).toBe(true);
+    expect(isThemeName('wayglass-dim')).toBe(false);
     expect(isThemeSelectionName('system')).toBe(true);
     expect(isThemeSelectionName('unknown')).toBe(false);
     expect(isDensityName('comfortable')).toBe(true);
@@ -67,7 +65,7 @@ describe('Phase 1 themes', () => {
     expect(resolveSystemTheme(false)).toBe('wayglass-light');
   });
 
-  it.each(phase1ThemeNames)('%s meets foundational contrast thresholds', (theme) => {
+  it.each(themeNames)('%s meets foundational contrast thresholds', (theme) => {
     const canvas = themeColor(theme, 'color.semantic.surface.canvas');
     const panel = themeColor(theme, 'color.semantic.surface.panel');
     const inset = themeColor(theme, 'color.semantic.surface.inset');

@@ -1,5 +1,5 @@
 import { defineWgThemeProvider } from '@wayglass/elements/theme-provider';
-import type { DensityName, Phase1ThemeName } from '@wayglass/themes';
+import type { DensityName, ThemeName } from '@wayglass/themes';
 import type { Meta, StoryObj } from '@storybook/web-components-vite';
 import { html } from 'lit';
 
@@ -16,7 +16,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-function preview(theme: Phase1ThemeName, density: DensityName) {
+function preview(theme: ThemeName, density: DensityName) {
   return html`
     <div class="wg-theme-preview-cell">
       <wg-theme-provider theme=${theme} density=${density}>
