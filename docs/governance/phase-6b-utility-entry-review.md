@@ -1,8 +1,8 @@
 # Phase 6B utility and icon entry-point review
 
-**Status:** Proposed on September 2, 2026. This record resolves the second correction identified by
-the accepted Phase 6A scope inventory. It changes no package version, privacy, registry, or
-deployment state.
+**Status:** Accepted by the project owner on September 2, 2026. This record resolves the second
+correction identified by the accepted Phase 6A scope inventory. It changes no package version,
+privacy, registry, or deployment state.
 
 ## Decision
 
@@ -120,8 +120,9 @@ surface rather than bypassing it through the private source module.
   consumer build, even though the generated browser artifacts have no Node runtime requirement.
 - The icon root and subpath remain one independently versioned optional-runtime release unit.
 
-## Project-owner decision requested
+## Project-owner decision
 
-Approve retention of the five pure helper functions and both icon specifiers under the boundaries
-above. Approval closes Phase 6A correction item 2 and authorizes their inclusion in the exact v1
-public-surface freeze. It does not approve versions or publication.
+On September 2, 2026, the project owner approved and directed the merge of the five pure helper
+functions and both icon specifiers under the boundaries above. That approval closes Phase 6A
+correction item 2 and authorizes their inclusion in the exact v1 public-surface freeze. It does not
+approve versions or publication.
