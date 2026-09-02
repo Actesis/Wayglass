@@ -21,7 +21,11 @@ export default defineConfig({
       {
         text: 'System',
         items: [
-          { text: 'Phase 6 proposed roadmap', link: '/phase-6' },
+          { text: 'Phase 6 accepted roadmap', link: '/phase-6' },
+          {
+            text: 'Phase 6A SpaceTraders charter',
+            link: '/phase-6a-spacetraders-charter',
+          },
           { text: 'Phase 5 ecosystem roadmap', link: '/phase-5' },
           { text: 'Phase 5 roadmap disposition', link: '/phase-5-roadmap-disposition' },
           {

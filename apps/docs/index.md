@@ -21,5 +21,7 @@ private, guidance-only, rejected, and deferred outcomes. Review the
 [Phase 4 reference-domain plan](/phase-4) and its
 [roadmap disposition](/phase-4-roadmap-disposition), or explore the
 [Operations Overview](/examples/operations-overview) and [Function Deck](/patterns/function-deck).
-The [proposed Phase 6 roadmap](/phase-6) begins with an independently owned real-world application
-before defining v1 release scope.
+The [accepted Phase 6 roadmap](/phase-6) begins with an independently owned real-world application
+before defining v1 release scope. Its active
+[SpaceTraders application charter](/phase-6a-spacetraders-charter) records the proposed first
+consumer boundary and the decisions required before integration.
