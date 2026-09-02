@@ -1,9 +1,8 @@
 # Phase 5 roadmap disposition
 
-**Status:** Proposed on September 1, 2026 for project-owner review. Phase 5 remains active until the
-project owner accepts or revises the decisions below. This proposal keeps every package private and
-the documentation system undeployed; it does not publish, deploy, promote, or create a support
-claim.
+**Status:** Accepted by the project owner on September 2, 2026 as the final Phase 5 closeout record.
+Phase 5 is complete. Every package remains private and the documentation system remains undeployed;
+this disposition does not publish, deploy, promote, or create a support claim.
 
 This disposition closes the ecosystem explorations and integrated closeout defined by the
 [Phase 5 roadmap](./phase-5.md). It is based on the
@@ -13,9 +12,9 @@ This disposition closes the ecosystem explorations and integrated closeout defin
 each accepted exploration record, and the
 [Phase 5G integrated validation](./accessibility/phase-5g-integrated-validation.md).
 
-## Proposed closeout decision
+## Exit disposition
 
-Accept Phase 5 as complete with the following deliberately narrow result:
+Phase 5 is complete with the following deliberately narrow result:
 
 1. retain the foundation packages, icons, React binding, and testing helpers as private repository
    candidates at `0.0.0`;
@@ -139,9 +138,9 @@ After acceptance, plan the work toward an initial feedback release as separate, 
 This sequence can be formalized as the next roadmap after Phase 5 closes. It does not authorize that
 work through this disposition.
 
-## Approval requested
+## Project-owner decision
 
-The project owner is asked to accept, revise, or reject these exact decisions:
+On September 2, 2026, the project owner approved and directed the merge of these exact decisions:
 
 1. Phase 5 is complete with `P5G-E01` through `P5G-E10` satisfied by the integrated evidence and
    accepted disposition.
@@ -153,4 +152,6 @@ The project owner is asked to accept, revise, or reject these exact decisions:
 5. The next planning activity should center the named real-world application, v1 release scope, and
    separate npm and Cloudflare proposals without merging those authority boundaries.
 
-Until the project owner accepts this record, `P5G-E10` remains pending and Phase 5 remains active.
+That approval passes `P5G-E10` and closes Phase 5. It creates no npm, repository-visibility,
+Cloudflare, DNS, provider, design-tool, device, assistive-technology, compatibility, or
+public-support authority beyond the exact evidence recorded here.
