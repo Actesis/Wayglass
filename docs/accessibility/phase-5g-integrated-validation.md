@@ -1,8 +1,8 @@
 # Phase 5G integrated validation
 
-**Status:** Stages 5G-A through 5G-C completed on September 1, 2026. `P5G-E01` through `P5G-E06`
-pass. Stages 5G-D and 5G-E remain pending; this record does not authorize publication, deployment,
-candidate promotion, or a new compatibility or support claim.
+**Status:** Stages 5G-A through 5G-D completed on September 1, 2026. `P5G-E01` through `P5G-E08`
+pass. Stage 5G-E remains pending; this record does not authorize publication, deployment, candidate
+promotion, or a new compatibility or support claim.
 
 This is the cumulative evidence record for the accepted
 [Phase 5G closeout plan](./phase-5g-closeout-plan.md). Results are added by stage so an unavailable,
@@ -323,21 +323,138 @@ Accordingly, every package stays private at candidate state. The local archives 
 pass the knowledge and isolation goals of `P5G-E04` through `P5G-E06`; they are not sufficient for
 packed-candidate, publish-approved, staged, or released status.
 
+## Stage 5G-D — Documentation-system and deployment-boundary audit
+
+### Correction and authoritative source
+
+The initial audit began at merged Stage 5G-C commit `53ae4a68d14b200a8a443bc92a1d33319e2b9979`. A
+fresh VitePress build succeeded but an independent include-target check found two wrappers that
+resolved outside the repository, leaving the Phase 3H integrated-validation and
+production-surface-audit pages empty. The same review found three stale claims: the documentation
+home and README still described the accepted Phase 5 roadmap as a proposal, the README tied package
+privacy to already-accepted release governance instead of a separate release proposal, and the React
+guide stopped its wrapper inventory at Phase 2.
+
+Commit `fbda0e065f97ac9b18c8ba24d5ea9b36d3cc5afe` corrects those paths and claims and adds a focused
+VitePress include-wrapper test. That clean correction commit is the authoritative Stage 5G-D build
+source. The evidence and roadmap changes in this section layer on top of the audited source, as in
+the prior closeout stages.
+
+### Same-revision builds and generated integrity
+
+With `TURBO_FORCE=true` and a new temporary Turbo cache, the root build executed 14 of 14 scheduled
+tasks with zero cache hits. VitePress, Storybook, all five examples, production packages, React,
+themes, tokens, icons, and testing support built from `fbda0e0`. Token generation changed no file;
+the write-free check verified 528 tokens, 197 overrides, three web artifacts, and seven in-memory
+exchange artifacts at the exact source revision. The icon check verified four icons and four
+generated artifacts.
+
+| Local output                                | Files |      Bytes | Local inventory digest                                             |
+| ------------------------------------------- | ----: | ---------: | ------------------------------------------------------------------ |
+| VitePress                                   |   418 | 15,890,555 | `70dd6e6737b0c537608421306cb8d9ac9bd81b108fab8bca4bc9ee14c579a3f9` |
+| Storybook payload, excluding `project.json` |   133 |  9,225,837 | `6f8d82b1a6582f6fc07d666edfeb14a666ab9faa16405ef4071dfbb2641a31f0` |
+| Agent Supervision example                   |     3 |    465,165 | `c2d9fa8026f73067cb2085a4d9da764d31b609874c83a5679ae8c8a1c26869f8` |
+| Operations Console example                  |     3 |    505,325 | `2b729d4e170c34a7fd7225cb449bd1943c3e88a6a61aba318a50481f8a29569b` |
+| React example                               |     3 |    495,258 | `b44ed308e3627217707553ab1768178abe91e1109defc901b8ac107197cf4da7` |
+| Smart Home example                          |     4 |    881,288 | `eb0d0c515b9cadd72fcf6630051cc2859142e8226ec7a2951eadd40f24275065` |
+| Vanilla example                             |     3 |    309,151 | `5563d62cf98f1929b54f7863494f0c921c12680ee823336054970ac0e209438d` |
+
+These hashes cover untracked local output and are evidence measurements, not a deployment manifest.
+Two successive VitePress builds were byte-identical. Example hashes also remained identical across
+the two fresh root builds. Successive Storybook builds differed only in the millisecond
+`generatedAt` value in `project.json`; all other 133 files were byte-identical at the payload digest
+above. The future deterministic assembler must explicitly normalize, exclude, or record that
+volatile metadata rather than claiming whole-directory reproducibility. Storybook retained its known
+non-failing large-chunk warning and Node's `module.register()` deprecation warning.
+
+The three generated token artifacts authenticated by the token check had SHA-256 values
+`b253b9a03c856a8a4b619f4c7b53042b32a5234ae3126b6963392ad188aa1263`,
+`eeb8066bcf909cba5ce29dc9f9345deb4c545d119bfbb381fa1ca2500a2d5f28`, and
+`00a0c6bb7342c4f1d79aac93244732e5f16564a4943c65171e80d98fb48cfa92`. The icon source catalog, source
+manifest, review output, and output manifest retained their independently checked hashes. No
+documentation, Storybook, or example build emitted a source map.
+
+### Documentation, fixtures, links, and claims
+
+- All 132 include wrappers among 137 tracked VitePress Markdown files now resolve to regular files
+  inside the repository. Five intentionally authored VitePress files remain independent. The new
+  unit check enforces the path and containment boundary.
+- The VitePress build rendered 138 HTML files without its dead-link failure. An independent output
+  scan checked 20,156 root-relative link occurrences and found no missing target.
+- A documentation code-sample scan resolved 32 distinct `@wayglass/*` import specifiers against the
+  current package export maps with no missing package or subpath.
+- Storybook compiled all 26 source story files into 102 indexed story entries. Its build imports
+  production packages and retains the accepted Operational Activity example-owned renderer facade;
+  VitePress contains prose and links but does not import or reproduce Storybook's interactive
+  fixtures.
+- VitePress remains the normative contract and guidance surface. Storybook remains private visual,
+  state, accessibility-tooling, and interaction inspection evidence; its stories are not presented
+  as package contracts.
+- Every example manifest remains private at `0.0.0`. Their deterministic fixture state, routing, and
+  domain data remain application-owned; examples import no other reference application and no
+  Storybook or VitePress source. No walkthrough has an admission record or enters a public bundle.
+- The documentation now states the accepted Phase 5 status, current private-candidate package
+  status, planned origin, and separate release/deployment authority without npm installation,
+  provider compatibility, live-data, deployed-site, or public-support claims.
+
+Tracked documentation-system source contains no network client, analytics beacon, cookie, account,
+credential, submitted-form handler, or deployment side effect. Storybook's build command explicitly
+disables its tooling telemetry. Static output naturally contains framework-owned browser runtime,
+but no analytics service signature, beacon, or cookie write was found. The credential and personal
+path results from Stage 5G-C remain unchanged.
+
+### ADR 0032 implementation-gate map
+
+No tracked or generated Wrangler configuration, Worker, `_headers`, `_redirects`, deployment or site
+manifest, environment file, Cloudflare dependency, GitHub workflow, deployment output, or hosting
+configuration exists. The only hostname references describe the planned `wayglass.hoagsoftworks.com`
+origin and explicitly reject the misspelling; none claims that the site is live. `Actesis/Wayglass`
+remains private.
+
+| ADR 0032 gate                                                    | Stage 5G-D finding and remaining prerequisite                                                                                                     |
+| ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Zone and exact hostname control                                  | Unverified external account state; requires owner verification.                                                                                   |
+| Existing DNS and route conflict review                           | Not performed and no DNS state entered the repository.                                                                                            |
+| Public repository and content decision                           | Not accepted; repository and every candidate surface remain private.                                                                              |
+| Cloudflare tooling justification and audit                       | No Wrangler or Cloudflare dependency exists; re-verify current platform guidance before an implementation proposal.                               |
+| Deterministic assembler, manifest, collisions, and local command | Unimplemented; current outputs build independently and Storybook has one volatile metadata field.                                                 |
+| Storybook `/storybook/` base-path proof                          | No explicit base configuration, composed-prefix server, direct-navigation check, or return link exists.                                           |
+| Walkthrough admission and base paths                             | No walkthrough is admitted; all five Vite outputs still reference root-absolute `/assets/...` URLs and cannot be copied under the planned prefix. |
+| Headers, cache, CSP, 404, canonical URL, and preview `noindex`   | No response contract or path-aware routing implementation exists.                                                                                 |
+| Account, GitHub, production, rollback, and incident owners       | Not assigned for an implementation or launch.                                                                                                     |
+| Preview, promotion, domain, and rollback rehearsal               | Not performed; no Cloudflare state was touched.                                                                                                   |
+
+The accepted Operational Activity sharing remains valid private evidence, but Storybook currently
+re-exports its renderer from the Vanilla example. A public composed-site proposal must reconcile
+that relationship with ADR 0032's independent-source-build rule rather than exposing private example
+source by accident.
+
+These open implementation gates are the expected proof of the undeployed boundary, not skipped Stage
+5G-D work. Local coherence and honest claims pass `P5G-E07`; the complete absence and explicit map
+of deployment state pass `P5G-E08`. Neither result authorizes Cloudflare implementation, a
+walkthrough, preview, custom domain, analytics, or launch.
+
+After the evidence was formatted, the root `pnpm check` gate passed on September 1, 2026. It covered
+formatting, lint, all 14 builds, icon and token generated-artifact checks, both tooling core suites,
+the Phase 5C experiment, type checking, and package tests. The documentation package executed the
+new include-wrapper regression test as part of the 20-task test schedule.
+
 ## Evidence status
 
-| Evidence ID         | Result  | Basis and limitation                                                                                                                                                                     |
-| ------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `P5G-E01`           | Passed  | Every started track has one accepted state, retained boundary, cleanup result, unsupported-claim boundary, and objective gate. The one vocabulary mismatch was revisioned and corrected. |
-| `P5G-E02`           | Passed  | A clean frozen install and isolated-cache repository check passed at `2665232`; every scheduled build, tooling check, typecheck, and unit task completed.                                |
-| `P5G-E03`           | Passed  | The full three-engine matrix passed 1,458 cases with 48 explicit Chromium-only skips and no failure, retry, or flaky result.                                                             |
-| `P5G-E04`           | Passed  | Static, packed, isolated-consumer, registration, dependency, and bundle checks preserve foundation direction; audit-only overrides are explicitly not registry-install evidence.         |
-| `P5G-E05`           | Passed  | Seven local tarballs were inspected and hashed; contents, metadata, notices, maps, dependencies, licenses, advisories, provenance blocks, and release blockers are now explicit.         |
-| `P5G-E06`           | Passed  | Source, outputs, maps, evidence, and configuration scans found no credential, personal-path, unexpected package network/storage, telemetry, lifecycle-script, or provider-runtime leak.  |
-| `P5G-E07`–`P5G-E08` | Pending | Stage 5G-D documentation-system and deployment-boundary evidence has not run.                                                                                                            |
-| `P5G-E09`–`P5G-E10` | Pending | Stage 5G-E carried-gate and final project-owner disposition remain open.                                                                                                                 |
+| Evidence ID         | Result  | Basis and limitation                                                                                                                                                                               |
+| ------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `P5G-E01`           | Passed  | Every started track has one accepted state, retained boundary, cleanup result, unsupported-claim boundary, and objective gate. The one vocabulary mismatch was revisioned and corrected.           |
+| `P5G-E02`           | Passed  | A clean frozen install and isolated-cache repository check passed at `2665232`; every scheduled build, tooling check, typecheck, and unit task completed.                                          |
+| `P5G-E03`           | Passed  | The full three-engine matrix passed 1,458 cases with 48 explicit Chromium-only skips and no failure, retry, or flaky result.                                                                       |
+| `P5G-E04`           | Passed  | Static, packed, isolated-consumer, registration, dependency, and bundle checks preserve foundation direction; audit-only overrides are explicitly not registry-install evidence.                   |
+| `P5G-E05`           | Passed  | Seven local tarballs were inspected and hashed; contents, metadata, notices, maps, dependencies, licenses, advisories, provenance blocks, and release blockers are now explicit.                   |
+| `P5G-E06`           | Passed  | Source, outputs, maps, evidence, and configuration scans found no credential, personal-path, unexpected package network/storage, telemetry, lifecycle-script, or provider-runtime leak.            |
+| `P5G-E07`           | Passed  | Fresh same-revision builds, generated integrity, include and export checks, 20,156 internal-link checks, fixture ownership, privacy, claims, output inventories, and adverse results are recorded. |
+| `P5G-E08`           | Passed  | No deployment implementation or state exists; every ADR 0032 account, assembler, base-path, routing, header, ownership, preview, rollback, DNS, and launch prerequisite is mapped.                 |
+| `P5G-E09`–`P5G-E10` | Pending | Stage 5G-E carried-gate and final project-owner disposition remain open.                                                                                                                           |
 
 ## Next stage
 
-Stage 5G-D verifies VitePress, Storybook, examples, generated artifacts, links, hashes, claims, and
-source identity as one local documentation system, while proving that Cloudflare implementation and
-public deployment remain outside current authority.
+Stage 5G-E reconciles every carried human and external gate, then presents the final Phase 5 roadmap
+disposition and the separate keep-private, keep-undeployed, release, and deployment decisions for
+project-owner review.
