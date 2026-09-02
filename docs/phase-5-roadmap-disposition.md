@@ -155,3 +155,15 @@ On September 2, 2026, the project owner approved and directed the merge of these
 That approval passes `P5G-E10` and closes Phase 5. It creates no npm, repository-visibility,
 Cloudflare, DNS, provider, design-tool, device, assistive-technology, compatibility, or
 public-support authority beyond the exact evidence recorded here.
+
+## Subsequent Phase 6 correction
+
+On September 2, 2026, the project owner clarified that Wayglass v1 must be finished, published, and
+documented before the separate SpaceTraders client begins real-world validation. The accepted
+[Phase 6 roadmap](./phase-6.md) therefore supersedes the ordering in “Recommended next sequence” and
+project-owner decision item 5 above. It does not alter the Phase 5 evidence, dispositions, carried
+gates, or closeout result.
+
+SpaceTraders remains an intended independent post-release consumer. Its repository, implementation,
+architecture, credentials, deployment, and validation work are outside Wayglass and outside this
+work task.

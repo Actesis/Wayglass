@@ -21,5 +21,6 @@ private, guidance-only, rejected, and deferred outcomes. Review the
 [Phase 4 reference-domain plan](/phase-4) and its
 [roadmap disposition](/phase-4-roadmap-disposition), or explore the
 [Operations Overview](/examples/operations-overview) and [Function Deck](/patterns/function-deck).
-The [proposed Phase 6 roadmap](/phase-6) begins with an independently owned real-world application
-before defining v1 release scope.
+The [Phase 6 roadmap](/phase-6) completes the v1 contract, validates independently installable
+packages, and prepares the npm release and Cloudflare-hosted documentation before real-world
+consumer feedback begins.
