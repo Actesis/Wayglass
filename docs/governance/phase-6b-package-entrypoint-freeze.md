@@ -1,7 +1,8 @@
 # Phase 6B package entry-point freeze
 
-**Status:** Proposed on September 2, 2026. This is the first exact public-surface freeze slice. It
-changes no package version, privacy, registry, repository visibility, or deployment state.
+**Status:** Accepted by the project owner on September 2, 2026. This is the first exact
+public-surface freeze slice. It changes no package version, privacy, registry, repository
+visibility, or deployment state.
 
 ## Decision
 
@@ -43,8 +44,9 @@ remain subsequent Phase 6B freeze slices.
 - This change adds an exact manifest-key baseline without introducing an extraction dependency or
   generating release artifacts.
 
-## Project-owner decision requested
+## Project-owner decision
 
-Approve the six-package entry-point baseline and the change policy above. Approval freezes package
-specifiers for the remaining Phase 6B work; it does not freeze inner symbols, choose versions, or
-authorize publication.
+On September 2, 2026, the project owner approved and directed the merge of the six-package
+entry-point baseline and change policy above. That approval freezes package specifiers for the
+remaining Phase 6B work; it does not freeze inner symbols, choose versions, or authorize
+publication.
