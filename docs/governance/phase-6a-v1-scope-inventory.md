@@ -1,8 +1,9 @@
 # Phase 6A proposed v1 scope inventory
 
-**Status:** Proposed on September 2, 2026. This inventory is the first Phase 6A scope decision. It
-does not change a package version or privacy field, publish to npm, create a tag or workflow, change
-repository visibility, deploy documentation, or claim support beyond completed evidence.
+**Status:** Accepted by the project owner on September 2, 2026. This inventory completes the Phase
+6A package-disposition decision and activates Phase 6B stabilization. It does not change a package
+version or privacy field, publish to npm, create a tag or workflow, change repository visibility,
+deploy documentation, or claim support beyond completed evidence.
 
 ## Recommendation
 
@@ -333,9 +334,9 @@ release units.
 12. Run the complete affected automated, browser, manual, visual, package, dependency, license,
     security, and documentation matrix before accepting the scope-freeze commit.
 
-## Decisions requested
+## Project-owner decision
 
-The project owner is asked to accept:
+On September 2, 2026, the project owner approved and directed the merge of:
 
 1. the six-package v1 release scope;
 2. exclusion of `@wayglass/testing` and all other named private artifacts;
@@ -345,5 +346,5 @@ The project owner is asked to accept:
    being inferred; and
 5. the Phase 6B correction list as the only authorized stabilization scope.
 
-Acceptance passes the Phase 6A package-disposition portion of `P6-E01` and activates Phase 6B
+That acceptance passes the Phase 6A package-disposition portion of `P6-E01` and activates Phase 6B
 planning. It does not yet freeze exact public symbols, approve versions, or authorize publication.
