@@ -1,251 +1,245 @@
-# Phase 6 real-world validation and v1 readiness roadmap
+# Phase 6 v1 release and feedback-readiness roadmap
 
-**Status:** Accepted by the project owner on September 2, 2026. Phase 6A is active. No application
-integration, package release, repository-visibility change, npm action, Cloudflare implementation,
-deployment, credential, or public support claim is authorized until the relevant stage and approval
-gate below is accepted.
+**Status:** Corrected by the project owner on September 2, 2026. Phase 6A is active. No package
+publication, repository-visibility change, npm action, Cloudflare implementation, deployment,
+credential use, or public support claim is authorized until its specific gate below is accepted.
 
-Phase 6 turns Wayglass from a thoroughly tested private system into an evidence-based v1 candidate.
-It follows the [Phase 5 final disposition](./phase-5-roadmap-disposition.md), which directs the next
-planning activity to begin with a real-world application, derive v1 scope from that pressure, and
-keep npm publication and Cloudflare deployment as separately approved operations.
+Phase 6 turns the private system completed in Phases 0–5 into a defined, documented, independently
+installable Wayglass v1 release. It derives v1 from the evidence already accumulated in this
+repository, releases Wayglass for external use, and only then receives real-world feedback.
 
-The project owner confirmed a client for [SpaceTraders](https://spacetraders.io) as the first
-real-world consumer. Phase 6A must still record the client's exact name, repository, access path,
-technology stack, owners, and accepted application charter before integration work starts.
+The project owner intends a separate SpaceTraders client to be the first substantial consumer. That
+application is not part of this repository, this roadmap's implementation, or this work task. Its
+architecture, repository, credentials, deployment, and use of Wayglass belong to its own project.
+SpaceTraders feedback may later enter Wayglass as sanitized issues or proposals through the same
+process as feedback from any other independent consumer.
 
 ## Phase objective
 
-Establish what Wayglass v1 should actually promise by integrating private candidate artifacts into
-one independently owned application, observing their behavior under real workflows and data, fixing
-only demonstrated domain-neutral gaps, and then preparing separately reviewed release and
-documentation-delivery proposals.
+Define the smallest credible Wayglass v1 contract; close its remaining release blockers; validate
+the exact packed artifacts in clean, domain-neutral consumers; publish only the approved packages;
+deliver accurate documentation and Storybook at the approved Cloudflare origin; and establish a
+controlled intake for post-release feedback.
 
-Phase 6 is successful if it produces a smaller, more credible public contract. It does not require
-every private candidate, example, experiment, or deferred ecosystem track to ship.
+Phase 6 is successful when an external application can install, understand, use, and remove the
+released packages without repository knowledge or maintainer intervention. A completed SpaceTraders
+application is not a Wayglass v1 prerequisite.
 
 ## Governing boundaries
 
-1. The consumer application owns its domain records, storage, transport, authentication,
-   authorization, routes, orchestration, analytics, privacy decisions, and business consequences.
-2. Wayglass owns only domain-neutral semantics, components, tokens, themes, framework bindings, and
-   documented public behavior accepted through reviewed evidence.
-3. Real application use is evidence, not automatic API promotion. Similar local code remains local
-   until a reusable contract and ownership boundary are demonstrated.
-4. The application repository does not become a Wayglass workspace package, fixture authority, or
-   release dependency.
-5. Private package consumption must be reproducible without publishing to npm and must test packed
-   artifacts rather than relying solely on monorepo workspace links.
-6. Production or personal data never enters Wayglass fixtures, screenshots, logs, issues, build
-   artifacts, or documentation. Sanitized synthetic reproductions are created only when needed.
-7. A Wayglass defect may be fixed during the application proof; a new public capability requires a
-   contract, tests, documentation, accessibility evidence, and consequential ADR where appropriate.
-8. Package publication, repository visibility, documentation deployment, walkthrough admission,
-   analytics, and public announcements remain independent state changes with independent approval.
+1. V1 scope comes from completed Wayglass contracts and evidence, not speculative consumer needs.
+2. Private artifacts remain excluded unless their existing evidence supports an explicit v1
+   decision.
+3. Clean-package consumers are release fixtures, not application frameworks or domain authorities.
+4. No external application repository becomes a Wayglass workspace package, fixture authority,
+   release dependency, or required validation environment.
+5. Package validation uses packed artifacts rather than workspace links or source imports.
+6. Production or personal consumer data, credentials, endpoints, screenshots, and logs never enter
+   Wayglass fixtures, issues, documentation, or build artifacts.
+7. Publication, repository visibility, documentation implementation, production deployment,
+   analytics, and public announcement are independent state changes with independent approval.
+8. Documentation describes the registry and deployed state truthfully; it must not present private
+   candidates as installable releases or previews as production.
+9. Post-release feedback is evidence, not automatic API promotion. Domain-specific behavior remains
+   in the consumer that owns it.
+10. All packages remain private and no Cloudflare resource changes until the corresponding accepted
+    stage explicitly authorizes implementation or execution.
 
 ## Work sequence
 
-### Phase 6A — Application nomination and battle-test charter
+### Phase 6A — V1 contract inventory and proposed scope
 
-Confirm the application before touching either codebase. The accepted charter must record:
+Create one exact inventory of the current production surface:
 
-- application name, repository, owner, access path, technology stack, rendering model, supported
-  devices, browsers, operating systems, and assistive-technology targets;
-- real users and the operational questions they must answer, without copying private user data;
-- workflows selected to exercise overview, focused functions, state axes, controls, forms, feedback,
-  dense data, temporal data, media, responsive layouts, and failure recovery;
-- existing application architecture and the exact boundary where Wayglass enters;
-- data classification, screenshot/log rules, credential ownership, secret handling, and deletion or
-  sanitization requirements;
-- the initial set of private Wayglass packages and why each is necessary;
-- baseline usability, accessibility, bundle, startup, update, memory, and maintenance measurements;
-- a rollback path that can remove Wayglass without corrupting application data or behavior; and
-- defect, candidate-gap, application-policy, and out-of-scope classification rules.
+- list every package, export, Custom Element, React wrapper, stylesheet, token, theme, icon,
+  subpath, event, public type, and testing or tooling candidate;
+- connect each proposed public item to its accepted contract, tests, documentation, accessibility
+  evidence, compatibility evidence, owner, and maintenance expectation;
+- identify breaking corrections, naming changes, deprecations, missing metadata, migration needs,
+  and unresolved carried gates;
+- propose foundation-family and independently versioned package membership under ADR 0031;
+- name every private artifact explicitly excluded from v1 and why;
+- define proposed browser, Node, React, rendering, device, and assistive-technology claims from
+  completed evidence only; and
+- record support, security, issue-triage, deprecation, and maintenance ownership.
 
-**Exit gate:** The project owner and application owner accept one charter. Without it, Phase 6 does
-not modify Wayglass or the consumer application.
+No new feature is added merely to make the inventory look complete. A missing contract is either a
+release blocker for an already-promised surface or an explicit exclusion.
 
-### Phase 6B — Reproducible private consumer integration
+**Exit gate:** The project owner accepts one exact proposed v1 scope and exclusion record. That
+acceptance authorizes stabilization work, not publication.
 
-Create a clean, reviewable integration path before broad feature work:
+### Phase 6B — Contract correction and scope freeze
 
-1. build exact private Wayglass packages from one committed source revision;
-2. produce and hash local tarballs without changing package privacy or contacting npm;
-3. install only the nominated artifacts into an isolated consumer branch or worktree;
-4. record package graph, styles, explicit Custom Element registration, React adaptation where used,
-   and client-only rendering behavior;
-5. prove clean install, typecheck, production build, startup, representative navigation, and
-   complete removal from the consumer;
-6. verify that the consumer receives no private tooling, examples, experiments, provider code, or
-   unrelated optional runtime; and
-7. establish a repeatable refresh procedure for later Wayglass candidate revisions.
+Resolve only the blockers identified by the accepted inventory:
 
-Local tarball or other private artifact mechanics are chosen in the charter. A filesystem shortcut
-that hides missing exports, metadata, peer ranges, or package contents is not sufficient evidence.
+1. correct public names, exports, types, tokens, styles, registration behavior, metadata, peer
+   ranges, documentation, tests, and accessibility gaps required by the proposed scope;
+2. add an ADR for any consequential contract or compatibility decision;
+3. preserve side-effect-free element imports and explicit Custom Element registration;
+4. keep framework-neutral behavior outside bindings and optional artifacts outside foundation;
+5. re-run affected browser, accessibility, visual, performance, packaging, and compatibility
+   evidence;
+6. decide initial versions and compatibility ranges without assuming every package shares the
+   foundation version; and
+7. freeze one exact commit and public-surface inventory.
 
-**Exit gate:** One independently owned consumer builds and runs from inspected private artifacts,
-and removal restores its prior dependency and runtime boundary.
+A scope expansion returns to Phase 6A. Private usefulness does not imply v1 admission.
 
-### Phase 6C — Real workflow and stress validation
+**Exit gate:** The project owner accepts one exact v1 scope-freeze commit with no unresolved
+severity-one or severity-two release blocker.
 
-Implement the chartered workflows in slices. Each slice begins with current Wayglass composition and
-adds framework-neutral package behavior only when the real application demonstrates a gap.
+### Phase 6C — Release-candidate and independent-consumer proof
 
-Validation must include, where applicable:
+Prove the frozen packages without contacting npm:
 
-- orientation, first-glance recognition, investigation, action, confirmation, failure, retry,
-  recovery, and durable outcome;
-- simultaneous overview and focused Function Deck compositions;
-- independent condition, knowledge, activity, Boolean, scalar, trend, freshness, confidence,
-  request, and confirmed-effect meaning;
-- realistic empty, loading, stale, unavailable, partial, error, long-content, and maximum-data
-  states;
-- identifying media and focused inspection without making images the sole instruction or evidence;
-- phone, tablet, desktop, and any wall or kiosk presentation actually used by the application;
-- keyboard, pointer, touch, focus, zoom, 200% text, RTL mechanics, forced colors, grayscale, reduced
-  motion, and supported-browser behavior;
-- representative VoiceOver/Safari and NVDA/Firefox tasks for desktop release scope, plus iOS
-  VoiceOver if mobile assistive-technology support is proposed;
-- representative first-glance sessions and physical-device performance for any claim that depends on
-  them;
-- real persistence, network interruption, authorization denial, stale truth, concurrent updates, and
-  recovery at the application-owned port; and
-- bundle, startup, update, memory, and maintenance measurements against the Phase 6A baseline.
+- build each release unit from a clean checkout of the frozen commit;
+- run formatting, linting, type checking, unit, component, browser, accessibility, visual,
+  performance, documentation, and package-content gates required by its scope;
+- produce, inspect, and hash local tarballs in dependency order;
+- verify licenses, notices, repository metadata, exports, types, styles, source maps, side effects,
+  peer ranges, and absence of private files or secrets;
+- install the tarballs into clean domain-neutral Vanilla and React consumers outside the monorepo;
+- prove production build, runtime rendering, explicit registration, interaction, representative
+  semantics, and complete removal;
+- scan current dependencies, advisories, licenses, provenance inputs, and packed contents; and
+- record reproducible commands, environment versions, results, limitations, and artifact hashes.
 
-Every finding is classified as a Wayglass defect, missing domain-neutral contract, theme/token
-pressure, application-owned policy, provider/platform behavior, documentation gap, or unsupported
-request. The smallest responsible owner receives the fix.
+The consumers are minimal release probes. They do not implement SpaceTraders, another real product,
+or a new Wayglass example application.
 
-**Exit gate:** All chartered workflows have accepted evidence and no unresolved severity-one or
-severity-two Wayglass defect. Lower-severity limitations are owned and mapped to v1 impact.
+**Exit gate:** Every proposed v1 release unit passes the clean candidate matrix from the exact
+scope-freeze commit, or is removed from the release proposal.
 
-### Phase 6D — V1 contract and scope freeze
+### Phase 6D — Documentation and Storybook delivery implementation
 
-Use the consumer evidence to decide the initial public surface:
+Prepare the unified Cloudflare delivery described by ADR 0032 without launching production:
 
-- list every package and export proposed for v1 and every private artifact explicitly excluded;
-- identify contract corrections, deprecations, naming changes, token changes, and migration needs;
-- select initial versions and compatibility ranges without assuming every package shares the
-  foundation version;
-- define supported browsers, Node versions, React versions, rendering modes, devices, and
-  assistive-technology claims from completed evidence only;
-- close or explicitly exclude each carried Phase 5 gate affected by the proposed surface;
-- define public documentation, examples, Storybook stories, security reporting, maintenance,
-  deprecation, and support ownership;
-- complete package metadata, public-helper inventory, icon compatibility record, changelog baseline,
-  and release-note structure; and
-- run the complete clean candidate matrix at the exact scope-freeze commit.
+- verify the Cloudflare account, zone, exact hostname, existing DNS, route conflicts, access, and
+  operational owners;
+- confirm the intended documentation origin spelling before any DNS or route change;
+- decide repository and content visibility and re-check current Cloudflare platform guidance;
+- implement deterministic documentation and Storybook composition with a source manifest;
+- prove Storybook under `/storybook/` without rewriting generated output;
+- define routing, headers, cache behavior, CSP, 404s, canonical URLs, preview `noindex`, rollback,
+  and incident response;
+- make installation, package status, versions, compatibility, limitations, support, and migration
+  guidance match the frozen candidate exactly; and
+- admit no walkthrough, analytics, or consumer material without its own privacy, accessibility,
+  support, and ownership decision.
 
-A private artifact may remain useful without entering v1. Native visualization, token tooling, icon
-tooling, testing helpers, or the React binding each require their own evidence and release decision.
+Preview infrastructure and URLs must be clearly non-production and must not claim that npm packages
+exist before registry verification.
 
-**Exit gate:** The project owner accepts one exact v1 scope-freeze record. Scope changes after that
-point require a reviewed revision and repeated affected evidence.
+**Exit gate:** The implementation and preview evidence are accepted. Production launch remains a
+separate decision.
 
-### Phase 6E — Initial npm release proposal
+### Phase 6E — Initial npm release
 
-Prepare, but do not execute, the exact initial-release proposal required by the accepted
-[release-governance contract](./governance/release-governance.md). It must name:
+Prepare and execute only the exact proposal required by the accepted release-governance contract:
 
-- release units, versions, dependency order, commit, tags, dist-tags, packed hashes, and contents;
-- repository-visibility decision and public-source history review;
-- package metadata, compatibility, known limitations, owners, and support channels;
-- clean install/build/runtime consumers outside the monorepo;
-- current dependency, advisory, license, notice, provenance, and secret scans;
-- protected GitHub workflow, pinned actions, minimal permissions, npm organization controls,
-  maintainer 2FA, recovery contacts, and first-package bootstrap method;
-- partial-failure, deprecation, withdrawal, and incident recovery; and
-- required human approval immediately before any registry or visibility change.
+- name release units, versions, dependency order, commit, tags, dist-tags, hashes, contents,
+  compatibility, known limitations, owners, and support channels;
+- decide repository visibility and complete the public-source history review if visibility changes;
+- verify protected GitHub workflow behavior, pinned actions, minimal permissions, npm organization
+  controls, maintainer 2FA, recovery contacts, provenance, and first-package bootstrap mechanics;
+- rehearse partial failure, withdrawal, deprecation, and incident recovery;
+- obtain human approval immediately before any registry, tag, or visibility change;
+- publish in the accepted dependency order without rebuilding the approved artifacts; and
+- verify registry contents, provenance, versions, dist-tags, clean installs, and imports before
+  calling the release available.
 
-**Exit gate:** A separately reviewed publish proposal is accepted. Phase 6 planning and candidate
-success alone never remove `private: true`, change versions, expose the repository, create tags, or
-contact npm.
+If approval is withheld, Phase 6 may retain a validated private candidate. Planning success never
+removes `private: true`, changes versions, creates tags, or contacts npm by implication.
 
-### Phase 6F — Documentation and Storybook delivery proposal
+**Exit gate:** The approved packages are independently installable from npm and registry
+verification matches the frozen proposal, or the no-release disposition is recorded.
 
-Prepare the Cloudflare implementation and launch sequence under
-[ADR 0032](./architecture/adr/0032-unified-cloudflare-documentation-delivery.md). The proposal must
-satisfy all ten carried gates:
+### Phase 6F — Production documentation launch
 
-- verify zone, hostname, account, existing DNS, route conflicts, and operational owners;
-- decide repository and content visibility;
-- re-check current Cloudflare platform guidance and justify any dependency;
-- implement and test deterministic surface composition and its source manifest;
-- prove Storybook under `/storybook/` without output rewriting;
-- admit no walkthrough until its own content, privacy, accessibility, support, and base-path record
-  passes;
-- define path-aware routing, headers, cache behavior, CSP, 404s, canonical URLs, and preview
-  `noindex` behavior;
-- validate previews against the exact release documentation and package state;
-- rehearse promotion, custom-domain attachment, rollback, and incident response; and
-- require separate implementation and production-launch approvals.
+After package status can be described truthfully:
 
-Documentation implementation may precede package publication, but public pages must describe private
-candidates honestly until registry verification is complete. Analytics remains absent unless
-separately proposed with privacy, consent, retention, and ownership decisions.
+- update the production source identity and package-installation state;
+- run the complete production-content, link, route, header, CSP, accessibility, privacy, and
+  rollback checks;
+- obtain separate approval for DNS, route, or production deployment changes;
+- promote the accepted immutable artifact rather than rebuilding it;
+- attach the approved custom hostname and verify canonical URLs, `/storybook/`, 404s, caching,
+  source identity, support contacts, and rollback; and
+- announce availability only after npm and production-site verification both pass.
 
-**Exit gate:** The implementation proposal and later launch approval pass independently. No Phase 6
-application or npm decision implicitly deploys the site.
+Documentation may launch while packages remain private only if it says so clearly and the project
+owner approves that independent outcome. Analytics remains absent unless separately proposed.
 
-### Phase 6G — Initial release feedback and roadmap disposition
+**Exit gate:** The approved documentation and Storybook artifact is verified at the production
+origin, or the no-launch disposition is recorded.
 
-After any separately approved publication and deployment:
+### Phase 6G — External feedback intake and roadmap disposition
 
-- verify registry artifacts, provenance, install instructions, deployed source identity, links,
-  headers, routing, rollback, and support contacts before announcing availability;
-- collect feedback without sending application data or hidden telemetry;
-- triage defects, contract gaps, documentation gaps, feature requests, and domain-specific requests
-  separately;
-- compare real-world and external-consumer results with the v1 claims;
-- issue corrections through the accepted release and deployment recovery paths; and
-- close Phase 6 with an explicit disposition for retained private work and the next roadmap.
+Once v1 is available, independent applications may test it in their own repositories and tasks.
+Wayglass receives only sanitized, reproducible findings that identify:
 
-If publication or deployment is not approved, Phase 6 may close at a validated private v1 candidate
-with those later stages still explicitly unexecuted.
+- released version, package, public contract, environment, task, expected behavior, observed
+  behavior, severity, workaround, and removal impact;
+- whether the finding is a Wayglass defect, documentation gap, compatibility gap, ergonomic issue,
+  missing domain-neutral capability, consumer-owned policy, provider behavior, or unsupported
+  request; and
+- the smallest responsible owner and required regression evidence.
+
+The planned SpaceTraders client is one such consumer, not a privileged source of requirements.
+Wayglass work may link to its sanitized findings but does not coordinate its implementation,
+credentials, data, deployment, or architecture here.
+
+Close Phase 6 with verified release and deployment results, initial feedback disposition, retained
+private artifacts, known limitations, and the next roadmap. If publication or deployment was not
+approved, record the validated private outcome and its remaining gates instead.
+
+**Exit gate:** Released or retained outcomes are verified, feedback received to date is owned, and
+the project owner accepts the final disposition.
 
 ## Cross-stage evidence gates
 
-| Evidence ID | Claim                                                                   | Required evidence                                                                                                                     | Authority                                                            |
-| ----------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| `P6-E01`    | One real application is a valid independent consumer                    | Accepted charter, owners, architecture, workflows, privacy boundary, baseline, and rollback                                           | Project owner and application owner                                  |
-| `P6-E02`    | Private package consumption is reproducible and isolated                | Exact-source tarballs or accepted private artifacts, hashes, clean install/build/run/removal, and dependency audit                    | Application owner and Wayglass maintainer                            |
-| `P6-E03`    | Wayglass supports the selected real workflows within recorded limits    | Workflow, adverse-state, responsive, accessibility, browser, device, performance, and recovery evidence                               | Application owner, representative reviewers, and Wayglass maintainer |
-| `P6-E04`    | V1 scope contains only evidence-backed public contracts                 | Accepted package/export inventory, compatibility and support matrix, carried-gate disposition, clean candidate validation             | Project owner and release owner                                      |
-| `P6-E05`    | An initial npm release is ready for a human go/no-go decision           | Complete release proposal, packed artifacts, external consumers, registry prerequisites, provenance, security, and recovery rehearsal | Project owner and release owner                                      |
-| `P6-E06`    | Documentation delivery is ready for implementation and launch decisions | ADR 0032 gate completion, composed preview, accessibility/privacy/security checks, owners, and rollback rehearsal                     | Project owner and deployment owner                                   |
-| `P6-E07`    | Released or retained outcomes are verified and dispositioned            | Registry and deployment verification when executed, feedback triage, limitations, corrective results, and final roadmap disposition   | Project owner                                                        |
+| Evidence ID | Claim                                                           | Required evidence                                                                                                     | Authority                          |
+| ----------- | --------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ---------------------------------- |
+| `P6-E01`    | V1 scope contains only evidence-backed contracts                | Accepted package/export inventory, compatibility and support proposal, exclusions, carried-gate disposition           | Project owner and release owner    |
+| `P6-E02`    | The frozen v1 contracts are internally complete                 | Corrected contracts, tests, documentation, ADRs, compatibility ranges, exact freeze commit                            | Project owner and maintainers      |
+| `P6-E03`    | Release artifacts are reproducible and independently consumable | Clean matrix, inspected tarballs and hashes, Vanilla and React install/build/run/removal, security and license checks | Release owner                      |
+| `P6-E04`    | Documentation delivery is ready for launch review               | ADR 0032 gates, immutable preview, accurate package state, accessibility/privacy/security checks, rollback            | Project owner and deployment owner |
+| `P6-E05`    | The initial npm release is verified                             | Approved proposal, registry artifacts, provenance, clean installs, recovery evidence                                  | Project owner and release owner    |
+| `P6-E06`    | Documentation and Storybook are verified in production          | Approved promotion, origin and route checks, source identity, headers, rollback, support links                        | Project owner and deployment owner |
+| `P6-E07`    | Post-release outcomes are controlled and dispositioned          | Sanitized feedback, classification, corrective results, limitations, final roadmap disposition                        | Project owner                      |
 
 ## Stop and correction rules
 
 Stop the affected stage if:
 
-1. consumer data, credentials, private endpoints, or identifying screenshots enter Wayglass;
-2. integration requires Wayglass to own the application's domain model or policy;
-3. a workspace link or source import hides a package/export/peer/metadata defect;
-4. an import registers Custom Elements as a side effect;
-5. a requested abstraction lacks repeated domain-neutral behavior and a clear owner;
-6. automated or inferred evidence is presented as observed human or live-system evidence;
-7. a carried gate is silently dropped, weakened, or generalized;
-8. a package, repository, npm, Cloudflare, DNS, analytics, or public claim changes without its exact
-   approval; or
-9. the application cannot remove Wayglass without losing its own data or behavior.
+1. a proposed v1 item lacks an accepted public contract, evidence, owner, or removal path;
+2. a workspace link or source import hides a package, export, peer, metadata, or side-effect defect;
+3. an import registers Custom Elements as a side effect;
+4. private tooling, examples, provider code, secrets, or consumer data enter a packed artifact;
+5. a release is rebuilt after its accepted hashes are recorded;
+6. automated evidence is presented as observed human, assistive-technology, physical-device, live-
+   service, registry, or production evidence;
+7. documentation claims a package, compatibility level, or deployed behavior that is not verified;
+8. a package, repository, npm, Cloudflare, DNS, analytics, or public announcement changes without
+   its exact approval;
+9. external application work is brought into the Wayglass repository or treated as a release gate;
+   or
+10. a consumer request lacks domain-neutral evidence and a clear Wayglass owner.
 
 A correction restores the accepted boundary. Material scope expansion returns to the project owner
-for a roadmap or charter revision.
+and repeats all affected evidence.
 
-## Project-owner decision
+## Project-owner correction
 
-On September 2, 2026, the project owner approved and directed the merge of these decisions:
+On September 2, 2026, the project owner clarified the intended order and ownership:
 
-1. Phase 6 as the real-world validation and v1-readiness phase;
-2. a SpaceTraders client as the first consumer, with its exact repository and integration context
-   recorded in Phase 6A;
-3. application proof before v1 scope freeze;
-4. private packed-artifact consumption before any npm publication;
-5. separate Phase 6E npm and Phase 6F Cloudflare approval gates; and
-6. the possibility that Phase 6 closes with a private v1 candidate if publication or deployment is
-   not approved.
+1. finish Wayglass v1 using the evidence already accumulated in this repository;
+2. publish the approved npm packages and deliver documentation and Storybook through separately
+   approved release and deployment steps;
+3. build and operate the SpaceTraders client later as a separate project; and
+4. use that client and other independent consumers for real-world post-release feedback.
 
-That approval activates Phase 6A charter work. It does not authorize application integration, npm
-publication, repository-visibility changes, Cloudflare implementation or launch, credentials, or a
-public support claim.
+This correction supersedes the earlier proposal to make SpaceTraders integration a prerequisite for
+the Wayglass v1 scope freeze. It activates Phase 6A v1 inventory work and authorizes no external
+application activity.
