@@ -28,6 +28,8 @@ Accessibility, legal, safety, and security requirements override that order wher
 
 Supporting foundations:
 
+- [`docs/phase-6.md`](./docs/phase-6.md) proposes the real-world application, v1 scope, initial npm
+  release, documentation delivery, and feedback sequence without authorizing implementation.
 - [`docs/phase-5.md`](./docs/phase-5.md) defines the completed gated ecosystem roadmap for release
   governance, application guidance, token interchange, charts, icon and design tooling, Home
   Assistant, and demand-driven framework wrappers.
