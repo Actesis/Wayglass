@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
+import * as publicApi from '../src/index.js';
+
 import { tokens } from '@wayglass/tokens';
 import type { TokenName } from '@wayglass/tokens';
 import {
@@ -46,6 +48,23 @@ function themeColor(theme: ThemeName, target: TokenName): string {
 }
 
 describe('themes', () => {
+  it('exports only the accepted v1 root runtime symbols', () => {
+    expect(Object.keys(publicApi).sort()).toEqual(
+      [
+        'createThemeCss',
+        'densityNames',
+        'densityTokenOverrides',
+        'isDensityName',
+        'isThemeName',
+        'isThemeSelectionName',
+        'resolveSystemTheme',
+        'themeNames',
+        'themeSelectionNames',
+        'themeTokenOverrides',
+      ].sort(),
+    );
+  });
+
   it('lists implemented themes and densities', () => {
     expect(themeNames).toEqual(['wayglass-dark', 'wayglass-light']);
     expect(densityNames).toEqual(['compact', 'comfortable']);
