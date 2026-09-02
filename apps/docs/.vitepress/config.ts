@@ -22,6 +22,10 @@ export default defineConfig({
         text: 'System',
         items: [
           { text: 'Phase 6 v1 roadmap', link: '/phase-6' },
+          {
+            text: 'Phase 6A v1 scope inventory',
+            link: '/governance/phase-6a-v1-scope-inventory',
+          },
           { text: 'Phase 5 ecosystem roadmap', link: '/phase-5' },
           { text: 'Phase 5 roadmap disposition', link: '/phase-5-roadmap-disposition' },
           {

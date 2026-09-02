@@ -23,4 +23,6 @@ private, guidance-only, rejected, and deferred outcomes. Review the
 [Operations Overview](/examples/operations-overview) and [Function Deck](/patterns/function-deck).
 The [Phase 6 roadmap](/phase-6) completes the v1 contract, validates independently installable
 packages, and prepares the npm release and Cloudflare-hosted documentation before real-world
-consumer feedback begins.
+consumer feedback begins. Review the proposed
+[Phase 6A v1 scope inventory](/governance/phase-6a-v1-scope-inventory) for the initial package and
+compatibility decisions.
