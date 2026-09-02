@@ -4,16 +4,17 @@ Wayglass is a design language for operational awareness. It helps people underst
 doing, what changed, what needs attention, and what they can do next.
 
 The Phase 0 foundations, Phase 1 domain-neutral vertical slice, Phase 2 core system, Phase 3
-operational components, and Phase 4 reference domains are complete. Framework-neutral Custom
-Elements, typed React wrappers, and production-backed Storybook fixtures cover generic layout,
-selection, controls, forms, feedback, modal media inspection, scalar and telemetry data, status and
-temporal collections, filter and command compositions, and native operational tables. The integrated
-Operational Activity workspace has equivalent Vanilla and React routes, while Cedar House, Northline
-Cold Storage, and Harbor Lab provide isolated domain proofs. Accessibility, responsive behavior,
-visual states, performance bounds, and supported-browser behavior are recorded in phase-specific
-validation matrices. Wayglass is licensed under Apache-2.0. The `@wayglass` npm organization and
-planned documentation origin at [`wayglass.hoagsoftworks.com`](https://wayglass.hoagsoftworks.com)
-are confirmed; all packages remain private until a separate release proposal is approved.
+operational components, Phase 4 reference domains, and Phase 5 ecosystem roadmap are complete.
+Framework-neutral Custom Elements, typed React wrappers, and production-backed Storybook fixtures
+cover generic layout, selection, controls, forms, feedback, modal media inspection, scalar and
+telemetry data, status and temporal collections, filter and command compositions, and native
+operational tables. The integrated Operational Activity workspace has equivalent Vanilla and React
+routes, while Cedar House, Northline Cold Storage, and Harbor Lab provide isolated domain proofs.
+Accessibility, responsive behavior, visual states, performance bounds, and supported-browser
+behavior are recorded in phase-specific validation matrices. Wayglass is licensed under Apache-2.0.
+The `@wayglass` npm organization and planned documentation origin at
+[`wayglass.hoagsoftworks.com`](https://wayglass.hoagsoftworks.com) are confirmed; all packages
+remain private until a separate release proposal is approved.
 
 ## Governing documents
 
@@ -27,9 +28,12 @@ Accessibility, legal, safety, and security requirements override that order wher
 
 Supporting foundations:
 
-- [`docs/phase-5.md`](./docs/phase-5.md) defines the accepted gated ecosystem roadmap for release
+- [`docs/phase-5.md`](./docs/phase-5.md) defines the completed gated ecosystem roadmap for release
   governance, application guidance, token interchange, charts, icon and design tooling, Home
   Assistant, and demand-driven framework wrappers.
+- [`docs/phase-5-roadmap-disposition.md`](./docs/phase-5-roadmap-disposition.md) closes Phase 5 with
+  private packages, undeployed documentation, and explicit real-world, release, deployment, and
+  support gates.
 - [`docs/phase-4.md`](./docs/phase-4.md) maps the completed smart-home, operations-console, and
   AI-agent-supervision reference applications to their common acceptance criteria.
 - [`docs/phase-4-roadmap-disposition.md`](./docs/phase-4-roadmap-disposition.md) closes Phase 4 and

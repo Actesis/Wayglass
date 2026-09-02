@@ -10,14 +10,14 @@ hero:
       text: Explore the foundations
       link: /foundations/
     - theme: alt
-      text: Review the Phase 5 roadmap
-      link: /phase-5
+      text: Review the Phase 5 outcome
+      link: /phase-5-roadmap-disposition
 ---
 
-The Phase 0 foundations, Phase 1 domain-neutral vertical slice, Phase 2 core system, Phase 3
-operational components, and Phase 4 reference domains are complete. Cedar House, Northline Cold
-Storage, and Harbor Lab prove the design language across three isolated application contexts. Review
-the active [Phase 5 ecosystem roadmap](/phase-5), the completed
+Phases 0 through 5 are complete. Cedar House, Northline Cold Storage, and Harbor Lab prove the
+design language across three isolated application contexts, while Phase 5 records the ecosystem's
+private, guidance-only, rejected, and deferred outcomes. Review the
+[Phase 5 roadmap disposition](/phase-5-roadmap-disposition), the completed
 [Phase 4 reference-domain plan](/phase-4) and its
 [roadmap disposition](/phase-4-roadmap-disposition), or explore the
 [Operations Overview](/examples/operations-overview) and [Function Deck](/patterns/function-deck).

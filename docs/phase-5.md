@@ -1,17 +1,19 @@
 # Phase 5 ecosystem roadmap
 
-**Status:** Accepted on August 14, 2026. Phases 5A, 5B, 5C, 5D-A, 5E, and 5F are complete. Phase
-5D-B is deferred. The project owner accepted the Phase 5F framework-wrapper exploration as deferred
-on September 1, 2026: no named non-React consumer, direct-use gap, or framework compatibility
-maintainer currently exists. No additional wrapper, dependency, package, prototype, or compatibility
-claim is authorized. The
+**Status:** Complete. Accepted on August 14, 2026 and closed by the project owner on September 2,
+2026 through the [final roadmap disposition](./phase-5-roadmap-disposition.md). Phases 5A, 5B, 5C,
+5D-A, 5E, 5F, and 5G are complete; Phase 5D-B is deferred. The project owner accepted the Phase 5F
+framework-wrapper exploration as deferred on September 1, 2026: no named non-React consumer,
+direct-use gap, or framework compatibility maintainer currently exists. No additional wrapper,
+dependency, package, prototype, or compatibility claim is authorized. The
 [Phase 5G ecosystem closeout plan](./accessibility/phase-5g-closeout-plan.md) was accepted by the
 project owner on September 1, 2026. Stages 5G-A through 5G-C complete the lifecycle ledger,
 repository baseline, clean integrated checks, supported-browser matrix, package and isolation audit,
 and dated security, advisory, license, and provenance review. Stage 5G-D completes the fresh local
-documentation-system and undeployed-Cloudflare-boundary audit. Stage 5G-E now completes the
-carried-gate reconciliation and presents the proposed roadmap disposition; project-owner acceptance
-is the remaining Phase 5 gate. Every ecosystem track requires its own accepted charter before
+documentation-system and undeployed-Cloudflare-boundary audit. Stage 5G-E completes the carried-gate
+reconciliation and final roadmap disposition. `P5G-E01` through `P5G-E10` pass. Every package
+remains private and the documentation system remains undeployed; release and deployment require
+separate accepted proposals. Every ecosystem track requires its own accepted charter before
 implementation, and an exploration may conclude with no new package.
 
 Phase 5 extends Wayglass beyond the core design language and its three reference domains. `SPEC.md`
@@ -286,8 +288,7 @@ removed only the superseded executable experiment, proof-only browser cases, roo
 commands, and migration-only coordinate oracle after project-owner review. The nine historical
 evidence records and all permanent behavior coverage remain, as mapped in the
 [Phase 5D icon-tooling cleanup](/accessibility/phase-5d-icon-tooling-cleanup). Phase 5D-A is
-complete. Phase 5D-B remains deferred. Phases 5E and 5F are complete; Phase 5G is the next active
-Phase 5 milestone.
+complete. Phase 5D-B remains deferred. Phases 5E, 5F, and 5G are complete.
 
 Phase 5D-B design-library work was deferred by the project owner on August 29, 2026. It may restart
 only when a named Figma workspace, access model, exact target versions, reviewer, backup policy,
@@ -380,8 +381,9 @@ audits. Every package remains private and not release-ready. Stage 5G-D passes `
 `P5G-E08` after fresh VitePress, Storybook, example, token, and icon builds; documentation coherence
 corrections; link, import, claim, privacy, and output checks; and a complete map of ADR 0032's
 unimplemented deployment gates. Stage 5G-E passes `P5G-E09` by recording the complete carried-gate
-ledger and presents the [proposed roadmap disposition](./phase-5-roadmap-disposition.md). `P5G-E10`
-and Phase 5 completion remain pending project-owner acceptance.
+ledger. The project owner's September 2 acceptance of the
+[final roadmap disposition](./phase-5-roadmap-disposition.md) passes `P5G-E10` and completes
+Phase 5.
 
 - run the complete repository and accepted ecosystem validation matrices;
 - verify optional packages do not enlarge core install, runtime, registration, or support behavior;

@@ -1,9 +1,9 @@
 # Phase 5G integrated validation
 
-**Status:** Stages 5G-A through 5G-D and the Stage 5G-E carried-gate reconciliation completed on
-September 1, 2026. `P5G-E01` through `P5G-E09` pass. `P5G-E10` and Phase 5 completion remain pending
-project-owner review of the proposed roadmap disposition; this record does not authorize
-publication, deployment, candidate promotion, or a new compatibility or support claim.
+**Status:** Complete. Stages 5G-A through 5G-D and the Stage 5G-E carried-gate reconciliation
+completed on September 1, 2026. The project owner accepted the final roadmap disposition on
+September 2, 2026; `P5G-E01` through `P5G-E10` pass and Phase 5 is complete. This record does not
+authorize publication, deployment, candidate promotion, or a new compatibility or support claim.
 
 This is the cumulative evidence record for the accepted
 [Phase 5G closeout plan](./phase-5g-closeout-plan.md). Results are added by stage so an unavailable,
@@ -502,10 +502,10 @@ security-response, or consumer-support promises. Token and icon tooling remain p
 infrastructure; native visualization remains private evidence; Home Assistant remains guidance only;
 Figma and additional-framework work remain deferred. The rejected uPlot and D3 code does not return.
 
-Drafting and validating that complete decision record does not satisfy the human approval itself.
-`P5G-E10` remains pending until the project owner accepts or revises
-`phase-5-roadmap-disposition.md`. No package, repository, npm, Cloudflare, DNS, provider,
-design-tool, or support state changed during Stage 5G-E.
+Drafting and validating that complete decision record did not satisfy the human approval itself. On
+September 2, 2026, the project owner approved the five decisions and directed their merge. That
+acceptance passes `P5G-E10`. No package, repository, npm, Cloudflare, DNS, provider, design-tool, or
+support state changed during Stage 5G-E.
 
 ### Stage-change validation
 
@@ -516,21 +516,21 @@ new page and the include-containment test passed.
 
 ## Evidence status
 
-| Evidence ID | Result  | Basis and limitation                                                                                                                                                                               |
-| ----------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `P5G-E01`   | Passed  | Every started track has one accepted state, retained boundary, cleanup result, unsupported-claim boundary, and objective gate. The one vocabulary mismatch was revisioned and corrected.           |
-| `P5G-E02`   | Passed  | A clean frozen install and isolated-cache repository check passed at `2665232`; every scheduled build, tooling check, typecheck, and unit task completed.                                          |
-| `P5G-E03`   | Passed  | The full three-engine matrix passed 1,458 cases with 48 explicit Chromium-only skips and no failure, retry, or flaky result.                                                                       |
-| `P5G-E04`   | Passed  | Static, packed, isolated-consumer, registration, dependency, and bundle checks preserve foundation direction; audit-only overrides are explicitly not registry-install evidence.                   |
-| `P5G-E05`   | Passed  | Seven local tarballs were inspected and hashed; contents, metadata, notices, maps, dependencies, licenses, advisories, provenance blocks, and release blockers are now explicit.                   |
-| `P5G-E06`   | Passed  | Source, outputs, maps, evidence, and configuration scans found no credential, personal-path, unexpected package network/storage, telemetry, lifecycle-script, or provider-runtime leak.            |
-| `P5G-E07`   | Passed  | Fresh same-revision builds, generated integrity, include and export checks, 20,156 internal-link checks, fixture ownership, privacy, claims, output inventories, and adverse results are recorded. |
-| `P5G-E08`   | Passed  | No deployment implementation or state exists; every ADR 0032 account, assembler, base-path, routing, header, ownership, preview, rollback, DNS, and launch prerequisite is mapped.                 |
-| `P5G-E09`   | Passed  | Every carried human, provider, device, consumer, design-tool, release, deployment, and battle-testing omission has an owner, exact treatment, and bounded claim impact.                            |
-| `P5G-E10`   | Pending | The complete proposed roadmap disposition exists, but final acceptance is reserved for project-owner review.                                                                                       |
+| Evidence ID | Result | Basis and limitation                                                                                                                                                                               |
+| ----------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `P5G-E01`   | Passed | Every started track has one accepted state, retained boundary, cleanup result, unsupported-claim boundary, and objective gate. The one vocabulary mismatch was revisioned and corrected.           |
+| `P5G-E02`   | Passed | A clean frozen install and isolated-cache repository check passed at `2665232`; every scheduled build, tooling check, typecheck, and unit task completed.                                          |
+| `P5G-E03`   | Passed | The full three-engine matrix passed 1,458 cases with 48 explicit Chromium-only skips and no failure, retry, or flaky result.                                                                       |
+| `P5G-E04`   | Passed | Static, packed, isolated-consumer, registration, dependency, and bundle checks preserve foundation direction; audit-only overrides are explicitly not registry-install evidence.                   |
+| `P5G-E05`   | Passed | Seven local tarballs were inspected and hashed; contents, metadata, notices, maps, dependencies, licenses, advisories, provenance blocks, and release blockers are now explicit.                   |
+| `P5G-E06`   | Passed | Source, outputs, maps, evidence, and configuration scans found no credential, personal-path, unexpected package network/storage, telemetry, lifecycle-script, or provider-runtime leak.            |
+| `P5G-E07`   | Passed | Fresh same-revision builds, generated integrity, include and export checks, 20,156 internal-link checks, fixture ownership, privacy, claims, output inventories, and adverse results are recorded. |
+| `P5G-E08`   | Passed | No deployment implementation or state exists; every ADR 0032 account, assembler, base-path, routing, header, ownership, preview, rollback, DNS, and launch prerequisite is mapped.                 |
+| `P5G-E09`   | Passed | Every carried human, provider, device, consumer, design-tool, release, deployment, and battle-testing omission has an owner, exact treatment, and bounded claim impact.                            |
+| `P5G-E10`   | Passed | The project owner accepted the complete roadmap disposition, keep-private decision, keep-undeployed decision, carried gates, and next-planning direction on September 2, 2026.                     |
 
-## Next stage
+## Closeout
 
-The project owner reviews `phase-5-roadmap-disposition.md`. Acceptance passes `P5G-E10` and closes
-Phase 5 without publishing or deploying; a requested revision keeps Phase 5 active until the
-decision record is corrected and accepted.
+Phase 5 is complete without publishing or deploying. The next formal planning activity centers the
+intended real-world application and v1 scope, followed by separately reviewed npm release and
+Cloudflare implementation proposals. This closeout does not authorize those successor scopes.

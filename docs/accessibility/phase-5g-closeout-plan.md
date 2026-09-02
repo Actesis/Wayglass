@@ -172,7 +172,7 @@ does not close merely because commands pass.
 | `P5G-E07`   | 5G-D  | Documentation surfaces and generated artifacts agree at one source revision                                             | Build and inspect VitePress, Storybook, examples, token outputs, icon outputs, links, hashes, claims, and source identity                                          | Documentation-system audit                 | Passed         | Blocks phase closeout for drift; does not deploy                                                |
 | `P5G-E08`   | 5G-D  | Cloudflare implementation and public walkthroughs remain outside current authority                                      | Verify absence of deployment configuration/output and map every ADR 0032 implementation gate                                                                       | Deployment-boundary audit                  | Passed         | Separate implementation and launch approval required                                            |
 | `P5G-E09`   | 5G-E  | Human, provider, device, design-tool, consumer, and operational omissions have owners and exact impacts                 | Reconcile all carried ledgers; preserve completed evidence and prohibit broader inference                                                                          | Carried-gate ledger                        | Passed         | Blocks only the corresponding release/support claim unless the final disposition says otherwise |
-| `P5G-E10`   | 5G-E  | Final Phase 5 outcomes and release/deployment decisions are explicit                                                    | Project-owner review of integrated evidence and roadmap disposition                                                                                                | `phase-5-roadmap-disposition.md`           | Pending        | Required for Phase 5 completion                                                                 |
+| `P5G-E10`   | 5G-E  | Final Phase 5 outcomes and release/deployment decisions are explicit                                                    | Project-owner review of integrated evidence and roadmap disposition                                                                                                | `phase-5-roadmap-disposition.md`           | Passed         | Required for Phase 5 completion                                                                 |
 
 ## Carried-gate ledger
 
@@ -229,5 +229,5 @@ Phase 5G produces:
 2. `docs/phase-5-roadmap-disposition.md`, containing final accepted, private, guidance-only,
    rejected, deferred, release, deployment, and next-phase decisions.
 
-The project owner must approve the final disposition. Until then, the Phase 5 roadmap remains active
-even if all executable checks pass.
+The project owner accepted the final disposition on September 2, 2026. Phase 5 is complete with all
+packages private and the documentation system undeployed.
