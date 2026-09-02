@@ -1,5 +1,5 @@
 import { isDensityName, isThemeSelectionName, resolveSystemTheme } from '@wayglass/themes';
-import type { DensityName, Phase1ThemeName, ThemeSelectionName } from '@wayglass/themes';
+import type { DensityName, ThemeName, ThemeSelectionName } from '@wayglass/themes';
 import { css, html } from 'lit';
 import type { PropertyValues } from 'lit';
 
@@ -12,7 +12,7 @@ export type ThemeChangeSource = 'attribute' | 'system';
 
 export interface WgThemeChangeDetail {
   readonly theme: ThemeSelectionName;
-  readonly resolvedTheme: Phase1ThemeName;
+  readonly resolvedTheme: ThemeName;
   readonly source: ThemeChangeSource;
 }
 
@@ -39,7 +39,7 @@ export class WgThemeProvider extends WayglassElement {
   #theme: ThemeSelectionName = 'system';
   #density: DensityName = 'compact';
   #prefersDark = true;
-  #resolvedTheme: Phase1ThemeName = 'wayglass-dark';
+  #resolvedTheme: ThemeName = 'wayglass-dark';
   #systemPreference: MediaQueryList | undefined;
 
   get theme(): ThemeSelectionName {
@@ -62,7 +62,7 @@ export class WgThemeProvider extends WayglassElement {
     this.requestUpdate('density', previous);
   }
 
-  get resolvedTheme(): Phase1ThemeName {
+  get resolvedTheme(): ThemeName {
     return this.#resolvedTheme;
   }
 

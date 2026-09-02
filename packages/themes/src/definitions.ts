@@ -1,12 +1,10 @@
 import type { TokenName } from '@wayglass/tokens';
 
-export const phase1ThemeNames = ['wayglass-dark', 'wayglass-light'] as const;
-export const plannedThemeNames = ['wayglass-high-contrast', 'wayglass-dim'] as const;
+export const themeNames = ['wayglass-dark', 'wayglass-light'] as const;
 export const densityNames = ['compact', 'comfortable'] as const;
-export const themeSelectionNames = ['system', ...phase1ThemeNames] as const;
+export const themeSelectionNames = ['system', ...themeNames] as const;
 
-export type Phase1ThemeName = (typeof phase1ThemeNames)[number];
-export type PlannedThemeName = (typeof plannedThemeNames)[number];
+export type ThemeName = (typeof themeNames)[number];
 export type DensityName = (typeof densityNames)[number];
 export type ThemeSelectionName = (typeof themeSelectionNames)[number];
 
@@ -95,7 +93,7 @@ export const themeTokenOverrides = {
     'component.button.color.critical': 'color.reference.red.500',
     'component.confirmation.color.action-critical-text': 'color.reference.paper.50',
   },
-} as const satisfies Readonly<Record<Phase1ThemeName, TokenOverrides>>;
+} as const satisfies Readonly<Record<ThemeName, TokenOverrides>>;
 
 export const densityTokenOverrides = {
   compact: {
@@ -228,8 +226,8 @@ export const densityTokenOverrides = {
   },
 } as const satisfies Readonly<Record<DensityName, TokenOverrides>>;
 
-export function isPhase1ThemeName(value: unknown): value is Phase1ThemeName {
-  return typeof value === 'string' && phase1ThemeNames.some((name) => name === value);
+export function isThemeName(value: unknown): value is ThemeName {
+  return typeof value === 'string' && themeNames.some((name) => name === value);
 }
 
 export function isDensityName(value: unknown): value is DensityName {
@@ -237,9 +235,9 @@ export function isDensityName(value: unknown): value is DensityName {
 }
 
 export function isThemeSelectionName(value: unknown): value is ThemeSelectionName {
-  return value === 'system' || isPhase1ThemeName(value);
+  return value === 'system' || isThemeName(value);
 }
 
-export function resolveSystemTheme(prefersDark: boolean): Phase1ThemeName {
+export function resolveSystemTheme(prefersDark: boolean): ThemeName {
   return prefersDark ? 'wayglass-dark' : 'wayglass-light';
 }
