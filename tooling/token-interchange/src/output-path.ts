@@ -62,8 +62,14 @@ export async function resolveExchangeOutputPath(
   }
 
   const target = await canonicalTarget(resolve(launchDirectory, requestedPath));
+  const canonicalRepositoryRoot = await canonicalTarget(repositoryRoot);
+  if (target === canonicalRepositoryRoot) {
+    throw new Error(
+      'Private exchange output must be inside the repository or an operating-system temporary directory.',
+    );
+  }
   const roots = await Promise.all(
-    [repositoryRoot, tmpdir(), ...(process.platform === 'win32' ? [] : ['/tmp'])]
+    [canonicalRepositoryRoot, tmpdir(), ...(process.platform === 'win32' ? [] : ['/tmp'])]
       .filter((path, index, values) => values.indexOf(path) === index)
       .map(async (path) => canonicalTarget(path)),
   );

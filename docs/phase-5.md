@@ -6,9 +6,10 @@ on September 1, 2026: no named non-React consumer, direct-use gap, or framework 
 maintainer currently exists. No additional wrapper, dependency, package, prototype, or compatibility
 claim is authorized. The
 [Phase 5G ecosystem closeout plan](./accessibility/phase-5g-closeout-plan.md) was accepted by the
-project owner on September 1, 2026. Stage 5G-A reconciles the lifecycle ledger and repository
-baseline; Stage 5G-B is the next active milestone. Every ecosystem track requires its own accepted
-charter before implementation, and an exploration may conclude with no new package.
+project owner on September 1, 2026. Stages 5G-A and 5G-B complete the lifecycle ledger, repository
+baseline, clean integrated checks, and supported-browser matrix; Stage 5G-C is the next active
+milestone. Every ecosystem track requires its own accepted charter before implementation, and an
+exploration may conclude with no new package.
 
 Phase 5 extends Wayglass beyond the core design language and its three reference domains. `SPEC.md`
 names six ecosystem areas to explore: charts, Home Assistant integration, icon tooling, Figma
@@ -368,8 +369,11 @@ private and documentation undeployed while preserving every corresponding releas
 
 Stage 5G-A records the exact source and toolchain baseline, reconciles every Phase 5 lifecycle and
 retained artifact, and passes `P5G-E01` in the
-[integrated-validation ledger](./accessibility/phase-5g-integrated-validation.md). Stage 5G-B next
-runs the clean frozen install, uncached repository checks, and full supported-browser matrix.
+[integrated-validation ledger](./accessibility/phase-5g-integrated-validation.md). Stage 5G-B passes
+`P5G-E02` and `P5G-E03` after a clean frozen install, isolated-cache repository check, and the full
+1,506-case Chromium, Firefox, and WebKit matrix. Stage 5G-C next audits local package contents,
+isolation, dependency and peer graphs, security, privacy, advisories, provenance, notices, and
+licenses without publishing anything.
 
 - run the complete repository and accepted ecosystem validation matrices;
 - verify optional packages do not enlarge core install, runtime, registration, or support behavior;
