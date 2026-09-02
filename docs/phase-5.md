@@ -6,8 +6,9 @@ on September 1, 2026: no named non-React consumer, direct-use gap, or framework 
 maintainer currently exists. No additional wrapper, dependency, package, prototype, or compatibility
 claim is authorized. The
 [Phase 5G ecosystem closeout plan](./accessibility/phase-5g-closeout-plan.md) was accepted by the
-project owner on September 1, 2026. Stages 5G-A and 5G-B complete the lifecycle ledger, repository
-baseline, clean integrated checks, and supported-browser matrix; Stage 5G-C is the next active
+project owner on September 1, 2026. Stages 5G-A through 5G-C complete the lifecycle ledger,
+repository baseline, clean integrated checks, supported-browser matrix, package and isolation audit,
+and dated security, advisory, license, and provenance review; Stage 5G-D is the next active
 milestone. Every ecosystem track requires its own accepted charter before implementation, and an
 exploration may conclude with no new package.
 
@@ -371,9 +372,10 @@ Stage 5G-A records the exact source and toolchain baseline, reconciles every Pha
 retained artifact, and passes `P5G-E01` in the
 [integrated-validation ledger](./accessibility/phase-5g-integrated-validation.md). Stage 5G-B passes
 `P5G-E02` and `P5G-E03` after a clean frozen install, isolated-cache repository check, and the full
-1,506-case Chromium, Firefox, and WebKit matrix. Stage 5G-C next audits local package contents,
-isolation, dependency and peer graphs, security, privacy, advisories, provenance, notices, and
-licenses without publishing anything.
+1,506-case Chromium, Firefox, and WebKit matrix. Stage 5G-C passes `P5G-E04` through `P5G-E06` after
+local package, isolated-consumer, dependency, security, privacy, advisory, license, and provenance
+audits. Every package remains private and not release-ready. Stage 5G-D next verifies the local
+documentation system and preserves the unimplemented Cloudflare deployment boundary.
 
 - run the complete repository and accepted ecosystem validation matrices;
 - verify optional packages do not enlarge core install, runtime, registration, or support behavior;
