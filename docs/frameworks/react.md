@@ -5,8 +5,9 @@ wrappers add React property, event, and ref integration without duplicating comp
 
 ## Installation boundary
 
-The package remains private during Phase 2. Applications in this workspace consume it as a workspace
-dependency alongside `react` and `@wayglass/elements`.
+The package remains a private `0.0.0` release candidate. Applications in this workspace consume it
+as a workspace dependency alongside `react` and `@wayglass/elements`; this documentation is not an
+npm installation or public support claim.
 
 Every wrapper module registers its element when `customElements` is available. Importing a wrapper
 in a server environment is safe: registration is skipped, markup can render, and the element
@@ -33,27 +34,10 @@ Or use a side-effect-minimal component entry point:
 import { WgMetric } from '@wayglass/react/metric';
 ```
 
-Wrappers are available for all Phase 1 elements and the Phase 2A tabs compound elements:
-
-- `WgThemeProvider`
-- `WgCanvas`
-- `WgRail`
-- `WgElbow`
-- `WgPanel`
-- `WgButton`
-- `WgStatusIndicator`
-- `WgBooleanValue`
-- `WgMetric`
-- `WgMetricGroup`
-- `WgTrendIndicator`
-- `WgKeyValue`
-- `WgValueTile`
-- `WgTabs`
-- `WgTabList`
-- `WgTab`
-- `WgTabPanel`
-
-Each module also exports its corresponding `Props` type.
+Package-surface validation keeps every public JavaScript element subpath paired with a typed React
+entry point, from foundation and control elements through feedback, media, and operational-data
+elements. CSS-only exports remain owned by `@wayglass/elements`. Each wrapper module also exports
+its corresponding `Props` type.
 
 ## Properties and composition
 
