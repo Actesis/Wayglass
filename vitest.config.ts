@@ -6,7 +6,11 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['text', 'html'],
     },
-    include: ['packages/*/test/**/*.test.ts', 'examples/*/test/**/*.test.ts'],
+    include: [
+      'apps/docs/test/**/*.test.ts',
+      'packages/*/test/**/*.test.ts',
+      'examples/*/test/**/*.test.ts',
+    ],
     passWithNoTests: false,
   },
 });

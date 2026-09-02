@@ -7,8 +7,8 @@
   "scripts": {
     "build": "vitepress build",
     "dev": "vitepress dev",
-    "test": "vitest run --passWithNoTests",
-    "test:coverage": "vitest run --coverage --passWithNoTests",
+    "test": "vitest run --root ../.. apps/docs/test",
+    "test:coverage": "vitest run --coverage --root ../.. apps/docs/test",
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {

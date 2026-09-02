@@ -8,7 +8,8 @@ claim is authorized. The
 [Phase 5G ecosystem closeout plan](./accessibility/phase-5g-closeout-plan.md) was accepted by the
 project owner on September 1, 2026. Stages 5G-A through 5G-C complete the lifecycle ledger,
 repository baseline, clean integrated checks, supported-browser matrix, package and isolation audit,
-and dated security, advisory, license, and provenance review; Stage 5G-D is the next active
+and dated security, advisory, license, and provenance review. Stage 5G-D completes the fresh local
+documentation-system and undeployed-Cloudflare-boundary audit; Stage 5G-E is the next active
 milestone. Every ecosystem track requires its own accepted charter before implementation, and an
 exploration may conclude with no new package.
 
@@ -374,8 +375,11 @@ retained artifact, and passes `P5G-E01` in the
 `P5G-E02` and `P5G-E03` after a clean frozen install, isolated-cache repository check, and the full
 1,506-case Chromium, Firefox, and WebKit matrix. Stage 5G-C passes `P5G-E04` through `P5G-E06` after
 local package, isolated-consumer, dependency, security, privacy, advisory, license, and provenance
-audits. Every package remains private and not release-ready. Stage 5G-D next verifies the local
-documentation system and preserves the unimplemented Cloudflare deployment boundary.
+audits. Every package remains private and not release-ready. Stage 5G-D passes `P5G-E07` and
+`P5G-E08` after fresh VitePress, Storybook, example, token, and icon builds; documentation coherence
+corrections; link, import, claim, privacy, and output checks; and a complete map of ADR 0032's
+unimplemented deployment gates. Stage 5G-E next records the carried-gate ledger and final project
+owner disposition.
 
 - run the complete repository and accepted ecosystem validation matrices;
 - verify optional packages do not enlarge core install, runtime, registration, or support behavior;
