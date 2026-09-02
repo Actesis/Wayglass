@@ -1,19 +1,18 @@
 # Phase 6 real-world validation and v1 readiness roadmap
 
-**Status:** Proposed on September 2, 2026 for project-owner review. No application integration,
-package release, repository-visibility change, npm action, Cloudflare implementation, deployment,
-credential, or public support claim is authorized until the relevant stage and approval gate below
-is accepted.
+**Status:** Accepted by the project owner on September 2, 2026. Phase 6A is active. No application
+integration, package release, repository-visibility change, npm action, Cloudflare implementation,
+deployment, credential, or public support claim is authorized until the relevant stage and approval
+gate below is accepted.
 
 Phase 6 turns Wayglass from a thoroughly tested private system into an evidence-based v1 candidate.
 It follows the [Phase 5 final disposition](./phase-5-roadmap-disposition.md), which directs the next
 planning activity to begin with a real-world application, derive v1 scope from that pressure, and
 keep npm publication and Cloudflare deployment as separately approved operations.
 
-The only named real application in the current project record is the personal asset-tracking
-application **myHomeClarity**. This roadmap treats it as the proposed first consumer, subject to
-explicit confirmation, repository access, and an accepted application charter in Phase 6A. If the
-project owner nominates a different application, revise the roadmap before integration work starts.
+The project owner confirmed a client for [SpaceTraders](https://spacetraders.io) as the first
+real-world consumer. Phase 6A must still record the client's exact name, repository, access path,
+technology stack, owners, and accepted application charter before integration work starts.
 
 ## Phase objective
 
@@ -234,16 +233,19 @@ Stop the affected stage if:
 A correction restores the accepted boundary. Material scope expansion returns to the project owner
 for a roadmap or charter revision.
 
-## Decisions requested
+## Project-owner decision
 
-The project owner is asked to accept, revise, or reject:
+On September 2, 2026, the project owner approved and directed the merge of these decisions:
 
 1. Phase 6 as the real-world validation and v1-readiness phase;
-2. myHomeClarity as the proposed first consumer, subject to Phase 6A confirmation and access;
+2. a SpaceTraders client as the first consumer, with its exact repository and integration context
+   recorded in Phase 6A;
 3. application proof before v1 scope freeze;
 4. private packed-artifact consumption before any npm publication;
 5. separate Phase 6E npm and Phase 6F Cloudflare approval gates; and
 6. the possibility that Phase 6 closes with a private v1 candidate if publication or deployment is
    not approved.
 
-Until these decisions are accepted, Phase 6 remains a proposal and no implementation stage begins.
+That approval activates Phase 6A charter work. It does not authorize application integration, npm
+publication, repository-visibility changes, Cloudflare implementation or launch, credentials, or a
+public support claim.
