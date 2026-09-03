@@ -66,8 +66,8 @@ Use a verb and, for consequential actions, repeat the owning function or target.
 ### Attributes
 
 - `appearance`: `primary | secondary | critical`; default `secondary`.
-- `disabled`: Boolean.
-- `pending`: Boolean.
+- `disabled`: Boolean; default `false`.
+- `pending`: Boolean; default `false`.
 
 ### Properties
 
@@ -105,6 +105,7 @@ Native `click` from user activation. No separate Wayglass event duplicates it.
 ### CSS Parts
 
 - `button`
+- `core`: stable label/pending layout container.
 - `label`
 - `leading`
 - `trailing`
