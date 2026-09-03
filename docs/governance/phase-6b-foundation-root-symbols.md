@@ -1,7 +1,7 @@
 # Phase 6B foundation and icon root-symbol freeze
 
-**Status:** Proposed on September 2, 2026. This record freezes the exact root symbols for four v1
-packages. It changes no package version, privacy, registry, or deployment state.
+**Status:** Accepted by the project owner on September 2, 2026. This record freezes the exact root
+symbols for four v1 packages. It changes no package version, privacy, registry, or deployment state.
 
 ## Accepted candidate surface proposed for freeze
 
@@ -52,8 +52,9 @@ Those remain explicit Phase 6B/6C gates rather than being inferred from this app
   tests remain unchanged and must pass with the surface assertions.
 - No new dependency or extraction tool is introduced.
 
-## Project-owner decision requested
+## Project-owner decision
 
-Approve the exact runtime and type-only symbol sets above. Approval freezes these four package roots
-for the remaining Phase 6B work and activates the elements/React symbol audit. It does not choose
-versions or authorize publication.
+On September 2, 2026, the project owner approved and directed the merge of the exact runtime and
+type-only symbol sets above. That approval freezes these four package roots for the remaining Phase
+6B work and activates the elements/React symbol audit. It does not choose versions or authorize
+publication.
