@@ -3,7 +3,7 @@
 **Status:** Accepted for Phase 2A on July 28, 2026, together with
 [ADR 0009](../architecture/adr/0009-tabs-architecture.md).
 
-**Implementation:** The framework-neutral Custom Elements interaction model and typed React wrappers
+**Implementation:** The framework-neutral Custom Elements interaction model, typed React wrappers,
 and production-backed stories and examples are complete. Automated validation is recorded in the
 [Phase 2A tabs validation record](../accessibility/phase-2a-tabs-validation.md), together with the
 completed VoiceOver and Safari acceptance review.
@@ -171,9 +171,8 @@ screen readers before this contract is accepted.
 
 Tabs preserve source order, accessible names, summaries, and selection at all widths.
 
-- Selectors may wrap only when the resulting reading and arrow-key order remain obvious.
-- Horizontal overflow may use a labeled scroll region, but the selected tab and consequential
-  summaries must remain discoverable.
+- Horizontal selectors remain on one line and scroll within the named tab list when needed. They do
+  not wrap, so visual and arrow-key order remain aligned.
 - Truncation must not remove the accessible name or the only visible consequential-state word.
 - Targets remain at least 44 by 44 CSS pixels in both density modes.
 - The active panel reflows without horizontal page overflow at 200% zoom.
@@ -279,9 +278,7 @@ than author inputs.
 
 - `panel`
 
-### Proposed CSS Custom Properties
-
-The names are part of this draft; values are not locked until the Phase 2A token task.
+### CSS Custom Properties
 
 - `--wg-tab-list-gap`
 - `--wg-tab-color-background`
@@ -331,8 +328,7 @@ Repeated registration is safe and conflicting constructors throw, consistent wit
 
 ## Open Questions
 
-- Confirm whether wrapping or horizontal scrolling is the safer default for long selector sets after
-  testing the Function Deck fixtures.
+None. Phase 2A validation selected horizontal scrolling rather than wrapping for long selector sets.
 
 ## References
 
