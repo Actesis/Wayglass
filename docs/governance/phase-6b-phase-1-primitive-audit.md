@@ -1,8 +1,8 @@
 # Phase 6B Phase 1 primitive contract audit
 
-**Status:** Proposed on September 2, 2026. This record reconciles the first component family against
-its implementation, documentation, React bindings, stories, and browser evidence. It changes no
-package version, privacy, registry, or deployment state.
+**Status:** Accepted by the project owner on September 2, 2026. This record reconciles the first
+component family against its implementation, documentation, React bindings, stories, and browser
+evidence. It changes no package version, privacy, registry, or deployment state.
 
 ## Scope
 
@@ -57,8 +57,8 @@ method and theme-change event exceptions.
 This is intentionally structural. Behavioral claims remain tested in Playwright rather than being
 reduced to documentation word matching.
 
-## Decision requested
+## Project-owner decision
 
-Accept this family as field-level reconciled and proceed to the tabs family. Acceptance freezes the
-listed public contract for v1; later changes require explicit compatibility review. It does not
-authorize package publication.
+On September 2, 2026, the project owner accepted this family as field-level reconciled and directed
+the merge and continuation to the tabs family. This freezes the listed public contract for v1; later
+changes require explicit compatibility review. It does not authorize package publication.
