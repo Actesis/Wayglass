@@ -1,7 +1,8 @@
 # Phase 6B elements and React root-symbol freeze
 
-**Status:** Proposed on September 2, 2026. This record freezes root symbol names for the elements
-and React v1 candidates. It changes no version, privacy, registry, or deployment state.
+**Status:** Accepted by the project owner on September 2, 2026. This record freezes root symbol
+names for the elements and React v1 candidates. It changes no version, privacy, registry, or
+deployment state.
 
 ## Decision
 
@@ -56,8 +57,9 @@ properties, events, methods, slots, parts, CSS custom properties, values, defaul
 registration, React props/events/refs, and documentation. It must also verify emitted declarations
 and both root/subpath imports in packed consumers during Phase 6C.
 
-## Project-owner decision requested
+## Project-owner decision
 
-Approve the exact elements and React root symbol-name sets and drift policy above. Approval closes
-the root-symbol inventory and activates component-contract reconciliation. It does not choose
-versions or authorize publication.
+On September 2, 2026, the project owner approved and directed the merge of the exact elements and
+React root symbol-name sets and drift policy above. That approval closes the root-symbol inventory
+and activates component-contract reconciliation. It does not choose versions or authorize
+publication.
