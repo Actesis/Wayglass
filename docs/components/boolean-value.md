@@ -59,12 +59,12 @@ Provide domain labels, never raw `true`, `false`, `yes`, or `no` when domain ter
 ### Attributes
 
 - `label`: required accessible and visible fallback label.
-- `asserted`: Boolean; absent means not asserted, not unknown.
+- `asserted`: Boolean; default `false`. Absence means not asserted, not unknown.
 - `asserted-label`: required domain label for asserted.
 - `not-asserted-label`: required domain label for not asserted.
 - `knowledge`: `Knowledge`; default `confirmed`.
 - `presentation`: `rail | field`; default `rail`.
-- `loading`: Boolean.
+- `loading`: Boolean; default `false`.
 
 ### Properties
 

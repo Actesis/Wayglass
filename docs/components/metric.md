@@ -59,7 +59,7 @@ Include an unambiguous unit and useful precision. Do not imply certainty beyond 
 - `knowledge`: `Knowledge`; default `confirmed`.
 - `activity`: `Activity`; default `idle`.
 - `size`: `compact | prominent`; default `compact`.
-- `loading`: Boolean.
+- `loading`: Boolean; default `false`.
 
 ### Properties
 

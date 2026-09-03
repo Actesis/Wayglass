@@ -58,7 +58,7 @@ Use one primary question per tile. Supporting copy should explain freshness, cau
 
 - `label`: accessible fallback when the heading slot cannot label the region.
 - `emphasis`: `standard | prominent`; default `standard`.
-- `busy`: Boolean.
+- `busy`: Boolean; default `false`.
 
 ### Properties
 

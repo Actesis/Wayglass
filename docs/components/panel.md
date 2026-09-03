@@ -64,11 +64,11 @@ copy is neutral; monitor copy states freshness; control copy identifies target a
 
 ### Attributes
 
-- `purpose`: `information | monitor | control`; required in authored markup. Missing or invalid
-  values render with the neutral `information` fallback.
+- `purpose`: `information | monitor | control`; default `information`. Authors must set it
+  intentionally; missing or invalid values use the neutral fallback.
 - `emphasis`: `standard | strong`; default `standard`.
-- `busy`: Boolean.
-- `disabled`: Boolean.
+- `busy`: Boolean; default `false`.
+- `disabled`: Boolean; default `false`.
 - `label`: accessible fallback when no slotted heading can label the region.
 
 ### Properties
