@@ -1,8 +1,8 @@
 # Phase 6B tabs contract audit
 
-**Status:** Proposed on September 2, 2026. This record reconciles the tabs family against its
-implementation, architecture decision, documentation, React bindings, stories, and browser evidence.
-It changes no package version, privacy, registry, or deployment state.
+**Status:** Accepted by the project owner on September 2, 2026. This record reconciles the tabs
+family against its implementation, architecture decision, documentation, React bindings, stories,
+and browser evidence. It changes no package version, privacy, registry, or deployment state.
 
 ## Scope
 
@@ -52,8 +52,9 @@ The completed VoiceOver/Safari review remains valid. NVDA with Firefox on Window
 pre-public-release evidence item, consistent with the previously approved decision to move past it
 temporarily; this audit does not silently convert that gap into a support claim.
 
-## Decision requested
+## Project-owner decision
 
-Accept the tabs family as field-level reconciled and proceed to the foundations and layout family.
-Acceptance freezes the listed contract for v1; later changes require explicit compatibility review.
-It does not authorize package publication.
+On September 2, 2026, the project owner accepted the tabs family as field-level reconciled and
+directed the merge and continuation to the foundations and layout family. This freezes the listed
+contract for v1; later changes require explicit compatibility review. It does not authorize package
+publication.
