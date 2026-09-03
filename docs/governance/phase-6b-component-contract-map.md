@@ -1,8 +1,8 @@
 # Phase 6B component-contract ownership map
 
-**Status:** Proposed on September 2, 2026. This record maps every v1 element and React wrapper to an
-authoritative contract before field-level reconciliation. It changes no package version, privacy,
-registry, or deployment state.
+**Status:** Accepted by the project owner on September 2, 2026. This record maps every v1 element
+and React wrapper to an authoritative contract before field-level reconciliation. It changes no
+package version, privacy, registry, or deployment state.
 
 ## Decision
 
@@ -67,8 +67,9 @@ element declarations, React props/events, documentation, tests, and Storybook fo
 
 Any mismatch is corrected at the smallest responsible surface before that family is frozen.
 
-## Project-owner decision requested
+## Project-owner decision
 
-Approve the complete ownership map and family-by-family reconciliation method. Approval freezes
-where each component contract lives and activates the first field-level family audit. It does not
-freeze component fields, choose versions, or authorize publication.
+On September 2, 2026, the project owner approved and directed the merge of the complete ownership
+map and family-by-family reconciliation method. That approval freezes where each component contract
+lives and activates the first field-level family audit. It does not freeze component fields, choose
+versions, or authorize publication.
