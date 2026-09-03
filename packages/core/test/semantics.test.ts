@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
+import * as publicApi from '../src/index.js';
 import {
   booleanValueStates,
   isBooleanValueState,
@@ -7,6 +8,34 @@ import {
   sectionPurposes,
   toBooleanValueState,
 } from '../src/index.js';
+
+describe('v1 root runtime surface', () => {
+  it('exports only the accepted runtime symbols', () => {
+    expect(Object.keys(publicApi).sort()).toEqual(
+      [
+        'activities',
+        'booleanRequests',
+        'booleanValueStates',
+        'conditions',
+        'controlAvailabilities',
+        'defaultKnownState',
+        'isActivity',
+        'isBooleanRequest',
+        'isBooleanValueState',
+        'isCondition',
+        'isControlAvailability',
+        'isKnowledge',
+        'isKnownState',
+        'isRequestState',
+        'isSectionPurpose',
+        'knowledgeStates',
+        'requestStates',
+        'sectionPurposes',
+        'toBooleanValueState',
+      ].sort(),
+    );
+  });
+});
 
 describe('shared semantic roles', () => {
   it('defines section purpose independently from function ownership', () => {

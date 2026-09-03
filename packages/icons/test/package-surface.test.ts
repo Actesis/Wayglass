@@ -4,6 +4,9 @@ import { fileURLToPath } from 'node:url';
 
 import { describe, expect, it } from 'vitest';
 
+import * as componentApi from '../src/icon.js';
+import * as rootApi from '../src/index.js';
+
 interface PackageManifest {
   readonly name: string;
   readonly private: boolean;
@@ -21,6 +24,25 @@ const manifest = JSON.parse(
 ) as PackageManifest;
 
 describe('@wayglass/icons package boundary', () => {
+  it('keeps both entries on the exact accepted v1 runtime surface', () => {
+    const expected = [
+      'WgIcon',
+      'defineWgIcon',
+      'iconDirections',
+      'iconNames',
+      'iconSizes',
+      'isIconDirection',
+      'isIconName',
+      'isIconSize',
+      'wgIconTagName',
+    ].sort();
+
+    expect(Object.keys(componentApi).sort()).toEqual(expected);
+    expect(Object.keys(rootApi).sort()).toEqual(expected);
+    expect(rootApi.WgIcon).toBe(componentApi.WgIcon);
+    expect(rootApi.defineWgIcon).toBe(componentApi.defineWgIcon);
+  });
+
   it('provides root and component-specific entries for the same private optional runtime', () => {
     expect(manifest.name).toBe('@wayglass/icons');
     expect(manifest.private).toBe(true);

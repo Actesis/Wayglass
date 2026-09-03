@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
+import * as publicApi from '../src/index.js';
+
 import {
   createCss,
   createJson,
@@ -39,6 +41,19 @@ function referenceColor(name: keyof typeof tokens): string {
 }
 
 describe('token compiler', () => {
+  it('exports only the accepted v1 root runtime symbols', () => {
+    expect(Object.keys(publicApi).sort()).toEqual(
+      [
+        'createCss',
+        'createJson',
+        'tokenNameToCssCustomProperty',
+        'tokenTypes',
+        'tokens',
+        'validateTokens',
+      ].sort(),
+    );
+  });
+
   it('converts token paths to public CSS custom-property names', () => {
     expect(tokenNameToCssCustomProperty('color.semantic.condition.critical')).toBe(
       '--wg-color-semantic-condition-critical',
