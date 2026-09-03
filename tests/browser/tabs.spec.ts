@@ -1,6 +1,36 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 
+test('keeps every tabs module side-effect free until explicit registration', async ({ page }) => {
+  await page.goto('/tests/browser/module-import/');
+  const result = await page.evaluate(async () => {
+    const tabs = document.createElement('wg-tabs');
+    tabs.textContent = 'Fallback tabs content';
+    document.body.append(tabs);
+
+    await Promise.all([
+      import('/packages/elements/dist/tab.js'),
+      import('/packages/elements/dist/tab-list.js'),
+      import('/packages/elements/dist/tab-panel.js'),
+      import('/packages/elements/dist/tabs.js'),
+    ]);
+
+    return {
+      registrations: ['wg-tab', 'wg-tab-list', 'wg-tab-panel', 'wg-tabs'].map(
+        (name) => customElements.get(name) !== undefined,
+      ),
+      text: tabs.textContent,
+      visible: tabs.getBoundingClientRect().height > 0,
+    };
+  });
+
+  expect(result).toEqual({
+    registrations: [false, false, false, false],
+    text: 'Fallback tabs content',
+    visible: true,
+  });
+});
+
 async function openTabs(page: import('@playwright/test').Page) {
   await page.goto('/tests/browser/tabs/');
   await page.waitForFunction(
