@@ -19,18 +19,23 @@ test('keeps element modules side-effect free until explicit registration', async
     document.body.append(surface);
     const beforeImport = surface.getBoundingClientRect();
 
-    await import('/packages/elements/dist/surface.js');
+    await Promise.all([
+      import('/packages/elements/dist/surface.js'),
+      import('/packages/elements/dist/divider.js'),
+    ]);
     const afterImport = surface.getBoundingClientRect();
 
     return {
-      registered: customElements.get('wg-surface')?.name ?? null,
+      registrations: ['wg-surface', 'wg-divider'].map(
+        (name) => customElements.get(name) !== undefined,
+      ),
       beforeImport: { width: beforeImport.width, height: beforeImport.height },
       afterImport: { width: afterImport.width, height: afterImport.height },
       text: surface.textContent,
     };
   });
 
-  expect(fallback.registered).toBeNull();
+  expect(fallback.registrations).toEqual([false, false]);
   expect(fallback.beforeImport.width).toBeGreaterThan(0);
   expect(fallback.beforeImport.height).toBeGreaterThan(0);
   expect(fallback.afterImport.width).toBeGreaterThan(0);
