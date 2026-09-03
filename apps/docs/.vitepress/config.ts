@@ -42,6 +42,10 @@ export default defineConfig({
             text: 'Phase 6B elements and React root symbols',
             link: '/governance/phase-6b-elements-react-root-symbols',
           },
+          {
+            text: 'Phase 6B component contract map',
+            link: '/governance/phase-6b-component-contract-map',
+          },
           { text: 'Phase 5 ecosystem roadmap', link: '/phase-5' },
           { text: 'Phase 5 roadmap disposition', link: '/phase-5-roadmap-disposition' },
           {
