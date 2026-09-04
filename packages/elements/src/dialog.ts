@@ -74,8 +74,11 @@ export class WgDialog extends WayglassElement {
     }
 
     [part='dialog'] {
+      /* Private selector between locked size tokens; not a consumer theming hook. */
+      --_wg-dialog-inline-maximum: var(--wg-component-dialog-size-inline-maximum-standard);
+
       inline-size: min(
-        var(--wg-dialog-inline-maximum, var(--wg-component-dialog-size-inline-maximum-standard)),
+        var(--_wg-dialog-inline-maximum),
         calc(100vw - 2 * var(--wg-component-dialog-space-viewport))
       );
       min-inline-size: 0;
@@ -90,11 +93,11 @@ export class WgDialog extends WayglassElement {
     }
 
     :host([size='compact']) [part='dialog'] {
-      --wg-dialog-inline-maximum: var(--wg-component-dialog-size-inline-maximum-compact);
+      --_wg-dialog-inline-maximum: var(--wg-component-dialog-size-inline-maximum-compact);
     }
 
     :host([size='wide']) [part='dialog'] {
-      --wg-dialog-inline-maximum: var(--wg-component-dialog-size-inline-maximum-wide);
+      --_wg-dialog-inline-maximum: var(--wg-component-dialog-size-inline-maximum-wide);
     }
 
     [part='dialog']::backdrop {

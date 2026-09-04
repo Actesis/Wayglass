@@ -2,7 +2,8 @@
 
 **Status:** Accepted, implemented, and cross-browser validated with framework-neutral and typed
 React delivery plus a production-backed story for Phase 2F as of August 3, 2026. Representative
-assistive-technology review remains a public-release gate. The architecture is recorded in
+assistive-technology review remains a public-release gate. Field-level v1 reconciliation was
+completed for project-owner review on September 3, 2026. The architecture is recorded in
 [ADR 0023](../architecture/adr/0023-native-modal-content-and-media-inspection.md).
 
 This contract defines `wg-dialog`, a general modal surface for application-authored information and
@@ -130,6 +131,10 @@ submission, success, navigation, or analytics evidence.
 - `body`
 - `actions`
 
+`wg-dialog` exposes no element-specific CSS custom properties in v1. Its compact, standard, and wide
+capacities select locked component tokens; themes adapt those semantic tokens rather than an
+unbounded per-instance width hook.
+
 ## Dismissal and focus return
 
 The visible close control closes with `close-control`; native Escape closes with `escape`; `close()`
@@ -150,3 +155,13 @@ This component does not provide nonmodal mode, nested dialogs, modal queues, por
 anchored positioning, dragging, resizing, route management, dirty-state interception, or automatic
 submission. Drawers, tooltips, teaching overlays, command palettes, and popovers require separate
 contracts because their focus, positioning, modality, and dismissal rules differ.
+
+## Validation coverage
+
+Automated component, React, and browser tests cover native modal ownership, labeling, each initial
+focus policy, explicit descendant focus, one-at-a-time coordination across modal families, Escape,
+close-control and programmatic reasons, focus return and fallback, invalid anatomy, backdrop
+restraint, closed-vocabulary normalization, both themes, Axe, forced colors, reduced motion, 200%
+text, and 320 CSS-pixel reflow. Representative VoiceOver with Safari and NVDA with Firefox checks
+remain explicit public-release evidence gates; automated evidence does not establish spoken entry,
+reading order, containment, or focus return.

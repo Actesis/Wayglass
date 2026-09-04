@@ -82,6 +82,10 @@ export default defineConfig({
             text: 'Phase 6B transient-feedback audit',
             link: '/governance/phase-6b-transient-feedback-contract-audit',
           },
+          {
+            text: 'Phase 6B modal-feedback audit',
+            link: '/governance/phase-6b-modal-feedback-contract-audit',
+          },
           { text: 'Phase 5 ecosystem roadmap', link: '/phase-5' },
           { text: 'Phase 5 roadmap disposition', link: '/phase-5-roadmap-disposition' },
           {
