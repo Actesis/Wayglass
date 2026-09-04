@@ -66,6 +66,10 @@ export default defineConfig({
             text: 'Phase 6B menu and command audit',
             link: '/governance/phase-6b-menu-command-contract-audit',
           },
+          {
+            text: 'Phase 6B form-foundation audit',
+            link: '/governance/phase-6b-form-foundation-contract-audit',
+          },
           { text: 'Phase 5 ecosystem roadmap', link: '/phase-5' },
           { text: 'Phase 5 roadmap disposition', link: '/phase-5-roadmap-disposition' },
           {
