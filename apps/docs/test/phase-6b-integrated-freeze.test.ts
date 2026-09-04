@@ -74,11 +74,12 @@ describe('Phase 6B integrated v1 freeze proposal', () => {
     expect(freeze).toContain('No unresolved severity-one or severity-two blocker was found');
   });
 
-  it('keeps correction 12 and Phase 6B open until acceptance', () => {
-    expect(freeze).toContain('**Status:** Proposed for project-owner acceptance');
-    expect(audit).toContain('Integrated freeze — proposed for acceptance');
-    expect(audit).toMatch(/12\. Run the complete stabilization and freeze matrix\s*\| Open/);
-    expect(audit).not.toContain('Phase 6B is complete');
+  it('records acceptance, closes Phase 6B, and limits the authorization', () => {
+    expect(freeze).toContain('**Status:** Accepted by the project owner');
+    expect(audit).toContain('Integrated freeze — complete');
+    expect(audit).toMatch(/12\. Run the complete stabilization and freeze matrix\s*\| Complete/);
+    expect(audit).toContain('Phase 6B is complete');
     expect(freeze).toContain('authorizes Phase 6C validation work only');
+    expect(freeze).toContain('Publication, tagging, repository-visibility');
   });
 });

@@ -1,10 +1,9 @@
 # Phase 6B integrated v1 scope-freeze proposal
 
-**Status:** Proposed for project-owner acceptance on September 4, 2026. This record identifies the
-exact private v1 candidate source and integrates the completed Phase 6B contract, compatibility,
-support, browser, package, security, and documentation evidence. It does not begin Phase 6C,
-publish, create tags, change repository visibility, contact npm for publication, or deploy
-documentation.
+**Status:** Accepted by the project owner on September 4, 2026. This record identifies the exact
+private v1 candidate source and integrates the completed Phase 6B contract, compatibility, support,
+browser, package, security, and documentation evidence. It does not begin Phase 6C, publish, create
+tags, change repository visibility, contact npm for publication, or deploy documentation.
 
 ## Proposed freeze identity
 
@@ -183,3 +182,10 @@ It does not remove `private: true`, change candidate versions, create package or
 the repository public, create or upload an npm artifact, create release automation, use release
 credentials, deploy documentation, or activate public support. Any of those actions retains its
 separate proposal, evidence, and approval gate.
+
+## Project-owner decision
+
+Accepted on September 4, 2026. The project owner approved the exact candidate source, integrated
+evidence, blocker classification, and support boundaries recorded here. Phase 6B is complete and
+Phase 6C release-candidate validation is authorized. Publication, tagging, repository-visibility
+changes, deployment, credentials, and public support activation remain separately gated.
