@@ -1,9 +1,9 @@
 # Phase 6B media contract audit
 
-**Status:** Proposed on September 3, 2026. This record reconciles `wg-media` and `wg-media-viewer`
-against their implementations, opt-in fallback stylesheets, architecture decisions, documentation,
-React bindings, stories, and browser evidence. It changes no package version, privacy, registry, or
-deployment state.
+**Status:** Accepted by the project owner on September 3, 2026. This record reconciles `wg-media`
+and `wg-media-viewer` against their implementations, opt-in fallback stylesheets, architecture
+decisions, documentation, React bindings, stories, and browser evidence. It changes no package
+version, privacy, registry, or deployment state.
 
 ## Scope
 
@@ -73,8 +73,8 @@ controls and output, scroll-region context, dismissal, conflict rejection, and f
 Windows item remains consistent with the existing deferred Windows-access decision; this audit makes
 no unsupported screen-reader claim.
 
-## Decision requested
+## Project-owner decision
 
-Accept the media contract audit and proceed to scalar-data reconciliation. This would freeze the
-listed contract for v1; later changes would require explicit compatibility review. It would not
-authorize package publication.
+On September 3, 2026, the project owner accepted the media contract audit and directed its merge and
+continuation to scalar-data reconciliation. This freezes the listed contract for v1; later changes
+require explicit compatibility review. It does not authorize package publication.
