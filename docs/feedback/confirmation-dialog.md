@@ -1,6 +1,7 @@
 # Phase 2E-D confirmation-dialog contract
 
-**Status:** Accepted, implemented, and automatically validated for Phase 2E-D on August 2, 2026.
+**Status:** Accepted, implemented, and automatically validated for Phase 2E-D on August 2, 2026;
+field-level v1 reconciliation completed for project-owner review on September 3, 2026.
 Representative assistive-technology review remains tracked in the
 [Phase 2E-D validation record](../accessibility/phase-2e-confirmation-dialog-validation.md) and is
 carried as a public-release gate in the
@@ -213,12 +214,16 @@ same dialog merely to display pending or failure state.
 - `dialog`
 - `surface`
 - `marker`
+- `content`
 - `icon`
 - `heading`
 - `description`
 - `actions`
 - `cancel-button`
 - `action-button`
+
+`wg-confirmation-dialog` exposes no element-specific CSS custom properties in v1. Its presentation
+uses the locked system and component tokens so themes can adapt the complete semantic treatment.
 
 The marker and optional icon are redundant presentation. `action-appearance="critical"` may apply
 critical action tokens to the action control, but it does not recolor the whole dialog into a status
@@ -301,9 +306,9 @@ the only record of the result.
 If authorization changes before the action begins, the application rejects the operation and shows
 the durable reason. The dialog does not cache permission or make the earlier decision authoritative.
 
-## Validation requirements
+## Validation coverage
 
-Implementation and wrappers must cover:
+Automated component, React, and browser tests cover:
 
 - native `showModal()` ownership and absence of nonmodal fallback;
 - heading, description, ordinary dialog, and explicit alert-dialog accessibility mappings;
@@ -317,13 +322,17 @@ Implementation and wrappers must cover:
 - keyboard, pointer, and touch operation without position-dependent meaning;
 - 320 CSS-pixel reflow, 200% text size, internal overflow, zoom, forced colors, grayscale, dark and
   light themes, and reduced motion; and
-- supported browsers and representative screen-reader combinations with both vanilla elements and
-  typed React wrappers using the same coordinator.
+- supported browsers with both vanilla elements and typed React wrappers using the same coordinator.
 
-## Deferred decisions
+Representative VoiceOver with Safari and NVDA with Firefox checks remain explicit public-release
+evidence gates; the automated suite does not claim spoken entry, reading order, containment, or
+focus return.
 
-- General modal dialogs, drawers, lightboxes, teaching overlays, command palettes, and universal
-  overlay positioning require separate ownership decisions.
+## Continuing boundaries
+
+- General modal content is served by the separately bounded `wg-dialog` contract. Drawers,
+  lightboxes, teaching overlays, command palettes, and universal overlay positioning require
+  separate ownership decisions.
 - Inline confirmation implementation remains a composition pattern until repeated production use
   establishes a stable reusable contract.
 - Undo and restoration require a durable command contract and are not implied by confirmation.
