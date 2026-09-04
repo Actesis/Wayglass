@@ -9,7 +9,7 @@ announcement, lifetime, and state ownership follow the accepted
 [feedback-state contract](./feedback-state.md) and
 [ADR 0020](../architecture/adr/0020-feedback-delivery-and-lifetime.md).
 
-This milestone defines `wg-badge`, `wg-alert`, `wg-progress`, `wg-skeleton`, `wg-empty-state`,
+This contract defines `wg-badge`, `wg-alert`, `wg-progress`, `wg-skeleton`, `wg-empty-state`,
 `wg-offline-state`, and `wg-stale-data-marker`. These components present persistent context and
 current activity without creating a notification center, inventing application state, or turning
 every unusual condition into an error.
@@ -58,6 +58,8 @@ singular/plural labels. A consumer may include visually hidden clarification in 
 Attributes and properties:
 
 - `condition: 'neutral' | 'positive' | 'caution' | 'critical'`; default `neutral`.
+
+Missing or unsupported conditions normalize to `neutral`.
 
 Slots:
 
@@ -112,7 +114,10 @@ Attributes and properties:
 
 - `condition: 'neutral' | 'positive' | 'caution' | 'critical'`; default `neutral`.
 - `announcement: 'off' | 'polite' | 'assertive'`; default `off`.
-- `label: string`; optional accessible group label.
+- `label: string`; default empty, optional accessible group label.
+
+Missing or unsupported condition and announcement values normalize to `neutral` and `off`
+respectively.
 
 Slots:
 
@@ -187,12 +192,11 @@ Slots:
 
 CSS parts:
 
-- `base`
 - `container`
 
-The slotted native progress element remains light DOM and cannot receive a CSS part. Cross-engine
-prototyping must determine whether `::slotted(progress)` is sufficient before any narrowly scoped
-native-node class is published.
+The slotted native progress element remains light DOM and cannot receive a CSS part. The implemented
+`::slotted(progress)` presentation preserves the accepted native behavior without publishing a
+native-node class.
 
 ### Examples
 
@@ -240,6 +244,9 @@ Attributes and properties:
 - `shape: 'text' | 'block' | 'circle'`; default `text`.
 - `lines: number`; integer from 1 through 8 for `text`, default `1`; ignored by other shapes.
 - `motion: 'static' | 'pulse'`; default `static`.
+
+Missing or unsupported shape and motion values normalize to `text` and `static`. Integer line counts
+clamp from 1 through 8, with non-integers falling back to `1`.
 
 Slots: none.
 
@@ -289,7 +296,7 @@ available.
 
 Attributes and properties:
 
-- `label: string`; required accessible group name.
+- `label: string`; default empty, required accessible group name.
 
 Slots:
 
@@ -301,6 +308,7 @@ Slots:
 CSS parts:
 
 - `base`
+- `marker`
 - `media`
 - `heading`
 - `content`
@@ -344,7 +352,7 @@ use the controlled-request model and keep pending or failed attempts visible.
 
 Attributes and properties:
 
-- `label: string`; required accessible group name.
+- `label: string`; default empty, required accessible group name.
 
 Slots:
 
@@ -422,25 +430,30 @@ CSS parts:
 
 ## Invalid anatomy and diagnostics
 
-Development diagnostics cover missing required visible content, missing or multiple native progress
-elements, invalid skeleton bounds, interactive descendants outside documented action slots, empty
-announcement messages, and missing stable labels on named state compositions.
+`wg-progress` diagnoses a missing or multiple direct native progress element and a progress element
+without an explicit accessible name. Closed alert, badge, and skeleton values normalize to their
+documented fallbacks rather than emitting diagnostics. The other persistent-feedback elements do not
+inspect required visible content, action-slot interactivity, or stable labels at runtime.
 
 Diagnostics do not repair markup, generate IDs, calculate state, add announcement roles, move nodes,
 hide usable light-DOM content, or disable consumer-authored controls. Unsupported content remains
 visible in production.
 
-## Token direction
+## Styling hooks
 
-Token names and values remain open until contract acceptance. The implementation milestone is
-expected to need semantic component tokens for:
+Alert, empty-state, and offline-state expose these element-level CSS custom properties:
 
-- compact badge height, spacing, border, radius, marker, and condition presentation;
-- alert and state surface, boundary, condition or availability marker, spacing, and action layout;
-- native progress track containment, accent, height, radius, and label/value layout;
-- skeleton surfaces, shapes, line rhythm, and optional pulse duration;
-- stale marker spacing, knowledge treatment, and compact typography; and
-- phone reflow and density changes without switching meaning or source order.
+- `--wg-feedback-color-background`;
+- `--wg-feedback-color-border`;
+- `--wg-feedback-color-text`;
+- `--wg-feedback-color-detail`;
+- `--wg-feedback-radius`;
+- `--wg-feedback-space`;
+- `--wg-feedback-space-related`; and
+- `--wg-feedback-size-marker`.
+
+Badge, progress, skeleton, and stale-data marker use the accepted semantic and component theme
+tokens directly and expose no element-specific CSS custom properties in v1.
 
 Themes may substantially adapt these values while the component anatomy and semantic axes remain
 stable. Tokens do not provide a path to make offline look critical or stale look cautionary by
@@ -454,31 +467,29 @@ register and render the same custom elements. The `wg-progress` wrapper leaves t
 announcement policy, calculate freshness, start timers, inspect connectivity, or translate slotted
 action events.
 
-## Validation requirements
+## Validation coverage
 
-Acceptance requires:
+The persistent-feedback browser suite and Phase 2E-B validation record cover:
 
-- light-DOM reading order, visible text redundancy, no unexpected initial announcements, and no
-  duplicate speech when feedback changes;
+- useful light-DOM fallback, passive focus behavior, and absence of implicit live roles;
 - alert announcement modes with actions excluded from the live message node;
-- native progress accessible names, determinate and indeterminate mappings, invalid markup,
-  completion outcomes, and useful pre-upgrade behavior;
+- native progress accessible names, determinate and indeterminate mappings, invalid anatomy, and
+  useful pre-upgrade behavior;
 - static and optional pulse skeletons hidden from the accessibility tree with reduced-motion
   suppression and no synthesized values;
-- empty-state distinctions, scoped offline presentation, retained qualified last-known context, and
-  stale knowledge independent from condition;
-- consumer-authored action focus order, pointer and touch targets, pending behavior, and recovery
-  after failed requests;
-- dark and light themes, grayscale, forced colors, 200% text size, 320 CSS-pixel reflow, coarse
-  pointer, and supported browser engines;
-- production-backed domain-neutral stories with information-only and operational sections, images
-  where useful, vanilla usage, and typed React wrappers; and
-- representative VoiceOver/Safari and NVDA/Firefox review before public release.
+- scoped offline presentation, retained qualified last-known context, and stale knowledge
+  independent from condition;
+- consumer-authored action focus order and retained native interaction;
+- dark and light themes, forced colors, reduced motion, 320 CSS-pixel reflow, and supported browser
+  engines; and
+- production-backed domain-neutral stories plus typed React wrappers.
 
-## Deferred decisions
+VoiceOver/Safari and NVDA/Firefox remain open pre-public-release evidence items.
 
-- Toasts, their coordinator, queue, timing, dismissal, and temporary actions belong to Phase 2E-C.
-- Confirmation dialogs and proportional-friction implementation belong to Phase 2E-D.
+## Continuing boundaries
+
+- Toasts retain their separate transient-feedback contract.
+- Confirmation dialogs retain their separate modal-feedback and proportional-friction contract.
 - Error summaries remain application compositions until repeated form evidence justifies a generic
   pattern.
 - Notification centers, background synchronization, retry policy, staleness calculations, relative
