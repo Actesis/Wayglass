@@ -10,9 +10,9 @@ representative screen-reader and autofill acceptance is consolidated with the co
 composition and carried in the
 [Phase 2 ledger](../accessibility/phase-2-assistive-technology-gates.md).
 
-This milestone defines the presentation and association substrate around consumer-authored native
-form controls. It does not replace the form platform or yet define the Phase 2D-E text, number,
-select, checkbox, radio, and range presentations.
+This contract defines the presentation and association substrate around consumer-authored native
+form controls. It does not replace the form platform. The text, number, select, checkbox, radio, and
+range presentations are owned by the separate form-control contract.
 
 ## Goals
 
@@ -29,11 +29,11 @@ The form foundation must:
 - distinguish required, disabled, read-only, invalid, pending server work, and rejected submission;
 - let an application choose appropriate validation timing without a component guessing whether a
   field is touched or a form has been submitted; and
-- remain compatible with later native-control presentations and typed framework bindings.
+- remain compatible with the native-control presentations and typed framework bindings.
 
 ## Non-goals
 
-Phase 2D-D does not provide:
+The form foundation does not provide:
 
 - a schema, form controller, state store, data binding, serializer, or server-error mapper;
 - a form-associated custom element or a Shadow DOM proxy for a native control;
@@ -125,7 +125,7 @@ is visible and unambiguous.
 The error identifies what is wrong and, when known, how to correct it. Existing help remains
 available unless it has become irrelevant. `aria-errormessage="profile-email-error"` may reinforce
 the error relationship after the supported assistive-technology matrix confirms it, but it must not
-be the only relationship in the initial contract; the error remains in `aria-describedby`.
+be the only relationship in the v1 contract; the error remains in `aria-describedby`.
 
 ## Related-control group composition
 
@@ -181,6 +181,13 @@ CSS parts:
 - `requirement`; and
 - `detail`.
 
+CSS custom properties:
+
+- `--wg-field-label-color`;
+- `--wg-field-label-requirement-color`;
+- `--wg-field-label-detail-color`; and
+- `--wg-field-label-space`.
+
 ## `wg-field-message`
 
 ### Purpose and semantics
@@ -200,7 +207,8 @@ announcements.
 
 `kind="error"` changes presentation only. It does not set `aria-invalid`, validate a control, show
 or hide itself, or announce automatically. The application renders an error only when its chosen
-validation policy says that error is current.
+validation policy says that error is current. Missing or unsupported `kind` values normalize to
+`help`.
 
 ### Slots and API
 
@@ -213,6 +221,13 @@ CSS parts:
 - `message`;
 - `signal`; and
 - `text`.
+
+CSS custom properties:
+
+- `--wg-field-message-color`;
+- `--wg-field-message-signal-color`;
+- `--wg-field-message-space`; and
+- `--wg-field-message-signal-size`.
 
 The error signal must remain recognizable in forced colors and grayscale and without an icon. It
 uses condition-critical treatment because the message describes an actual input error; help remains
@@ -237,9 +252,10 @@ The default slot accepts either:
 - one native `fieldset` with its first `legend`, plus messages related to that fieldset or its
   controls.
 
-Phase 2D-E will define compatible control anatomy in detail. Unsupported multiple ungrouped
-controls, missing native labels, duplicate IDs, and unresolved authored ID references are
-development diagnostics. The component must not repair them by generating or rewriting markup.
+Compatible control anatomy is defined by the separate form-control contract. Multiple ungrouped
+controls, missing native labels, duplicate IDs, and unresolved authored ID references remain
+authoring errors. The inert wrapper does not validate or repair them by generating or rewriting
+markup.
 
 ### API
 
@@ -249,6 +265,10 @@ fieldset.
 CSS parts:
 
 - `group`.
+
+CSS custom properties:
+
+- `--wg-form-group-space`.
 
 ## Native submit and reset actions
 
@@ -263,11 +283,11 @@ Form submission and reset use native buttons:
 <button class="wg-form-action wg-form-action--quiet" type="reset">Reset changes</button>
 ```
 
-Phase 2D-D provides a public `wg-form-action` class rather than a Custom Element proxy. The native
-button remains the submitter, retains `name` and `value`, participates in constraint validation, and
-works before JavaScript. The class provides ordinary Wayglass button presentation and focus
-treatment; `wg-form-action--quiet` is the only initial modifier. Consequential submit labels name
-the outcome, not merely “Submit.”
+The `forms.css` entry provides a public `wg-form-action` class rather than a Custom Element proxy.
+The native button remains the submitter, retains `name` and `value`, participates in constraint
+validation, and works before JavaScript. The class provides ordinary Wayglass button presentation
+and focus treatment; `wg-form-action--quiet` is the only v1 modifier. Consequential submit labels
+name the outcome, not merely “Submit.”
 
 `wg-button` remains an immediate `type="button"` command and must not be used to simulate submit or
 reset by forwarding a click or calling `requestSubmit()`.
@@ -306,8 +326,8 @@ When submission fails with one or more visible errors, the application:
 - never relies only on a toast, color, icon, or transient native validation bubble.
 
 An asynchronous pending submission is form-level activity, not field invalidity. Disabling an entire
-form during submission is not a default; it can remove navigation and correction routes. Phase 2E
-will define feedback and confirmation patterns.
+form during submission is not a default; it can remove navigation and correction routes. Persistent,
+transient, and modal feedback remain owned by their separate feedback contracts.
 
 ### Reset
 
@@ -334,8 +354,9 @@ The native form remains labeled, operable, submittable, resettable, and validata
 Element upgrade. Form-foundation elements render their light-DOM text before upgrade. No semantic or
 form behavior depends on registration.
 
-The initial implementation may issue development diagnostics after upgrade, but diagnostics must not
-hide, clone, move, disable, relabel, or otherwise repair native controls.
+Registration does not validate or rewrite consumer form structure. Authoring diagnostics supplied by
+application tooling must not hide, clone, move, disable, relabel, or otherwise repair native
+controls.
 
 ## Responsive, theme, and localization requirements
 
@@ -364,9 +385,9 @@ The accepted implementation defines semantic aliases for:
 Condition-critical color is limited to a current error. Required, disabled, read-only, focus, and
 ordinary help are not conditions and must use neutral or platform-semantic treatment.
 
-## Implementation acceptance
+## Validation coverage
 
-Implementation requires:
+The form-foundation browser suite and Phase 2D-D validation record cover:
 
 - useful pre-upgrade native form behavior and side-effect-free module imports;
 - exact preservation of native label, fieldset, submission, reset, formdata, constraint,
@@ -376,16 +397,19 @@ Implementation requires:
 - persistent, textual, non-color-only error presentation;
 - correct required, disabled, read-only, invalid, reset, and server-error examples;
 - native submitter identity, including `SubmitEvent.submitter`, `name`, and `value`;
-- dark, light, forced-colors, reduced-motion, narrow-width, 200% zoom, and 400% reflow review;
-- keyboard, pointer, touch, autofill, native validation, reset, and supported-engine tests;
-- Axe plus representative VoiceOver/Safari and NVDA/Firefox validation; and
+- dark, light, forced-colors, reduced-motion, and 320 CSS-pixel viewport review;
+- native label activation, constraint validation, submission, reset, and supported-engine tests;
+- Axe plus representative VoiceOver/Safari review; NVDA/Firefox remains an open pre-public-release
+  evidence item; and
 - typed React wrappers for the three presentation elements while native control props and events
   stay ordinary React APIs.
 
-## Deferred decisions
+## Continuing boundaries
 
-- Phase 2D-E defines each native-control presentation and its accepted anatomy.
-- Error-summary and asynchronous submission-feedback patterns belong to Phase 2E.
+- Each native-control presentation and its accepted anatomy remain owned by the form-control
+  contract.
+- Error-summary and asynchronous submission-feedback patterns remain outside these inert wrappers
+  and use application-owned validation plus the appropriate feedback contracts.
 - Cross-field, remote, and schema validation remain application or form-library concerns.
 - Form-associated Custom Elements remain deferred under ADR 0015.
-- Automatic ID allocation and relationship mutation remain outside the initial architecture.
+- Automatic ID allocation and relationship mutation remain outside the v1 architecture.
