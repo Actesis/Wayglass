@@ -54,9 +54,10 @@ narrow-viewport containment across Chromium, Firefox, and WebKit.
 
 ## Remaining release evidence
 
-The completed VoiceOver/Safari and representative autofill reviews remain valid. NVDA with Firefox
-on Windows remains an open pre-public-release evidence item, consistent with the existing deferred
-Windows-access decision; this audit makes no unsupported Windows screen-reader claim.
+VoiceOver/Safari, NVDA with Firefox on Windows, representative real-profile autofill, and
+password-manager review remain open pre-public-release evidence items. The Windows item remains
+consistent with the existing deferred Windows-access decision; this audit makes no unsupported
+screen-reader, autofill, or password-manager claim.
 
 ## Project-owner decision
 
