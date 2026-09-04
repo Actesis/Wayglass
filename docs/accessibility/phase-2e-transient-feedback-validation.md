@@ -22,7 +22,7 @@ compositions.
 | Reduced motion                  | The entry animation is absent when reduced motion is requested                                                                                                   | Pass    |
 | Reflow and zoom                 | The complete toast remains usable without horizontal page overflow at the 320 CSS-pixel viewport produced by 400% zoom on a 1280-pixel baseline                  | Pass    |
 | React parity                    | Typed wrappers preserve production properties, methods, refs, authored children, and dismissal-event detail                                                      | Pass    |
-| Supported engines               | All 51 focused cases pass in Chromium, Firefox, and WebKit                                                                                                       | Pass    |
+| Supported engines               | All 54 focused cases pass in Chromium, Firefox, and WebKit                                                                                                       | Pass    |
 | Automated accessibility         | Axe reports no violations in dark and light fixtures across supported engines                                                                                    | Pass    |
 | Representative assistive review | VoiceOver/Safari and NVDA/Firefox announcement timing, duplicate suppression, interruption, action navigation, and retained context                              | Carried |
 
@@ -32,8 +32,9 @@ The focused Playwright matrix covers side-effect-free imports, useful initial co
 initial announcement, focus independence, announcement scope, visible queue bounds, FIFO promotion,
 deduplication, dismissal reasons, action-bearing lifetime defaults, timed expiry, explicit and
 focus-driven pausing, deferred focused dismissal, state normalization, dark and light Axe scans,
-reduced motion, and narrow reflow. All 51 focused cases passed across Chromium, Firefox, and WebKit
-on August 2, 2026.
+reduced motion, and narrow reflow. The original 51 focused cases passed across Chromium, Firefox,
+and WebKit on August 2, 2026. All 54 current focused cases, including unchanged
+assertive-to-assertive replacement suppression, passed across those engines on September 3, 2026.
 
 The complete repository browser matrix also passed all 609 cases across those engines.
 
@@ -44,6 +45,11 @@ visibility once. The initial entry animation also faded the entire toast from tr
 WebKit to observe a temporary sub-threshold text contrast during an automated accessibility scan.
 Entry motion now uses position only, preserving the final text and surface contrast in every frame.
 The regression cases pass in all supported engines.
+
+The Phase 6B field-level audit found one additional coordinator defect: replacing an assertive toast
+with the same normalized text and the same assertive priority repeated its announcement. The region
+now suppresses that duplicate while continuing to announce changed text and a genuine transition to
+assertive priority.
 
 The first automated accessibility scan also found that the dedicated test fixture placed its static
 toast outside the page's `main` landmark. The fixture now keeps the document-level region within the

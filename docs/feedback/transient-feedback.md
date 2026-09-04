@@ -1,6 +1,7 @@
 # Phase 2E-C transient-feedback contracts
 
-**Status:** Accepted, implemented, and automatically validated for Phase 2E-C on August 2, 2026.
+**Status:** Accepted, implemented, and automatically validated for Phase 2E-C on August 2, 2026;
+field-level v1 reconciliation completed for project-owner review on September 3, 2026.
 Representative assistive-technology checks remain tracked in the
 [Phase 2E-C validation record](../accessibility/phase-2e-transient-feedback-validation.md) and are
 carried as public-release gates in the
@@ -88,7 +89,6 @@ Slots:
 
 CSS parts:
 
-- `base`
 - `stack`
 - `polite-announcer`
 - `assertive-announcer`
@@ -152,6 +152,20 @@ CSS parts:
 - `detail`
 - `actions`
 - `close-button`
+
+Element-level CSS custom properties:
+
+- `--wg-toast-color-background`
+- `--wg-toast-color-border`
+- `--wg-toast-color-text`
+- `--wg-toast-color-detail`
+- `--wg-toast-radius`
+- `--wg-toast-space`
+- `--wg-toast-space-related`
+- `--wg-toast-size-marker`
+
+`wg-toast-region` exposes no element-specific CSS custom properties in v1. Its placement, safe
+viewport spacing, stack sizing, and overlay layer use the locked system and component tokens.
 
 Methods:
 
@@ -269,9 +283,9 @@ reduced motion. Forced colors preserve boundary, focus, close control, and actio
 </wg-toast>
 ```
 
-## Validation requirements
+## Validation coverage
 
-Implementation cannot be accepted until tests cover:
+Automated component, React, and browser tests cover:
 
 - static initial versus dynamically opened content and polite, assertive, and off announcements;
 - FIFO promotion, configurable visible bounds, explicit deduplication, and replacement ordering;
@@ -281,10 +295,13 @@ Implementation cannot be accepted until tests cover:
 - rapid duplicate requests and prevention of competing or repeated announcements;
 - light and dark themes, grayscale, forced colors, reduced motion, 200% text, and 320 CSS-pixel
   reflow;
-- Chromium, Firefox, WebKit, VoiceOver with Safari, and NVDA with Firefox; and
+- Chromium, Firefox, and WebKit; and
 - production Web Components and typed React wrappers using the same region coordinator.
 
-## Deferred decisions
+Representative VoiceOver with Safari and NVDA with Firefox checks remain explicit public-release
+evidence gates; the automated suite does not claim spoken live-region timing or interruption.
+
+## Continuing boundaries
 
 - Notification centers, durable history, operating-system notifications, audio, haptics, service
   workers, and cross-tab queues remain outside Wayglass Phase 2.
