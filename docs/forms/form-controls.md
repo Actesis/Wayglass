@@ -10,7 +10,7 @@ presentation boundary is recorded in
 is recorded in the
 [Phase 2D-E validation record](../accessibility/phase-2d-form-controls-validation.md).
 
-This milestone defines `wg-text-field`, `wg-number-field`, `wg-select`, `wg-checkbox`, `wg-radio`,
+This contract defines `wg-text-field`, `wg-number-field`, `wg-select`, `wg-checkbox`, `wg-radio`,
 and `wg-slider` as inert presentation shells around consumer-authored native controls. It does not
 replace the form platform, duplicate native APIs, or introduce a form-state manager.
 
@@ -20,7 +20,7 @@ Each shell:
 
 - accepts the compatible native control in light DOM and leaves it as the only focusable form
   control and successful form value;
-- owns presentation and precise development diagnostics, but no value, checked state, selection,
+- owns presentation and scoped development diagnostics, but no value, checked state, selection,
   validity, label, description, form association, or event translation;
 - adds no control role, generated ID, hidden proxy, automatic error state, or live region;
 - imports without registering itself and exposes an explicit registration function;
@@ -43,8 +43,8 @@ errors merely because they currently fail a constraint.
 
 ## Styled-native policy
 
-The initial implementation preserves the control's native interaction appearance where replacing it
-would require Wayglass to recreate platform behavior:
+The v1 implementation preserves the control's native interaction appearance where replacing it would
+require Wayglass to recreate platform behavior:
 
 - checkbox checks, radio dots, mixed state, select disclosure, number steppers, range tracks and
   thumbs, high-contrast substitutions, and platform-specific input affordances remain native;
@@ -78,7 +78,7 @@ field. A textarea is the multiline form of this contract; there is no separate P
 - `readonly` remains focusable and submittable; it must not be styled as disabled.
 - Placeholder text is supplemental and never replaces a persistent label.
 - Password reveal, clear buttons, masks, prefix/suffix content, character counts, and suggestion
-  popups are not part of this first contract. Native engine affordances remain permitted.
+  popups are not part of this v1 contract. Native engine affordances remain permitted.
 - Textareas resize in the block direction by default and cannot cause page-level horizontal
   overflow.
 
@@ -87,7 +87,10 @@ field. A textarea is the multiline form of this contract; there is no separate P
 ```html
 <wg-form-group>
   <label for="account-email">
-    <wg-field-label requirement="required">Email address</wg-field-label>
+    <wg-field-label>
+      Email address
+      <span slot="requirement">Required</span>
+    </wg-field-label>
   </label>
   <wg-text-field>
     <input
@@ -123,7 +126,7 @@ appropriate `inputmode`, pattern, and autocomplete metadata.
 - Wayglass does not filter keystrokes, coerce partial input, format on blur, clamp values, or
   replace empty and invalid native editing states with invented numbers.
 - Native steppers remain available. An application that needs separate increment and decrement
-  commands requires a later compound contract and must not hide the only native editing route.
+  commands requires a separate compound contract and must not hide the only native editing route.
 - `readonly` remains distinct from disabled and retains native submission behavior.
 
 ## `wg-select`
@@ -145,7 +148,7 @@ submission values, and reset behavior.
 - A prompt option may use `value=""`; the application owns whether `required` makes that choice
   invalid. Wayglass does not synthesize placeholder semantics for select.
 - Searchable comboboxes, remote options, tokenized multi-select, and custom listbox popups are
-  separate future patterns and must not be approximated by this shell.
+  separate patterns and must not be approximated by this shell.
 
 ## `wg-checkbox`
 
@@ -202,7 +205,7 @@ approximate value from a bounded numeric range is easier than typing an exact nu
 
 Use `wg-number-field` when exact entry is primary or the range is too broad to manipulate reliably.
 Vertical sliders, multiple-thumb ranges, logarithmic scales, and remote operational actuation are
-not part of this first contract.
+not part of this v1 contract.
 
 ### Behavior and states
 
@@ -218,14 +221,38 @@ not part of this first contract.
 
 ## Public shell APIs
 
-The six shells expose no value-bearing attributes, custom events, or focus methods. Their initial
-public API consists of:
+The six shells expose no value-bearing attributes, custom events, or focus methods. Their v1 public
+API consists of:
 
 - a default slot containing the accepted direct native anatomy;
 - explicit registration and side-effect-free imports;
 - an internal `container` CSS part that does not become a second control; and
-- component tokens for surface, border, text, placeholder, accent, invalid, focus, radius, minimum
-  size, inline padding, block padding, and choice/slider geometry.
+- CSS custom properties listed below for field, choice, and slider presentation.
+
+Text field, number field, and select share:
+
+- `--wg-form-control-color-background`;
+- `--wg-form-control-color-background-readonly`;
+- `--wg-form-control-color-border`;
+- `--wg-form-control-color-border-invalid`;
+- `--wg-form-control-color-text`;
+- `--wg-form-control-color-placeholder`;
+- `--wg-form-control-radius`;
+- `--wg-form-control-size-minimum`;
+- `--wg-form-control-space-block`; and
+- `--wg-form-control-space-inline`.
+
+Checkbox and radio share:
+
+- `--wg-form-choice-accent`;
+- `--wg-form-choice-gap`;
+- `--wg-form-choice-size`; and
+- `--wg-form-choice-target`.
+
+Slider exposes:
+
+- `--wg-form-slider-accent`; and
+- `--wg-form-slider-size-minimum`.
 
 Native controls and choice labels remain slotted light-DOM nodes, so the shell cannot assign CSS
 parts to them. Cross-engine prototyping confirmed that `::slotted()` can deliver the accepted state
@@ -233,34 +260,38 @@ and geometry selectors without adding public classes to native nodes.
 
 ## Diagnostics and invalid anatomy
 
-Development diagnostics cover missing controls, multiple controls, incompatible input types, missing
-direct choice labels, and nested or interactive anatomy that creates duplicate controls. Diagnostics
-do not repair markup, move nodes, generate relationships, or disable native behavior.
+Text field, number field, select, and slider diagnose when the number of compatible direct native
+controls is not exactly one. Checkbox and radio diagnose their direct native input count, direct
+native label count, and explicit label association. These runtime checks do not attempt a complete
+accessibility or descendant-interactivity audit. Diagnostics do not repair markup, move nodes,
+generate relationships, or disable native behavior.
 
 In production, unsupported children remain visible. The shell must not hide a usable control merely
 because anatomy is invalid.
 
-## Validation requirements
+## Validation coverage
 
-Acceptance requires:
+The form-control browser suite and Phase 2D-E validation record cover:
 
 - native label activation, fieldset/legend grouping, focus order, events, form data, submission,
   reset, defaults, constraints, and application-authored invalid state;
-- text selection, composition-safe input, password-manager and representative autofill behavior,
-  semantic mobile-keyboard hints, and textarea resizing;
+- ordinary text, textarea, and number editing without shell event translation;
 - number parsing and stepping without Wayglass coercion;
-- select keyboard, typeahead, touch, single, multiple, and option-group behavior;
-- checkbox checked, unchecked, mixed, required, and reset behavior;
-- radio mutual exclusion, arrow navigation, required grouping, and reset behavior;
+- select options, option groups, selection, and native change behavior;
+- checkbox label activation, checked and mixed state, submission, and reset behavior;
+- radio mutual exclusion, arrow navigation, submission, and reset behavior;
 - slider pointer and keyboard adjustment, bounds, step, visible value context, and target size;
 - disabled and applicable readonly behavior without treating either as operational condition;
-- dark, light, forced colors, reduced motion, 200% zoom, 400% text-equivalent reflow, coarse
-  pointer, and supported browser engines;
+- dark, light, forced colors, reduced motion, 320 CSS-pixel viewport reflow, and supported browser
+  engines;
 - useful pre-upgrade and failed-upgrade form behavior; and
-- representative VoiceOver/Safari, NVDA/Firefox, autofill, and password-manager review before public
-  release.
+- typed React wrappers for the six presentation elements while native control props and events stay
+  ordinary React APIs.
 
-## Deferred work
+Open pre-public-release evidence remains VoiceOver/Safari, NVDA/Firefox on Windows, representative
+real-profile autofill, and password-manager review.
+
+## Continuing boundaries
 
 - searchable comboboxes, autocomplete popups, tokenized and custom multi-selects;
 - date, time, color, file, and other specialized input types;
