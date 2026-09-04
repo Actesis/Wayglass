@@ -1,9 +1,9 @@
 # Phase 6B status-collections contract audit
 
-**Status:** Proposed on September 3, 2026. This record reconciles `wg-status-list` and
-`wg-status-entry` against their implementations, architecture decision, tokens, documentation, React
-bindings, stories, and browser evidence. It changes no package version, privacy, registry, or
-deployment state.
+**Status:** Accepted by the project owner on September 3, 2026. This record reconciles
+`wg-status-list` and `wg-status-entry` against their implementations, architecture decision, tokens,
+documentation, React bindings, stories, and browser evidence. It changes no package version,
+privacy, registry, or deployment state.
 
 ## Scope
 
@@ -70,5 +70,7 @@ The Windows item remains consistent with the existing deferred Windows-access de
 
 ## Project-owner decision
 
-Pending review. Acceptance freezes the listed status-collections contract for v1; later changes
-require explicit compatibility review. It does not authorize package publication.
+On September 3, 2026, the project owner accepted the status-collections contract audit and directed
+its merge and continuation to temporal-collection reconciliation. This freezes the listed
+status-collections contract for v1; later changes require explicit compatibility review. It does not
+authorize package publication.
