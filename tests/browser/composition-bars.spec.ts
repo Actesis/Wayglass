@@ -220,6 +220,34 @@ test('stacks at 320 CSS pixels and 200 percent text without reordering or page o
   expect(result.tops[1]).toBeGreaterThan(result.tops[0]!);
   expect(result.tops[2]).toBeGreaterThan(result.tops[1]!);
   expect(result.overflow).toBeLessThanOrEqual(1);
+
+  const flattenedOrder = await page.evaluate(() => {
+    const rectangle = (hostId: string, selector: string): DOMRect =>
+      document
+        .querySelector<HTMLElement>(hostId)!
+        .shadowRoot!.querySelector<HTMLElement>(selector)!
+        .getBoundingClientRect();
+    const filterContent = rectangle('#event-filters', '[part="content"]');
+    const filterSummary = rectangle('#event-filters', '[part="summary"]');
+    const filterStatus = rectangle('#event-filters', '[part="status"]');
+    const commandOverflow = rectangle('#event-commands', '[part="overflow"]');
+    const commandStatus = rectangle('#event-commands', '[part="status"]');
+    return {
+      filterContentBottom: filterContent.bottom,
+      filterSummaryTop: filterSummary.top,
+      filterSummaryBottom: filterSummary.bottom,
+      filterStatusTop: filterStatus.top,
+      commandOverflowBottom: commandOverflow.bottom,
+      commandStatusTop: commandStatus.top,
+    };
+  });
+  expect(flattenedOrder.filterSummaryTop).toBeGreaterThanOrEqual(
+    flattenedOrder.filterContentBottom,
+  );
+  expect(flattenedOrder.filterStatusTop).toBeGreaterThanOrEqual(flattenedOrder.filterSummaryBottom);
+  expect(flattenedOrder.commandStatusTop).toBeGreaterThanOrEqual(
+    flattenedOrder.commandOverflowBottom,
+  );
 });
 
 test('maps density spacing without changing semantics', async ({ page }) => {

@@ -175,7 +175,7 @@ selection without filtering, or a single control that is already clear in contex
 
 ### Attributes and properties
 
-- `label: string`: required visible and accessible fallback heading.
+- `label: string`: required visible and accessible fallback heading; default empty.
 
 The element has no `value`, `filters`, `schema`, `applied`, `dirty`, `busy`, `disabled`, or
 `results` property. Those concepts belong to the authored form or application result owner.
@@ -224,7 +224,7 @@ palette, application-wide shortcut system, or arbitrary mixed content.
 
 ### Attributes and properties
 
-- `label: string`: required visible and accessible fallback heading.
+- `label: string`: required visible and accessible fallback heading; default empty.
 
 The element has no command registry, selected command, pending command, authorization, shortcut,
 overflow calculation, or execution property.
@@ -284,9 +284,9 @@ content.
 
 ## Reference compositions and validation
 
-Phase 3F fixtures compose the bars with existing status lists, event logs, and later the Phase 3G
-table. They exercise complexity through the existing collection envelopes rather than inventing a
-new data-volume limit for the bars.
+Phase 3F fixtures compose the bars with existing status lists, event logs, and the Phase 3G table.
+They exercise complexity through the existing collection envelopes rather than inventing a new
+data-volume limit for the bars.
 
 Required filter cases include:
 
@@ -313,7 +313,19 @@ typed React parity, dark and light themes, compact and comfortable density, 320 
 text, RTL, forced colors, grayscale, reduced motion, touch, Axe scans, and Chromium, Firefox, and
 WebKit. Representative VoiceOver/Safari and NVDA/Firefox review remains a public-release gate.
 
-## Deferred and excluded behavior
+## Validation coverage
+
+Current automated coverage verifies side-effect-free imports and useful fallback, explicit
+registration, named regions, native form ownership, successful-control data, submitter identity,
+reset behavior, ordinary command focus order, existing native and typed events, stable light-DOM
+identity, unsupported-anatomy diagnostics, and the absence of toolbar, aggregate-event, and implicit
+live-region behavior. Production compositions additionally cover draft versus applied filters,
+stable result records, one deliberate result announcement owner, pending and rejected operations,
+unavailable reasons, retry and no-match recovery, confirmation handoff, explicit overflow menus,
+touch targets, themes, density, RTL, forced colors, grayscale, reduced motion, 320 CSS-pixel width,
+200% text, React parity, Axe, and page containment.
+
+## Continuing boundaries
 
 The following remain application-owned or separately deferred:
 
@@ -346,5 +358,5 @@ The accepted slots allow application composition without implying future package
 6. Result and command outcomes remain durable, function-local, stationary, and quiet unless the
    application selects one deliberate announcement owner.
 7. Public tokens are locked only for the named surfaces, boundaries, text roles, radius, and
-   density-aware spacing; implementation, stories, and validation proceed in later reviewable
-   slices.
+   density-aware spacing. Implementations, stories, and automated validation are complete;
+   representative assistive-technology evidence remains a release gate.
