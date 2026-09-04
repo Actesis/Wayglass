@@ -118,6 +118,10 @@ export default defineConfig({
             text: 'Phase 6B completion audit',
             link: '/governance/phase-6b-completion-audit',
           },
+          {
+            text: 'Phase 6B design-asset freeze',
+            link: '/governance/phase-6b-design-asset-freeze',
+          },
           { text: 'Phase 5 ecosystem roadmap', link: '/phase-5' },
           { text: 'Phase 5 roadmap disposition', link: '/phase-5-roadmap-disposition' },
           {
