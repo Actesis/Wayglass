@@ -1,8 +1,9 @@
 # Phase 6B design-asset freeze
 
-**Status:** Proposed on September 4, 2026. This record proposes the exact v1 token, theme/density,
-and generated icon semantic payloads. It changes no package version, privacy, registry, repository
-visibility, compatibility or support claim, packed artifact, or deployment state.
+**Status:** Accepted by the project owner on September 4, 2026. This record freezes the exact v1
+token, theme/density, and generated icon semantic payloads. It changes no package version, privacy,
+registry, repository visibility, compatibility or support claim, packed artifact, or deployment
+state.
 
 ## Decision
 
@@ -82,13 +83,13 @@ semantic payload changed while collecting the evidence.
 
 ## Phase 6B effect
 
-Owner acceptance closes the remaining design-asset portion of correction 3. Entry points, root
-symbols, component fields and styling hooks, and these exact semantic assets will then be frozen.
-Emitted declarations and packed targets remain Phase 6C candidate evidence rather than an unresolved
+This acceptance closes the remaining design-asset portion of correction 3. Entry points, root
+symbols, component fields and styling hooks, and these exact semantic assets are now frozen. Emitted
+declarations and packed targets remain Phase 6C candidate evidence rather than an unresolved
 public-surface decision.
 
 ## Project-owner decision
 
-Pending review. Acceptance freezes these three payloads for the v1 candidate and advances Phase 6B
-to package identity and stewardship. It does not choose versions, authorize publication, or begin
-Phase 6C.
+Accepted on September 4, 2026. These three payloads are frozen for the v1 candidate, and Phase 6B
+advances to package identity and stewardship. This acceptance does not choose versions, authorize
+publication, or begin Phase 6C.
