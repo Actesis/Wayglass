@@ -219,6 +219,11 @@ test('groups scalar values without aggregating state or announcing updates', asy
       .locator('[part="content"] > slot')
       .evaluate((element) => getComputedStyle(element).display),
   ).toBe('contents');
+  expect(
+    await base.evaluate((element) =>
+      Array.from(element.children).map((child) => child.getAttribute('part')),
+    ),
+  ).toEqual(['header', 'content', 'actions']);
 
   await page.locator('#metric-group-action').focus();
   await group.evaluate((element) => {

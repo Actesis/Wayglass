@@ -32,6 +32,7 @@ export class WgMetricGroup extends WayglassElement {
 
     [part='base'] {
       display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
       min-inline-size: 0;
       box-sizing: border-box;
       gap: var(--wg-metric-group-space);
@@ -43,7 +44,8 @@ export class WgMetricGroup extends WayglassElement {
 
     [part='header'] {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
+      grid-column: 1;
+      grid-row: 1;
       align-items: start;
       min-inline-size: 0;
       gap: var(--wg-metric-group-space-item);
@@ -58,7 +60,6 @@ export class WgMetricGroup extends WayglassElement {
     }
 
     [part='description'] {
-      grid-column: 1;
       min-inline-size: 0;
       color: var(--wg-metric-group-color-description);
       font-size: var(--wg-typography-size-body);
@@ -66,12 +67,14 @@ export class WgMetricGroup extends WayglassElement {
 
     [part='actions'] {
       grid-column: 2;
-      grid-row: 1 / span 2;
+      grid-row: 1;
       min-inline-size: 0;
     }
 
     [part='content'] {
       display: grid;
+      grid-column: 1 / -1;
+      grid-row: 2;
       grid-template-columns: repeat(
         auto-fit,
         minmax(min(100%, var(--wg-metric-group-size-item-minimum)), 1fr)
@@ -96,14 +99,13 @@ export class WgMetricGroup extends WayglassElement {
     }
 
     @container wg-metric-group (inline-size < 40rem) {
-      [part='header'] {
+      [part='base'] {
         grid-template-columns: minmax(0, 1fr);
       }
 
-      [part='description'],
       [part='actions'] {
         grid-column: 1;
-        grid-row: auto;
+        grid-row: 3;
       }
     }
 
@@ -142,11 +144,11 @@ export class WgMetricGroup extends WayglassElement {
           <div part="description" ?hidden=${!hasDescription}>
             <slot name="description" @slotchange=${this.#handleSlotChange}></slot>
           </div>
-          <div part="actions" ?hidden=${!hasActions}>
-            <slot name="actions" @slotchange=${this.#handleSlotChange}></slot>
-          </div>
         </header>
         <div part="content"><slot></slot></div>
+        <div part="actions" ?hidden=${!hasActions}>
+          <slot name="actions" @slotchange=${this.#handleSlotChange}></slot>
+        </div>
       </section>
     `;
   }

@@ -109,6 +109,15 @@ test('reflows 24 values at 320 CSS pixels and 200 percent text without page over
     scrollWidth: document.documentElement.scrollWidth,
   }));
   expect(layout.scrollWidth - layout.clientWidth).toBeLessThanOrEqual(1);
+  const narrowOrder = await page.locator('#scalar-envelope').evaluate((group) => {
+    const lastValue = group.querySelector<HTMLElement>(':scope > wg-key-value:last-of-type');
+    const actions = group.shadowRoot?.querySelector<HTMLElement>('[part="actions"]');
+    return {
+      lastValueBottom: lastValue?.getBoundingClientRect().bottom ?? 0,
+      actionsTop: actions?.getBoundingClientRect().top ?? 0,
+    };
+  });
+  expect(narrowOrder.actionsTop).toBeGreaterThanOrEqual(narrowOrder.lastValueBottom);
   await expect(page.getByText('Regional coordination — western interval')).toBeVisible();
   await expect(page.getByText('2,4% gegenüber der Vorstunde')).toBeVisible();
 });
