@@ -167,6 +167,45 @@ test('suppresses unchanged duplicate announcements and announces meaningful repl
     .toEqual(['Catalog synchronized.', 'Catalog synchronized with two changes.']);
 });
 
+test('suppresses an unchanged replacement that was already assertive', async ({ page }) => {
+  await page.locator('#region').evaluate((region) => {
+    const announcer = region.shadowRoot!.querySelector('[part="assertive-announcer"]')!;
+    (region as HTMLElement & { announcements?: string[] }).announcements = [];
+    new MutationObserver(() => {
+      const text = announcer.textContent?.trim();
+      if (text) {
+        (region as HTMLElement & { announcements: string[] }).announcements.push(text);
+      }
+    }).observe(announcer, { childList: true, characterData: true, subtree: true });
+  });
+
+  const addToast = async (id: string) => {
+    await page.locator('#region').evaluate((region, toastId) => {
+      const toast = document.createElement('wg-toast');
+      toast.setAttribute('toast-id', toastId);
+      toast.setAttribute('dedupe-key', 'assertive-sync-result');
+      toast.setAttribute('announcement', 'assertive');
+      toast.setAttribute('duration', '0');
+      toast.setAttribute('close-label', `Dismiss ${toastId}`);
+      toast.setAttribute('open', '');
+      toast.textContent = 'Immediate synchronization failure.';
+      region.append(toast);
+    }, id);
+  };
+
+  await addToast('assertive-sync-1');
+  await expect(page.locator('#region').locator('[part="assertive-announcer"]')).toHaveText(
+    'Immediate synchronization failure.',
+  );
+  await addToast('assertive-sync-2');
+  await page.waitForTimeout(250);
+  expect(
+    await page
+      .locator('#region')
+      .evaluate((region) => (region as HTMLElement & { announcements: string[] }).announcements),
+  ).toEqual(['Immediate synchronization failure.']);
+});
+
 test('distinguishes implicit manual action lifetime from an explicit duration', async ({
   page,
 }) => {

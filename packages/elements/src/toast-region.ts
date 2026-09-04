@@ -226,6 +226,7 @@ export class WgToastRegion extends WayglassElement {
       <div part="assertive-announcer" role="alert" aria-live="assertive" aria-atomic="true"></div>`;
   }
 
+  dismiss(toastId: string, reason?: 'programmatic'): boolean;
   dismiss(toastId: string, reason: ToastDismissReason = 'programmatic'): boolean {
     const record = this.#records.find((candidate) => candidate.toast.toastId === toastId);
     if (!record) return false;
@@ -321,7 +322,7 @@ export class WgToastRegion extends WayglassElement {
         suppressAnnouncement:
           duplicate !== undefined &&
           duplicate.toast.announcementText === toast.announcementText &&
-          toast.announcement !== 'assertive',
+          !(duplicate.toast.announcement !== 'assertive' && toast.announcement === 'assertive'),
       };
 
       if (duplicate) {
