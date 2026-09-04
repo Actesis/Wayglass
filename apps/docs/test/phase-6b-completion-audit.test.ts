@@ -76,7 +76,7 @@ describe('Phase 6B completion readiness', () => {
     expect(themeSource).toContain("export const themeNames = ['wayglass-dark', 'wayglass-light']");
   });
 
-  it('keeps proposed stewardship metadata separate from accepted release readiness', () => {
+  it('keeps accepted stewardship metadata separate from release readiness', () => {
     for (const name of candidatePackages) {
       for (const field of [
         'description',
@@ -92,11 +92,11 @@ describe('Phase 6B completion readiness', () => {
       expect(manifests[name].files).toEqual(['dist', 'README.md', 'LICENSE', 'NOTICE']);
     }
     expect(read('docs/governance/phase-6b-package-identity-stewardship.md')).toContain(
-      '**Status:** Proposed',
+      '**Status:** Accepted by the project owner',
     );
-    expect(audit).toMatch(/4\. Complete release metadata and package documentation\s*\| Open/);
-    expect(audit).toMatch(/5\. Include license\/notice and decide sources\/maps\s*\| Open/);
-    expect(audit).toMatch(/11\. Create maintenance and release-document baselines\s*\| Open/);
+    expect(audit).toMatch(/4\. Complete release metadata and package documentation\s*\| Complete/);
+    expect(audit).toMatch(/5\. Include license\/notice and decide sources\/maps\s*\| Complete/);
+    expect(audit).toMatch(/11\. Create maintenance and release-document baselines\s*\| Complete/);
   });
 
   it('keeps unresolved ranges, scripts, and side-effect declarations explicit', () => {

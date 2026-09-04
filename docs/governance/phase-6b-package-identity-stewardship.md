@@ -1,9 +1,10 @@
 # Phase 6B package identity and stewardship
 
-**Status:** Proposed on September 4, 2026. This record establishes complete identity, legal,
-package-documentation, and maintenance baselines for the six-package v1 candidate. Every package
-remains private at `0.0.0`; this proposal does not make the repository public, publish, reserve a
-registry package, choose compatibility ranges, create release automation, or deploy documentation.
+**Status:** Accepted by the project owner on September 4, 2026. This record establishes complete
+identity, legal, package-documentation, and maintenance baselines for the six-package v1 candidate.
+Every package remains private at `0.0.0`; this acceptance does not make the repository public,
+publish, reserve a registry package, choose compatibility ranges, create release automation, or
+deploy documentation.
 
 ## Package identity
 
@@ -97,10 +98,10 @@ replace Phase 6C clean-build and clean-consumer evidence. The repository's globa
 unrelated ownership problem, so validation used `/private/tmp/wayglass-npm-cache` without modifying
 user-level state.
 
-Owner acceptance closes Phase 6A corrections 4, 5, and 11 and advances Phase 6B to the version and
+This acceptance closes Phase 6A corrections 4, 5, and 11 and advances Phase 6B to the version and
 compatibility contract. It does not close packed-artifact evidence, choose versions or support
 ranges, approve publication, or begin Phase 6C.
 
 ## Project-owner decision
 
-Pending review.
+Accepted on September 4, 2026.
