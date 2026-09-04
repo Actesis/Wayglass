@@ -352,6 +352,20 @@ test('maps density and supports narrow RTL reflow, forced colors, and reduced mo
   await expect(page.getByText('Caution', { exact: true })).toBeVisible();
   await expect(page.getByText('Data stale', { exact: true })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Inspect manual review' })).toBeVisible();
+  const narrowActionOrder = await page
+    .getByRole('button', { name: 'Inspect manual review' })
+    .evaluate((button) => {
+      const root = button.getRootNode();
+      const control = root instanceof ShadowRoot ? root.host : button;
+      const item = control.closest('wg-timeline-item')!;
+      const content = item.shadowRoot!.querySelector<HTMLElement>('[part="content"]')!;
+      const actions = item.shadowRoot!.querySelector<HTMLElement>('[part="actions"]')!;
+      return {
+        contentBottom: content.getBoundingClientRect().bottom,
+        actionsTop: actions.getBoundingClientRect().top,
+      };
+    });
+  expect(narrowActionOrder.actionsTop).toBeGreaterThanOrEqual(narrowActionOrder.contentBottom);
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
 });
 
