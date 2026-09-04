@@ -1,8 +1,9 @@
 # Phase 6B completion audit
 
-**Status:** Proposed on September 4, 2026. This record audits the accepted Phase 6A correction list
-after completion of every mapped component-family reconciliation. It changes no public contract,
-package version, privacy, registry, repository visibility, support claim, or deployment state.
+**Status:** Accepted by the project owner on September 4, 2026. This record audits the accepted
+Phase 6A correction list after completion of every mapped component-family reconciliation. It
+changes no public contract, package version, privacy, registry, repository visibility, support
+claim, or deployment state.
 
 ## Outcome
 
@@ -77,6 +78,6 @@ must pass before this disposition is proposed.
 
 ## Project-owner decision
 
-Pending review. Acceptance confirms the correction ledger and five-slice remaining sequence. It does
-not accept versions, compatibility or support claims, freeze a commit, authorize publication, or
-begin Phase 6C.
+Accepted on September 4, 2026. The correction ledger and five-slice remaining sequence now govern
+the rest of Phase 6B. This acceptance does not accept versions, compatibility or support claims,
+freeze a commit, authorize publication, or begin Phase 6C.
