@@ -6,8 +6,8 @@ implementation ownership is recorded in
 the accepted [control-state contract](./control-state.md). Validation evidence is recorded in the
 [Phase 2D-B validation record](../accessibility/phase-2d-core-controls-validation.md).
 
-These contracts define `wg-icon-button`, `wg-toggle`, `wg-segmented-control`, `wg-segment`, and
-`wg-navigation-rail` before tokens or implementation are locked.
+These contracts define the production API for `wg-icon-button`, `wg-toggle`, `wg-segmented-control`,
+`wg-segment`, and `wg-navigation-rail`.
 
 ## Shared requirements
 
@@ -69,7 +69,7 @@ Enter and Space follow native button behavior. No arrow keys or shortcuts are ca
 - `pending-label: string`; default `Working on {label}`.
 
 Critical and primary icon-only appearances are intentionally absent. Those actions require visible
-text through `wg-button` or a later confirmation pattern.
+text through `wg-button` and, when appropriate, the documented confirmation pattern.
 
 #### Slots
 
@@ -140,8 +140,8 @@ between states. Confirmed domain terms remain visible so a person can scan witho
 - `disabled: boolean`; default `false`.
 
 `pending` or `rejected` authoring requires a non-`none` requested value and useful feedback. Invalid
-combinations receive development diagnostics and normalize presentation to confirmed truth; they do
-not invent a request.
+combinations are authoring errors. Runtime presentation normalizes to confirmed truth and does not
+invent a request.
 
 ### Slots
 
@@ -303,9 +303,9 @@ the previous, then empty. Focus moves only when the focused segment itself becom
 
 ### Responsive behavior
 
-Visible labels remain intact. Segments may wrap only when visual order and arrow-key order remain
-obvious; the default implementation uses one row and an explicitly labeled horizontal scroll region
-when needed. The component never changes its value or orientation because of viewport size.
+Visible labels remain intact. Horizontal segments remain in one row and scroll locally when needed;
+they do not wrap, so visual and arrow-key order remain aligned. The component never changes its
+value or orientation because of viewport size.
 
 ### CSS parts and properties
 
@@ -405,13 +405,13 @@ remain locally scrollable without causing page overflow, and the current link re
 ## Icon dependency
 
 `wg-icon-button` is the first required consumer of the accepted `wg-icon` foundation contract. The
-implementation milestone will establish `@wayglass/icons` and lock a minimal domain-neutral catalog
-needed by production fixtures. The catalog will not add home-automation assets, brand marks, or
+implemented `@wayglass/icons` package supplies the locked minimal domain-neutral catalog used by
+production fixtures. The catalog does not add home-automation assets, brand marks, or
 franchise-specific glyphs merely to fill out a showcase.
 
-## Validation requirements
+## Validation coverage
 
-Implementation must cover:
+The completed implementation gate covers:
 
 - explicit registration, failed upgrade, missing icons, and React wrapper parity;
 - icon-button naming, native activation, pending focus retention, and disabled suppression;
@@ -427,11 +427,15 @@ Implementation must cover:
 - phone, desktop, and wall-display fixtures in Chromium, Firefox, and WebKit;
 - representative screen-reader review for switch and custom radio-host interoperability.
 
-## Deferred decisions
+## Continuing boundaries
 
-- Menus, menu buttons, command items, popup positioning, and dismissal belong to Phase 2D-C.
-- Form radio groups remain consumer-authored native controls under Phase 2D-D/E.
-- Toolbars and their specialized nested-radio keyboard behavior are not part of this milestone.
-- Icon-only navigation, automatic rail collapse, and responsive destination migration are deferred.
+- Menus, command items, form controls, and confirmation dialogs are governed by their separate
+  implemented contracts.
+- Form radio groups remain consumer-authored native controls; segmented selection does not replace
+  them.
+- Toolbars and their specialized nested-radio keyboard behavior are not part of v1.
+- Icon-only navigation, automatic rail collapse, and responsive destination migration are not part
+  of v1.
 - Operational finite-value requests require a future contract and do not reuse segmented selection.
-- Confirmation dialogs and destructive icon actions remain in Phase 2E.
+- Destructive icon-only actions remain excluded; consequential actions require visible text and the
+  appropriate confirmation flow.

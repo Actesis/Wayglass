@@ -17,17 +17,27 @@ test('keeps control and icon imports side-effect free with visible fallback cont
     const before = control.getBoundingClientRect();
     await Promise.all([
       import('/packages/elements/dist/icon-button.js'),
+      import('/packages/elements/dist/toggle.js'),
+      import('/packages/elements/dist/segmented-control.js'),
+      import('/packages/elements/dist/segment.js'),
+      import('/packages/elements/dist/navigation-rail.js'),
       import('/packages/icons/dist/index.js'),
     ]);
     return {
-      controlRegistered: customElements.get('wg-icon-button') !== undefined,
+      controlsRegistered: [
+        'wg-icon-button',
+        'wg-toggle',
+        'wg-segmented-control',
+        'wg-segment',
+        'wg-navigation-rail',
+      ].some((name) => customElements.get(name) !== undefined),
       iconRegistered: customElements.get('wg-icon') !== undefined,
       text: control.textContent,
       visible: before.width > 0 && before.height > 0,
     };
   });
   expect(result).toEqual({
-    controlRegistered: false,
+    controlsRegistered: false,
     iconRegistered: false,
     text: 'Fallback command graphic',
     visible: true,
