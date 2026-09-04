@@ -147,8 +147,8 @@ scrollport.
 ### Purpose and anatomy
 
 `wg-timeline` presents one visibly named, curated temporal sequence. It owns the collection
-boundary, ordered-list semantics, a visible chronology label, sequence presentation, responsive
-spacing, and optional collection context.
+boundary, authored-order list semantics, a visible chronology label, sequence presentation,
+responsive spacing, and optional collection context.
 
 Use it to explain milestones, transitions, and intervals where the relationship between selected
 occurrences matters. Do not use it for an exhaustive stream, current status set, process stepper,
@@ -174,8 +174,9 @@ refresh activity without erasing retained items or announcing each mutation.
 Attributes and properties:
 
 - `label: string`: required visible and accessible fallback heading.
-- `chronology: 'ascending' | 'descending'`: required description of authored DOM order.
-- `chronology-label: string`: required localized visible wording for that order.
+- `chronology: 'ascending' | 'descending'`: description of authored DOM order; default `ascending`.
+- `chronologyLabel: string` (`chronology-label` attribute): required localized visible wording for
+  that order; default empty.
 - `busy: boolean`: bounded loading, refresh, or replacement activity; default `false`.
 
 Slots:
@@ -290,8 +291,8 @@ CSS parts:
 ### Purpose and anatomy
 
 `wg-event-log` presents one visibly named dense stream of inspectable event records. It owns the
-collection boundary, ordered-list semantics, visible chronology label, consistent field alignment,
-responsive density, and optional collection context.
+collection boundary, authored-order list semantics, visible chronology label, consistent field
+alignment, responsive density, and optional collection context.
 
 Use it when people need to scan occurrences, compare source or category context, inspect details, or
 reach record-local actions. Do not use it as a current-status list, notification center, chat
@@ -316,8 +317,9 @@ Larger or long-lived streams use application-owned retention, paging, or reviewe
 Attributes and properties:
 
 - `label: string`: required visible and accessible fallback heading.
-- `chronology: 'ascending' | 'descending'`: required description of authored DOM order.
-- `chronology-label: string`: required localized visible wording for that order.
+- `chronology: 'ascending' | 'descending'`: description of authored DOM order; default `ascending`.
+- `chronologyLabel: string` (`chronology-label` attribute): required localized visible wording for
+  that order; default empty.
 - `busy: boolean`: bounded loading, refresh, or replacement activity; default `false`.
 
 Slots:
@@ -444,7 +446,17 @@ Timeline sequence geometry adapts without becoming meaning-bearing. Event-log al
 less tabular as space narrows, but visible field labels preserve relationships. Density is inherited
 from the active theme and does not change merely because the viewport changed.
 
-## Deferred and excluded behavior
+## Validation coverage
+
+Current automated coverage verifies explicit registration and useful fallback, authored-order list
+and list-item semantics, visible chronology, invalid-value normalization, native time and details,
+all state axes, unsupported-child diagnostics, silent insertion, stable node identity, focus and
+scroll preservation, authored unseen summaries and jump controls, and narrow action order. The
+production fixtures also cover 100 timeline items, 500 event records plus 50-record bursts, repeated
+summaries, long and localized-looking content, themes, density, RTL, forced colors, grayscale,
+reduced motion, 320 CSS-pixel width, 200% text, React parity, Axe, and page containment.
+
+## Continuing boundaries
 
 The following remain application-owned and outside these component APIs:
 
@@ -473,5 +485,5 @@ ownership.
 7. Announcements, unseen counts, follow-latest, and scroll restoration remain application-owned
    compositions; Wayglass provides stable slots and stationary update behavior.
 8. Public tokens are locked only for intentional surfaces, sequence and signal geometry, text roles,
-   radii, and density-aware spacing; implementation, stories, and validation proceed in later
-   reviewable slices.
+   radii, and density-aware spacing. Implementations, stories, and automated validation are
+   complete; representative assistive-technology evidence remains a release gate.
