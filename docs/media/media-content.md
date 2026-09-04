@@ -1,8 +1,9 @@
 # Phase 2C media-content contract
 
-**Status:** Accepted and implemented on July 30, 2026. The ownership and delivery model is recorded
-in [ADR 0013](../architecture/adr/0013-native-media-ownership.md), with implementation evidence in
-the [Phase 2C media-content validation](../accessibility/phase-2c-media-validation.md).
+**Status:** Accepted and implemented on July 30, 2026; field-level v1 reconciliation completed for
+project-owner review on September 3, 2026. The ownership and delivery model is recorded in
+[ADR 0013](../architecture/adr/0013-native-media-ownership.md), with implementation evidence in the
+[Phase 2C media-content validation](../accessibility/phase-2c-media-validation.md).
 
 This contract adds domain-neutral image presentation without turning Wayglass into an asset store,
 placing media URLs in shared function state, or making an image the only carrier of state,
@@ -264,8 +265,9 @@ gesture.
 - The image remains supplemental; closing or failing inspection does not lose surrounding state or
   task context.
 
-An official Wayglass viewer or dialog integration is deferred until the overlay and dialog contracts
-exist. This contract remains compatible with that future enhancement without requiring it.
+The official `wg-media-viewer` is a separate, explicit inspection surface. It shares no implicit
+state or source discovery with `wg-media`; the application authors and authorizes the viewer's
+native image independently and invokes it from the inspection control when appropriate.
 
 ## Privacy and security guidance
 
@@ -300,9 +302,9 @@ without requiring Custom Element registration. Applications that render named st
 that stylesheet before content; otherwise they must author equivalent hiding rules. No fallback rule
 may hide the default native image solely because JavaScript has not upgraded the element.
 
-## Validation requirements
+## Validation coverage
 
-Implementation validation covers:
+Automated component, React, and browser tests cover:
 
 - direct `<img>` and art-directed `<picture>` content;
 - informative and decorative alternatives without duplicate image roles;
@@ -324,15 +326,17 @@ Visual fixtures must include at least one identification photograph, one diagram
 decorative image, one retained/loading image, and one unavailable image. They must demonstrate that
 media absence never hides state, instructions, or actions.
 
-## Deferred decisions
+Representative assistive-technology and application-level reviews remain release work for final
+alternative text, localization, privacy, request policy, authorization, and source sizing.
 
-- Galleries, carousels, comparison sliders, zoom/pan engines, annotations, and editing are not part
-  of the primitive.
+## Continuing boundaries
+
+- Galleries, carousels, comparison sliders, annotations, editing, and application-defined zoom or
+  pan engines are not part of the primitive. Bounded single-image inspection is provided separately
+  by `wg-media-viewer`.
 - Video, audio, live camera streams, charts, maps, and canvases require their own semantic and
   performance contracts.
 - Wayglass does not provide storage, upload, transformation, CDN, authorization, or asset metadata
   schemas.
-- A package-owned full-size viewer is deferred until dialog, overlay, and focus-management
-  primitives are accepted.
 - Media provenance, freshness, and trust may later receive a higher-level pattern; they do not add
   URL fields to the shared function state model.
