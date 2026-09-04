@@ -1,8 +1,9 @@
 # Phase 6B telemetry contract audit
 
-**Status:** Proposed on September 3, 2026. This record reconciles `wg-telemetry-strip` against its
-implementation, architecture decisions, documentation, React binding, stories, and browser evidence.
-It changes no package version, privacy, registry, or deployment state.
+**Status:** Accepted by the project owner on September 3, 2026. This record reconciles
+`wg-telemetry-strip` against its implementation, architecture decisions, documentation, React
+binding, stories, and browser evidence. It changes no package version, privacy, registry, or
+deployment state.
 
 ## Scope
 
@@ -69,5 +70,6 @@ consistent with the existing deferred Windows-access decision.
 
 ## Project-owner decision
 
-Pending review. Acceptance freezes the listed telemetry contract for v1; later changes require
-explicit compatibility review. It does not authorize package publication.
+On September 3, 2026, the project owner accepted the telemetry contract audit and directed its merge
+and continuation to status-collection reconciliation. This freezes the listed telemetry contract for
+v1; later changes require explicit compatibility review. It does not authorize package publication.
