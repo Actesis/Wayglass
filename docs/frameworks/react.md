@@ -5,7 +5,7 @@ wrappers add React property, event, and ref integration without duplicating comp
 
 ## Installation boundary
 
-The package is a private `0.1.0` candidate and has not been published. Its proposed compatibility
+The package is a private `0.1.0` candidate and has not been published. Its accepted compatibility
 contract is React `>=19.0.0 <20`, `@wayglass/elements` `^0.1.0`, Node `>=22.13.0 <27`, and
 TypeScript `>=5.9.0 <6.1.0`. Applications in this workspace still consume it locally; this
 documentation is not an npm installation or public support claim.

@@ -99,7 +99,7 @@ describe('Phase 6B completion readiness', () => {
     expect(audit).toMatch(/11\. Create maintenance and release-document baselines\s*\| Complete/);
   });
 
-  it('keeps the proposed compatibility contract separate from owner acceptance', () => {
+  it('keeps the accepted compatibility contract separate from publication readiness', () => {
     expect((manifests.react.devDependencies as Record<string, string>)['@wayglass/elements']).toBe(
       'workspace:*',
     );
@@ -110,12 +110,12 @@ describe('Phase 6B completion readiness', () => {
       expect(manifests[name]).toHaveProperty('scripts');
     }
     expect(read('docs/governance/phase-6b-version-compatibility-contract.md')).toContain(
-      '**Status:** Proposed',
+      '**Status:** Accepted by the project owner',
     );
-    expect(audit).toMatch(/6\. Select versions and publish-time SemVer ranges\s*\| Open/);
-    expect(audit).toMatch(/7\. Make retained packed scripts independently usable\s*\| Open/);
-    expect(audit).toMatch(/8\. Complete side-effect declarations\s*\| Partial/);
-    expect(audit).toMatch(/9\. Constrain React and choose TypeScript compatibility\s*\| Open/);
+    expect(audit).toMatch(/6\. Select versions and publish-time SemVer ranges\s*\| Complete/);
+    expect(audit).toMatch(/7\. Make retained packed scripts independently usable\s*\| Complete/);
+    expect(audit).toMatch(/8\. Complete side-effect declarations\s*\| Complete/);
+    expect(audit).toMatch(/9\. Constrain React and choose TypeScript compatibility\s*\| Complete/);
   });
 
   it('records claim narrowing and the exact-freeze matrix as unresolved gates', () => {

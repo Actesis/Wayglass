@@ -1,8 +1,8 @@
 # Phase 6B version and compatibility contract
 
-**Status:** Proposed on September 4, 2026. This record applies ADR 0035 to the six v1 package
-candidates. All packages remain private; this proposal creates no tag, registry package, workflow,
-deployment, support claim, or publication authority.
+**Status:** Accepted by the project owner on September 4, 2026. This record applies ADR 0035 to the
+six v1 package candidates. All packages remain private; this acceptance creates no tag, registry
+package, workflow, deployment, support claim, or publication authority.
 
 ## Candidate versions and relationships
 
@@ -82,11 +82,11 @@ Minimum-version downloads and consumer installation used an isolated temporary n
 directory. No registry package, user-level cache, tag, workflow, or publication state changed. The
 focused browser run used a temporary local-server configuration that was removed after validation.
 
-Owner acceptance closes corrections 6, 7, 8, and 9 and advances Phase 6B to the support-claim
+This acceptance closes corrections 6, 7, 8, and 9 and advances Phase 6B to the support-claim
 disposition. Packed-manifest transformation and clean installed-candidate verification remain Phase
 6C evidence; acceptance does not publish, tag, deploy, or establish browser or assistive-technology
 support.
 
 ## Project-owner decision
 
-Pending review.
+Accepted on September 4, 2026.

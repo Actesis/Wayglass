@@ -1,6 +1,6 @@
 # ADR 0035: Select the initial version and compatibility boundaries
 
-- Status: proposed
+- Status: accepted
 - Date: 2026-09-04
 
 ## Context
