@@ -1,9 +1,10 @@
 # Phase 6B persistent-feedback contract audit
 
-**Status:** Proposed on September 3, 2026. This record reconciles `wg-alert`, `wg-badge`,
-`wg-empty-state`, `wg-offline-state`, `wg-progress`, `wg-skeleton`, and `wg-stale-data-marker`
-against their implementation, architecture decision, documentation, React bindings, stories, and
-browser evidence. It changes no package version, privacy, registry, or deployment state.
+**Status:** Accepted by the project owner on September 3, 2026. This record reconciles `wg-alert`,
+`wg-badge`, `wg-empty-state`, `wg-offline-state`, `wg-progress`, `wg-skeleton`, and
+`wg-stale-data-marker` against their implementation, architecture decision, documentation, React
+bindings, stories, and browser evidence. It changes no package version, privacy, registry, or
+deployment state.
 
 ## Scope
 
@@ -62,8 +63,8 @@ VoiceOver/Safari and NVDA with Firefox on Windows remain open pre-public-release
 Windows item remains consistent with the existing deferred Windows-access decision; this audit makes
 no unsupported screen-reader claim.
 
-## Decision requested
+## Project-owner decision
 
-Accept persistent feedback and loading as field-level reconciled and proceed to transient feedback.
-Acceptance freezes the listed contract for v1; later changes require explicit compatibility review.
-It does not authorize package publication.
+On September 3, 2026, the project owner accepted the persistent-feedback contract audit and directed
+its merge and continuation to transient feedback. This freezes the listed contract for v1; later
+changes require explicit compatibility review. It does not authorize package publication.
