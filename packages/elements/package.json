@@ -1,6 +1,6 @@
 {
   "name": "@wayglass/elements",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "description": "Domain-neutral Wayglass Custom Elements for operational interfaces.",
   "license": "Apache-2.0",
@@ -25,6 +25,9 @@
     "registry": "https://registry.npmjs.org/"
   },
   "type": "module",
+  "engines": {
+    "node": ">=22.13.0 <27"
+  },
   "files": [
     "dist",
     "README.md",
@@ -308,8 +311,8 @@
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
-    "@wayglass/core": "workspace:*",
-    "@wayglass/themes": "workspace:*",
+    "@wayglass/core": "^0.1.0",
+    "@wayglass/themes": "^0.1.0",
     "lit": "3.3.3"
   },
   "devDependencies": {

@@ -2,7 +2,7 @@
   "catalogSchemaVersion": 1,
   "contractRevision": 1,
   "iconCount": 4,
-  "iconPackageVersion": "0.0.0",
+  "iconPackageVersion": "0.1.0",
   "icons": [
     {
       "accessibleUse": "reinforcement-only",

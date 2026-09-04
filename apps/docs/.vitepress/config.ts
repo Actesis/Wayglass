@@ -127,6 +127,14 @@ export default defineConfig({
             text: 'Phase 6B package identity and stewardship',
             link: '/governance/phase-6b-package-identity-stewardship',
           },
+          {
+            text: 'Phase 6B version and compatibility',
+            link: '/governance/phase-6b-version-compatibility-contract',
+          },
+          {
+            text: 'ADR 0035 initial version and compatibility',
+            link: '/architecture/adr/0035-initial-version-and-compatibility',
+          },
           { text: 'Phase 5 ecosystem roadmap', link: '/phase-5' },
           { text: 'Phase 5 roadmap disposition', link: '/phase-5-roadmap-disposition' },
           {

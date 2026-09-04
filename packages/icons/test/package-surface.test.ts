@@ -46,7 +46,7 @@ describe('@wayglass/icons package boundary', () => {
   it('provides root and component-specific entries for the same private optional runtime', () => {
     expect(manifest.name).toBe('@wayglass/icons');
     expect(manifest.private).toBe(true);
-    expect(manifest.files).toEqual(['dist']);
+    expect(manifest.files).toEqual(['dist', 'README.md', 'LICENSE', 'NOTICE']);
     expect(manifest.sideEffects).toBe(false);
     expect(manifest.exports).toEqual({
       '.': { types: './dist/index.d.ts', import: './dist/index.js' },

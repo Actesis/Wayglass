@@ -1,6 +1,6 @@
 {
   "name": "@wayglass/themes",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "description": "Wayglass themes and density modes for operational interfaces.",
   "license": "Apache-2.0",
@@ -25,6 +25,9 @@
     "registry": "https://registry.npmjs.org/"
   },
   "type": "module",
+  "engines": {
+    "node": ">=22.13.0 <27"
+  },
   "files": [
     "dist",
     "README.md",
@@ -48,7 +51,7 @@
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
-    "@wayglass/tokens": "workspace:*"
+    "@wayglass/tokens": "^0.1.0"
   },
   "devDependencies": {
     "typescript": "6.0.3",

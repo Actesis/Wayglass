@@ -17,6 +17,9 @@ Omit `label` only when adjacent content supplies the accessible meaning. Imports
 registration or global side effects. The v1 catalog is intentionally small and is not a general
 application icon library.
 
+Compatibility: Node `>=22.13.0 <27` and TypeScript `>=5.9.0 <6.1.0`. Browser and
+assistive-technology support is release-specific.
+
 Repository builds are private release candidates; only versions published through an approved
 Wayglass release are public artifacts. Before using a released version, review its
 [support](https://wayglass.hoagsoftworks.com/maintenance/support),

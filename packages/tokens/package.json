@@ -1,6 +1,6 @@
 {
   "name": "@wayglass/tokens",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "description": "Semantic design tokens and generated web artifacts for Wayglass.",
   "license": "Apache-2.0",
@@ -25,6 +25,10 @@
     "registry": "https://registry.npmjs.org/"
   },
   "type": "module",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=22.13.0 <27"
+  },
   "files": [
     "dist",
     "README.md",

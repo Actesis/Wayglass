@@ -1,6 +1,6 @@
 {
   "name": "@wayglass/icons",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "description": "Generated, direction-aware icons for Wayglass interfaces.",
   "license": "Apache-2.0",
@@ -25,6 +25,9 @@
     "registry": "https://registry.npmjs.org/"
   },
   "type": "module",
+  "engines": {
+    "node": ">=22.13.0 <27"
+  },
   "files": [
     "dist",
     "README.md",
