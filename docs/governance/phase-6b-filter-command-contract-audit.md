@@ -1,9 +1,9 @@
 # Phase 6B filter-and-command contract audit
 
-**Status:** Proposed on September 3, 2026. This record reconciles `wg-filter-bar` and
-`wg-command-bar` against their implementations, architecture decision, documentation, React
-bindings, stories, and browser evidence. It changes no package version, privacy, registry, or
-deployment state.
+**Status:** Accepted by the project owner on September 4, 2026. This record reconciles
+`wg-filter-bar` and `wg-command-bar` against their implementations, architecture decision,
+documentation, React bindings, stories, and browser evidence. It changes no package version,
+privacy, registry, or deployment state.
 
 ## Scope
 
@@ -76,5 +76,6 @@ existing deferred Windows-access decision.
 
 ## Project-owner decision
 
-Pending review. Acceptance freezes the listed filter-and-command contract for v1; later changes
-require explicit compatibility review. It does not authorize package publication.
+Accepted on September 4, 2026. The listed filter-and-command contract is frozen for v1; later
+changes require explicit compatibility review. This acceptance does not authorize package
+publication.
