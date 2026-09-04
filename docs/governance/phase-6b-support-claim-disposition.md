@@ -1,9 +1,9 @@
 # Phase 6B v1 support-claim disposition
 
-**Status:** Proposed for project-owner acceptance on September 4, 2026. This record defines the
-support claims that the initial `0.1.0` release proposal may make from completed evidence. It does
-not publish a package, make the repository public, deploy documentation, close the final freeze
-matrix, or turn an unverified environment into a supported one.
+**Status:** Accepted by the project owner on September 4, 2026. This record defines the support
+claims that the initial `0.1.0` release proposal may make from completed evidence. It does not
+publish a package, make the repository public, deploy documentation, close the final freeze matrix,
+or turn an unverified environment into a supported one.
 
 ## Decision model
 
@@ -122,3 +122,7 @@ authorizes no public support statement before release.
 Phase 6B then advances to the integrated freeze: run the complete affected matrix, record exact
 environments and limitations, classify all blockers, and propose one exact v1 scope-freeze commit.
 The final matrix may narrow this proposal; widening it requires new evidence and review.
+
+## Project-owner decision
+
+Accepted on September 4, 2026.

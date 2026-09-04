@@ -58,12 +58,13 @@ describe('Phase 6B support-claim disposition', () => {
     }
   });
 
-  it('keeps the public support policy and completion audit in proposed state', () => {
-    expect(support).toContain('## Proposed initial `0.1.0` matrix');
+  it('records acceptance without activating private-candidate support', () => {
+    expect(disposition).toContain('**Status:** Accepted by the project owner');
+    expect(support).toContain('## Initial `0.1.0` candidate matrix');
     expect(support).toContain('This matrix is not active support while packages remain private');
-    expect(audit).toContain('Support-claim disposition — proposed for acceptance');
+    expect(audit).toContain('Support-claim disposition — complete');
     expect(audit).toMatch(
-      /10\. Complete assistive-technology evidence or narrow claims\s*\| Open with accepted alternative/,
+      /10\. Complete assistive-technology evidence or narrow claims\s*\| Complete/,
     );
     expect(audit).toMatch(/12\. Run the complete stabilization and freeze matrix\s*\| Open/);
     expect(disposition).toContain('Phase 6B then advances to the integrated freeze');
