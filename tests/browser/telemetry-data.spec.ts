@@ -61,9 +61,11 @@ test('preserves authored gaps, knowledge, and independent strip state', async ({
   const geometry = await page.locator('#telemetry-sparse').evaluate((element) => ({
     paths: element.shadowRoot!.querySelectorAll('path').length,
     gaps: element.shadowRoot!.querySelectorAll('[data-gap]').length,
+    isolated: element.shadowRoot!.querySelectorAll('[data-isolated]').length,
   }));
   expect(geometry.paths).toBeGreaterThan(0);
   expect(geometry.gaps).toBe(3);
+  expect(geometry.isolated).toBe(3);
   expect(
     await page
       .locator('#telemetry-unavailable')

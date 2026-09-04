@@ -43,10 +43,11 @@ uses stoplight semantics only when explicitly authored.
 
 ## Automated and performance record
 
-The focused Phase 3C matrix schedules 66 cases across Chromium, Firefox, and WebKit. All 64
+The current focused Phase 3C matrix schedules 69 cases across Chromium, Firefox, and WebKit. All 67
 applicable cases pass; the two non-Chromium instances of the timing-only definition are
-intentionally skipped. The authoritative full browser matrix schedules 873 cases: 869 pass and four
-timing-only instances are intentionally skipped outside Chromium.
+intentionally skipped. This includes the Phase 6B regression for one-observation finite runs. The
+authoritative full browser matrix recorded at Phase 3C closeout scheduled 873 cases: 869 passed and
+four timing-only instances were intentionally skipped outside Chromium.
 
 The production timing fixture at commit `7a7b783` uses 12 simultaneous strips with 120 samples each.
 The reference environment was macOS 26.5.2 on arm64 with Playwright 1.62.0 and its bundled Chromium.

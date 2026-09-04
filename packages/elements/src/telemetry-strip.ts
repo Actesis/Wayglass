@@ -399,6 +399,17 @@ export class WgTelemetryStrip extends WayglassElement {
           y1="38"
           y2="62"
         ></line>`);
+      } else if (
+        (this.samples[index - 1]?.value ?? null) === null &&
+        (this.samples[index + 1]?.value ?? null) === null
+      ) {
+        geometry.push(svg`<circle
+          data-isolated
+          data-knowledge=${knowledge}
+          cx=${xFor(sample).toFixed(3)}
+          cy=${yFor(sample).toFixed(3)}
+          r="3"
+        ></circle>`);
       } else if (boundaryIndexes.has(index) && knowledge !== 'confirmed') {
         geometry.push(svg`<circle
           data-boundary

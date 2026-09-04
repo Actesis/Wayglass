@@ -72,7 +72,7 @@ separate native table or list and an authored control or link to reach it.
 ## Structured sample input
 
 Telemetry is the Phase 3 exception where narrow structured input is justified: the component must
-calculate geometry. The proposed component-local type is:
+calculate geometry. The component-local type is:
 
 ```ts
 import type { Knowledge } from '@wayglass/core';
@@ -119,8 +119,9 @@ silently clipped.
 
 ## Gaps and observation knowledge
 
-Each contiguous run of finite values is drawn separately. A `null` sample breaks the run and leaves
-a deliberate visible gap. Wayglass does not connect across it or imply a missing value.
+Each contiguous run of finite values is drawn separately. A one-observation run is retained as a
+bounded point. A `null` sample breaks the run and leaves a deliberate visible gap. Wayglass does not
+connect across it or imply a missing value.
 
 Confirmed, inferred, stale, unknown, conflicting, and unavailable observations retain distinct
 authored knowledge. Color may support recognition, but line pattern, point treatment, or another
@@ -176,9 +177,9 @@ visible when non-default.
 ## Responsive and visual behavior
 
 The strip fills its container without establishing page-level overflow. A normalized SVG `viewBox`
-is the proposed rendering basis, so resizing changes the rendered viewport rather than the data or
-semantic content. Every supplied sample is retained up to the 240-sample validation envelope; the
-component does not downsample according to pixels or device capabilities.
+is the rendering basis, so resizing changes the rendered viewport rather than the data or semantic
+content. Every supplied sample is retained up to the 240-sample validation envelope; the component
+does not downsample according to pixels or device capabilities.
 
 At narrow widths, current context and summary reflow as text while the graphic retains a bounded
 minimum block size. Time labels remain at logical ends and may wrap. Essential text is never
@@ -195,10 +196,10 @@ substantially adapt color, weight, surface, and spacing without changing those m
 
 - `label: string`: required visible and accessible fallback heading.
 - `samples: readonly TelemetrySample[]`: property-only structured rendering input; default `[]`.
-- `windowStart: number`: property-only numeric start of the inclusive time window.
-- `windowEnd: number`: property-only numeric end of the inclusive time window.
-- `scaleMinimum: number`: property-only numeric lower rendering bound.
-- `scaleMaximum: number`: property-only numeric upper rendering bound.
+- `windowStart: number`: property-only numeric start of the inclusive time window; default `0`.
+- `windowEnd: number`: property-only numeric end of the inclusive time window; default `1`.
+- `scaleMinimum: number`: property-only numeric lower rendering bound; default `0`.
+- `scaleMaximum: number`: property-only numeric upper rendering bound; default `1`.
 - `condition: Condition`: authored condition of the named history; default `neutral`.
 - `knowledge: Knowledge`: authored knowledge of the named history; default `confirmed`.
 - `activity: Activity`: authored history-update activity; default `idle`.
@@ -305,7 +306,17 @@ All 30 cases passed across Chromium, Firefox, and WebKit. The fixture and eviden
 Automated accessibility results do not replace the representative VoiceOver/Safari and NVDA/Firefox
 gates assigned during production validation.
 
-## Deferred capabilities
+## Validation coverage
+
+Current automated coverage verifies property-only samples and numeric bounds, all supported sample
+knowledge values, independent strip state, connected and one-observation finite runs, explicit gaps,
+empty and invalid input, deduplicated diagnostics, authored semantic equivalence, silent array
+replacement with stable focus, explicit registration, and React property assignment. The production
+fixtures also cover 240 samples, twelve simultaneous 120-sample strips, irregular and repeated
+times, themes, density, RTL, forced colors, grayscale, reduced motion, 320 CSS-pixel width, 200%
+text, Axe, and page containment.
+
+## Continuing boundaries
 
 Multiple series, arbitrary axes, legends, annotations, thresholds, bands, stacking, forecasting,
 interpolation, smoothing, aggregation, component-owned downsampling, streaming transport, retained
@@ -318,5 +329,6 @@ package remain outside Phase 3C.
    adjacent native table or list remains necessary when exact sample inspection is part of the task.
 2. Observation-level `knowledge` remains in the input type. Distinct path and gap patterns preserved
    its meaning without converting knowledge into condition or series-wide state.
-3. Production rendering will mark only non-confirmed run boundaries and explicit gap boundaries.
-   Marking every one of 240 samples added noise without improving the overview or semantics.
+3. Production rendering marks only non-confirmed run boundaries, one-observation finite runs, and
+   explicit gap boundaries. Marking every one of 240 samples added noise without improving the
+   overview or semantics.
