@@ -1,9 +1,9 @@
 # Phase 6B form-foundation contract audit
 
-**Status:** Proposed on September 3, 2026. This record reconciles `wg-field-label`,
-`wg-field-message`, and `wg-form-group` against their implementation, architecture decisions,
-documentation, React bindings, stories, and browser evidence. It changes no package version,
-privacy, registry, or deployment state.
+**Status:** Accepted by the project owner on September 3, 2026. This record reconciles
+`wg-field-label`, `wg-field-message`, and `wg-form-group` against their implementation, architecture
+decisions, documentation, React bindings, stories, and browser evidence. It changes no package
+version, privacy, registry, or deployment state.
 
 ## Scope
 
@@ -58,8 +58,8 @@ The completed VoiceOver/Safari and representative autofill reviews remain valid.
 on Windows remains an open pre-public-release evidence item, consistent with the existing deferred
 Windows-access decision; this audit makes no unsupported Windows screen-reader claim.
 
-## Decision requested
+## Project-owner decision
 
-Accept form foundation as field-level reconciled and proceed to the form-controls family. Acceptance
-freezes the listed contract for v1; later changes require explicit compatibility review. It does not
-authorize package publication.
+On September 3, 2026, the project owner accepted the form-foundation contract audit and directed its
+merge and continuation to the form-controls family. This freezes the listed contract for v1; later
+changes require explicit compatibility review. It does not authorize package publication.
