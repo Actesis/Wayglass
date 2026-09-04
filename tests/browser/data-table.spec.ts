@@ -163,6 +163,21 @@ test('contains the same table at 320 CSS pixels, 200 percent text, and RTL', asy
     regionFocusable: true,
     pageOverflow: 0,
   });
+
+  const flattenedOrder = await page.evaluate(() => {
+    const dataTable = document.querySelector<HTMLElement>('#operational-records')!;
+    const context = dataTable.shadowRoot!.querySelector<HTMLElement>('[part="context"]')!;
+    const scroll = dataTable.querySelector<HTMLElement>('wg-scroll-region')!;
+    const feedback = dataTable.shadowRoot!.querySelector<HTMLElement>('[part="feedback"]')!;
+    return {
+      contextBottom: context.getBoundingClientRect().bottom,
+      scrollTop: scroll.getBoundingClientRect().top,
+      scrollBottom: scroll.getBoundingClientRect().bottom,
+      feedbackTop: feedback.getBoundingClientRect().top,
+    };
+  });
+  expect(flattenedOrder.scrollTop).toBeGreaterThanOrEqual(flattenedOrder.contextBottom);
+  expect(flattenedOrder.feedbackTop).toBeGreaterThanOrEqual(flattenedOrder.scrollBottom);
 });
 
 test('preserves unsupported anatomy and emits one stable diagnostic', async ({ page }) => {
