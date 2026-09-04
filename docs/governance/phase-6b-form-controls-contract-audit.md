@@ -1,8 +1,8 @@
 # Phase 6B form-controls contract audit
 
-**Status:** Proposed on September 3, 2026. This record reconciles `wg-text-field`,
-`wg-number-field`, `wg-select`, `wg-checkbox`, `wg-radio`, and `wg-slider` against their
-implementation, architecture decisions, documentation, React bindings, stories, and browser
+**Status:** Accepted by the project owner on September 3, 2026. This record reconciles
+`wg-text-field`, `wg-number-field`, `wg-select`, `wg-checkbox`, `wg-radio`, and `wg-slider` against
+their implementation, architecture decisions, documentation, React bindings, stories, and browser
 evidence. It changes no package version, privacy, registry, or deployment state.
 
 ## Scope
@@ -63,8 +63,9 @@ password-manager review remain open pre-public-release evidence items. The Windo
 consistent with the existing deferred Windows-access decision; this audit makes no unsupported
 screen-reader, autofill, or password-manager claim.
 
-## Decision requested
+## Project-owner decision
 
-Accept form controls as field-level reconciled and proceed to the persistent feedback and loading
-family. Acceptance freezes the listed contract for v1; later changes require explicit compatibility
-review. It does not authorize package publication.
+On September 3, 2026, the project owner accepted the form-controls contract audit and directed its
+merge and continuation to the persistent feedback and loading family. This freezes the listed
+contract for v1; later changes require explicit compatibility review. It does not authorize package
+publication.
