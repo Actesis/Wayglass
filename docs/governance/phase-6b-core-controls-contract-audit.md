@@ -1,8 +1,9 @@
 # Phase 6B core-controls contract audit
 
-**Status:** Proposed on September 3, 2026. This record reconciles the core-control family against
-its implementation, architecture decisions, documentation, React bindings, stories, and browser
-evidence. It changes no package version, privacy, registry, or deployment state.
+**Status:** Accepted by the project owner on September 3, 2026. This record reconciles the
+core-control family against its implementation, architecture decisions, documentation, React
+bindings, stories, and browser evidence. It changes no package version, privacy, registry, or
+deployment state.
 
 ## Scope
 
@@ -53,8 +54,8 @@ The completed VoiceOver/Safari review remains valid. NVDA with Firefox on Window
 pre-public-release evidence item, consistent with the existing deferred Windows-access decision;
 this audit makes no unsupported Windows screen-reader claim.
 
-## Decision requested
+## Project-owner decision
 
-Accept core controls as field-level reconciled and proceed to menus and commands. Acceptance freezes
-the listed contract for v1; later changes require explicit compatibility review. It does not
-authorize package publication.
+On September 3, 2026, the project owner accepted the core-controls contract audit and directed its
+merge and continuation to menus and commands. This freezes the listed contract for v1; later changes
+require explicit compatibility review. It does not authorize package publication.
