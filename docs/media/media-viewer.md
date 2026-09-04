@@ -5,7 +5,8 @@ React delivery plus a production-backed story for Phase 2F as of August 3, 2026.
 recorded in [ADR 0023](../architecture/adr/0023-native-modal-content-and-media-inspection.md) and
 preserves the native media ownership accepted in
 [ADR 0013](../architecture/adr/0013-native-media-ownership.md). Representative assistive-technology
-review remains a public-release gate.
+review remains a public-release gate. Field-level v1 reconciliation was completed for project-owner
+review on September 3, 2026.
 
 This contract defines `wg-media-viewer`, a focused modal inspector for one consumer-authored image
 or picture. It supplies consistent modality, close and focus-return behavior, fitting, actual-size
@@ -120,12 +121,19 @@ state and does not request persistence.
 - `caption`
 - `context`
 - `state`
+- `state-loading`
+- `state-unavailable`
 - `controls`
 - `zoom-out-button`
 - `zoom-in-button`
 - `fit-button`
 - `actual-size-button`
 - `scale-readout`
+
+`wg-media-viewer` exposes no element-specific CSS custom properties in v1. Intrinsic measurements
+remain private controller output, while themes adapt the locked viewer component tokens. The opt-in
+`media-viewer.css` stylesheet and its `wg-media-viewer-asset` class remain the supported
+progressive-enhancement treatment for an image nested inside `<picture>`.
 
 ## Scale and pan behavior
 
@@ -167,3 +175,14 @@ prefetch, proxy, transformation, recognition, metadata extraction, or download.
 Phase 2F does not add galleries, next/previous navigation, carousels, comparison, annotations,
 editing, cropping, video, camera controls, fullscreen API integration, or asset management. Those
 features require distinct source, state, shortcut, focus, and privacy contracts.
+
+## Validation coverage
+
+Automated component, React, and browser tests cover progressive fallback, exact native image
+anatomy, labeling, native modal ownership, shared modal conflict rejection, fit, actual size,
+bounded zoom, native scroll-region pan, center preservation, loading and unavailable states, event
+details, close reasons, focus return, closed-vocabulary normalization, both themes, Axe, forced
+colors, reduced motion, 200% text, and 320 CSS-pixel reflow. Representative VoiceOver with Safari
+and NVDA with Firefox checks remain explicit public-release evidence gates; automated evidence does
+not establish spoken entry, image navigation, scale-control output, scrolling context, or focus
+return.

@@ -206,10 +206,11 @@ export class WgMediaViewer extends WayglassElement {
     }
 
     [part='media'] {
+      /* Private measured dimensions; these are controller output, not consumer inputs. */
       display: grid;
-      inline-size: max(100%, var(--wg-media-viewer-rendered-inline, 0px));
+      inline-size: max(100%, var(--_wg-media-viewer-rendered-inline, 0px));
       min-inline-size: 100%;
-      block-size: max(100%, var(--wg-media-viewer-rendered-block, 0px));
+      block-size: max(100%, var(--_wg-media-viewer-rendered-block, 0px));
       min-block-size: 100%;
       place-items: center;
     }
@@ -221,8 +222,8 @@ export class WgMediaViewer extends WayglassElement {
     ::slotted(img),
     ::slotted(picture) {
       display: block;
-      inline-size: var(--wg-media-viewer-rendered-inline, auto);
-      block-size: var(--wg-media-viewer-rendered-block, auto);
+      inline-size: var(--_wg-media-viewer-rendered-inline, auto);
+      block-size: var(--_wg-media-viewer-rendered-block, auto);
       min-inline-size: 0;
       max-inline-size: none;
       max-block-size: none;
@@ -792,16 +793,16 @@ export class WgMediaViewer extends WayglassElement {
     const media = this.#media;
     const image = this.#image;
     if (!media || !image?.naturalWidth || !image.naturalHeight) {
-      media?.style.removeProperty('--wg-media-viewer-rendered-inline');
-      media?.style.removeProperty('--wg-media-viewer-rendered-block');
+      media?.style.removeProperty('--_wg-media-viewer-rendered-inline');
+      media?.style.removeProperty('--_wg-media-viewer-rendered-block');
       return;
     }
     media.style.setProperty(
-      '--wg-media-viewer-rendered-inline',
+      '--_wg-media-viewer-rendered-inline',
       `${image.naturalWidth * this.#scale}px`,
     );
     media.style.setProperty(
-      '--wg-media-viewer-rendered-block',
+      '--_wg-media-viewer-rendered-block',
       `${image.naturalHeight * this.#scale}px`,
     );
   }
