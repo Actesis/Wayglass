@@ -110,6 +110,10 @@ export default defineConfig({
             text: 'Phase 6B filter and command audit',
             link: '/governance/phase-6b-filter-command-contract-audit',
           },
+          {
+            text: 'Phase 6B data-table audit',
+            link: '/governance/phase-6b-data-table-contract-audit',
+          },
           { text: 'Phase 5 ecosystem roadmap', link: '/phase-5' },
           { text: 'Phase 5 roadmap disposition', link: '/phase-5-roadmap-disposition' },
           {

@@ -203,7 +203,7 @@ Native sticky positioning depends on single- versus multi-row headers, border mo
 container geometry, zoom, forced colors, and application chrome. Shadow CSS also cannot safely style
 consumer-authored descendant header cells without an opt-in document stylesheet.
 
-An application may author ordinary sticky CSS for a known table. Phase 3G fixtures will verify one
+An application may author ordinary sticky CSS for a known table. Phase 3G fixtures verify one
 representative authored sticky header inside the accepted scroll boundary, but that evidence does
 not create a public component API. A future package option requires repeated deployment evidence and
 a contract for grouped headers, offsets, boundaries, and adaptive modes.
@@ -347,7 +347,19 @@ Consumers explicitly register the data-table element, scroll region, and any aut
 controls. Importing any module alone has no registration side effect, and `defineWgDataTable()` does
 not silently register the authored scroll region.
 
-## Deferred and excluded behavior
+## Validation coverage
+
+Current automated coverage verifies side-effect-free import and native fallback, separate explicit
+registration of the table and scroll-region elements, one native semantic table, caption and header
+relationships, sorting intent and stable keyed rows, application-owned state and actions, scoped
+opt-in styling, inherited density, unsupported-anatomy diagnostics, contained inline overflow, and
+the absence of grid, aggregate-event, implicit-live-region, and wrapper-focus behavior. Production
+compositions additionally cover consequential confirmation, loading, empty, retained refresh, stale,
+partial, unavailable, failure, recovery, authored sticky headers, 20-row replacement, a 200-row by
+20-column relationship and performance envelope, touch targets, themes, RTL, forced colors,
+grayscale, reduced motion, 320 CSS-pixel width, 200% text, React parity, Axe, and page containment.
+
+## Continuing boundaries
 
 The following remain application-owned or separately deferred:
 
