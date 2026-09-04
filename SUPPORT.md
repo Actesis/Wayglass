@@ -14,3 +14,20 @@ Application architecture, domain logic, authorization, data transport, asset hos
 behavior, and arbitrary third-party CSS are application-owned unless an accepted Wayglass contract
 states otherwise. Publication does not imply universal browser, assistive-technology, device,
 framework, or provider support. The release-specific support matrix is authoritative.
+
+## Initial `0.1.0` candidate matrix
+
+The private `0.1.0` candidates define support for Node `>=22.13.0 <27`, TypeScript `>=5.9.0 <6.1.0`,
+current stable Chromium, Firefox, and WebKit engine lines recorded at the release freeze, and React
+`>=19.0.0 <20` for the client-rendered React binding. The exact package-specific boundaries are
+defined in the
+[Phase 6B support-claim disposition](https://wayglass.hoagsoftworks.com/governance/phase-6b-support-claim-disposition).
+
+The accepted candidate matrix makes no broad desktop or mobile screen-reader claim. Completed macOS
+VoiceOver and Safari results remain evidence for their exact tabs and core-control tasks only.
+Physical mobile devices, embedded webviews, installed PWAs, Electron, Tauri, Home Assistant,
+low-power hardware, real-profile autofill/password-manager workflows, and server-rendered component
+internals remain unclaimed for v1.
+
+This matrix is not active support while packages remain private. It becomes released support only if
+an accepted release record adopts it after the final freeze and release-candidate evidence pass.
