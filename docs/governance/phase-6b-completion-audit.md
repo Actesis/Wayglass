@@ -12,6 +12,9 @@ package identity and stewardship, candidate versions, dependency compatibility, 
 bounds, packed-script policy, and all seventeen mapped component-family contracts are complete. The
 remaining work is concentrated in support-claim disposition and the final integrated freeze matrix.
 
+The exact support-claim disposition is now proposed for project-owner review. Correction 10 remains
+open until that proposal is accepted; drafting it does not create a support promise.
+
 This is a readiness result, not a regression. Component stabilization is complete, but a component
 contract freeze is not the same thing as a releasable package contract. Phase 6B remains active and
 packages remain private candidates at `0.1.0`.
@@ -60,9 +63,10 @@ Proceed in five reviewable slices:
 3. **Version and compatibility contract — complete:** the accepted contract selects initial
    versions, synchronized and independent SemVer ranges, React 19.x, TypeScript support, Node
    engines, packed-script policy, and complete side-effect declarations; corrections 6–9 are closed.
-4. **Support-claim disposition:** map completed automated and observed evidence to exact v1 claims,
-   explicitly withhold unsupported desktop/mobile assistive-technology claims, and retain future
-   procedures; close correction 10 without pretending Windows evidence exists.
+4. **Support-claim disposition — proposed for acceptance:** the proposed record maps completed
+   automated and observed evidence to exact v1 claims, explicitly withholds broad desktop/mobile
+   assistive-technology claims, and retains future procedures. Correction 10 remains open until the
+   project owner accepts it.
 5. **Integrated freeze:** run the complete affected matrix, classify any blocker, and propose the
    exact v1 scope-freeze commit for project-owner acceptance; close correction 12 and the Phase 6B
    exit gate.

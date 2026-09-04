@@ -132,6 +132,10 @@ export default defineConfig({
             link: '/governance/phase-6b-version-compatibility-contract',
           },
           {
+            text: 'Phase 6B support-claim disposition',
+            link: '/governance/phase-6b-support-claim-disposition',
+          },
+          {
             text: 'ADR 0035 initial version and compatibility',
             link: '/architecture/adr/0035-initial-version-and-compatibility',
           },
