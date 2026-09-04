@@ -296,9 +296,9 @@ The divider is never focusable and carries no condition, selection, value, or ac
 line uses logical sizing where possible, remains visible in forced colors, and introduces no
 implicit margin; layout primitives own surrounding space.
 
-## Token additions required by implementation
+## Implemented token roles
 
-Implementation will review and lock only the additional public roles required by these contracts:
+Implementation introduced and locked only the additional public roles required by these contracts:
 
 - icon size roles;
 - surface background, boundary, radius, padding, and elevation aliases;
@@ -310,9 +310,9 @@ their meanings already fit. Visually hidden clipping values remain private. The 
 replaced prior uses of the undefined `--wg-typography-size-page-title` and
 `--wg-typography-size-section-title` aliases with the accepted `title` and `section` token paths.
 
-## Validation requirements
+## Validation coverage
 
-The implementation gate must cover:
+The completed implementation gate covers:
 
 - native semantics remaining intact with and without utility classes;
 - no unexpected focus stops, roles, events, or layout ownership;
@@ -323,8 +323,7 @@ The implementation gate must cover:
 - framework-neutral registration and typed React wrappers for Custom Elements;
 - Chromium, Firefox, and WebKit.
 
-## Deferred decisions
+## Continuing boundary
 
-- The initial official icon catalog is selected with the Phase 2D controls that consume it.
-- Product and domain icon catalogs remain consumer-owned.
-- Layout spacing and responsive composition belong to the next Phase 2C layout-contract decision.
+Product and domain icon catalogs remain consumer-owned. The initial official catalog and the layout
+spacing and responsive-composition contracts have been implemented and validated.

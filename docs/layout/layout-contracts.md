@@ -386,9 +386,9 @@ name.
 Inline scrolling is allowed only when the content relationship genuinely requires it, such as
 preformatted data. Ordinary interface composition must reflow instead.
 
-## Token additions required by implementation
+## Implemented token roles
 
-Implementation will lock only the roles required by these contracts:
+Implementation locked only the roles required by these contracts:
 
 - semantic layout gaps for related, section, and function relationships in both densities;
 - frame background, boundary, radius, and padding aliases;
@@ -401,9 +401,9 @@ reused where their meanings fit. CSS cannot currently substitute custom properti
 conditions, so any implementation threshold that mirrors a token must be documented beside the query
 and covered by a token-consistency test.
 
-## Validation requirements
+## Validation coverage
 
-The implementation gate must cover:
+The completed implementation gate covers:
 
 - source, reading, and focus order before and after upgrade;
 - nested layouts and nested `wg-frame`/`wg-canvas` container contexts;
@@ -417,11 +417,11 @@ The implementation gate must cover:
 - phone, desktop, and wall-display fixtures in Chromium, Firefox, and WebKit;
 - framework-neutral registration and typed React wrappers.
 
-## Deferred decisions
+## Continuing boundaries
 
 - Subgrid, masonry, named grid placement, fixed column counts, and visual reordering are not part of
   the generic contract.
 - Pagination, virtualization, scroll restoration, and live-update announcements remain owned by data
   and feedback patterns.
-- Media aspect ratio, cropping, inspection, loading, and unavailable behavior belong to the later
-  Phase 2C media-content contract.
+- Media aspect ratio, cropping, inspection, loading, and unavailable behavior are governed by the
+  separate implemented media-content and media-viewer contracts.
