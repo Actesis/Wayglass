@@ -159,6 +159,14 @@ pnpm test:browser
 See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for the development workflow and
 [`ROADMAP.md`](./ROADMAP.md) for current scope.
 
+## Maintenance
+
+- [`SUPPORT.md`](./SUPPORT.md) defines the boundary between released support and repository
+  evidence.
+- [`SECURITY.md`](./SECURITY.md) defines private vulnerability reporting requirements.
+- [`CHANGELOG.md`](./CHANGELOG.md), [`MIGRATION.md`](./MIGRATION.md), and
+  [`DEPRECATIONS.md`](./DEPRECATIONS.md) provide the shared release-history baseline.
+
 ## License
 
 Wayglass is licensed under the [Apache License, Version 2.0](./LICENSE). Attribution notices are in
