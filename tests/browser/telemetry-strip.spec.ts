@@ -51,6 +51,26 @@ test('retains bounded samples, knowledge runs, repeated times, and gaps', async 
   expect(geometry.boundaries).toBeGreaterThan(0);
 });
 
+test('renders a valid isolated finite observation as a bounded point', async ({ page }) => {
+  await openStrip(page);
+  const result = await page.locator('wg-telemetry-strip').evaluate(async (element) => {
+    const strip = element as HTMLElement & {
+      samples: readonly unknown[];
+      updateComplete: Promise<boolean>;
+    };
+    strip.samples = [{ observedAt: window.telemetryStart, value: 20, knowledge: 'stale' }];
+    await strip.updateComplete;
+    const point = element.shadowRoot!.querySelector<SVGCircleElement>('[data-isolated]');
+    return {
+      points: element.shadowRoot!.querySelectorAll('[data-isolated]').length,
+      paths: element.shadowRoot!.querySelectorAll('path').length,
+      knowledge: point?.dataset.knowledge,
+      radius: point?.getAttribute('r'),
+    };
+  });
+  expect(result).toEqual({ points: 1, paths: 0, knowledge: 'stale', radius: '3' });
+});
+
 test('updates silently without disturbing authored focus', async ({ page }) => {
   await openStrip(page);
   await page.getByRole('button', { name: 'Inspect exact observations' }).focus();
