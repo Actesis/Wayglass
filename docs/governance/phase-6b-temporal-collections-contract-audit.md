@@ -1,9 +1,9 @@
 # Phase 6B temporal-collections contract audit
 
-**Status:** Proposed on September 3, 2026. This record reconciles `wg-timeline`, `wg-timeline-item`,
-`wg-event-log`, and `wg-event-record` against their implementations, architecture decisions,
-documentation, React bindings, stories, and browser evidence. It changes no package version,
-privacy, registry, or deployment state.
+**Status:** Accepted by the project owner on September 3, 2026. This record reconciles
+`wg-timeline`, `wg-timeline-item`, `wg-event-log`, and `wg-event-record` against their
+implementations, architecture decisions, documentation, React bindings, stories, and browser
+evidence. It changes no package version, privacy, registry, or deployment state.
 
 ## Scope
 
@@ -77,5 +77,6 @@ with the existing deferred Windows-access decision.
 
 ## Project-owner decision
 
-Pending review. Acceptance freezes the listed temporal-collections contract for v1; later changes
-require explicit compatibility review. It does not authorize package publication.
+Accepted on September 3, 2026. The listed temporal-collections contract is frozen for v1; later
+changes require explicit compatibility review. This acceptance does not authorize package
+publication.
