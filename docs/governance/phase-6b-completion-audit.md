@@ -15,6 +15,9 @@ remaining work is concentrated in the final integrated freeze matrix.
 The accepted support-claim disposition closes correction 10 by withholding broad desktop and mobile
 screen-reader claims while preserving exact task observations and future evidence gates.
 
+The final integrated freeze is now proposed against source commit `ce400e8`. Correction 12 and the
+Phase 6B exit gate remain open until the project owner accepts that exact evidence record.
+
 This is a readiness result, not a regression. Component stabilization is complete, but a component
 contract freeze is not the same thing as a releasable package contract. Phase 6B remains active and
 packages remain private candidates at `0.1.0`.
@@ -66,9 +69,10 @@ Proceed in five reviewable slices:
 4. **Support-claim disposition — complete:** the accepted record maps completed automated and
    observed evidence to exact v1 claims, explicitly withholds broad desktop/mobile
    assistive-technology claims, retains future procedures, and closes correction 10.
-5. **Integrated freeze:** run the complete affected matrix, classify any blocker, and propose the
-   exact v1 scope-freeze commit for project-owner acceptance; close correction 12 and the Phase 6B
-   exit gate.
+5. **Integrated freeze — proposed for acceptance:** the complete affected matrix passed, no
+   severity-one or severity-two blocker remains, and source commit `ce400e8` is proposed as the
+   exact v1 freeze. Correction 12 and the Phase 6B exit gate remain open until project-owner
+   acceptance.
 
 Each slice may correct only the accepted release contract. New capabilities or packages return to
 Phase 6A.

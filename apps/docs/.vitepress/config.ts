@@ -136,6 +136,10 @@ export default defineConfig({
             link: '/governance/phase-6b-support-claim-disposition',
           },
           {
+            text: 'Phase 6B integrated v1 freeze',
+            link: '/governance/phase-6b-integrated-freeze',
+          },
+          {
             text: 'ADR 0035 initial version and compatibility',
             link: '/architecture/adr/0035-initial-version-and-compatibility',
           },
