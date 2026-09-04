@@ -13,6 +13,7 @@ export default defineConfig({
       { text: 'Phase 2', link: '/phase-2' },
       { text: 'Foundations', link: '/foundations/' },
       { text: 'Components', link: '/components/' },
+      { text: 'Maintenance', link: '/maintenance/support' },
       { text: 'Patterns', link: '/patterns/function-deck' },
       { text: 'Examples', link: '/examples/framework-examples' },
       { text: 'Repository', link: 'https://github.com/Actesis/Wayglass' },
@@ -121,6 +122,10 @@ export default defineConfig({
           {
             text: 'Phase 6B design-asset freeze',
             link: '/governance/phase-6b-design-asset-freeze',
+          },
+          {
+            text: 'Phase 6B package identity and stewardship',
+            link: '/governance/phase-6b-package-identity-stewardship',
           },
           { text: 'Phase 5 ecosystem roadmap', link: '/phase-5' },
           { text: 'Phase 5 roadmap disposition', link: '/phase-5-roadmap-disposition' },
@@ -236,6 +241,17 @@ export default defineConfig({
             text: 'Harbor Lab',
             link: '/reference-apps/harbor-lab',
           },
+        ],
+      },
+      {
+        text: 'Maintenance',
+        items: [
+          { text: 'Support', link: '/maintenance/support' },
+          { text: 'Security', link: '/maintenance/security' },
+          { text: 'Changelog', link: '/maintenance/changelog' },
+          { text: 'Migration', link: '/maintenance/migration' },
+          { text: 'Deprecations', link: '/maintenance/deprecations' },
+          { text: 'Release-note template', link: '/maintenance/release-note-template' },
         ],
       },
       {

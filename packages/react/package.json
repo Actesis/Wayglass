@@ -2,10 +2,34 @@
   "name": "@wayglass/react",
   "version": "0.0.0",
   "private": true,
+  "description": "Typed React bindings for Wayglass Custom Elements.",
   "license": "Apache-2.0",
+  "author": "Wayglass contributors",
+  "homepage": "https://wayglass.hoagsoftworks.com/frameworks/react",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Actesis/Wayglass.git",
+    "directory": "packages/react"
+  },
+  "bugs": {
+    "url": "https://github.com/Actesis/Wayglass/issues"
+  },
+  "keywords": [
+    "wayglass",
+    "react",
+    "web-components",
+    "operational-ui"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "type": "module",
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "LICENSE",
+    "NOTICE"
   ],
   "sideEffects": false,
   "exports": {

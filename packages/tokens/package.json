@@ -2,10 +2,34 @@
   "name": "@wayglass/tokens",
   "version": "0.0.0",
   "private": true,
+  "description": "Semantic design tokens and generated web artifacts for Wayglass.",
   "license": "Apache-2.0",
+  "author": "Wayglass contributors",
+  "homepage": "https://wayglass.hoagsoftworks.com/foundations/tokens",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Actesis/Wayglass.git",
+    "directory": "packages/tokens"
+  },
+  "bugs": {
+    "url": "https://github.com/Actesis/Wayglass/issues"
+  },
+  "keywords": [
+    "wayglass",
+    "design-tokens",
+    "css-custom-properties",
+    "operational-ui"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "type": "module",
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "LICENSE",
+    "NOTICE"
   ],
   "exports": {
     ".": {
