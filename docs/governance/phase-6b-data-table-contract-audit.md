@@ -1,9 +1,9 @@
 # Phase 6B data-table contract audit
 
-**Status:** Proposed on September 4, 2026. This record reconciles `wg-data-table` and its explicit
-native-table stylesheet against the implementation, architecture decisions, documentation, React
-binding, stories, and browser evidence. It changes no package version, privacy, registry, or
-deployment state.
+**Status:** Accepted by the project owner on September 4, 2026. This record reconciles
+`wg-data-table` and its explicit native-table stylesheet against the implementation, architecture
+decisions, documentation, React binding, stories, and browser evidence. It changes no package
+version, privacy, registry, or deployment state.
 
 ## Scope
 
@@ -76,5 +76,5 @@ decision.
 
 ## Project-owner decision
 
-Pending review. Acceptance freezes the listed data-table contract for v1; later changes require
-explicit compatibility review. It does not authorize package publication.
+Accepted on September 4, 2026. The listed data-table contract is frozen for v1; later changes
+require explicit compatibility review. This acceptance does not authorize package publication.
