@@ -158,17 +158,19 @@ None.
 </wg-metric-group>
 ```
 
-### Testing requirements
+### Validation coverage
 
-Required coverage includes accessible naming, heading-slot fallback, busy semantics without a live
-region, mixed scalar children, no child-state aggregation, insertion and reorder with stable focus,
-long and localized-looking content, one through 24 values, container reflow, themes, density, forced
-colors, reduced motion, 200% text, and no unintended overflow.
+Current automated coverage verifies accessible naming, heading-slot fallback, busy semantics without
+a live region, mixed scalar children, no child-state aggregation, stable focus during insertion and
+reorder, and authored actions after scalar content in DOM and narrow visual order. The production
+fixture also covers long and localized-looking content, one through 24 values, container reflow,
+themes, density, forced colors, reduced motion, 200% text, Axe, and page containment.
 
-### Open questions
+### Continuing boundaries
 
-None. Runtime child-tag enforcement is intentionally absent so compatible future scalar components
-remain composable.
+Runtime child-tag enforcement remains intentionally absent so compatible future scalar components
+remain composable. Representative assistive-technology review remains a public-release evidence gate
+rather than an automated claim.
 
 ## `wg-trend-indicator`
 
@@ -324,18 +326,19 @@ a neutral data-change role; condition receives a separate semantic cue when auth
 The first example is rising without being a warning. The second has positive condition because the
 application explicitly knows that fewer failures are favorable.
 
-### Testing requirements
+### Validation coverage
 
-Required coverage includes every direction, every known-state axis, neutral and authored condition,
-initial loading versus pending recalculation, visible non-color direction text, slotted label and
-native time detail, invalid-value normalization, dynamic updates without events or live semantics,
-long comparisons, forced colors, grayscale, reduced motion, narrow containers, and Axe.
+Current automated coverage verifies every direction, independent known-state axes, neutral and
+authored condition, initial loading versus pending recalculation, visible non-color direction text,
+slotted label and native time detail, invalid-value normalization, and dynamic updates without
+events or live semantics. The production fixture also covers long comparisons, forced colors,
+grayscale, reduced motion, narrow containers, 200% text, and Axe.
 
-### Open questions
+### Continuing boundaries
 
-The implementation prototype must verify that the chosen non-icon direction geometry remains
-recognizable in forced colors and at 200% text without competing with condition signals. Failure
-changes the geometry, not the semantic API.
+The implemented non-icon geometry has passed automated forced-color, grayscale, and 200% text checks
+without taking condition color. Representative human review remains required before a public
+release; any later recognition problem changes the geometry, not the semantic API.
 
 ## `wg-key-value`
 
@@ -470,17 +473,19 @@ None.
 <wg-key-value label="Assigned reviewer" value="Unavailable" knowledge="unavailable"></wg-key-value>
 ```
 
-### Testing requirements
+### Validation coverage
 
-Required coverage includes string and slotted values, native time/code/link semantics, missing and
-unavailable values, loading versus pending refresh, every known-state axis, no inferred condition,
-long identifiers, native events without host duplication, mutation with stable focus, 24-value group
-composition, themes, forced colors, reduced motion, narrow containers, 200% text, and Axe.
+Current automated coverage verifies string and slotted values, native time/code/link semantics,
+missing and unavailable values, loading versus pending refresh, independent known-state axes, no
+inferred condition, native events without host duplication, and mutation with stable focus. The
+production fixture also covers long identifiers, 24-value group composition, themes, forced colors,
+reduced motion, narrow containers, 200% text, and Axe.
 
-### Open questions
+### Continuing boundaries
 
-None. A multi-pair definition list remains consumer-authored native HTML or a future evidence-driven
-contract; `wg-key-value` does not introduce a hidden list coordinator.
+A multi-pair definition list remains consumer-authored native HTML or a future evidence-driven
+contract; `wg-key-value` does not introduce a hidden list coordinator. Representative
+assistive-technology review remains a public-release evidence gate.
 
 ## Compatible `wg-metric` extension
 
