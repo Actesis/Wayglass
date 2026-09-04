@@ -1,8 +1,9 @@
 # Phase 6B foundation and layout contract audit
 
-**Status:** Proposed on September 2, 2026. This record reconciles the foundation and layout element
-families against implementation, documentation, React bindings, stories, and browser evidence. It
-changes no package version, privacy, registry, or deployment state.
+**Status:** Accepted by the project owner on September 3, 2026. This record reconciles the
+foundation and layout element families against implementation, documentation, React bindings,
+stories, and browser evidence. It changes no package version, privacy, registry, or deployment
+state.
 
 ## Scope
 
@@ -47,8 +48,9 @@ CSS custom properties, no-event/no-method boundary, and React wrapper against it
 contract. It separately protects scroll-region's conditional semantics and prevents completed token
 and validation sections from regressing to future-tense planning language.
 
-## Decision requested
+## Project-owner decision
 
-Accept the foundation and layout elements as field-level reconciled and proceed to core controls.
-Acceptance freezes the listed contract for v1; later changes require explicit compatibility review.
-It does not authorize package publication.
+On September 3, 2026, the project owner accepted the foundation and layout elements as field-level
+reconciled and directed the merge and continuation to core controls. This freezes the listed
+contract for v1; later changes require explicit compatibility review. It does not authorize package
+publication.
