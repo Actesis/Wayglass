@@ -7,7 +7,7 @@ Automated and visual evidence is recorded in the
 screen-reader acceptance is carried as a public-release gate in the
 [Phase 2 ledger](../accessibility/phase-2-assistive-technology-gates.md).
 
-This milestone defines one application-style command menu composed from `wg-menu` and
+This contract defines one application-style command menu composed from `wg-menu` and
 `wg-command-item`. It provides compact access to secondary commands without turning ordinary
 navigation, selection, forms, or arbitrary content into menu widgets.
 
@@ -21,17 +21,17 @@ Use this pattern for secondary commands such as refresh data, copy an identifier
 or reveal application-owned details. Keep a primary or time-sensitive response visible outside the
 menu. Do not hide the only response to a caution or critical condition behind an overflow trigger.
 
-This first contract does not cover:
+The v1 menu contract does not cover:
 
 - site or application navigation, which keeps native links and navigation landmarks;
 - a disclosure containing arbitrary controls or information;
 - listbox or select behavior;
 - checked or radio menu items;
 - nested submenus, menubars, context menus, toolbars, keyboard shortcuts, or command palettes;
-- confirmation dialogs, destructive-action policy, or a reusable overlay service.
+- confirmation dialogs, destructive-action policy, or a reusable overlay service. Confirmation
+  remains owned by the separate [confirmation-dialog contract](../feedback/confirmation-dialog.md).
 
-Those patterns may reuse lessons from this milestone, but they do not reuse its semantics by
-default.
+Those patterns may reuse lessons from this contract, but they do not reuse its semantics by default.
 
 ## Composition and ownership
 
@@ -56,7 +56,7 @@ Only direct children participate. Unsupported interactive descendants, nested me
 focusable content are authoring errors. Registration remains explicit and imports remain side-effect
 free.
 
-### Proposed markup
+### Markup
 
 ```html
 <wg-menu placement="block-end-end">
@@ -184,20 +184,22 @@ shown in the owning function after dismissal; hidden menu content is not the sol
 surface.
 
 Consequential command labels repeat the target: “Refresh intake data,” not “Refresh.” Critical or
-destructive actions require the later proportional-friction policy and are not visually inferred
-from an item value.
+destructive actions use the confirmation-dialog proportional-friction policy and are not visually
+inferred from an item value.
 
-## Proposed public API
+## Public API
 
 ### `wg-menu`
 
 Attributes and properties:
 
-- `label: string`: optional accessible-name override, required for an icon-only trigger;
-- `disabled: boolean`: disables the trigger and closes an open menu without moving focus unless
-  focus would otherwise be hidden;
+- `label: string`; default empty: optional accessible-name override, required for an icon-only
+  trigger;
+- `disabled: boolean`; default `false`: disables the trigger and closes an open menu without moving
+  focus unless focus would otherwise be hidden;
 - `placement: 'block-end-start' | 'block-end-end' | 'block-start-start' | 'block-start-end'`;
-- `readonly open: boolean`: reflected component-owned visibility state.
+  default `block-end-end`;
+- `readonly open: boolean`; default `false`: reflected component-owned visibility state.
 
 Methods:
 
@@ -213,12 +215,12 @@ Slots:
 
 Events:
 
-- `wg-menu-toggle`, with `{ open, reason }`, where reason is `trigger`, `keyboard`, `command`,
-  `escape`, `tab`, `outside`, or `programmatic`.
+- one bubbling, composed `wg-menu-toggle`, with `{ open, reason }`, where reason is `trigger`,
+  `keyboard`, `command`, `escape`, `tab`, `outside`, or `programmatic`.
 
 CSS parts:
 
-- `trigger`, `trigger-content`, `popup`, and `menu`.
+- `trigger`, `trigger-content`, `indicator`, `popup`, and `menu`.
 
 CSS custom properties:
 
@@ -238,8 +240,9 @@ CSS custom properties:
 
 Attributes and properties:
 
-- `value: string`: required stable application identifier;
-- `disabled: boolean`: maps to `aria-disabled` while remaining focusable inside an open menu.
+- `value: string`; default empty: required stable application identifier;
+- `disabled: boolean`; default `false`: maps to `aria-disabled` while remaining focusable inside an
+  open menu.
 
 Slots:
 
@@ -254,7 +257,7 @@ Events:
 
 CSS parts:
 
-- `item`, `leading`, `label`, `detail`, and `trailing`.
+- `item`, `leading`, `content`, `label`, `detail`, and `trailing`.
 
 CSS custom properties are inherited from the owning `wg-menu`.
 
@@ -288,9 +291,9 @@ React wrappers type properties, methods, and custom-event callbacks but do not r
 focus, or command behavior. The same production classes back vanilla examples, React examples, and
 Storybook.
 
-## Validation requirements
+## Validation coverage
 
-Implementation acceptance requires:
+The menu-specific browser suite and Phase 2D-C validation record cover:
 
 - native trigger activation, accessible name, `aria-haspopup`, expanded state, and menu ownership;
 - focus entry from pointer, Enter, Space, Arrow Down, and Arrow Up;
@@ -299,23 +302,25 @@ Implementation acceptance requires:
 - one typed command event with accurate value and user trigger, plus disabled suppression;
 - Escape, command, trigger, Tab, Shift+Tab, outside pointer, programmatic, disconnect, and mutation
   dismissal paths with correct focus behavior;
-- Popover API and client fallback parity without duplicate events or listeners;
-- logical placement, collision fallback, nested scrolling containers, viewport resize, text
-  enlargement, 200% and 400% zoom, and mobile visual viewport behavior;
-- dark and light themes, compact and comfortable density, forced colors, reduced motion, grayscale,
-  touch targets, and pointer cancellation;
-- dynamic insertion, removal, hiding, disabling, and label changes while open;
+- native Popover API and scoped client-fallback behavior;
+- four logical placement preferences, collision fallback, internal scrolling, and containment in a
+  320 CSS-pixel viewport without horizontal page overflow;
+- dark and light themes, compact and comfortable density, forced colors, reduced motion, minimum
+  target size, and Axe scans;
+- focused-item removal and direct-child mutation recovery;
 - explicit registration, failed upgrade guidance, typed React parity, and no import side effects;
-- Chromium, Firefox, and WebKit automation plus representative VoiceOver/Safari review before API
-  acceptance; NVDA/Firefox remains required before public release.
+- Chromium, Firefox, and WebKit automation plus representative VoiceOver/Safari review; NVDA/Firefox
+  remains an open pre-public-release evidence item.
 
-## Deferred decisions
+## Continuing boundaries
 
 - Navigation disclosure and navigation menus retain native-link-first contracts.
 - Checked and radio menu items wait for a controlled local-choice contract.
 - Nested menus wait for evidence that their complexity is justified on keyboard and touch inputs.
 - Context menus require an invocation-context and focus-return contract.
-- Command bars and command palettes belong to later operational patterns.
+- Command bars use the separate filtering-and-command composition contract; command palettes remain
+  outside the v1 menu contract.
 - General overlay, tooltip, combobox, dialog, toast, and viewer positioning are not inferred from
   the menu-private adapter.
-- Confirmation dialogs and destructive-action policy remain in Phase 2E.
+- Confirmation and destructive-action policy remain owned by the separate, implemented
+  confirmation-dialog contract.
