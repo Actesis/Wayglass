@@ -118,7 +118,7 @@ describe('Phase 6B completion readiness', () => {
     expect(audit).toMatch(/9\. Constrain React and choose TypeScript compatibility\s*\| Complete/);
   });
 
-  it('records accepted claim narrowing while keeping the exact-freeze matrix open', () => {
+  it('records accepted claim narrowing and closes the exact-freeze matrix', () => {
     expect(audit).toMatch(
       /10\. Complete assistive-technology evidence or narrow claims\s*\| Complete/,
     );
@@ -126,8 +126,9 @@ describe('Phase 6B completion readiness', () => {
       '**Status:** Accepted by the project owner',
     );
     expect(audit).toContain('withholding broad desktop and mobile');
-    expect(audit).toMatch(/12\. Run the complete stabilization and freeze matrix\s*\| Open/);
+    expect(audit).toMatch(/12\. Run the complete stabilization and freeze matrix\s*\| Complete/);
     expect(audit).toContain('## Remaining Phase 6B sequence');
-    expect(audit).not.toContain('Phase 6B is complete');
+    expect(audit).toContain('Phase 6B is complete');
+    expect(audit).toContain('Phase 6C validation may begin');
   });
 });

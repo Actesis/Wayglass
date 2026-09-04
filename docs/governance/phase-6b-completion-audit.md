@@ -7,17 +7,20 @@ claim, or deployment state.
 
 ## Outcome
 
-Phase 6B is not yet ready for its exact v1 scope-freeze proposal. Public surfaces, design assets,
-package identity and stewardship, candidate versions, dependency compatibility, compiler/runtime
-bounds, packed-script policy, and all seventeen mapped component-family contracts are complete. The
-remaining work is concentrated in the final integrated freeze matrix.
+Phase 6B is complete. Public surfaces, design assets, package identity and stewardship, candidate
+versions, dependency compatibility, compiler/runtime bounds, packed-script policy, all seventeen
+mapped component-family contracts, and the final integrated freeze matrix are complete.
 
 The accepted support-claim disposition closes correction 10 by withholding broad desktop and mobile
 screen-reader claims while preserving exact task observations and future evidence gates.
 
-This is a readiness result, not a regression. Component stabilization is complete, but a component
-contract freeze is not the same thing as a releasable package contract. Phase 6B remains active and
-packages remain private candidates at `0.1.0`.
+The project owner accepted the final integrated freeze against source commit `ce400e8`. Correction
+12 and the Phase 6B exit gate are complete. That exact source, rather than this later governance
+commit, is the required Phase 6C input.
+
+This is a scope-freeze result, not publication approval; packages remain private candidates at
+`0.1.0`, and Phase 6C must prove the frozen source through clean, deterministic release-candidate
+artifacts and isolated consumers.
 
 ## Correction ledger
 
@@ -34,7 +37,7 @@ packages remain private candidates at `0.1.0`.
 | 9. Constrain React and choose TypeScript compatibility      | Complete | React is constrained to `>=19.0.0 <20`; TypeScript `>=5.9.0 <6.1.0` is supported by minimum/current compiler and an isolated React 19.0/TypeScript 5.9 consumer proof; all six manifests declare Node `>=22.13.0 <27`.                                                                                                                                                                                           |
 | 10. Complete assistive-technology evidence or narrow claims | Complete | The accepted support-claim disposition withholds broad desktop and mobile screen-reader claims, retains the exact completed VoiceOver tasks as observations only, and preserves Windows/NVDA, remaining macOS VoiceOver, iOS VoiceOver, autofill, password-manager, and physical-device evidence as claim-specific future gates.                                                                                 |
 | 11. Create maintenance and release-document baselines       | Complete | The accepted shared stewardship system provides changelog, migration, deprecation, private security-reporting prerequisite, support, and release-note baselines without inventing response-time, funding, availability, or environment claims.                                                                                                                                                                   |
-| 12. Run the complete stabilization and freeze matrix        | Open     | The final matrix must follow corrections 3–11, record exact environments and limitations, show no unresolved severity-one or severity-two blocker, and identify one exact scope-freeze commit.                                                                                                                                                                                                                   |
+| 12. Run the complete stabilization and freeze matrix        | Complete | The accepted integrated freeze records exact environment and limitation evidence, reports no unresolved severity-one or severity-two blocker, and freezes source commit `ce400e89930a047c6af1c6992c64cfe422a1eeee` for Phase 6C.                                                                                                                                                                                 |
 
 ## Accepted foundations retained
 
@@ -66,9 +69,9 @@ Proceed in five reviewable slices:
 4. **Support-claim disposition — complete:** the accepted record maps completed automated and
    observed evidence to exact v1 claims, explicitly withholds broad desktop/mobile
    assistive-technology claims, retains future procedures, and closes correction 10.
-5. **Integrated freeze:** run the complete affected matrix, classify any blocker, and propose the
-   exact v1 scope-freeze commit for project-owner acceptance; close correction 12 and the Phase 6B
-   exit gate.
+5. **Integrated freeze — complete:** the complete affected matrix passed, no severity-one or
+   severity-two blocker remains, and the project owner accepted source commit `ce400e8` as the exact
+   v1 freeze. Correction 12 and the Phase 6B exit gate are closed.
 
 Each slice may correct only the accepted release contract. New capabilities or packages return to
 Phase 6A.
@@ -83,5 +86,6 @@ proposed.
 ## Project-owner decision
 
 Accepted on September 4, 2026 and updated by each later accepted slice. Candidate versions,
-compatibility, and support disposition are now accepted; only the exact freeze remains open. This
-record does not authorize publication or begin Phase 6C.
+compatibility, support disposition, and the exact integrated freeze are accepted. Phase 6B is
+complete and Phase 6C validation may begin. This record does not authorize publication, tagging,
+repository-visibility changes, documentation deployment, credentials, or public support activation.

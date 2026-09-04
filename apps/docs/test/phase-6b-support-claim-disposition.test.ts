@@ -66,7 +66,7 @@ describe('Phase 6B support-claim disposition', () => {
     expect(audit).toMatch(
       /10\. Complete assistive-technology evidence or narrow claims\s*\| Complete/,
     );
-    expect(audit).toMatch(/12\. Run the complete stabilization and freeze matrix\s*\| Open/);
+    expect(audit).toMatch(/12\. Run the complete stabilization and freeze matrix\s*\| Complete/);
     expect(disposition).toContain('Phase 6B then advances to the integrated freeze');
   });
 });
