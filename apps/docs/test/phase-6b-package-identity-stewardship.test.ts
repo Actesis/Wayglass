@@ -48,7 +48,6 @@ describe('Phase 6B package identity and stewardship', () => {
 
       expect(manifest).toMatchObject({
         name: `@wayglass/${directory}`,
-        version: '0.0.0',
         private: true,
         description: expected.description,
         license: 'Apache-2.0',

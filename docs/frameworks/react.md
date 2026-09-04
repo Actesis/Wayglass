@@ -5,9 +5,10 @@ wrappers add React property, event, and ref integration without duplicating comp
 
 ## Installation boundary
 
-The package remains a private `0.0.0` release candidate. Applications in this workspace consume it
-as a workspace dependency alongside `react` and `@wayglass/elements`; this documentation is not an
-npm installation or public support claim.
+The package is a private `0.1.0` candidate and has not been published. Its accepted compatibility
+contract is React `>=19.0.0 <20`, `@wayglass/elements` `^0.1.0`, Node `>=22.13.0 <27`, and
+TypeScript `>=5.9.0 <6.1.0`. Applications in this workspace still consume it locally; this
+documentation is not an npm installation or public support claim.
 
 Every wrapper module registers its element when `customElements` is available. Importing a wrapper
 in a server environment is safe: registration is skipped, markup can render, and the element

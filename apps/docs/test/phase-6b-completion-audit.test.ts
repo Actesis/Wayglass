@@ -36,15 +36,15 @@ const componentAudits = [
 ] as const;
 
 describe('Phase 6B completion readiness', () => {
-  it('retains the exact six-package candidate set and private pre-release state', () => {
+  it('retains the exact six-package candidate set and private candidate state', () => {
     expect(candidatePackages).toEqual(['core', 'tokens', 'themes', 'elements', 'icons', 'react']);
     for (const name of candidatePackages) {
       expect(manifests[name].name).toBe(`@wayglass/${name}`);
-      expect(manifests[name].version).toBe('0.0.0');
+      expect(manifests[name].version).toBe('0.1.0');
       expect(manifests[name].private).toBe(true);
       expect(manifests[name].license).toBe('Apache-2.0');
     }
-    expect(audit).toContain('packages remain private at `0.0.0`');
+    expect(audit).toContain('packages remain private');
   });
 
   it('confirms all seventeen mapped component-family audits are accepted', () => {
@@ -99,21 +99,23 @@ describe('Phase 6B completion readiness', () => {
     expect(audit).toMatch(/11\. Create maintenance and release-document baselines\s*\| Complete/);
   });
 
-  it('keeps unresolved ranges, scripts, and side-effect declarations explicit', () => {
-    const manifestText = candidatePackages
-      .map((name) => read(`packages/${name}/package.json`))
-      .join('\n');
-    expect(manifestText).toContain('workspace:*');
-    expect((manifests.react.peerDependencies as Record<string, string>).react).toBe('>=19');
-    expect(manifests.core).not.toHaveProperty('sideEffects');
-    expect(manifests.tokens).not.toHaveProperty('sideEffects');
+  it('keeps the accepted compatibility contract separate from publication readiness', () => {
+    expect((manifests.react.devDependencies as Record<string, string>)['@wayglass/elements']).toBe(
+      'workspace:*',
+    );
+    expect((manifests.react.peerDependencies as Record<string, string>).react).toBe('>=19.0.0 <20');
+    expect(manifests.core.sideEffects).toBe(false);
+    expect(manifests.tokens.sideEffects).toBe(false);
     for (const name of candidatePackages) {
       expect(manifests[name]).toHaveProperty('scripts');
     }
-    expect(audit).toMatch(/6\. Select versions and publish-time SemVer ranges\s*\| Open/);
-    expect(audit).toMatch(/7\. Make retained packed scripts independently usable\s*\| Open/);
-    expect(audit).toMatch(/8\. Complete side-effect declarations\s*\| Partial/);
-    expect(audit).toMatch(/9\. Constrain React and choose TypeScript compatibility\s*\| Open/);
+    expect(read('docs/governance/phase-6b-version-compatibility-contract.md')).toContain(
+      '**Status:** Accepted by the project owner',
+    );
+    expect(audit).toMatch(/6\. Select versions and publish-time SemVer ranges\s*\| Complete/);
+    expect(audit).toMatch(/7\. Make retained packed scripts independently usable\s*\| Complete/);
+    expect(audit).toMatch(/8\. Complete side-effect declarations\s*\| Complete/);
+    expect(audit).toMatch(/9\. Constrain React and choose TypeScript compatibility\s*\| Complete/);
   });
 
   it('records claim narrowing and the exact-freeze matrix as unresolved gates', () => {

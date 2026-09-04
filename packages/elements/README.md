@@ -17,6 +17,9 @@ Importing a module never registers an element. Call the exported `defineWg*` fun
 element the application uses, and import the documented CSS artifacts explicitly. Start with the
 [component contracts](https://wayglass.hoagsoftworks.com/components/).
 
+Compatibility: `@wayglass/core` and `@wayglass/themes` `^0.1.0`, Node `>=22.13.0 <27`, and
+TypeScript `>=5.9.0 <6.1.0`. Browser and assistive-technology support is release-specific.
+
 Repository builds are private release candidates; only versions published through an approved
 Wayglass release are public artifacts. Before using a released version, review its
 [support](https://wayglass.hoagsoftworks.com/maintenance/support),

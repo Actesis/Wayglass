@@ -295,10 +295,10 @@ importers:
   packages/elements:
     dependencies:
       '@wayglass/core':
-        specifier: workspace:*
+        specifier: ^0.1.0
         version: link:../core
       '@wayglass/themes':
-        specifier: workspace:*
+        specifier: ^0.1.0
         version: link:../themes
       lit:
         specifier: 3.3.3
@@ -366,7 +366,7 @@ importers:
   packages/themes:
     dependencies:
       '@wayglass/tokens':
-        specifier: workspace:*
+        specifier: ^0.1.0
         version: link:../tokens
     devDependencies:
       typescript:

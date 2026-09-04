@@ -554,11 +554,7 @@ export class WgMenu extends WayglassElement {
     this.#setOpen(false);
   }
 
-  #supportsPopover(popup: HTMLElement): popup is HTMLElement & {
-    showPopover(): void;
-    hidePopover(): void;
-    matches(selectors: ':popover-open'): boolean;
-  } {
+  #supportsPopover(popup: HTMLElement): boolean {
     return typeof popup.showPopover === 'function' && typeof popup.hidePopover === 'function';
   }
 
