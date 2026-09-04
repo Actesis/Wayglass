@@ -1,8 +1,9 @@
 # Phase 6B menu and command contract audit
 
-**Status:** Proposed on September 3, 2026. This record reconciles `wg-menu` and `wg-command-item`
-against their implementation, architecture decision, documentation, React bindings, stories, and
-browser evidence. It changes no package version, privacy, registry, or deployment state.
+**Status:** Accepted by the project owner on September 3, 2026. This record reconciles `wg-menu` and
+`wg-command-item` against their implementation, architecture decision, documentation, React
+bindings, stories, and browser evidence. It changes no package version, privacy, registry, or
+deployment state.
 
 ## Scope
 
@@ -55,8 +56,8 @@ The completed VoiceOver/Safari review remains valid. NVDA with Firefox on Window
 pre-public-release evidence item, consistent with the existing deferred Windows-access decision;
 this audit makes no unsupported Windows screen-reader claim.
 
-## Decision requested
+## Project-owner decision
 
-Accept menus and commands as field-level reconciled and proceed to the form-foundation family.
-Acceptance freezes the listed contract for v1; later changes require explicit compatibility review.
-It does not authorize package publication.
+On September 3, 2026, the project owner accepted the menu and command contract audit and directed
+its merge and continuation to the form-foundation family. This freezes the listed contract for v1;
+later changes require explicit compatibility review. It does not authorize package publication.
