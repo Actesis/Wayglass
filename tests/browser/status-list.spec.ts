@@ -397,6 +397,15 @@ test('supports narrow reflow, forced colors, reduced motion, and accessibility',
   await expect(page.getByText('Caution', { exact: true })).toBeVisible();
   await expect(page.getByText('Data stale', { exact: true })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Inspect South source' })).toBeVisible();
+  const narrowActionOrder = await page.locator('#south-source').evaluate((entry) => {
+    const content = entry.shadowRoot!.querySelector<HTMLElement>('[part="content"]')!;
+    const actions = entry.shadowRoot!.querySelector<HTMLElement>('[part="actions"]')!;
+    return {
+      contentBottom: content.getBoundingClientRect().bottom,
+      actionsTop: actions.getBoundingClientRect().top,
+    };
+  });
+  expect(narrowActionOrder.actionsTop).toBeGreaterThanOrEqual(narrowActionOrder.contentBottom);
   expect(
     await page
       .locator('#south-source')

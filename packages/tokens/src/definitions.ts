@@ -1833,7 +1833,7 @@ export const tokens = {
   'component.status-entry.color.condition': {
     value: '{color.semantic.condition.neutral}',
     type: 'color',
-    description: 'Status-entry condition signal and text before the selected condition override.',
+    description: 'Status-entry condition signal before the selected condition override.',
   },
   'component.status-entry.color.signal-border': {
     value: '{color.semantic.border.strong}',

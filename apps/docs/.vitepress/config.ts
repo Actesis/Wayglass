@@ -98,6 +98,10 @@ export default defineConfig({
             text: 'Phase 6B telemetry audit',
             link: '/governance/phase-6b-telemetry-contract-audit',
           },
+          {
+            text: 'Phase 6B status-collections audit',
+            link: '/governance/phase-6b-status-collections-contract-audit',
+          },
           { text: 'Phase 5 ecosystem roadmap', link: '/phase-5' },
           { text: 'Phase 5 roadmap disposition', link: '/phase-5-roadmap-disposition' },
           {

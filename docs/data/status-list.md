@@ -314,9 +314,10 @@ None.
 - `--wg-status-entry-space-related`
 - `--wg-status-entry-size-signal`
 
-Condition-specific signal and text color, knowledge text, and pending activity emphasis use the
-shared semantic state tokens. Entry grid tracks, responsive thresholds, and action placement remain
-private mechanics.
+Condition-specific signal color and pending activity emphasis use shared semantic state tokens.
+State words retain the contrast-safe entry text treatment; selected conditions may add semantic text
+color where it remains readable. Entry grid tracks, responsive thresholds, and action placement
+remain private mechanics.
 
 #### CSS parts
 
@@ -372,9 +373,9 @@ New entries appear in authored DOM order and do not auto-scroll or receive focus
 anchoring remains enabled. Visual transitions, if later accepted, must respect reduced motion and
 cannot be required to understand insertion, removal, or reorder.
 
-## Validation requirements
+## Validation coverage
 
-The implementation slices must cover:
+Current automated coverage verifies:
 
 - accessible list and list-item naming, roles, reading order, and authored native action behavior;
 - every condition and knowledge value, pending activity, mixed axes, plain text, scalar values,
@@ -392,12 +393,17 @@ The implementation slices must cover:
   320 CSS-pixel width, 200% text, touch, desktop, and wall-display presentation;
 - useful pre-upgrade authored content, explicit registration, typed React wrappers, and equivalent
   framework-neutral and React mutation behavior; and
-- Chromium, Firefox, WebKit, and the representative assistive-technology procedures assigned by the
-  Phase 3 validation matrix.
+- Chromium, Firefox, and WebKit behavior plus Axe in both themes and the forced-color narrow state.
 
-At the 100-entry reference envelope, automated evidence must satisfy ADR 0024's interaction,
-overflow, observer, and synchronous-task regression thresholds. Package-owned pagination and
-virtualization remain out of scope.
+The 100-entry reference envelope satisfies ADR 0024's interaction, overflow, observer, and
+synchronous-task regression thresholds. Representative assistive-technology procedures assigned by
+the Phase 3 validation matrix remain public-release evidence rather than automated claims.
+
+## Continuing boundaries
+
+Package-owned pagination and virtualization remain out of scope. So do inferred grouping, selection,
+whole-row activation, generated record identity, aggregate list condition, and implicit
+announcements.
 
 ## Accepted decisions
 
