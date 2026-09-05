@@ -1,9 +1,9 @@
 # Phase 6C release-candidate proof contract
 
-**Status:** Proposed for project-owner acceptance on September 4, 2026. This contract defines the
-private, offline proof for the exact Phase 6B source freeze. It does not publish, contact npm,
-remove package privacy, change a version, create a tag or release, change repository visibility,
-deploy documentation, or begin work in an external application.
+**Status:** Accepted by the project owner on September 5, 2026. This contract defines the private,
+offline proof for the exact Phase 6B source freeze. It does not publish, contact npm, remove package
+privacy, change a version, create a tag or release, change repository visibility, deploy
+documentation, or begin work in an external application.
 
 ## Exact inputs and authority
 
@@ -178,3 +178,11 @@ candidate artifacts, hashes, consumer evidence, publication readiness, package p
 repository visibility, npm access, tags, releases, deployment, or external application work. Each
 later stage retains its own review and the Phase 6C exit gate requires project-owner acceptance of
 the integrated evidence.
+
+## Project-owner decision
+
+Accepted on September 5, 2026. ADR 0036, the offline and credential boundaries, deterministic
+manifest projection, clean-source assembly model, independent-consumer matrix, evidence schema, and
+staged implementation sequence are approved. Phase 6C-A is complete and Phase 6C-B private
+projection and inspection tooling may begin. No later Phase 6C stage or release action is approved
+by this decision.

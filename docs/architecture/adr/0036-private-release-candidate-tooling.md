@@ -1,7 +1,7 @@
 # ADR 0036: Use private tooling to assemble frozen release candidates
 
-- Status: proposed
-- Date: 2026-09-04
+- Status: accepted
+- Date: 2026-09-05
 
 ## Context
 

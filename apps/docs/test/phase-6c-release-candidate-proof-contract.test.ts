@@ -63,6 +63,9 @@ describe('Phase 6C release-candidate proof proposal', () => {
     }
     expect(contract).toContain('authorizes Phase 6C-B private tooling only');
     expect(contract).toContain('does not publish');
-    expect(roadmap).toMatch(/Phase 6B is complete and Phase 6C-A\s+is proposed/);
+    expect(adr).toContain('- Status: accepted');
+    expect(contract).toContain('**Status:** Accepted by the project owner');
+    expect(contract).toContain('Phase 6C-A is complete');
+    expect(roadmap).toMatch(/Phase 6C-A is complete and Phase\s+6C-B is active/);
   });
 });
