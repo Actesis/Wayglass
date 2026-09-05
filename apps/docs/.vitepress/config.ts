@@ -143,6 +143,14 @@ export default defineConfig({
             text: 'ADR 0035 initial version and compatibility',
             link: '/architecture/adr/0035-initial-version-and-compatibility',
           },
+          {
+            text: 'Phase 6C release-candidate proof',
+            link: '/governance/phase-6c-release-candidate-proof-contract',
+          },
+          {
+            text: 'ADR 0036 private candidate tooling',
+            link: '/architecture/adr/0036-private-release-candidate-tooling',
+          },
           { text: 'Phase 5 ecosystem roadmap', link: '/phase-5' },
           { text: 'Phase 5 roadmap disposition', link: '/phase-5-roadmap-disposition' },
           {

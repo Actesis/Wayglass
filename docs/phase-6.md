@@ -1,8 +1,9 @@
 # Phase 6 v1 release and feedback-readiness roadmap
 
-**Status:** Corrected by the project owner on September 2, 2026. Phase 6A is active. No package
-publication, repository-visibility change, npm action, Cloudflare implementation, deployment,
-credential use, or public support claim is authorized until its specific gate below is accepted.
+**Status:** Corrected by the project owner on September 2, 2026. Phase 6C-A is complete and Phase
+6C-B is active. No package publication, repository-visibility change, npm action, Cloudflare
+implementation, deployment, credential use, or public support claim is authorized until its specific
+gate below is accepted.
 
 Phase 6 turns the private system completed in Phases 0–5 into a defined, documented, independently
 installable Wayglass v1 release. It derives v1 from the evidence already accumulated in this
