@@ -152,6 +152,10 @@ export default defineConfig({
             link: '/governance/phase-6c-manifest-projection-implementation',
           },
           {
+            text: 'Phase 6C-C isolated assembler',
+            link: '/governance/phase-6c-isolated-assembler-implementation',
+          },
+          {
             text: 'ADR 0036 private candidate tooling',
             link: '/architecture/adr/0036-private-release-candidate-tooling',
           },
