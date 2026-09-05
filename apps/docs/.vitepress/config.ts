@@ -148,6 +148,10 @@ export default defineConfig({
             link: '/governance/phase-6c-release-candidate-proof-contract',
           },
           {
+            text: 'Phase 6C-B manifest projection',
+            link: '/governance/phase-6c-manifest-projection-implementation',
+          },
+          {
             text: 'ADR 0036 private candidate tooling',
             link: '/architecture/adr/0036-private-release-candidate-tooling',
           },

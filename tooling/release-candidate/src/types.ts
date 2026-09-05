@@ -1,0 +1,49 @@
+export type CandidateDirectory = 'core' | 'tokens' | 'themes' | 'elements' | 'icons' | 'react';
+
+export type JsonPrimitive = boolean | number | string | null;
+export type JsonValue =
+  JsonPrimitive | readonly JsonValue[] | { readonly [key: string]: JsonValue };
+
+export interface CandidateSource {
+  readonly directory: CandidateDirectory;
+  readonly manifest: unknown;
+}
+
+export interface ProjectedManifest {
+  readonly name: string;
+  readonly version: string;
+  readonly private: true;
+  readonly description: string;
+  readonly license: 'Apache-2.0';
+  readonly author: JsonValue;
+  readonly homepage: string;
+  readonly repository: JsonValue;
+  readonly bugs: JsonValue;
+  readonly keywords: readonly string[];
+  readonly publishConfig: JsonValue;
+  readonly type: 'module';
+  readonly sideEffects: boolean | readonly string[];
+  readonly engines: JsonValue;
+  readonly files: readonly string[];
+  readonly exports: JsonValue;
+  readonly dependencies?: Readonly<Record<string, string>>;
+  readonly peerDependencies?: Readonly<Record<string, string>>;
+}
+
+export interface PackageFile {
+  readonly path: string;
+  readonly bytes: Uint8Array;
+  readonly kind?: 'file' | 'directory' | 'symlink' | 'socket';
+}
+
+export interface InspectedFile {
+  readonly path: string;
+  readonly bytes: number;
+  readonly sha256: string;
+}
+
+export interface PackageInspection {
+  readonly files: readonly InspectedFile[];
+  readonly totalBytes: number;
+  readonly inventorySha256: string;
+}
