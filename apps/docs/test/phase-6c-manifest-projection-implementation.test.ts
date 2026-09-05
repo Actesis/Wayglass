@@ -53,6 +53,8 @@ describe('Phase 6C-B manifest projection implementation record', () => {
   });
 
   it('keeps effect work and release authority in later stages', () => {
+    expect(normalizedRecord).toContain('**Status:** Accepted by the project owner');
+    expect(normalizedRecord).toContain('Phase 6C-B is complete');
     expect(normalizedRecord).toContain('Phase 6C-C still owns the explicit effect adapter');
     expect(normalizedRecord).toContain(
       'authorizes Phase 6C-C isolated assembler implementation only',

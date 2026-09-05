@@ -1,6 +1,6 @@
 # Phase 6C-B manifest projection and inspection implementation
 
-**Status:** Proposed for project-owner acceptance on September 5, 2026. This record covers only the
+**Status:** Accepted by the project owner on September 5, 2026. This record covers only the
 write-free private core authorized by the accepted Phase 6C contract. It does not create a worktree,
 install a dependency, stage or pack a file, create a candidate artifact, contact npm, use a
 credential, change package source, or authorize Phase 6C-C effects.
@@ -116,3 +116,10 @@ Acceptance completes Phase 6C-B and authorizes Phase 6C-C isolated assembler imp
 does not accept a tarball, hash, candidate run, consumer result, publication readiness, package
 privacy change, npm or registry access, credential, tag, release, repository visibility change,
 deployment, or external application work.
+
+## Project-owner decision
+
+Accepted on September 5, 2026. The project owner approved the private pure core, retained
+validation, and recorded limitations. Phase 6C-B is complete and Phase 6C-C isolated assembler
+implementation may begin. No candidate artifact, later Phase 6C stage, publication action, or
+external state change is approved by this decision.
