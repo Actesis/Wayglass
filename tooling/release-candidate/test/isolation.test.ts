@@ -20,6 +20,7 @@ describe('Phase 6C-B private-tool isolation', () => {
       'index.ts',
       'inspection.ts',
       'manifest.ts',
+      'reproducibility.ts',
       'types.ts',
     ]) {
       const source = readFileSync(

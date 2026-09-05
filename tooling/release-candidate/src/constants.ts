@@ -1,5 +1,11 @@
 import type { CandidateDirectory } from './types.ts';
 
+export const frozenSource = Object.freeze({
+  commit: 'ce400e89930a047c6af1c6992c64cfe422a1eeee',
+  tree: 'da2550b5aa2636d0896ae61e08c340f405fe1412',
+  lockfileSha256: 'bdb6b4e916bd5fa2330fc3dd3f272814c6940ec04dab78b437b7007be386a525',
+});
+
 export const candidateDirectories = Object.freeze([
   'core',
   'tokens',

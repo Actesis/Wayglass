@@ -47,3 +47,55 @@ export interface PackageInspection {
   readonly totalBytes: number;
   readonly inventorySha256: string;
 }
+
+export interface CommandRequest {
+  readonly command: string;
+  readonly arguments: readonly string[];
+  readonly cwd: string;
+  readonly environment?: Readonly<Record<string, string>>;
+}
+
+export interface CommandResult {
+  readonly stdout: string;
+  readonly stderr: string;
+}
+
+export type CommandRunner = (request: CommandRequest) => Promise<CommandResult>;
+
+export interface PackedCandidate {
+  readonly directory: CandidateDirectory;
+  readonly name: string;
+  readonly version: '0.1.0';
+  readonly file: string;
+  readonly bytes: number;
+  readonly sha256: string;
+  readonly manifestSha256: string;
+  readonly inventorySha256: string;
+  readonly unpackedBytes: number;
+  readonly files: readonly InspectedFile[];
+}
+
+export interface CandidateEvidence {
+  readonly schemaVersion: 1;
+  readonly source: {
+    readonly commit: string;
+    readonly tree: string;
+    readonly lockfileSha256: string;
+  };
+  readonly tooling: {
+    readonly commit: string;
+    readonly tree: string;
+  };
+  readonly environment: {
+    readonly platform: string;
+    readonly architecture: string;
+    readonly node: string;
+    readonly pnpm: string;
+    readonly npm: string;
+  };
+  readonly reproducibility: {
+    readonly runs: 2;
+    readonly byteIdentical: true;
+  };
+  readonly packages: readonly PackedCandidate[];
+}
