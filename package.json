@@ -16,7 +16,7 @@
   },
   "scripts": {
     "build": "pnpm token-tooling:generate:web && turbo run build",
-    "check": "pnpm format:check && pnpm lint && pnpm build && pnpm icon-tooling:check && pnpm icon-tooling:core:check && pnpm token-tooling:check && pnpm token-tooling:core:check && pnpm experiment:phase5c:check && pnpm typecheck && pnpm test",
+    "check": "pnpm format:check && pnpm lint && pnpm build && pnpm icon-tooling:check && pnpm icon-tooling:core:check && pnpm token-tooling:check && pnpm token-tooling:core:check && pnpm release-candidate:core:check && pnpm experiment:phase5c:check && pnpm typecheck && pnpm test",
     "docs:build": "pnpm --filter @wayglass/docs build",
     "docs:dev": "pnpm --filter @wayglass/docs dev",
     "example:agent-supervision": "pnpm --filter @wayglass/example-agent-supervision dev",
@@ -35,6 +35,9 @@
     "icon-tooling:core:typecheck": "tsc --noEmit -p tooling/icon-pipeline/tsconfig.json",
     "icon-tooling:generate": "node --disable-warning=ExperimentalWarning --experimental-strip-types tooling/icon-pipeline/src/cli.ts generate",
     "lint": "eslint .",
+    "release-candidate:core:check": "pnpm release-candidate:core:typecheck && pnpm release-candidate:core:test",
+    "release-candidate:core:test": "vitest run --root tooling/release-candidate --config vitest.config.ts",
+    "release-candidate:core:typecheck": "tsc --noEmit -p tooling/release-candidate/tsconfig.json",
     "storybook": "pnpm --filter @wayglass/storybook dev",
     "storybook:build": "pnpm --filter @wayglass/storybook build",
     "test": "turbo run test",
