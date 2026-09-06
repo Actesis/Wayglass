@@ -1,12 +1,13 @@
 # Phase 6C-D5 integrated rehearsal implementation
 
-**Status:** Implementation proposed for project-owner acceptance on September 6, 2026; execution is
-open because the accepted consumer graph is not fully materialized in the offline store. This record
-covers the fail-closed preflight and disposable end-to-end runner authorized by the accepted Phase
-6C-D4 implementation. It does not claim that D5, an integrated candidate, or a browser matrix
-passed; authorize Phase 6C-E; contact or publish to npm; add registry material; remove package
-privacy; use credentials; create a tag or release; change repository visibility; deploy; or build an
-external application.
+**Status:** Store-propagation correction proposed on September 6, 2026; integrated execution remains
+open. The accepted consumer graph is now materialized in the dedicated offline store, but the first
+two assembly attempts exposed that the store setting did not reach pnpm commands nested inside the
+detached source worktree. This record covers the fail-closed preflight, the narrowly authorized
+cache preparation, and the disposable end-to-end runner authorized by the accepted Phase 6C-D4
+implementation. It does not claim that D5, an integrated candidate, or a browser matrix passed;
+authorize Phase 6C-E; publish to npm; remove package privacy; use credentials; create a tag or
+release; change repository visibility; deploy; or build an external application.
 
 ## One integrated rehearsal
 
@@ -59,7 +60,7 @@ This deliberate deletion distinguishes D5 integration confidence from Phase 6C-E
 immutable evidence record. Console diagnostics may establish why a rehearsal did not run; they are
 not candidate evidence and cannot be promoted into it.
 
-## Observed offline preflight
+## Observed environment preparation and assembly attempts
 
 The first real command-level preflight ran on September 6, 2026 with the required source and hard
 offline controls. The `vanilla-ts-5.9.3` lockfile resolved, but its frozen installation stopped at
@@ -71,29 +72,49 @@ occurred. The failure is the intended unsupported-environment result and is not 
 failed candidate. Additional missing transitive material may become visible only after this first
 blocker is resolved.
 
-No registry access is authorized by this implementation. Material must enter the dedicated store
-through a separately explicit project-owner decision before the rehearsal may be rerun.
+The project owner then explicitly authorized continuing to the next step. In disposable directories,
+the exact six third-party-only graphs were installed into the dedicated repository store with an
+empty npm configuration and lifecycle scripts disabled. All six preparations succeeded; the first
+Vanilla graph downloaded five artifacts, the React `19.0.0` minimum-compiler graph downloaded five,
+and the remaining graphs reused the resulting store material. The preparation directories were
+removed. This one-time material preparation did not install a Wayglass package, publish anything,
+change a manifest or lockfile in the repository, use release credentials, or broaden rehearsal-time
+network access.
+
+The next hard-offline rehearsal passed the six-scenario material preflight and reached the first
+detached frozen-source assembly. Its `pnpm check` command stopped because pnpm could not find the
+offline tarball for the repository-pinned package manager `pnpm@11.9.0`. A separate script-disabled
+material check for that exact package reused an artifact already present in the dedicated store, but
+a second hard-offline rehearsal stopped at the same point. Neither attempt produced candidate
+tarballs, ran a consumer or browser case, or retained its temporary worktree or rehearsal root.
+
+The failure was configuration reachability, not missing accepted material: the assembler supplied
+`--store-dir` only to its initial install command, while later top-level and nested pnpm commands in
+the detached worktree resolved a worktree-local store. The correction now pins
+`npm_config_store_dir` together with the empty npm user configuration in the environment inherited
+by every assembly command and nested script. Hard-offline execution remains mandatory; there is no
+fallback to the registry or another store.
 
 ## Retained validation
 
 Focused tests cover canonical material projection, all six exact preflight scenarios, both offline
 install steps, script suppression, absence of Wayglass and workspace inputs, exact missing-scenario
 diagnostics, preflight cleanup, source pinning, preflight-before-build ordering, direct evidence
-handoff, exact 2/4/36 result counts, partial-matrix rejection, and candidate cleanup on success and
-failure. The focused release-candidate suite passes 73 assertions across 16 files with TypeScript
-and ESLint checks.
+handoff, exact 2/4/36 result counts, partial-matrix rejection, candidate cleanup on success and
+failure, and dedicated-store propagation through nested assembly commands. The focused
+release-candidate suite passes 74 assertions across 16 files with TypeScript and ESLint checks.
 
 The complete offline repository gate also passes against the final implementation: formatting and
-repository lint; all 14 scheduled builds; 58 icon-tooling, 93 token-tooling, 73 release-candidate,
+repository lint; all 14 scheduled builds; 58 icon-tooling, 93 token-tooling, 74 release-candidate,
 and 24 visualization assertions; all 20 scheduled typecheck tasks; and all 20 scheduled package and
 application test tasks, including 250 documentation assertions. Only the repository's existing
 informational Storybook chunk-size and Lit development-mode warnings were emitted.
 
 ## Acceptance effect
 
-Acceptance approves the D5 runner implementation and the honestly blocked preflight result. It does
-not complete Phase 6C-D5. Completion still requires a no-retry, all-green ephemeral rehearsal and
-separate project-owner acceptance of that result. Acceptance does not authorize acquiring offline
-material, registry or npm access, Phase 6C-E, retained candidate evidence, publication readiness,
-package privacy changes, credentials, tags, releases, repository visibility changes, deployment, or
-external application work.
+Acceptance approves the D5 runner implementation, the narrowly scoped material preparation, the
+honestly recorded environment failures, and the store-propagation correction. It does not complete
+Phase 6C-D5. Completion still requires an all-green ephemeral rehearsal and separate project-owner
+acceptance of that result. Acceptance does not authorize further registry or npm access, Phase 6C-E,
+retained candidate evidence, publication readiness, package privacy changes, credentials, tags,
+releases, repository visibility changes, deployment, or external application work.

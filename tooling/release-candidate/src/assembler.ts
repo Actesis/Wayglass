@@ -30,6 +30,18 @@ interface AssemblyPass {
   readonly packages: readonly PackedCandidate[];
 }
 
+export function assemblyPassEnvironment(
+  environment: Readonly<Record<string, string>>,
+  store: string,
+  userConfig: string,
+): Readonly<Record<string, string>> {
+  return Object.freeze({
+    ...environment,
+    npm_config_store_dir: store,
+    npm_config_userconfig: userConfig,
+  });
+}
+
 async function manifestsFromGit(
   repositoryRoot: string,
   source: string,
@@ -77,7 +89,7 @@ async function runAssemblyPass(
   const tarballs = resolve(root, 'tarballs');
   const userConfig = resolve(root, 'empty-npmrc');
   writeFileSync(userConfig, '', { encoding: 'utf8', flag: 'wx' });
-  const passEnvironment = { ...environment, npm_config_userconfig: userConfig };
+  const passEnvironment = assemblyPassEnvironment(environment, store, userConfig);
   let attached = false;
   try {
     await runner({
