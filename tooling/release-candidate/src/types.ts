@@ -132,3 +132,13 @@ export interface ConsumerProjectContext {
   readonly run: CommandRunner;
   readonly environment: Readonly<Record<string, string>>;
 }
+
+export interface VanillaBuildProbeResult {
+  readonly scenarioId: string;
+  readonly declarations: true;
+  readonly productionBuild: true;
+  readonly css: true;
+  readonly runtimeFixture: true;
+  readonly unusedRuntimeCodeAbsent: true;
+  readonly removalRebuild: true;
+}

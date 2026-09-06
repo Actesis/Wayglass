@@ -5,11 +5,13 @@ import { assertSupportedNode, offlineEnvironment } from './environment.ts';
 import { readEvidence, verifyEvidenceFiles } from './evidence.ts';
 import { ReleaseCandidateError } from './error.ts';
 import { runCommand } from './process.ts';
+import { probeVanillaConsumers } from './vanilla-probe.ts';
 
 const usage = `Usage:
   pnpm release-candidate:check -- --source <full-sha>
   pnpm release-candidate:build -- --source <full-sha> --output <absolute-new-directory>
-  pnpm release-candidate:verify -- --evidence <absolute-path>`;
+  pnpm release-candidate:verify -- --evidence <absolute-path>
+  pnpm release-candidate:probe:vanilla -- --evidence <absolute-path> --store <absolute-path>`;
 
 function option(arguments_: readonly string[], name: string): string | undefined {
   const index = arguments_.indexOf(name);
@@ -53,6 +55,19 @@ export async function main(arguments_: readonly string[]): Promise<void> {
     console.log(`Verified candidate evidence ${path}.`);
     return;
   }
+  if (command === 'probe-vanilla') {
+    const evidence = option(options, '--evidence') ?? invalid('probe-vanilla requires --evidence.');
+    const store = option(options, '--store') ?? invalid('probe-vanilla requires --store.');
+    if (options.length !== 4) invalid('probe-vanilla accepts only --evidence and --store.');
+    const results = await probeVanillaConsumers({
+      evidencePath: evidence,
+      storePath: store,
+      runner: runCommand,
+      environment,
+    });
+    console.log(`Passed ${results.length} ephemeral Vanilla consumer probes.`);
+    return;
+  }
   invalid(`Unknown command ${command}.`);
 }
 
@@ -72,6 +87,8 @@ if (process.argv[1] !== undefined && import.meta.url === pathToFileURL(process.a
       'WG_RC_OUTPUT_REPOSITORY',
       'WG_RC_COMMAND_START',
       'WG_RC_OFFLINE_MATERIAL',
+      'WG_RC_CONSUMER_OFFLINE_MATERIAL',
+      'WG_RC_CONSUMER_STORE',
       'WG_RC_UNSUPPORTED_NODE',
     ]);
     process.exitCode = candidateError && invalidCodes.has(error.code) ? 2 : 1;
