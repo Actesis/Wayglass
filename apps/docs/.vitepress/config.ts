@@ -172,6 +172,10 @@ export default defineConfig({
             link: '/governance/phase-6c-browser-consumer-implementation',
           },
           {
+            text: 'Phase 6C-D5 integrated rehearsal',
+            link: '/governance/phase-6c-integrated-rehearsal-implementation',
+          },
+          {
             text: 'ADR 0036 private candidate tooling',
             link: '/architecture/adr/0036-private-release-candidate-tooling',
           },

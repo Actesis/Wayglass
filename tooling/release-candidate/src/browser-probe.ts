@@ -20,6 +20,8 @@ import type {
   ConsumerBuildStage,
   ConsumerProjectContext,
   ConsumerRuntimeProbe,
+  ReactBuildProbeResult,
+  VanillaBuildProbeResult,
 } from './types.ts';
 import { probeVanillaConsumers } from './vanilla-probe.ts';
 
@@ -322,9 +324,21 @@ export function createConsumerBrowserProbe(
 export async function probeBrowserConsumers(
   request: BrowserConsumerProbeRequest,
 ): Promise<readonly ConsumerBrowserProbeResult[]> {
+  return (await runBrowserConsumerMatrix(request)).browsers;
+}
+
+export interface BrowserConsumerMatrixResult {
+  readonly vanilla: readonly VanillaBuildProbeResult[];
+  readonly react: readonly ReactBuildProbeResult[];
+  readonly browsers: readonly ConsumerBrowserProbeResult[];
+}
+
+export async function runBrowserConsumerMatrix(
+  request: BrowserConsumerProbeRequest,
+): Promise<BrowserConsumerMatrixResult> {
   const results: ConsumerBrowserProbeResult[] = [];
   const runtime = createConsumerBrowserProbe(results, request.execute);
-  await probeVanillaConsumers(request, runtime);
-  await probeReactConsumers(request, runtime);
-  return Object.freeze(results);
+  const vanilla = await probeVanillaConsumers(request, runtime);
+  const react = await probeReactConsumers(request, runtime);
+  return Object.freeze({ vanilla, react, browsers: Object.freeze(results) });
 }

@@ -38,7 +38,7 @@ function serialize(value: JsonValue): string {
   return `${JSON.stringify(value, null, 2)}\n`;
 }
 
-function validateStore(path: string): string {
+export function validateConsumerStore(path: string): string {
   if (!isAbsolute(path) || !existsSync(path)) {
     fail('WG_RC_CONSUMER_STORE', 'Consumer store must be an existing absolute path.');
   }
@@ -54,7 +54,7 @@ export async function withConsumerProject<T>(
   use: (context: ConsumerProjectContext) => Promise<T>,
 ): Promise<T> {
   const environment = offlineEnvironment(request.environment);
-  const store = validateStore(request.storePath);
+  const store = validateConsumerStore(request.storePath);
   validateConsumerTemplate(request.template);
   const evidence = readEvidence(request.evidencePath);
   verifyEvidenceFiles(request.evidencePath, evidence);

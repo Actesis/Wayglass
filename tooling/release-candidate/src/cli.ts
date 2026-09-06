@@ -11,6 +11,7 @@ import { probeVanillaConsumers } from './vanilla-probe.ts';
 const usage = `Usage:
   pnpm release-candidate:check -- --source <full-sha>
   pnpm release-candidate:build -- --source <full-sha> --output <absolute-new-directory>
+  pnpm release-candidate:rehearse -- --source <full-sha>
   pnpm release-candidate:verify -- --evidence <absolute-path>
   pnpm release-candidate:probe:browsers -- --evidence <absolute-path> --store <absolute-path>
   pnpm release-candidate:probe:react -- --evidence <absolute-path> --store <absolute-path>
@@ -56,6 +57,16 @@ export async function main(arguments_: readonly string[]): Promise<void> {
     if (options.length !== 2) invalid('verify accepts only --evidence.');
     verifyEvidenceFiles(path, readEvidence(path));
     console.log(`Verified candidate evidence ${path}.`);
+    return;
+  }
+  if (command === 'rehearse') {
+    const source = option(options, '--source') ?? invalid('rehearse requires --source.');
+    if (options.length !== 2) invalid('rehearse accepts only --source.');
+    const { runIntegratedRehearsal } = await import('./rehearsal.ts');
+    const result = await runIntegratedRehearsal(process.cwd(), source, runCommand, process.env);
+    console.log(
+      `Passed ephemeral rehearsal: ${result.packages} packages, ${result.vanillaScenarios} Vanilla scenarios, ${result.reactScenarios} React scenarios, and ${result.browserCases} browser cases.`,
+    );
     return;
   }
   if (command === 'probe-vanilla') {
