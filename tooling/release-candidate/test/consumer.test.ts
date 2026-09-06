@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import {
   consumerPackageNames,
   consumerScenarios,
+  projectConsumerMaterialManifest,
   projectConsumerManifest,
   validateConsumerTemplate,
 } from '../src/consumer.ts';
@@ -51,6 +52,27 @@ describe('release-candidate consumer contract', () => {
     });
     expect(vanillaManifest).not.toHaveProperty('scripts');
     expect(JSON.stringify(vanillaManifest)).not.toContain('workspace:');
+  });
+
+  it('projects third-party-only material preflight manifests for every scenario', () => {
+    const manifests = consumerScenarios().map(projectConsumerMaterialManifest);
+    expect(manifests[0]).toMatchObject({
+      name: 'wayglass-release-material-vanilla-ts-5.9.3',
+      private: true,
+      dependencies: {},
+      devDependencies: { typescript: '5.9.3', vite: '8.1.5' },
+    });
+    expect(manifests[2]).toMatchObject({
+      dependencies: { react: '19.0.0', 'react-dom': '19.0.0' },
+      devDependencies: {
+        '@types/react': '19.0.0',
+        '@types/react-dom': '19.0.0',
+        typescript: '5.9.3',
+        vite: '8.1.5',
+      },
+    });
+    expect(JSON.stringify(manifests)).not.toContain('@wayglass/');
+    expect(JSON.stringify(manifests)).not.toContain('workspace:');
   });
 
   it('rejects unsafe, reserved, colliding, empty, and mismatched templates', () => {

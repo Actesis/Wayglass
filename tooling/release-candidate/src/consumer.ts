@@ -96,6 +96,41 @@ export function projectConsumerManifest(
     }
     dependencies[name] = tarball;
   }
+  const external = consumerMaterialDependencies(scenario);
+  Object.assign(dependencies, external.dependencies);
+  return Object.freeze({
+    name: `wayglass-release-probe-${scenario.id}`,
+    version: '0.0.0',
+    private: true,
+    type: 'module',
+    dependencies: Object.freeze(dependencies),
+    devDependencies: external.devDependencies,
+  });
+}
+
+export function consumerPackageNames(kind: ConsumerKind): readonly string[] {
+  return Object.freeze(
+    consumerPackageDirectories[kind].map((directory) => `@wayglass/${directory}`),
+  );
+}
+
+export function projectConsumerMaterialManifest(scenario: ConsumerScenario): JsonValue {
+  acceptedScenario(scenario);
+  const external = consumerMaterialDependencies(scenario);
+  return Object.freeze({
+    name: `wayglass-release-material-${scenario.id}`,
+    version: '0.0.0',
+    private: true,
+    dependencies: external.dependencies,
+    devDependencies: external.devDependencies,
+  });
+}
+
+function consumerMaterialDependencies(scenario: ConsumerScenario): {
+  readonly dependencies: Readonly<Record<string, string>>;
+  readonly devDependencies: Readonly<Record<string, string>>;
+} {
+  const dependencies: Record<string, string> = {};
   const devDependencies: Record<string, string> = {
     typescript: scenario.typescript,
     vite: consumerBuildVersions.vite,
@@ -112,17 +147,7 @@ export function projectConsumerManifest(
     fail('WG_RC_CONSUMER_REACT', 'Vanilla scenario cannot declare React versions.');
   }
   return Object.freeze({
-    name: `wayglass-release-probe-${scenario.id}`,
-    version: '0.0.0',
-    private: true,
-    type: 'module',
     dependencies: Object.freeze(dependencies),
     devDependencies: Object.freeze(devDependencies),
   });
-}
-
-export function consumerPackageNames(kind: ConsumerKind): readonly string[] {
-  return Object.freeze(
-    consumerPackageDirectories[kind].map((directory) => `@wayglass/${directory}`),
-  );
 }
