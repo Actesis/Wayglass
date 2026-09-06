@@ -41,6 +41,12 @@ describe('release-candidate consumer contract', () => {
         '@wayglass/icons': 'file:./vendor/wayglass-icons-0.1.0.tgz',
       },
       devDependencies: { typescript: '5.9.3', vite: '8.1.5' },
+      pnpm: {
+        overrides: {
+          '@wayglass/core': 'file:./vendor/wayglass-core-0.1.0.tgz',
+          '@wayglass/themes': 'file:./vendor/wayglass-themes-0.1.0.tgz',
+        },
+      },
     });
     expect(reactManifest).toMatchObject({
       dependencies: { react: '19.0.0', 'react-dom': '19.0.0' },
@@ -52,6 +58,7 @@ describe('release-candidate consumer contract', () => {
     });
     expect(vanillaManifest).not.toHaveProperty('scripts');
     expect(JSON.stringify(vanillaManifest)).not.toContain('workspace:');
+    expect(JSON.stringify(vanillaManifest)).not.toContain('https:');
   });
 
   it('projects third-party-only material preflight manifests for every scenario', () => {

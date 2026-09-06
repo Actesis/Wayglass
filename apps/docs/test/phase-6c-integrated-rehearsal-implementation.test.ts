@@ -41,6 +41,8 @@ describe('Phase 6C-D5 integrated rehearsal implementation record', () => {
     expect(record).toContain('Homebrew pnpm `11.25.0` launcher');
     expect(record).toContain('temporary `PATH` shim');
     expect(record).toContain('there is no fallback to the registry, another store');
+    expect(record).toContain('`ERR_PNPM_NO_OFFLINE_META`');
+    expect(record).toContain('pnpm override for every scenario-owned `@wayglass/*` package');
   });
 
   it('keeps D5 open and retains the release boundary', () => {

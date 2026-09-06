@@ -105,6 +105,7 @@ export function projectConsumerManifest(
     type: 'module',
     dependencies: Object.freeze(dependencies),
     devDependencies: external.devDependencies,
+    pnpm: Object.freeze({ overrides: Object.freeze({ ...tarballs }) }),
   });
 }
 

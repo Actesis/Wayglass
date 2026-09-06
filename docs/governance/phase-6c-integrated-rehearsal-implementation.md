@@ -113,6 +113,20 @@ evidence pnpm version from the same executable. The shim and diagnostic worktree
 their owning temporary roots. Hard-offline execution remains mandatory; there is no fallback to the
 registry, another store, another pnpm version, or `pmOnFail=ignore`.
 
+The next hard-offline integrated run passed preflight, both frozen-source assembly passes, and the
+six-package byte-identity requirement. The first Vanilla consumer then stopped while resolving
+`@wayglass/elements@0.1.0`: its published-style dependency range for `@wayglass/themes` caused pnpm
+to consult the empty offline package mirror even though the exact themes candidate tarball was a
+direct consumer dependency. The wrapper reported `ERR_PNPM_NO_OFFLINE_META`; no consumer build or
+browser case ran, and the candidate evidence, tarballs, consumer root, and worktrees were removed.
+
+The consumer projection now includes a pnpm override for every scenario-owned `@wayglass/*` package,
+mapping each name to the same validated local candidate tarball used by the direct dependency. This
+keeps the candidate manifests realistic while forcing all transitive internal edges onto the one
+assembled candidate set. The override map is exact, local-only, script-free, and derived from the
+already validated scenario inventory; it cannot introduce a registry URL, workspace dependency,
+extra package, or alternate version.
+
 ## Retained validation
 
 Focused tests cover canonical material projection, all six exact preflight scenarios, both offline
@@ -120,8 +134,9 @@ install steps, script suppression, absence of Wayglass and workspace inputs, exa
 diagnostics, preflight cleanup, source pinning, preflight-before-build ordering, direct evidence
 handoff, exact 2/4/36 result counts, partial-matrix rejection, candidate cleanup on success and
 failure, dedicated-store propagation through nested assembly commands, and exact package-manager
-shim creation and precedence. The focused release-candidate suite passes 74 assertions across 16
-files with TypeScript and ESLint checks.
+shim creation and precedence. It also verifies that every projected internal dependency is
+overridden to its exact scenario-owned tarball. The focused release-candidate suite passes 74
+assertions across 16 files with TypeScript and ESLint checks.
 
 The complete offline repository gate also passes against the final implementation: formatting and
 repository lint; all 14 scheduled builds; 58 icon-tooling, 93 token-tooling, 74 release-candidate,
@@ -133,8 +148,9 @@ informational Storybook chunk-size and Lit development-mode warnings were emitte
 
 Acceptance approves the D5 runner implementation, the narrowly scoped material preparation, the
 honestly recorded environment failures, and the exact-package-manager correction. It does not
-complete Phase 6C-D5. Completion still requires an all-green ephemeral rehearsal and separate
-project-owner acceptance of that result. Acceptance does not authorize further registry or npm
-access, Phase 6C-E, retained candidate evidence, publication readiness, package privacy changes,
+complete Phase 6C-D5. Acceptance also approves the local-tarball override correction exposed by the
+first real consumer installation. Completion still requires an all-green ephemeral rehearsal and
+separate project-owner acceptance of that result. Acceptance does not authorize further registry or
+npm access, Phase 6C-E, retained candidate evidence, publication readiness, package privacy changes,
 credentials, tags, releases, repository visibility changes, deployment, or external application
 work.
