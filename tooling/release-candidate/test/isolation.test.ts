@@ -23,6 +23,7 @@ describe('Phase 6C-B private-tool isolation', () => {
       'manifest.ts',
       'reproducibility.ts',
       'types.ts',
+      'vanilla.ts',
     ]) {
       const source = readFileSync(
         resolve(repositoryRoot, `tooling/release-candidate/src/${file}`),

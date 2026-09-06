@@ -51,7 +51,7 @@ describe('Phase 6C-D1 independent-consumer harness record', () => {
   });
 
   it('keeps D2 and release authority behind acceptance', () => {
-    expect(normalizedRecord).toContain('**Status:** Proposed for project-owner acceptance');
+    expect(normalizedRecord).toContain('**Status:** Accepted by the project owner');
     expect(normalizedRecord).toContain(
       'authorizes Phase 6C-D2 Vanilla consumer implementation only',
     );
@@ -61,5 +61,6 @@ describe('Phase 6C-D1 independent-consumer harness record', () => {
     expect(normalizedRecord).toContain('all 14 scheduled builds');
     expect(normalizedRecord).toContain('all 20 scheduled typecheck tasks');
     expect(normalizedRecord).toContain('all 20 scheduled package and application test tasks');
+    expect(normalizedRecord).toContain('Accepted and merged on September 5, 2026');
   });
 });

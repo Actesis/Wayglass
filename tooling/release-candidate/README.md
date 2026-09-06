@@ -33,3 +33,8 @@ effectful temporary-project harness. The harness accepts only verified local can
 vendors scenario-specific tarballs, resolves and installs offline with scripts disabled, and removes
 the owned project on every exit. Vanilla and React behavior fixtures are added only in their
 separately reviewed D2 and D3 slices.
+
+After an ephemeral candidate has been assembled, the two Vanilla compiler probes can be invoked with
+`pnpm release-candidate:probe:vanilla -- --evidence <absolute-path> --store <absolute-path>`. The
+command remains offline, rejects recognized credentials, uses only the supplied candidate tarballs
+and content-addressed store, and deletes both generated consumer projects.

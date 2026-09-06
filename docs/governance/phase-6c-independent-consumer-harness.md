@@ -1,10 +1,10 @@
 # Phase 6C-D1 independent-consumer harness
 
-**Status:** Proposed for project-owner acceptance on September 5, 2026. This record covers the
-private fixture contract and isolated consumer-project harness authorized by acceptance of Phase
-6C-C. It does not yet claim that a Vanilla or React candidate passes, retain a candidate run,
-authorize Phase 6C-D2, publish or contact npm, remove package privacy, create a tag or release,
-change repository visibility, deploy, or build an external application.
+**Status:** Accepted by the project owner on September 5, 2026. This record covers the private
+fixture contract and isolated consumer-project harness authorized by acceptance of Phase 6C-C. It
+does not yet claim that a Vanilla or React candidate passes, retain a candidate run, authorize Phase
+6C-D2, publish or contact npm, remove package privacy, create a tag or release, change repository
+visibility, deploy, or build an external application.
 
 ## Exact scenario contract
 
@@ -100,3 +100,8 @@ Acceptance completes Phase 6C-D1 and authorizes Phase 6C-D2 Vanilla consumer imp
 does not accept a Vanilla or React result, tarball, hash, evidence run, publication readiness,
 package privacy change, npm or registry access, credential use, tag, release, repository visibility
 change, deployment, or external application work.
+
+## Project-owner decision
+
+Accepted and merged on September 5, 2026. Phase 6C-D1 is complete, and Phase 6C-D2 Vanilla consumer
+implementation may begin within the boundaries above.
