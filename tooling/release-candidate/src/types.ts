@@ -142,3 +142,15 @@ export interface VanillaBuildProbeResult {
   readonly unusedRuntimeCodeAbsent: true;
   readonly removalRebuild: true;
 }
+
+export interface ReactBuildProbeResult {
+  readonly scenarioId: string;
+  readonly declarations: true;
+  readonly productionBuild: true;
+  readonly css: true;
+  readonly clientFallbackFixture: true;
+  readonly parityAndEventsFixture: true;
+  readonly guardedRegistrationFixture: true;
+  readonly unusedWrappersAbsent: true;
+  readonly bindingRemovalRebuild: true;
+}

@@ -1,8 +1,8 @@
 # Phase 6C-D2 Vanilla consumer implementation
 
-**Status:** Proposed for project-owner acceptance on September 5, 2026. This record covers the two
-private Vanilla compiler fixtures and their offline probe runner authorized by the accepted Phase
-6C-D1 harness. It does not claim that an integrated candidate passed, retain a candidate or consumer
+**Status:** Accepted by the project owner on September 5, 2026. This record covers the two private
+Vanilla compiler fixtures and their offline probe runner authorized by the accepted Phase 6C-D1
+harness. It does not claim that an integrated candidate passed, retain a candidate or consumer
 project, authorize Phase 6C-D3, contact or publish to npm, remove package privacy, use credentials,
 create a tag or release, change repository visibility, deploy, or build an external application.
 
@@ -86,3 +86,8 @@ Acceptance completes Phase 6C-D2 and authorizes Phase 6C-D3 React consumer imple
 does not accept a Vanilla or React result, candidate, tarball, hash, retained evidence run,
 publication readiness, package privacy change, npm or registry access, credential use, tag, release,
 repository visibility change, deployment, or external application work.
+
+## Project-owner decision
+
+Accepted and merged on September 5, 2026. Phase 6C-D2 is complete, and Phase 6C-D3 React consumer
+implementation may begin within the boundaries above.

@@ -38,3 +38,8 @@ After an ephemeral candidate has been assembled, the two Vanilla compiler probes
 `pnpm release-candidate:probe:vanilla -- --evidence <absolute-path> --store <absolute-path>`. The
 command remains offline, rejects recognized credentials, uses only the supplied candidate tarballs
 and content-addressed store, and deletes both generated consumer projects.
+
+The four React/TypeScript cross-product probes use the equivalent
+`pnpm release-candidate:probe:react -- --evidence <absolute-path> --store <absolute-path>` command.
+They retain only the selected toggle wrapper, verify the client-only fallback fixture, and rebuild
+with direct elements after removing the binding, React runtime, and React type packages.

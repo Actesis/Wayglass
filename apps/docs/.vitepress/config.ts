@@ -164,6 +164,10 @@ export default defineConfig({
             link: '/governance/phase-6c-vanilla-consumer-implementation',
           },
           {
+            text: 'Phase 6C-D3 React consumers',
+            link: '/governance/phase-6c-react-consumer-implementation',
+          },
+          {
             text: 'ADR 0036 private candidate tooling',
             link: '/architecture/adr/0036-private-release-candidate-tooling',
           },
