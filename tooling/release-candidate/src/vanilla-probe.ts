@@ -4,7 +4,12 @@ import { resolve } from 'node:path';
 import { withConsumerProject } from './consumer-harness.ts';
 import { consumerScenarios } from './consumer.ts';
 import { fail } from './error.ts';
-import type { CommandRunner, ConsumerProjectContext, VanillaBuildProbeResult } from './types.ts';
+import type {
+  CommandRunner,
+  ConsumerProjectContext,
+  ConsumerRuntimeProbe,
+  VanillaBuildProbeResult,
+} from './types.ts';
 import {
   vanillaCompileOnlyPackage,
   vanillaConsumerTemplate,
@@ -111,11 +116,13 @@ function verifyRemoval(root: string): void {
 
 export async function runVanillaBuildProbe(
   context: ConsumerProjectContext,
+  runtime?: ConsumerRuntimeProbe,
 ): Promise<VanillaBuildProbeResult> {
   if (context.scenario.kind !== 'vanilla') {
     fail('WG_RC_VANILLA_SCENARIO', 'Vanilla probe requires a Vanilla consumer project.');
   }
   await typecheckAndBuild(context);
+  await runtime?.(context, 'primary');
   rmSync(resolve(context.root, vanillaPackageSurfacePath));
   await context.run({
     command: 'pnpm',
@@ -125,6 +132,7 @@ export async function runVanillaBuildProbe(
   });
   verifyRemoval(context.root);
   await typecheckAndBuild(context);
+  await runtime?.(context, 'removal');
   return Object.freeze({
     scenarioId: context.scenario.id,
     declarations: true,
@@ -138,6 +146,7 @@ export async function runVanillaBuildProbe(
 
 export async function probeVanillaConsumers(
   request: VanillaProbeRequest,
+  runtime?: ConsumerRuntimeProbe,
 ): Promise<readonly VanillaBuildProbeResult[]> {
   const results: VanillaBuildProbeResult[] = [];
   for (const scenario of consumerScenarios().filter(({ kind }) => kind === 'vanilla')) {
@@ -147,7 +156,7 @@ export async function probeVanillaConsumers(
           ...request,
           template: vanillaConsumerTemplate(scenario),
         },
-        runVanillaBuildProbe,
+        (context) => runVanillaBuildProbe(context, runtime),
       ),
     );
   }

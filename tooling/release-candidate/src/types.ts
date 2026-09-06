@@ -133,6 +133,25 @@ export interface ConsumerProjectContext {
   readonly environment: Readonly<Record<string, string>>;
 }
 
+export type ConsumerBuildStage = 'primary' | 'removal';
+
+export type ConsumerRuntimeProbe = (
+  context: ConsumerProjectContext,
+  stage: ConsumerBuildStage,
+) => Promise<void>;
+
+export type ConsumerBrowserEngine = 'chromium' | 'firefox' | 'webkit';
+
+export interface ConsumerBrowserProbeResult {
+  readonly scenarioId: string;
+  readonly kind: ConsumerKind;
+  readonly stage: ConsumerBuildStage;
+  readonly engine: ConsumerBrowserEngine;
+  readonly runtime: true;
+  readonly semantics: true;
+  readonly accessibility: true;
+}
+
 export interface VanillaBuildProbeResult {
   readonly scenarioId: string;
   readonly declarations: true;

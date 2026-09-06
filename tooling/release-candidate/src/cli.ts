@@ -12,6 +12,7 @@ const usage = `Usage:
   pnpm release-candidate:check -- --source <full-sha>
   pnpm release-candidate:build -- --source <full-sha> --output <absolute-new-directory>
   pnpm release-candidate:verify -- --evidence <absolute-path>
+  pnpm release-candidate:probe:browsers -- --evidence <absolute-path> --store <absolute-path>
   pnpm release-candidate:probe:react -- --evidence <absolute-path> --store <absolute-path>
   pnpm release-candidate:probe:vanilla -- --evidence <absolute-path> --store <absolute-path>`;
 
@@ -83,6 +84,21 @@ export async function main(arguments_: readonly string[]): Promise<void> {
     console.log(`Passed ${results.length} ephemeral React consumer probes.`);
     return;
   }
+  if (command === 'probe-browsers') {
+    const evidence =
+      option(options, '--evidence') ?? invalid('probe-browsers requires --evidence.');
+    const store = option(options, '--store') ?? invalid('probe-browsers requires --store.');
+    if (options.length !== 4) invalid('probe-browsers accepts only --evidence and --store.');
+    const { probeBrowserConsumers } = await import('./browser-probe.ts');
+    const results = await probeBrowserConsumers({
+      evidencePath: evidence,
+      storePath: store,
+      runner: runCommand,
+      environment,
+    });
+    console.log(`Passed ${results.length} ephemeral cross-browser consumer probes.`);
+    return;
+  }
   invalid(`Unknown command ${command}.`);
 }
 
@@ -104,6 +120,7 @@ if (process.argv[1] !== undefined && import.meta.url === pathToFileURL(process.a
       'WG_RC_OFFLINE_MATERIAL',
       'WG_RC_CONSUMER_OFFLINE_MATERIAL',
       'WG_RC_CONSUMER_STORE',
+      'WG_RC_BROWSER_UNAVAILABLE',
       'WG_RC_UNSUPPORTED_NODE',
     ]);
     process.exitCode = candidateError && invalidCodes.has(error.code) ? 2 : 1;

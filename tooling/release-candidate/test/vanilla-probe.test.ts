@@ -140,7 +140,14 @@ describe('release-candidate Vanilla build probe', () => {
   it('typechecks, builds, verifies, removes the compile-only package, and rebuilds', async () => {
     const root = project();
     const fixture = context(root);
-    await expect(runVanillaBuildProbe(fixture.context)).resolves.toEqual({
+    const runtimeStages: string[] = [];
+    await expect(
+      runVanillaBuildProbe(fixture.context, async (runtimeContext, stage) => {
+        expect(runtimeContext).toBe(fixture.context);
+        expect(existsSync(resolve(runtimeContext.root, 'dist/index.html'))).toBe(true);
+        runtimeStages.push(stage);
+      }),
+    ).resolves.toEqual({
       scenarioId: 'vanilla-ts-5.9.3',
       declarations: true,
       productionBuild: true,
@@ -156,6 +163,7 @@ describe('release-candidate Vanilla build probe', () => {
       ['exec', 'tsc', '--noEmit', '--project', 'tsconfig.json'],
       ['exec', 'vite', 'build'],
     ]);
+    expect(runtimeStages).toEqual(['primary', 'removal']);
   });
 
   it('rejects missing CSS proof and bundled unused packages', async () => {

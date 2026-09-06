@@ -150,6 +150,7 @@ value.assertedLabel = 'Direct element operational';
 root.append(value);
 await value.updateComplete;
 document.documentElement.dataset.wgReactRemoval = 'WG_REACT_BINDING_REMOVED';
+document.documentElement.dataset.wgBoolean = 'asserted';
 `;
 
 const tsconfig = `{
