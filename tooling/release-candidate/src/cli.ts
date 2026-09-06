@@ -132,6 +132,7 @@ if (process.argv[1] !== undefined && import.meta.url === pathToFileURL(process.a
       'WG_RC_CONSUMER_OFFLINE_MATERIAL',
       'WG_RC_CONSUMER_STORE',
       'WG_RC_BROWSER_UNAVAILABLE',
+      'WG_RC_PACKAGE_MANAGER_EXECUTABLE',
       'WG_RC_UNSUPPORTED_NODE',
     ]);
     process.exitCode = candidateError && invalidCodes.has(error.code) ? 2 : 1;

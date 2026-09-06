@@ -37,8 +37,10 @@ describe('Phase 6C-D5 integrated rehearsal implementation record', () => {
     expect(record).toContain('exact six third-party-only graphs');
     expect(record).toContain('`pnpm@11.9.0`');
     expect(record).toContain('`npm_config_store_dir`');
-    expect(record).toContain('Neither attempt produced candidate tarballs');
-    expect(record).toContain('there is no fallback to the registry or another store');
+    expect(record).toContain('Neither additional attempt created a candidate tarball');
+    expect(record).toContain('Homebrew pnpm `11.25.0` launcher');
+    expect(record).toContain('temporary `PATH` shim');
+    expect(record).toContain('there is no fallback to the registry, another store');
   });
 
   it('keeps D5 open and retains the release boundary', () => {

@@ -1,5 +1,13 @@
-import { cpSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import {
+  cpSync,
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  rmSync,
+  symlinkSync,
+  writeFileSync,
+} from 'node:fs';
+import { delimiter, isAbsolute, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 
 import { candidateDirectories, candidatePackageNames, frozenSource } from './constants.ts';
@@ -34,12 +42,35 @@ export function assemblyPassEnvironment(
   environment: Readonly<Record<string, string>>,
   store: string,
   userConfig: string,
+  packageManagerBin: string,
 ): Readonly<Record<string, string>> {
   return Object.freeze({
     ...environment,
+    PATH: `${packageManagerBin}${delimiter}${environment.PATH ?? ''}`,
     npm_config_store_dir: store,
     npm_config_userconfig: userConfig,
   });
+}
+
+function packageManagerExecutable(environment: Readonly<Record<string, string>>): string {
+  const executable = environment.npm_execpath;
+  if (executable === undefined || !isAbsolute(executable) || !existsSync(executable)) {
+    fail(
+      'WG_RC_PACKAGE_MANAGER_EXECUTABLE',
+      'Rehearsal must be launched by the repository-pinned pnpm executable.',
+    );
+  }
+  return executable;
+}
+
+export function createPackageManagerShim(
+  root: string,
+  environment: Readonly<Record<string, string>>,
+): string {
+  const bin = resolve(root, 'package-manager-bin');
+  mkdirSync(bin);
+  symlinkSync(packageManagerExecutable(environment), resolve(bin, 'pnpm'));
+  return bin;
 }
 
 async function manifestsFromGit(
@@ -89,7 +120,13 @@ async function runAssemblyPass(
   const tarballs = resolve(root, 'tarballs');
   const userConfig = resolve(root, 'empty-npmrc');
   writeFileSync(userConfig, '', { encoding: 'utf8', flag: 'wx' });
-  const passEnvironment = assemblyPassEnvironment(environment, store, userConfig);
+  const packageManagerBin = createPackageManagerShim(root, environment);
+  const passEnvironment = assemblyPassEnvironment(
+    environment,
+    store,
+    userConfig,
+    packageManagerBin,
+  );
   let attached = false;
   try {
     await runner({
@@ -121,7 +158,7 @@ async function runAssemblyPass(
       );
     }
     await runner({
-      command: 'pnpm',
+      command: packageManagerExecutable(environment),
       arguments: ['check'],
       cwd: worktree,
       environment: passEnvironment,
@@ -222,7 +259,7 @@ export async function buildCandidate(
     second = await runAssemblyPass(repository.root, source, store, manifests, runner, environment);
     assertReproducibleCandidates(first.packages, second.packages);
     const pnpm = await commandText(runner, {
-      command: 'pnpm',
+      command: packageManagerExecutable(environment),
       arguments: ['--version'],
       cwd: repository.root,
       environment,

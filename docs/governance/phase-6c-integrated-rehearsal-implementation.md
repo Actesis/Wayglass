@@ -1,13 +1,14 @@
 # Phase 6C-D5 integrated rehearsal implementation
 
-**Status:** Store-propagation correction proposed on September 6, 2026; integrated execution remains
-open. The accepted consumer graph is now materialized in the dedicated offline store, but the first
-two assembly attempts exposed that the store setting did not reach pnpm commands nested inside the
-detached source worktree. This record covers the fail-closed preflight, the narrowly authorized
-cache preparation, and the disposable end-to-end runner authorized by the accepted Phase 6C-D4
-implementation. It does not claim that D5, an integrated candidate, or a browser matrix passed;
-authorize Phase 6C-E; publish to npm; remove package privacy; use credentials; create a tag or
-release; change repository visibility; deploy; or build an external application.
+**Status:** Exact package-manager reuse correction proposed on September 6, 2026; integrated
+execution remains open. The accepted consumer graph is materialized in the dedicated offline store,
+and a retained diagnostic proved the frozen source gate under the exact pnpm executable. The
+integrated runner has not yet completed after that correction. This record covers the fail-closed
+preflight, the narrowly authorized cache preparation, and the disposable end-to-end runner
+authorized by the accepted Phase 6C-D4 implementation. It does not claim that D5, an integrated
+candidate, or a browser matrix passed; authorize Phase 6C-E; publish to npm; remove package privacy;
+use credentials; create a tag or release; change repository visibility; deploy; or build an external
+application.
 
 ## One integrated rehearsal
 
@@ -88,12 +89,29 @@ material check for that exact package reused an artifact already present in the 
 a second hard-offline rehearsal stopped at the same point. Neither attempt produced candidate
 tarballs, ran a consumer or browser case, or retained its temporary worktree or rehearsal root.
 
-The failure was configuration reachability, not missing accepted material: the assembler supplied
-`--store-dir` only to its initial install command, while later top-level and nested pnpm commands in
-the detached worktree resolved a worktree-local store. The correction now pins
-`npm_config_store_dir` together with the empty npm user configuration in the environment inherited
-by every assembly command and nested script. Hard-offline execution remains mandatory; there is no
-fallback to the registry or another store.
+The initial failure appeared to be configuration reachability: the assembler supplied `--store-dir`
+only to its install command, while later commands did not inherit the dedicated store. Propagating
+`npm_config_store_dir` corrected that gap but did not complete assembly. A disposable, script-free
+bootstrap invocation for the exact `pnpm@11.9.0` returned the accepted version, yet the following
+hard-offline rehearsal stopped at the same boundary. Neither additional attempt created a candidate
+tarball or reached a consumer or browser case, and both cleaned up their worktrees and rehearsal
+roots.
+
+A retained diagnostic worktree exposed the complete message hidden by the outer command summary. The
+Homebrew pnpm `11.25.0` launcher was attempting to revalidate the repository-pinned pnpm `11.9.0`
+registry signature before each new invocation. That online signature check is incompatible with the
+rehearsal's mandatory hard-offline boundary even though the already-validated 11.9.0 executable and
+package bytes are present locally. The first frozen install did run under pnpm `11.9.0`; a temporary
+`PATH` shim that reused that exact executable then allowed the complete frozen source `pnpm check`
+to pass offline: 14 builds, 20 typechecks, 20 test tasks, 58 icon-tooling, 93 token-tooling, 24
+visualization, and 208 source-era documentation assertions.
+
+The final correction requires the private command to be launched by a real absolute `npm_execpath`,
+creates a per-pass temporary `pnpm` shim to that already-selected executable, and places the shim
+first on `PATH` for every top-level and nested assembly command. It also reads the candidate
+evidence pnpm version from the same executable. The shim and diagnostic worktree are removed with
+their owning temporary roots. Hard-offline execution remains mandatory; there is no fallback to the
+registry, another store, another pnpm version, or `pmOnFail=ignore`.
 
 ## Retained validation
 
@@ -101,8 +119,9 @@ Focused tests cover canonical material projection, all six exact preflight scena
 install steps, script suppression, absence of Wayglass and workspace inputs, exact missing-scenario
 diagnostics, preflight cleanup, source pinning, preflight-before-build ordering, direct evidence
 handoff, exact 2/4/36 result counts, partial-matrix rejection, candidate cleanup on success and
-failure, and dedicated-store propagation through nested assembly commands. The focused
-release-candidate suite passes 74 assertions across 16 files with TypeScript and ESLint checks.
+failure, dedicated-store propagation through nested assembly commands, and exact package-manager
+shim creation and precedence. The focused release-candidate suite passes 74 assertions across 16
+files with TypeScript and ESLint checks.
 
 The complete offline repository gate also passes against the final implementation: formatting and
 repository lint; all 14 scheduled builds; 58 icon-tooling, 93 token-tooling, 74 release-candidate,
@@ -113,8 +132,9 @@ informational Storybook chunk-size and Lit development-mode warnings were emitte
 ## Acceptance effect
 
 Acceptance approves the D5 runner implementation, the narrowly scoped material preparation, the
-honestly recorded environment failures, and the store-propagation correction. It does not complete
-Phase 6C-D5. Completion still requires an all-green ephemeral rehearsal and separate project-owner
-acceptance of that result. Acceptance does not authorize further registry or npm access, Phase 6C-E,
-retained candidate evidence, publication readiness, package privacy changes, credentials, tags,
-releases, repository visibility changes, deployment, or external application work.
+honestly recorded environment failures, and the exact-package-manager correction. It does not
+complete Phase 6C-D5. Completion still requires an all-green ephemeral rehearsal and separate
+project-owner acceptance of that result. Acceptance does not authorize further registry or npm
+access, Phase 6C-E, retained candidate evidence, publication readiness, package privacy changes,
+credentials, tags, releases, repository visibility changes, deployment, or external application
+work.
