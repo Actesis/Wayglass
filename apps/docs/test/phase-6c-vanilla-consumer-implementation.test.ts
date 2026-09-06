@@ -42,7 +42,7 @@ describe('Phase 6C-D2 Vanilla consumer implementation record', () => {
   });
 
   it('states the evidence limitation and keeps D3 behind acceptance', () => {
-    expect(normalizedRecord).toContain('**Status:** Proposed for project-owner acceptance');
+    expect(normalizedRecord).toContain('**Status:** Accepted by the project owner');
     expect(normalizedRecord).toContain('release-candidate suite passes 56 assertions');
     expect(normalizedRecord).toContain('all 14 scheduled builds');
     expect(normalizedRecord).toContain('all 20 scheduled typecheck tasks');
@@ -51,5 +51,6 @@ describe('Phase 6C-D2 Vanilla consumer implementation record', () => {
     expect(normalizedRecord).toContain('contains TypeScript `6.0.3` but not `5.9.3`');
     expect(normalizedRecord).toContain('authorizes Phase 6C-D3 React consumer implementation only');
     expect(normalizedRecord).toContain('does not accept a Vanilla or React result');
+    expect(normalizedRecord).toContain('Accepted and merged on September 5, 2026');
   });
 });

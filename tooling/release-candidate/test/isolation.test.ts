@@ -22,6 +22,7 @@ describe('Phase 6C-B private-tool isolation', () => {
       'inspection.ts',
       'manifest.ts',
       'reproducibility.ts',
+      'react-consumer.ts',
       'types.ts',
       'vanilla.ts',
     ]) {

@@ -5,12 +5,14 @@ import { assertSupportedNode, offlineEnvironment } from './environment.ts';
 import { readEvidence, verifyEvidenceFiles } from './evidence.ts';
 import { ReleaseCandidateError } from './error.ts';
 import { runCommand } from './process.ts';
+import { probeReactConsumers } from './react-probe.ts';
 import { probeVanillaConsumers } from './vanilla-probe.ts';
 
 const usage = `Usage:
   pnpm release-candidate:check -- --source <full-sha>
   pnpm release-candidate:build -- --source <full-sha> --output <absolute-new-directory>
   pnpm release-candidate:verify -- --evidence <absolute-path>
+  pnpm release-candidate:probe:react -- --evidence <absolute-path> --store <absolute-path>
   pnpm release-candidate:probe:vanilla -- --evidence <absolute-path> --store <absolute-path>`;
 
 function option(arguments_: readonly string[], name: string): string | undefined {
@@ -66,6 +68,19 @@ export async function main(arguments_: readonly string[]): Promise<void> {
       environment,
     });
     console.log(`Passed ${results.length} ephemeral Vanilla consumer probes.`);
+    return;
+  }
+  if (command === 'probe-react') {
+    const evidence = option(options, '--evidence') ?? invalid('probe-react requires --evidence.');
+    const store = option(options, '--store') ?? invalid('probe-react requires --store.');
+    if (options.length !== 4) invalid('probe-react accepts only --evidence and --store.');
+    const results = await probeReactConsumers({
+      evidencePath: evidence,
+      storePath: store,
+      runner: runCommand,
+      environment,
+    });
+    console.log(`Passed ${results.length} ephemeral React consumer probes.`);
     return;
   }
   invalid(`Unknown command ${command}.`);

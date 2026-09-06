@@ -22,6 +22,7 @@ export {
   serializeProjectedManifest,
 } from './manifest.ts';
 export { assertReproducibleCandidates } from './reproducibility.ts';
+export { reactConsumerTemplate } from './react-consumer.ts';
 export { vanillaConsumerTemplate } from './vanilla.ts';
 export type {
   CandidateDirectory,
@@ -40,6 +41,7 @@ export type {
   PackageInspection,
   PackedCandidate,
   ProjectedManifest,
+  ReactBuildProbeResult,
   ReactVersionLine,
   VanillaBuildProbeResult,
 } from './types.ts';
