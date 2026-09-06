@@ -10,6 +10,7 @@ const html = `<!doctype html>
     <title>Wayglass Vanilla release probe</title>
   </head>
   <body>
+    <header role="banner"><h1>Wayglass Vanilla release probe</h1></header>
     <main id="app" aria-label="Wayglass Vanilla release probe"></main>
     <script type="module" src="/src/main.ts"></script>
   </body>

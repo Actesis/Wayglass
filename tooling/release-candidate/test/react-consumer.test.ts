@@ -14,13 +14,17 @@ describe('release-candidate React consumer fixture', () => {
       'react-19.2.8-ts-6.0.3',
     ]);
     for (const scenario of scenarios) {
-      expect(reactConsumerTemplate(scenario).files.map(({ path }) => path)).toEqual([
+      const template = reactConsumerTemplate(scenario);
+      expect(template.files.map(({ path }) => path)).toEqual([
         'index.html',
         'src/main.tsx',
         'src/package-surface.ts',
         'src/style.css',
         'tsconfig.json',
       ]);
+      expect(template.files.find(({ path }) => path === 'index.html')!.contents).toContain(
+        '<header role="banner"><h1>Wayglass React release probe</h1></header>',
+      );
     }
   });
 

@@ -10,6 +10,7 @@ const html = `<!doctype html>
     <title>Wayglass React release probe</title>
   </head>
   <body>
+    <header role="banner"><h1>Wayglass React release probe</h1></header>
     <main id="root" aria-label="Wayglass React release probe"><p data-client-fallback>Loading</p></main>
     <aside id="direct" aria-label="Direct element parity"></aside>
     <script type="module" src="/src/main.tsx"></script>

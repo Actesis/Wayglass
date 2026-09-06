@@ -18,6 +18,9 @@ describe('release-candidate Vanilla consumer fixture', () => {
         'src/style.css',
         'tsconfig.json',
       ]);
+      expect(template.files.find(({ path }) => path === 'index.html')!.contents).toContain(
+        '<header role="banner"><h1>Wayglass Vanilla release probe</h1></header>',
+      );
     }
   });
 

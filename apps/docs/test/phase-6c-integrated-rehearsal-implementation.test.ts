@@ -47,6 +47,8 @@ describe('Phase 6C-D5 integrated rehearsal implementation record', () => {
     expect(record).toContain('tool-owned `pnpm-workspace.yaml`');
     expect(record).toContain("fixture's `tokens[0]` expression");
     expect(record).toContain('`color.semantic.text.primary` key');
+    expect(record).toContain('`page-has-heading-one`');
+    expect(record).toContain('persistent descriptive `h1`');
   });
 
   it('keeps D5 open and retains the release boundary', () => {

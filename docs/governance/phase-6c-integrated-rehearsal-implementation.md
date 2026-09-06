@@ -142,6 +142,14 @@ declaration fixtures now assign the real `color.semantic.text.primary` key to `T
 `tokens[token]`, proving both the public name type and keyed definition surface. No production build
 or browser case ran in that attempt, and all temporary state was removed.
 
+The next run completed both assemblies and all six consumer install, declaration, production-build,
+and removal-build paths, then entered the browser matrix. Axe rejected the first rendered document
+with `page-has-heading-one`; the fixture document had a labeled main region but no level-one
+heading. The correction adds a persistent descriptive `h1` to both Vanilla and React documents so
+the heading remains present before and after React binding removal. The failure is retained as a
+fixture accessibility defect, not rewritten as a candidate failure; browser execution stopped
+immediately and the entire run root was removed.
+
 ## Retained validation
 
 Focused tests cover canonical material projection, all six exact preflight scenarios, both offline
@@ -152,8 +160,9 @@ failure, dedicated-store propagation through nested assembly commands, and exact
 shim creation and precedence. It also verifies that every projected internal dependency is
 overridden to its exact scenario-owned tarball through a harness-owned current-format pnpm workspace
 file. The declaration fixtures also reject array-shaped token assumptions and exercise a real named
-token. The focused release-candidate suite passes 74 assertions across 16 files with TypeScript and
-ESLint checks.
+token. Document fixtures require a persistent level-one heading across primary and removal stages.
+The focused release-candidate suite passes 74 assertions across 16 files with TypeScript and ESLint
+checks.
 
 The complete offline repository gate also passes against the final implementation: formatting and
 repository lint; all 14 scheduled builds; 58 icon-tooling, 93 token-tooling, 74 release-candidate,
