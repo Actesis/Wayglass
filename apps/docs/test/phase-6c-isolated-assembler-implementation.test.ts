@@ -45,9 +45,9 @@ describe('Phase 6C-C isolated assembler implementation record', () => {
   });
 
   it('keeps execution and later authority explicit', () => {
-    expect(normalizedRecord).toContain('**Status:** Proposed for project-owner acceptance');
+    expect(normalizedRecord).toContain('**Status:** Accepted by the project owner');
     expect(normalizedRecord).toContain(
-      'full two-pass candidate execution is deliberately reserved',
+      'Phase 6C-D may create and delete an ephemeral two-pass candidate',
     );
     expect(normalizedRecord).toContain(
       'authorizes Phase 6C-D independent-consumer implementation only',
@@ -55,5 +55,6 @@ describe('Phase 6C-C isolated assembler implementation record', () => {
     expect(normalizedRecord).toContain('does not accept a tarball');
     expect(normalizedRecord).toContain('all 20 typecheck tasks');
     expect(normalizedRecord).toContain('41 release-candidate tests');
+    expect(normalizedRecord).toContain('Accepted and merged on September 5, 2026');
   });
 });

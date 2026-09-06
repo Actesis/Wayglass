@@ -156,6 +156,10 @@ export default defineConfig({
             link: '/governance/phase-6c-isolated-assembler-implementation',
           },
           {
+            text: 'Phase 6C-D1 consumer harness',
+            link: '/governance/phase-6c-independent-consumer-harness',
+          },
+          {
             text: 'ADR 0036 private candidate tooling',
             link: '/architecture/adr/0036-private-release-candidate-tooling',
           },

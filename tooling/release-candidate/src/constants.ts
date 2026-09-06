@@ -1,4 +1,4 @@
-import type { CandidateDirectory } from './types.ts';
+import type { CandidateDirectory, ReactVersionLine } from './types.ts';
 
 export const frozenSource = Object.freeze({
   commit: 'ce400e89930a047c6af1c6992c64cfe422a1eeee',
@@ -55,3 +55,27 @@ export const expectedPeerDependencies = Object.freeze({
     react: '>=19.0.0 <20',
   }),
 } satisfies Readonly<Record<CandidateDirectory, Readonly<Record<string, string>> | undefined>>);
+
+export const consumerPackageDirectories = Object.freeze({
+  vanilla: Object.freeze(['core', 'tokens', 'themes', 'elements', 'icons'] as const),
+  react: Object.freeze(['core', 'tokens', 'themes', 'elements', 'react'] as const),
+});
+
+export const consumerTypeScriptVersions = Object.freeze(['5.9.3', '6.0.3'] as const);
+
+export const consumerReactVersions = Object.freeze([
+  Object.freeze({
+    react: '19.0.0',
+    reactDom: '19.0.0',
+    reactTypes: '19.0.0',
+    reactDomTypes: '19.0.0',
+  }),
+  Object.freeze({
+    react: '19.2.8',
+    reactDom: '19.2.8',
+    reactTypes: '19.2.17',
+    reactDomTypes: '19.2.3',
+  }),
+] as const satisfies readonly ReactVersionLine[]);
+
+export const consumerBuildVersions = Object.freeze({ vite: '8.1.5' as const });
