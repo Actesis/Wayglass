@@ -90,11 +90,8 @@ describe('release-candidate consumer harness', () => {
         expect(existsSync(resolve(project, 'package.json'))).toBe(true);
         expect(existsSync(resolve(project, 'vendor/wayglass-icons-0.1.0.tgz'))).toBe(true);
         expect(existsSync(resolve(project, 'vendor/wayglass-react-0.1.0.tgz'))).toBe(false);
-        const manifest = JSON.parse(readFileSync(resolve(project, 'package.json'), 'utf8')) as {
-          pnpm: { overrides: Record<string, string> };
-        };
-        expect(manifest.pnpm.overrides['@wayglass/themes']).toMatch(
-          /^file:\.\/vendor\/wayglass-themes-0\.1\.0\.tgz$/,
+        expect(readFileSync(resolve(project, 'pnpm-workspace.yaml'), 'utf8')).toContain(
+          '"@wayglass/themes": "file:./vendor/wayglass-themes-0.1.0.tgz"',
         );
         expect(context.environment).toMatchObject({
           PNPM_CONFIG_OFFLINE: 'true',

@@ -14,6 +14,7 @@ import { dirname, isAbsolute, resolve } from 'node:path';
 import {
   consumerPackageNames,
   projectConsumerManifest,
+  projectConsumerWorkspace,
   validateConsumerTemplate,
 } from './consumer.ts';
 import { offlineEnvironment } from './environment.ts';
@@ -80,6 +81,11 @@ export async function withConsumerProject<T>(
     writeFileSync(
       resolve(root, 'package.json'),
       serialize(projectConsumerManifest(request.template.scenario, tarballs)),
+      { encoding: 'utf8', flag: 'wx' },
+    );
+    writeFileSync(
+      resolve(root, 'pnpm-workspace.yaml'),
+      projectConsumerWorkspace(request.template.scenario, tarballs),
       { encoding: 'utf8', flag: 'wx' },
     );
     for (const file of request.template.files) {

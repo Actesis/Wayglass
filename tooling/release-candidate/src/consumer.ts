@@ -82,11 +82,7 @@ export function projectConsumerManifest(
   tarballs: Readonly<Record<string, string>>,
 ): JsonValue {
   acceptedScenario(scenario);
-  const directories = consumerPackageDirectories[scenario.kind];
-  const expectedNames = directories.map((directory) => `@wayglass/${directory}`).sort();
-  if (JSON.stringify(Object.keys(tarballs).sort()) !== JSON.stringify(expectedNames)) {
-    fail('WG_RC_CONSUMER_TARBALL', 'Consumer tarballs must match the exact scenario package set.');
-  }
+  const directories = validatedConsumerTarballs(scenario, tarballs);
   const dependencies: Record<string, string> = {};
   for (const directory of directories) {
     const name = `@wayglass/${directory}`;
@@ -105,8 +101,38 @@ export function projectConsumerManifest(
     type: 'module',
     dependencies: Object.freeze(dependencies),
     devDependencies: external.devDependencies,
-    pnpm: Object.freeze({ overrides: Object.freeze({ ...tarballs }) }),
   });
+}
+
+export function projectConsumerWorkspace(
+  scenario: ConsumerScenario,
+  tarballs: Readonly<Record<string, string>>,
+): string {
+  const directories = validatedConsumerTarballs(scenario, tarballs);
+  const overrides = directories.map((directory) => {
+    const name = `@wayglass/${directory}`;
+    return `  ${JSON.stringify(name)}: ${JSON.stringify(tarballs[name])}`;
+  });
+  return `packages:\n  - .\noverrides:\n${overrides.join('\n')}\n`;
+}
+
+function validatedConsumerTarballs(
+  scenario: ConsumerScenario,
+  tarballs: Readonly<Record<string, string>>,
+): readonly string[] {
+  acceptedScenario(scenario);
+  const directories = consumerPackageDirectories[scenario.kind];
+  const expectedNames = directories.map((directory) => `@wayglass/${directory}`).sort();
+  if (JSON.stringify(Object.keys(tarballs).sort()) !== JSON.stringify(expectedNames)) {
+    fail('WG_RC_CONSUMER_TARBALL', 'Consumer tarballs must match the exact scenario package set.');
+  }
+  for (const directory of directories) {
+    const name = `@wayglass/${directory}`;
+    if (!/^file:\.\/vendor\/[a-z0-9._-]+\.tgz$/.test(tarballs[name] ?? '')) {
+      fail('WG_RC_CONSUMER_TARBALL', `Missing safe local tarball for ${name}.`);
+    }
+  }
+  return directories;
 }
 
 export function consumerPackageNames(kind: ConsumerKind): readonly string[] {

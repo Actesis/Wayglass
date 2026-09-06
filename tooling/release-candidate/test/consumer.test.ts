@@ -5,6 +5,7 @@ import {
   consumerScenarios,
   projectConsumerMaterialManifest,
   projectConsumerManifest,
+  projectConsumerWorkspace,
   validateConsumerTemplate,
 } from '../src/consumer.ts';
 import type { ConsumerScenario, ConsumerTemplate } from '../src/types.ts';
@@ -41,12 +42,6 @@ describe('release-candidate consumer contract', () => {
         '@wayglass/icons': 'file:./vendor/wayglass-icons-0.1.0.tgz',
       },
       devDependencies: { typescript: '5.9.3', vite: '8.1.5' },
-      pnpm: {
-        overrides: {
-          '@wayglass/core': 'file:./vendor/wayglass-core-0.1.0.tgz',
-          '@wayglass/themes': 'file:./vendor/wayglass-themes-0.1.0.tgz',
-        },
-      },
     });
     expect(reactManifest).toMatchObject({
       dependencies: { react: '19.0.0', 'react-dom': '19.0.0' },
@@ -57,8 +52,12 @@ describe('release-candidate consumer contract', () => {
       },
     });
     expect(vanillaManifest).not.toHaveProperty('scripts');
+    expect(vanillaManifest).not.toHaveProperty('pnpm');
     expect(JSON.stringify(vanillaManifest)).not.toContain('workspace:');
     expect(JSON.stringify(vanillaManifest)).not.toContain('https:');
+    expect(projectConsumerWorkspace(vanilla!, tarballs('vanilla'))).toContain(
+      '"@wayglass/themes": "file:./vendor/wayglass-themes-0.1.0.tgz"',
+    );
   });
 
   it('projects third-party-only material preflight manifests for every scenario', () => {

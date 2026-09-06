@@ -120,12 +120,19 @@ to consult the empty offline package mirror even though the exact themes candida
 direct consumer dependency. The wrapper reported `ERR_PNPM_NO_OFFLINE_META`; no consumer build or
 browser case ran, and the candidate evidence, tarballs, consumer root, and worktrees were removed.
 
-The consumer projection now includes a pnpm override for every scenario-owned `@wayglass/*` package,
-mapping each name to the same validated local candidate tarball used by the direct dependency. This
-keeps the candidate manifests realistic while forcing all transitive internal edges onto the one
-assembled candidate set. The override map is exact, local-only, script-free, and derived from the
-already validated scenario inventory; it cannot introduce a registry URL, workspace dependency,
-extra package, or alternate version.
+The first correction put a pnpm override for every scenario-owned `@wayglass/*` package in the
+generated `package.json`. The next run again completed candidate assembly, but current consumer pnpm
+`11.25.0` failed closed because that version no longer reads `pnpm.overrides` from the package
+manifest. It emitted the explicit compatibility warning before dependency resolution; no consumer
+build or browser case ran, and all temporary state was removed.
+
+The harness now writes those exact overrides into its tool-owned `pnpm-workspace.yaml`, the current
+pnpm settings location. Each package name maps to the same validated local candidate tarball used by
+the direct dependency. This keeps candidate manifests realistic while forcing all transitive
+internal edges onto the one assembled candidate set. Fixtures still cannot author a workspace file.
+The override map is exact, local-only, script-free, and derived from the validated scenario
+inventory; it cannot introduce a registry URL, source workspace dependency, extra package, or
+alternate version.
 
 ## Retained validation
 
@@ -135,8 +142,9 @@ diagnostics, preflight cleanup, source pinning, preflight-before-build ordering,
 handoff, exact 2/4/36 result counts, partial-matrix rejection, candidate cleanup on success and
 failure, dedicated-store propagation through nested assembly commands, and exact package-manager
 shim creation and precedence. It also verifies that every projected internal dependency is
-overridden to its exact scenario-owned tarball. The focused release-candidate suite passes 74
-assertions across 16 files with TypeScript and ESLint checks.
+overridden to its exact scenario-owned tarball through a harness-owned current-format pnpm workspace
+file. The focused release-candidate suite passes 74 assertions across 16 files with TypeScript and
+ESLint checks.
 
 The complete offline repository gate also passes against the final implementation: formatting and
 repository lint; all 14 scheduled builds; 58 icon-tooling, 93 token-tooling, 74 release-candidate,
