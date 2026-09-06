@@ -38,12 +38,14 @@ import { WgToggle, type WgToggleProps } from '@wayglass/react';
 import { WgToggle as WgToggleSubpath } from '@wayglass/react/toggle';
 
 const known: KnownState = { condition: conditions[0], knowledge: 'confirmed', activity: 'idle' };
-const token: TokenName = tokens[0]!.name;
+const token: TokenName = 'color.semantic.text.primary';
+const tokenDefinition = tokens[token];
 const theme: ThemeName = themeNames[0];
 const props: WgToggleProps = { label: 'Declaration check' };
 const declarations = [
   known,
   token,
+  tokenDefinition,
   theme,
   props,
   WgToggleElement,

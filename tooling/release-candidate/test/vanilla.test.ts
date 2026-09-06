@@ -39,6 +39,9 @@ describe('release-candidate Vanilla consumer fixture', () => {
     expect(main).toContain("from '@wayglass/elements/toggle'");
     expect(main).toContain("from '@wayglass/elements/boolean-value'");
     expect(main).not.toContain("from '@wayglass/elements'");
+    expect(surface).toContain("const token: TokenName = 'color.semantic.text.primary'");
+    expect(surface).toContain('tokens[token]');
+    expect(surface).not.toContain('tokens[0]');
   });
 
   it('authors explicit registration, interaction, semantic-axis, and CSS assertions', () => {

@@ -45,6 +45,8 @@ describe('Phase 6C-D5 integrated rehearsal implementation record', () => {
     expect(record).toContain('pnpm override for every scenario-owned `@wayglass/*` package');
     expect(record).toContain('current consumer pnpm `11.25.0`');
     expect(record).toContain('tool-owned `pnpm-workspace.yaml`');
+    expect(record).toContain("fixture's `tokens[0]` expression");
+    expect(record).toContain('`color.semantic.text.primary` key');
   });
 
   it('keeps D5 open and retains the release boundary', () => {

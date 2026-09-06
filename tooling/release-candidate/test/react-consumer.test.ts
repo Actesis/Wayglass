@@ -41,6 +41,9 @@ describe('release-candidate React consumer fixture', () => {
     }
     expect(main).toContain("from '@wayglass/react/toggle'");
     expect(main).not.toContain("from '@wayglass/react'");
+    expect(surface).toContain("const token: TokenName = 'color.semantic.text.primary'");
+    expect(surface).toContain('tokens[token]');
+    expect(surface).not.toContain('tokens[0]');
   });
 
   it('authors client fallback, guarded registration, parity, and event adaptation', () => {

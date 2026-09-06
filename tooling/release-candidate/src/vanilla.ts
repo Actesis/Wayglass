@@ -37,9 +37,19 @@ import { WgIcon } from '@wayglass/icons';
 import { WgIcon as WgIconSubpath } from '@wayglass/icons/icon';
 
 const known: KnownState = { condition: conditions[0], knowledge: 'confirmed', activity: 'idle' };
-const token: TokenName = tokens[0]!.name;
+const token: TokenName = 'color.semantic.text.primary';
+const tokenDefinition = tokens[token];
 const theme: ThemeName = themeNames[0];
-const declarations = [known, token, theme, WgToggle, WgBooleanValue, WgIcon, WgIconSubpath];
+const declarations = [
+  known,
+  token,
+  tokenDefinition,
+  theme,
+  WgToggle,
+  WgBooleanValue,
+  WgIcon,
+  WgIconSubpath,
+];
 void declarations;
 `;
 

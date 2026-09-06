@@ -134,6 +134,14 @@ The override map is exact, local-only, script-free, and derived from the validat
 inventory; it cannot introduce a registry URL, source workspace dependency, extra package, or
 alternate version.
 
+The following hard-offline run passed candidate assembly and consumer installation, then reached the
+first Vanilla declaration check. TypeScript correctly rejected the fixture's `tokens[0]` expression
+because the public `tokens` export is a name-keyed object, not an array. This was a probe assumption
+rather than a candidate defect; no production package source changed. The Vanilla and React
+declaration fixtures now assign the real `color.semantic.text.primary` key to `TokenName` and read
+`tokens[token]`, proving both the public name type and keyed definition surface. No production build
+or browser case ran in that attempt, and all temporary state was removed.
+
 ## Retained validation
 
 Focused tests cover canonical material projection, all six exact preflight scenarios, both offline
@@ -143,7 +151,8 @@ handoff, exact 2/4/36 result counts, partial-matrix rejection, candidate cleanup
 failure, dedicated-store propagation through nested assembly commands, and exact package-manager
 shim creation and precedence. It also verifies that every projected internal dependency is
 overridden to its exact scenario-owned tarball through a harness-owned current-format pnpm workspace
-file. The focused release-candidate suite passes 74 assertions across 16 files with TypeScript and
+file. The declaration fixtures also reject array-shaped token assumptions and exercise a real named
+token. The focused release-candidate suite passes 74 assertions across 16 files with TypeScript and
 ESLint checks.
 
 The complete offline repository gate also passes against the final implementation: formatting and
