@@ -27,3 +27,9 @@ agree.
 These commands do not publish, contact npm, create a tag or release, change repository visibility,
 or authorize the resulting candidates. Source packages remain frozen at the commit recorded in the
 accepted Phase 6B freeze.
+
+Phase 6C-D consumer tooling adds a pure six-scenario compatibility contract and a separately
+effectful temporary-project harness. The harness accepts only verified local candidate evidence,
+vendors scenario-specific tarballs, resolves and installs offline with scripts disabled, and removes
+the owned project on every exit. Vanilla and React behavior fixtures are added only in their
+separately reviewed D2 and D3 slices.

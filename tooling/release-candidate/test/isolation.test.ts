@@ -15,6 +15,7 @@ describe('Phase 6C-B private-tool isolation', () => {
   it('keeps subprocess, filesystem writes, network, and process exit out of the pure core', () => {
     for (const file of [
       'constants.ts',
+      'consumer.ts',
       'error.ts',
       'hash.ts',
       'index.ts',

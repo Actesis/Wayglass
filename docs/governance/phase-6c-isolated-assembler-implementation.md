@@ -1,10 +1,9 @@
 # Phase 6C-C isolated assembler implementation
 
-**Status:** Proposed for project-owner acceptance on September 5, 2026. This record covers the
-private isolated assembler authorized by the accepted Phase 6C-B implementation. It does not accept
-a candidate artifact, authorize Phase 6C-D consumers, publish or contact npm, remove package
-privacy, create a tag or release, change repository visibility, deploy, or work in an external
-application.
+**Status:** Accepted by the project owner on September 5, 2026. This record covers the private
+isolated assembler authorized by the accepted Phase 6C-B implementation. It does not accept a
+candidate artifact, authorize Phase 6C-D consumers, publish or contact npm, remove package privacy,
+create a tag or release, change repository visibility, deploy, or work in an external application.
 
 ## Implemented boundary
 
@@ -71,9 +70,10 @@ test uses only current built output and a new temporary npm cache; it neither in
 a registry.
 
 The implementation adds no dependency, workspace package, public export, source-package change, or
-retained tarball. The full two-pass candidate execution is deliberately reserved for Phase 6C-E's
-integrated evidence run; 6C-C proves the adapter and its adverse boundaries without presenting a
-temporary development run as accepted release evidence.
+retained tarball. Phase 6C-C itself does not execute or retain a complete candidate run. Phase 6C-D
+may create and delete an ephemeral two-pass candidate because independent consumers cannot test
+exact packed artifacts otherwise. Phase 6C-E alone retains the authoritative integrated evidence,
+hashes, audits, and candidate record. A temporary 6C-D run is not accepted release evidence.
 
 The complete `PNPM_CONFIG_OFFLINE=true TURBO_FORCE=true pnpm check` gate passed against the final
 implementation with no Turbo cache hits: formatting and repository lint; all 14 scheduled builds;
@@ -96,3 +96,8 @@ Acceptance completes Phase 6C-C and authorizes Phase 6C-D independent-consumer i
 It does not accept a tarball, hash, evidence run, publication readiness, package privacy change, npm
 or registry access, credential use, tag, release, repository visibility change, deployment, or
 external application work.
+
+## Project-owner decision
+
+Accepted and merged on September 5, 2026. Phase 6C-C is complete, and Phase 6C-D independent-
+consumer implementation may begin within the boundaries above.

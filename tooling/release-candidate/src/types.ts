@@ -99,3 +99,36 @@ export interface CandidateEvidence {
   };
   readonly packages: readonly PackedCandidate[];
 }
+
+export type ConsumerKind = 'vanilla' | 'react';
+
+export interface ReactVersionLine {
+  readonly react: '19.0.0' | '19.2.8';
+  readonly reactDom: '19.0.0' | '19.2.8';
+  readonly reactTypes: '19.0.0' | '19.2.17';
+  readonly reactDomTypes: '19.0.0' | '19.2.3';
+}
+
+export interface ConsumerScenario {
+  readonly id: string;
+  readonly kind: ConsumerKind;
+  readonly typescript: '5.9.3' | '6.0.3';
+  readonly react?: ReactVersionLine;
+}
+
+export interface ConsumerTemplateFile {
+  readonly path: string;
+  readonly contents: string;
+}
+
+export interface ConsumerTemplate {
+  readonly scenario: ConsumerScenario;
+  readonly files: readonly ConsumerTemplateFile[];
+}
+
+export interface ConsumerProjectContext {
+  readonly root: string;
+  readonly scenario: ConsumerScenario;
+  readonly run: CommandRunner;
+  readonly environment: Readonly<Record<string, string>>;
+}
