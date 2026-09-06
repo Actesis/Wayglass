@@ -11,7 +11,12 @@ import {
   reactPackageSurfacePath,
   reactRemovalPackages,
 } from './react-consumer.ts';
-import type { CommandRunner, ConsumerProjectContext, ReactBuildProbeResult } from './types.ts';
+import type {
+  CommandRunner,
+  ConsumerProjectContext,
+  ConsumerRuntimeProbe,
+  ReactBuildProbeResult,
+} from './types.ts';
 
 export interface ReactProbeRequest {
   readonly evidencePath: string;
@@ -131,11 +136,13 @@ function verifyRemoval(root: string): void {
 
 export async function runReactBuildProbe(
   context: ConsumerProjectContext,
+  runtime?: ConsumerRuntimeProbe,
 ): Promise<ReactBuildProbeResult> {
   if (context.scenario.kind !== 'react') {
     fail('WG_RC_REACT_SCENARIO', 'React probe requires a React consumer project.');
   }
   verifyReactBuild(await typecheckAndBuild(context));
+  await runtime?.(context, 'primary');
   rmSync(resolve(context.root, reactPackageSurfacePath));
   writeFileSync(resolve(context.root, reactMainPath), reactDirectMain, { encoding: 'utf8' });
   await context.run({
@@ -146,6 +153,7 @@ export async function runReactBuildProbe(
   });
   verifyRemoval(context.root);
   verifyDirectBuild(await typecheckAndBuild(context));
+  await runtime?.(context, 'removal');
   return Object.freeze({
     scenarioId: context.scenario.id,
     declarations: true,
@@ -161,13 +169,14 @@ export async function runReactBuildProbe(
 
 export async function probeReactConsumers(
   request: ReactProbeRequest,
+  runtime?: ConsumerRuntimeProbe,
 ): Promise<readonly ReactBuildProbeResult[]> {
   const results: ReactBuildProbeResult[] = [];
   for (const scenario of consumerScenarios().filter(({ kind }) => kind === 'react')) {
     results.push(
       await withConsumerProject(
         { ...request, template: reactConsumerTemplate(scenario) },
-        runReactBuildProbe,
+        (context) => runReactBuildProbe(context, runtime),
       ),
     );
   }

@@ -152,7 +152,13 @@ function context(
 describe('release-candidate React build probe', () => {
   it('builds, inspects, removes all React packages, and rebuilds direct elements', async () => {
     const fixture = context(project());
-    await expect(runReactBuildProbe(fixture.context)).resolves.toMatchObject({
+    const runtimeStages: string[] = [];
+    await expect(
+      runReactBuildProbe(fixture.context, async (runtimeContext, stage) => {
+        expect(runtimeContext).toBe(fixture.context);
+        runtimeStages.push(stage);
+      }),
+    ).resolves.toMatchObject({
       scenarioId: 'react-19.0.0-ts-5.9.3',
       guardedRegistrationFixture: true,
       bindingRemovalRebuild: true,
@@ -164,6 +170,7 @@ describe('release-candidate React build probe', () => {
       ['exec', 'tsc', '--noEmit', '--project', 'tsconfig.json'],
       ['exec', 'vite', 'build'],
     ]);
+    expect(runtimeStages).toEqual(['primary', 'removal']);
   });
 
   it('rejects missing fixture proof and unused wrappers', async () => {

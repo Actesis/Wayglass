@@ -94,6 +94,7 @@ toggle.notAssertedLabel = 'Closed';
 let request: WgToggleRequestDetail | undefined;
 toggle.addEventListener('wg-toggle-request', (event) => {
   request = (event as CustomEvent<WgToggleRequestDetail>).detail;
+  document.documentElement.dataset.wgVanillaRequest = JSON.stringify(request);
 });
 app.append(value, toggle);
 
@@ -109,6 +110,10 @@ if (
 }
 
 document.documentElement.dataset.wgVanillaProbe = 'WG_VANILLA_PROBE_READY';
+document.documentElement.dataset.wgCondition = state.condition;
+document.documentElement.dataset.wgKnowledge = state.knowledge;
+document.documentElement.dataset.wgActivity = state.activity;
+document.documentElement.dataset.wgBoolean = booleanState;
 `;
 
 const tsconfig = `{
