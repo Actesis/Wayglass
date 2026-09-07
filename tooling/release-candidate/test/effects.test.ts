@@ -1,4 +1,12 @@
-import { existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, rmSync } from 'node:fs';
+import {
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  realpathSync,
+  rmSync,
+  writeFileSync,
+} from 'node:fs';
 import { tmpdir } from 'node:os';
 import { delimiter, resolve } from 'node:path';
 
@@ -8,6 +16,7 @@ import {
   assemblyPassEnvironment,
   checkCandidateSource,
   createPackageManagerShim,
+  packageManagerInvocation,
 } from '../src/assembler.ts';
 import { frozenSource } from '../src/constants.ts';
 import {
@@ -74,6 +83,32 @@ describe('release-candidate effect boundary', () => {
       npm_config_userconfig: '/tmp/wayglass-npmrc',
     });
     expect(realpathSync(resolve(bin, 'pnpm'))).toBe(realpathSync(process.execPath));
+  });
+
+  it('runs a pinned non-executable JavaScript launcher through Node at every boundary', async () => {
+    const root = temp('wayglass-rc-pnpm-js-launcher-');
+    const launcherDirectory = resolve(root, "launcher's directory");
+    mkdirSync(launcherDirectory);
+    const launcher = resolve(launcherDirectory, 'pnpm.cjs');
+    writeFileSync(launcher, 'console.log(process.argv.slice(2).join(","));\n', {
+      encoding: 'utf8',
+      mode: 0o644,
+    });
+    const environment = { npm_execpath: launcher };
+
+    expect(packageManagerInvocation(environment, ['--version'])).toEqual({
+      command: process.execPath,
+      arguments: [launcher, '--version'],
+    });
+
+    const bin = createPackageManagerShim(root, environment);
+    const result = await runCommand({
+      command: 'pnpm',
+      arguments: ['alpha', 'beta'],
+      cwd: root,
+      environment: { PATH: bin },
+    });
+    expect(result.stdout.trim()).toBe('alpha,beta');
   });
 
   it('accepts only the frozen package Node engine range', () => {

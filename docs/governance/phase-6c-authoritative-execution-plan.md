@@ -120,6 +120,10 @@ A fresh owner instruction is required after any live failure. Repeating an uncha
 still a new external attempt and receives a new ledger entry; it cannot overwrite or relabel the
 earlier result. Development tests and offline E5A fixtures are not authoritative attempts.
 
+The [E5B capture-attempt record](./phase-6c-e5b-capture-attempts.md) preserves the first two
+pre-transport failures and the reviewed launcher correction. Neither failure contacted npm or
+created a snapshot, and neither authorizes a retry.
+
 ## Review gates
 
 E5A is acceptable only when its pure normalization and effect adapter prove exact request scope,
