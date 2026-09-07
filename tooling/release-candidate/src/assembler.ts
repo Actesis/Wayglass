@@ -1,4 +1,6 @@
 import {
+  accessSync,
+  constants,
   cpSync,
   existsSync,
   mkdirSync,
@@ -78,13 +80,44 @@ export function packageManagerExecutable(environment: Readonly<Record<string, st
   return executable;
 }
 
+export function packageManagerInvocation(
+  environment: Readonly<Record<string, string>>,
+  arguments_: readonly string[],
+): { readonly command: string; readonly arguments: readonly string[] } {
+  const executable = packageManagerExecutable(environment);
+  try {
+    accessSync(executable, constants.X_OK);
+    return Object.freeze({ command: executable, arguments: Object.freeze([...arguments_]) });
+  } catch {
+    return Object.freeze({
+      command: process.execPath,
+      arguments: Object.freeze([executable, ...arguments_]),
+    });
+  }
+}
+
+function shellQuote(value: string): string {
+  return `'${value.replaceAll("'", "'\\''")}'`;
+}
+
 export function createPackageManagerShim(
   root: string,
   environment: Readonly<Record<string, string>>,
 ): string {
   const bin = resolve(root, 'package-manager-bin');
   mkdirSync(bin);
-  symlinkSync(packageManagerExecutable(environment), resolve(bin, 'pnpm'));
+  const executable = packageManagerExecutable(environment);
+  const shim = resolve(bin, 'pnpm');
+  try {
+    accessSync(executable, constants.X_OK);
+    symlinkSync(executable, shim);
+  } catch {
+    writeFileSync(
+      shim,
+      `#!/bin/sh\nexec ${shellQuote(process.execPath)} ${shellQuote(executable)} "$@"\n`,
+      { encoding: 'utf8', flag: 'wx', mode: 0o700 },
+    );
+  }
   return bin;
 }
 
@@ -173,8 +206,7 @@ async function runAssemblyPass(
       );
     }
     await runner({
-      command: packageManagerExecutable(environment),
-      arguments: ['check'],
+      ...packageManagerInvocation(environment, ['check']),
       cwd: worktree,
       environment: passEnvironment,
     });
@@ -302,8 +334,7 @@ async function buildCandidateInternal(
       );
     }
     const pnpm = await commandText(runner, {
-      command: packageManagerExecutable(environment),
-      arguments: ['--version'],
+      ...packageManagerInvocation(environment, ['--version']),
       cwd: repository.root,
       environment,
     });

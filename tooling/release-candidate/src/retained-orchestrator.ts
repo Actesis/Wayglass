@@ -14,7 +14,7 @@ import {
 import { arch, platform, release, tmpdir } from 'node:os';
 import { basename, dirname, isAbsolute, relative, resolve, sep } from 'node:path';
 
-import { buildCandidate, buildCandidateWithAudit, packageManagerExecutable } from './assembler.ts';
+import { buildCandidate, buildCandidateWithAudit, packageManagerInvocation } from './assembler.ts';
 import {
   observeConsumerBrowserVersions,
   runBrowserConsumerMatrix,
@@ -196,8 +196,7 @@ export async function runIntegratedQualityGate(
 ): Promise<QualityGateEvidence> {
   const startedAt = canonicalInstant(now());
   const result = await runner({
-    command: packageManagerExecutable(environment),
-    arguments: ['check'],
+    ...packageManagerInvocation(environment, ['check']),
     cwd: repository.root,
     environment: { ...environment, TURBO_FORCE: 'true' },
   });
@@ -217,8 +216,7 @@ export async function observeIntegratedEnvironment(
   now: () => Date,
 ): Promise<EnvironmentAuditEvidence> {
   const pnpm = await commandText(runner, {
-    command: packageManagerExecutable(environment),
-    arguments: ['--version'],
+    ...packageManagerInvocation(environment, ['--version']),
     cwd: repository.root,
     environment,
   });
@@ -229,8 +227,7 @@ export async function observeIntegratedEnvironment(
     environment,
   });
   const playwrightOutput = await commandText(runner, {
-    command: packageManagerExecutable(environment),
-    arguments: ['exec', 'playwright', '--version'],
+    ...packageManagerInvocation(environment, ['exec', 'playwright', '--version']),
     cwd: repository.root,
     environment,
   });
