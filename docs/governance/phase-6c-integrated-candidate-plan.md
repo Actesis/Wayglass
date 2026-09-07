@@ -119,6 +119,11 @@ Obtain separate authority for any dated read-only advisory retrieval, create the
 run the authoritative command once, verify the retained bundle independently, and propose the exact
 record and hashes for project-owner review. Record all attempts and clean temporary residue.
 
+The detailed [Phase 6C-E5 execution plan](./phase-6c-authoritative-execution-plan.md) resolves the
+dependency-audit/advisory ordering boundary and separates capture-tool implementation, one dated
+bulk advisory query, one authoritative retained run, and project-owner disposition. Each live
+external action retains its own explicit authority gate and append-only attempt record.
+
 **Review gate:** the project owner either accepts the exact integrated evidence and completes Phase
 6C, narrows the release-unit proposal, or records a no-candidate disposition. Success does not by
 itself authorize Phase 6D deployment work or Phase 6E npm release work.
