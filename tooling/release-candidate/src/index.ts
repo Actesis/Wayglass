@@ -1,4 +1,5 @@
 export {
+  acceptedDocumentHashes,
   candidateDirectories,
   candidatePackageNames,
   consumerBuildVersions,
@@ -22,6 +23,16 @@ export {
   serializeProjectedManifest,
 } from './manifest.ts';
 export { assertReproducibleCandidates } from './reproducibility.ts';
+export {
+  auditPackedPackages,
+  serializePackageAudit,
+  validatePackageAudit,
+} from './package-audit.ts';
+export {
+  auditProductionDependencies,
+  serializeDependencyAudit,
+  validateDependencyAudit,
+} from './dependency-audit.ts';
 export {
   deterministicRunSha256,
   integratedBundleInventorySha256,
@@ -56,3 +67,17 @@ export type {
   RetainedEvidenceFile,
   VanillaBuildProbeResult,
 } from './types.ts';
+export type {
+  PackedPackageAuditInput,
+  PackageAuditEntry,
+  PackageAuditEvidence,
+  PackageSourceMapAudit,
+} from './package-audit.ts';
+export type {
+  DependencyAuditEvidence,
+  DependencyFileEvidence,
+  ProductionDependencyEvidence,
+  ProductionDependencyInput,
+  ReleaseUnitDependencyEvidence,
+  ResolvedDependencyEdge,
+} from './dependency-audit.ts';
