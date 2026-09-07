@@ -16,6 +16,7 @@ pnpm release-candidate:core:check
 pnpm release-candidate:check -- --source <accepted-full-sha>
 pnpm release-candidate:build -- --source <accepted-full-sha> --output <absolute-new-temp-directory>
 pnpm release-candidate:verify -- --evidence <absolute-path>
+pnpm release-candidate:capture-advisory -- --source <accepted-full-sha> --output <absolute-new-temp-file>
 pnpm release-candidate:integrated -- --source <accepted-full-sha> --output <absolute-new-directory> --advisory-snapshot <approved-absolute-file>
 pnpm release-candidate:verify-integrated -- --bundle <absolute-directory>
 ```
@@ -36,6 +37,13 @@ consumer/browser runs, and retains the first run's six tarballs with canonical p
 environment, quality, provenance, and advisory evidence. It never fetches advisories, retries a
 failed run, or retains partial output. The separate integrated verifier checks exact files, hashes,
 canonical schemas, deterministic equality, and cross-section bindings without rerunning the build.
+
+The E5 advisory-capture command is a separate, deliberately networked read operation. It first
+reproduces the exact audited production graph offline, then makes one credential-free request to the
+fixed npm bulk-advisory endpoint. It sends only the seven public dependency names and exact
+versions, rejects redirects and fallback, hashes the exact response bytes, and atomically writes one
+canonical 24-hour snapshot. The command is never run by `pnpm check`, build, test, or the integrated
+command; invoking it live requires the separately recorded E5B authority.
 
 Phase 6C-D consumer tooling adds a pure six-scenario compatibility contract and a separately
 effectful temporary-project harness. The harness accepts only verified local candidate evidence,

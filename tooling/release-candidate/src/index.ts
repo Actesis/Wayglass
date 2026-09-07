@@ -47,6 +47,11 @@ export {
   validateQualityGateEvidence,
 } from './observation-audit.ts';
 export { serializeAdvisorySnapshot, validateAdvisorySnapshot } from './advisory-snapshot.ts';
+export {
+  bulkAdvisoryEndpoint,
+  createBulkAdvisoryRequest,
+  normalizeBulkAdvisoryResponse,
+} from './advisory-bulk.ts';
 export { validateAttemptHistory, validateEvidenceNotices } from './observation.ts';
 export {
   deterministicRunSha256,
@@ -111,4 +116,5 @@ export type {
   AdvisorySnapshotEvidence,
   AdvisoryValidationContext,
 } from './advisory-snapshot.ts';
+export type { BulkAdvisoryRequest } from './advisory-bulk.ts';
 export type { EvidenceClaim, EvidenceNotice, EvidenceNoticeKind } from './observation.ts';
