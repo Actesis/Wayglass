@@ -65,5 +65,7 @@ describe('Phase 6C-D5 integrated rehearsal implementation record', () => {
     expect(record).toContain('36 of 36 browser cases');
     expect(record).toContain('completes Phase 6C-D5 and authorizes Phase 6C-E');
     expect(record).toContain('does not authorize further registry or npm access');
+    expect(record).toContain('Accepted and merged on September 6, 2026');
+    expect(record).toContain('Phase 6C-D5 and Phase 6C-D are complete');
   });
 });
