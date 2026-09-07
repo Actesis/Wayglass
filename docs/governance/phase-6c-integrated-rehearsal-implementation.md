@@ -9,6 +9,11 @@ every observed failed attempt, and the successful result. It does not authorize 
 to npm; remove package privacy; use credentials; create a tag or release; change repository
 visibility; deploy; or build an external application.
 
+**Project-owner decision:** Accepted and merged on September 6, 2026. Phase 6C-D5 and Phase 6C-D are
+complete. Phase 6C-E integrated candidate-record work may begin under the accepted proof contract.
+No registry, publication, credential, visibility, deployment, or external-application authority is
+created by this decision.
+
 ## One integrated rehearsal
 
 The private command is
