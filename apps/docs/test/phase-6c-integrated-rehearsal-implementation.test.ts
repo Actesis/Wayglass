@@ -51,6 +51,8 @@ describe('Phase 6C-D5 integrated rehearsal implementation record', () => {
     expect(record).toContain('persistent descriptive `h1`');
     expect(record).toContain('`ERR_PNPM_UNEXPECTED_STORE`');
     expect(record).toContain('pins `pnpm_config_store_dir` in the isolated consumer environment');
+    expect(record).toContain('TypeScript reported `TS2882`');
+    expect(record).toContain('conventional `vite/client` reference file');
     expect(record).toContain('rejected `--offline` and `--ignore-scripts`');
     expect(record).toContain('`npm_config_ignore_scripts=true`');
   });

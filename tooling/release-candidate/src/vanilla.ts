@@ -29,6 +29,9 @@ body {
 }
 `;
 
+const viteEnvironment = `/// <reference types="vite/client" />
+`;
+
 const packageSurface = `import { conditions, type KnownState } from '@wayglass/core';
 import { tokens, type TokenName } from '@wayglass/tokens';
 import { themeNames, type ThemeName } from '@wayglass/themes';
@@ -158,6 +161,7 @@ export function vanillaConsumerTemplate(scenario: ConsumerScenario): ConsumerTem
       Object.freeze({ path: 'src/main.ts', contents: main }),
       Object.freeze({ path: 'src/package-surface.ts', contents: packageSurface }),
       Object.freeze({ path: 'src/style.css', contents: style }),
+      Object.freeze({ path: 'src/vite-env.d.ts', contents: viteEnvironment }),
       Object.freeze({ path: 'tsconfig.json', contents: tsconfig }),
     ]),
   });

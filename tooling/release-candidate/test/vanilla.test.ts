@@ -16,6 +16,7 @@ describe('release-candidate Vanilla consumer fixture', () => {
         'src/main.ts',
         'src/package-surface.ts',
         'src/style.css',
+        'src/vite-env.d.ts',
         'tsconfig.json',
       ]);
       expect(template.files.find(({ path }) => path === 'index.html')!.contents).toContain(
@@ -51,6 +52,7 @@ describe('release-candidate Vanilla consumer fixture', () => {
     const template = vanillaConsumerTemplate(consumerScenarios()[0]!);
     const main = template.files.find(({ path }) => path === 'src/main.ts')!.contents;
     const style = template.files.find(({ path }) => path === 'src/style.css')!.contents;
+    const environment = template.files.find(({ path }) => path === 'src/vite-env.d.ts')!.contents;
     expect(main.indexOf('customElements.get')).toBeLessThan(main.indexOf('defineWgBooleanValue()'));
     expect(main).toContain("addEventListener('wg-toggle-request'");
     expect(main).toContain("condition: 'critical', knowledge: 'stale', activity: 'pending'");
@@ -63,6 +65,7 @@ describe('release-candidate Vanilla consumer fixture', () => {
     ]) {
       expect(style).toContain(css);
     }
+    expect(environment).toContain('/// <reference types="vite/client" />');
   });
 
   it('rejects React and invented Vanilla scenarios', () => {
