@@ -259,6 +259,31 @@ const browserTypes: Readonly<Record<ConsumerBrowserEngine, BrowserType>> = {
   webkit,
 };
 
+export async function observeConsumerBrowserVersions(): Promise<
+  Readonly<Record<ConsumerBrowserEngine, string>>
+> {
+  const versions = {} as Record<ConsumerBrowserEngine, string>;
+  for (const engine of consumerBrowserEngines) {
+    let browser: Browser;
+    try {
+      browser = await browserTypes[engine].launch();
+    } catch (error) {
+      const detail =
+        error instanceof Error ? error.message.split('\n')[0] : 'unknown launch failure';
+      fail(
+        'WG_RC_BROWSER_UNAVAILABLE',
+        `${engine} is unavailable for environment observation: ${detail}.`,
+      );
+    }
+    try {
+      versions[engine] = browser.version();
+    } finally {
+      await browser.close();
+    }
+  }
+  return Object.freeze(versions);
+}
+
 export async function executeConsumerBrowser(execution: ConsumerBrowserExecution): Promise<void> {
   let browser: Browser;
   try {

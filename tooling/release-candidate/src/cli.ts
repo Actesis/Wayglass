@@ -11,8 +11,10 @@ import { probeVanillaConsumers } from './vanilla-probe.ts';
 const usage = `Usage:
   pnpm release-candidate:check -- --source <full-sha>
   pnpm release-candidate:build -- --source <full-sha> --output <absolute-new-directory>
+  pnpm release-candidate:integrated -- --source <full-sha> --output <absolute-new-directory> --advisory-snapshot <approved-absolute-file>
   pnpm release-candidate:rehearse -- --source <full-sha>
   pnpm release-candidate:verify -- --evidence <absolute-path>
+  pnpm release-candidate:verify-integrated -- --bundle <absolute-path>
   pnpm release-candidate:probe:browsers -- --evidence <absolute-path> --store <absolute-path>
   pnpm release-candidate:probe:react -- --evidence <absolute-path> --store <absolute-path>
   pnpm release-candidate:probe:vanilla -- --evidence <absolute-path> --store <absolute-path>`;
@@ -57,6 +59,38 @@ export async function main(arguments_: readonly string[]): Promise<void> {
     if (options.length !== 2) invalid('verify accepts only --evidence.');
     verifyEvidenceFiles(path, readEvidence(path));
     console.log(`Verified candidate evidence ${path}.`);
+    return;
+  }
+  if (command === 'verify-integrated') {
+    const bundle = option(options, '--bundle') ?? invalid('verify-integrated requires --bundle.');
+    if (options.length !== 2) invalid('verify-integrated accepts only --bundle.');
+    const { verifyIntegratedBundle } = await import('./retained-orchestrator.ts');
+    const result = verifyIntegratedBundle(bundle);
+    console.log(
+      `Verified integrated evidence ${result.evidenceSha256} with bundle inventory ${result.bundleInventorySha256}.`,
+    );
+    return;
+  }
+  if (command === 'integrated') {
+    const source = option(options, '--source') ?? invalid('integrated requires --source.');
+    const output = option(options, '--output') ?? invalid('integrated requires --output.');
+    const advisory =
+      option(options, '--advisory-snapshot') ?? invalid('integrated requires --advisory-snapshot.');
+    if (options.length !== 6) {
+      invalid('integrated accepts only --source, --output, and --advisory-snapshot.');
+    }
+    const { runRetainedCandidate } = await import('./retained-orchestrator.ts');
+    const result = await runRetainedCandidate(
+      process.cwd(),
+      source,
+      output,
+      advisory,
+      runCommand,
+      process.env,
+    );
+    console.log(
+      `Retained integrated evidence ${result.evidenceSha256} with bundle inventory ${result.bundleInventorySha256}.`,
+    );
     return;
   }
   if (command === 'rehearse') {
@@ -132,6 +166,10 @@ if (process.argv[1] !== undefined && import.meta.url === pathToFileURL(process.a
       'WG_RC_CONSUMER_OFFLINE_MATERIAL',
       'WG_RC_CONSUMER_STORE',
       'WG_RC_BROWSER_UNAVAILABLE',
+      'WG_RC_ADVISORY_PATH',
+      'WG_RC_ADVISORY_SCHEMA',
+      'WG_RC_ADVISORY_CANONICAL',
+      'WG_RC_INTEGRATED_PATH',
       'WG_RC_PACKAGE_MANAGER_EXECUTABLE',
       'WG_RC_UNSUPPORTED_NODE',
     ]);

@@ -16,6 +16,8 @@ pnpm release-candidate:core:check
 pnpm release-candidate:check -- --source <accepted-full-sha>
 pnpm release-candidate:build -- --source <accepted-full-sha> --output <absolute-new-temp-directory>
 pnpm release-candidate:verify -- --evidence <absolute-path>
+pnpm release-candidate:integrated -- --source <accepted-full-sha> --output <absolute-new-directory> --advisory-snapshot <approved-absolute-file>
+pnpm release-candidate:verify-integrated -- --bundle <absolute-directory>
 ```
 
 The build command refuses an existing path or any path outside the operating-system temporary root.
@@ -27,6 +29,13 @@ agree.
 These commands do not publish, contact npm, create a tag or release, change repository visibility,
 or authorize the resulting candidates. Source packages remain frozen at the commit recorded in the
 accepted Phase 6B freeze.
+
+The integrated command is the Phase 6C-E4 transactional orchestrator. It requires an already
+approved local advisory snapshot, runs the uncached quality gate and two complete candidate plus
+consumer/browser runs, and retains the first run's six tarballs with canonical package, dependency,
+environment, quality, provenance, and advisory evidence. It never fetches advisories, retries a
+failed run, or retains partial output. The separate integrated verifier checks exact files, hashes,
+canonical schemas, deterministic equality, and cross-section bindings without rerunning the build.
 
 Phase 6C-D consumer tooling adds a pure six-scenario compatibility contract and a separately
 effectful temporary-project harness. The harness accepts only verified local candidate evidence,

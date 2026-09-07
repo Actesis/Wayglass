@@ -11,10 +11,17 @@ import { delimiter, isAbsolute, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 
 import { candidateDirectories, candidatePackageNames, frozenSource } from './constants.ts';
+import { auditProductionDependencies, type DependencyAuditEvidence } from './dependency-audit.ts';
 import { serializeEvidence } from './evidence.ts';
 import { fail } from './error.ts';
 import { stagePackage } from './filesystem.ts';
 import { projectCandidateInventory } from './manifest.ts';
+import { readInstalledProductionDependencies } from './installed-dependencies.ts';
+import {
+  auditPackedPackages,
+  type PackageAuditEvidence,
+  type PackedPackageAuditInput,
+} from './package-audit.ts';
 import { packAndInspect } from './packing.ts';
 import { validateNewOutputPath } from './path-safety.ts';
 import {
@@ -35,7 +42,15 @@ import type {
 
 interface AssemblyPass {
   readonly root: string;
+  readonly worktree: string;
   readonly packages: readonly PackedCandidate[];
+  readonly auditInputs: readonly PackedPackageAuditInput[];
+}
+
+export interface CandidateBuildResult {
+  readonly evidencePath: string;
+  readonly packageAudit: PackageAuditEvidence;
+  readonly dependencyAudit: DependencyAuditEvidence;
 }
 
 export function assemblyPassEnvironment(
@@ -52,7 +67,7 @@ export function assemblyPassEnvironment(
   });
 }
 
-function packageManagerExecutable(environment: Readonly<Record<string, string>>): string {
+export function packageManagerExecutable(environment: Readonly<Record<string, string>>): string {
   const executable = environment.npm_execpath;
   if (executable === undefined || !isAbsolute(executable) || !existsSync(executable)) {
     fail(
@@ -174,6 +189,7 @@ async function runAssemblyPass(
 
     mkdirSync(staging);
     const packages: PackedCandidate[] = [];
+    const auditInputs: PackedPackageAuditInput[] = [];
     for (const [index, directory] of candidateDirectories.entries()) {
       const stagedPackage = resolve(staging, directory);
       const inspection = stagePackage(
@@ -181,6 +197,7 @@ async function runAssemblyPass(
         stagedPackage,
         manifests[index]!,
       );
+      let observedFiles: PackedPackageAuditInput['files'] | undefined;
       packages.push(
         await packAndInspect(
           directory,
@@ -190,10 +207,22 @@ async function runAssemblyPass(
           inspection,
           runner,
           passEnvironment,
+          (files) => {
+            observedFiles = files;
+          },
         ),
       );
+      if (observedFiles === undefined) {
+        fail('WG_RC_PACKAGE_AUDIT', `${manifests[index]!.name} packed bytes were not observed.`);
+      }
+      auditInputs.push({ directory, manifest: manifests[index]!, files: observedFiles });
     }
-    return Object.freeze({ root, packages: Object.freeze(packages) });
+    return Object.freeze({
+      root,
+      worktree,
+      packages: Object.freeze(packages),
+      auditInputs: Object.freeze(auditInputs),
+    });
   } catch (error) {
     if (attached) {
       try {
@@ -230,13 +259,18 @@ async function removePass(
   rmSync(pass.root, { recursive: true, force: true });
 }
 
-export async function buildCandidate(
+async function buildCandidateInternal(
   cwd: string,
   source: string,
   outputArgument: string,
   runner: CommandRunner,
   environment: Readonly<Record<string, string>>,
-): Promise<string> {
+  collectAudits: boolean,
+): Promise<{
+  readonly evidencePath: string;
+  readonly packageAudit?: PackageAuditEvidence;
+  readonly dependencyAudit?: DependencyAuditEvidence;
+}> {
   const repository = await identifyRepository(cwd, runner);
   const output = validateNewOutputPath(outputArgument, repository.root);
   await assertCleanTooling(repository, runner);
@@ -254,10 +288,19 @@ export async function buildCandidate(
   let second: AssemblyPass | undefined;
   let outputCreated = false;
   let evidencePath: string | undefined;
+  let packageAudit: PackageAuditEvidence | undefined;
+  let dependencyAudit: DependencyAuditEvidence | undefined;
   let failure: unknown;
   try {
     second = await runAssemblyPass(repository.root, source, store, manifests, runner, environment);
     assertReproducibleCandidates(first.packages, second.packages);
+    if (collectAudits) {
+      packageAudit = auditPackedPackages(first.auditInputs);
+      dependencyAudit = auditProductionDependencies(
+        packageAudit,
+        readInstalledProductionDependencies(first.worktree, packageAudit),
+      );
+    }
     const pnpm = await commandText(runner, {
       command: packageManagerExecutable(environment),
       arguments: ['--version'],
@@ -314,5 +357,45 @@ export async function buildCandidate(
     if (outputCreated) rmSync(output, { recursive: true, force: true });
     throw failure;
   }
-  return evidencePath!;
+  return Object.freeze({
+    evidencePath: evidencePath!,
+    ...(packageAudit === undefined ? {} : { packageAudit }),
+    ...(dependencyAudit === undefined ? {} : { dependencyAudit }),
+  });
+}
+
+export async function buildCandidateWithAudit(
+  cwd: string,
+  source: string,
+  outputArgument: string,
+  runner: CommandRunner,
+  environment: Readonly<Record<string, string>>,
+): Promise<CandidateBuildResult> {
+  const result = await buildCandidateInternal(
+    cwd,
+    source,
+    outputArgument,
+    runner,
+    environment,
+    true,
+  );
+  if (result.packageAudit === undefined || result.dependencyAudit === undefined) {
+    fail('WG_RC_PACKAGE_AUDIT', 'Candidate audit collection did not complete.');
+  }
+  return Object.freeze({
+    evidencePath: result.evidencePath,
+    packageAudit: result.packageAudit,
+    dependencyAudit: result.dependencyAudit,
+  });
+}
+
+export async function buildCandidate(
+  cwd: string,
+  source: string,
+  outputArgument: string,
+  runner: CommandRunner,
+  environment: Readonly<Record<string, string>>,
+): Promise<string> {
+  return (await buildCandidateInternal(cwd, source, outputArgument, runner, environment, false))
+    .evidencePath;
 }
