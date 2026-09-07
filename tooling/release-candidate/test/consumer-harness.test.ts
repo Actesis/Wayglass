@@ -1,4 +1,12 @@
-import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import {
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  realpathSync,
+  rmSync,
+  writeFileSync,
+} from 'node:fs';
 import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
 
@@ -96,6 +104,7 @@ describe('release-candidate consumer harness', () => {
         expect(context.environment).toMatchObject({
           PNPM_CONFIG_OFFLINE: 'true',
           npm_config_ignore_scripts: 'true',
+          npm_config_store_dir: realpathSync(fixture.store),
         });
         return 'probe-result';
       },
