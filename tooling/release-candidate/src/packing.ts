@@ -11,6 +11,7 @@ import type {
   CommandRunner,
   PackageInspection,
   PackedCandidate,
+  PackageFile,
   ProjectedManifest,
 } from './types.ts';
 
@@ -27,6 +28,7 @@ export async function packAndInspect(
   stagedInspection: PackageInspection,
   runner: CommandRunner,
   environment: Readonly<Record<string, string>>,
+  observeFiles?: (files: readonly PackageFile[]) => void,
 ): Promise<PackedCandidate> {
   mkdirSync(tarballDirectory, { recursive: true });
   const userConfig = resolve(tarballDirectory, `.empty-npmrc-${directory}`);
@@ -72,13 +74,12 @@ export async function packAndInspect(
       cwd: extraction,
       environment,
     });
-    const inspected = inspectPackageFiles(
-      readPackageFiles(resolve(extraction, 'package')),
-      manifest,
-    );
+    const files = readPackageFiles(resolve(extraction, 'package'));
+    const inspected = inspectPackageFiles(files, manifest);
     if (inspected.inventorySha256 !== stagedInspection.inventorySha256) {
       fail('WG_RC_PACK_INVENTORY', `${manifest.name} changed while packing.`);
     }
+    observeFiles?.(files);
     return Object.freeze({
       directory,
       name: manifest.name,
