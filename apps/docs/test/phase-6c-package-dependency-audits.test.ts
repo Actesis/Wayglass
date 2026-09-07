@@ -21,6 +21,7 @@ describe('Phase 6C-E2 package and dependency audit record', () => {
 
   it('proves an exact reachable production graph from actual package evidence', () => {
     expect(record).toContain("actual installed package's `package.json`");
+    expect(record).toContain('any package-root license or notice file bytes');
     expect(record).toContain('every retained node is reachable from a production root');
     expect(record).toContain('seven-node reachable production graph');
     expect(record).toContain(
@@ -29,6 +30,9 @@ describe('Phase 6C-E2 package and dependency audit record', () => {
   });
 
   it('keeps lifecycle scripts and canonical verification explicit', () => {
+    expect(record).toContain('retains an empty `licenseFiles` array');
+    expect(record).toContain('requires owner disposition');
+    expect(record).toContain('missing or empty manifest license still fails closed');
     expect(record).toContain('neither retained nor executed by this pure audit');
     expect(record).toContain('literal `allProductionNodesReachable: true` flag is necessary');
     expect(record).toContain('serializers share one recursive canonical JSON implementation');

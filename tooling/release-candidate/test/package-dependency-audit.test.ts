@@ -260,15 +260,34 @@ describe('production dependency audit', () => {
     );
   });
 
-  it('rejects missing license bytes and unknown serialized fields', () => {
+  it('retains manifest-only license evidence and rejects absent declarations', () => {
     const inputs = dependencyInputs();
     inputs[0] = {
       ...inputs[0]!,
       files: inputs[0]!.files.filter(({ path }) => path === 'package.json'),
     };
-    expect(() => auditProductionDependencies(packageAudit(), inputs)).toThrowError(
+    const manifestOnly = auditProductionDependencies(packageAudit(), inputs);
+    expect(manifestOnly.productionGraph.find(({ name }) => name === 'lit')).toMatchObject({
+      declaredLicense: 'BSD-3-Clause',
+      licenseFiles: [],
+    });
+
+    const missingDeclaration = dependencyInputs();
+    missingDeclaration[0] = {
+      ...missingDeclaration[0]!,
+      files: missingDeclaration[0]!.files.map((file) =>
+        file.path === 'package.json'
+          ? {
+              ...file,
+              bytes: bytes(JSON.stringify({ name: 'lit', version: '3.3.3', dependencies: {} })),
+            }
+          : file,
+      ),
+    };
+    expect(() => auditProductionDependencies(packageAudit(), missingDeclaration)).toThrowError(
       /WG_RC_DEPENDENCY_AUDIT/,
     );
+
     const audit = auditProductionDependencies(packageAudit(), dependencyInputs());
     expect(() => validateDependencyAudit({ ...audit, invented: sha256('invented') })).toThrowError(
       /WG_RC_DEPENDENCY_AUDIT/,
