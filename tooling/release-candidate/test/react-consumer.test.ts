@@ -20,6 +20,7 @@ describe('release-candidate React consumer fixture', () => {
         'src/main.tsx',
         'src/package-surface.ts',
         'src/style.css',
+        'src/vite-env.d.ts',
         'tsconfig.json',
       ]);
       expect(template.files.find(({ path }) => path === 'index.html')!.contents).toContain(
@@ -51,9 +52,9 @@ describe('release-candidate React consumer fixture', () => {
   });
 
   it('authors client fallback, guarded registration, parity, and event adaptation', () => {
-    const main = reactConsumerTemplate(consumerScenarios()[2]!).files.find(
-      ({ path }) => path === 'src/main.tsx',
-    )!.contents;
+    const template = reactConsumerTemplate(consumerScenarios()[2]!);
+    const main = template.files.find(({ path }) => path === 'src/main.tsx')!.contents;
+    const environment = template.files.find(({ path }) => path === 'src/vite-env.d.ts')!.contents;
     expect(main).toContain('root.replaceChildren()');
     expect(main).toContain('WG_REACT_UNUSED_ELEMENT_REGISTERED');
     expect(main).toContain('defineWgBooleanValue()');
@@ -62,6 +63,7 @@ describe('release-candidate React consumer fixture', () => {
     expect(main).toContain('WG_REACT_CLIENT_FALLBACK_READY');
     expect(reactDirectMain).toContain('WG_REACT_BINDING_REMOVED');
     expect(reactDirectMain).not.toContain('@wayglass/react');
+    expect(environment).toContain('/// <reference types="vite/client" />');
   });
 
   it('rejects Vanilla and invented React scenarios', () => {

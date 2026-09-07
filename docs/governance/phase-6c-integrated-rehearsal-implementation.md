@@ -174,6 +174,12 @@ consumer owns that asset declaration, so the Vanilla fixture now includes the co
 without relying accidentally on declarations reachable through an unrelated Wayglass package. The
 failed run stopped before its removal build and cleaned all temporary state.
 
+Both Vanilla scenarios then passed, and the first React post-removal build exposed the same `TS2882`
+assumption in its stylesheet import. The React fixture now owns the same conventional `vite/client`
+asset declaration, keeping its primary wrapper build and direct-element removal build independent of
+declarations pulled in through the removed React package surface. The failed run cleaned all
+temporary state.
+
 ## Retained validation
 
 Focused tests cover canonical material projection, all six exact preflight scenarios, both offline
@@ -185,10 +191,10 @@ shim creation and precedence. It also verifies that every projected internal dep
 overridden to its exact scenario-owned tarball through a harness-owned current-format pnpm workspace
 file. The declaration fixtures also reject array-shaped token assumptions and exercise a real named
 token. Document fixtures require a persistent level-one heading across primary and removal stages.
-The Vanilla fixture also owns its Vite asset declaration across both stages. Removal command tests
-require current pnpm syntax while retaining the inherited offline and script-disabled environment,
-including the pnpm-prefixed dedicated store setting. The focused release-candidate suite passes 74
-assertions across 16 files with TypeScript and ESLint checks.
+Both framework fixtures also own their Vite asset declarations across primary and removal stages.
+Removal command tests require current pnpm syntax while retaining the inherited offline and
+script-disabled environment, including the pnpm-prefixed dedicated store setting. The focused
+release-candidate suite passes 74 assertions across 16 files with TypeScript and ESLint checks.
 
 The complete offline repository gate also passes against the final implementation: formatting and
 repository lint; all 14 scheduled builds; 58 icon-tooling, 93 token-tooling, 74 release-candidate,
