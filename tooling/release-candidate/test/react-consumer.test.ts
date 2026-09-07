@@ -14,13 +14,18 @@ describe('release-candidate React consumer fixture', () => {
       'react-19.2.8-ts-6.0.3',
     ]);
     for (const scenario of scenarios) {
-      expect(reactConsumerTemplate(scenario).files.map(({ path }) => path)).toEqual([
+      const template = reactConsumerTemplate(scenario);
+      expect(template.files.map(({ path }) => path)).toEqual([
         'index.html',
         'src/main.tsx',
         'src/package-surface.ts',
         'src/style.css',
+        'src/vite-env.d.ts',
         'tsconfig.json',
       ]);
+      expect(template.files.find(({ path }) => path === 'index.html')!.contents).toContain(
+        '<header role="banner"><h1>Wayglass React release probe</h1></header>',
+      );
     }
   });
 
@@ -41,12 +46,15 @@ describe('release-candidate React consumer fixture', () => {
     }
     expect(main).toContain("from '@wayglass/react/toggle'");
     expect(main).not.toContain("from '@wayglass/react'");
+    expect(surface).toContain("const token: TokenName = 'color.semantic.text.primary'");
+    expect(surface).toContain('tokens[token]');
+    expect(surface).not.toContain('tokens[0]');
   });
 
   it('authors client fallback, guarded registration, parity, and event adaptation', () => {
-    const main = reactConsumerTemplate(consumerScenarios()[2]!).files.find(
-      ({ path }) => path === 'src/main.tsx',
-    )!.contents;
+    const template = reactConsumerTemplate(consumerScenarios()[2]!);
+    const main = template.files.find(({ path }) => path === 'src/main.tsx')!.contents;
+    const environment = template.files.find(({ path }) => path === 'src/vite-env.d.ts')!.contents;
     expect(main).toContain('root.replaceChildren()');
     expect(main).toContain('WG_REACT_UNUSED_ELEMENT_REGISTERED');
     expect(main).toContain('defineWgBooleanValue()');
@@ -55,6 +63,7 @@ describe('release-candidate React consumer fixture', () => {
     expect(main).toContain('WG_REACT_CLIENT_FALLBACK_READY');
     expect(reactDirectMain).toContain('WG_REACT_BINDING_REMOVED');
     expect(reactDirectMain).not.toContain('@wayglass/react');
+    expect(environment).toContain('/// <reference types="vite/client" />');
   });
 
   it('rejects Vanilla and invented React scenarios', () => {

@@ -1,4 +1,12 @@
-import { existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import {
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  realpathSync,
+  rmSync,
+  writeFileSync,
+} from 'node:fs';
 import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
 
@@ -90,9 +98,13 @@ describe('release-candidate consumer harness', () => {
         expect(existsSync(resolve(project, 'package.json'))).toBe(true);
         expect(existsSync(resolve(project, 'vendor/wayglass-icons-0.1.0.tgz'))).toBe(true);
         expect(existsSync(resolve(project, 'vendor/wayglass-react-0.1.0.tgz'))).toBe(false);
+        expect(readFileSync(resolve(project, 'pnpm-workspace.yaml'), 'utf8')).toContain(
+          '"@wayglass/themes": "file:./vendor/wayglass-themes-0.1.0.tgz"',
+        );
         expect(context.environment).toMatchObject({
           PNPM_CONFIG_OFFLINE: 'true',
           npm_config_ignore_scripts: 'true',
+          pnpm_config_store_dir: realpathSync(fixture.store),
         });
         return 'probe-result';
       },

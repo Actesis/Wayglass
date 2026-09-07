@@ -14,6 +14,7 @@ import { dirname, isAbsolute, resolve } from 'node:path';
 import {
   consumerPackageNames,
   projectConsumerManifest,
+  projectConsumerWorkspace,
   validateConsumerTemplate,
 } from './consumer.ts';
 import { offlineEnvironment } from './environment.ts';
@@ -82,6 +83,11 @@ export async function withConsumerProject<T>(
       serialize(projectConsumerManifest(request.template.scenario, tarballs)),
       { encoding: 'utf8', flag: 'wx' },
     );
+    writeFileSync(
+      resolve(root, 'pnpm-workspace.yaml'),
+      projectConsumerWorkspace(request.template.scenario, tarballs),
+      { encoding: 'utf8', flag: 'wx' },
+    );
     for (const file of request.template.files) {
       const destination = resolve(root, file.path);
       mkdirSync(dirname(destination), { recursive: true });
@@ -92,6 +98,7 @@ export async function withConsumerProject<T>(
     const isolatedEnvironment = Object.freeze({
       ...environment,
       npm_config_cache: resolve(root, '.npm-cache'),
+      pnpm_config_store_dir: store,
       npm_config_userconfig: userConfig,
     });
     const sharedArguments = ['--offline', '--ignore-scripts', '--store-dir', store] as const;

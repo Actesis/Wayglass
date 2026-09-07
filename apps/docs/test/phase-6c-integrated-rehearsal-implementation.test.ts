@@ -29,19 +29,41 @@ describe('Phase 6C-D5 integrated rehearsal implementation record', () => {
     expect(record).toContain('does not fall back to another version');
   });
 
-  it('records the exact honest blocked preflight', () => {
+  it('records the exact honest preflight and assembly failures', () => {
     expect(record).toContain('missing `postcss@8.5.28`');
     expect(record).toContain('zero downloaded packages');
     expect(record).toContain('`ERR_PNPM_NO_OFFLINE_TARBALL`');
     expect(record).toContain('No candidate assembly, consumer build, browser launch');
-    expect(record).toContain('No registry access is authorized');
+    expect(record).toContain('exact six third-party-only graphs');
+    expect(record).toContain('`pnpm@11.9.0`');
+    expect(record).toContain('`npm_config_store_dir`');
+    expect(record).toContain('Neither additional attempt created a candidate tarball');
+    expect(record).toContain('Homebrew pnpm `11.25.0` launcher');
+    expect(record).toContain('temporary `PATH` shim');
+    expect(record).toContain('there is no fallback to the registry, another store');
+    expect(record).toContain('`ERR_PNPM_NO_OFFLINE_META`');
+    expect(record).toContain('pnpm override for every scenario-owned `@wayglass/*` package');
+    expect(record).toContain('current consumer pnpm `11.25.0`');
+    expect(record).toContain('tool-owned `pnpm-workspace.yaml`');
+    expect(record).toContain("fixture's `tokens[0]` expression");
+    expect(record).toContain('`color.semantic.text.primary` key');
+    expect(record).toContain('`page-has-heading-one`');
+    expect(record).toContain('persistent descriptive `h1`');
+    expect(record).toContain('`ERR_PNPM_UNEXPECTED_STORE`');
+    expect(record).toContain('pins `pnpm_config_store_dir` in the isolated consumer environment');
+    expect(record).toContain('TypeScript reported `TS2882`');
+    expect(record).toContain('conventional `vite/client` reference file');
+    expect(record).toContain('first React post-removal build');
+    expect(record).toContain('Both framework fixtures');
+    expect(record).toContain('rejected `--offline` and `--ignore-scripts`');
+    expect(record).toContain('`npm_config_ignore_scripts=true`');
   });
 
-  it('keeps D5 open and retains the material-acquisition gate', () => {
-    expect(record).toContain('73 assertions across 16 files');
+  it('proposes the all-green D5 result while retaining the release boundary', () => {
+    expect(record).toContain('74 assertions across 16 files');
     expect(record).toContain('including 250 documentation assertions');
-    expect(record).toContain('does not complete Phase 6C-D5');
-    expect(record).toContain('separately explicit project-owner decision');
-    expect(record).toContain('does not authorize acquiring offline material');
+    expect(record).toContain('36 of 36 browser cases');
+    expect(record).toContain('completes Phase 6C-D5 and authorizes Phase 6C-E');
+    expect(record).toContain('does not authorize further registry or npm access');
   });
 });

@@ -126,7 +126,7 @@ export async function runVanillaBuildProbe(
   rmSync(resolve(context.root, vanillaPackageSurfacePath));
   await context.run({
     command: 'pnpm',
-    arguments: ['remove', vanillaCompileOnlyPackage, '--offline', '--ignore-scripts'],
+    arguments: ['remove', vanillaCompileOnlyPackage],
     cwd: context.root,
     environment: context.environment,
   });

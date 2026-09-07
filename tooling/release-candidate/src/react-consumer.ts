@@ -10,6 +10,7 @@ const html = `<!doctype html>
     <title>Wayglass React release probe</title>
   </head>
   <body>
+    <header role="banner"><h1>Wayglass React release probe</h1></header>
     <main id="root" aria-label="Wayglass React release probe"><p data-client-fallback>Loading</p></main>
     <aside id="direct" aria-label="Direct element parity"></aside>
     <script type="module" src="/src/main.tsx"></script>
@@ -29,6 +30,9 @@ body {
 }
 `;
 
+const viteEnvironment = `/// <reference types="vite/client" />
+`;
+
 const packageSurface = `import { conditions, type KnownState } from '@wayglass/core';
 import { tokens, type TokenName } from '@wayglass/tokens';
 import { themeNames, type ThemeName } from '@wayglass/themes';
@@ -38,12 +42,14 @@ import { WgToggle, type WgToggleProps } from '@wayglass/react';
 import { WgToggle as WgToggleSubpath } from '@wayglass/react/toggle';
 
 const known: KnownState = { condition: conditions[0], knowledge: 'confirmed', activity: 'idle' };
-const token: TokenName = tokens[0]!.name;
+const token: TokenName = 'color.semantic.text.primary';
+const tokenDefinition = tokens[token];
 const theme: ThemeName = themeNames[0];
 const props: WgToggleProps = { label: 'Declaration check' };
 const declarations = [
   known,
   token,
+  tokenDefinition,
   theme,
   props,
   WgToggleElement,
@@ -191,6 +197,7 @@ export function reactConsumerTemplate(scenario: ConsumerScenario): ConsumerTempl
       Object.freeze({ path: reactMainPath, contents: main }),
       Object.freeze({ path: reactPackageSurfacePath, contents: packageSurface }),
       Object.freeze({ path: 'src/style.css', contents: style }),
+      Object.freeze({ path: 'src/vite-env.d.ts', contents: viteEnvironment }),
       Object.freeze({ path: 'tsconfig.json', contents: tsconfig }),
     ]),
   });

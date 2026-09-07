@@ -1,12 +1,13 @@
 # Phase 6C-D5 integrated rehearsal implementation
 
-**Status:** Implementation proposed for project-owner acceptance on September 6, 2026; execution is
-open because the accepted consumer graph is not fully materialized in the offline store. This record
-covers the fail-closed preflight and disposable end-to-end runner authorized by the accepted Phase
-6C-D4 implementation. It does not claim that D5, an integrated candidate, or a browser matrix
-passed; authorize Phase 6C-E; contact or publish to npm; add registry material; remove package
-privacy; use credentials; create a tag or release; change repository visibility; deploy; or build an
-external application.
+**Status:** All-green integrated execution proposed for project-owner acceptance on September
+6, 2026. The accepted consumer graph is materialized in the dedicated offline store, and the final
+hard-offline run passed deterministic assembly plus the complete consumer and browser matrix from
+the frozen source. This record covers the fail-closed preflight, the narrowly authorized cache
+preparation, the disposable end-to-end runner authorized by the accepted Phase 6C-D4 implementation,
+every observed failed attempt, and the successful result. It does not authorize Phase 6C-E; publish
+to npm; remove package privacy; use credentials; create a tag or release; change repository
+visibility; deploy; or build an external application.
 
 ## One integrated rehearsal
 
@@ -59,7 +60,7 @@ This deliberate deletion distinguishes D5 integration confidence from Phase 6C-E
 immutable evidence record. Console diagnostics may establish why a rehearsal did not run; they are
 not candidate evidence and cannot be promoted into it.
 
-## Observed offline preflight
+## Observed environment preparation and assembly attempts
 
 The first real command-level preflight ran on September 6, 2026 with the required source and hard
 offline controls. The `vanilla-ts-5.9.3` lockfile resolved, but its frozen installation stopped at
@@ -71,29 +72,149 @@ occurred. The failure is the intended unsupported-environment result and is not 
 failed candidate. Additional missing transitive material may become visible only after this first
 blocker is resolved.
 
-No registry access is authorized by this implementation. Material must enter the dedicated store
-through a separately explicit project-owner decision before the rehearsal may be rerun.
+The project owner then explicitly authorized continuing to the next step. In disposable directories,
+the exact six third-party-only graphs were installed into the dedicated repository store with an
+empty npm configuration and lifecycle scripts disabled. All six preparations succeeded; the first
+Vanilla graph downloaded five artifacts, the React `19.0.0` minimum-compiler graph downloaded five,
+and the remaining graphs reused the resulting store material. The preparation directories were
+removed. This one-time material preparation did not install a Wayglass package, publish anything,
+change a manifest or lockfile in the repository, use release credentials, or broaden rehearsal-time
+network access.
+
+The next hard-offline rehearsal passed the six-scenario material preflight and reached the first
+detached frozen-source assembly. Its `pnpm check` command stopped because pnpm could not find the
+offline tarball for the repository-pinned package manager `pnpm@11.9.0`. A separate script-disabled
+material check for that exact package reused an artifact already present in the dedicated store, but
+a second hard-offline rehearsal stopped at the same point. Neither attempt produced candidate
+tarballs, ran a consumer or browser case, or retained its temporary worktree or rehearsal root.
+
+The initial failure appeared to be configuration reachability: the assembler supplied `--store-dir`
+only to its install command, while later commands did not inherit the dedicated store. Propagating
+`npm_config_store_dir` corrected that gap but did not complete assembly. A disposable, script-free
+bootstrap invocation for the exact `pnpm@11.9.0` returned the accepted version, yet the following
+hard-offline rehearsal stopped at the same boundary. Neither additional attempt created a candidate
+tarball or reached a consumer or browser case, and both cleaned up their worktrees and rehearsal
+roots.
+
+A retained diagnostic worktree exposed the complete message hidden by the outer command summary. The
+Homebrew pnpm `11.25.0` launcher was attempting to revalidate the repository-pinned pnpm `11.9.0`
+registry signature before each new invocation. That online signature check is incompatible with the
+rehearsal's mandatory hard-offline boundary even though the already-validated 11.9.0 executable and
+package bytes are present locally. The first frozen install did run under pnpm `11.9.0`; a temporary
+`PATH` shim that reused that exact executable then allowed the complete frozen source `pnpm check`
+to pass offline: 14 builds, 20 typechecks, 20 test tasks, 58 icon-tooling, 93 token-tooling, 24
+visualization, and 208 source-era documentation assertions.
+
+The final correction requires the private command to be launched by a real absolute `npm_execpath`,
+creates a per-pass temporary `pnpm` shim to that already-selected executable, and places the shim
+first on `PATH` for every top-level and nested assembly command. It also reads the candidate
+evidence pnpm version from the same executable. The shim and diagnostic worktree are removed with
+their owning temporary roots. Hard-offline execution remains mandatory; there is no fallback to the
+registry, another store, another pnpm version, or `pmOnFail=ignore`.
+
+The next hard-offline integrated run passed preflight, both frozen-source assembly passes, and the
+six-package byte-identity requirement. The first Vanilla consumer then stopped while resolving
+`@wayglass/elements@0.1.0`: its published-style dependency range for `@wayglass/themes` caused pnpm
+to consult the empty offline package mirror even though the exact themes candidate tarball was a
+direct consumer dependency. The wrapper reported `ERR_PNPM_NO_OFFLINE_META`; no consumer build or
+browser case ran, and the candidate evidence, tarballs, consumer root, and worktrees were removed.
+
+The first correction put a pnpm override for every scenario-owned `@wayglass/*` package in the
+generated `package.json`. The next run again completed candidate assembly, but current consumer pnpm
+`11.25.0` failed closed because that version no longer reads `pnpm.overrides` from the package
+manifest. It emitted the explicit compatibility warning before dependency resolution; no consumer
+build or browser case ran, and all temporary state was removed.
+
+The harness now writes those exact overrides into its tool-owned `pnpm-workspace.yaml`, the current
+pnpm settings location. Each package name maps to the same validated local candidate tarball used by
+the direct dependency. This keeps candidate manifests realistic while forcing all transitive
+internal edges onto the one assembled candidate set. Fixtures still cannot author a workspace file.
+The override map is exact, local-only, script-free, and derived from the validated scenario
+inventory; it cannot introduce a registry URL, source workspace dependency, extra package, or
+alternate version.
+
+The following hard-offline run passed candidate assembly and consumer installation, then reached the
+first Vanilla declaration check. TypeScript correctly rejected the fixture's `tokens[0]` expression
+because the public `tokens` export is a name-keyed object, not an array. This was a probe assumption
+rather than a candidate defect; no production package source changed. The Vanilla and React
+declaration fixtures now assign the real `color.semantic.text.primary` key to `TokenName` and read
+`tokens[token]`, proving both the public name type and keyed definition surface. No production build
+or browser case ran in that attempt, and all temporary state was removed.
+
+The next run completed both assemblies and all six consumer install, declaration, production-build,
+and removal-build paths, then entered the browser matrix. Axe rejected the first rendered document
+with `page-has-heading-one`; the fixture document had a labeled main region but no level-one
+heading. The correction adds a persistent descriptive `h1` to both Vanilla and React documents so
+the heading remains present before and after React binding removal. The failure is retained as a
+fixture accessibility defect, not rewritten as a candidate failure; browser execution stopped
+immediately and the entire run root was removed.
+
+The following run passed the corrected primary browser stage and reached the first Vanilla removal.
+Current pnpm `11.25.0` rejected `--offline` and `--ignore-scripts` as unsupported `remove` command
+options. The consumer subprocess environment already fixes both controls with
+`PNPM_CONFIG_OFFLINE=true`, `npm_config_offline=true`, and `npm_config_ignore_scripts=true`; the
+correction therefore removes only the obsolete duplicate command arguments from Vanilla and React
+removal. It does not enable network or lifecycle scripts. The failed run stopped before the removal
+build and cleaned all temporary state.
+
+The next run accepted the corrected remove syntax but pnpm then rejected removal with
+`ERR_PNPM_UNEXPECTED_STORE`: installation had received the validated dedicated store as a command
+argument, while the later remove command inherited no store setting and selected the user-global
+default. The harness now pins `pnpm_config_store_dir` in the isolated consumer environment alongside
+offline, script, cache, and empty-user-config controls. Every install, removal, declaration, build,
+and nested pnpm process therefore sees the same validated store. The failed run performed no removal
+build and cleaned all temporary state.
+
+The corrected store setting allowed removal to complete and exposed the next fixture assumption in
+the post-removal TypeScript build: without the deleted compile-only declaration surface in the
+program, TypeScript reported `TS2882` for the consumer's side-effect import of `./style.css`. A Vite
+consumer owns that asset declaration, so the Vanilla fixture now includes the conventional
+`vite/client` reference file. This keeps the stylesheet typed before and after package removal
+without relying accidentally on declarations reachable through an unrelated Wayglass package. The
+failed run stopped before its removal build and cleaned all temporary state.
+
+Both Vanilla scenarios then passed, and the first React post-removal build exposed the same `TS2882`
+assumption in its stylesheet import. The React fixture now owns the same conventional `vite/client`
+asset declaration, keeping its primary wrapper build and direct-element removal build independent of
+declarations pulled in through the removed React package surface. The failed run cleaned all
+temporary state.
+
+The final hard-offline run used frozen source `ce400e89930a047c6af1c6992c64cfe422a1eeee` and the
+exact pinned `pnpm@11.9.0` executable. Both clean assemblies produced the same six private candidate
+packages. All two Vanilla scenarios and all four React scenarios passed installation, declaration
+checks, production builds, runtime assertions, tree-shaking checks, package removal, and
+post-removal rebuilds. Chromium, Firefox, and WebKit then passed both stages for every scenario: 36
+of 36 browser cases. The runner returned
+`Passed ephemeral rehearsal: 6 packages, 2 Vanilla scenarios, 4 React scenarios, and 36 browser cases.`
+and removed the complete rehearsal root.
 
 ## Retained validation
 
 Focused tests cover canonical material projection, all six exact preflight scenarios, both offline
 install steps, script suppression, absence of Wayglass and workspace inputs, exact missing-scenario
 diagnostics, preflight cleanup, source pinning, preflight-before-build ordering, direct evidence
-handoff, exact 2/4/36 result counts, partial-matrix rejection, and candidate cleanup on success and
-failure. The focused release-candidate suite passes 73 assertions across 16 files with TypeScript
-and ESLint checks.
+handoff, exact 2/4/36 result counts, partial-matrix rejection, candidate cleanup on success and
+failure, dedicated-store propagation through nested assembly commands, and exact package-manager
+shim creation and precedence. It also verifies that every projected internal dependency is
+overridden to its exact scenario-owned tarball through a harness-owned current-format pnpm workspace
+file. The declaration fixtures also reject array-shaped token assumptions and exercise a real named
+token. Document fixtures require a persistent level-one heading across primary and removal stages.
+Both framework fixtures also own their Vite asset declarations across primary and removal stages.
+Removal command tests require current pnpm syntax while retaining the inherited offline and
+script-disabled environment, including the pnpm-prefixed dedicated store setting. The focused
+release-candidate suite passes 74 assertions across 16 files with TypeScript and ESLint checks.
 
 The complete offline repository gate also passes against the final implementation: formatting and
-repository lint; all 14 scheduled builds; 58 icon-tooling, 93 token-tooling, 73 release-candidate,
+repository lint; all 14 scheduled builds; 58 icon-tooling, 93 token-tooling, 74 release-candidate,
 and 24 visualization assertions; all 20 scheduled typecheck tasks; and all 20 scheduled package and
 application test tasks, including 250 documentation assertions. Only the repository's existing
 informational Storybook chunk-size and Lit development-mode warnings were emitted.
 
 ## Acceptance effect
 
-Acceptance approves the D5 runner implementation and the honestly blocked preflight result. It does
-not complete Phase 6C-D5. Completion still requires a no-retry, all-green ephemeral rehearsal and
-separate project-owner acceptance of that result. Acceptance does not authorize acquiring offline
-material, registry or npm access, Phase 6C-E, retained candidate evidence, publication readiness,
-package privacy changes, credentials, tags, releases, repository visibility changes, deployment, or
-external application work.
+Acceptance approves the D5 runner implementation, the narrowly scoped material preparation, the
+honestly recorded environment failures and corrections, and the all-green ephemeral result. It
+completes Phase 6C-D5 and authorizes Phase 6C-E integrated candidate evidence work only. Acceptance
+does not authorize further registry or npm access, publication readiness, package privacy changes,
+credentials, tags, releases, repository visibility changes, deployment, or external application
+work.

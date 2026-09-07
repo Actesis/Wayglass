@@ -10,6 +10,7 @@ const html = `<!doctype html>
     <title>Wayglass Vanilla release probe</title>
   </head>
   <body>
+    <header role="banner"><h1>Wayglass Vanilla release probe</h1></header>
     <main id="app" aria-label="Wayglass Vanilla release probe"></main>
     <script type="module" src="/src/main.ts"></script>
   </body>
@@ -28,6 +29,9 @@ body {
 }
 `;
 
+const viteEnvironment = `/// <reference types="vite/client" />
+`;
+
 const packageSurface = `import { conditions, type KnownState } from '@wayglass/core';
 import { tokens, type TokenName } from '@wayglass/tokens';
 import { themeNames, type ThemeName } from '@wayglass/themes';
@@ -37,9 +41,19 @@ import { WgIcon } from '@wayglass/icons';
 import { WgIcon as WgIconSubpath } from '@wayglass/icons/icon';
 
 const known: KnownState = { condition: conditions[0], knowledge: 'confirmed', activity: 'idle' };
-const token: TokenName = tokens[0]!.name;
+const token: TokenName = 'color.semantic.text.primary';
+const tokenDefinition = tokens[token];
 const theme: ThemeName = themeNames[0];
-const declarations = [known, token, theme, WgToggle, WgBooleanValue, WgIcon, WgIconSubpath];
+const declarations = [
+  known,
+  token,
+  tokenDefinition,
+  theme,
+  WgToggle,
+  WgBooleanValue,
+  WgIcon,
+  WgIconSubpath,
+];
 void declarations;
 `;
 
@@ -147,6 +161,7 @@ export function vanillaConsumerTemplate(scenario: ConsumerScenario): ConsumerTem
       Object.freeze({ path: 'src/main.ts', contents: main }),
       Object.freeze({ path: 'src/package-surface.ts', contents: packageSurface }),
       Object.freeze({ path: 'src/style.css', contents: style }),
+      Object.freeze({ path: 'src/vite-env.d.ts', contents: viteEnvironment }),
       Object.freeze({ path: 'tsconfig.json', contents: tsconfig }),
     ]),
   });

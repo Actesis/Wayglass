@@ -1,10 +1,14 @@
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { resolve } from 'node:path';
+import { delimiter, resolve } from 'node:path';
 
 import { afterEach, describe, expect, it } from 'vitest';
 
-import { checkCandidateSource } from '../src/assembler.ts';
+import {
+  assemblyPassEnvironment,
+  checkCandidateSource,
+  createPackageManagerShim,
+} from '../src/assembler.ts';
 import { frozenSource } from '../src/constants.ts';
 import {
   assertNoReleaseCredentials,
@@ -51,6 +55,25 @@ describe('release-candidate effect boundary', () => {
       npm_config_offline: 'true',
       TURBO_FORCE: 'true',
     });
+  });
+
+  it('pins the dedicated store for top-level and nested assembly commands', () => {
+    const root = temp('wayglass-rc-pnpm-shim-');
+    const bin = createPackageManagerShim(root, { npm_execpath: process.execPath });
+    expect(
+      assemblyPassEnvironment(
+        { PATH: '/usr/bin', PNPM_CONFIG_OFFLINE: 'true' },
+        '/tmp/wayglass-store',
+        '/tmp/wayglass-npmrc',
+        bin,
+      ),
+    ).toEqual({
+      PATH: `${bin}${delimiter}/usr/bin`,
+      PNPM_CONFIG_OFFLINE: 'true',
+      npm_config_store_dir: '/tmp/wayglass-store',
+      npm_config_userconfig: '/tmp/wayglass-npmrc',
+    });
+    expect(realpathSync(resolve(bin, 'pnpm'))).toBe(realpathSync(process.execPath));
   });
 
   it('accepts only the frozen package Node engine range', () => {

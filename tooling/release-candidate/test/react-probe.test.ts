@@ -166,7 +166,7 @@ describe('release-candidate React build probe', () => {
     expect(fixture.requests.map(({ arguments: arguments_ }) => arguments_)).toEqual([
       ['exec', 'tsc', '--noEmit', '--project', 'tsconfig.json'],
       ['exec', 'vite', 'build'],
-      ['remove', ...reactRemovalPackages, '--offline', '--ignore-scripts'],
+      ['remove', ...reactRemovalPackages],
       ['exec', 'tsc', '--noEmit', '--project', 'tsconfig.json'],
       ['exec', 'vite', 'build'],
     ]);
