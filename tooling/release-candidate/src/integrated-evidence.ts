@@ -1,3 +1,4 @@
+import { compactCanonicalJson, serializeCanonicalJson } from './canonical-json.ts';
 import { candidateDirectories, frozenSource } from './constants.ts';
 import { consumerScenarios } from './consumer.ts';
 import { fail } from './error.ts';
@@ -93,22 +94,6 @@ function hasControlCharacter(value: string): boolean {
     const code = character.codePointAt(0)!;
     return code <= 31 || code === 127;
   });
-}
-
-function sortedCanonical(value: unknown): unknown {
-  if (Array.isArray(value)) return value.map(sortedCanonical);
-  if (value !== null && typeof value === 'object') {
-    return Object.fromEntries(
-      Object.keys(value as UnknownRecord)
-        .sort()
-        .map((key) => [key, sortedCanonical((value as UnknownRecord)[key])]),
-    );
-  }
-  return value;
-}
-
-function compactCanonical(value: unknown): string {
-  return JSON.stringify(sortedCanonical(value));
 }
 
 function validateInspectedFiles(value: unknown, label: string): void {
@@ -347,7 +332,7 @@ function deterministicSurface(run: IntegratedCandidateRun): unknown {
 
 export function deterministicRunSha256(run: IntegratedCandidateRun): string {
   validateRun(run, run.id, 'integrated run');
-  return sha256(compactCanonical(deterministicSurface(run)));
+  return sha256(compactCanonicalJson(deterministicSurface(run)));
 }
 
 function validateRetainedFiles(value: unknown): readonly RetainedEvidenceFile[] {
@@ -463,8 +448,8 @@ export function validateIntegratedEvidence(value: unknown): IntegratedCandidateE
   const second = validateRun(runs[1], 'run-2', 'runs[1]');
   for (const [index, run] of [first, second].entries()) {
     if (
-      compactCanonical(run.candidate.source) !== compactCanonical(source) ||
-      compactCanonical(run.candidate.tooling) !== compactCanonical(tooling)
+      compactCanonicalJson(run.candidate.source) !== compactCanonicalJson(source) ||
+      compactCanonicalJson(run.candidate.tooling) !== compactCanonicalJson(tooling)
     ) {
       schema(`runs[${String(index)}] source or tooling identity differs from the record.`);
     }
@@ -515,5 +500,5 @@ export function validateIntegratedEvidence(value: unknown): IntegratedCandidateE
 
 export function serializeIntegratedEvidence(value: unknown): string {
   const evidence = validateIntegratedEvidence(value);
-  return `${JSON.stringify(sortedCanonical(evidence), null, 2)}\n`;
+  return serializeCanonicalJson(evidence);
 }

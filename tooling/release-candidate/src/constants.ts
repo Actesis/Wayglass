@@ -21,6 +21,10 @@ export const candidatePackageNames = Object.freeze(
 
 export const packedRootFiles = Object.freeze(['README.md', 'LICENSE', 'NOTICE', 'package.json']);
 export const packageFilesAllowlist = Object.freeze(['dist', 'README.md', 'LICENSE', 'NOTICE']);
+export const acceptedDocumentHashes = Object.freeze({
+  license: 'c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4',
+  notice: '4309ddf58890e8589cb006158d5cbfa3d1db1872035020b5b5a709c04c0428a3',
+});
 
 export const expectedSideEffects = Object.freeze({
   core: false,
