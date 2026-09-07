@@ -59,10 +59,11 @@ describe('Phase 6C-D5 integrated rehearsal implementation record', () => {
     expect(record).toContain('`npm_config_ignore_scripts=true`');
   });
 
-  it('keeps D5 open and retains the release boundary', () => {
+  it('proposes the all-green D5 result while retaining the release boundary', () => {
     expect(record).toContain('74 assertions across 16 files');
     expect(record).toContain('including 250 documentation assertions');
-    expect(record).toContain('does not complete Phase 6C-D5');
+    expect(record).toContain('36 of 36 browser cases');
+    expect(record).toContain('completes Phase 6C-D5 and authorizes Phase 6C-E');
     expect(record).toContain('does not authorize further registry or npm access');
   });
 });

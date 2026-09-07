@@ -1,14 +1,13 @@
 # Phase 6C-D5 integrated rehearsal implementation
 
-**Status:** Exact package-manager reuse correction proposed on September 6, 2026; integrated
-execution remains open. The accepted consumer graph is materialized in the dedicated offline store,
-and a retained diagnostic proved the frozen source gate under the exact pnpm executable. The
-integrated runner has not yet completed after that correction. This record covers the fail-closed
-preflight, the narrowly authorized cache preparation, and the disposable end-to-end runner
-authorized by the accepted Phase 6C-D4 implementation. It does not claim that D5, an integrated
-candidate, or a browser matrix passed; authorize Phase 6C-E; publish to npm; remove package privacy;
-use credentials; create a tag or release; change repository visibility; deploy; or build an external
-application.
+**Status:** All-green integrated execution proposed for project-owner acceptance on September
+6, 2026. The accepted consumer graph is materialized in the dedicated offline store, and the final
+hard-offline run passed deterministic assembly plus the complete consumer and browser matrix from
+the frozen source. This record covers the fail-closed preflight, the narrowly authorized cache
+preparation, the disposable end-to-end runner authorized by the accepted Phase 6C-D4 implementation,
+every observed failed attempt, and the successful result. It does not authorize Phase 6C-E; publish
+to npm; remove package privacy; use credentials; create a tag or release; change repository
+visibility; deploy; or build an external application.
 
 ## One integrated rehearsal
 
@@ -180,6 +179,15 @@ asset declaration, keeping its primary wrapper build and direct-element removal 
 declarations pulled in through the removed React package surface. The failed run cleaned all
 temporary state.
 
+The final hard-offline run used frozen source `ce400e89930a047c6af1c6992c64cfe422a1eeee` and the
+exact pinned `pnpm@11.9.0` executable. Both clean assemblies produced the same six private candidate
+packages. All two Vanilla scenarios and all four React scenarios passed installation, declaration
+checks, production builds, runtime assertions, tree-shaking checks, package removal, and
+post-removal rebuilds. Chromium, Firefox, and WebKit then passed both stages for every scenario: 36
+of 36 browser cases. The runner returned
+`Passed ephemeral rehearsal: 6 packages, 2 Vanilla scenarios, 4 React scenarios, and 36 browser cases.`
+and removed the complete rehearsal root.
+
 ## Retained validation
 
 Focused tests cover canonical material projection, all six exact preflight scenarios, both offline
@@ -205,10 +213,8 @@ informational Storybook chunk-size and Lit development-mode warnings were emitte
 ## Acceptance effect
 
 Acceptance approves the D5 runner implementation, the narrowly scoped material preparation, the
-honestly recorded environment failures, and the exact-package-manager correction. It does not
-complete Phase 6C-D5. Acceptance also approves the local-tarball override correction exposed by the
-first real consumer installation. Completion still requires an all-green ephemeral rehearsal and
-separate project-owner acceptance of that result. Acceptance does not authorize further registry or
-npm access, Phase 6C-E, retained candidate evidence, publication readiness, package privacy changes,
+honestly recorded environment failures and corrections, and the all-green ephemeral result. It
+completes Phase 6C-D5 and authorizes Phase 6C-E integrated candidate evidence work only. Acceptance
+does not authorize further registry or npm access, publication readiness, package privacy changes,
 credentials, tags, releases, repository visibility changes, deployment, or external application
 work.
