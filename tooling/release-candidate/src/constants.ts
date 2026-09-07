@@ -83,3 +83,19 @@ export const consumerReactVersions = Object.freeze([
 ] as const satisfies readonly ReactVersionLine[]);
 
 export const consumerBuildVersions = Object.freeze({ vite: '8.1.5' as const });
+export const candidateToolVersions = Object.freeze({
+  pnpm: '11.9.0' as const,
+  playwright: '1.62.0' as const,
+});
+
+export const qualityGateIds = Object.freeze([
+  'format',
+  'lint',
+  'build',
+  'icon-tooling',
+  'token-tooling',
+  'release-candidate-core',
+  'phase-5c-experiment',
+  'typecheck',
+  'test',
+] as const);
