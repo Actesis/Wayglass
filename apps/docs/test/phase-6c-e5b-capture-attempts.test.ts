@@ -38,6 +38,11 @@ describe('Phase 6C-E5B advisory-capture attempt record', () => {
     expect(record).toContain('retains `licenseFiles: []` as explicit evidence');
     expect(record).toContain('does not invent legal text');
     expect(record).toContain('missing or empty manifest declaration still fails closed');
+    expect(record).toContain(
+      'hard-offline audited assembly against implementation commit `6246992`',
+    );
+    expect(record).toContain('retained the exact seven-node graph');
+    expect(record).toContain('created no snapshot');
   });
 
   it('requires new authority for attempt 4', () => {

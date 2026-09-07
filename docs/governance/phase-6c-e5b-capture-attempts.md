@@ -63,8 +63,14 @@ manifest declaration still fails closed.
 Regression validation models the exact installed shim without a legal file, proves that its declared
 license and empty legal-file list survive canonical serialization, proves that the other six nodes
 retain their legal-file hashes, and continues to reject a missing manifest license. The complete
-release-candidate suite, documentation tests, documentation build, and repository quality gate must
-pass before this correction is offered for acceptance.
+repository quality gate passed, including 125 release-candidate tests across 22 files, 285
+documentation assertions across 42 files, and the documentation build.
+
+A separate hard-offline audited assembly against implementation commit `6246992` then completed both
+deterministic frozen-source passes and retained the exact seven-node graph. It observed
+`@lit-labs/ssr-dom-shim@1.6.0` with declared license `BSD-3-Clause` and zero legal files. That local
+validation had no advisory transport, created no snapshot, and its disposable candidate output was
+removed.
 
 ## Next authority boundary
 
