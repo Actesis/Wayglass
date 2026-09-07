@@ -150,6 +150,14 @@ the heading remains present before and after React binding removal. The failure 
 fixture accessibility defect, not rewritten as a candidate failure; browser execution stopped
 immediately and the entire run root was removed.
 
+The following run passed the corrected primary browser stage and reached the first Vanilla removal.
+Current pnpm `11.25.0` rejected `--offline` and `--ignore-scripts` as unsupported `remove` command
+options. The consumer subprocess environment already fixes both controls with
+`PNPM_CONFIG_OFFLINE=true`, `npm_config_offline=true`, and `npm_config_ignore_scripts=true`; the
+correction therefore removes only the obsolete duplicate command arguments from Vanilla and React
+removal. It does not enable network or lifecycle scripts. The failed run stopped before the removal
+build and cleaned all temporary state.
+
 ## Retained validation
 
 Focused tests cover canonical material projection, all six exact preflight scenarios, both offline
@@ -161,8 +169,9 @@ shim creation and precedence. It also verifies that every projected internal dep
 overridden to its exact scenario-owned tarball through a harness-owned current-format pnpm workspace
 file. The declaration fixtures also reject array-shaped token assumptions and exercise a real named
 token. Document fixtures require a persistent level-one heading across primary and removal stages.
-The focused release-candidate suite passes 74 assertions across 16 files with TypeScript and ESLint
-checks.
+Removal command tests require current pnpm syntax while retaining the inherited offline and
+script-disabled environment. The focused release-candidate suite passes 74 assertions across 16
+files with TypeScript and ESLint checks.
 
 The complete offline repository gate also passes against the final implementation: formatting and
 repository lint; all 14 scheduled builds; 58 icon-tooling, 93 token-tooling, 74 release-candidate,

@@ -147,7 +147,7 @@ export async function runReactBuildProbe(
   writeFileSync(resolve(context.root, reactMainPath), reactDirectMain, { encoding: 'utf8' });
   await context.run({
     command: 'pnpm',
-    arguments: ['remove', ...reactRemovalPackages, '--offline', '--ignore-scripts'],
+    arguments: ['remove', ...reactRemovalPackages],
     cwd: context.root,
     environment: context.environment,
   });

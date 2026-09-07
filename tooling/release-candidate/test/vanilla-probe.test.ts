@@ -159,7 +159,7 @@ describe('release-candidate Vanilla build probe', () => {
     expect(fixture.requests.map(({ arguments: arguments_ }) => arguments_)).toEqual([
       ['exec', 'tsc', '--noEmit', '--project', 'tsconfig.json'],
       ['exec', 'vite', 'build'],
-      ['remove', '@wayglass/icons', '--offline', '--ignore-scripts'],
+      ['remove', '@wayglass/icons'],
       ['exec', 'tsc', '--noEmit', '--project', 'tsconfig.json'],
       ['exec', 'vite', 'build'],
     ]);

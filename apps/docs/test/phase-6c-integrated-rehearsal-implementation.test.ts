@@ -49,6 +49,8 @@ describe('Phase 6C-D5 integrated rehearsal implementation record', () => {
     expect(record).toContain('`color.semantic.text.primary` key');
     expect(record).toContain('`page-has-heading-one`');
     expect(record).toContain('persistent descriptive `h1`');
+    expect(record).toContain('rejected `--offline` and `--ignore-scripts`');
+    expect(record).toContain('`npm_config_ignore_scripts=true`');
   });
 
   it('keeps D5 open and retains the release boundary', () => {
