@@ -173,3 +173,57 @@ export interface ReactBuildProbeResult {
   readonly unusedWrappersAbsent: true;
   readonly bindingRemovalRebuild: true;
 }
+
+export interface RetainedEvidenceFile {
+  readonly path: string;
+  readonly bytes: number;
+  readonly sha256: string;
+}
+
+export interface CandidateAttemptEvidence {
+  readonly sequence: number;
+  readonly outcome: 'failed' | 'passed';
+  readonly code: string;
+  readonly summary: string;
+}
+
+export interface IntegratedEvidenceSection {
+  readonly schemaVersion: 1;
+  readonly path: string;
+  readonly bytes: number;
+  readonly sha256: string;
+}
+
+export interface IntegratedCandidateRun {
+  readonly id: 'run-1' | 'run-2';
+  readonly candidate: CandidateEvidence;
+  readonly vanilla: readonly VanillaBuildProbeResult[];
+  readonly react: readonly ReactBuildProbeResult[];
+  readonly browsers: readonly ConsumerBrowserProbeResult[];
+}
+
+export interface IntegratedCandidateEvidence {
+  readonly schemaVersion: 2;
+  readonly source: CandidateEvidence['source'];
+  readonly tooling: CandidateEvidence['tooling'];
+  readonly reproducibility: {
+    readonly runs: 2;
+    readonly byteIdentical: true;
+    readonly deterministicSha256: string;
+  };
+  readonly runs: readonly [IntegratedCandidateRun, IntegratedCandidateRun];
+  readonly sections: {
+    readonly packageAudit: IntegratedEvidenceSection;
+    readonly dependencyAudit: IntegratedEvidenceSection;
+    readonly environment: IntegratedEvidenceSection;
+    readonly qualityGates: IntegratedEvidenceSection;
+    readonly provenance: IntegratedEvidenceSection;
+    readonly advisories: IntegratedEvidenceSection;
+  };
+  readonly bundle: {
+    readonly files: readonly RetainedEvidenceFile[];
+    readonly totalBytes: number;
+    readonly inventorySha256: string;
+  };
+  readonly history: readonly CandidateAttemptEvidence[];
+}

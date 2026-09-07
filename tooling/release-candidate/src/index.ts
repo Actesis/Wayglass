@@ -22,11 +22,18 @@ export {
   serializeProjectedManifest,
 } from './manifest.ts';
 export { assertReproducibleCandidates } from './reproducibility.ts';
+export {
+  deterministicRunSha256,
+  integratedBundleInventorySha256,
+  serializeIntegratedEvidence,
+  validateIntegratedEvidence,
+} from './integrated-evidence.ts';
 export { reactConsumerTemplate } from './react-consumer.ts';
 export { vanillaConsumerTemplate } from './vanilla.ts';
 export type {
   CandidateDirectory,
   CandidateEvidence,
+  CandidateAttemptEvidence,
   CandidateSource,
   CommandRequest,
   CommandResult,
@@ -36,6 +43,9 @@ export type {
   ConsumerScenario,
   ConsumerTemplate,
   ConsumerTemplateFile,
+  IntegratedCandidateEvidence,
+  IntegratedCandidateRun,
+  IntegratedEvidenceSection,
   InspectedFile,
   PackageFile,
   PackageInspection,
@@ -43,5 +53,6 @@ export type {
   ProjectedManifest,
   ReactBuildProbeResult,
   ReactVersionLine,
+  RetainedEvidenceFile,
   VanillaBuildProbeResult,
 } from './types.ts';
