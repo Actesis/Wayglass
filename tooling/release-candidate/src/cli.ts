@@ -11,6 +11,7 @@ import { probeVanillaConsumers } from './vanilla-probe.ts';
 const usage = `Usage:
   pnpm release-candidate:check -- --source <full-sha>
   pnpm release-candidate:build -- --source <full-sha> --output <absolute-new-directory>
+  pnpm release-candidate:capture-advisory -- --source <full-sha> --output <absolute-new-file>
   pnpm release-candidate:integrated -- --source <full-sha> --output <absolute-new-directory> --advisory-snapshot <approved-absolute-file>
   pnpm release-candidate:rehearse -- --source <full-sha>
   pnpm release-candidate:verify -- --evidence <absolute-path>
@@ -52,6 +53,23 @@ export async function main(arguments_: readonly string[]): Promise<void> {
     if (options.length !== 4) invalid('build accepts only --source and --output.');
     const evidence = await buildCandidate(process.cwd(), source, output, runCommand, environment);
     console.log(`Built reproducible private candidates; evidence: ${evidence}`);
+    return;
+  }
+  if (command === 'capture-advisory') {
+    const source = option(options, '--source') ?? invalid('capture-advisory requires --source.');
+    const output = option(options, '--output') ?? invalid('capture-advisory requires --output.');
+    if (options.length !== 4) invalid('capture-advisory accepts only --source and --output.');
+    const { captureAdvisorySnapshot } = await import('./advisory-capture.ts');
+    const result = await captureAdvisorySnapshot(
+      process.cwd(),
+      source,
+      output,
+      runCommand,
+      process.env,
+    );
+    console.log(
+      `Captured ${result.findingCount} advisory findings in snapshot ${result.snapshotSha256}; valid through ${result.validThrough}.`,
+    );
     return;
   }
   if (command === 'verify') {
@@ -169,6 +187,7 @@ if (process.argv[1] !== undefined && import.meta.url === pathToFileURL(process.a
       'WG_RC_ADVISORY_PATH',
       'WG_RC_ADVISORY_SCHEMA',
       'WG_RC_ADVISORY_CANONICAL',
+      'WG_RC_ADVISORY_OUTPUT',
       'WG_RC_INTEGRATED_PATH',
       'WG_RC_PACKAGE_MANAGER_EXECUTABLE',
       'WG_RC_UNSUPPORTED_NODE',
