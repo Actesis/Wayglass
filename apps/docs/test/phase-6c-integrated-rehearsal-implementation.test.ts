@@ -50,7 +50,7 @@ describe('Phase 6C-D5 integrated rehearsal implementation record', () => {
     expect(record).toContain('`page-has-heading-one`');
     expect(record).toContain('persistent descriptive `h1`');
     expect(record).toContain('`ERR_PNPM_UNEXPECTED_STORE`');
-    expect(record).toContain('pins `npm_config_store_dir` in the isolated consumer environment');
+    expect(record).toContain('pins `pnpm_config_store_dir` in the isolated consumer environment');
     expect(record).toContain('rejected `--offline` and `--ignore-scripts`');
     expect(record).toContain('`npm_config_ignore_scripts=true`');
   });

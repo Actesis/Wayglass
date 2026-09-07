@@ -98,7 +98,7 @@ export async function withConsumerProject<T>(
     const isolatedEnvironment = Object.freeze({
       ...environment,
       npm_config_cache: resolve(root, '.npm-cache'),
-      npm_config_store_dir: store,
+      pnpm_config_store_dir: store,
       npm_config_userconfig: userConfig,
     });
     const sharedArguments = ['--offline', '--ignore-scripts', '--store-dir', store] as const;

@@ -161,7 +161,7 @@ build and cleaned all temporary state.
 The next run accepted the corrected remove syntax but pnpm then rejected removal with
 `ERR_PNPM_UNEXPECTED_STORE`: installation had received the validated dedicated store as a command
 argument, while the later remove command inherited no store setting and selected the user-global
-default. The harness now pins `npm_config_store_dir` in the isolated consumer environment alongside
+default. The harness now pins `pnpm_config_store_dir` in the isolated consumer environment alongside
 offline, script, cache, and empty-user-config controls. Every install, removal, declaration, build,
 and nested pnpm process therefore sees the same validated store. The failed run performed no removal
 build and cleaned all temporary state.
@@ -178,8 +178,8 @@ overridden to its exact scenario-owned tarball through a harness-owned current-f
 file. The declaration fixtures also reject array-shaped token assumptions and exercise a real named
 token. Document fixtures require a persistent level-one heading across primary and removal stages.
 Removal command tests require current pnpm syntax while retaining the inherited offline and
-script-disabled environment, including the dedicated store. The focused release-candidate suite
-passes 74 assertions across 16 files with TypeScript and ESLint checks.
+script-disabled environment, including the pnpm-prefixed dedicated store setting. The focused
+release-candidate suite passes 74 assertions across 16 files with TypeScript and ESLint checks.
 
 The complete offline repository gate also passes against the final implementation: formatting and
 repository lint; all 14 scheduled builds; 58 icon-tooling, 93 token-tooling, 74 release-candidate,
