@@ -2,11 +2,13 @@ export {
   acceptedDocumentHashes,
   candidateDirectories,
   candidatePackageNames,
+  candidateToolVersions,
   consumerBuildVersions,
   consumerPackageDirectories,
   consumerReactVersions,
   consumerTypeScriptVersions,
   frozenSource,
+  qualityGateIds,
 } from './constants.ts';
 export {
   consumerPackageNames,
@@ -33,6 +35,19 @@ export {
   serializeDependencyAudit,
   validateDependencyAudit,
 } from './dependency-audit.ts';
+export {
+  collectEnvironmentAudit,
+  collectProvenanceEvidence,
+  collectQualityGateEvidence,
+  serializeEnvironmentAudit,
+  serializeProvenanceEvidence,
+  serializeQualityGateEvidence,
+  validateEnvironmentAudit,
+  validateProvenanceEvidence,
+  validateQualityGateEvidence,
+} from './observation-audit.ts';
+export { serializeAdvisorySnapshot, validateAdvisorySnapshot } from './advisory-snapshot.ts';
+export { validateAttemptHistory, validateEvidenceNotices } from './observation.ts';
 export {
   deterministicRunSha256,
   integratedBundleInventorySha256,
@@ -81,3 +96,19 @@ export type {
   ReleaseUnitDependencyEvidence,
   ResolvedDependencyEdge,
 } from './dependency-audit.ts';
+export type {
+  BrowserObservation,
+  EnvironmentAuditEvidence,
+  EnvironmentAuditInput,
+  ProvenanceEvidence,
+  ProvenanceEvidenceInput,
+  QualityGateEvidence,
+  QualityGateResult,
+} from './observation-audit.ts';
+export type {
+  AdvisoryFinding,
+  AdvisorySeverity,
+  AdvisorySnapshotEvidence,
+  AdvisoryValidationContext,
+} from './advisory-snapshot.ts';
+export type { EvidenceClaim, EvidenceNotice, EvidenceNoticeKind } from './observation.ts';

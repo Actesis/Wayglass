@@ -3,8 +3,8 @@ import { candidateDirectories, frozenSource } from './constants.ts';
 import { consumerScenarios } from './consumer.ts';
 import { fail } from './error.ts';
 import { hashFileInventory, sha256 } from './hash.ts';
+import { validateAttemptHistory } from './observation.ts';
 import type {
-  CandidateAttemptEvidence,
   CandidateEvidence,
   ConsumerBrowserProbeResult,
   IntegratedCandidateEvidence,
@@ -16,7 +16,6 @@ type UnknownRecord = Readonly<Record<string, unknown>>;
 
 const digestPattern = /^[a-f0-9]{64}$/;
 const gitPattern = /^[a-f0-9]{40}$/;
-const attemptCodePattern = /^WG_RC_[A-Z0-9_]+$/;
 const browserEngines = ['chromium', 'firefox', 'webkit'] as const;
 const buildStages = ['primary', 'removal'] as const;
 const sectionPaths = Object.freeze({
@@ -359,34 +358,6 @@ export function integratedBundleInventorySha256(files: readonly RetainedEvidence
   );
 }
 
-function validateHistory(value: unknown): readonly CandidateAttemptEvidence[] {
-  const history = array(value, 'history');
-  if (history.length === 0) fail('WG_RC_INTEGRATED_HISTORY', 'Attempt history cannot be empty.');
-  for (const [index, value_] of history.entries()) {
-    const attempt = exactObject(
-      value_,
-      ['sequence', 'outcome', 'code', 'summary'],
-      `history[${String(index)}]`,
-    );
-    if (attempt.sequence !== index + 1) {
-      fail('WG_RC_INTEGRATED_HISTORY', 'Attempt history sequence must be contiguous and ordered.');
-    }
-    if (attempt.outcome !== 'failed' && attempt.outcome !== 'passed') {
-      schema(`history[${String(index)}].outcome is invalid.`);
-    }
-    const code = nonemptyString(attempt.code, `history[${String(index)}].code`);
-    if (!attemptCodePattern.test(code)) schema(`history[${String(index)}].code is invalid.`);
-    const summary = nonemptyString(attempt.summary, `history[${String(index)}].summary`);
-    if (summary.length > 500 || hasControlCharacter(summary)) {
-      schema(`history[${String(index)}].summary is not normalized.`);
-    }
-  }
-  if ((history.at(-1) as UnknownRecord).outcome !== 'passed') {
-    fail('WG_RC_INTEGRATED_HISTORY', 'Attempt history must end with the successful candidate run.');
-  }
-  return value as readonly CandidateAttemptEvidence[];
-}
-
 function validateSections(
   value: unknown,
   retainedByPath: ReadonlyMap<string, RetainedEvidenceFile>,
@@ -494,7 +465,7 @@ export function validateIntegratedEvidence(value: unknown): IntegratedCandidateE
   ) {
     fail('WG_RC_INTEGRATED_BUNDLE', 'Retained bundle inventory totals or hash do not match.');
   }
-  validateHistory(evidence.history);
+  validateAttemptHistory(evidence.history);
   return value as IntegratedCandidateEvidence;
 }
 
