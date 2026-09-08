@@ -172,9 +172,6 @@ function parseDependencyInput(input: ProductionDependencyInput): {
       Object.freeze({ path, bytes: bytes.byteLength, sha256: sha256(bytes) }),
     )
     .sort((left, right) => left.path.localeCompare(right.path));
-  if (licenseFiles.length === 0) {
-    dependencyFailure(`${name}@${version} has no retained license or notice file evidence.`);
-  }
   return {
     id: nodeId(name, version),
     evidence: Object.freeze({
@@ -359,8 +356,8 @@ export function validateDependencyAudit(value: unknown): DependencyAuditEvidence
       dependencyFailure(`${name}@${version} package manifest hash is invalid.`);
     }
     string(node.declaredLicense, `${name}@${version} license`);
-    if (!Array.isArray(node.licenseFiles) || node.licenseFiles.length === 0) {
-      dependencyFailure(`${name}@${version} license file evidence is missing.`);
+    if (!Array.isArray(node.licenseFiles)) {
+      dependencyFailure(`${name}@${version} license file evidence must be an array.`);
     }
     const licensePaths = node.licenseFiles.map((fileValue, fileIndex) => {
       const file = exactObject(

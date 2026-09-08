@@ -57,6 +57,7 @@ interface InstalledFixture {
   readonly name: string;
   readonly version: string;
   readonly dependencies?: Readonly<Record<string, string>>;
+  readonly licenseFile?: boolean;
 }
 
 function install(root: string, fixture: InstalledFixture): string {
@@ -71,7 +72,9 @@ function install(root: string, fixture: InstalledFixture): string {
       ...(fixture.dependencies === undefined ? {} : { dependencies: fixture.dependencies }),
     })}\n`,
   );
-  writeFileSync(resolve(path, 'LICENSE'), `License for ${fixture.name}\n`);
+  if (fixture.licenseFile !== false) {
+    writeFileSync(resolve(path, 'LICENSE'), `License for ${fixture.name}\n`);
+  }
   return path;
 }
 
@@ -85,7 +88,11 @@ function installedGraph(worktree: string): Readonly<Record<string, string>> {
   const store = resolve(worktree, '.installed');
   mkdirSync(store);
   const paths = {
-    shim: install(store, { name: '@lit-labs/ssr-dom-shim', version: '1.6.0' }),
+    shim: install(store, {
+      name: '@lit-labs/ssr-dom-shim',
+      version: '1.6.0',
+      licenseFile: false,
+    }),
     react: install(store, { name: '@lit/react', version: '1.0.8' }),
     reactive: install(store, {
       name: '@lit/reactive-element',
@@ -148,6 +155,14 @@ describe('installed production dependency reader', () => {
       'lit-html@3.3.3',
       'lit@3.3.3',
     ]);
+    expect(
+      evidence.productionGraph.find(({ name }) => name === '@lit-labs/ssr-dom-shim'),
+    ).toMatchObject({ declaredLicense: 'BSD-3-Clause', licenseFiles: [] });
+    expect(
+      evidence.productionGraph
+        .filter(({ name }) => name !== '@lit-labs/ssr-dom-shim')
+        .every(({ licenseFiles }) => licenseFiles.length > 0),
+    ).toBe(true);
   });
 
   it('rejects an installed production root resolving outside the frozen worktree', () => {

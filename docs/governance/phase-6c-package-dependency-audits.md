@@ -32,9 +32,9 @@ authored source, unsafe path, private fixture, symlink, or unsafe source map fai
 ## Production-dependency evidence
 
 The dependency collector consumes an explicit resolved production graph. Each node supplies the
-actual installed package's `package.json` and license or notice file bytes plus the exact versions
-to which its declared production dependencies resolved. It does not infer a license, dependency, or
-version from a package name, the workspace lockfile, or registry metadata.
+actual installed package's `package.json`, any package-root license or notice file bytes, and the
+exact versions to which its declared production dependencies resolved. It does not infer a license,
+dependency, or version from a package name, the workspace lockfile, or registry metadata.
 
 The audit derives its external roots from the six accepted release-unit manifests. Every root and
 edge uses an exact version; every edge must resolve to one retained node; duplicate nodes are
@@ -43,8 +43,11 @@ excludes disconnected development-only packages from the production evidence. Wa
 remain in the package records and cannot be duplicated as external graph nodes.
 
 Each dependency node records its exact name and version, package-manifest hash, declared license,
-hashed license or notice files, peer ranges, exact production edges, and the names of recognized
-lifecycle scripts. Lifecycle script bodies are neither retained nor executed by this pure audit.
+every hashed package-root license or notice file that exists, peer ranges, exact production edges,
+and the names of recognized lifecycle scripts. A package that declares a license but omits a legal
+file retains an empty `licenseFiles` array; that observable absence requires owner disposition and
+is not replaced with registry metadata or repository bytes. A missing or empty manifest license
+still fails closed. Lifecycle script bodies are neither retained nor executed by this pure audit.
 Their presence remains explicit evidence for later disposition rather than being silently treated as
 absence.
 
@@ -52,8 +55,8 @@ The retained validator recomputes the two accepted roots from release-unit contr
 every node and edge, and independently traverses the graph. A literal
 `allProductionNodesReachable: true` flag is necessary but never sufficient. Reordered or duplicate
 roots, nodes, edges, legal files, or lifecycle findings fail canonical validation, as do missing
-edge targets, unreachable nodes, malformed hashes, absent legal-file evidence, inexact versions, or
-unknown fields.
+edge targets, unreachable nodes, malformed hashes, invalid retained legal-file evidence, absent
+manifest license declarations, inexact versions, or unknown fields.
 
 ## Determinism and effect boundary
 
@@ -71,9 +74,10 @@ candidate path and for hash-binding the resulting canonical sections into the E1
 
 The release-candidate core passes 91 focused tests across 18 files. E2 fixtures cover all six
 packages, frozen legal bytes, manifest drift, unsafe source maps, canonical key order, exact roots,
-the seven-node reachable production graph, manifest and legal-file hashes, lifecycle recording,
-missing licenses, unresolved or missing dependencies, duplicate nodes and edges, unreachable
-development-only nodes, and unknown retained fields.
+the seven-node reachable production graph, manifest and legal-file hashes, manifest-only declared
+license evidence, lifecycle recording, missing license declarations, unresolved or missing
+dependencies, duplicate nodes and edges, unreachable development-only nodes, and unknown retained
+fields.
 
 TypeScript, ESLint, formatting, documentation tests, the documentation build, and the complete
 repository quality gate also pass.

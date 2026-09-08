@@ -12,16 +12,17 @@ const record = readFileSync(
 ).replace(/\s+/g, ' ');
 
 describe('Phase 6C-E5B advisory-capture attempt record', () => {
-  it('preserves both failed attempts without inventing execution evidence', () => {
+  it('preserves all failed attempts without inventing execution evidence', () => {
     expect(record).toContain('| 1 | `2026-09-07T22:52:57Z` | failed | `WG_RC_OUTPUT_TEMP`');
     expect(record).toContain('| 2 | `2026-09-07T22:52:57Z` | failed | `WG_RC_COMMAND_START`');
+    expect(record).toContain('| 3 | `2026-09-07T23:01:24Z` | failed | `WG_RC_DEPENDENCY_AUDIT`');
     expect(record).toContain('Inventing them would create false evidence');
     expect(record).toContain('Attempt 2 used the corrected temporary-root location from attempt 1');
   });
 
   it('records that neither attempt crossed the network boundary', () => {
-    expect(record).toContain('Both failures occurred before candidate assembly');
-    expect(record).toContain('Neither attempt contacted npm');
+    expect(record).toContain('Attempt 3 completed candidate assembly');
+    expect(record).toContain('None of the three attempts contacted npm');
     expect(record).toContain('no snapshot exists');
   });
 
@@ -32,9 +33,21 @@ describe('Phase 6C-E5B advisory-capture attempt record', () => {
     expect(record).toContain('does not select a global or alternate pnpm');
   });
 
-  it('requires new authority for attempt 3', () => {
+  it('preserves manifest-only license evidence for disposition', () => {
+    expect(record).toContain('package manifest declares `BSD-3-Clause`');
+    expect(record).toContain('retains `licenseFiles: []` as explicit evidence');
+    expect(record).toContain('does not invent legal text');
+    expect(record).toContain('missing or empty manifest declaration still fails closed');
+    expect(record).toContain(
+      'hard-offline audited assembly against implementation commit `6246992`',
+    );
+    expect(record).toContain('retained the exact seven-node graph');
+    expect(record).toContain('created no snapshot');
+  });
+
+  it('requires new authority for attempt 4', () => {
     expect(record).toContain('does not retry E5B');
-    expect(record).toContain('Attempt 3 requires a fresh explicit project-owner instruction');
+    expect(record).toContain('Attempt 4 requires a fresh explicit project-owner instruction');
     expect(record).toContain('does not authorize another capture attempt');
   });
 });
