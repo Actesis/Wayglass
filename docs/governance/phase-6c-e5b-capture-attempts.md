@@ -1,10 +1,10 @@
 # Phase 6C-E5B advisory-capture attempt record
 
-**Status:** Three failed pre-transport attempts recorded on September 7, 2026, with a
-manifest-license evidence correction proposed for project-owner acceptance. No npm advisory request
-occurred, no response was received, and no snapshot exists. This record does not authorize another
-capture attempt, the E5C authoritative run, publication, credentials, tags, releases, deployment, or
-external-application work.
+**Status:** Four failed attempts recorded through September 8, 2026, with a bounded
+response-decoding correction proposed for project-owner acceptance. Attempts 1 through 3 stopped
+before transport; attempt 4 made one npm bulk-advisory request and rejected its response. No
+snapshot exists. This record does not authorize another capture attempt, the E5C authoritative run,
+publication, credentials, tags, releases, deployment, or external-application work.
 
 ## Append-only capture ledger
 
@@ -13,11 +13,12 @@ attempts. Inventing them would create false evidence, so `recordedAt` is the who
 at which both already-observed outcomes were entered into this repository record. Future capture
 attempts must record their actual command-start time at invocation.
 
-| Sequence | Recorded at            | Outcome | Code                     | Safe summary                                                                 |
-| -------- | ---------------------- | ------- | ------------------------ | ---------------------------------------------------------------------------- |
-| 1        | `2026-09-07T22:52:57Z` | failed  | `WG_RC_OUTPUT_TEMP`      | The selected output was not below the operating-system temporary root.       |
-| 2        | `2026-09-07T22:52:57Z` | failed  | `WG_RC_COMMAND_START`    | The pinned pnpm JavaScript launcher existed but was not directly executable. |
-| 3        | `2026-09-07T23:01:24Z` | failed  | `WG_RC_DEPENDENCY_AUDIT` | One dependency declared a license but retained no license or notice file.    |
+| Sequence | Recorded at            | Outcome | Code                       | Safe summary                                                                 |
+| -------- | ---------------------- | ------- | -------------------------- | ---------------------------------------------------------------------------- |
+| 1        | `2026-09-07T22:52:57Z` | failed  | `WG_RC_OUTPUT_TEMP`        | The selected output was not below the operating-system temporary root.       |
+| 2        | `2026-09-07T22:52:57Z` | failed  | `WG_RC_COMMAND_START`      | The pinned pnpm JavaScript launcher existed but was not directly executable. |
+| 3        | `2026-09-07T23:01:24Z` | failed  | `WG_RC_DEPENDENCY_AUDIT`   | One dependency declared a license but retained no license or notice file.    |
+| 4        | `2026-09-08T00:38:35Z` | failed  | `WG_RC_ADVISORY_TRANSPORT` | The status-200 provider response did not advertise an accepted JSON type.    |
 
 Both failures occurred before candidate assembly and before construction or transmission of the
 advisory request. Neither attempt contacted npm, received provider bytes, created a snapshot,
@@ -63,7 +64,7 @@ manifest declaration still fails closed.
 Regression validation models the exact installed shim without a legal file, proves that its declared
 license and empty legal-file list survive canonical serialization, proves that the other six nodes
 retain their legal-file hashes, and continues to reject a missing manifest license. The complete
-repository quality gate passed, including 125 release-candidate tests across 22 files, 285
+repository quality gate passed, including 126 release-candidate tests across 22 files, 286
 documentation assertions across 42 files, and the documentation build.
 
 A separate hard-offline audited assembly against implementation commit `6246992` then completed both
@@ -72,9 +73,30 @@ deterministic frozen-source passes and retained the exact seven-node graph. It o
 validation had no advisory transport, created no snapshot, and its disposable candidate output was
 removed.
 
+## Attempt 4 diagnosis
+
+Attempt 4 completed the corrected audited assembly and made its one authorized credential-free
+request to the fixed npm bulk-advisory endpoint. The endpoint returned status 200, but the response
+did not advertise the required JSON media type, so the adapter rejected it before hashing or parsing
+and removed all owned output. It did not redirect, fall back, retry, retain provider bytes, or
+create a snapshot.
+
+npm's API documentation describes a JSON success response, while an npm CLI issue reported in July
+2026 documents the same bulk endpoint returning gzip bytes without the required content-encoding
+header. Because attempt 4 intentionally did not retain raw response bytes, this record does not
+claim that its body was gzip or valid JSON. It records only the observed status and validation
+failure.
+
+The correction hashes the exact raw response before any decoding. It accepts declared gzip or gzip
+magic bytes, bounds decompressed output to one MiB, and then requires strict UTF-8, JSON, and exact
+bulk-response schema validation. Missing JSON media type and gzip without a declaration become
+explicit dependency-security warnings in an otherwise valid snapshot. Unsupported encodings, invalid
+gzip, HTML, malformed JSON, unknown packages, invalid findings, and oversized decoded output still
+fail closed. No broader endpoint, fallback, redirect, credential, or retry is introduced.
+
 ## Next authority boundary
 
 Merging this correction only makes a later capture attempt technically eligible. It does not retry
-E5B. Attempt 4 requires a fresh explicit project-owner instruction after the reviewed correction is
-merged, and it must create a new output file, append a fourth ledger entry, and preserve either its
+E5B. Attempt 5 requires a fresh explicit project-owner instruction after the reviewed correction is
+merged, and it must create a new output file, append a fifth ledger entry, and preserve either its
 failure or its exact canonical snapshot for owner review.
