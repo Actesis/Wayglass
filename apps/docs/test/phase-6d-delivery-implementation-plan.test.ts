@@ -79,6 +79,6 @@ describe('Phase 6D documentation and Storybook delivery implementation plan', ()
     expect(plan).toContain('automated documentation and Storybook deployment is acceptable');
     expect(plan).toContain('authorizes Phase 6D-A readiness and dependency-proposal work only');
     expect(roadmap).toContain('Phase 6D delivery plan is accepted');
-    expect(roadmap).toContain('Phase 6D-A readiness work is active');
+    expect(roadmap).toContain('Phase 6D-A readiness and Wrangler dependency proposal is active');
   });
 });
