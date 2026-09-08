@@ -1,10 +1,11 @@
 # Phase 6C-E5B advisory-capture attempt record
 
-**Status:** Four failed attempts recorded through September 8, 2026, with a bounded
-response-decoding correction proposed for project-owner acceptance. Attempts 1 through 3 stopped
-before transport; attempt 4 made one npm bulk-advisory request and rejected its response. No
-snapshot exists. This record does not authorize another capture attempt, the E5C authoritative run,
-publication, credentials, tags, releases, deployment, or external-application work.
+**Status:** Attempt 5 produced a canonical zero-finding snapshot on September 8, 2026, proposed for
+project-owner approval. Attempts 1 through 3 stopped before transport; attempt 4 made one npm
+bulk-advisory request and rejected its response. Attempt 5 made one separately authorized request
+and retained the result described below. This record does not approve that snapshot, authorize the
+E5C authoritative run, publish packages, use credentials, create tags or releases, deploy, or begin
+external-application work.
 
 ## Append-only capture ledger
 
@@ -13,19 +14,20 @@ attempts. Inventing them would create false evidence, so `recordedAt` is the who
 at which both already-observed outcomes were entered into this repository record. Future capture
 attempts must record their actual command-start time at invocation.
 
-| Sequence | Recorded at            | Outcome | Code                       | Safe summary                                                                 |
-| -------- | ---------------------- | ------- | -------------------------- | ---------------------------------------------------------------------------- |
-| 1        | `2026-09-07T22:52:57Z` | failed  | `WG_RC_OUTPUT_TEMP`        | The selected output was not below the operating-system temporary root.       |
-| 2        | `2026-09-07T22:52:57Z` | failed  | `WG_RC_COMMAND_START`      | The pinned pnpm JavaScript launcher existed but was not directly executable. |
-| 3        | `2026-09-07T23:01:24Z` | failed  | `WG_RC_DEPENDENCY_AUDIT`   | One dependency declared a license but retained no license or notice file.    |
-| 4        | `2026-09-08T00:38:35Z` | failed  | `WG_RC_ADVISORY_TRANSPORT` | The status-200 provider response did not advertise an accepted JSON type.    |
+| Sequence | Recorded at            | Outcome | Code                          | Safe summary                                                                 |
+| -------- | ---------------------- | ------- | ----------------------------- | ---------------------------------------------------------------------------- |
+| 1        | `2026-09-07T22:52:57Z` | failed  | `WG_RC_OUTPUT_TEMP`           | The selected output was not below the operating-system temporary root.       |
+| 2        | `2026-09-07T22:52:57Z` | failed  | `WG_RC_COMMAND_START`         | The pinned pnpm JavaScript launcher existed but was not directly executable. |
+| 3        | `2026-09-07T23:01:24Z` | failed  | `WG_RC_DEPENDENCY_AUDIT`      | One dependency declared a license but retained no license or notice file.    |
+| 4        | `2026-09-08T00:38:35Z` | failed  | `WG_RC_ADVISORY_TRANSPORT`    | The status-200 provider response did not advertise an accepted JSON type.    |
+| 5        | `2026-09-08T03:18:41Z` | passed  | `WG_RC_ADVISORY_CAPTURE_PASS` | One canonical zero-finding snapshot was retained for owner review.           |
 
-Both failures occurred before candidate assembly and before construction or transmission of the
-advisory request. Neither attempt contacted npm, received provider bytes, created a snapshot,
+Attempts 1 and 2 both failed before candidate assembly and before construction or transmission of
+the advisory request. Neither attempt contacted npm, received provider bytes, created a snapshot,
 changed the frozen source, or left candidate output. Attempt 2 used the corrected temporary-root
 location from attempt 1; it did not overwrite or relabel attempt 1. Attempt 3 completed candidate
 assembly before the dependency audit stopped it, but it also occurred before request construction or
-transmission. None of the three attempts contacted npm, received provider bytes, or created a
+transmission. None of the first three attempts contacted npm, received provider bytes, or created a
 snapshot.
 
 ## Attempt 2 diagnosis
@@ -94,9 +96,41 @@ explicit dependency-security warnings in an otherwise valid snapshot. Unsupporte
 gzip, HTML, malformed JSON, unknown packages, invalid findings, and oversized decoded output still
 fail closed. No broader endpoint, fallback, redirect, credential, or retry is introduced.
 
+## Attempt 5 retained snapshot
+
+Attempt 5 ran from clean merged tooling commit `d16727ab51140c349dd1c4695650aa96337bb593` against
+frozen source `ce400e89930a047c6af1c6992c64cfe422a1eeee`. It completed offline audited assembly
+before making its one separately authorized credential-free request to the fixed npm bulk endpoint.
+It did not redirect, fall back, retry, contact another registry route, or use a release credential.
+
+The retained result proposed for project-owner approval is:
+
+| Evidence                     | Exact value                                                        |
+| ---------------------------- | ------------------------------------------------------------------ |
+| Snapshot SHA-256             | `c67751865ce3fe05e294fc173246abefb0f875fe5f5afd6dc6f5f09a239ed3f9` |
+| Exact raw-response SHA-256   | `44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a` |
+| Dependency-audit SHA-256     | `45178532da0e24286d7e4fa9a4ed4cd6cef630d31e7341c3e6817d705ce3178f` |
+| Frozen lockfile SHA-256      | `bdb6b4e916bd5fa2330fc3dd3f272814c6940ec04dab78b437b7007be386a525` |
+| Captured at                  | `2026-09-08T03:21:31Z`                                             |
+| Valid through                | `2026-09-09T03:21:31Z`                                             |
+| Findings                     | `0`                                                                |
+| Snapshot bytes               | `801`                                                              |
+| Dependency-security warnings | `WG_RC_ADVISORY_MEDIA_TYPE`                                        |
+
+The warning states that the provider did not advertise a JSON media type; the exact decoded bytes
+nevertheless passed strict UTF-8, JSON, graph-bound response-schema, snapshot-schema, and canonical
+serialization validation. No undeclared-gzip warning was produced. The raw provider bytes were
+hashed before decoding and then discarded as required; only the canonical snapshot remains.
+
+A separate read-only verification recomputed the snapshot SHA-256, validated its exact seven-node
+dependency context, confirmed zero findings and the single warning, reproduced the canonical bytes,
+and confirmed an exact 24-hour validity interval. The repository and Git worktree inventory were
+clean after capture.
+
 ## Next authority boundary
 
-Merging this correction only makes a later capture attempt technically eligible. It does not retry
-E5B. Attempt 5 requires a fresh explicit project-owner instruction after the reviewed correction is
-merged, and it must create a new output file, append a fifth ledger entry, and preserve either its
-failure or its exact canonical snapshot for owner review.
+The project owner must explicitly approve or reject the exact attempt-5 snapshot, including its zero
+findings and media-type warning. Approval completes E5B for this snapshot only while it remains
+valid. It does not authorize E5C. The one authoritative retained E5C run requires a separate
+explicit instruction and must consume this exact snapshot before `2026-09-09T03:21:31Z`; otherwise
+E5B must capture a new dated snapshot under fresh authority.
