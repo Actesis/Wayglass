@@ -66,6 +66,9 @@ describe('Phase 6C release-candidate proof proposal', () => {
     expect(adr).toContain('- Status: accepted');
     expect(contract).toContain('**Status:** Accepted by the project owner');
     expect(contract).toContain('Phase 6C-A is complete');
-    expect(roadmap).toMatch(/Phase 6C-D is complete and Phase\s+6C-E planning is active/);
+    expect(roadmap).toMatch(
+      /Phase 6C completed by project-owner acceptance of the exact verified candidate on\s+September 8, 2026/,
+    );
+    expect(roadmap).toContain('Phase 6D delivery plan is accepted');
   });
 });

@@ -15,9 +15,10 @@ const runRecord = readFileSync(
   'utf8',
 ).replace(/\s+/g, ' ');
 
-describe('Phase 6C-E5D candidate disposition proposal', () => {
-  it('recommends accepting only the exact verified candidate', () => {
-    expect(disposition).toContain('**Recommendation: accept candidate.**');
+describe('Phase 6C-E5D accepted candidate disposition', () => {
+  it('accepts only the exact verified candidate', () => {
+    expect(disposition).toContain('**Status:** Accepted by the project owner');
+    expect(disposition).toContain('**Decision: accept candidate.**');
     expect(disposition).toContain('`ce400e89930a047c6af1c6992c64cfe422a1eeee`');
     expect(disposition).toContain(
       '`ad579157e79acccdc0cb5927994c45fe563656f1b6c93d64b091d130fdaec73b`',
@@ -79,18 +80,20 @@ describe('Phase 6C-E5D candidate disposition proposal', () => {
     );
   });
 
-  it('offers all three owner outcomes and requires an explicit decision', () => {
+  it('records all three owner outcomes and the selected decision', () => {
     expect(disposition).toContain('**Accept candidate**');
     expect(disposition).toContain('**Narrow or refreeze**');
     expect(disposition).toContain('**No candidate**');
-    expect(disposition).toContain('Only an explicit project-owner decision');
+    expect(disposition).toContain('The project owner selected **accept candidate**');
   });
 
   it('keeps retention, deployment, publication, and external work behind later authority', () => {
     expect(disposition).toContain('durable private retention location');
     expect(disposition).toContain('does not authorize that upload or removal');
     expect(disposition).toContain('does not authorize Phase 6E npm work');
-    expect(disposition).toContain('production deployment still requires its own approval');
+    expect(disposition).toContain('preview and production deployment remain separately controlled');
+    expect(disposition).toContain('completes Phase 6C');
+    expect(disposition).toContain('Phase 6D documentation and Storybook delivery implementation');
     expect(runRecord).toContain('[E5D disposition proposal]');
   });
 });

@@ -1,18 +1,18 @@
-# Phase 6C-E5D release-candidate disposition proposal
+# Phase 6C-E5D release-candidate disposition
 
-**Status:** Proposed for project-owner decision on September 8, 2026. This proposal recommends
-accepting the exact verified private candidate described below and completing Phase 6C. It does not
-accept the candidate by itself, publish packages, change package privacy or versions, use
-credentials, create tags or releases, upload artifacts, deploy, or begin external-application work.
+**Status:** Accepted by the project owner on September 8, 2026. The exact verified private candidate
+described below completes Phase 6C. This acceptance does not publish packages, change package
+privacy or versions, use credentials, create tags or releases, upload artifacts, deploy, or begin
+external-application work.
 
-## Proposed decision
+## Accepted decision
 
-**Recommendation: accept candidate.** All six proposed v1 release units passed the frozen-source
-candidate matrix, both authoritative runs were byte-identical, the independent verifier reproduced
-the retained bundle, and the approved advisory input reported zero findings. No evidence requires a
+**Decision: accept candidate.** All six proposed v1 release units passed the frozen-source candidate
+matrix, both authoritative runs were byte-identical, the independent verifier reproduced the
+retained bundle, and the approved advisory input reported zero findings. No evidence requires a
 scope reduction or refreeze.
 
-Acceptance would apply only to:
+Acceptance applies only to:
 
 - frozen source `ce400e89930a047c6af1c6992c64cfe422a1eeee` and tree
   `da2550b5aa2636d0896ae61e08c340f405fe1412`;
@@ -27,21 +27,21 @@ scope; it is not npm publish approval and does not turn these tarballs into publ
 
 ## Exact release-unit disposition
 
-| Release unit         | Version | Tarball SHA-256                                                    | Proposed disposition |
-| -------------------- | ------- | ------------------------------------------------------------------ | -------------------- |
-| `@wayglass/core`     | `0.1.0` | `cbe647b8cd0fa897e4e3a6b40d12faf9be24f183c16c067409bab8a9d247edfb` | Accept               |
-| `@wayglass/tokens`   | `0.1.0` | `39696e55a5c75839684e9e42c22ca37b0a72f052bf6a48ff0d06f932bd08a971` | Accept               |
-| `@wayglass/themes`   | `0.1.0` | `25080039b5afc2caa484e64af352ae2d7a8fe10bd320a41b47b8c20c578d8f71` | Accept               |
-| `@wayglass/elements` | `0.1.0` | `c4b014498265816e3fc7d098ee3dfba2a5ade54ec63d24456edef9846cc6ba5d` | Accept               |
-| `@wayglass/icons`    | `0.1.0` | `2cd030d29ff41f639c21be3c1b66d306937b7665de4b1b1d6af5fc8720ef18af` | Accept               |
-| `@wayglass/react`    | `0.1.0` | `ea5581609b2b868f5482c7b40b998606bd4bcb7b758b4923b2d67bbbebcfe320` | Accept               |
+| Release unit         | Version | Tarball SHA-256                                                    | Disposition |
+| -------------------- | ------- | ------------------------------------------------------------------ | ----------- |
+| `@wayglass/core`     | `0.1.0` | `cbe647b8cd0fa897e4e3a6b40d12faf9be24f183c16c067409bab8a9d247edfb` | Accepted    |
+| `@wayglass/tokens`   | `0.1.0` | `39696e55a5c75839684e9e42c22ca37b0a72f052bf6a48ff0d06f932bd08a971` | Accepted    |
+| `@wayglass/themes`   | `0.1.0` | `25080039b5afc2caa484e64af352ae2d7a8fe10bd320a41b47b8c20c578d8f71` | Accepted    |
+| `@wayglass/elements` | `0.1.0` | `c4b014498265816e3fc7d098ee3dfba2a5ade54ec63d24456edef9846cc6ba5d` | Accepted    |
+| `@wayglass/icons`    | `0.1.0` | `2cd030d29ff41f639c21be3c1b66d306937b7665de4b1b1d6af5fc8720ef18af` | Accepted    |
+| `@wayglass/react`    | `0.1.0` | `ea5581609b2b868f5482c7b40b998606bd4bcb7b758b4923b2d67bbbebcfe320` | Accepted    |
 
 Testing helpers, ESLint configuration, applications, examples, experiments, private tooling,
 provider integrations, and SpaceTraders work remain excluded exactly as frozen in Phase 6B.
 
 ## Evidence disposition
 
-The accepted interpretation would retain:
+The accepted record retains:
 
 | Evidence                    | Result                                                                                                                     |
 | --------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
@@ -59,7 +59,7 @@ successful command output are excluded from the repository record.
 
 ## Warning and limitation disposition
 
-Acceptance would carry, not erase, the five recorded warnings:
+Acceptance carries, rather than erases, the five recorded warnings:
 
 - `WG_RC_ADVISORY_MEDIA_TYPE`: npm did not advertise JSON, but the exact response bytes passed the
   accepted strict validation and the owner already approved this warning;
@@ -73,7 +73,7 @@ None indicates a failed release unit or changes the exact hashes. The Node and S
 remain maintenance inputs for later work; acceptance does not promise that future tool versions will
 remain warning-free.
 
-Acceptance would also carry these support limitations:
+Acceptance also carries these support limitations:
 
 - `WG_RC_AUTOMATED_BROWSER_ONLY`: automated browser evidence does not establish human
   assistive-technology support or certification; and
@@ -87,7 +87,7 @@ Wayglass tarball. Candidate acceptance treats the evidence as sufficient for Pha
 requiring Phase 6E release review to preserve the exact dependency and complete its legal/compliance
 disposition before publication approval.
 
-## Alternatives available to the project owner
+## Alternatives considered and not selected
 
 | Decision               | Effect                                                                                                              |
 | ---------------------- | ------------------------------------------------------------------------------------------------------------------- |
@@ -95,15 +95,15 @@ disposition before publication approval.
 | **Narrow or refreeze** | Change a release unit, source, dependency, contract, or claim through a new Phase 6B freeze; invalidate this bundle |
 | **No candidate**       | Retain the reason and close Phase 6C without an accepted release candidate                                          |
 
-The evidence supports **accept candidate**. Selecting another outcome requires the owner to state
-the release-unit, source, claim, warning, limitation, or risk that changes the recommendation.
+The project owner selected **accept candidate**. Narrow or refreeze and no candidate remain the
+recorded alternatives, not active outcomes.
 
-## Acceptance effect and next boundary
+## Accepted effect and next boundary
 
-Only an explicit project-owner decision accepting this exact disposition completes Phase 6C. If
-accepted, Phase 6D documentation and Storybook delivery implementation becomes the next roadmap
-stage. Phase 6D remains local implementation and preview preparation; production deployment still
-requires its own approval.
+The project owner's explicit decision accepting this exact disposition completes Phase 6C. Phase 6D
+documentation and Storybook delivery implementation is now the active roadmap stage. Phase 6D begins
+with local planning and prerequisite verification; preview and production deployment remain
+separately controlled.
 
 The retained local bundle must remain untouched until a separately approved durable private
 retention location is verified. Candidate acceptance does not authorize that upload or removal of
