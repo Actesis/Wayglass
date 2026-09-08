@@ -179,6 +179,22 @@ export default defineConfig({
             text: 'ADR 0036 private candidate tooling',
             link: '/architecture/adr/0036-private-release-candidate-tooling',
           },
+          {
+            text: 'Phase 6D delivery plan',
+            link: '/governance/phase-6d-delivery-implementation-plan',
+          },
+          {
+            text: 'Phase 6D-A readiness and Wrangler',
+            link: '/governance/phase-6d-a-readiness-and-wrangler-proposal',
+          },
+          {
+            text: 'Phase 6D-B site composition',
+            link: '/governance/phase-6d-b-site-composition-contract',
+          },
+          {
+            text: 'ADR 0037 deterministic site composition',
+            link: '/architecture/adr/0037-deterministic-site-composition',
+          },
           { text: 'Phase 5 ecosystem roadmap', link: '/phase-5' },
           { text: 'Phase 5 roadmap disposition', link: '/phase-5-roadmap-disposition' },
           {
@@ -543,6 +559,18 @@ export default defineConfig({
           {
             text: 'ADR 0034: Private icon pipeline',
             link: '/architecture/adr/0034-private-icon-pipeline-architecture',
+          },
+          {
+            text: 'ADR 0035: Initial version and compatibility',
+            link: '/architecture/adr/0035-initial-version-and-compatibility',
+          },
+          {
+            text: 'ADR 0036: Private candidate tooling',
+            link: '/architecture/adr/0036-private-release-candidate-tooling',
+          },
+          {
+            text: 'ADR 0037: Deterministic site composition',
+            link: '/architecture/adr/0037-deterministic-site-composition',
           },
         ],
       },

@@ -1,9 +1,9 @@
 # Phase 6D-A readiness and Wrangler dependency proposal
 
-**Status:** Proposed for project-owner acceptance on September 8, 2026. This record completes the
-authorized read-only readiness checks that can be performed with the current CLI and proposes one
-exact Wrangler dependency for later implementation. It does not install Wrangler in the repository,
-write Cloudflare configuration, connect GitHub, create a Worker, change DNS, upload assets, enable a
+**Status:** Accepted by the project owner on September 8, 2026. This record completes the authorized
+read-only readiness checks that can be performed with the current CLI and accepts one exact Wrangler
+dependency for later implementation. It does not install Wrangler in the repository, write
+Cloudflare configuration, connect GitHub, create a Worker, change DNS, upload assets, enable a
 build, deploy, publish packages, or expose credentials.
 
 ## Readiness disposition

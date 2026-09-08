@@ -71,14 +71,15 @@ describe('Phase 6D documentation and Storybook delivery implementation plan', ()
     expect(plan).toContain('does not authorize installing Wrangler');
   });
 
-  it('records every owner confirmation and limits plan acceptance to 6D-A', () => {
+  it('records every owner confirmation and the accepted 6D-A transition', () => {
     expect(plan).toContain('control of the `hoagsoftworks.com` Cloudflare zone');
     expect(plan).toContain('has no existing DNS record, Worker route, Pages project');
     expect(plan).toContain('repository stays private until general-release approval');
     expect(plan).toContain('project owner remains the durable account owner');
     expect(plan).toContain('automated documentation and Storybook deployment is acceptable');
     expect(plan).toContain('authorizes Phase 6D-A readiness and dependency-proposal work only');
-    expect(roadmap).toContain('Phase 6D delivery plan is accepted');
-    expect(roadmap).toContain('Phase 6D-A readiness and Wrangler dependency proposal is active');
+    expect(roadmap).toContain('Phase 6D delivery plan and Phase 6D-A readiness');
+    expect(roadmap).toContain('dependency proposal are accepted');
+    expect(roadmap).toContain('Phase 6D-B deterministic site-composition contract is proposed');
   });
 });
