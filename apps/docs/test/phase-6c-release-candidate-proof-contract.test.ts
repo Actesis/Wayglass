@@ -69,6 +69,6 @@ describe('Phase 6C release-candidate proof proposal', () => {
     expect(roadmap).toMatch(
       /Phase 6C completed by project-owner acceptance of the exact verified candidate on\s+September 8, 2026/,
     );
-    expect(roadmap).toContain('Phase 6D documentation and Storybook delivery planning is active');
+    expect(roadmap).toContain('Phase 6D delivery plan is accepted');
   });
 });

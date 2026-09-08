@@ -27,10 +27,12 @@ describe('Phase 6D documentation and Storybook delivery implementation plan', ()
 
   it('freezes the proposed origin, surfaces, visibility, and data boundaries', () => {
     expect(plan).toContain('`https://wayglass.hoagsoftworks.com`');
-    expect(plan).toContain('Keep `Actesis/Wayglass` private through Phase 6D');
-    expect(plan).toContain('public only at an approved launch');
+    expect(plan).toContain(
+      'Keep `Actesis/Wayglass` private until the project owner approves general release',
+    );
+    expect(plan).toContain('may become public at the canonical origin after launch approval');
     expect(plan).toContain('VitePress at `/`; Storybook at `/storybook/`; no walkthroughs');
-    expect(plan).toContain('Protected manual promotion');
+    expect(plan).toContain('Automated from the protected production branch after launch approval');
     expect(plan).toContain('no beacon, cookies, forms, accounts, submitted data, or telemetry');
   });
 
@@ -69,15 +71,14 @@ describe('Phase 6D documentation and Storybook delivery implementation plan', ()
     expect(plan).toContain('does not authorize installing Wrangler');
   });
 
-  it('names every immediate owner confirmation and limits plan acceptance to 6D-A', () => {
+  it('records every owner confirmation and limits plan acceptance to 6D-A', () => {
     expect(plan).toContain('control of the `hoagsoftworks.com` Cloudflare zone');
-    expect(plan).toContain('currently has any DNS record, Worker route, Pages project');
-    expect(plan).toContain('private-repository/public-at-launch content decision');
-    expect(plan).toContain(
-      'deployment, production approval, rollback, and incident-response roles',
-    );
-    expect(plan).toContain('protected manual production promotion');
+    expect(plan).toContain('has no existing DNS record, Worker route, Pages project');
+    expect(plan).toContain('repository stays private until general-release approval');
+    expect(plan).toContain('project owner remains the durable account owner');
+    expect(plan).toContain('automated documentation and Storybook deployment is acceptable');
     expect(plan).toContain('authorizes Phase 6D-A readiness and dependency-proposal work only');
-    expect(roadmap).toContain('Phase 6D documentation and Storybook delivery planning is active');
+    expect(roadmap).toContain('Phase 6D delivery plan is accepted');
+    expect(roadmap).toContain('Phase 6D-A readiness work is active');
   });
 });

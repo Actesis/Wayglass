@@ -1,10 +1,11 @@
 # Phase 6D documentation and Storybook delivery implementation plan
 
-**Status:** Proposed for project-owner acceptance on September 8, 2026, after completion of Phase
-6C. This plan decomposes the accepted Cloudflare delivery architecture into reviewable local,
-configuration, preview, and closeout slices. It does not connect Cloudflare or GitHub, inspect
-private account state, change DNS, install Wrangler, upload a preview, deploy production, enable
-analytics, publish packages, or use credentials.
+**Status:** Accepted by the project owner on September 8, 2026, after completion of Phase 6C. Phase
+6D-A readiness and dependency-proposal work is active. This plan decomposes the accepted Cloudflare
+delivery architecture into reviewable local, configuration, preview, and closeout slices. Its
+acceptance does not connect Cloudflare or GitHub, change DNS, install Wrangler, upload a preview,
+deploy production, enable analytics, publish packages, or expose credentials. The owner separately
+authorized the read-only account inspection recorded during 6D-A.
 
 ## Objective
 
@@ -36,24 +37,25 @@ Cloudflare guidance was rechecked on September 8, 2026:
 This confirms ADR 0032's Workers Static Assets direction. Exact Wrangler version, configuration
 fields, dependency behavior, and account settings must still be frozen by their own reviewed slices.
 
-## Proposed operating decisions
+## Accepted operating decisions
 
-The plan proposes these defaults for explicit owner acceptance:
+The project owner accepted these operating decisions:
 
-| Decision                 | Proposed Phase 6D value                                                               |
-| ------------------------ | ------------------------------------------------------------------------------------- |
-| Canonical origin         | `https://wayglass.hoagsoftworks.com`                                                  |
-| Repository visibility    | Keep `Actesis/Wayglass` private through Phase 6D                                      |
-| Content visibility       | Documentation and Storybook are intended to become public only at an approved launch  |
-| Public surfaces          | VitePress at `/`; Storybook at `/storybook/`; no walkthroughs                         |
-| Worker architecture      | One Worker with one Static Assets collection; no dynamic API                          |
-| Production promotion     | Protected manual promotion is preferred over automatic production deployment          |
-| Preview behavior         | Non-production Worker version, `noindex`, no custom hostname, clearly labeled preview |
-| Analytics and collection | None: no beacon, cookies, forms, accounts, submitted data, or telemetry               |
+| Decision                 | Proposed Phase 6D value                                                                     |
+| ------------------------ | ------------------------------------------------------------------------------------------- |
+| Canonical origin         | `https://wayglass.hoagsoftworks.com`                                                        |
+| Repository visibility    | Keep `Actesis/Wayglass` private until the project owner approves general release            |
+| Content visibility       | Documentation and Storybook may become public at the canonical origin after launch approval |
+| Public surfaces          | VitePress at `/`; Storybook at `/storybook/`; no walkthroughs                               |
+| Worker architecture      | One Worker with one Static Assets collection; no dynamic API                                |
+| Production promotion     | Automated from the protected production branch after launch approval and required checks    |
+| Preview behavior         | Non-production Worker version, `noindex`, no custom hostname, clearly labeled preview       |
+| Analytics and collection | None: no beacon, cookies, forms, accounts, submitted data, or telemetry                     |
 
-The project owner must confirm the repository/content decision and accountable roles before a
-Cloudflare implementation or external preview. Keeping the repository private means Workers Builds
-GitHub access, if later approved, must be deliberately limited to this repository.
+Keeping the repository private means Workers Builds GitHub access, if later approved, must be
+deliberately limited to this repository. Automation does not bypass Phase 6F launch approval: it
+becomes active only after the production connection, branch protections, checks, rollback, and
+custom-hostname change are separately accepted.
 
 ## Work sequence
 
@@ -156,38 +158,41 @@ release planning becomes next; production documentation launch remains Phase 6F.
 
 ## Authority map
 
-| Action                                        | Authority after plan acceptance                          |
-| --------------------------------------------- | -------------------------------------------------------- |
-| Read-only public Cloudflare documentation     | Allowed                                                  |
-| Read-only account, zone, DNS, and route audit | Requires explicit account access but permits no mutation |
-| Local composer, manifest, and tests           | Allowed after 6D-A acceptance                            |
-| Add pinned Wrangler dependency/configuration  | Allowed only after accepted dependency proposal          |
-| Connect GitHub or Cloudflare                  | Not authorized                                           |
-| Upload a preview version                      | Requires separate 6D-F authorization                     |
-| Attach custom hostname or change DNS          | Not authorized in Phase 6D                               |
-| Promote or deploy production                  | Not authorized until Phase 6F                            |
-| Enable analytics or data collection           | Not authorized                                           |
+| Action                                        | Authority after plan acceptance                 |
+| --------------------------------------------- | ----------------------------------------------- |
+| Read-only public Cloudflare documentation     | Allowed                                         |
+| Read-only account, zone, DNS, and route audit | Authorized for 6D-A; permits no mutation        |
+| Local composer, manifest, and tests           | Allowed after 6D-A acceptance                   |
+| Add pinned Wrangler dependency/configuration  | Allowed only after accepted dependency proposal |
+| Connect GitHub or Cloudflare                  | Not authorized                                  |
+| Upload a preview version                      | Requires separate 6D-F authorization            |
+| Attach custom hostname or change DNS          | Not authorized in Phase 6D                      |
+| Promote or deploy production                  | Not authorized until Phase 6F                   |
+| Enable analytics or data collection           | Not authorized                                  |
 
-## Immediate owner confirmations
+## Recorded owner confirmations
 
-Before 6D-A can close, the project owner must confirm:
+On September 8, 2026, the project owner confirmed:
 
-1. control of the `hoagsoftworks.com` Cloudflare zone and permission to inspect its DNS and Worker
-   configuration;
-2. whether `wayglass.hoagsoftworks.com` currently has any DNS record, Worker route, Pages project,
-   or Custom Domain;
-3. the proposed private-repository/public-at-launch content decision;
-4. whether the project owner currently fills the Cloudflare account, GitHub integration, deployment,
-   production approval, rollback, and incident-response roles; and
-5. whether protected manual production promotion is the intended default.
+1. control of the `hoagsoftworks.com` Cloudflare zone and authorization to inspect its DNS and
+   Worker configuration without mutation;
+2. that `wayglass.hoagsoftworks.com` has no existing DNS record, Worker route, Pages project, or
+   Custom Domain;
+3. that the repository stays private until general-release approval while documentation and
+   Storybook may be published at the canonical origin;
+4. that Codex may act as implementation and deployment operator during an active, explicitly
+   authorized task; the project owner remains the durable account owner, production approval
+   authority, rollback owner, and incident contact outside an active task; and
+5. automated documentation and Storybook deployment is acceptable after its production launch gate,
+   rather than requiring manual promotion for every accepted production-branch commit.
 
 These answers authorize no external change. If account inspection requires a credential or
 Cloudflare connection, that exact read-only access is requested separately.
 
 ## Acceptance effect
 
-Accepting this plan completes the Phase 6C-to-6D transition and authorizes Phase 6D-A readiness and
-dependency-proposal work only. It does not authorize installing Wrangler, writing deployment
+Acceptance of this plan completes the Phase 6C-to-6D transition and authorizes Phase 6D-A readiness
+and dependency-proposal work only. It does not authorize installing Wrangler, writing deployment
 configuration, connecting accounts, uploading assets, changing DNS, using credentials, deploying
 production, publishing npm packages, changing repository visibility, or beginning the SpaceTraders
 client.
