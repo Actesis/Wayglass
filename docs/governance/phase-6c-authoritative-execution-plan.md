@@ -36,7 +36,8 @@ must not make a network request. The command:
 6. performs at most one request through an injected or explicitly enabled transport;
 7. hashes the exact response bytes before parsing;
 8. validates and losslessly normalizes every returned advisory that applies to the submitted graph;
-9. writes one canonical E3 advisory snapshot transactionally with a 24-hour validity window; and
+9. writes one canonical E3 advisory snapshot transactionally with a 24-hour validity window,
+   retaining any provider media-type or undeclared-compression warning; and
 10. removes its candidate work, raw response, staging file, and output on any failure.
 
 The implementation PR exercises malformed responses, unknown packages, duplicate or reordered

@@ -9,6 +9,7 @@ import {
 } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
+import { gzipSync } from 'node:zlib';
 
 import { afterEach, describe, expect, it } from 'vitest';
 
@@ -242,6 +243,51 @@ describe('advisory capture effect adapter', () => {
     });
   });
 
+  it('validates mislabeled gzip JSON and retains transport warnings', async () => {
+    const compressed = gzipSync(successfulResponse());
+    const value = harness(compressed);
+    const operations: AdvisoryCaptureOperations = {
+      ...value.operations,
+      transport: async () => {
+        value.counts.transports += 1;
+        return { statusCode: 200, contentType: 'text/plain', body: compressed };
+      },
+    };
+    const result = await runHarness(value, operations);
+    expect(result.responseSha256).toBe(sha256(compressed));
+    expect(JSON.parse(readFileSync(value.output, 'utf8')).notices).toEqual([
+      {
+        kind: 'warning',
+        code: 'WG_RC_ADVISORY_MEDIA_TYPE',
+        claim: 'dependency-security',
+        summary:
+          'Provider response did not advertise a JSON media type; exact JSON bytes were validated.',
+      },
+      {
+        kind: 'warning',
+        code: 'WG_RC_ADVISORY_UNDECLARED_GZIP',
+        claim: 'dependency-security',
+        summary: 'Provider response used gzip bytes without declaring gzip content encoding.',
+      },
+    ]);
+
+    const declared = harness(compressed);
+    const declaredResult = await runHarness(declared, {
+      ...declared.operations,
+      transport: async () => {
+        declared.counts.transports += 1;
+        return {
+          statusCode: 200,
+          contentType: 'application/json',
+          contentEncoding: 'gzip',
+          body: compressed,
+        };
+      },
+    });
+    expect(declaredResult.responseSha256).toBe(sha256(compressed));
+    expect(JSON.parse(readFileSync(declared.output, 'utf8')).notices).toEqual([]);
+  });
+
   it.each(['build', 'transport'] as const)(
     'fails once at the %s boundary without retrying or retaining output',
     async (stage) => {
@@ -261,11 +307,23 @@ describe('advisory capture effect adapter', () => {
     },
   );
 
-  it('fails closed on a non-success response, invalid content, and an oversized response', async () => {
+  it('fails closed on a non-success response, invalid content, and oversized bytes', async () => {
     for (const response of [
       { statusCode: 503, contentType: 'application/json', body: Buffer.from('{}') },
-      { statusCode: 200, contentType: 'text/html', body: Buffer.from('{}') },
+      { statusCode: 200, contentType: 'text/html', body: Buffer.from('<html></html>') },
       { statusCode: 200, contentType: 'application/json', body: Buffer.alloc(1024 * 1024 + 1) },
+      {
+        statusCode: 200,
+        contentType: 'application/json',
+        contentEncoding: 'br',
+        body: Buffer.from('{}'),
+      },
+      {
+        statusCode: 200,
+        contentType: 'application/json',
+        contentEncoding: 'gzip',
+        body: gzipSync(Buffer.alloc(1024 * 1024 + 1)),
+      },
     ]) {
       const value = harness();
       const operations: AdvisoryCaptureOperations = {
@@ -275,7 +333,9 @@ describe('advisory capture effect adapter', () => {
           return response;
         },
       };
-      await expect(runHarness(value, operations)).rejects.toThrow(/WG_RC_ADVISORY_TRANSPORT/);
+      await expect(runHarness(value, operations)).rejects.toThrow(
+        /WG_RC_ADVISORY_(?:TRANSPORT|BULK)/,
+      );
       expect(value.counts).toEqual({ builds: 1, transports: 1 });
       expectNoOwnedOutput(value);
     }

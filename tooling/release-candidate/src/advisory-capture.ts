@@ -11,6 +11,7 @@ import {
 import { request as httpsRequest } from 'node:https';
 import { tmpdir } from 'node:os';
 import { basename, dirname, resolve } from 'node:path';
+import { gunzipSync } from 'node:zlib';
 
 import { buildCandidateWithAudit } from './assembler.ts';
 import {
@@ -32,6 +33,7 @@ import type { CommandRunner } from './types.ts';
 export interface BulkAdvisoryTransportResult {
   readonly statusCode: number;
   readonly contentType: string | undefined;
+  readonly contentEncoding?: string | undefined;
   readonly body: Uint8Array;
 }
 
@@ -68,6 +70,7 @@ export interface AdvisoryCaptureOperations {
 
 const maximumResponseBytes = 1024 * 1024;
 const validityMilliseconds = 24 * 60 * 60 * 1000;
+const jsonMediaType = /^application\/(?:json|[a-z0-9!#$&^_.+-]+\+json)(?:\s*;|$)/i;
 
 function captureFailure(code: string, message: string): never {
   return fail(code, message);
@@ -131,6 +134,9 @@ export async function queryBulkAdvisories(
           resolvePromise({
             statusCode: response.statusCode ?? 0,
             contentType: Array.isArray(header) ? header[0] : header,
+            contentEncoding: Array.isArray(response.headers['content-encoding'])
+              ? response.headers['content-encoding'][0]
+              : response.headers['content-encoding'],
             body: Buffer.concat(chunks),
           });
         });
@@ -157,6 +163,57 @@ const defaultOperations: AdvisoryCaptureOperations = Object.freeze({
   transport: queryBulkAdvisories,
   now: () => new Date(),
 });
+
+function responseBody(response: BulkAdvisoryTransportResult): {
+  readonly body: Uint8Array;
+  readonly notices: AdvisorySnapshotEvidence['notices'];
+} {
+  const contentEncoding = response.contentEncoding?.trim().toLowerCase();
+  if (
+    contentEncoding !== undefined &&
+    contentEncoding !== 'identity' &&
+    contentEncoding !== 'gzip'
+  ) {
+    captureFailure(
+      'WG_RC_ADVISORY_TRANSPORT',
+      'Bulk advisory response used an unsupported content encoding.',
+    );
+  }
+  const gzipMagic = response.body[0] === 0x1f && response.body[1] === 0x8b;
+  let body = response.body;
+  if (contentEncoding === 'gzip' || gzipMagic) {
+    try {
+      body = gunzipSync(response.body, { maxOutputLength: maximumResponseBytes });
+    } catch {
+      captureFailure(
+        'WG_RC_ADVISORY_TRANSPORT',
+        'Bulk advisory gzip response is invalid or exceeds the accepted byte limit.',
+      );
+    }
+  }
+  if (body.byteLength === 0 || body.byteLength > maximumResponseBytes) {
+    captureFailure('WG_RC_ADVISORY_TRANSPORT', 'Bulk advisory decoded response size is invalid.');
+  }
+  const notices: AdvisorySnapshotEvidence['notices'][number][] = [];
+  if (!jsonMediaType.test(response.contentType?.trim() ?? '')) {
+    notices.push({
+      kind: 'warning',
+      code: 'WG_RC_ADVISORY_MEDIA_TYPE',
+      claim: 'dependency-security',
+      summary:
+        'Provider response did not advertise a JSON media type; exact JSON bytes were validated.',
+    });
+  }
+  if (gzipMagic && contentEncoding !== 'gzip') {
+    notices.push({
+      kind: 'warning',
+      code: 'WG_RC_ADVISORY_UNDECLARED_GZIP',
+      claim: 'dependency-security',
+      summary: 'Provider response used gzip bytes without declaring gzip content encoding.',
+    });
+  }
+  return Object.freeze({ body, notices: Object.freeze(notices) });
+}
 
 function verifyWrittenSnapshot(
   path: string,
@@ -231,17 +288,12 @@ export async function captureAdvisorySnapshot(
         'Bulk advisory endpoint did not return an accepted success response.',
       );
     }
-    if (!response.contentType?.toLowerCase().startsWith('application/json')) {
-      captureFailure(
-        'WG_RC_ADVISORY_TRANSPORT',
-        'Bulk advisory endpoint did not return JSON content.',
-      );
-    }
     if (response.body.byteLength === 0 || response.body.byteLength > maximumResponseBytes) {
       captureFailure('WG_RC_ADVISORY_TRANSPORT', 'Bulk advisory response size is invalid.');
     }
     const responseSha256 = sha256(response.body);
-    const findings = normalizeBulkAdvisoryResponse(response.body, request);
+    const decoded = responseBody(response);
+    const findings = normalizeBulkAdvisoryResponse(decoded.body, request);
     const captured = operations.now();
     const capturedAt = canonicalInstant(captured);
     const validThrough = canonicalInstant(new Date(captured.getTime() + validityMilliseconds));
@@ -260,7 +312,7 @@ export async function captureAdvisorySnapshot(
         productionOnly: true,
       },
       findings,
-      notices: [],
+      notices: decoded.notices,
     };
     const contents = serializeAdvisorySnapshot(snapshot, {
       referenceTime: capturedAt,

@@ -42,18 +42,24 @@ exact byte length, in addition to protocol-required host metadata added by Node.
 header, cookie, token, configurable registry, repository identity, Wayglass package name, path,
 username, or environment value is supplied.
 
-Node's HTTPS client does not follow redirects. Any status other than 200, absent or non-JSON content
-type, timeout, connection failure, empty body, or body over one MiB fails closed. There is one
-request construction and no retry, redirect handling, quick-audit fallback, alternate registry, or
-package-metadata lookup.
+Node's HTTPS client does not follow redirects. Any status other than 200, timeout, connection
+failure, empty body, unsupported declared content encoding, or raw or decoded body over one MiB
+fails closed. There is one request construction and no retry, redirect handling, quick-audit
+fallback, alternate registry, or package-metadata lookup.
 
 ## Response normalization
 
-The exact raw response bytes are SHA-256 hashed before UTF-8 decoding or JSON parsing. Raw bytes
-remain in memory only and are never written to disk or copied into evidence. The pure normalizer
-requires a JSON object keyed only by submitted package names. Every value must be an array; every
-advisory must have a valid provider identifier, accepted severity, vulnerable range, and matching
-package name when one is present.
+The exact raw response bytes are SHA-256 hashed before decompression, UTF-8 decoding, or JSON
+parsing. Raw bytes remain in memory only and are never written to disk or copied into evidence. A
+declared gzip response is decompressed within the same one-MiB decoded limit. Gzip magic bytes are
+also recognized when the provider omits its content-encoding header; that omission is retained as a
+dependency-security warning. An absent or non-JSON media type is likewise retained as a warning only
+when the decoded bytes still pass strict UTF-8, JSON, and response-schema validation. HTML,
+malformed JSON, invalid gzip, unsupported encodings, and oversized decoded bodies still fail closed.
+
+The pure normalizer requires a JSON object keyed only by submitted package names. Every value must
+be an array; every advisory must have a valid provider identifier, accepted severity, vulnerable
+range, and matching package name when one is present.
 
 Every returned advisory becomes one E3 finding bound to the submitted exact package version. A
 provider `patched_versions` string is retained; an absent or null field becomes an explicit `null`
@@ -82,14 +88,16 @@ normalized `WG_RC_*` failures rather than raw provider or operating-system error
 
 ## Validation
 
-The release-candidate tooling passes 124 focused tests across 22 files. E5A fixtures prove the exact
+The release-candidate tooling passes 126 focused tests across 22 files. E5A fixtures prove the exact
 seven-node canonical request, absence of Wayglass names, deterministic provider-order normalization,
 patched and unpatched findings, raw-response and dependency hashes, a 24-hour window, canonical
 output, and one build plus one transport call.
 
-Adverse fixtures cover malformed JSON, an unknown package, duplicate advisories, non-success status,
-non-JSON content, oversized response, build failure, transport failure, credential exposure,
-cleanup, and concurrent output creation without overwrite. Tests inject every response; they never
+Adverse fixtures cover malformed JSON and HTML, an unknown package, duplicate advisories,
+non-success status, unsupported encoding, oversized raw and decoded responses, build failure,
+transport failure, credential exposure, cleanup, and concurrent output creation without overwrite. A
+mislabeled gzip fixture proves exact raw-byte hashing, bounded decoding, strict response validation,
+and retained media-type and undeclared-compression warnings. Tests inject every response; they never
 invoke the live HTTPS transport or contact a registry.
 
 TypeScript, ESLint, formatting, documentation tests, the documentation build, and the complete
