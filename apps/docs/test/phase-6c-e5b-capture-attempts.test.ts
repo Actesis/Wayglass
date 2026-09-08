@@ -28,7 +28,7 @@ describe('Phase 6C-E5B advisory-capture attempt record', () => {
     expect(record).toContain('Attempt 3 completed candidate assembly');
     expect(record).toContain('None of the first three attempts contacted npm');
     expect(record).toContain('attempt 4 made one npm bulk-advisory request');
-    expect(record).toContain('Attempt 5 made one separately authorized request');
+    expect(record).toContain('attempt 5 made one separately authorized request');
   });
 
   it('documents the exact launcher cause and bounded correction', () => {
@@ -65,10 +65,10 @@ describe('Phase 6C-E5B advisory-capture attempt record', () => {
     expect(record).toContain('confirmed an exact 24-hour validity interval');
   });
 
-  it('requires explicit snapshot approval and separate E5C authority', () => {
-    expect(record).toContain('explicitly approve or reject the exact attempt-5 snapshot');
-    expect(record).toContain('Approval completes E5B for this snapshot only');
-    expect(record).toContain('It does not authorize E5C');
-    expect(record).toContain('requires a separate explicit instruction');
+  it('records explicit snapshot approval and preserves the next authority boundary', () => {
+    expect(record).toContain('project owner explicitly approved attempt 5');
+    expect(record).toContain('separately authorized E5C attempt 1');
+    expect(record).toContain('That approval completes E5B for this snapshot only');
+    expect(record).toContain('No E5C retry is authorized');
   });
 });
