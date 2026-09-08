@@ -120,6 +120,6 @@ and raw successful command output are intentionally excluded from this repositor
 
 Attempt 1 remains a failed attempt and attempt 2 consumed its one-shot authority successfully. The
 retained bundle remains untouched through project-owner disposition. Merging this record accepts the
-E5C evidence record only; it does not accept the candidate. The next step is the separate E5D
-disposition proposal, where the project owner must select accept candidate, narrow or refreeze, or
-no candidate against these exact hashes.
+E5C evidence record only; it does not accept the candidate. The separate
+[E5D disposition proposal](./phase-6c-e5d-candidate-disposition.md) asks the project owner to select
+accept candidate, narrow or refreeze, or no candidate against these exact hashes.
