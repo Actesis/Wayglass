@@ -1,11 +1,12 @@
 # Phase 6C-E5B advisory-capture attempt record
 
-**Status:** Attempt 5 produced a canonical zero-finding snapshot on September 8, 2026, proposed for
-project-owner approval. Attempts 1 through 3 stopped before transport; attempt 4 made one npm
-bulk-advisory request and rejected its response. Attempt 5 made one separately authorized request
-and retained the result described below. This record does not approve that snapshot, authorize the
-E5C authoritative run, publish packages, use credentials, create tags or releases, deploy, or begin
-external-application work.
+**Status:** Accepted on September 8, 2026. The project owner explicitly approved attempt 5's exact
+canonical zero-finding snapshot, including its `WG_RC_ADVISORY_MEDIA_TYPE` warning, and separately
+authorized E5C attempt 1. Attempts 1 through 3 stopped before transport; attempt 4 made one npm
+bulk-advisory request and rejected its response; attempt 5 made one separately authorized request
+and retained the approved result described below. This acceptance does not accept a release
+candidate, authorize an E5C retry, publish packages, use credentials, create tags or releases,
+deploy, or begin external-application work.
 
 ## Append-only capture ledger
 
@@ -103,7 +104,7 @@ frozen source `ce400e89930a047c6af1c6992c64cfe422a1eeee`. It completed offline a
 before making its one separately authorized credential-free request to the fixed npm bulk endpoint.
 It did not redirect, fall back, retry, contact another registry route, or use a release credential.
 
-The retained result proposed for project-owner approval is:
+The retained result approved by the project owner is:
 
 | Evidence                     | Exact value                                                        |
 | ---------------------------- | ------------------------------------------------------------------ |
@@ -127,10 +128,11 @@ dependency context, confirmed zero findings and the single warning, reproduced t
 and confirmed an exact 24-hour validity interval. The repository and Git worktree inventory were
 clean after capture.
 
-## Next authority boundary
+## Acceptance and next authority boundary
 
-The project owner must explicitly approve or reject the exact attempt-5 snapshot, including its zero
-findings and media-type warning. Approval completes E5B for this snapshot only while it remains
-valid. It does not authorize E5C. The one authoritative retained E5C run requires a separate
-explicit instruction and must consume this exact snapshot before `2026-09-09T03:21:31Z`; otherwise
-E5B must capture a new dated snapshot under fresh authority.
+The project owner approved the exact attempt-5 snapshot, including its zero findings and media-type
+warning, and separately authorized E5C attempt 1. That approval completes E5B for this snapshot only
+while it remains valid. The [E5C run-attempt record](./phase-6c-e5c-run-attempts.md) preserves the
+authorized attempt and its outcome. No E5C retry is authorized. Any later attempt requires a fresh
+explicit instruction and must consume this exact snapshot before `2026-09-09T03:21:31Z`; after that
+deadline, E5B must capture a new dated snapshot under fresh authority.
