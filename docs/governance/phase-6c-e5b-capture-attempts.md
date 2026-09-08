@@ -2,11 +2,11 @@
 
 **Status:** Accepted on September 8, 2026. The project owner explicitly approved attempt 5's exact
 canonical zero-finding snapshot, including its `WG_RC_ADVISORY_MEDIA_TYPE` warning, and separately
-authorized E5C attempt 1. Attempts 1 through 3 stopped before transport; attempt 4 made one npm
-bulk-advisory request and rejected its response; attempt 5 made one separately authorized request
-and retained the approved result described below. This acceptance does not accept a release
-candidate, authorize an E5C retry, publish packages, use credentials, create tags or releases,
-deploy, or begin external-application work.
+authorized E5C attempts 1 and 2; attempt 2 passed. Attempts 1 through 3 stopped before transport;
+attempt 4 made one npm bulk-advisory request and rejected its response; attempt 5 made one
+separately authorized request and retained the approved result described below. This acceptance does
+not accept a release candidate, publish packages, use credentials, create tags or releases, deploy,
+or begin external-application work.
 
 ## Append-only capture ledger
 
@@ -131,8 +131,8 @@ clean after capture.
 ## Acceptance and next authority boundary
 
 The project owner approved the exact attempt-5 snapshot, including its zero findings and media-type
-warning, and separately authorized E5C attempt 1. That approval completes E5B for this snapshot only
-while it remains valid. The [E5C run-attempt record](./phase-6c-e5c-run-attempts.md) preserves the
-authorized attempt and its outcome. No E5C retry is authorized. Any later attempt requires a fresh
-explicit instruction and must consume this exact snapshot before `2026-09-09T03:21:31Z`; after that
-deadline, E5B must capture a new dated snapshot under fresh authority.
+warning, and separately authorized E5C attempts 1 and 2. That approval completes E5B for this
+snapshot. The [E5C run-attempt record](./phase-6c-e5c-run-attempts.md) preserves both authorized
+attempts and their outcomes. Attempt 2 consumed the approved snapshot while valid and passed; no
+additional E5C attempt is authorized or required. The next authority boundary is E5D project-owner
+disposition against the exact retained candidate hashes.

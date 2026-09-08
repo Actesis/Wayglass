@@ -67,8 +67,8 @@ describe('Phase 6C-E5B advisory-capture attempt record', () => {
 
   it('records explicit snapshot approval and preserves the next authority boundary', () => {
     expect(record).toContain('project owner explicitly approved attempt 5');
-    expect(record).toContain('separately authorized E5C attempt 1');
-    expect(record).toContain('That approval completes E5B for this snapshot only');
-    expect(record).toContain('No E5C retry is authorized');
+    expect(record).toContain('separately authorized E5C attempts 1 and 2');
+    expect(record).toContain('That approval completes E5B for this snapshot');
+    expect(record).toContain('no additional E5C attempt is authorized or required');
   });
 });
