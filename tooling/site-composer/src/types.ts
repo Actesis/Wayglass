@@ -37,6 +37,12 @@ export interface ComposedSiteResult {
   readonly manifestSha256: string;
 }
 
+export interface VerifiedSiteResult {
+  readonly input: string;
+  readonly manifest: SiteManifest;
+  readonly manifestSha256: string;
+}
+
 export interface InspectedSiteFile {
   readonly surface: SiteSurfaceId;
   readonly path: string;

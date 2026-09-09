@@ -12,7 +12,7 @@ import { afterEach, describe, expect, it } from 'vitest';
 
 import { parseCanonicalSiteManifest } from '../src/manifest.ts';
 import { composeSite } from '../src/compose.ts';
-import { parseComposeArguments } from '../src/cli.ts';
+import { parseBuildArguments, parseComposeArguments, parseVerifyArguments } from '../src/cli.ts';
 import { createSiteRepositoryFixture, type SiteRepositoryFixture } from './system-fixtures.ts';
 
 const fixtures: SiteRepositoryFixture[] = [];
@@ -191,5 +191,12 @@ describe('site:compose invocation', () => {
     ]) {
       expect(() => parseComposeArguments(invalid)).toThrow('WG_SITE_INVOCATION');
     }
+  });
+
+  it('keeps build, compose, and verify path options distinct', () => {
+    expect(parseBuildArguments(['--output', '/tmp/build'])).toBe('/tmp/build');
+    expect(parseVerifyArguments(['--input', '/tmp/site'])).toBe('/tmp/site');
+    expect(() => parseBuildArguments(['--input', '/tmp/build'])).toThrow('WG_SITE_INVOCATION');
+    expect(() => parseVerifyArguments(['--output', '/tmp/site'])).toThrow('WG_SITE_INVOCATION');
   });
 });

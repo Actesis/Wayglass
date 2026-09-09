@@ -35,6 +35,9 @@ export {
   scanDirectory,
 } from './filesystem.ts';
 export { composeSite } from './compose.ts';
+export { buildSite } from './build.ts';
+export { assertSiteArtifactsEqual, verifySite } from './verify.ts';
+export type { BuildSiteOptions } from './build.ts';
 export type {
   ComposeSiteOptions,
   CompositionBoundary,

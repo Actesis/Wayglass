@@ -1,25 +1,62 @@
 import { pathToFileURL } from 'node:url';
 
+import { buildSite } from './build.ts';
 import { composeSite } from './compose.ts';
 import { SiteComposerError } from './error.ts';
+import { verifySite } from './verify.ts';
 
-const usage = 'Usage: pnpm site:compose -- --output <absolute-new-temporary-directory>';
+const usage = `Usage:
+  pnpm site:compose -- --output <absolute-new-temporary-directory>
+  pnpm site:verify -- --input <absolute-temporary-directory>
+  pnpm site:build -- --output <absolute-new-temporary-directory>`;
 
-export function parseComposeArguments(arguments_: readonly string[]): string {
+type SiteCommand = 'build' | 'compose' | 'verify';
+
+function parseSinglePathOption(
+  arguments_: readonly string[],
+  command: SiteCommand,
+  option: '--input' | '--output',
+): string {
   const options = arguments_.filter((argument) => argument !== '--');
-  const output = options[1];
+  const value = options[1];
   if (
     options.length !== 2 ||
-    options[0] !== '--output' ||
-    output === undefined ||
-    output.startsWith('--')
+    options[0] !== option ||
+    value === undefined ||
+    value.startsWith('--')
   ) {
     throw new SiteComposerError(
       'WG_SITE_INVOCATION',
-      'site:compose requires exactly one --output value.',
+      `site:${command} requires exactly one ${option} value.`,
     );
   }
-  return output;
+  return value;
+}
+
+export function parseComposeArguments(arguments_: readonly string[]): string {
+  return parseSinglePathOption(arguments_, 'compose', '--output');
+}
+
+export function parseVerifyArguments(arguments_: readonly string[]): string {
+  return parseSinglePathOption(arguments_, 'verify', '--input');
+}
+
+export function parseBuildArguments(arguments_: readonly string[]): string {
+  return parseSinglePathOption(arguments_, 'build', '--output');
+}
+
+function commandArguments(arguments_: readonly string[]): {
+  readonly command: SiteCommand;
+  readonly options: readonly string[];
+} {
+  const command = arguments_[0];
+  if (command !== 'build' && command !== 'compose' && command !== 'verify') {
+    throw new SiteComposerError(
+      'WG_SITE_INVOCATION',
+      'The site command must be build, compose, or verify.',
+    );
+  }
+  return { command, options: arguments_.slice(1) };
 }
 
 export async function main(arguments_: readonly string[]): Promise<void> {
@@ -27,10 +64,26 @@ export async function main(arguments_: readonly string[]): Promise<void> {
     console.log(usage);
     return;
   }
-  const output = parseComposeArguments(arguments_);
-  const result = await composeSite({ repositoryRoot: process.cwd(), output });
+  const invocation = commandArguments(arguments_);
+  if (invocation.command === 'verify') {
+    const input = parseVerifyArguments(invocation.options);
+    const result = verifySite(input);
+    console.log(
+      `Verified site ${result.manifest.bundleSha256}; manifest ${result.manifestSha256}; input ${result.input}.`,
+    );
+    return;
+  }
+  const output =
+    invocation.command === 'build'
+      ? parseBuildArguments(invocation.options)
+      : parseComposeArguments(invocation.options);
+  const result =
+    invocation.command === 'build'
+      ? await buildSite({ repositoryRoot: process.cwd(), output })
+      : await composeSite({ repositoryRoot: process.cwd(), output });
+  const verb = invocation.command === 'build' ? 'Built and verified' : 'Composed';
   console.log(
-    `Composed site ${result.manifest.bundleSha256}; manifest ${result.manifestSha256}; output ${result.output}.`,
+    `${verb} site ${result.manifest.bundleSha256}; manifest ${result.manifestSha256}; output ${output}.`,
   );
 }
 
