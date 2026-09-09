@@ -39,7 +39,7 @@ describe('Phase 6D-B stage 3 verifier, build, and proof', () => {
     expect(record).toContain('every byte including the manifest');
     expect(record).toContain('real two-build proof');
     expect(record).toContain(
-      'Any producer nondeterminism or prohibited public output remains a blocker',
+      'Any future producer nondeterminism or prohibited public output remains a blocker',
     );
     expect(record).toContain('will not authorize Wrangler installation');
     expect(record).toContain('npm publication');
