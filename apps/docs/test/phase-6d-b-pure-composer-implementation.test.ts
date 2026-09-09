@@ -51,8 +51,8 @@ describe('Phase 6D-B stage 1 pure-composer implementation', () => {
   it('records focused evidence and limits the next authorization', () => {
     expect(record).toContain('Seventy tests across six files');
     expect(record).toContain('creates no file');
-    expect(record).toContain('authorizes stage 2 only');
-    expect(record).toContain('does not authorize command execution against real producer outputs');
+    expect(record).toContain('authorized stage 2 only');
+    expect(record).toContain('did not authorize command execution against real producer outputs');
     expect(record).toContain('Wrangler installation');
     expect(record).toContain('npm publication');
     expect(record).toContain('SpaceTraders work');
