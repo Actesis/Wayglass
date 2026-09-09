@@ -80,6 +80,6 @@ describe('Phase 6D documentation and Storybook delivery implementation plan', ()
     expect(plan).toContain('authorizes Phase 6D-A readiness and dependency-proposal work only');
     expect(roadmap).toContain('Phase 6D delivery plan and Phase 6D-A readiness');
     expect(roadmap).toContain('dependency proposal are accepted');
-    expect(roadmap).toContain('Phase 6D-B deterministic site-composition contract is proposed');
+    expect(roadmap).toContain('Phase 6D-B deterministic site-composition contract is accepted');
   });
 });

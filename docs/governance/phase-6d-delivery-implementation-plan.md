@@ -1,12 +1,12 @@
 # Phase 6D documentation and Storybook delivery implementation plan
 
 **Status:** Accepted by the project owner on September 8, 2026, after completion of Phase 6C. Phase
-6D-A readiness and dependency-proposal work is accepted; the Phase 6D-B site-composition contract is
-proposed. This plan decomposes the accepted Cloudflare delivery architecture into reviewable local,
-configuration, preview, and closeout slices. Its acceptance does not connect Cloudflare or GitHub,
-change DNS, install Wrangler, upload a preview, deploy production, enable analytics, publish
-packages, or expose credentials. The owner separately authorized the read-only account inspection
-recorded during 6D-A.
+6D-A readiness and dependency-proposal work and the Phase 6D-B site-composition contract are
+accepted. Phase 6D-B implementation stage 1 is proposed for project-owner acceptance. This plan
+decomposes the accepted Cloudflare delivery architecture into reviewable local, configuration,
+preview, and closeout slices. Its acceptance does not connect Cloudflare or GitHub, change DNS,
+install Wrangler, upload a preview, deploy production, enable analytics, publish packages, or expose
+credentials. The owner separately authorized the read-only account inspection recorded during 6D-A.
 
 ## Objective
 
