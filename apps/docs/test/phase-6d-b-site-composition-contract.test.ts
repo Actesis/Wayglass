@@ -81,9 +81,9 @@ describe('Phase 6D-B deterministic site-composition contract', () => {
     expect(adr).toContain("does not trust the composer's in-memory result");
   });
 
-  it('limits acceptance to private stage-1 implementation', () => {
-    expect(contract).toContain('authorized implementation stage 1 only');
-    expect(contract).toContain('did not authorize effectful composition');
+  it('records accepted stages and limits current authority to private stage 3', () => {
+    expect(contract).toContain('Stage 1 was accepted in PR #264 and stage 2 in PR #265');
+    expect(contract).toContain('authorized implementation stage 3 only');
     expect(contract).toContain('Wrangler installation');
     expect(contract).toContain('Cloudflare configuration or contact');
     expect(contract).toContain('npm publication');

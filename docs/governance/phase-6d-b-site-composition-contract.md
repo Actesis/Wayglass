@@ -1,9 +1,10 @@
 # Phase 6D-B deterministic site-composition contract
 
 **Status:** Accepted by the project owner on September 8, 2026. This contract and accepted ADR 0037
-specify the authorized local composer. Acceptance authorized implementation stage 1 only. It did not
-change VitePress or Storybook output, configure or contact Cloudflare, connect GitHub, upload a
-preview, alter DNS, deploy, publish packages, or use credentials.
+specify the authorized local composer. Stage 1 was accepted in PR #264 and stage 2 in PR #265;
+project-owner acceptance of stage 2 authorized implementation stage 3 only. It did not change
+VitePress or Storybook output, configure or contact Cloudflare, connect GitHub, upload a preview,
+alter DNS, deploy, publish packages, or use credentials.
 
 ## Purpose and boundary
 
@@ -169,8 +170,9 @@ reason to weaken this contract.
 ## Acceptance effect
 
 Project-owner acceptance on September 8, 2026 accepted ADR 0037 and authorized implementation stage
-1 only: the pure schema, canonicalization, validation, inventory primitives, and adversarial tests
-under private `tooling/site-composer/`. It did not authorize effectful composition, Storybook prefix
-changes, Wrangler installation, Cloudflare configuration or contact, GitHub connection, preview
-upload, DNS mutation, production deployment, npm publication, repository visibility change, or
-SpaceTraders work.
+
+1. Stage 1 acceptance authorized and PR #265 delivered stage 2. Acceptance of stage 2 authorized
+   stage 3 only: independent verification, retained local build orchestration, and the real
+   two-build proof. It did not authorize Storybook prefix changes, Wrangler installation, Cloudflare
+   configuration or contact, GitHub connection, preview upload, DNS mutation, production deployment,
+   npm publication, repository visibility change, or SpaceTraders work.

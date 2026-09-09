@@ -23,14 +23,14 @@ const repositorySource = readFileSync(
 );
 
 describe('Phase 6D-B stage 2 transactional-composer implementation', () => {
-  it('exposes only the explicit local composition command', () => {
+  it('records the explicit local composition command delivered by stage 2', () => {
     expect(record).toContain('pnpm site:compose -- --output');
     expect(record).toContain('rejects missing, repeated, ambiguous, or additional arguments');
     expect(record).toContain('without a shell');
     expect(record).toContain('does not use the network');
     expect(rootPackage.scripts['site:compose']).toContain('tooling/site-composer/src/cli.ts');
-    expect(rootPackage.scripts).not.toHaveProperty('site:verify');
-    expect(rootPackage.scripts).not.toHaveProperty('site:build');
+    expect(rootPackage.scripts['site:verify']).toContain('tooling/site-composer/src/cli.ts');
+    expect(rootPackage.scripts['site:build']).toContain('tooling/site-composer/src/cli.ts');
   });
 
   it('authenticates committed source and stable producer inventories', () => {
@@ -56,7 +56,7 @@ describe('Phase 6D-B stage 2 transactional-composer implementation', () => {
     expect(record).toContain('98 tests across 10 files');
     expect(record).toContain('concurrently created destination left untouched');
     expect(record).toContain('command is not run against real producer outputs');
-    expect(record).toContain('authorizes stage 3 only');
+    expect(record).toContain('authorized stage 3 only');
     expect(record).toContain('Wrangler installation');
     expect(record).toContain('npm publication');
     expect(record).toContain('SpaceTraders work');

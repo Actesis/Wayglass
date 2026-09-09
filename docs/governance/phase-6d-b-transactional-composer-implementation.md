@@ -1,11 +1,11 @@
 # Phase 6D-B stage 2 transactional-composer implementation
 
-**Status:** Proposed for project-owner acceptance on September 9, 2026. This record covers the
-effectful local composition implementation authorized by acceptance of stage 1 in PR #264. It does
-not invoke the new command against the repository's real VitePress or Storybook outputs, implement
-independent artifact verification, run the two-build proof, change producer output, install
-Wrangler, contact Cloudflare or npm, use credentials, deploy, publish, change DNS, or alter
-repository visibility.
+**Status:** Accepted by the project owner and merged in PR #265 on September 9, 2026. This record
+covers the effectful local composition implementation authorized by acceptance of stage 1 in PR
+#264. It does not invoke the new command against the repository's real VitePress or Storybook
+outputs, implement independent artifact verification, run the two-build proof, change producer
+output, install Wrangler, contact Cloudflare or npm, use credentials, deploy, publish, change DNS,
+or alter repository visibility.
 
 ## Command and trust boundary
 
@@ -82,7 +82,7 @@ pass before this proposal is presented for acceptance.
 
 ## Acceptance effect
 
-Acceptance completes Phase 6D-B implementation stage 2 and authorizes stage 3 only: an independent
+Acceptance completed Phase 6D-B implementation stage 2 and authorized stage 3 only: an independent
 read-only `site:verify` command, a retained `site:build` orchestrator, execution against real clean
 VitePress and Storybook outputs, and the two-build complete-byte-equality proof. It does not
 authorize Storybook prefix changes, Wrangler installation, Cloudflare configuration or contact,

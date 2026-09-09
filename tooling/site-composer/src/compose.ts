@@ -72,14 +72,13 @@ function boundary(
 function directories(scans: readonly SurfaceScan[]): readonly string[] {
   const paths = new Set<string>();
   for (const scan of scans) {
-    const definition = SITE_SURFACES.find((surface) => surface.id === scan.id);
-    if (definition?.destinationPrefix) paths.add(definition.destinationPrefix);
     for (const entry of scan.entries) {
-      if (entry.kind === 'directory') paths.add(destinationPath(scan.id, entry.path));
       if (entry.kind === 'file') {
         const destination = destinationPath(scan.id, entry.path);
-        const parent = dirname(destination);
-        if (parent !== '.') paths.add(parent);
+        const segments = destination.split('/');
+        for (let index = 1; index < segments.length; index += 1) {
+          paths.add(segments.slice(0, index).join('/'));
+        }
       }
     }
   }

@@ -21,6 +21,7 @@ export const runLocalCommand: LocalCommand = (command, arguments_, cwd) => {
       cwd,
       encoding: 'buffer',
       stdio: ['ignore', 'pipe', 'pipe'],
+      maxBuffer: 64 * 1024 * 1024,
     });
   } catch {
     fail('WG_SITE_COMMAND', `Local ${command} command failed.`);
