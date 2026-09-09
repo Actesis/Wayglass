@@ -1,0 +1,32 @@
+<style>
+  #wayglass-docs-return {
+    position: fixed;
+    inset-block-end: 0.75rem;
+    inset-inline-end: 0.75rem;
+    z-index: 1000;
+    border: 1px solid currentColor;
+    border-radius: 0.375rem;
+    padding: 0.375rem 0.625rem;
+    background: Canvas;
+    color: CanvasText;
+    font:
+      600 0.75rem/1.25 system-ui,
+      sans-serif;
+    text-decoration: none;
+  }
+
+  #wayglass-docs-return:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+</style>
+<script>
+  globalThis.addEventListener('DOMContentLoaded', () => {
+    const link = document.createElement('a');
+    link.id = 'wayglass-docs-return';
+    link.href = '/';
+    link.textContent = 'Wayglass documentation';
+    link.setAttribute('aria-label', 'Return to Wayglass documentation');
+    document.body.append(link);
+  });
+</script>

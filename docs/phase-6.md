@@ -2,11 +2,11 @@
 
 **Status:** Phase 6C completed by project-owner acceptance of the exact verified candidate on
 September 8, 2026. The Phase 6D delivery plan and Phase 6D-A readiness and Wrangler dependency
-proposal are accepted. The Phase 6D-B deterministic site-composition contract is accepted, and
-implementation stages 1 and 2 are accepted; independent-verifier and real-build stage 3 is proposed
-for project-owner acceptance. No package publication, repository-visibility change, npm action,
-Cloudflare account or DNS mutation, deployment, credential use, or public support claim is
-authorized until its specific gate below is accepted.
+proposal are accepted. The Phase 6D-B deterministic site-composition contract is accepted, and all
+three Phase 6D-B implementation stages are accepted, and Phase 6D-C Storybook subpath work is in
+progress. No package publication, repository-visibility change, npm action, Cloudflare account or
+DNS mutation, deployment, credential use, or public support claim is authorized until its specific
+gate below is accepted.
 
 Phase 6 turns the private system completed in Phases 0–5 into a defined, documented, independently
 installable Wayglass v1 release. It derives v1 from the evidence already accumulated in this

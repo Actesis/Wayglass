@@ -1,7 +1,8 @@
 # Phase 6D-B stage 3 verifier, retained build, and deterministic proof
 
-**Status:** Proposed for project-owner acceptance on September 9, 2026. The implementation, real
-two-build proof, and complete repository quality gate pass at the exact candidate identified below.
+**Status:** Accepted by the project owner and merged in PR #266 on September 9, 2026. The
+implementation, real two-build proof, and complete repository quality gate pass at the exact
+candidate identified below.
 
 ## Implemented boundary
 
