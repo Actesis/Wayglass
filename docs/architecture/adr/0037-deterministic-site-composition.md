@@ -1,6 +1,6 @@
 # ADR 0037: Compose public site surfaces with private deterministic tooling
 
-- Status: proposed
+- Status: accepted
 - Date: 2026-09-08
 
 ## Context

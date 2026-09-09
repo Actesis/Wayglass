@@ -82,13 +82,14 @@ describe('Phase 6D-B deterministic site-composition contract', () => {
   });
 
   it('limits acceptance to private stage-1 implementation', () => {
-    expect(contract).toContain('authorizes implementation stage 1 only');
-    expect(contract).toContain('does not yet authorize effectful composition');
+    expect(contract).toContain('authorized implementation stage 1 only');
+    expect(contract).toContain('did not authorize effectful composition');
     expect(contract).toContain('Wrangler installation');
     expect(contract).toContain('Cloudflare configuration or contact');
     expect(contract).toContain('npm publication');
     expect(contract).toContain('SpaceTraders work');
     expect(roadmap).toContain('Phase 6D-A readiness and Wrangler dependency proposal are accepted');
-    expect(roadmap).toContain('Phase 6D-B deterministic site-composition contract is proposed');
+    expect(roadmap).toContain('Phase 6D-B deterministic site-composition contract is accepted');
+    expect(adr).toContain('Status: accepted');
   });
 });

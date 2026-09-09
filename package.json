@@ -16,7 +16,7 @@
   },
   "scripts": {
     "build": "pnpm token-tooling:generate:web && turbo run build",
-    "check": "pnpm format:check && pnpm lint && pnpm build && pnpm icon-tooling:check && pnpm icon-tooling:core:check && pnpm token-tooling:check && pnpm token-tooling:core:check && pnpm release-candidate:core:check && pnpm experiment:phase5c:check && pnpm typecheck && pnpm test",
+    "check": "pnpm format:check && pnpm lint && pnpm build && pnpm icon-tooling:check && pnpm icon-tooling:core:check && pnpm token-tooling:check && pnpm token-tooling:core:check && pnpm release-candidate:core:check && pnpm site-composer:core:check && pnpm experiment:phase5c:check && pnpm typecheck && pnpm test",
     "docs:build": "pnpm --filter @wayglass/docs build",
     "docs:dev": "pnpm --filter @wayglass/docs dev",
     "example:agent-supervision": "pnpm --filter @wayglass/example-agent-supervision dev",
@@ -48,6 +48,9 @@
     "release-candidate:rehearse": "node --disable-warning=ExperimentalWarning --experimental-strip-types tooling/release-candidate/src/cli.ts rehearse",
     "release-candidate:verify": "node --disable-warning=ExperimentalWarning --experimental-strip-types tooling/release-candidate/src/cli.ts verify",
     "release-candidate:verify-integrated": "node --disable-warning=ExperimentalWarning --experimental-strip-types tooling/release-candidate/src/cli.ts verify-integrated",
+    "site-composer:core:check": "pnpm site-composer:core:typecheck && pnpm site-composer:core:test",
+    "site-composer:core:test": "vitest run --root tooling/site-composer --config vitest.config.ts",
+    "site-composer:core:typecheck": "tsc --noEmit -p tooling/site-composer/tsconfig.json",
     "storybook": "pnpm --filter @wayglass/storybook dev",
     "storybook:build": "pnpm --filter @wayglass/storybook build",
     "test": "turbo run test",

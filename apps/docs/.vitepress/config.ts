@@ -192,6 +192,10 @@ export default defineConfig({
             link: '/governance/phase-6d-b-site-composition-contract',
           },
           {
+            text: 'Phase 6D-B pure composer',
+            link: '/governance/phase-6d-b-pure-composer-implementation',
+          },
+          {
             text: 'ADR 0037 deterministic site composition',
             link: '/architecture/adr/0037-deterministic-site-composition',
           },
