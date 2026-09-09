@@ -1,10 +1,11 @@
 # Phase 6D-B stage 1 pure-composer implementation
 
-**Status:** Proposed for project-owner acceptance on September 8, 2026. This record covers only the
-pure implementation authorized by the accepted Phase 6D-B contract and ADR 0037. It does not add a
-composition command, traverse a real producer output, write or remove an artifact, change VitePress
-or Storybook output, install Wrangler, contact Cloudflare or npm, use credentials, deploy, publish,
-change DNS, or alter repository visibility.
+**Status:** Accepted by the project owner on September 8, 2026, by approval and merge of PR #264.
+This record covers only the pure implementation authorized by the accepted Phase 6D-B contract and
+ADR 0037. Its acceptance authorized implementation stage 2; it did not itself add a composition
+command, traverse a real producer output, write or remove an artifact, change VitePress or Storybook
+output, install Wrangler, contact Cloudflare or npm, use credentials, deploy, publish, change DNS,
+or alter repository visibility.
 
 ## Private implementation boundary
 
@@ -65,10 +66,10 @@ pass before this proposal is presented for acceptance.
 
 ## Acceptance effect
 
-Acceptance completes Phase 6D-B implementation stage 1 and authorizes stage 2 only: effectful
-transactional composition, repository and producer-source validation, input-stability checks,
-explicit command handling, atomic output, and bounded cleanup tests. It does not authorize command
-execution against real producer outputs, independent artifact verification, the two-build proof,
-Storybook prefix changes, Wrangler installation, Cloudflare configuration or contact, GitHub
+Project-owner acceptance completed Phase 6D-B implementation stage 1 and authorized stage 2 only:
+effectful transactional composition, repository and producer-source validation, input-stability
+checks, explicit command handling, atomic output, and bounded cleanup tests. It did not authorize
+command execution against real producer outputs, independent artifact verification, the two-build
+proof, Storybook prefix changes, Wrangler installation, Cloudflare configuration or contact, GitHub
 connection, preview upload, DNS mutation, production deployment, npm publication, repository
 visibility change, or SpaceTraders work.

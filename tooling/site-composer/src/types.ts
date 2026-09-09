@@ -20,6 +20,21 @@ export interface InventoryEntry {
   readonly kind: InventoryEntryKind;
   readonly bytes?: Uint8Array;
   readonly links?: number;
+  readonly mode?: number;
+}
+
+export interface SiteRepositoryContext {
+  readonly root: string;
+  readonly source: SiteSourceIdentity;
+  readonly tooling: SiteToolingIdentity;
+  readonly environment: SiteBuildEnvironment;
+  readonly versions: Readonly<Record<SiteSurfaceId, string>>;
+}
+
+export interface ComposedSiteResult {
+  readonly output: string;
+  readonly manifest: SiteManifest;
+  readonly manifestSha256: string;
 }
 
 export interface InspectedSiteFile {

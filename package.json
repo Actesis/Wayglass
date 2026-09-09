@@ -51,6 +51,7 @@
     "site-composer:core:check": "pnpm site-composer:core:typecheck && pnpm site-composer:core:test",
     "site-composer:core:test": "vitest run --root tooling/site-composer --config vitest.config.ts",
     "site-composer:core:typecheck": "tsc --noEmit -p tooling/site-composer/tsconfig.json",
+    "site:compose": "node --disable-warning=ExperimentalWarning --experimental-strip-types tooling/site-composer/src/cli.ts",
     "storybook": "pnpm --filter @wayglass/storybook dev",
     "storybook:build": "pnpm --filter @wayglass/storybook build",
     "test": "turbo run test",

@@ -26,4 +26,19 @@ export {
   serializeSiteManifest,
   validateSiteManifest,
 } from './manifest.ts';
+export { validateNewSiteOutputPath } from './path-safety.ts';
+export { runLocalCommand, validateSiteRepository } from './repository.ts';
+export {
+  assertFilesystemInventoriesEqual,
+  assertRealDirectoryPath,
+  normalizeMode,
+  scanDirectory,
+} from './filesystem.ts';
+export { composeSite } from './compose.ts';
+export type {
+  ComposeSiteOptions,
+  CompositionBoundary,
+  CompositionBoundaryContext,
+} from './compose.ts';
+export type { LocalCommand } from './repository.ts';
 export type * from './types.ts';
