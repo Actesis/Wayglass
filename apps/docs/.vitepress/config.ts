@@ -16,6 +16,7 @@ export default defineConfig({
       { text: 'Maintenance', link: '/maintenance/support' },
       { text: 'Patterns', link: '/patterns/function-deck' },
       { text: 'Examples', link: '/examples/framework-examples' },
+      { text: 'Storybook', link: '/storybook/' },
       { text: 'Repository', link: 'https://github.com/Actesis/Wayglass' },
     ],
     sidebar: [
@@ -198,6 +199,14 @@ export default defineConfig({
           {
             text: 'Phase 6D-B transactional composer',
             link: '/governance/phase-6d-b-transactional-composer-implementation',
+          },
+          {
+            text: 'Phase 6D-B verifier and build proof',
+            link: '/governance/phase-6d-b-verifier-build-and-proof',
+          },
+          {
+            text: 'Phase 6D-C Storybook subpath',
+            link: '/governance/phase-6d-c-storybook-subpath-contract',
           },
           {
             text: 'ADR 0037 deterministic site composition',

@@ -11,6 +11,10 @@ const config: StorybookConfig = {
     // Storybook's project.json embeds a build timestamp, so it cannot belong to a deterministic artifact.
     disableProjectJson: true,
   },
+  viteFinal: (viteConfig) => ({
+    ...viteConfig,
+    base: '/storybook/',
+  }),
 };
 
 export default config;
