@@ -17,10 +17,12 @@ Query-string history changes must preserve the manager document and browser back
 
 ## Cross-surface navigation
 
-VitePress exposes an ordinary `Storybook` navigation link to `/storybook/`. The Storybook manager
-exposes a keyboard-focusable `Wayglass documentation` link to `/`. Neither surface embeds the other,
-and neither claims the other's content as normative. Storybook remains component inspection;
-VitePress remains the normative documentation source.
+VitePress exposes a `Storybook` navigation link to `/storybook/` with an explicit `_self` browsing
+context. The target attribute intentionally prevents VitePress's same-origin documentation router
+from claiming the non-documentation route while preserving ordinary same-tab navigation. The
+Storybook manager exposes a keyboard-focusable `Wayglass documentation` link to `/`. Neither surface
+embeds the other, and neither claims the other's content as normative. Storybook remains component
+inspection; VitePress remains the normative documentation source.
 
 ## Local composed-site validation
 

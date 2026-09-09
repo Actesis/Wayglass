@@ -16,7 +16,7 @@ export default defineConfig({
       { text: 'Maintenance', link: '/maintenance/support' },
       { text: 'Patterns', link: '/patterns/function-deck' },
       { text: 'Examples', link: '/examples/framework-examples' },
-      { text: 'Storybook', link: '/storybook/' },
+      { text: 'Storybook', link: '/storybook/', target: '_self' },
       { text: 'Repository', link: 'https://github.com/Actesis/Wayglass' },
     ],
     sidebar: [
