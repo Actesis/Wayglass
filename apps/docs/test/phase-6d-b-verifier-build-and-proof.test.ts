@@ -18,6 +18,10 @@ const verifierManifest = readFileSync(
   resolve(repositoryRoot, 'tooling/site-composer/src/verify-manifest.ts'),
   'utf8',
 );
+const storybookConfig = readFileSync(
+  resolve(repositoryRoot, 'apps/storybook/.storybook/main.ts'),
+  'utf8',
+);
 
 describe('Phase 6D-B stage 3 verifier, build, and proof', () => {
   it('defines independent read-only verification and retained build commands', () => {
@@ -27,6 +31,7 @@ describe('Phase 6D-B stage 3 verifier, build, and proof', () => {
     expect(record).toContain('does not invoke Wrangler');
     expect(verifier).not.toContain("from './compose.ts'");
     expect(verifierManifest).not.toContain("from './manifest.ts'");
+    expect(storybookConfig).toContain('disableProjectJson: true');
   });
 
   it('keeps the deterministic proof and authority boundary explicit', () => {

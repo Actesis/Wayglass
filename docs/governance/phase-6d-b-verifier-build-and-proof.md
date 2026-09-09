@@ -22,6 +22,11 @@ sorted entry sets, kinds, modes, link counts, and every byte including the manif
 directories are not copied because they have no manifest representation; any extra artifact
 directory is rejected.
 
+The first real comparison found Storybook's optional `project.json` metadata file embedding a
+`generatedAt` wall-clock timestamp. The owning Storybook configuration now uses its supported
+`core.disableProjectJson` option. This removes non-runtime diagnostic metadata rather than rewriting
+generated output; all declared Storybook entry points and static application assets remain admitted.
+
 ## Focused evidence
 
 The focused suite contains 118 tests across 12 files. Stage 3 adds accepted-artifact, read-only,
