@@ -26,7 +26,7 @@ describe('Phase 6D-C Storybook subpath contract', () => {
   });
 
   it('provides explicit, accessible navigation in both directions', () => {
-    expect(docsConfig).toContain("{ text: 'Storybook', link: '/storybook/' }");
+    expect(docsConfig).toContain("{ text: 'Storybook', link: '/storybook/', target: '_self' }");
     expect(managerHead).toContain("link.href = '/'");
     expect(managerHead).toContain("link.textContent = 'Wayglass documentation'");
     expect(managerHead).toContain(
