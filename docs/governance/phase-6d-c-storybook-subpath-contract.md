@@ -1,7 +1,8 @@
 # Phase 6D-C Storybook subpath and cross-surface navigation contract
 
-**Status:** Implementation in progress on September 9, 2026, following project-owner acceptance and
-merge of Phase 6D-B in PR #266.
+**Status:** Acceptance candidate completed on September 9, 2026, following project-owner acceptance
+and merge of Phase 6D-B in PR #266. The exact implementation and composed-browser proof are recorded
+below.
 
 ## Public-path ownership
 
@@ -42,6 +43,34 @@ the relevant Chromium browser proof, and the full repository gate must pass befo
 proposed. Firefox and WebKit compatibility remain governed by existing browser evidence; this
 delivery-path proof uses Chromium because it validates URL construction rather than a new runtime
 component contract.
+
+## Acceptance-candidate evidence
+
+The proof used implementation commit `cce43042917541baaa3259a516f5c8ee7e16ce39` and tree
+`a0ab19b6f32f4cd8aa3d179e1405a57a60db50a2`, with lockfile SHA-256
+`bdb6b4e916bd5fa2330fc3dd3f272814c6940ec04dab78b437b7007be386a525`. A clean `pnpm site:build`
+produced an independently verified composed artifact with bundle SHA-256
+`aaefebbf432447c469e6e7e7943976f1d24fdd0299dda6a2cf878961bfdfab1d` and manifest SHA-256
+`3e74ece584f47d1c0cca90edf796cb6f3c4e01c73a4a730deed9215810be37cc`.
+
+That artifact was served by an ordinary static HTTP server with no rewrites. Chromium proved the
+documentation root, `/storybook/`, `/storybook/index.html`, a direct preview iframe, and the stable
+`foundations-foundation-primitives--surfaces-and-dividers` story. The manager deep link rendered the
+selected story; changing stories updated the query-string URL; browser back and forward restored the
+corresponding story selections. The preview also rendered when its iframe URL was loaded directly.
+
+The documentation navigation exposed the accessible `Storybook` link and reached the manager in the
+same tab. The manager exposed the accessible `Return to Wayglass documentation` link and returned to
+the documentation root in the same tab. Keyboard focus on the return link produced a two-pixel solid
+outline. Generated-output inspection found every root-absolute preview runtime reference under
+`/storybook/assets/`; manager runtime references are relative to `/storybook/`. The only intentional
+cross-prefix reference is the manager's return link to `/`, and the loaded manager and selected
+preview completed without an escaped runtime request.
+
+The first browser pass exposed VitePress claiming the same-origin `/storybook/` link and rendering a
+documentation 404. The accepted correction adds an explicit `_self` target, which VitePress excludes
+from client-router interception while retaining same-tab browser behavior. Focused documentation
+tests now preserve that integration requirement.
 
 ## Authority boundary
 
