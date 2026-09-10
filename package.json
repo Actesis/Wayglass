@@ -52,6 +52,7 @@
     "site-composer:core:test": "vitest run --root tooling/site-composer --config vitest.config.ts",
     "site-composer:core:typecheck": "tsc --noEmit -p tooling/site-composer/tsconfig.json",
     "site:build": "node --disable-warning=ExperimentalWarning --experimental-strip-types tooling/site-composer/src/cli.ts build",
+    "site:check-responses": "node --disable-warning=ExperimentalWarning --experimental-strip-types tooling/site-composer/src/cli.ts check-responses",
     "site:compose": "node --disable-warning=ExperimentalWarning --experimental-strip-types tooling/site-composer/src/cli.ts compose",
     "site:verify": "node --disable-warning=ExperimentalWarning --experimental-strip-types tooling/site-composer/src/cli.ts verify",
     "storybook": "pnpm --filter @wayglass/storybook dev",
