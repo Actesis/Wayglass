@@ -1,7 +1,8 @@
 # Phase 6D-D response, route, and content contract
 
-**Status:** Proposed on September 9, 2026, after project-owner acceptance and merge of the Phase
-6D-C composed browser proof in PR #268.
+**Status:** Accepted by the project owner and merged in PR #269 on September 10, 2026. Deployment
+metadata implementation is complete as an acceptance candidate; the independent local response
+emulator/checker remains next.
 
 ## Architecture disposition
 
