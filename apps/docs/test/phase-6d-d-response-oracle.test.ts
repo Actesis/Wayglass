@@ -23,10 +23,10 @@ describe('Phase 6D-D independent response oracle record', () => {
   });
 
   it('records exact clean artifact and response-check evidence', () => {
-    expect(record).toContain('479116c00faf73e7a76ef7e865f10edb5ea7fae2');
-    expect(record).toContain('69399fc891ca47bbb911e61c5c1934ba48ca3cc0a3fd55e61c421bdc76b1bab7');
-    expect(record).toContain('0866ecaf61f0e287f52c5b5afa7cc1ee7698a154dad7973f0bd8a7459937b803');
-    expect(record).toContain('722 files; 36,946,868 bytes');
+    expect(record).toContain('3978b3cbf814bb829ad966f6bfe6cd7429fcc6b6');
+    expect(record).toContain('7a519cc645c696f3537e71795b7c2a6d5fad602132ec8e225ed23e90a00f0eb9');
+    expect(record).toContain('7d34230cc0a44d1b5bf94e1db6de15ae65e98efbc2fa14b6a04e0cc01b31eb46');
+    expect(record).toContain('725 files; 37,179,347 bytes');
     expect(record).toContain('14 test files and 131 tests');
   });
 

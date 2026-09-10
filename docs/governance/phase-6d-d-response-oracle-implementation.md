@@ -48,18 +48,18 @@ record is added.
 
 ## Clean composed-artifact proof
 
-`pnpm site:build` ran from clean implementation commit `479116c00faf73e7a76ef7e865f10edb5ea7fae2`
-and tree `e09b361ce0fe59ebaa5cd930e0655282149ddb50` with lockfile SHA-256
+`pnpm site:build` ran from clean implementation commit `3978b3cbf814bb829ad966f6bfe6cd7429fcc6b6`
+and tree `d5f15ff52b52f59a910338a29dc80affc9b9734e` with lockfile SHA-256
 `bdb6b4e916bd5fa2330fc3dd3f272814c6940ec04dab78b437b7007be386a525`. The independent response checker
 then passed against that exact verified output:
 
 | Evidence          | Exact result                                                       |
 | ----------------- | ------------------------------------------------------------------ |
-| Bundle SHA-256    | `69399fc891ca47bbb911e61c5c1934ba48ca3cc0a3fd55e61c421bdc76b1bab7` |
-| Manifest SHA-256  | `0866ecaf61f0e287f52c5b5afa7cc1ee7698a154dad7973f0bd8a7459937b803` |
-| Documentation     | 589 files; 27,719,876 bytes                                        |
+| Bundle SHA-256    | `7a519cc645c696f3537e71795b7c2a6d5fad602132ec8e225ed23e90a00f0eb9` |
+| Manifest SHA-256  | `7d34230cc0a44d1b5bf94e1db6de15ae65e98efbc2fa14b6a04e0cc01b31eb46` |
+| Documentation     | 592 files; 27,952,355 bytes                                        |
 | Storybook         | 133 files; 9,226,992 bytes                                         |
-| Surface total     | 722 files; 36,946,868 bytes, plus the root manifest                |
+| Surface total     | 725 files; 37,179,347 bytes, plus the root manifest                |
 | Build environment | Node `26.8.1`; pnpm `11.9.0`; `darwin`; `arm64`                    |
 
 ## Deliberate limitation and next authority
