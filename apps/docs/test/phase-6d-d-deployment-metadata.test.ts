@@ -31,7 +31,7 @@ describe('Phase 6D-D deployment metadata', () => {
 
   it('keeps common response rules singular and adds only narrow cache and indexing rules', () => {
     expect(headers.match(/^\/\*$/gm)).toHaveLength(1);
-    expect(headers).toContain('Cache-Control: public, max-age=0, must-revalidate');
+    expect(headers).not.toContain('Cache-Control: public, max-age=0, must-revalidate');
     expect(headers).toContain('Cache-Control: public, max-age=31536000, immutable');
     expect(headers).toContain('/assets/*');
     expect(headers).toContain('/storybook/assets/*');
@@ -71,6 +71,7 @@ describe('Phase 6D-D deployment metadata', () => {
     expect(record).toContain('444c35d1c524095e44a047ddd159a16a20851d920c91926ff2846a4ed8d50c5f');
     expect(record).toContain('719 files; 36,713,250 bytes');
     expect(record).toContain('independent response emulator/checker');
+    expect(record).toContain('Cloudflare combines duplicate headers');
     expect(record).toContain('does not authorize Wrangler installation or configuration');
     expect(record).toContain('preview upload');
     expect(record).toContain('npm publication');

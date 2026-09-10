@@ -1,16 +1,15 @@
 # Phase 6D-D stage 1 deployment metadata implementation
 
-**Status:** Acceptance candidate completed on September 10, 2026, after project-owner acceptance and
-merge of the Phase 6D-D response, route, and content contract in PR #269.
+**Status:** Accepted by the project owner and merged in PR #270 on September 10, 2026.
 
 ## Implemented boundary
 
 The VitePress producer now owns the initial deployment metadata and production content required by
 the accepted contract:
 
-- `_headers` supplies one common revalidation and security policy, narrow immutable rules for the
-  two fingerprinted asset namespaces, Storybook `noindex`, and versioned or aliased `workers.dev`
-  preview `noindex, nofollow`;
+- `_headers` supplies one common security policy, narrow immutable rules for the two fingerprinted
+  asset namespaces, Storybook `noindex`, and versioned or aliased `workers.dev` preview
+  `noindex, nofollow`;
 - `robots.txt` permits production documentation crawling and names the canonical sitemap;
 - VitePress generates the sitemap for `https://wayglass.hoagsoftworks.com`;
 - every documentation page except the error document receives one route-derived absolute canonical
@@ -68,6 +67,12 @@ Storybook manager, and Storybook preview:
 This stage intentionally does not claim HTTP status, redirect, MIME, applied-header, CSP runtime, or
 browser behavior from file inspection alone. The independent response emulator/checker and its
 complete matrix are the next Phase 6D-D stage; the composed browser proof follows that oracle.
+
+The response-oracle implementation subsequently removed `Cache-Control` from the overlapping global
+rule. Cloudflare combines duplicate headers from every matching authored rule, so the immutable
+asset rules must override Cloudflare's default revalidation policy rather than combine with an
+authored global cache value. The original clean-artifact hashes above remain the historical evidence
+for this accepted stage; the corrected artifact has its own response-oracle evidence.
 
 ## Authority boundary
 

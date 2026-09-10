@@ -8,9 +8,10 @@ import { verifySite } from './verify.ts';
 const usage = `Usage:
   pnpm site:compose -- --output <absolute-new-temporary-directory>
   pnpm site:verify -- --input <absolute-temporary-directory>
+  pnpm site:check-responses -- --input <absolute-temporary-directory>
   pnpm site:build -- --output <absolute-new-temporary-directory>`;
 
-type SiteCommand = 'build' | 'compose' | 'verify';
+type SiteCommand = 'build' | 'check-responses' | 'compose' | 'verify';
 
 function parseSinglePathOption(
   arguments_: readonly string[],
@@ -41,6 +42,10 @@ export function parseVerifyArguments(arguments_: readonly string[]): string {
   return parseSinglePathOption(arguments_, 'verify', '--input');
 }
 
+export function parseCheckResponsesArguments(arguments_: readonly string[]): string {
+  return parseSinglePathOption(arguments_, 'check-responses', '--input');
+}
+
 export function parseBuildArguments(arguments_: readonly string[]): string {
   return parseSinglePathOption(arguments_, 'build', '--output');
 }
@@ -50,10 +55,15 @@ function commandArguments(arguments_: readonly string[]): {
   readonly options: readonly string[];
 } {
   const command = arguments_[0];
-  if (command !== 'build' && command !== 'compose' && command !== 'verify') {
+  if (
+    command !== 'build' &&
+    command !== 'check-responses' &&
+    command !== 'compose' &&
+    command !== 'verify'
+  ) {
     throw new SiteComposerError(
       'WG_SITE_INVOCATION',
-      'The site command must be build, compose, or verify.',
+      'The site command must be build, check-responses, compose, or verify.',
     );
   }
   return { command, options: arguments_.slice(1) };
@@ -65,6 +75,15 @@ export async function main(arguments_: readonly string[]): Promise<void> {
     return;
   }
   const invocation = commandArguments(arguments_);
+  if (invocation.command === 'check-responses') {
+    const { checkSiteResponses } = await import('./response.ts');
+    const input = parseCheckResponsesArguments(invocation.options);
+    const result = checkSiteResponses(input);
+    console.log(
+      `Checked site responses ${result.site.manifest.bundleSha256}; input ${result.site.input}.`,
+    );
+    return;
+  }
   if (invocation.command === 'verify') {
     const input = parseVerifyArguments(invocation.options);
     const result = verifySite(input);
