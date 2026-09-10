@@ -209,6 +209,10 @@ export default defineConfig({
             link: '/governance/phase-6d-c-storybook-subpath-contract',
           },
           {
+            text: 'Phase 6D-D response and routing',
+            link: '/governance/phase-6d-d-response-route-content-contract',
+          },
+          {
             text: 'ADR 0037 deterministic site composition',
             link: '/architecture/adr/0037-deterministic-site-composition',
           },
