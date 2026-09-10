@@ -222,6 +222,10 @@ export default defineConfig({
             link: '/governance/phase-6d-d-response-route-content-contract',
           },
           {
+            text: 'Phase 6D-D deployment metadata',
+            link: '/governance/phase-6d-d-deployment-metadata-implementation',
+          },
+          {
             text: 'ADR 0037 deterministic site composition',
             link: '/architecture/adr/0037-deterministic-site-composition',
           },
