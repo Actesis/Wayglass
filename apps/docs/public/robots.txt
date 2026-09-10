@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://wayglass.hoagsoftworks.com/sitemap.xml

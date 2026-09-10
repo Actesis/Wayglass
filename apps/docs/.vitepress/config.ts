@@ -1,9 +1,18 @@
 import { defineConfig } from 'vitepress';
 
+import { CANONICAL_ORIGIN, canonicalUrl } from './delivery';
+
 export default defineConfig({
   title: 'Wayglass',
   description: 'A design language for operational awareness.',
   cleanUrls: true,
+  sitemap: {
+    hostname: CANONICAL_ORIGIN,
+  },
+  transformHead({ pageData }) {
+    const href = canonicalUrl(pageData.relativePath);
+    return href === undefined ? [] : [['link', { rel: 'canonical', href }]];
+  },
   themeConfig: {
     nav: [
       { text: 'Phase 6', link: '/phase-6' },
