@@ -80,6 +80,7 @@ describe('independent static response oracle', () => {
       ['/unknown', 404, '404.html'],
       ['/storybook/missing.js', 404, '404.html'],
       ['/_headers', 404, '404.html'],
+      ['/wayglass-site-manifest.json', 200, 'wayglass-site-manifest.json'],
     ] as const;
     for (const method of ['GET', 'HEAD'] as const) {
       for (const [path, status, assetPath] of cases) {

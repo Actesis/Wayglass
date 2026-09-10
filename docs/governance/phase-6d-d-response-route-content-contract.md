@@ -1,8 +1,8 @@
 # Phase 6D-D response, route, and content contract
 
 **Status:** Accepted by the project owner and merged in PR #269 on September 10, 2026. Deployment
-metadata implementation is complete as an acceptance candidate; the independent local response
-emulator/checker remains next.
+metadata was accepted and merged in PR #270. The independent local response oracle is complete as an
+acceptance candidate; the composed browser proof remains next.
 
 ## Architecture disposition
 

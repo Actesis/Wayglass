@@ -181,7 +181,7 @@ function decodeBody(response: SiteResponse): string {
 
 export function createSiteResponseOracle(input: string): SiteResponseOracle {
   const site = verifySite(input);
-  const files = new Set(site.manifest.files.map((file) => file.path));
+  const files = new Set([...site.manifest.files.map((file) => file.path), SITE_MANIFEST_PATH]);
   assertImmutableFiles([...files]);
   if (!files.has('_headers') || !files.has('404.html')) {
     fail('WG_SITE_RESPONSE_METADATA', 'Verified artifact lacks _headers or the root 404 document.');
@@ -317,7 +317,11 @@ export function checkSiteResponses(input: string): SiteResponseOracle {
   if (immutable === undefined)
     fail('WG_SITE_RESPONSE_MATRIX', 'No immutable proof asset was composed.');
   assertResponseHeader(oracle.resolve(`/${immutable.path}`), 'Cache-Control', IMMUTABLE_CACHE);
-  assertResponseHeader(oracle.resolve(`/${SITE_MANIFEST_PATH}`), 'Cache-Control', DEFAULT_CACHE);
+  const manifest = oracle.resolve(`/${SITE_MANIFEST_PATH}`);
+  if (manifest.status !== 200 || manifest.assetPath !== SITE_MANIFEST_PATH) {
+    fail('WG_SITE_RESPONSE_MATRIX', 'The root site manifest was not served as an exact asset.');
+  }
+  assertResponseHeader(manifest, 'Cache-Control', DEFAULT_CACHE);
 
   const canonical = decodeBody(oracle.resolve('/phase-6'));
   if (!canonical.includes('https://wayglass.hoagsoftworks.com/phase-6')) {
