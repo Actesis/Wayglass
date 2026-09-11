@@ -230,6 +230,10 @@ export default defineConfig({
             link: '/governance/phase-6d-d-response-oracle-implementation',
           },
           {
+            text: 'Phase 6D-D browser proof',
+            link: '/governance/phase-6d-d-browser-proof',
+          },
+          {
             text: 'ADR 0037 deterministic site composition',
             link: '/architecture/adr/0037-deterministic-site-composition',
           },

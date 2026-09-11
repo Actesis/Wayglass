@@ -23,6 +23,7 @@ describe('Phase 6D-D independent response oracle record', () => {
   });
 
   it('records exact clean artifact and response-check evidence', () => {
+    expect(record).toContain('merged in PR #271');
     expect(record).toContain('3978b3cbf814bb829ad966f6bfe6cd7429fcc6b6');
     expect(record).toContain('7a519cc645c696f3537e71795b7c2a6d5fad602132ec8e225ed23e90a00f0eb9');
     expect(record).toContain('7d34230cc0a44d1b5bf94e1db6de15ae65e98efbc2fa14b6a04e0cc01b31eb46');
@@ -34,7 +35,7 @@ describe('Phase 6D-D independent response oracle record', () => {
     expect(record).toContain('hydration shell');
     expect(record).toContain('local server and Chromium proof');
     expect(record).toContain('not a claim of exact Cloudflare runtime parity');
-    expect(record).toContain('does not authorize Wrangler installation or configuration');
+    expect(record).toContain('did not authorize Wrangler installation or configuration');
     expect(record).toContain('preview upload');
     expect(record).toContain('npm publication');
   });
