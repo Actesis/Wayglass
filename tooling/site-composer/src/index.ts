@@ -39,6 +39,7 @@ export { buildSite } from './build.ts';
 export { assertSiteArtifactsEqual, verifySite } from './verify.ts';
 export { appliedSiteHeaders, parseSiteHeaders } from './headers.ts';
 export { checkSiteResponses, createSiteResponseOracle } from './response.ts';
+export { serveSite, startSiteServer } from './server.ts';
 export type { BuildSiteOptions } from './build.ts';
 export type {
   ComposeSiteOptions,

@@ -9,9 +9,10 @@ const usage = `Usage:
   pnpm site:compose -- --output <absolute-new-temporary-directory>
   pnpm site:verify -- --input <absolute-temporary-directory>
   pnpm site:check-responses -- --input <absolute-temporary-directory>
+  pnpm site:serve -- --input <absolute-temporary-directory> [--port <port>]
   pnpm site:build -- --output <absolute-new-temporary-directory>`;
 
-type SiteCommand = 'build' | 'check-responses' | 'compose' | 'verify';
+type SiteCommand = 'build' | 'check-responses' | 'compose' | 'serve' | 'verify';
 
 function parseSinglePathOption(
   arguments_: readonly string[],
@@ -50,6 +51,31 @@ export function parseBuildArguments(arguments_: readonly string[]): string {
   return parseSinglePathOption(arguments_, 'build', '--output');
 }
 
+export function parseServeArguments(arguments_: readonly string[]): {
+  input: string;
+  port?: number;
+} {
+  const options = arguments_.filter((argument) => argument !== '--');
+  const inputIndex = options.indexOf('--input');
+  const portIndex = options.indexOf('--port');
+  const expectedLength = portIndex === -1 ? 2 : 4;
+  const input = options[inputIndex + 1];
+  const portText = portIndex === -1 ? undefined : options[portIndex + 1];
+  if (
+    options.length !== expectedLength ||
+    inputIndex === -1 ||
+    input === undefined ||
+    input.startsWith('--') ||
+    (portIndex !== -1 && (portText === undefined || !/^\d+$/.test(portText)))
+  ) {
+    throw new SiteComposerError(
+      'WG_SITE_INVOCATION',
+      'site:serve requires --input and accepts one optional numeric --port.',
+    );
+  }
+  return { input, ...(portText === undefined ? {} : { port: Number(portText) }) };
+}
+
 function commandArguments(arguments_: readonly string[]): {
   readonly command: SiteCommand;
   readonly options: readonly string[];
@@ -59,11 +85,12 @@ function commandArguments(arguments_: readonly string[]): {
     command !== 'build' &&
     command !== 'check-responses' &&
     command !== 'compose' &&
+    command !== 'serve' &&
     command !== 'verify'
   ) {
     throw new SiteComposerError(
       'WG_SITE_INVOCATION',
-      'The site command must be build, check-responses, compose, or verify.',
+      'The site command must be build, check-responses, compose, serve, or verify.',
     );
   }
   return { command, options: arguments_.slice(1) };
@@ -75,6 +102,11 @@ export async function main(arguments_: readonly string[]): Promise<void> {
     return;
   }
   const invocation = commandArguments(arguments_);
+  if (invocation.command === 'serve') {
+    const { serveSite } = await import('./server.ts');
+    await serveSite(parseServeArguments(invocation.options));
+    return;
+  }
   if (invocation.command === 'check-responses') {
     const { checkSiteResponses } = await import('./response.ts');
     const input = parseCheckResponsesArguments(invocation.options);

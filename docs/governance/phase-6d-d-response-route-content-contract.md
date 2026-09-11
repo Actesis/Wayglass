@@ -2,7 +2,8 @@
 
 **Status:** Accepted by the project owner and merged in PR #269 on September 10, 2026. Deployment
 metadata was accepted and merged in PR #270. The independent local response oracle is complete as an
-acceptance candidate; the composed browser proof remains next.
+accepted implementation in PR #271; the composed browser proof is complete as an acceptance
+candidate.
 
 ## Architecture disposition
 

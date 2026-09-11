@@ -1,7 +1,7 @@
 # Phase 6D-D stage 2 independent response oracle
 
-**Status:** Acceptance candidate completed on September 10, 2026, after project-owner acceptance and
-merge of the deployment-metadata implementation in PR #270.
+**Status:** Accepted by the project owner and merged in PR #271 on September 10, 2026, after
+project-owner acceptance and merge of the deployment-metadata implementation in PR #270.
 
 ## Implemented boundary
 
@@ -72,7 +72,7 @@ asset loading, absence of external runtime requests, responsive and forced-color
 hydrated branded 404. Phase 6D-E will later compare the accepted oracle with credential-free local
 Wrangler behavior.
 
-Acceptance authorizes that composed browser-proof stage only. It does not authorize Wrangler
+That acceptance authorized the composed browser-proof stage only. It did not authorize Wrangler
 installation or configuration, Cloudflare or GitHub connection, preview upload, production
 deployment, custom-domain attachment, DNS mutation, credentials, repository visibility changes,
 analytics, npm publication, or SpaceTraders work.

@@ -16,6 +16,7 @@ import {
   parseBuildArguments,
   parseCheckResponsesArguments,
   parseComposeArguments,
+  parseServeArguments,
   parseVerifyArguments,
 } from '../src/cli.ts';
 import { createSiteRepositoryFixture, type SiteRepositoryFixture } from './system-fixtures.ts';
@@ -201,9 +202,17 @@ describe('site:compose invocation', () => {
   it('keeps build, response-check, compose, and verify path options distinct', () => {
     expect(parseBuildArguments(['--output', '/tmp/build'])).toBe('/tmp/build');
     expect(parseCheckResponsesArguments(['--input', '/tmp/site'])).toBe('/tmp/site');
+    expect(parseServeArguments(['--input', '/tmp/site'])).toEqual({ input: '/tmp/site' });
+    expect(parseServeArguments(['--port', '4176', '--input', '/tmp/site'])).toEqual({
+      input: '/tmp/site',
+      port: 4176,
+    });
     expect(parseVerifyArguments(['--input', '/tmp/site'])).toBe('/tmp/site');
     expect(() => parseBuildArguments(['--input', '/tmp/build'])).toThrow('WG_SITE_INVOCATION');
     expect(() => parseCheckResponsesArguments(['--output', '/tmp/site'])).toThrow(
+      'WG_SITE_INVOCATION',
+    );
+    expect(() => parseServeArguments(['--input', '/tmp/site', '--port', 'invalid'])).toThrow(
       'WG_SITE_INVOCATION',
     );
     expect(() => parseVerifyArguments(['--output', '/tmp/site'])).toThrow('WG_SITE_INVOCATION');
