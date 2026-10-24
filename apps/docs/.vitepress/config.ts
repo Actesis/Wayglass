@@ -234,6 +234,10 @@ export default defineConfig({
             link: '/governance/phase-6d-d-browser-proof',
           },
           {
+            text: 'Phase 6D-E Wrangler rehearsal',
+            link: '/governance/phase-6d-e-wrangler-rehearsal',
+          },
+          {
             text: 'ADR 0037 deterministic site composition',
             link: '/architecture/adr/0037-deterministic-site-composition',
           },

@@ -1,7 +1,7 @@
 # Phase 6D-D composed browser proof
 
-**Status:** Acceptance candidate completed on September 10, 2026, after project-owner acceptance and
-merge of the independent response oracle in PR #271.
+**Status:** Accepted by the project owner and merged in PR #272 on September 11, 2026, after
+project-owner acceptance and merge of the independent response oracle in PR #271.
 
 ## Implemented boundary
 

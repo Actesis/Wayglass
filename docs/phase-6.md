@@ -3,8 +3,8 @@
 **Status:** Phase 6C completed by project-owner acceptance of the exact verified candidate on
 September 8, 2026. The Phase 6D delivery plan and Phase 6D-A readiness and Wrangler dependency
 proposal are accepted. The Phase 6D-B deterministic site-composition contract is accepted, and all
-three Phase 6D-B implementation stages and Phase 6D-C are accepted. Phase 6D-D deployment metadata
-and the independent response oracle are accepted, and the composed browser proof is an acceptance
+three Phase 6D-B implementation stages, Phase 6D-C, and all Phase 6D-D work are accepted. The Phase
+6D-E Wrangler configuration and credential-free local rehearsal are complete as an acceptance
 candidate. No package publication, repository-visibility change, npm action, Cloudflare account or
 DNS mutation, deployment, credential use, or public support claim is authorized until its specific
 gate below is accepted.

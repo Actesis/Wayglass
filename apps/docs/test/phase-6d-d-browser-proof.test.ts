@@ -30,6 +30,7 @@ describe('Phase 6D-D composed browser proof record', () => {
   });
 
   it('distinguishes visual corroboration and preserves the next authority boundary', () => {
+    expect(record).toContain('merged in PR #272');
     expect(record).toContain('corroborating visual evidence');
     expect(record).toContain('does not replace the automated assertions');
     expect(record).toContain('wrangler@4.128.0');
