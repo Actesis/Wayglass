@@ -5,6 +5,7 @@ packages:
 storeDir: .pnpm-store
 allowBuilds:
   esbuild: true
+  workerd: true
 minimumReleaseAgeExclude:
   - '@storybook/addon-a11y@10.5.5'
   - '@storybook/addon-docs@10.5.5'

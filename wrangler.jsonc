@@ -1,0 +1,15 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "wayglass-docs",
+  "compatibility_date": "2026-09-07",
+  "workers_dev": true,
+  "preview_urls": true,
+  "send_metrics": false,
+  "dependencies_instrumentation": {
+    "enabled": false,
+  },
+  "assets": {
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page",
+  },
+}

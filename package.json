@@ -16,7 +16,10 @@
   },
   "scripts": {
     "build": "pnpm token-tooling:generate:web && turbo run build",
-    "check": "pnpm format:check && pnpm lint && pnpm build && pnpm icon-tooling:check && pnpm icon-tooling:core:check && pnpm token-tooling:check && pnpm token-tooling:core:check && pnpm release-candidate:core:check && pnpm site-composer:core:check && pnpm experiment:phase5c:check && pnpm typecheck && pnpm test",
+    "check": "pnpm format:check && pnpm lint && pnpm build && pnpm icon-tooling:check && pnpm icon-tooling:core:check && pnpm token-tooling:check && pnpm token-tooling:core:check && pnpm release-candidate:core:check && pnpm site-composer:core:check && pnpm cloudflare-delivery:core:check && pnpm experiment:phase5c:check && pnpm typecheck && pnpm test",
+    "cloudflare-delivery:core:check": "pnpm cloudflare-delivery:core:typecheck && pnpm cloudflare-delivery:core:test",
+    "cloudflare-delivery:core:test": "vitest run --root tooling/cloudflare-delivery --config vitest.config.ts",
+    "cloudflare-delivery:core:typecheck": "tsc --noEmit -p tooling/cloudflare-delivery/tsconfig.json",
     "docs:build": "pnpm --filter @wayglass/docs build",
     "docs:dev": "pnpm --filter @wayglass/docs dev",
     "example:agent-supervision": "pnpm --filter @wayglass/example-agent-supervision dev",
@@ -57,6 +60,7 @@
     "site:compose": "node --disable-warning=ExperimentalWarning --experimental-strip-types tooling/site-composer/src/cli.ts compose",
     "site:serve": "node --disable-warning=ExperimentalWarning --experimental-strip-types tooling/site-composer/src/cli.ts serve",
     "site:verify": "node --disable-warning=ExperimentalWarning --experimental-strip-types tooling/site-composer/src/cli.ts verify",
+    "site:wrangler:check": "node --disable-warning=ExperimentalWarning --experimental-strip-types tooling/cloudflare-delivery/src/cli.ts",
     "storybook": "pnpm --filter @wayglass/storybook dev",
     "storybook:build": "pnpm --filter @wayglass/storybook build",
     "test": "turbo run test",
@@ -92,6 +96,7 @@
     "typescript": "6.0.3",
     "typescript-eslint": "8.65.0",
     "vite": "8.1.5",
-    "vitest": "4.1.10"
+    "vitest": "4.1.10",
+    "wrangler": "4.128.0"
   }
 }
