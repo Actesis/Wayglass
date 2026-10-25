@@ -3,12 +3,13 @@
 **Status:** Accepted by the project owner on September 8, 2026, after completion of Phase 6C. Phase
 6D-A readiness and dependency-proposal work and the Phase 6D-B site-composition contract are
 accepted. All three Phase 6D-B implementation stages and the Phase 6D-C Storybook subpath proof are
-accepted; all Phase 6D-D work is accepted, and the Phase 6D-E Wrangler configuration and local
-rehearsal are complete as an acceptance candidate. This plan decomposes the accepted Cloudflare
-delivery architecture into reviewable local, configuration, preview, and closeout slices. Its
-acceptance does not connect Cloudflare or GitHub, change DNS, upload a preview, deploy production,
-enable analytics, publish packages, or expose credentials. The owner separately authorized the
-read-only account inspection recorded during 6D-A and the accepted Phase 6D-E dependency install.
+accepted; all Phase 6D-D work and the Phase 6D-E Wrangler configuration and local rehearsal are
+accepted. The Phase 6D-F preview and rollback execution contract is an acceptance candidate. This
+plan decomposes the accepted Cloudflare delivery architecture into reviewable local, configuration,
+preview, and closeout slices. Its acceptance does not connect Cloudflare or GitHub, change DNS,
+upload a preview, deploy production, enable analytics, publish packages, or expose credentials. The
+owner separately authorized the read-only account inspection recorded during 6D-A and the accepted
+Phase 6D-E dependency install.
 
 ## Objective
 
@@ -142,10 +143,12 @@ command.
 
 ### 6D-F — separately authorized preview and rollback rehearsal
 
-After fresh project-owner authorization, connect only the approved account/repository scope or use
-an approved minimal deployment credential. Upload one immutable non-production Worker version,
-record its source and version identity, verify its preview URL and `noindex` behavior, and rehearse
-rollback between non-production versions. Do not attach the custom hostname or promote production.
+After fresh project-owner authorization, use only the approved account scope and existing OAuth
+session. Upload one independently verified baseline and one immutable candidate Worker version,
+record both source and version identities, verify the candidate Version URL and `noindex` behavior,
+and rehearse baseline deployment, candidate deployment, rollback, and candidate restoration only on
+the non-production `workers.dev` root. Do not connect GitHub, attach the custom hostname, or promote
+production.
 
 **Exit gate:** The project owner accepts the preview, exact immutable artifact, route/header/content
 evidence, access scope, and rollback result.

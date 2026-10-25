@@ -31,10 +31,11 @@ describe('Phase 6D-E Wrangler rehearsal record', () => {
   });
 
   it('preserves emulator caveats and the separate preview authority boundary', () => {
+    expect(record).toContain('merged in PR #273');
     expect(record).toContain('two narrow differences');
     expect(record).toContain('Canonical `307` responses include custom `_headers`');
     expect(record).toContain('omits `Allow`');
-    expect(record).toContain('does not itself authorize a preview upload');
+    expect(record).toContain('does not itself authorize a Version upload');
     expect(record).toContain('fresh, explicit project-owner authorization');
     expect(record).toContain('npm publication');
   });

@@ -238,6 +238,10 @@ export default defineConfig({
             link: '/governance/phase-6d-e-wrangler-rehearsal',
           },
           {
+            text: 'Phase 6D-F preview and rollback',
+            link: '/governance/phase-6d-f-preview-and-rollback-execution-contract',
+          },
+          {
             text: 'ADR 0037 deterministic site composition',
             link: '/architecture/adr/0037-deterministic-site-composition',
           },
