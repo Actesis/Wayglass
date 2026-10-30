@@ -1,7 +1,7 @@
 # Phase 6D-E Wrangler configuration and local rehearsal
 
-**Status:** Acceptance candidate completed on September 11, 2026, after project-owner acceptance and
-merge of the Phase 6D-D composed browser proof in PR #272.
+**Status:** Accepted by the project owner and merged in PR #273 on October 25, 2026, after
+project-owner acceptance and merge of the Phase 6D-D composed browser proof in PR #272.
 
 ## Implemented boundary
 
@@ -92,7 +92,7 @@ complete repository quality gate also passes.
 ## Acceptance effect and next authority
 
 Acceptance completes Phase 6D-E and authorizes preparation of the Phase 6D-F preview and rollback
-execution record. It does not itself authorize a preview upload. Phase 6D-F still requires fresh,
+execution record. It does not itself authorize a Version upload. Phase 6D-F still requires fresh,
 explicit project-owner authorization before using credentials, connecting an account or repository,
 or creating or changing any Cloudflare resource.
 
