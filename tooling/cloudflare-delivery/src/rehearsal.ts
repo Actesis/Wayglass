@@ -16,6 +16,7 @@ import {
   readCloudflareDeliveryConfig,
 } from './config.ts';
 import { fail } from './error.ts';
+import { EDGE_RESPONSE_ROUTES } from './matrix.ts';
 
 export const WRANGLER_LOCAL_DIFFERENCES = [
   'redirects-include-custom-headers',
@@ -30,24 +31,6 @@ interface ComparableResponse {
   };
   arrayBuffer(): Promise<ArrayBuffer>;
 }
-
-const ROUTES = [
-  '/',
-  '/phase-6',
-  '/phase-6.html?proof=wrangler',
-  '/phase-6/?proof=wrangler',
-  '/foundations',
-  '/foundations/',
-  '/foundations/index.html',
-  '/storybook',
-  '/storybook/',
-  '/storybook/iframe?viewMode=story',
-  '/storybook/iframe.html?viewMode=story',
-  '/missing-wayglass-wrangler-proof',
-  '/storybook/missing-wayglass-wrangler-proof.js',
-  '/unknown-prefix/missing',
-  '/wayglass-site-manifest.json',
-] as const;
 
 function header(response: SiteResponse, name: string): string | undefined {
   return [...response.headers].find(
@@ -159,7 +142,7 @@ export async function runWranglerRehearsal(options: {
   try {
     await harness.listen();
     for (const method of ['GET', 'HEAD'] as const) {
-      for (const path of ROUTES) {
+      for (const path of EDGE_RESPONSE_ROUTES) {
         const expected = oracle.resolve(path, method);
         const actual = await harness.fetch(path, { method, redirect: 'manual' });
         await assertWranglerResponseParity(actual, expected, method, path);
