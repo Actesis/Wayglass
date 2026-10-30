@@ -255,7 +255,7 @@ describe('immutable edge verification', () => {
         },
         { checkResponses: oracle, fetch: mirroredFetch() },
       ),
-    ).rejects.toThrow('WG_CLOUDFLARE_EDGE_OUTPUT');
+    ).rejects.toThrow('WG_CLOUDFLARE_EVIDENCE_OUTPUT');
     expect(() => parseEdgeArguments(['--input', '/artifact'])).toThrow(
       'WG_CLOUDFLARE_EDGE_INVOCATION',
     );

@@ -5,10 +5,11 @@ September 8, 2026. The Phase 6D delivery plan and Phase 6D-A readiness and Wrang
 proposal are accepted. The Phase 6D-B deterministic site-composition contract is accepted, and all
 three Phase 6D-B implementation stages, Phase 6D-C, all Phase 6D-D work, and the Phase 6D-E Wrangler
 configuration and credential-free local rehearsal are accepted. The Phase 6D-F preview and rollback
-execution contract is accepted, and its read-only edge verifier is an implementation acceptance
-candidate. No package publication, repository-visibility change, npm action, Cloudflare account or
-DNS mutation, deployment, credential use, or public support claim is authorized until its specific
-gate below is accepted.
+execution contract is accepted, and its read-only edge verifier was accepted in PR #275. Its
+read-only remote browser verifier is now an implementation acceptance candidate. No package
+publication, repository-visibility change, npm action, Cloudflare account or DNS mutation,
+deployment, credential use, or public support claim is authorized until its specific gate below is
+accepted.
 
 Phase 6 turns the private system completed in Phases 0–5 into a defined, documented, independently
 installable Wayglass v1 release. It derives v1 from the evidence already accumulated in this

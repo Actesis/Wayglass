@@ -1,7 +1,7 @@
 # Phase 6D-F read-only edge verifier implementation
 
-**Status:** Implementation acceptance candidate prepared on October 30, 2026, after project-owner
-acceptance and merge of the Phase 6D-F execution contract in PR #274.
+**Status:** Accepted by the project owner and merged in PR #275 on October 30, 2026, after
+project-owner acceptance and merge of the Phase 6D-F execution contract in PR #274.
 
 ## Implemented boundary
 
@@ -81,9 +81,9 @@ gate must pass before this candidate is proposed for acceptance.
 
 ## Remaining Phase 6D-F work
 
-This verifier does not replace the accepted hydrated Chromium and accessibility matrix. After this
-candidate is accepted, the next implementation slice may add a read-only remote browser runner and
-its sanitized browser evidence projection. Neither implementation slice authorizes the separate
-Cloudflare execution: OAuth use, resource creation, uploads, baseline or candidate deployment,
-rollback, restoration, and retained public state remain blocked on the exact authorization in the
-accepted execution contract.
+This verifier does not replace the accepted hydrated Chromium and accessibility matrix. Its
+acceptance authorized a read-only remote browser runner and sanitized browser evidence projection as
+the next implementation slice. Neither implementation slice authorizes the separate Cloudflare
+execution: OAuth use, resource creation, uploads, baseline or candidate deployment, rollback,
+restoration, and retained public state remain blocked on the exact authorization in the accepted
+execution contract.

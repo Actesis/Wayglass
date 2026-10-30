@@ -1,17 +1,4 @@
 import {
-  closeSync,
-  existsSync,
-  linkSync,
-  openSync,
-  realpathSync,
-  rmSync,
-  writeFileSync,
-} from 'node:fs';
-import { tmpdir } from 'node:os';
-import { basename, dirname, isAbsolute, relative, resolve } from 'node:path';
-import { randomUUID } from 'node:crypto';
-
-import {
   checkSiteResponses,
   type SiteReadMethod,
   type SiteResponse,
@@ -19,6 +6,7 @@ import {
 } from '../../site-composer/src/response.ts';
 import type { SiteManifest } from '../../site-composer/src/types.ts';
 import { WORKER_NAME } from './config.ts';
+import { resolveEvidenceOutputPath, writeSanitizedEvidence } from './evidence.ts';
 import { fail } from './error.ts';
 import { CONTRACT_HEADER_NAMES, EDGE_RESPONSE_ROUTES } from './matrix.ts';
 
@@ -76,7 +64,7 @@ interface EdgeVerifierDependencies {
   readonly checkResponses?: (input: string) => SiteResponseOracle;
 }
 
-function exactVersionUrl(source: string, versionId: string): URL {
+export function parseImmutableVersionUrl(source: string, versionId: string): URL {
   if (!VERSION_ID.test(versionId)) {
     fail('WG_CLOUDFLARE_EDGE_VERSION', 'The version ID must be a lowercase Cloudflare UUID.');
   }
@@ -185,48 +173,12 @@ async function request(fetcher: EdgeFetch, url: URL, method: string): Promise<Re
   }
 }
 
-function outputPath(candidate: string): string {
-  if (!isAbsolute(candidate) || existsSync(candidate)) {
-    fail('WG_CLOUDFLARE_EDGE_OUTPUT', 'Evidence output must be a new absolute path.');
-  }
-  const parent = dirname(resolve(candidate));
-  let realParent: string;
-  try {
-    realParent = realpathSync(parent);
-  } catch {
-    fail('WG_CLOUDFLARE_EDGE_OUTPUT', 'Evidence output parent must already exist.');
-  }
-  const temporaryRoot = realpathSync(tmpdir());
-  const fromTemporaryRoot = relative(temporaryRoot, realParent);
-  if (fromTemporaryRoot.startsWith('..') || isAbsolute(fromTemporaryRoot)) {
-    fail('WG_CLOUDFLARE_EDGE_OUTPUT', 'Evidence output must remain inside the OS temporary root.');
-  }
-  return resolve(realParent, basename(candidate));
-}
-
-function writeEvidence(path: string, evidence: EdgeEvidence): void {
-  const staging = `${path}.${randomUUID()}.tmp`;
-  let descriptor: number | undefined;
-  try {
-    descriptor = openSync(staging, 'wx', 0o600);
-    writeFileSync(descriptor, `${JSON.stringify(evidence, null, 2)}\n`, 'utf8');
-    closeSync(descriptor);
-    descriptor = undefined;
-    linkSync(staging, path);
-    rmSync(staging);
-  } catch {
-    if (descriptor !== undefined) closeSync(descriptor);
-    rmSync(staging, { force: true });
-    fail('WG_CLOUDFLARE_EDGE_OUTPUT', 'Could not write sanitized edge evidence transactionally.');
-  }
-}
-
 export async function verifyImmutableEdge(
   options: EdgeVerificationOptions,
   dependencies: EdgeVerifierDependencies = {},
 ): Promise<EdgeEvidence> {
-  const origin = exactVersionUrl(options.url, options.versionId);
-  const destination = outputPath(options.output);
+  const origin = parseImmutableVersionUrl(options.url, options.versionId);
+  const destination = resolveEvidenceOutputPath(options.output);
   const oracle = (dependencies.checkResponses ?? checkSiteResponses)(options.input);
   const fetcher = dependencies.fetch ?? (globalThis.fetch as EdgeFetch);
   const observedRedirectHeaders = new Set<string>();
@@ -284,6 +236,6 @@ export async function verifyImmutableEdge(
     },
     rejectedPost: { status: 405, allow },
   };
-  writeEvidence(destination, evidence);
+  writeSanitizedEvidence(destination, evidence);
   return evidence;
 }
