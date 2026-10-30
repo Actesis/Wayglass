@@ -1,7 +1,7 @@
 # Phase 6D-F read-only browser verifier implementation
 
-**Status:** Implementation acceptance candidate prepared on October 30, 2026, after project-owner
-acceptance and merge of the read-only edge verifier in PR #275.
+**Status:** Accepted by the project owner and merged in PR #276 on October 30, 2026, after
+project-owner acceptance and merge of the read-only edge verifier in PR #275.
 
 ## Implemented boundary
 
@@ -75,9 +75,9 @@ the full repository gate must pass before this candidate is proposed for accepta
 
 ## Remaining Phase 6D-F work
 
-Acceptance of this candidate completes the read-only verification tooling planned by the execution
-contract. The next step is a final execution-readiness audit that names the clean candidate and
-baseline artifacts, exact commands, evidence destinations, stop conditions, and required owner
-authorization. It must not authenticate, create, upload, deploy, roll back, restore, or retain any
-Cloudflare state. Those external effects remain blocked on the accepted contract's separate,
-all-at-once execution authorization.
+Acceptance completes the read-only verification tooling planned by the execution contract. The next
+step is a final execution-readiness audit that names the clean candidate and baseline artifacts,
+exact commands, evidence destinations, stop conditions, and required owner authorization. It must
+not authenticate, create, upload, deploy, roll back, restore, or retain any Cloudflare state. Those
+external effects remain blocked on the accepted contract's separate, all-at-once execution
+authorization.
