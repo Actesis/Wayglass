@@ -1,8 +1,8 @@
 # Phase 6D-F preview and rollback execution contract
 
-**Status:** Acceptance candidate prepared on October 25, 2026, after project-owner acceptance and
-merge of the Phase 6D-E Wrangler rehearsal in PR #273. This record authorizes no external mutation
-until the project owner accepts its exact execution scope separately.
+**Status:** Accepted by the project owner and merged in PR #274 on October 30, 2026. This record
+authorizes the read-only verifier implementation described below, but no external mutation until the
+project owner accepts its exact execution scope separately.
 
 ## Platform disposition
 
