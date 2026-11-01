@@ -45,6 +45,19 @@ authorized Worker and baseline version and establishes that version at 100% in t
 operation. Every later candidate, rollback, restoration, isolation, and evidence boundary remains
 unchanged.
 
+## Provider-discovered immutable-edge correction
+
+After the initial-deploy correction was accepted, the same-day execution created `wayglass-docs`
+with the hash-verified baseline as its sole 100% deployment. The immutable edge gate then stopped
+before candidate upload because Cloudflare removed `; charset=utf-8` from text MIME values and
+supplied its documented Version URL `noindex` token without the authored `nofollow` token. The
+active-root manifest remained byte-identical to the accepted baseline.
+
+The edge verifier and acceptance language now admit only those two observed provider
+transformations. Status, bytes, routing, location, cache, security, framing, unknown MIME, and
+unexpected indexing-token checks remain fail-closed. Execution resumes from the retained baseline
+only after this correction is accepted.
+
 ## Command authority and environment
 
 The command forms below were checked against the locally installed Wrangler `4.128.0` help. Current

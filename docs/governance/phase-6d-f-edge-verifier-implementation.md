@@ -34,8 +34,11 @@ closed and contains no authorization, cookie, referrer, account, or environment 
 
 For GET and HEAD, the verifier compares the same fifteen-route matrix used by the accepted local
 Wrangler rehearsal. Status, response bytes, canonical `Location`, and every repository-owned
-terminal content, cache, security, framing, and indexing header must match the independent oracle
-exactly. Every terminal Version URL response must contain both `noindex` and `nofollow` tokens.
+terminal cache, security, and framing header must match the independent oracle exactly. MIME values
+must match after one closed provider normalization: Cloudflare Static Assets removes the redundant
+`; charset=utf-8` parameter from the accepted UTF-8 text MIME values. Every terminal Version URL
+response must contain `noindex`; `nofollow` is accepted when present, and every other indexing token
+is rejected.
 
 The two retained emulator differences become explicit edge observations:
 
@@ -62,6 +65,21 @@ OS temporary root. The destination must not already exist. The allowlisted schem
 It contains no local artifact or evidence path, raw response or command log, arbitrary header set,
 credential, authorization header, account ID, email address, or environment dump. Failed runs leave
 no final evidence file.
+
+## Live-edge correction
+
+The first authorized live baseline deployment on November 1, 2026 stopped at the first immutable
+edge comparison. The verified artifact and active-root manifest matched byte for byte, while the
+provider returned `text/html` instead of the local oracle's `text/html; charset=utf-8`. Read-only
+sampling confirmed the same charset removal for JavaScript and showed Cloudflare's documented
+automatic `X-Robots-Tag: noindex` on the immutable Version URL. The authored host rule continues to
+produce `noindex, nofollow` on the active non-production `workers.dev` root, but Cloudflare does not
+carry its `nofollow` token onto the immutable Version URL.
+
+This amendment admits only those two observed provider transformations. It does not weaken status,
+body, route, location, cache, CSP, permissions, referrer, content-sniffing, framing, unknown MIME,
+or unexpected indexing-token checks. The failed attempt published no evidence and uploaded no
+candidate; the exact baseline remained the sole 100% deployment while this correction was reviewed.
 
 ## Verification completed in this slice
 

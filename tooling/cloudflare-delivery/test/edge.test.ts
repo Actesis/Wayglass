@@ -124,6 +124,10 @@ function mirroredFetch(source: SiteResponseOracle = oracle()) {
     }
     const expected = source.resolve(url, init.method as SiteReadMethod);
     const headers = new Headers([...expected.headers]);
+    const contentType = headers.get('Content-Type');
+    if (contentType !== null)
+      headers.set('Content-Type', contentType.replace(/; charset=utf-8$/, ''));
+    if (expected.kind !== 'redirect') headers.set('X-Robots-Tag', 'noindex');
     if (expected.kind === 'redirect') headers.set('Content-Security-Policy', "default-src 'self'");
     return new Response(Uint8Array.from(expected.body).buffer, {
       status: expected.status,
@@ -217,13 +221,44 @@ describe('immutable edge verification', () => {
     expect(() => readFileSync(destination)).toThrow();
   });
 
-  it('requires noindex and nofollow on every terminal response', async () => {
+  it('requires noindex and rejects unadmitted indexing tokens on every terminal response', async () => {
     const destination = output();
     const source = oracle();
     const fetcher = mirroredFetch(source);
     fetcher.mockImplementationOnce(async (input, init) => {
       const expected = source.resolve(new URL(input), init.method as SiteReadMethod);
       const headers = new Headers([...expected.headers]);
+      const contentType = headers.get('Content-Type');
+      if (contentType !== null)
+        headers.set('Content-Type', contentType.replace(/; charset=utf-8$/, ''));
+      headers.set('X-Robots-Tag', 'nofollow');
+      return new Response(Uint8Array.from(expected.body).buffer, {
+        status: expected.status,
+        headers,
+      });
+    });
+    await expect(
+      verifyImmutableEdge(
+        {
+          input: '/not-retained/private/artifact',
+          url: VERSION_URL,
+          versionId: VERSION_ID,
+          output: destination,
+        },
+        { fetch: fetcher, checkResponses: () => source },
+      ),
+    ).rejects.toThrow('WG_CLOUDFLARE_EDGE_INDEXING');
+    expect(() => readFileSync(destination)).toThrow();
+  });
+
+  it('rejects content types outside the observed Cloudflare charset normalization', async () => {
+    const destination = output();
+    const source = oracle();
+    const fetcher = mirroredFetch(source);
+    fetcher.mockImplementationOnce(async (input, init) => {
+      const expected = source.resolve(new URL(input), init.method as SiteReadMethod);
+      const headers = new Headers([...expected.headers]);
+      headers.set('Content-Type', 'application/octet-stream');
       headers.set('X-Robots-Tag', 'noindex');
       return new Response(Uint8Array.from(expected.body).buffer, {
         status: expected.status,

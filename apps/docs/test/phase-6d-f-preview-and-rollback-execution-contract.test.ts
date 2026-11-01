@@ -45,7 +45,8 @@ describe('Phase 6D-F preview and rollback execution contract', () => {
   });
 
   it('requires edge evidence, stop conditions, and credential-safe records', () => {
-    expect(contract).toContain('`X-Robots-Tag` containing `noindex` and `nofollow`');
+    expect(contract).toContain("Cloudflare's documented `noindex`");
+    expect(contract).toContain('removes the redundant `; charset=utf-8` parameter');
     expect(contract).toContain('custom headers on canonical redirects');
     expect(contract).toContain('`Allow` on rejected POST');
     expect(contract).toContain(

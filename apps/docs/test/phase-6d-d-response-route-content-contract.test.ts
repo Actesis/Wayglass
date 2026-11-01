@@ -31,6 +31,7 @@ describe('Phase 6D-D response, route, and content contract', () => {
     expect(contract).toContain('joins duplicate values from overlapping rules');
     expect(contract).toContain('`X-Robots-Tag: noindex, nofollow`');
     expect(contract).toContain('`https://:version.:subdomain.workers.dev/*`');
+    expect(contract).toContain('immutable Version URLs received Cloudflare');
   });
 
   it('requires an independent matrix before Wrangler and preserves external authority', () => {

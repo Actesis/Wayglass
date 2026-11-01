@@ -108,11 +108,13 @@ publishes a `robots.txt` that permits documentation crawling. Storybook is publi
 material but non-normative, so its responses use `X-Robots-Tag: noindex` and do not compete with the
 documentation in search results.
 
-Every versioned or aliased `workers.dev` preview response additionally receives
-`X-Robots-Tag: noindex, nofollow` through the host rule `https://:version.:subdomain.workers.dev/*`.
-That rule applies to the same immutable artifact and does not depend on runtime host detection.
-Preview HTML must not claim the production origin as its own current location; canonical links
-remain production references, not preview-indexing permission.
+The artifact authors `X-Robots-Tag: noindex, nofollow` through the host rule
+`https://:version.:subdomain.workers.dev/*`. The first live Phase 6D-F deployment proved that rule
+on the active non-production `workers.dev` root, while immutable Version URLs received Cloudflare's
+documented automatic `X-Robots-Tag: noindex` without the authored `nofollow` token. Edge acceptance
+therefore requires `noindex`, accepts `nofollow` when present, and rejects every other indexing
+token. Preview HTML must not claim the production origin as its own current location; canonical
+links remain production references, not preview-indexing permission.
 
 ## Local proof and retained implementation boundary
 
