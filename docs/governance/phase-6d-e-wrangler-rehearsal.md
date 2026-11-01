@@ -89,6 +89,16 @@ The rehearsal reported 30 matching GET and HEAD responses and the two explicitly
 differences above. The focused delivery-tool check passes with 2 test files and 6 tests. The
 complete repository quality gate also passes.
 
+## Later baseline-identity correction
+
+The [Phase 6D-F baseline reproducibility audit](./phase-6d-f-baseline-reproducibility-audit.md)
+preserves the hashes above as historical Phase 6D-E evidence but found that they were not
+reproducible from the frozen source. Three later byte-identical builds, including a fresh offline
+checkout with all 14 workspace tasks forced uncached, establish bundle SHA-256
+`6edb7d6e4ebca328cfdc720b3af33ea41df9543724cdd1bbdf3b653a35a809fd` and manifest-file SHA-256
+`72cef95a99cfc43617f228d3619ac3391041e719038c695a5b99c4b6cf112f22` as the normative Phase 6D-F
+baseline admission identity. This annotation does not rewrite the evidence originally observed.
+
 ## Acceptance effect and next authority
 
 Acceptance completes Phase 6D-E and authorizes preparation of the Phase 6D-F preview and rollback

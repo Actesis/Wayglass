@@ -22,7 +22,9 @@ describe('Phase 6D-F execution-readiness audit', () => {
   it('pins the clean candidate, baseline, command authority, and evidence destinations', () => {
     expect(audit).toContain('clean `main` merge commit that accepts this audit');
     expect(audit).toContain('aadb0bf82f64a5a4e2ef322aed636ce3d7e7ea74');
-    expect(audit).toContain('36587495199bff85019af53f6a3ec72c65d5efcc29df211edc82feb76e28a122');
+    expect(audit).toContain('6edb7d6e4ebca328cfdc720b3af33ea41df9543724cdd1bbdf3b653a35a809fd');
+    expect(audit).toContain('72cef95a99cfc43617f228d3619ac3391041e719038c695a5b99c4b6cf112f22');
+    expect(audit).toContain('./phase-6d-f-baseline-reproducibility-audit.md');
     expect(audit).toContain('locally installed Wrangler `4.128.0` help');
     expect(audit).toContain('candidate-browser.json');
     expect(audit).toContain('baseline-active-manifest.json');

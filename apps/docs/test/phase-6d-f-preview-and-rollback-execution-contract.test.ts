@@ -27,7 +27,9 @@ describe('Phase 6D-F preview and rollback execution contract', () => {
     expect(contract).toContain('`wayglass-docs`');
     expect(contract).toContain('`workers.dev` root and Version URLs');
     expect(contract).toContain('aadb0bf82f64a5a4e2ef322aed636ce3d7e7ea74');
-    expect(contract).toContain('36587495199bff85019af53f6a3ec72c65d5efcc29df211edc82feb76e28a122');
+    expect(contract).toContain('6edb7d6e4ebca328cfdc720b3af33ea41df9543724cdd1bbdf3b653a35a809fd');
+    expect(contract).toContain('72cef95a99cfc43617f228d3619ac3391041e719038c695a5b99c4b6cf112f22');
+    expect(contract).toContain('./phase-6d-f-baseline-reproducibility-audit.md');
     expect(contract).toContain('`phase-6d-f-candidate`');
   });
 

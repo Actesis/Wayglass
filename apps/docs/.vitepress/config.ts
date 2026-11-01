@@ -254,6 +254,10 @@ export default defineConfig({
             link: '/governance/phase-6d-f-execution-readiness-audit',
           },
           {
+            text: 'Phase 6D-F baseline reproducibility',
+            link: '/governance/phase-6d-f-baseline-reproducibility-audit',
+          },
+          {
             text: 'ADR 0037 deterministic site composition',
             link: '/architecture/adr/0037-deterministic-site-composition',
           },

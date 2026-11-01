@@ -27,8 +27,11 @@ captured merge commit invalidates the run.
 
 The rollback baseline remains the already accepted clean commit
 `aadb0bf82f64a5a4e2ef322aed636ce3d7e7ea74`. Its rebuilt artifact must independently reproduce bundle
-SHA-256 `36587495199bff85019af53f6a3ec72c65d5efcc29df211edc82feb76e28a122` before it can be
-uploaded.
+SHA-256 `6edb7d6e4ebca328cfdc720b3af33ea41df9543724cdd1bbdf3b653a35a809fd` and manifest-file SHA-256
+`72cef95a99cfc43617f228d3619ac3391041e719038c695a5b99c4b6cf112f22` before it can be uploaded. The
+[baseline reproducibility audit](./phase-6d-f-baseline-reproducibility-audit.md) records the three
+byte-identical builds that corrected these admission hashes without changing the accepted baseline
+source.
 
 ## Command authority and environment
 
