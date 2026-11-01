@@ -30,13 +30,18 @@ describe('Phase 6D-F execution-readiness audit', () => {
 
   it('builds frozen baseline workspace packages before the site producers', () => {
     const install = audit.indexOf('install --frozen-lockfile --offline');
-    const packages = audit.indexOf("--filter './packages/**' build", install);
+    const packageBuild =
+      '--filter @wayglass/core --filter @wayglass/tokens --filter @wayglass/themes ' +
+      '--filter @wayglass/elements --filter @wayglass/icons --filter @wayglass/react ' +
+      '--filter @wayglass/testing build';
+    const packages = audit.indexOf(packageBuild, install);
     const site = audit.indexOf('site:build -- --output <BASELINE_SITE>', packages);
 
     expect(install).toBeGreaterThan(-1);
     expect(packages).toBeGreaterThan(install);
     expect(site).toBeGreaterThan(packages);
-    expect(audit).toContain('creates only the workspace package `dist` exports');
+    expect(audit).toContain('explicitly names all seven workspace packages');
+    expect(audit).toContain('silently match nothing');
   });
 
   it('freezes the exact upload, deployment, rollback, restoration, and verification sequence', () => {

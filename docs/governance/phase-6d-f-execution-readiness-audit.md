@@ -114,18 +114,20 @@ operator choices.
    ```sh
    git worktree add --detach <RUN_ROOT>/baseline-checkout aadb0bf82f64a5a4e2ef322aed636ce3d7e7ea74
    pnpm --dir <RUN_ROOT>/baseline-checkout install --frozen-lockfile --offline
-   pnpm --dir <RUN_ROOT>/baseline-checkout --filter './packages/**' build
+   pnpm --dir <RUN_ROOT>/baseline-checkout --filter @wayglass/core --filter @wayglass/tokens --filter @wayglass/themes --filter @wayglass/elements --filter @wayglass/icons --filter @wayglass/react --filter @wayglass/testing build
    pnpm --dir <RUN_ROOT>/baseline-checkout site:build -- --output <BASELINE_SITE>
    pnpm --dir <RUN_ROOT>/baseline-checkout site:verify -- --input <BASELINE_SITE>
    pnpm --dir <RUN_ROOT>/baseline-checkout site:check-responses -- --input <BASELINE_SITE>
    ```
 
    Offline installation is deliberate: the execution authority does not include registry access or
-   dependency changes. The filtered build is also offline and creates only the workspace package
-   `dist` exports consumed by the documentation and Storybook producers; `site:build` then owns the
-   clean producer builds, composition, and verification. A missing cached dependency or failed
-   workspace package build stops the run for a new decision. The baseline manifest must reproduce
-   the accepted source identity and exact bundle SHA-256 above.
+   dependency changes. The filtered build is also offline and explicitly names all seven workspace
+   packages so pnpm cannot resolve a path selector relative to the operator's current checkout and
+   silently match nothing. It creates only the package `dist` exports consumed by the documentation
+   and Storybook producers; `site:build` then owns the clean producer builds, composition, and
+   verification. A missing cached dependency, unmatched named package, or failed workspace package
+   build stops the run for a new decision. The baseline manifest must reproduce the accepted source
+   identity and exact bundle SHA-256 above.
 
 3. Re-run the closed configuration checker immediately before account access:
 
