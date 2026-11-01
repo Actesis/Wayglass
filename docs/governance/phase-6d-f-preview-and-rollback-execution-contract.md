@@ -79,11 +79,12 @@ One active task must perform the sequence without interleaving unrelated Cloudfl
    its workspace package dependencies offline, build the site producers, and verify the expected
    bundle hash. Build the candidate into a separate owned temporary directory and independently
    verify both artifacts.
-4. Upload the baseline with `wrangler versions upload`, exact asset-directory selection, a
-   `phase-6d-f-baseline` tag, a descriptive message, and strict remote-change checking. Record the
-   returned version ID and immutable Version URL.
-5. Verify the baseline Version URL, then deploy that exact version at 100% to the non-production
-   `workers.dev` root. Confirm the deployment list names only that version.
+4. Create the previously absent Worker with one initial `wrangler deploy` of the verified baseline,
+   exact asset-directory selection, a descriptive message, and strict remote-change checking.
+   Cloudflare couples this first version creation to its 100% deployment; record the returned
+   version ID, deployment ID, immutable Version URL, and `workers.dev` root.
+5. Verify the baseline Version URL, confirm the deployment list names only that version at 100%, and
+   compare the active-root manifest with the exact baseline artifact.
 6. Upload the candidate with tag `phase-6d-f-candidate`, preview alias `phase-6d-f`, a descriptive
    message, and strict remote-change checking. Record its version ID, immutable Version URL, and
    aliased Version URL.
@@ -149,9 +150,10 @@ effects together:
 
 - use of the existing Wrangler OAuth session;
 - creation of `wayglass-docs` if the fresh preflight still finds no collision;
-- two Static Assets version uploads and their public Version URLs;
-- baseline deployment, candidate deployment, rollback to baseline, and restoration of candidate on
-  the public non-production `workers.dev` root; and
+- initial Worker creation and baseline Static Assets deployment, plus the candidate Static Assets
+  version upload and both public Version URLs;
+- candidate deployment, rollback to baseline, and restoration of candidate on the public
+  non-production `workers.dev` root; and
 - retention of both versions and the final candidate deployment for owner review.
 
 That authority still excludes the production hostname, DNS, routes, Custom Domains, GitHub or

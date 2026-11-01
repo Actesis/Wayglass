@@ -34,6 +34,8 @@ describe('Phase 6D-F preview and rollback execution contract', () => {
   });
 
   it('defines the rollback and recovery sequence without production authority', () => {
+    expect(contract).toContain('one initial `wrangler deploy`');
+    expect(contract).toContain('Cloudflare couples this first version creation');
     expect(contract).toContain('Deploy the candidate version at 100%');
     expect(contract).toContain('Roll back explicitly to the baseline version ID');
     expect(contract).toContain('Restore the candidate');

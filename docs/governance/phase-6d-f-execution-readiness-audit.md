@@ -32,6 +32,19 @@ Its rebuilt artifact must independently reproduce bundle SHA-256
 [baseline reproducibility audit](./phase-6d-f-baseline-reproducibility-audit.md) records the
 independent absolute-parent proof and expressly withdraws the earlier path-sensitive admission.
 
+## Provider-discovered initial-deploy correction
+
+On November 1, 2026, a fresh authorized preflight authenticated successfully and both version and
+deployment reads returned Cloudflare code `10007`, proving that `wayglass-docs` did not exist. The
+immediately following `wrangler versions upload` was rejected before any write because Wrangler
+cannot upload a version of a Worker that does not yet exist and requires `wrangler deploy` first.
+
+No Worker, version, deployment, route, alias, or other Cloudflare resource was created or changed.
+The corrected sequence below uses one initial baseline `deploy`, which creates the already
+authorized Worker and baseline version and establishes that version at 100% in the same provider
+operation. Every later candidate, rollback, restoration, isolation, and evidence boundary remains
+unchanged.
+
 ## Command authority and environment
 
 The command forms below were checked against the locally installed Wrangler `4.128.0` help. Current
@@ -51,6 +64,7 @@ wayglass-phase-6d-f.*/
   candidate-site/          verified candidate artifact
   evidence/
     baseline-edge.json
+    baseline-initial-manifest.json
     baseline-active-manifest.json
     candidate-edge.json
     candidate-browser.json
@@ -165,26 +179,32 @@ operator choices.
 Each numbered mutation is allowed only if every preceding check passed in the same task. No command
 is automatically retried. The operator substitutes only the proved paths, IDs, and URLs above.
 
-1. Repeat the two name-absence reads, then upload the baseline:
+1. Repeat the two name-absence reads, then create the Worker and establish the baseline at 100% in
+   one initial deployment:
 
    ```sh
    WRANGLER_SEND_METRICS=false WRANGLER_LOG_PATH=<RUN_ROOT>/wrangler.log pnpm exec wrangler versions list --config wrangler.jsonc --name wayglass-docs --json
    WRANGLER_SEND_METRICS=false WRANGLER_LOG_PATH=<RUN_ROOT>/wrangler.log pnpm exec wrangler deployments list --config wrangler.jsonc --name wayglass-docs --json
-   WRANGLER_SEND_METRICS=false WRANGLER_LOG_PATH=<RUN_ROOT>/wrangler.log pnpm exec wrangler versions upload --config wrangler.jsonc --name wayglass-docs --assets <BASELINE_SITE> --tag phase-6d-f-baseline --message "Phase 6D-F rollback baseline 8d154458b7de3818db9338f47c1775102fe9e361" --strict
+   WRANGLER_SEND_METRICS=false WRANGLER_LOG_PATH=<RUN_ROOT>/wrangler.log pnpm exec wrangler deploy --config wrangler.jsonc --name wayglass-docs --assets <BASELINE_SITE> --message "Phase 6D-F create verified rollback baseline 8d154458b7de3818db9338f47c1775102fe9e361" --strict
    ```
 
-   Record the exact baseline UUID and immutable URL. Verify them before deployment:
+   `wrangler versions upload` cannot create a Worker that does not exist. Cloudflare and the
+   installed Wrangler therefore require this first operation to couple version creation with a 100%
+   deployment. Record the exact baseline UUID, deployment ID, immutable URL, and `workers.dev` root.
+   Verify the immutable version before continuing:
 
    ```sh
    pnpm site:edge:check -- --input <BASELINE_SITE> --url <BASELINE_VERSION_URL> --version-id <BASELINE_VERSION_ID> --output <RUN_ROOT>/evidence/baseline-edge.json
    ```
 
-2. Confirm the versions list contains exactly the expected baseline, then establish it at 100%:
+2. Confirm the versions and deployments lists contain exactly the expected baseline at 100%, then
+   prove the active-root manifest:
 
    ```sh
    WRANGLER_SEND_METRICS=false WRANGLER_LOG_PATH=<RUN_ROOT>/wrangler.log pnpm exec wrangler versions list --config wrangler.jsonc --name wayglass-docs --json
-   WRANGLER_SEND_METRICS=false WRANGLER_LOG_PATH=<RUN_ROOT>/wrangler.log pnpm exec wrangler versions deploy <BASELINE_VERSION_ID>@100% --config wrangler.jsonc --name wayglass-docs --message "Phase 6D-F establish verified rollback baseline" --yes
    WRANGLER_SEND_METRICS=false WRANGLER_LOG_PATH=<RUN_ROOT>/wrangler.log pnpm exec wrangler deployments list --config wrangler.jsonc --name wayglass-docs --json
+   curl --fail --silent --show-error --proto '=https' --max-redirs 0 --max-time 30 --output <RUN_ROOT>/evidence/baseline-initial-manifest.json <WORKERS_DEV_ROOT>/wayglass-site-manifest.json
+   cmp --silent <BASELINE_SITE>/wayglass-site-manifest.json <RUN_ROOT>/evidence/baseline-initial-manifest.json
    ```
 
    The list must identify one 100% active baseline version.
@@ -266,7 +286,8 @@ The post-execution proposal records:
 - public immutable and alias URLs, version IDs, deployment IDs, and sanitized list projections;
 - SHA-256 identities of all four verifier evidence files and their accepted result projections;
 - the observed edge disposition of redirect headers and rejected POST `Allow` behavior;
-- the baseline, candidate, rollback, and restored-candidate active-root manifest comparisons;
+- the initial baseline, candidate, rollback, and restored-candidate active-root manifest
+  comparisons;
 - the last successful mutation, exact known active version, and safe recovery choice if execution
   stops after a write; and
 - confirmation that the production hostname, DNS, routes, Custom Domains, GitHub, repository
