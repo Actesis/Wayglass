@@ -261,6 +261,10 @@ export default defineConfig({
             text: 'ADR 0037 deterministic site composition',
             link: '/architecture/adr/0037-deterministic-site-composition',
           },
+          {
+            text: 'ADR 0038 path-independent Storybook output',
+            link: '/architecture/adr/0038-path-independent-storybook-manager-normalization',
+          },
           { text: 'Phase 5 ecosystem roadmap', link: '/phase-5' },
           { text: 'Phase 5 roadmap disposition', link: '/phase-5-roadmap-disposition' },
           {
@@ -637,6 +641,10 @@ export default defineConfig({
           {
             text: 'ADR 0037: Deterministic site composition',
             link: '/architecture/adr/0037-deterministic-site-composition',
+          },
+          {
+            text: 'ADR 0038: Path-independent Storybook output',
+            link: '/architecture/adr/0038-path-independent-storybook-manager-normalization',
           },
         ],
       },

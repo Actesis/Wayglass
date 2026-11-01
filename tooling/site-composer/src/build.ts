@@ -2,6 +2,7 @@ import { existsSync, rmSync } from 'node:fs';
 
 import { composeSite } from './compose.ts';
 import { fail, SiteComposerError } from './error.ts';
+import { normalizeStorybookManagerBundles } from './normalize-storybook.ts';
 import { validateNewSiteOutputPath } from './path-safety.ts';
 import { runLocalCommand, validateSiteRepository } from './repository.ts';
 import type { LocalCommand } from './repository.ts';
@@ -23,6 +24,7 @@ export async function buildSite(options: BuildSiteOptions): Promise<VerifiedSite
   try {
     command('pnpm', ['--filter', '@wayglass/docs', 'build'], repository.root);
     command('pnpm', ['--filter', '@wayglass/storybook', 'build'], repository.root);
+    normalizeStorybookManagerBundles(repository.root);
     const composed = await composeSite({
       repositoryRoot: repository.root,
       output: options.output,
