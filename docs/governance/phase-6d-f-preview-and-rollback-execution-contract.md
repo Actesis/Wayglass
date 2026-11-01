@@ -49,17 +49,18 @@ Cloudflare rollback targets a previously deployed version and immediately create
 deployment. A meaningful first rollback therefore cannot be proven with only the candidate upload.
 The rehearsal needs two independently verified, non-production versions:
 
-| Role      | Required source and identity                                                                                                                                                                                                                                                                                                                 |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Baseline  | Rebuild the accepted Phase 6D-E implementation commit `aadb0bf82f64a5a4e2ef322aed636ce3d7e7ea74`; independently verify the corrected, three-build-reproduced bundle SHA-256 `6edb7d6e4ebca328cfdc720b3af33ea41df9543724cdd1bbdf3b653a35a809fd` and manifest-file SHA-256 `72cef95a99cfc43617f228d3619ac3391041e719038c695a5b99c4b6cf112f22`. |
-| Candidate | Build the clean accepted `main` commit after this contract is merged; record its commit, tree, lockfile, bundle, manifest, surface counts, byte counts, and environment before upload.                                                                                                                                                       |
+| Role      | Required source and identity                                                                                                                                                                                                                                                                                           |
+| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Baseline  | Rebuild corrected implementation merge `8d154458b7de3818db9338f47c1775102fe9e361`; independently verify the absolute-parent-reproduced bundle SHA-256 `1701653b00fe6b701fa62053fdd97ce170891b1d09d8ae45c54b06d0b1d61fb7` and manifest-file SHA-256 `d02ef91db33635b83031f1cefbce35651a7590e4187a233cc6bb7eb423d8bebd`. |
+| Candidate | Build the clean accepted `main` commit after this contract is merged; record its commit, tree, lockfile, bundle, manifest, surface counts, byte counts, and environment before upload.                                                                                                                                 |
 
 Both artifacts contain only the already admitted VitePress and Storybook surfaces. The older
 baseline is briefly active only to establish a real rollback target. Its unique Version URL remains
 non-production evidence; it is not a supported documentation release.
 
 The [baseline reproducibility audit](./phase-6d-f-baseline-reproducibility-audit.md) preserves the
-Phase 6D-E hashes as historical evidence and supersedes them only for Phase 6D-F baseline admission.
+Phase 6D-E and PR #281 hashes as historical evidence, withdraws their path-sensitive admission, and
+freezes the corrected implementation merge only after a two-root byte-equality proof.
 
 This two-version sequence clarifies the earlier Phase 6D plan's shorthand instruction to upload one
 candidate and rehearse rollback. It does not widen the public content, provider, hostname, or
