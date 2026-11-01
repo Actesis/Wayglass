@@ -28,6 +28,17 @@ describe('Phase 6D-F execution-readiness audit', () => {
     expect(audit).toContain('baseline-active-manifest.json');
   });
 
+  it('builds frozen baseline workspace packages before the site producers', () => {
+    const install = audit.indexOf('install --frozen-lockfile --offline');
+    const packages = audit.indexOf("--filter './packages/**' build", install);
+    const site = audit.indexOf('site:build -- --output <BASELINE_SITE>', packages);
+
+    expect(install).toBeGreaterThan(-1);
+    expect(packages).toBeGreaterThan(install);
+    expect(site).toBeGreaterThan(packages);
+    expect(audit).toContain('creates only the workspace package `dist` exports');
+  });
+
   it('freezes the exact upload, deployment, rollback, restoration, and verification sequence', () => {
     expect(audit).toContain('versions upload --config wrangler.jsonc --name wayglass-docs');
     expect(audit).toContain('versions deploy <BASELINE_VERSION_ID>@100%');

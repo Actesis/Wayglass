@@ -114,14 +114,18 @@ operator choices.
    ```sh
    git worktree add --detach <RUN_ROOT>/baseline-checkout aadb0bf82f64a5a4e2ef322aed636ce3d7e7ea74
    pnpm --dir <RUN_ROOT>/baseline-checkout install --frozen-lockfile --offline
+   pnpm --dir <RUN_ROOT>/baseline-checkout --filter './packages/**' build
    pnpm --dir <RUN_ROOT>/baseline-checkout site:build -- --output <BASELINE_SITE>
    pnpm --dir <RUN_ROOT>/baseline-checkout site:verify -- --input <BASELINE_SITE>
    pnpm --dir <RUN_ROOT>/baseline-checkout site:check-responses -- --input <BASELINE_SITE>
    ```
 
    Offline installation is deliberate: the execution authority does not include registry access or
-   dependency changes. A missing cached dependency stops the run for a new decision. The baseline
-   manifest must reproduce the accepted source identity and exact bundle SHA-256 above.
+   dependency changes. The filtered build is also offline and creates only the workspace package
+   `dist` exports consumed by the documentation and Storybook producers; `site:build` then owns the
+   clean producer builds, composition, and verification. A missing cached dependency or failed
+   workspace package build stops the run for a new decision. The baseline manifest must reproduce
+   the accepted source identity and exact bundle SHA-256 above.
 
 3. Re-run the closed configuration checker immediately before account access:
 
@@ -270,7 +274,7 @@ disposition in a normal pull request; no failed or partial run is relabeled as s
 | Candidate is not the clean accepted audit merge commit                                 | Stop before account access; rebuild nothing remotely                 |
 | Baseline bundle hash or either artifact verifier differs                               | Stop before account access                                           |
 | Wrangler is not exactly `4.128.0` or config is not closed                              | Stop before account access                                           |
-| Offline baseline install cannot complete                                               | Stop; obtain a separate dependency/network decision                  |
+| Offline baseline install or workspace package build cannot complete                    | Stop; obtain a separate dependency/build decision                    |
 | Account is unrecognized or identifiers cannot be checked safely                        | Stop before any write                                                |
 | `wayglass-docs` already exists or absence is ambiguous                                 | Stop before any write; do not inspect, overwrite, or delete it       |
 | A route, Custom Domain, binding, variable, secret, script, or unreviewed field appears | Stop before any write                                                |
