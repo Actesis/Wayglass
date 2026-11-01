@@ -115,8 +115,10 @@ The immutable candidate Version URL must prove:
   canonical redirects, branded missing routes in both surfaces, and an unknown prefix;
 - GET and HEAD status/body parity, observed rejected-POST behavior, MIME families, immutable and
   revalidation cache classes, security headers, and same-origin framing;
-- `X-Robots-Tag` containing `noindex` and `nofollow` on the Version URL, plus Storybook's own
-  non-indexing policy;
+- `X-Robots-Tag` containing Cloudflare's documented `noindex` on the Version URL, with `nofollow`
+  accepted when present and every other token rejected, plus Storybook's own non-indexing policy;
+- exact MIME families after the one observed Static Assets normalization that removes the redundant
+  `; charset=utf-8` parameter from UTF-8 text assets;
 - the actual edge disposition of the two Phase 6D-E emulator differences: custom headers on
   canonical redirects and `Allow` on rejected POST;
 - hydrated documentation and Storybook, a real direct story, same-origin runtime requests, enforced

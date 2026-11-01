@@ -27,7 +27,9 @@ describe('Phase 6D-F read-only edge verifier implementation', () => {
     expect(record).toContain('one exact immutable Cloudflare Version URL');
     expect(record).toContain("binds the URL's eight-character hexadecimal version prefix");
     expect(record).toContain('Status, response bytes, canonical `Location`');
-    expect(record).toContain('both `noindex` and `nofollow` tokens');
+    expect(record).toContain('Every terminal Version URL response must contain `noindex`');
+    expect(record).toContain('removes the redundant `; charset=utf-8` parameter');
+    expect(record).toContain('Live-edge correction');
     expect(record).toContain('stops the run before evidence publication');
   });
 

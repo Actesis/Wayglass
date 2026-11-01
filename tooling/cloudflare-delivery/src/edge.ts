@@ -118,6 +118,10 @@ function robotsTokens(value: string | null): ReadonlySet<string> {
   );
 }
 
+function cloudflareContentType(value: string | null): string | null {
+  return value?.replace(/; charset=utf-8$/, '') ?? null;
+}
+
 async function compareResponse(
   actual: Response,
   expected: SiteResponse,
@@ -142,16 +146,22 @@ async function compareResponse(
     return CONTRACT_HEADER_NAMES.filter((name) => actual.headers.has(name));
   }
   for (const name of CONTRACT_HEADER_NAMES) {
+    if (name === 'x-robots-tag') continue;
     const expectedValue = expectedHeader(expected, name);
-    if (actual.headers.get(name) !== expectedValue) {
+    const acceptedValue =
+      name === 'content-type' ? cloudflareContentType(expectedValue) : expectedValue;
+    if (actual.headers.get(name) !== acceptedValue) {
       fail('WG_CLOUDFLARE_EDGE_PARITY', `${method} ${path} returned a different ${name}.`);
     }
   }
   const robots = robotsTokens(actual.headers.get('x-robots-tag'));
-  if (!robots.has('noindex') || !robots.has('nofollow')) {
+  if (
+    !robots.has('noindex') ||
+    [...robots].some((token) => token !== 'noindex' && token !== 'nofollow')
+  ) {
     fail(
       'WG_CLOUDFLARE_EDGE_INDEXING',
-      `${method} ${path} did not prohibit indexing and link following on the Version URL.`,
+      `${method} ${path} did not carry the admitted Version URL indexing policy.`,
     );
   }
   return [];
