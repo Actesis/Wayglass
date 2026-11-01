@@ -53,10 +53,17 @@ before candidate upload because Cloudflare removed `; charset=utf-8` from text M
 supplied its documented Version URL `noindex` token without the authored `nofollow` token. The
 active-root manifest remained byte-identical to the accepted baseline.
 
-The edge verifier and acceptance language now admit only those two observed provider
-transformations. Status, bytes, routing, location, cache, security, framing, unknown MIME, and
-unexpected indexing-token checks remain fail-closed. Execution resumes from the retained baseline
-only after this correction is accepted.
+The edge and browser verifiers and acceptance language now admit only those two observed provider
+transformations. Status, bytes, routing, location, cache, security, framing, browser, accessibility,
+unknown MIME, and unexpected indexing-token checks remain fail-closed. Execution resumes from the
+retained baseline only after these corrections are accepted.
+
+The first candidate upload remained inactive while its edge matrix passed. The corrected browser
+indexing check then reached Axe and found a real serious contrast violation across 32 VitePress
+sidebar links. The candidate was not deployed. The documentation adapter correction maps the two
+previously unmapped VitePress supporting-text variables to Wayglass's existing semantic secondary
+text token. A replacement artifact must be rebuilt and assigned new exact identities; uploading it
+is a new provider mutation and requires explicit project-owner authority.
 
 ## Command authority and environment
 

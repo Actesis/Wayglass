@@ -28,7 +28,8 @@ implementation task contacted no Cloudflare endpoint and captured no real remote
 One fresh, headless Chromium browser and credential-free context prove:
 
 - `/phase-6` returns `200`, hydrates the Phase 6 heading, retains its production canonical URL,
-  delivers the accepted CSP, and sends Version URL `noindex` plus `nofollow`;
+  delivers the accepted CSP, and sends Version URL `noindex`, with `nofollow` accepted when present
+  and every other indexing token rejected;
 - the hydrated documentation page has zero automated Axe violations, makes no external application
   request, and rejects a deliberately injected external image with an `img-src` CSP violation;
 - `/storybook/` returns `200`, hydrates the manager, remains non-indexable, exposes a safe concrete
@@ -64,6 +65,22 @@ only:
 It contains no screenshot, trace, video, DOM or accessibility dump, raw network or console log,
 header set, response body, cookie value, local path, browser profile, credential, account ID, email
 address, or environment dump. Browser or artifact failure leaves no final evidence file.
+
+## Live-edge correction
+
+The first authorized candidate browser run on November 1, 2026 stopped before deployment because
+Cloudflare's immutable Version URL supplied its documented automatic `noindex` token without the
+authored `nofollow` token. The HTTP edge matrix had already passed all thirty comparisons against
+the same candidate. This amendment gives the hydrated browser proof the same closed indexing rule as
+the corrected edge verifier: `noindex` is required, `nofollow` is optional, and any other token
+fails closed. No browser, accessibility, CSP, canonical, isolation, or artifact assertion changes.
+
+After that correction, the browser reached Axe and exposed one serious `color-contrast` violation
+covering 32 VitePress sidebar links: VitePress's unmapped tertiary default `#67676c` rendered at
+2.84:1 against Wayglass's dark panel. The documentation adapter now maps both VitePress secondary
+and tertiary text variables to the existing semantic `text.secondary` token. This is a real
+accessibility correction, not a verifier exception; the failed candidate remains inactive and a
+replacement candidate requires a new exact artifact identity and explicit upload authority.
 
 ## Verification completed in this slice
 

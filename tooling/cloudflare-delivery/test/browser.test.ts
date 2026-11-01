@@ -7,7 +7,11 @@ import { afterEach, describe, expect, it } from 'vitest';
 import type { SiteResponseOracle } from '../../site-composer/src/response.ts';
 import type { SiteManifest } from '../../site-composer/src/types.ts';
 import { parseBrowserArguments } from '../src/browser-cli.ts';
-import { type BrowserProofResult, verifyImmutableBrowser } from '../src/browser.ts';
+import {
+  assertVersionUrlIndexing,
+  type BrowserProofResult,
+  verifyImmutableBrowser,
+} from '../src/browser.ts';
 
 const VERSION_ID = '01234567-89ab-4def-8abc-0123456789ab';
 const VERSION_URL = 'https://01234567-wayglass-docs.owner.workers.dev/';
@@ -88,6 +92,15 @@ afterEach(() => {
 });
 
 describe('immutable browser verification', () => {
+  it('requires noindex while admitting only the optional provider nofollow token', () => {
+    expect(() => assertVersionUrlIndexing('noindex')).not.toThrow();
+    expect(() => assertVersionUrlIndexing('nofollow, noindex')).not.toThrow();
+    expect(() => assertVersionUrlIndexing('nofollow')).toThrow('WG_CLOUDFLARE_BROWSER_INDEXING');
+    expect(() => assertVersionUrlIndexing('noindex, follow')).toThrow(
+      'WG_CLOUDFLARE_BROWSER_INDEXING',
+    );
+  });
+
   it('binds verified artifact identity to allowlisted browser evidence', async () => {
     const destination = output();
     const evidence = await verifyImmutableBrowser(
