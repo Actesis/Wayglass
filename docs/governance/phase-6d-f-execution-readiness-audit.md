@@ -1,9 +1,9 @@
 # Phase 6D-F execution-readiness audit
 
-**Status:** Acceptance candidate prepared on October 30, 2026, after project-owner acceptance and
-merge of the read-only browser verifier in PR #276. This audit performs no Cloudflare authentication
-or account operation and authorizes no upload, deployment, rollback, restoration, or retained remote
-state.
+**Status:** Corrected acceptance candidate prepared on October 31, 2026, after the absolute-path
+reproducibility defect was fixed and independently proved. This audit performs no Cloudflare
+authentication or account operation and authorizes no upload, deployment, rollback, restoration, or
+retained remote state.
 
 ## Readiness disposition
 
@@ -25,13 +25,12 @@ and tree IDs do not exist until the merge occurs and therefore must be captured 
 any authorized execution. Moving `main`, a dirty worktree, or a commit other than that exact
 captured merge commit invalidates the run.
 
-The rollback baseline remains the already accepted clean commit
-`aadb0bf82f64a5a4e2ef322aed636ce3d7e7ea74`. Its rebuilt artifact must independently reproduce bundle
-SHA-256 `6edb7d6e4ebca328cfdc720b3af33ea41df9543724cdd1bbdf3b653a35a809fd` and manifest-file SHA-256
-`72cef95a99cfc43617f228d3619ac3391041e719038c695a5b99c4b6cf112f22` before it can be uploaded. The
-[baseline reproducibility audit](./phase-6d-f-baseline-reproducibility-audit.md) records the three
-byte-identical builds that corrected these admission hashes without changing the accepted baseline
-source.
+The corrected rollback baseline is clean merge commit `8d154458b7de3818db9338f47c1775102fe9e361`.
+Its rebuilt artifact must independently reproduce bundle SHA-256
+`1701653b00fe6b701fa62053fdd97ce170891b1d09d8ae45c54b06d0b1d61fb7` and manifest-file SHA-256
+`d02ef91db33635b83031f1cefbce35651a7590e4187a233cc6bb7eb423d8bebd` before it can be uploaded. The
+[baseline reproducibility audit](./phase-6d-f-baseline-reproducibility-audit.md) records the
+independent absolute-parent proof and expressly withdraws the earlier path-sensitive admission.
 
 ## Command authority and environment
 
@@ -80,6 +79,8 @@ The operator records the following task-specific values only after proving them:
 | `CANDIDATE_VERSION_URL` | Immutable URL returned for that exact UUID                               |
 | `CANDIDATE_ALIAS_URL`   | Returned `phase-6d-f` alias; convenience evidence only                   |
 | `WORKERS_DEV_ROOT`      | Returned public root for `wayglass-docs`, without a trailing slash       |
+| `WAYGLASS_PNPM_BIN_DIR` | Canonical parent of the cached exact pnpm `11.9.0` executable            |
+| `WAYGLASS_PNPM_STORE`   | Canonical existing Wayglass repository-local pnpm store                  |
 
 All shell variables are task-specific and shell-quoted. A value is never inferred from a previous
 run, a dashboard bookmark, a stable alias, or a mutable deployment. The immutable URL prefix must
@@ -95,8 +96,11 @@ operator choices.
 
    ```sh
    umask 077
-   RUN_ROOT="$(mktemp -d -t wayglass-phase-6d-f)"
+   RUN_ROOT="$(mktemp -d "${TMPDIR%/}/wayglass-phase-6d-f.XXXXXXXXXX")"
+   RUN_ROOT="$(realpath "$RUN_ROOT")"
    mkdir -m 0700 <RUN_ROOT>/evidence
+   PATH="<WAYGLASS_PNPM_BIN_DIR>:$PATH"
+   pnpm --version
    git status --short --branch
    git rev-parse HEAD
    git rev-parse HEAD^{tree}
@@ -115,8 +119,8 @@ operator choices.
 2. Build the baseline in a new detached temporary checkout:
 
    ```sh
-   git worktree add --detach <RUN_ROOT>/baseline-checkout aadb0bf82f64a5a4e2ef322aed636ce3d7e7ea74
-   pnpm --dir <RUN_ROOT>/baseline-checkout install --frozen-lockfile --offline
+   git worktree add --detach <RUN_ROOT>/baseline-checkout 8d154458b7de3818db9338f47c1775102fe9e361
+   pnpm --dir <RUN_ROOT>/baseline-checkout install --frozen-lockfile --offline --store-dir <WAYGLASS_PNPM_STORE>
    pnpm --dir <RUN_ROOT>/baseline-checkout build
    pnpm --dir <RUN_ROOT>/baseline-checkout site:build -- --output <BASELINE_SITE>
    pnpm --dir <RUN_ROOT>/baseline-checkout site:verify -- --input <BASELINE_SITE>
@@ -124,13 +128,14 @@ operator choices.
    ```
 
    Offline installation is deliberate: the execution authority does not include registry access or
-   dependency changes. The root build is also offline and delegates workspace dependency ordering to
-   the baseline's committed Turbo graph. It produces the package `dist` exports required by the
-   documentation and Storybook producers; other private workspace outputs remain outside the
-   composer's closed two-surface admission set. `site:build` then owns the clean producer builds,
-   composition, and verification. A missing cached dependency or failed root build stops the run for
-   a new decision. The baseline manifest must reproduce the accepted source identity and exact
-   bundle SHA-256 above.
+   dependency changes. The exact cached pnpm executable and existing repository-local store must be
+   proved before use; a missing executable, store entry, or version mismatch stops the run. The root
+   build is also offline and delegates workspace dependency ordering to the baseline's committed
+   Turbo graph. It produces the package `dist` exports required by the documentation and Storybook
+   producers; other private workspace outputs remain outside the composer's closed two-surface
+   admission set. `site:build` then owns the clean producer builds, composition, and verification. A
+   missing cached dependency or failed root build stops the run for a new decision. The baseline
+   manifest must reproduce the accepted source identity and exact bundle SHA-256 above.
 
 3. Re-run the closed configuration checker immediately before account access:
 
@@ -165,7 +170,7 @@ is automatically retried. The operator substitutes only the proved paths, IDs, a
    ```sh
    WRANGLER_SEND_METRICS=false WRANGLER_LOG_PATH=<RUN_ROOT>/wrangler.log pnpm exec wrangler versions list --config wrangler.jsonc --name wayglass-docs --json
    WRANGLER_SEND_METRICS=false WRANGLER_LOG_PATH=<RUN_ROOT>/wrangler.log pnpm exec wrangler deployments list --config wrangler.jsonc --name wayglass-docs --json
-   WRANGLER_SEND_METRICS=false WRANGLER_LOG_PATH=<RUN_ROOT>/wrangler.log pnpm exec wrangler versions upload --config wrangler.jsonc --name wayglass-docs --assets <BASELINE_SITE> --tag phase-6d-f-baseline --message "Phase 6D-F rollback baseline aadb0bf82f64a5a4e2ef322aed636ce3d7e7ea74" --strict
+   WRANGLER_SEND_METRICS=false WRANGLER_LOG_PATH=<RUN_ROOT>/wrangler.log pnpm exec wrangler versions upload --config wrangler.jsonc --name wayglass-docs --assets <BASELINE_SITE> --tag phase-6d-f-baseline --message "Phase 6D-F rollback baseline 8d154458b7de3818db9338f47c1775102fe9e361" --strict
    ```
 
    Record the exact baseline UUID and immutable URL. Verify them before deployment:
