@@ -25,6 +25,9 @@ describe('Phase 6D-E Wrangler rehearsal record', () => {
     expect(record).toContain('aadb0bf82f64a5a4e2ef322aed636ce3d7e7ea74');
     expect(record).toContain('36587495199bff85019af53f6a3ec72c65d5efcc29df211edc82feb76e28a122');
     expect(record).toContain('3996ac5e29cba52de7146f311a5b156be43873ea9f3b73d7e45e8603eed1c032');
+    expect(record).toContain('6edb7d6e4ebca328cfdc720b3af33ea41df9543724cdd1bbdf3b653a35a809fd');
+    expect(record).toContain('72cef95a99cfc43617f228d3619ac3391041e719038c695a5b99c4b6cf112f22');
+    expect(record).toContain('./phase-6d-f-baseline-reproducibility-audit.md');
     expect(record).toContain('728 files; 37,400,072 bytes');
     expect(record).toContain('30 matching GET and HEAD responses');
     expect(record).toContain('2 test files and 6 tests');
