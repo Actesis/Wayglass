@@ -33,6 +33,12 @@ describe('Phase 6D-F execution-readiness audit', () => {
     expect(audit).toContain('RUN_ROOT="$(realpath "$RUN_ROOT")"');
   });
 
+  it('records the no-write provider correction to the initial deployment sequence', () => {
+    expect(audit).toContain('both version and deployment reads returned Cloudflare code `10007`');
+    expect(audit).toContain('was rejected before any write');
+    expect(audit).toContain('No Worker, version, deployment, route, alias');
+  });
+
   it('builds frozen baseline workspace packages before the site producers', () => {
     const install = audit.indexOf(
       'install --frozen-lockfile --offline --store-dir <WAYGLASS_PNPM_STORE>',
@@ -49,11 +55,14 @@ describe('Phase 6D-F execution-readiness audit', () => {
   });
 
   it('freezes the exact upload, deployment, rollback, restoration, and verification sequence', () => {
+    expect(audit).toContain('wrangler deploy --config wrangler.jsonc --name wayglass-docs');
+    expect(audit).toContain('versions upload` cannot create a Worker that does not exist');
     expect(audit).toContain('versions upload --config wrangler.jsonc --name wayglass-docs');
-    expect(audit).toContain('versions deploy <BASELINE_VERSION_ID>@100%');
+    expect(audit).not.toContain('versions deploy <BASELINE_VERSION_ID>@100%');
     expect(audit).toContain('versions deploy <CANDIDATE_VERSION_ID>@100%');
     expect(audit).toContain('rollback <BASELINE_VERSION_ID>');
     expect(audit).toContain('site:browser:edge:check');
+    expect(audit).toContain('baseline-initial-manifest.json');
     expect(audit).toContain('cmp --silent <CANDIDATE_SITE>/wayglass-site-manifest.json');
   });
 
