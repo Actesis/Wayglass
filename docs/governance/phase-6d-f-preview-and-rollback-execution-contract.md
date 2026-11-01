@@ -71,8 +71,10 @@ One active task must perform the sequence without interleaving unrelated Cloudfl
 2. Confirm Wrangler is exactly `4.128.0`, verify the closed configuration, confirm the authenticated
    account without recording identifiers or credentials, and confirm `wayglass-docs` still has no
    deployment.
-3. Rebuild the baseline in an owned temporary checkout, verify its expected bundle hash, build the
-   candidate into a separate owned temporary directory, and independently verify both artifacts.
+3. Rebuild the baseline in an owned temporary checkout: complete the frozen offline install, build
+   its workspace package dependencies offline, build the site producers, and verify the expected
+   bundle hash. Build the candidate into a separate owned temporary directory and independently
+   verify both artifacts.
 4. Upload the baseline with `wrangler versions upload`, exact asset-directory selection, a
    `phase-6d-f-baseline` tag, a descriptive message, and strict remote-change checking. Record the
    returned version ID and immutable Version URL.
