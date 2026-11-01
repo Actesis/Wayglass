@@ -81,6 +81,16 @@ function tokens(value: string | undefined): ReadonlySet<string> {
   );
 }
 
+export function assertVersionUrlIndexing(value: string | undefined): void {
+  const robots = tokens(value);
+  assert(
+    robots.has('noindex') &&
+      [...robots].every((token) => token === 'noindex' || token === 'nofollow'),
+    'WG_CLOUDFLARE_BROWSER_INDEXING',
+    'The Version URL response did not carry the admitted indexing policy.',
+  );
+}
+
 function monitorRequests(page: Page, origin: URL): RequestMonitor {
   let runtimeRequests = 0;
   const external = new Set<string>();
@@ -146,12 +156,7 @@ async function proveDocumentation(
       'WG_CLOUDFLARE_BROWSER_CSP',
       'Documentation did not deliver the accepted CSP.',
     );
-    const robots = tokens(response.headers()['x-robots-tag']);
-    assert(
-      robots.has('noindex') && robots.has('nofollow'),
-      'WG_CLOUDFLARE_BROWSER_INDEXING',
-      'The Version URL documentation response is not fully non-indexable.',
-    );
+    assertVersionUrlIndexing(response.headers()['x-robots-tag']);
     await assertAccessible(page, 'Documentation');
     monitor.assertSameOrigin();
 
@@ -202,12 +207,7 @@ async function proveStorybook(
       'WG_CLOUDFLARE_BROWSER_STORYBOOK',
       'Storybook did not load.',
     );
-    const robots = tokens(response.headers()['x-robots-tag']);
-    assert(
-      robots.has('noindex') && robots.has('nofollow'),
-      'WG_CLOUDFLARE_BROWSER_INDEXING',
-      'The Version URL Storybook response is not fully non-indexable.',
-    );
+    assertVersionUrlIndexing(response.headers()['x-robots-tag']);
     await page.locator('#storybook-explorer-menu').waitFor({ state: 'visible' });
     const indexResponse = await context.request.get(new URL('/storybook/index.json', origin).href);
     assert(

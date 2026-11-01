@@ -11,6 +11,7 @@ const record = read('docs/governance/phase-6d-f-browser-verifier-implementation.
   /\s+/g,
   ' ',
 );
+const theme = read('apps/docs/.vitepress/theme/custom.css');
 
 describe('Phase 6D-F read-only browser verifier implementation', () => {
   it('publishes the implementation record through the documentation surface', () => {
@@ -29,6 +30,10 @@ describe('Phase 6D-F read-only browser verifier implementation', () => {
     expect(record).toContain('zero automated Axe violations');
     expect(record).toContain('both the documentation and Storybook missing routes');
     expect(record).toContain('complete browser context creates no cookie');
+    expect(record).toContain('`noindex` is required, `nofollow` is optional');
+    expect(record).toContain('Live-edge correction');
+    expect(theme).toContain('--vp-c-text-2: var(--wg-color-semantic-text-secondary)');
+    expect(theme).toContain('--vp-c-text-3: var(--wg-color-semantic-text-secondary)');
   });
 
   it('freezes sanitized evidence and preserves the execution authorization boundary', () => {
