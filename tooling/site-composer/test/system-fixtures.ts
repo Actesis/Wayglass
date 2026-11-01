@@ -55,6 +55,10 @@ export function createSiteRepositoryFixture(
   mkdirSync(resolve(root, 'apps/storybook/storybook-static/assets'), { recursive: true });
   mkdirSync(resolve(root, 'apps/storybook/storybook-static/sb-addons/a11y-1'), { recursive: true });
   mkdirSync(resolve(root, 'apps/storybook/storybook-static/sb-addons/docs-1'), { recursive: true });
+  mkdirSync(
+    resolve(root, 'apps/storybook/storybook-static/sb-addons/storybook-core-server-presets-0'),
+    { recursive: true },
+  );
   write(resolve(root, 'apps/storybook/storybook-static/index.html'), '<h1>Storybook</h1>\n');
   write(resolve(root, 'apps/storybook/storybook-static/iframe.html'), '<main>Preview</main>\n');
   write(
@@ -68,6 +72,13 @@ export function createSiteRepositoryFixture(
   write(
     resolve(root, 'apps/storybook/storybook-static/sb-addons/docs-1/manager-bundle.js'),
     'try{var docs=()=>"docs";console.log(docs())}catch(error){console.error(error)}\n',
+  );
+  write(
+    resolve(
+      root,
+      'apps/storybook/storybook-static/sb-addons/storybook-core-server-presets-0/common-manager-bundle.js',
+    ),
+    'try{var shared=()=>3;console.log(shared())}catch(error){console.error(error)}\n',
   );
 
   const command: LocalCommand = (executable, arguments_, cwd) => {
