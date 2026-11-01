@@ -59,8 +59,11 @@ absolute host paths never enter the artifact.
 
 Documentation contents are copied byte for byte to the output root. Storybook contents are copied
 byte for byte under `storybook/`. Generated HTML, JavaScript, CSS, and asset names are never
-rewritten. Regular output files are normalized to mode `0644` and directories to `0755`; file modes
-are deployment mechanics and do not enter the content hash.
+rewritten during composition. The later
+[ADR 0038](./0038-path-independent-storybook-manager-normalization.md) defines a closed
+producer-output normalization step that runs before composition inventory. Regular output files are
+normalized to mode `0644` and directories to `0755`; file modes are deployment mechanics and do not
+enter the content hash.
 
 `storybook/` and `wayglass-site-manifest.json` are reserved at the root. A documentation input that
 claims either path is a collision. The composer rejects duplicate normalized paths, Unicode
@@ -124,6 +127,10 @@ accepted environment into two fresh temporary destinations. It compares the comp
 and every file byte, including the manifest, then verifies both outputs independently. A producer
 that embeds time, host paths, unstable ordering, or random identifiers fails this proof and must be
 corrected in its owning slice.
+
+After Phase 6D-F exposed Storybook manager output that depended on the checkout's absolute parent,
+ADR 0038 strengthens this proof: the retained release proof must also use distinct absolute checkout
+parents rather than only distinct output directories beneath one source checkout.
 
 ## Consequences
 

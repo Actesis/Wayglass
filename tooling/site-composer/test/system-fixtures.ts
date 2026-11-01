@@ -53,11 +53,21 @@ export function createSiteRepositoryFixture(
   write(resolve(root, 'apps/docs/.vitepress/dist/404.html'), '<h1>Not found</h1>\n');
   write(resolve(root, 'apps/docs/.vitepress/dist/assets/app.js'), 'console.log("docs");\n');
   mkdirSync(resolve(root, 'apps/storybook/storybook-static/assets'), { recursive: true });
+  mkdirSync(resolve(root, 'apps/storybook/storybook-static/sb-addons/a11y-1'), { recursive: true });
+  mkdirSync(resolve(root, 'apps/storybook/storybook-static/sb-addons/docs-1'), { recursive: true });
   write(resolve(root, 'apps/storybook/storybook-static/index.html'), '<h1>Storybook</h1>\n');
   write(resolve(root, 'apps/storybook/storybook-static/iframe.html'), '<main>Preview</main>\n');
   write(
     resolve(root, 'apps/storybook/storybook-static/assets/manager.js'),
     'console.log("storybook");\n',
+  );
+  write(
+    resolve(root, 'apps/storybook/storybook-static/sb-addons/a11y-1/manager-bundle.js'),
+    'try{var first=()=>1;var second=()=>2;console.log(first(),second())}catch(error){console.error(error)}\n',
+  );
+  write(
+    resolve(root, 'apps/storybook/storybook-static/sb-addons/docs-1/manager-bundle.js'),
+    'try{var docs=()=>"docs";console.log(docs())}catch(error){console.error(error)}\n',
   );
 
   const command: LocalCommand = (executable, arguments_, cwd) => {
