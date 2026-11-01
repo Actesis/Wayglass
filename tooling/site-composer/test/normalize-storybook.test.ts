@@ -45,7 +45,11 @@ describe('Storybook manager normalization', () => {
 
     const firstResult = normalizeStorybookManagerBundles(first.root);
     const secondResult = normalizeStorybookManagerBundles(secondRoot);
-    expect(firstResult.files).toEqual(['a11y-1/manager-bundle.js', 'docs-1/manager-bundle.js']);
+    expect(firstResult.files).toEqual([
+      'a11y-1/manager-bundle.js',
+      'docs-1/manager-bundle.js',
+      'storybook-core-server-presets-0/common-manager-bundle.js',
+    ]);
     expect(secondResult.files).toEqual(firstResult.files);
     expect(readFileSync(resolve(first.root, relativeBundle))).toEqual(
       readFileSync(resolve(secondRoot, relativeBundle)),

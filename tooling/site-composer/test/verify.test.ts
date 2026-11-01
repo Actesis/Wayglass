@@ -42,7 +42,7 @@ describe('independent site verification', () => {
     const result = verifySite(output);
 
     expect(result.input).toBe(output);
-    expect(result.manifest.files).toHaveLength(8);
+    expect(result.manifest.files).toHaveLength(9);
     expect(readFileSync(resolve(output, 'wayglass-site-manifest.json'))).toEqual(before);
   });
 

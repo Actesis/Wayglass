@@ -50,7 +50,7 @@ describe('transactional site composition', () => {
     expect(result.output).toBe(output);
     expect(result.manifest.surfaces.map(({ id, fileCount }) => ({ id, fileCount }))).toEqual([
       { id: 'documentation', fileCount: 3 },
-      { id: 'storybook', fileCount: 5 },
+      { id: 'storybook', fileCount: 6 },
     ]);
     expect(readFileSync(resolve(output, 'index.html'), 'utf8')).toBe('<h1>Wayglass</h1>\n');
     expect(readFileSync(resolve(output, 'storybook/iframe.html'), 'utf8')).toBe(

@@ -27,7 +27,10 @@ describe('ADR 0038 path-independent Storybook manager normalization', () => {
     expect(adr).toContain('absolute package paths');
     expect(adr).toContain('path-dependent');
     expect(adr).toContain('after the Storybook producer succeeds and before composition');
-    expect(adr).toContain('selects only one-level addon files named `manager-bundle.js`');
+    expect(adr).toContain(
+      'selects only one-level addon files named `manager-bundle.js` or `*-manager-bundle.js`',
+    );
+    expect(adr).toContain('common-manager-bundle.js');
     expect(adr).toContain('constant virtual filename');
     expect(adr).toContain('site:compose` remains a byte-for-byte copier');
     expect(adr).toContain('exact `rolldown@1.1.5` directly');

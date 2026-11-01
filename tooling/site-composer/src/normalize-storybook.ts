@@ -6,7 +6,7 @@ import { minifySync } from 'rolldown/utils';
 import { fail } from './error.ts';
 import { assertRealDirectoryPath, normalizeMode, scanDirectory } from './filesystem.ts';
 
-const managerBundlePattern = /^[^/]+\/manager-bundle\.js$/;
+const managerBundlePattern = /^[^/]+\/(?:[^/]+-)?manager-bundle\.js$/;
 const normalizedTemporaryName = '.manager-bundle.js.wayglass-normalized';
 
 export interface StorybookManagerNormalizationResult {

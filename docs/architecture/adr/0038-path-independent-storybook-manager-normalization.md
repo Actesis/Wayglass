@@ -17,6 +17,9 @@ file count, and byte count produced different bytes in only these generated file
 - `storybook/sb-addons/a11y-*/manager-bundle.js`; and
 - `storybook/sb-addons/docs-*/manager-bundle.js`.
 
+A stronger post-merge proof then identified the same path dependence in Storybook's shared
+`storybook/sb-addons/storybook-core-server-presets-*/common-manager-bundle.js` entry.
+
 Each checkout path reproduced its own result, and rebuilding through the earlier retained path
 reproduced the earlier hash. The source content was stable; the generated manager identifiers were
 path-dependent. A deployment hash cannot safely admit that artifact.
@@ -34,7 +37,7 @@ Storybook producer succeeds and before composition inventories either public sur
 The step:
 
 1. enters only the real `apps/storybook/storybook-static/sb-addons` directory;
-2. selects only one-level addon files named `manager-bundle.js`;
+2. selects only one-level addon files named `manager-bundle.js` or `*-manager-bundle.js`;
 3. fails closed if no manager addon bundle exists;
 4. parses and minifies each complete generated bundle with the exact-pinned Rolldown/Oxc API using a
    constant virtual filename, compression, and identifier mangling;
