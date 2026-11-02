@@ -82,6 +82,19 @@ and tertiary text variables to the existing semantic `text.secondary` token. Thi
 accessibility correction, not a verifier exception; the failed candidate remains inactive and a
 replacement candidate requires a new exact artifact identity and explicit upload authority.
 
+The first replacement upload remained inactive and passed all thirty edge comparisons, then exposed
+a second serious `color-contrast` violation covering 16 table headers. VitePress's unmapped
+`--vp-c-bg-soft` supplied `#f6f6f7` beneath Wayglass secondary text for a 1.85:1 ratio. The adapter
+now maps that background to the existing semantic panel surface. The local `/phase-6` browser proof
+also runs Axe and retains only rule ID, impact, and affected-node count on failure, closing the gap
+that allowed table content to pass the prior local hydration-only proof.
+
+That strengthened local proof then caught the remaining three inline-code contrast failures before
+another upload. VitePress derived inline-code text from the primary brand blue, which measured 4.0:1
+on its code background. The adapter maps the VitePress inline-code text role to Wayglass semantic
+primary text; background and monospace typography continue to distinguish code without misusing an
+action or condition color.
+
 ## Verification completed in this slice
 
 Focused tests prove exact artifact and target binding, deterministic evidence projection, absence of

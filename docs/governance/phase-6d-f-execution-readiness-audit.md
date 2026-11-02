@@ -65,6 +65,13 @@ previously unmapped VitePress supporting-text variables to Wayglass's existing s
 text token. A replacement artifact must be rebuilt and assigned new exact identities; uploading it
 is a new provider mutation and requires explicit project-owner authority.
 
+The explicitly authorized first replacement upload remained inactive and passed the immutable edge
+matrix. Its browser gate then found a second real serious contrast violation across 16 table
+headers, so traffic remained on the baseline. The documentation adapter now maps VitePress's
+previously unmapped soft background to Wayglass's semantic panel surface, and the local Phase 6
+browser proof runs Axe before another replacement may be proposed. Any further upload is another
+provider mutation and requires renewed project-owner authority.
+
 ## Command authority and environment
 
 The command forms below were checked against the locally installed Wrangler `4.128.0` help. Current

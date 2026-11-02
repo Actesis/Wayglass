@@ -1,3 +1,4 @@
+import { AxeBuilder } from '@axe-core/playwright';
 import { expect, test, type Page } from '@playwright/test';
 
 const origin = process.env.WAYGLASS_SITE_ORIGIN!;
@@ -47,6 +48,10 @@ test('hydrates documentation with its canonical URL and enforced CSP', async ({ 
   );
   expect(response?.headers()['content-security-policy']).toContain("default-src 'self'");
   expect(response?.headers()['x-content-type-options']).toBe('nosniff');
+  const accessibility = await new AxeBuilder({ page }).analyze();
+  expect(
+    accessibility.violations.map(({ id, impact, nodes }) => ({ id, impact, nodes: nodes.length })),
+  ).toEqual([]);
   assertNoExternalRequests();
 
   const blockedRequest = page.waitForEvent('requestfailed', {
