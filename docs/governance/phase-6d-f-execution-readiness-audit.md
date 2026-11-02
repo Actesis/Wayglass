@@ -72,6 +72,15 @@ previously unmapped soft background to Wayglass's semantic panel surface, and th
 browser proof runs Axe before another replacement may be proposed. Any further upload is another
 provider mutation and requires renewed project-owner authority.
 
+The explicitly authorized second replacement upload also remained inactive and passed all thirty
+immutable-edge comparisons. Its browser gate passed the documentation page, then found one moderate
+Axe `region` violation in the selected direct Storybook story because its native skip link was
+outside every landmark. The candidate was not deployed and the original baseline remains the sole
+100% deployment. The story correction places the skip link in a labeled navigation landmark, and the
+local browser proof now runs Axe on the selected direct story. A further replacement must be built
+from the clean merge of that correction and needs renewed upload authority before any Cloudflare
+mutation.
+
 ## Command authority and environment
 
 The command forms below were checked against the locally installed Wrangler `4.128.0` help. Current

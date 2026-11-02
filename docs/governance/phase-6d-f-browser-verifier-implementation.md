@@ -95,6 +95,16 @@ on its code background. The adapter maps the VitePress inline-code text role to 
 primary text; background and monospace typography continue to distinguish code without misusing an
 action or condition color.
 
+The second replacement upload likewise remained inactive and passed all thirty immutable-edge
+comparisons. Its direct Storybook story then exposed one moderate Axe `region` violation: the
+keyboard skip link preceded the story's main landmark without belonging to any landmark. The story
+now places that link in a labeled skip-links navigation landmark, preserving the native skip-link
+behavior while giving the standalone preview a complete landmark structure. The local site browser
+proof now runs Axe against the selected direct Storybook story as well as the documentation page, so
+this failure must be caught before any further upload. The baseline remains the sole active
+deployment; another replacement upload remains a separate provider mutation requiring renewed
+project-owner authority.
+
 ## Verification completed in this slice
 
 Focused tests prove exact artifact and target binding, deterministic evidence projection, absence of
