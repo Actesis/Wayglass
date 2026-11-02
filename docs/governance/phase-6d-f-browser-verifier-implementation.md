@@ -113,11 +113,13 @@ evidence publication after a browser failure. Existing accepted site-delivery br
 the local behavioral reference. Type checking compiles the real Playwright and Axe implementation;
 the full repository gate must pass before this candidate is proposed for acceptance.
 
-## Remaining Phase 6D-F work
+## Subsequent Phase 6D-F disposition
 
-Acceptance completes the read-only verification tooling planned by the execution contract. The next
-step is a final execution-readiness audit that names the clean candidate and baseline artifacts,
-exact commands, evidence destinations, stop conditions, and required owner authorization. It must
-not authenticate, create, upload, deploy, roll back, restore, or retain any Cloudflare state. Those
-external effects remain blocked on the accepted contract's separate, all-at-once execution
-authorization.
+Acceptance completed the read-only verification tooling planned by the execution contract. A later
+execution-readiness audit named the clean candidate and baseline artifacts, exact commands, evidence
+destinations, stop conditions, and required owner authorization without performing a provider
+mutation. The separately authorized rehearsal subsequently completed successfully; see the
+[Phase 6D-F execution result](./phase-6d-f-execution-result.md). This implementation record does not
+itself authorize any Cloudflare operation: it must not authenticate, create, upload, deploy, roll
+back, restore, or retain provider state. The later run required and received its separate
+all-at-once execution authorization.

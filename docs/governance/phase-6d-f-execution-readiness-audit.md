@@ -1,14 +1,15 @@
 # Phase 6D-F execution-readiness audit
 
-**Status:** Corrected acceptance candidate prepared on October 31, 2026, after the absolute-path
-reproducibility defect was fixed and independently proved. This audit performs no Cloudflare
-authentication or account operation and authorizes no upload, deployment, rollback, restoration, or
-retained remote state.
+**Status:** Historical accepted readiness record. The separately authorized execution completed
+successfully on November 2, 2026; its sanitized outcome is recorded in the
+[Phase 6D-F execution result](./phase-6d-f-execution-result.md). This audit itself performed no
+Cloudflare authentication or account operation and authorized no upload, deployment, rollback,
+restoration, or retained remote state.
 
 ## Readiness disposition
 
-Phase 6D-F is ready for one separately authorized execution of the accepted two-version rehearsal.
-The repository now has all locally reviewable prerequisites:
+At acceptance, Phase 6D-F was ready for one separately authorized execution of the accepted
+two-version rehearsal. The repository had all locally reviewable prerequisites:
 
 - the closed Static Assets configuration for the exact Worker name `wayglass-docs`;
 - the exact installed `wrangler@4.128.0` command surface;
