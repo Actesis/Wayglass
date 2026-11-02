@@ -2,11 +2,13 @@
   --vp-c-bg: var(--wg-color-semantic-surface-canvas);
   --vp-c-bg-alt: var(--wg-color-semantic-surface-panel);
   --vp-c-bg-elv: var(--wg-color-semantic-surface-panel);
+  --vp-c-bg-soft: var(--wg-color-semantic-surface-panel);
   --vp-c-brand-1: var(--wg-color-semantic-action-primary);
   --vp-c-brand-2: var(--wg-color-semantic-condition-informational);
   --vp-c-text-1: var(--wg-color-semantic-text-primary);
   --vp-c-text-2: var(--wg-color-semantic-text-secondary);
   --vp-c-text-3: var(--wg-color-semantic-text-secondary);
+  --vp-code-color: var(--wg-color-semantic-text-primary);
   --vp-font-family-base: var(--wg-typography-family-body);
   --vp-font-family-mono: var(--wg-typography-family-numeric);
 }
