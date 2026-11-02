@@ -15,22 +15,40 @@ export default defineConfig({
   },
   themeConfig: {
     nav: [
-      { text: 'Phase 6', link: '/phase-6' },
-      { text: 'Phase 5', link: '/phase-5' },
-      { text: 'Phase 4', link: '/phase-4' },
-      { text: 'Phase 3', link: '/phase-3' },
-      { text: 'Phase 2', link: '/phase-2' },
       { text: 'Foundations', link: '/foundations/' },
       { text: 'Components', link: '/components/' },
-      { text: 'Maintenance', link: '/maintenance/support' },
       { text: 'Patterns', link: '/patterns/function-deck' },
+      { text: 'Guides', link: '/guides/application-authoring' },
       { text: 'Examples', link: '/examples/framework-examples' },
       { text: 'Storybook', link: '/storybook/', target: '_self' },
+      {
+        text: 'Roadmap',
+        items: [
+          { text: 'Phase 1 — Vertical slice', link: '/phase-1' },
+          { text: 'Phase 2 — Core system', link: '/phase-2' },
+          { text: 'Phase 3 — Operational data', link: '/phase-3' },
+          { text: 'Phase 4 — Reference applications', link: '/phase-4' },
+          { text: 'Phase 5 — Ecosystem', link: '/phase-5' },
+          { text: 'Phase 6 — v1 readiness', link: '/phase-6' },
+        ],
+      },
       { text: 'Repository', link: 'https://github.com/Actesis/Wayglass' },
     ],
     sidebar: [
       {
-        text: 'System',
+        text: 'Roadmap & history',
+        items: [
+          { text: 'Phase 1 — Vertical slice', link: '/phase-1' },
+          { text: 'Phase 2 — Core system', link: '/phase-2' },
+          { text: 'Phase 3 — Operational data', link: '/phase-3' },
+          { text: 'Phase 4 — Reference applications', link: '/phase-4' },
+          { text: 'Phase 5 — Ecosystem', link: '/phase-5' },
+          { text: 'Phase 6 — v1 readiness', link: '/phase-6' },
+        ],
+      },
+      {
+        text: 'Project records',
+        collapsed: true,
         items: [
           { text: 'Phase 6 v1 roadmap', link: '/phase-6' },
           {
@@ -345,7 +363,8 @@ export default defineConfig({
         ],
       },
       {
-        text: 'Phase 4 reference apps',
+        text: 'Reference applications',
+        collapsed: true,
         items: [
           {
             text: 'Phase 4E integrated validation',
@@ -387,6 +406,7 @@ export default defineConfig({
       },
       {
         text: 'Maintenance',
+        collapsed: true,
         items: [
           { text: 'Support', link: '/maintenance/support' },
           { text: 'Security', link: '/maintenance/security' },
@@ -397,7 +417,8 @@ export default defineConfig({
         ],
       },
       {
-        text: 'Application authors',
+        text: 'Guides',
+        collapsed: true,
         items: [
           {
             text: 'Building a Wayglass application',
@@ -415,6 +436,7 @@ export default defineConfig({
       },
       {
         text: 'Foundations',
+        collapsed: true,
         items: [
           { text: 'Introduction', link: '/foundations/' },
           { text: 'Semantic model', link: '/foundations/state-model' },
@@ -424,7 +446,8 @@ export default defineConfig({
         ],
       },
       {
-        text: 'Phase 1 components',
+        text: 'Core components',
+        collapsed: true,
         items: [
           { text: 'Overview', link: '/components/' },
           { text: 'Theme provider', link: '/components/theme-provider' },
@@ -440,11 +463,13 @@ export default defineConfig({
         ],
       },
       {
-        text: 'Phase 2 selection',
+        text: 'Selection',
+        collapsed: true,
         items: [{ text: 'Tabs', link: '/components/tabs' }],
       },
       {
-        text: 'Phase 3 data',
+        text: 'Operational data',
+        collapsed: true,
         items: [
           {
             text: 'Operational-data ownership',
@@ -481,18 +506,21 @@ export default defineConfig({
         ],
       },
       {
-        text: 'Phase 2 layout',
+        text: 'Layout',
+        collapsed: true,
         items: [{ text: 'Layout contracts', link: '/layout/layout-contracts' }],
       },
       {
-        text: 'Phase 2 media',
+        text: 'Media',
+        collapsed: true,
         items: [
           { text: 'Media-content contract', link: '/media/media-content' },
           { text: 'Media-viewer contract', link: '/media/media-viewer' },
         ],
       },
       {
-        text: 'Phase 2 controls and forms',
+        text: 'Controls and forms',
+        collapsed: true,
         items: [
           { text: 'Control-state contract', link: '/controls/control-state' },
           { text: 'Core-control contracts', link: '/controls/core-controls' },
@@ -502,7 +530,8 @@ export default defineConfig({
         ],
       },
       {
-        text: 'Phase 2 feedback',
+        text: 'Feedback',
+        collapsed: true,
         items: [
           { text: 'Feedback-state contract', link: '/feedback/feedback-state' },
           {
@@ -525,10 +554,15 @@ export default defineConfig({
       },
       {
         text: 'Architecture',
+        collapsed: true,
         items: [
           {
             text: 'ADR 0005: Known-state model',
             link: '/architecture/adr/0005-known-state-model',
+          },
+          {
+            text: 'ADR 0008: Phase 1 contracts',
+            link: '/architecture/adr/0008-phase-1-contracts',
           },
           {
             text: 'ADR 0009: Tabs architecture',
@@ -654,14 +688,17 @@ export default defineConfig({
       },
       {
         text: 'Patterns',
+        collapsed: true,
         items: [{ text: 'Function Deck', link: '/patterns/function-deck' }],
       },
       {
         text: 'Frameworks',
+        collapsed: true,
         items: [{ text: 'React', link: '/frameworks/react' }],
       },
       {
         text: 'Accessibility',
+        collapsed: true,
         items: [
           {
             text: 'Phase 5 validation plan',
@@ -775,6 +812,7 @@ export default defineConfig({
       },
       {
         text: 'Examples',
+        collapsed: true,
         items: [
           {
             text: 'Operational Activity',
