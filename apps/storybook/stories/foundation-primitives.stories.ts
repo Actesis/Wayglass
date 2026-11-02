@@ -28,9 +28,11 @@ type Story = StoryObj<typeof meta>;
 export const TypographyAndUtilities: Story = {
   render: () => html`
     <wg-theme-provider theme="wayglass-dark" density="compact">
-      <a class="wg-visually-hidden-until-focus wg-focus-ring" href="#foundation-content">
-        Skip to foundation examples
-      </a>
+      <nav aria-label="Skip links">
+        <a class="wg-visually-hidden-until-focus wg-focus-ring" href="#foundation-content">
+          Skip to foundation examples
+        </a>
+      </nav>
       <wg-canvas>
         <main id="foundation-content" class="wg-foundation-catalog">
           <header>

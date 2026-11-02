@@ -90,6 +90,10 @@ test('loads the Storybook manager and a same-origin preview', async ({ page }) =
   await page.goto(`/storybook/iframe?id=${encodeURIComponent(story!)}&viewMode=story`);
   await expect(page.locator('#storybook-root')).not.toBeEmpty();
   expect(await page.locator('iframe').count()).toBe(0);
+  const accessibility = await new AxeBuilder({ page }).analyze();
+  expect(
+    accessibility.violations.map(({ id, impact, nodes }) => ({ id, impact, nodes: nodes.length })),
+  ).toEqual([]);
   assertNoExternalRequests();
 });
 

@@ -32,6 +32,8 @@ describe('Phase 6D-F read-only browser verifier implementation', () => {
     expect(record).toContain('complete browser context creates no cookie');
     expect(record).toContain('`noindex` is required, `nofollow` is optional');
     expect(record).toContain('Live-edge correction');
+    expect(record).toContain('labeled skip-links navigation landmark');
+    expect(record).toContain('runs Axe against the selected direct Storybook story');
     expect(theme).toContain('--vp-c-bg-soft: var(--wg-color-semantic-surface-panel)');
     expect(theme).toContain('--vp-c-text-2: var(--wg-color-semantic-text-secondary)');
     expect(theme).toContain('--vp-c-text-3: var(--wg-color-semantic-text-secondary)');
