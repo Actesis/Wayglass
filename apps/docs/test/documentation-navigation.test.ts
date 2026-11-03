@@ -8,6 +8,7 @@ const testDirectory = dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = resolve(testDirectory, '../../..');
 const read = (path: string) => readFileSync(resolve(repositoryRoot, path), 'utf8');
 const config = read('apps/docs/.vitepress/config.ts');
+const layout = read('apps/docs/.vitepress/theme/Layout.vue');
 const phaseOne = read('docs/phase-1.md').replace(/\s+/g, ' ');
 
 describe('documentation navigation', () => {
@@ -59,5 +60,14 @@ describe('documentation navigation', () => {
     expect(phaseOne).toContain('Phase 1 domain-neutral vertical slice');
     expect(phaseOne).toContain('Domain value, condition, knowledge, and activity');
     expect(phaseOne).toContain('Phase 1 validation record');
+  });
+
+  it('keeps collapsible sidebar groups to one interactive toggle', () => {
+    expect(layout).toContain('.VPSidebarItem.collapsible > .item > .caret[role="button"]');
+    expect(layout).toContain("caret.removeAttribute('role')");
+    expect(layout).toContain("caret.removeAttribute('tabindex')");
+    expect(layout).toContain("caret.removeAttribute('aria-label')");
+    expect(layout).toContain('onMounted(normalizeCollapsibleSidebarSemantics)');
+    expect(layout).toContain('onUpdated(normalizeCollapsibleSidebarSemantics)');
   });
 });
