@@ -1,0 +1,62 @@
+name: Release rehearsal (no publication)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-rehearsal
+  cancel-in-progress: false
+
+jobs:
+  rehearse:
+    if: github.repository == 'Actesis/Wayglass' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      CI: '1'
+      TURBO_FORCE: 'true'
+      WRANGLER_SEND_METRICS: 'false'
+      SOURCE_COMMIT: ce400e89930a047c6af1c6992c64cfe422a1eeee
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '26.8.1'
+          package-manager-cache: false
+      - name: Install the exact package manager
+        run: npm install --global pnpm@11.9.0 --ignore-scripts
+      - name: Provision fresh tooling dependencies (not a release build)
+        run: pnpm install --frozen-lockfile --ignore-scripts --store-dir .pnpm-store
+      - name: Validate workflow tooling without restored caches
+        run: pnpm check
+      - name: Provision frozen source dependencies for offline assembly
+        shell: bash
+        run: |
+          set -euo pipefail
+          provisioning_root=$(mktemp -d)
+          frozen_checkout="$provisioning_root/source"
+          git worktree add --detach "$frozen_checkout" "$SOURCE_COMMIT"
+          trap 'git worktree remove --force "$frozen_checkout"' EXIT
+          pnpm --dir "$frozen_checkout" install --frozen-lockfile --ignore-scripts --store-dir "$GITHUB_WORKSPACE/.pnpm-store"
+      - name: Assemble twice and verify private candidates offline
+        shell: bash
+        run: |
+          set -euo pipefail
+          rehearsal_root=$(mktemp -d)
+          pnpm release-candidate:check -- --source "$SOURCE_COMMIT"
+          pnpm release-candidate:build -- --source "$SOURCE_COMMIT" --output "$rehearsal_root/candidate"
+          pnpm release-candidate:verify -- --evidence "$rehearsal_root/candidate/evidence.json"
+          echo "CANDIDATE_PATH=$rehearsal_root/candidate" >> "$GITHUB_ENV"
+      - name: Retain review-only private candidates
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: private-candidates-${{ github.sha }}-${{ github.run_attempt }}
+          path: ${{ env.CANDIDATE_PATH }}/
+          if-no-files-found: error
+          retention-days: 7
