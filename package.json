@@ -48,6 +48,7 @@
     "release-candidate:probe:browsers": "node --disable-warning=ExperimentalWarning --experimental-strip-types tooling/release-candidate/src/cli.ts probe-browsers",
     "release-candidate:probe:react": "node --disable-warning=ExperimentalWarning --experimental-strip-types tooling/release-candidate/src/cli.ts probe-react",
     "release-candidate:probe:vanilla": "node --disable-warning=ExperimentalWarning --experimental-strip-types tooling/release-candidate/src/cli.ts probe-vanilla",
+    "release-candidate:provision-consumers": "node --disable-warning=ExperimentalWarning --experimental-strip-types tooling/release-candidate/src/cli.ts provision-consumers",
     "release-candidate:rehearse": "node --disable-warning=ExperimentalWarning --experimental-strip-types tooling/release-candidate/src/cli.ts rehearse",
     "release-candidate:verify": "node --disable-warning=ExperimentalWarning --experimental-strip-types tooling/release-candidate/src/cli.ts verify",
     "release-candidate:verify-integrated": "node --disable-warning=ExperimentalWarning --experimental-strip-types tooling/release-candidate/src/cli.ts verify-integrated",

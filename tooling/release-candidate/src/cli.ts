@@ -9,6 +9,7 @@ import { probeReactConsumers } from './react-probe.ts';
 import { probeVanillaConsumers } from './vanilla-probe.ts';
 
 const usage = `Usage:
+  pnpm release-candidate:provision-consumers -- --store <existing-absolute-directory> --output <new-absolute-temporary-directory>
   pnpm release-candidate:check -- --source <full-sha>
   pnpm release-candidate:build -- --source <full-sha> --output <absolute-new-directory>
   pnpm release-candidate:capture-advisory -- --source <full-sha> --output <absolute-new-file>
@@ -45,6 +46,15 @@ export async function main(arguments_: readonly string[]): Promise<void> {
     if (options.length !== 2) invalid('check accepts only --source.');
     await checkCandidateSource(process.cwd(), source, runCommand);
     console.log(`Validated frozen candidate source ${source}.`);
+    return;
+  }
+  if (command === 'provision-consumers') {
+    const store = option(options, '--store') ?? invalid('provision-consumers requires --store.');
+    const output = option(options, '--output') ?? invalid('provision-consumers requires --output.');
+    if (options.length !== 4) invalid('provision-consumers accepts only --store and --output.');
+    const { provisionConsumerMaterial } = await import('./material-provision.ts');
+    await provisionConsumerMaterial(process.cwd(), store, output, runCommand, process.env);
+    console.log(`Provisioned six external consumer dependency scenarios; lockfiles: ${output}.`);
     return;
   }
   if (command === 'build') {
