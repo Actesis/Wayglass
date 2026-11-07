@@ -38,7 +38,8 @@ support.
 
 ## Remaining release approval checklist
 
-- [ ] Hosted workflow run completed and its exact artifacts reviewed.
+- [x] Hosted workflow run completed and its exact artifacts reviewed; see the
+      [hosted rehearsal result](./initial-npm-hosted-rehearsal.md).
 - [ ] Fresh independent Vanilla/React and three-engine consumer matrix completed for the release
       artifacts, with minimum/current supported compiler and framework lines.
 - [ ] Fresh advisory capture reviewed; historical zero findings are not current security evidence.
