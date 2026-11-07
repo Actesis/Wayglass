@@ -38,6 +38,31 @@ support.
 
 ## Remaining release approval checklist
 
+### Explicit consumer material preparation
+
+An offline consumer proof may fail when exact test tools or their transitive dependencies are
+missing from the store. Preparation is a separate online action, not an offline retry fallback:
+
+```sh
+pnpm release-candidate:provision-consumers -- --store <existing-absolute-store> --output <new-absolute-temporary-directory>
+```
+
+This private command rejects release credentials, uses the exact existing six external-only consumer
+manifests, isolates user npm configuration, pins the registry to npm, disables lifecycle scripts,
+and provisions the explicitly supplied store. It does not install Wayglass from the registry or
+change candidate bytes, repository manifests, or the dependency lockfile. It retains each successful
+scenario's manifest and resolved lockfile for review; `complete.json` exists only after all six
+scenarios succeed. Partial failure may leave downloaded store entries but grants no test pass. Only
+the command's temporary projects are removed. No new tooling dependency is introduced.
+
+The top-level consumer tool versions are exact; their transitive ranges can resolve differently as
+registry metadata changes. Review the retained locks and rerun the existing proof fully offline.
+These preparation locks are diagnostic material, not yet authenticated release evidence or proof
+that a subsequent resolver used an identical graph. A future hosted consumer job must bind its
+resolved graph explicitly before it can support final publication approval.
+
+### Approval gates
+
 - [x] Hosted workflow run completed and its exact artifacts reviewed; see the
       [hosted rehearsal result](./initial-npm-hosted-rehearsal.md).
 - [ ] Fresh independent Vanilla/React and three-engine consumer matrix completed for the release

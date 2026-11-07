@@ -48,14 +48,35 @@ These hosted hashes supersede no accepted historical Phase 6C evidence. The hist
 remains untouched; later publication must bind newly approved publishable bytes and their own
 environment. Do not edit these private tarballs in place or reuse their hashes for public artifacts.
 
+## Local consumer retry after explicit provisioning
+
+After the initial offline failure below, the owner requested continuation. A separate explicit
+online preparation used six existing external-only manifests, npm's public registry, isolated user
+configuration, exact pinned pnpm, and disabled lifecycle scripts. It completed all six scenarios and
+retained their manifests and resolved locks in temporary review storage. PostCSS `8.5.32` was among
+the materialized tools; the repository lockfile and hosted tarballs were not changed.
+
+The subsequent existing offline matrix passed: two Vanilla scenarios, four React scenarios, and 36
+browser cases across Chromium, Firefox, and WebKit. It installed the exact hosted tarballs in
+temporary projects, exercised both TypeScript versions and both React lines, and checked runtime
+behavior and automated accessibility. This was a local macOS run, not a hosted Linux browser run or
+human assistive-technology validation. It used the provisioning implementation included in the same
+review change; the original hosted assembly still used the tooling identity recorded above.
+
+Preparation lockfiles are diagnostic records, not an authenticated consumer dependency graph. The
+existing offline harness resolves its own temporary lockfiles. A hosted consumer workflow with
+retained resolved-graph evidence remains a release-readiness task; this local success does not check
+off final publishable-artifact consumer acceptance.
+
 ## Remaining boundaries
 
 This hosted run did not execute fresh independent consumer/browser probes or capture a current
 advisory snapshot. A subsequent local probe against these downloaded hosted tarballs stopped with
 `WG_RC_CONSUMER_OFFLINE_MATERIAL`: the isolated consumer install required `postcss@8.5.32`, absent
-from the repository-local store. It failed before completing the matrix; no consumer/browser pass is
-claimed. No network fallback or store provisioning was performed. Fresh consumer dependency
-materialization needs a separately reviewed provisioning step before retrying the offline proof.
+from the repository-local store. It failed before completing the matrix; no consumer/browser pass
+was claimed for that failed attempt. No automatic network fallback or store provisioning was
+performed by the offline harness. The subsequent explicit preparation and successful retry are
+recorded separately above.
 
 The run did not resolve the recorded transitive license-file limitation, broaden accessibility
 support, create release tags, configure npm access, request OIDC, use publishing secrets, publish
