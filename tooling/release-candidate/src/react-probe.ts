@@ -19,6 +19,7 @@ import type {
 } from './types.ts';
 
 export interface ReactProbeRequest {
+  readonly publicationReview?: true;
   readonly evidencePath: string;
   readonly storePath: string;
   readonly runner: CommandRunner;

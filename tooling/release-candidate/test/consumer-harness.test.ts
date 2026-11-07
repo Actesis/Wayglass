@@ -10,13 +10,15 @@ import {
 import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
 
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { withConsumerProject } from '../src/consumer-harness.ts';
 import { consumerScenarios } from '../src/consumer.ts';
 import { candidateDirectories, frozenSource } from '../src/constants.ts';
 import { serializeEvidence } from '../src/evidence.ts';
 import { sha256 } from '../src/hash.ts';
+import * as publicationArtifacts from '../src/publication-artifacts.ts';
+import type { PublicationEvidence } from '../src/types.ts';
 import type { CandidateEvidence, CommandRequest, CommandRunner } from '../src/types.ts';
 
 const temporary: string[] = [];
@@ -28,6 +30,7 @@ function temp(prefix: string): string {
 }
 
 afterEach(() => {
+  vi.restoreAllMocks();
   for (const path of temporary.splice(0)) rmSync(path, { recursive: true, force: true });
 });
 
@@ -74,6 +77,45 @@ function evidenceFixture(): { readonly path: string; readonly store: string } {
 }
 
 describe('release-candidate consumer harness', () => {
+  it('admits public evidence only through the explicit verifier and pinned package-manager path', async () => {
+    const fixture = evidenceFixture();
+    const evidence = {
+      ...JSON.parse(readFileSync(fixture.path, 'utf8')),
+      artifactKind: 'publication-review',
+      publicationAuthorized: false,
+      distTag: null,
+    } as PublicationEvidence;
+    writeFileSync(fixture.path, JSON.stringify(evidence));
+    const requests: CommandRequest[] = [];
+    const request = {
+      evidencePath: fixture.path,
+      storePath: fixture.store,
+      template: {
+        scenario: consumerScenarios()[0]!,
+        files: [{ path: 'index.ts', contents: 'export {};' }],
+      },
+      environment: { PATH: process.env.PATH, npm_execpath: process.execPath },
+      runner: async (command: CommandRequest) => {
+        requests.push(command);
+        return { stdout: '', stderr: '' };
+      },
+    };
+    await expect(withConsumerProject(request, async () => undefined)).rejects.toThrow(
+      /WG_RC_EVIDENCE_KIND/,
+    );
+    expect(requests).toHaveLength(0);
+    const verifier = vi
+      .spyOn(publicationArtifacts, 'verifyPublicationArtifacts')
+      .mockResolvedValue(evidence);
+    await withConsumerProject({ ...request, publicationReview: true }, async (context) => {
+      expect(context.environment.PATH).toContain(`${context.root}/package-manager-bin`);
+      expect(realpathSync(resolve(context.root, 'package-manager-bin/pnpm'))).toBe(
+        realpathSync(process.execPath),
+      );
+    });
+    expect(verifier).toHaveBeenCalledOnce();
+    expect(requests).toHaveLength(2);
+  });
   it('materializes, locks, installs, exposes the isolated context, and cleans up', async () => {
     const fixture = evidenceFixture();
     const requests: CommandRequest[] = [];

@@ -117,7 +117,51 @@ candidate evidence also passed unchanged. A separate `TURBO_FORCE=true pnpm chec
 new tooling, including 25 release-tooling test files / 139 tests and 69 documentation test files /
 395 assertions. This is local archive evidence, not hosted archive/consumer evidence, final artifact
 acceptance, provenance, a fresh advisory capture, or npm publication approval. Independent consumer
-proof for these exact public archives remains the next task.
+proof for these exact public archives is implemented separately below.
+
+## Retained public consumer proof
+
+```sh
+pnpm release-candidate:probe-publication -- --evidence <absolute-publication-evidence-path> --store <existing-absolute-store> --output <new-absolute-temporary-directory>
+```
+
+This explicit command authenticates clean consumer-proof tooling and verifies the six public-review
+archives against the frozen source. It copies the archive set and its evidence into a new temporary
+proof bundle and re-verifies the copy before and after consumer execution. Each independent consumer
+re-verifies public evidence through the separate verifier; ordinary private-consumer commands
+continue to reject it. Copied vendor archive hashes are checked before installation.
+
+The six existing domain-neutral scenarios cover TypeScript `5.9.3` and `6.0.3`, with Vanilla and
+React `19.0.0` / `19.2.8`. Each uses its own temporary project, only local Wayglass tarballs, an
+explicit existing dependency store, empty npm configuration, and lifecycle-disabled offline
+installation. The exact pnpm `11.9.0` launcher is checked and supplied to nested commands rather
+than falling back to a different globally installed pnpm. Missing material fails; this command never
+provisions registry dependencies or downloads browsers.
+
+The initial stage follows offline lockfile resolution and a frozen installation. The removal stage
+follows the existing offline `pnpm remove` operation and production rebuild. Before each stage's
+browser execution, the tool retains that project's `package.json`, `pnpm-workspace.yaml`, resolved
+`pnpm-lock.yaml`, and actual `node_modules/.pnpm/lock.yaml` (as `installed-lock.yaml`). These are
+the graphs used by these consumers, not the earlier standalone provisioning lockfiles. All twelve
+snapshots / 48 files are individually hashed and rehashed before completion. Temporary projects are
+still removed; successful graph snapshots and the candidate copy remain in the owned proof bundle.
+
+The production consumer harness checks declarations, CSS, production bundles, registration,
+independent known-state axes, React parity/events/client fallback, tree shaking, and removal. All 36
+Chromium/Firefox/WebKit stage cases must pass runtime and semantics assertions, zero automated axe
+violations, and zero page errors. Coverage validation rejects missing, duplicate, failed, or
+incomplete build/browser records and missing or changed graph files. No test-executor override is
+offered by this CLI. A failure removes only this command's new output; input artifacts and earlier
+proof bundles remain untouched.
+
+`consumer-proof.json` is written only after successful completion. It binds the exact candidate
+evidence hash, assembly and consumer-tooling revisions, source identity, Node/pnpm/browser versions,
+matrix results, and graph-file hashes. It retains `publicationAuthorized: false` and
+`distTag: null`. This is local review evidence, not authenticated hosted execution, registry
+installation, provenance, human assistive-technology validation, Windows/NVDA evidence, advisory
+renewal, or publication acceptance. The hosted metadata workflow remains unchanged. No dependency is
+added: existing pnpm, TypeScript, Vite, Playwright, axe, and Node filesystem/hash operations cover
+this proof.
 
 ## Next implementation and approval gates
 

@@ -9,6 +9,7 @@ import { probeReactConsumers } from './react-probe.ts';
 import { probeVanillaConsumers } from './vanilla-probe.ts';
 
 const usage = `Usage:
+  pnpm release-candidate:probe-publication -- --evidence <absolute-path> --store <existing-absolute-directory> --output <new-absolute-temporary-directory>
   pnpm release-candidate:build-publication -- --source <accepted-full-sha> --output <new-absolute-temporary-directory>
   pnpm release-candidate:verify-publication -- --evidence <absolute-path>
   pnpm release-candidate:publication-plan -- --source <accepted-full-sha> --output <new-absolute-temporary-directory>
@@ -44,6 +45,27 @@ export async function main(arguments_: readonly string[]): Promise<void> {
   }
   assertSupportedNode(process.version);
   const environment = offlineEnvironment(process.env);
+  if (command === 'probe-publication') {
+    const evidence =
+      option(options, '--evidence') ?? invalid('probe-publication requires --evidence.');
+    const store = option(options, '--store') ?? invalid('probe-publication requires --store.');
+    const output = option(options, '--output') ?? invalid('probe-publication requires --output.');
+    if (options.length !== 6)
+      invalid('probe-publication accepts only --evidence, --store, and --output.');
+    const { provePublicationConsumers } = await import('./publication-consumers.ts');
+    const path = await provePublicationConsumers(
+      process.cwd(),
+      evidence,
+      store,
+      output,
+      runCommand,
+      process.env,
+    );
+    console.log(
+      `Passed six public-review consumers and 36 browser cases; retained graphs and proof: ${path}`,
+    );
+    return;
+  }
   if (command === 'build-publication') {
     const source = option(options, '--source') ?? invalid('build-publication requires --source.');
     const output = option(options, '--output') ?? invalid('build-publication requires --output.');

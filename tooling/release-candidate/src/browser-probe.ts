@@ -46,6 +46,8 @@ export type ConsumerBrowserServer = <T>(
 ) => Promise<T>;
 
 export interface BrowserConsumerProbeRequest {
+  readonly publicationReview?: true;
+  readonly observe?: ConsumerRuntimeProbe;
   readonly evidencePath: string;
   readonly storePath: string;
   readonly runner: CommandRunner;
@@ -362,7 +364,11 @@ export async function runBrowserConsumerMatrix(
   request: BrowserConsumerProbeRequest,
 ): Promise<BrowserConsumerMatrixResult> {
   const results: ConsumerBrowserProbeResult[] = [];
-  const runtime = createConsumerBrowserProbe(results, request.execute);
+  const browserProbe = createConsumerBrowserProbe(results, request.execute);
+  const runtime: ConsumerRuntimeProbe = async (context, stage) => {
+    await request.observe?.(context, stage);
+    await browserProbe(context, stage);
+  };
   const vanilla = await probeVanillaConsumers(request, runtime);
   const react = await probeReactConsumers(request, runtime);
   return Object.freeze({ vanilla, react, browsers: Object.freeze(results) });
