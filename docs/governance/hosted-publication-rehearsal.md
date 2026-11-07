@@ -32,6 +32,11 @@ caches.
 
 ## Ordered execution
 
+Browser storage is exported through `$GITHUB_ENV` by an early shell step using `$RUNNER_TEMP`, run
+ID, and attempt. It is not a `runner` expression in job-level `env`, where that context is
+unavailable. The regression test executes the exact shell setup with a temporary path containing
+spaces and verifies that later steps receive the intended absolute, run-specific browser path.
+
 1. Install fresh tooling dependencies from the committed frozen lockfile with scripts disabled; run
    cache-disabled `pnpm check` and authenticate the exact frozen source.
 2. In an explicitly separate network preparation step, provision frozen source dependencies into the
@@ -92,7 +97,22 @@ first-package authentication/provenance, final artifact acceptance, and registry
 separate gates. Automated axe/browser results are not human assistive-technology or Windows/NVDA
 observations. Documentation deployment is unaffected.
 
+## Pre-dispatch validation correction
+
+After PR #300 merged, the ordinary main quality run passed, but
+[workflow record 42411060731](https://github.com/Actesis/Wayglass/actions/runs/42411060731) reported
+an invalid workflow on source `8055c8ca7ef9c358e61cb2a006dd8df7d06e05ea`:
+`Unrecognized named-value: 'runner'` in the job-level browser-path setting. This record had no jobs
+or artifacts. No manual rehearsal was dispatched, no owner gate was approved, and no package was
+published. The correction moves runner-dependent setup into the early shell step above, without
+changing triggers, approval requirements, permissions, source, or artifact scope. A green general
+quality check alone is not treated as native workflow-validation evidence. After review and merge,
+verify that GitHub accepts the workflow, then dispatch once and request fresh owner UI approval.
+
 ## Platform references
+
+- [GitHub context availability](https://docs.github.com/en/actions/reference/workflows-and-actions/contexts#context-availability):
+  `runner` is available to step execution but not job-level `env`.
 
 - [Playwright CI guidance](https://playwright.dev/docs/ci): explicit browser/system-dependency
   provisioning before browser tests.

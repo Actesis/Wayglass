@@ -1,4 +1,6 @@
-import { readFileSync } from 'node:fs';
+import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { spawnSync } from 'node:child_process';
 import { resolve } from 'node:path';
 
 import { describe, expect, it } from 'vitest';
@@ -51,10 +53,43 @@ describe('owner-gated hosted public rehearsal', () => {
       'persist-credentials: false',
       'package-manager-cache: false',
       "TURBO_FORCE: 'true'",
-      'PLAYWRIGHT_BROWSERS_PATH: ${{ runner.temp }}/wayglass-public-review-browsers-${{ github.run_id }}-${{ github.run_attempt }}',
+      'PLAYWRIGHT_BROWSERS_PATH=$RUNNER_TEMP/wayglass-public-review-browsers-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT',
       'playwright install --with-deps chromium firefox webkit',
     ])
       expect(workflow.replace(/\s+/g, ' ')).toContain(required);
+  });
+  it('exports runner-dependent storage at step runtime rather than in unsupported job expressions', () => {
+    const jobEnvironment = workflow.slice(
+      workflow.indexOf('    env:'),
+      workflow.indexOf('    steps:'),
+    );
+    expect(jobEnvironment).not.toContain('runner.');
+    expect(jobEnvironment).not.toContain('PLAYWRIGHT_BROWSERS_PATH');
+    const setupPosition = workflow.indexOf('- name: Configure run-local browser storage');
+    expect(setupPosition).toBeGreaterThan(0);
+    expect(setupPosition).toBeLessThan(workflow.indexOf('playwright install --with-deps'));
+    const script = workflow.slice(setupPosition).match(/run: \|\n([\s\S]*?)(?=\n {6}- name:)/)?.[1];
+    expect(script).toBeDefined();
+    const root = mkdtempSync(resolve(tmpdir(), 'wayglass-runner-path-test-'));
+    try {
+      const environmentFile = resolve(root, 'github-env');
+      const runnerTemp = resolve(root, 'runner storage');
+      const result = spawnSync('/bin/bash', ['-euo', 'pipefail', '-c', script!], {
+        encoding: 'utf8',
+        env: {
+          RUNNER_TEMP: runnerTemp,
+          GITHUB_RUN_ID: '123',
+          GITHUB_RUN_ATTEMPT: '2',
+          GITHUB_ENV: environmentFile,
+        },
+      });
+      expect(result.status, result.stderr).toBe(0);
+      expect(readFileSync(environmentFile, 'utf8')).toBe(
+        `PLAYWRIGHT_BROWSERS_PATH=${runnerTemp}/wayglass-public-review-browsers-123-2\n`,
+      );
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
   });
   it('orders explicit network preparation before offline assembly and exact-archive consumers', () => {
     const commands = [

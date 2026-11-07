@@ -21,9 +21,6 @@ jobs:
       TURBO_FORCE: 'true'
       WRANGLER_SEND_METRICS: 'false'
       SOURCE_COMMIT: ce400e89930a047c6af1c6992c64cfe422a1eeee
-      PLAYWRIGHT_BROWSERS_PATH:
-        ${{ runner.temp }}/wayglass-public-review-browsers-${{ github.run_id }}-${{
-        github.run_attempt }}
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
@@ -33,6 +30,11 @@ jobs:
         with:
           node-version: '26.8.1'
           package-manager-cache: false
+      - name: Configure run-local browser storage
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "PLAYWRIGHT_BROWSERS_PATH=$RUNNER_TEMP/wayglass-public-review-browsers-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT" >> "$GITHUB_ENV"
       - name: Install exact package manager and fresh tooling dependencies
         shell: bash
         run: |
