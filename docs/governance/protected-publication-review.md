@@ -86,6 +86,39 @@ registry fallback. No dependencies, credential access, publishing, tags, or auto
 selection are added. The already approved hosted workflow remains metadata-only; running a future
 archive workflow requires review of that workflow and a fresh owner environment approval.
 
+### Local archive rehearsal result
+
+On November 7, 2026, tooling commit `caa51a0441b8c276a6757d91f82b94f820bdfebb` (tree
+`05f1cc0f6fe26f3108b69af35e0b17cb6dca68cf`) assembled the frozen source
+`ce400e89930a047c6af1c6992c64cfe422a1eeee` twice. Both independent offline passes completed the
+uncached source quality gates, builds, staging, packing, and full unpacked-file inspection. The six
+tarballs and inventories were byte-identical across passes. Environment: macOS arm64, Node
+`v26.8.1`, pnpm `11.9.0`, npm `11.19.0`.
+
+| Package (`0.1.0`)    | Tarball SHA-256                                                    |
+| -------------------- | ------------------------------------------------------------------ |
+| `@wayglass/core`     | `1b8d897bc11f4aef5a55ecd8d0f2a69c945ae762a50366f01d63a3617a4928d6` |
+| `@wayglass/tokens`   | `5c7b8898846009e5f2a05cce3dd5af14a4fb1b5efb2876adc4c40eb5adbf0649` |
+| `@wayglass/themes`   | `9ce1374e2365407fae0ee12cef6a8cf7bb8466f44bc4a2347a0979ad9e6349fa` |
+| `@wayglass/elements` | `e680c455c3ae0c1a5a021741046cfd2dad085a153c61e4ead20b267afaae4d28` |
+| `@wayglass/icons`    | `752f16b722865ebd16a4b9c8ff7b569c9ad29afd79b469a2b1c981857965bb42` |
+| `@wayglass/react`    | `0e9b72ad58525826c6c0325aaa7d316b45f42da2882fc2389f1d6e6caac940e5` |
+
+The separately rerun public verifier passed for all six retained archives. The complete local
+`publication-evidence.json` has SHA-256
+`de1dcc09e36934541e7df74e9293a067514ae02b599ecb4f2e5e45bb245344ea` and is retained with the archives
+under the OS temporary run `wayglass-publication-review.nYiSoOGO/artifacts`. It includes the
+per-file, manifest, and inventory hashes; this table is a review summary, not a replacement for that
+evidence. Temporary storage is not durable hosted release retention.
+
+All non-manifest file inventories match the earlier hosted private candidates exactly; complete
+packed public manifests match the frozen projections. Reverification of the retained private
+candidate evidence also passed unchanged. A separate `TURBO_FORCE=true pnpm check` passed for the
+new tooling, including 25 release-tooling test files / 139 tests and 69 documentation test files /
+395 assertions. This is local archive evidence, not hosted archive/consumer evidence, final artifact
+acceptance, provenance, a fresh advisory capture, or npm publication approval. Independent consumer
+proof for these exact public archives remains the next task.
+
 ## Next implementation and approval gates
 
 1. Review the new public archive assembly tooling and its exact two-pass hashes and inventories,
