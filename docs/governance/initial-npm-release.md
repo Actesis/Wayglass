@@ -83,8 +83,10 @@ resolved graph explicitly before it can support final publication approval.
 - [ ] Review protected main/release tags, pinned publishing actions, and human approval controls.
       [Main and release-tag protections](./release-protections.md) are applied; publishing-specific
       controls and approved-source tag validation remain open. The main-only owner-reviewed
-      `npm-release` environment is now configured without secrets; its first human approval
-      rehearsal and actual publishing implementation remain open.
+      `npm-release` environment is configured without secrets; its owner-operated metadata-only
+      approval rehearsal passed in
+      [run 42393786644](https://github.com/Actesis/Wayglass/actions/runs/42393786644). Actual
+      publishing implementation remains open.
 - [ ] Approve the exact public manifests and publishable tarballs in a subsequent release change.
       This rehearsal deliberately leaves source and projected package privacy unchanged.
 - [ ] Recheck npm's first-package bootstrap requirements and prefer tokenless publishing if

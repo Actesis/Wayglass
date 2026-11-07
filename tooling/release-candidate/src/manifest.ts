@@ -6,7 +6,13 @@ import {
   packageFilesAllowlist,
 } from './constants.ts';
 import { fail } from './error.ts';
-import type { CandidateDirectory, CandidateSource, JsonValue, ProjectedManifest } from './types.ts';
+import type {
+  CandidateDirectory,
+  CandidateSource,
+  JsonValue,
+  ProjectedManifest,
+  PackableManifest,
+} from './types.ts';
 
 const lifecycleNames = new Set([
   'preinstall',
@@ -210,6 +216,6 @@ export function projectCandidateInventory(
   );
 }
 
-export function serializeProjectedManifest(manifest: ProjectedManifest): string {
+export function serializeProjectedManifest(manifest: PackableManifest): string {
   return `${JSON.stringify(manifest, null, 2)}\n`;
 }

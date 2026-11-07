@@ -36,6 +36,9 @@ export interface PackageFile {
   readonly kind?: 'file' | 'directory' | 'symlink' | 'socket';
 }
 
+export type PublicationManifest = Omit<ProjectedManifest, 'private'> & { readonly private: false };
+export type PackableManifest = ProjectedManifest | PublicationManifest;
+
 export interface InspectedFile {
   readonly path: string;
   readonly bytes: number;
@@ -98,6 +101,12 @@ export interface CandidateEvidence {
     readonly byteIdentical: true;
   };
   readonly packages: readonly PackedCandidate[];
+}
+
+export interface PublicationEvidence extends CandidateEvidence {
+  readonly artifactKind: 'publication-review';
+  readonly publicationAuthorized: false;
+  readonly distTag: null;
 }
 
 export type ConsumerKind = 'vanilla' | 'react';

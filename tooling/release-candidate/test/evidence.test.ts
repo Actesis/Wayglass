@@ -73,4 +73,16 @@ describe('release-candidate retained evidence', () => {
       }),
     ).toThrowError(/WG_RC_EVIDENCE_SCHEMA/);
   });
+
+  it('does not let private consumers silently accept public-review evidence', () => {
+    const { evidence, path } = fixture();
+    expect(() =>
+      verifyEvidenceFiles(path, {
+        ...evidence,
+        artifactKind: 'publication-review',
+        publicationAuthorized: false,
+        distTag: null,
+      } as CandidateEvidence),
+    ).toThrowError(/WG_RC_EVIDENCE_KIND/);
+  });
 });

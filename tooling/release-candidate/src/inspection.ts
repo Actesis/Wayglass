@@ -2,7 +2,7 @@ import { packedRootFiles } from './constants.ts';
 import { hashFileInventory, sha256 } from './hash.ts';
 import { fail } from './error.ts';
 import { serializeProjectedManifest } from './manifest.ts';
-import type { JsonValue, PackageFile, PackageInspection, ProjectedManifest } from './types.ts';
+import type { JsonValue, PackageFile, PackageInspection, PackableManifest } from './types.ts';
 
 const decoder = new TextDecoder('utf-8', { fatal: true });
 const privateSegments = new Set([
@@ -83,7 +83,7 @@ function inspectSourceMap(file: PackageFile): void {
 
 export function inspectPackageFiles(
   files: readonly PackageFile[],
-  manifest: ProjectedManifest,
+  manifest: PackableManifest,
 ): PackageInspection {
   const seen = new Set<string>();
   const portablePaths = new Set<string>();

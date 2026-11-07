@@ -5,7 +5,7 @@ import { packedRootFiles } from './constants.ts';
 import { fail } from './error.ts';
 import { inspectPackageFiles } from './inspection.ts';
 import { serializeProjectedManifest } from './manifest.ts';
-import type { PackageFile, PackageInspection, ProjectedManifest } from './types.ts';
+import type { PackageFile, PackageInspection, PackableManifest } from './types.ts';
 
 function portable(path: string): string {
   return path.split(sep).join('/');
@@ -37,7 +37,7 @@ export function readPackageFiles(root: string): readonly PackageFile[] {
 export function stagePackage(
   sourcePackage: string,
   stagingPackage: string,
-  manifest: ProjectedManifest,
+  manifest: PackableManifest,
 ): PackageInspection {
   mkdirSync(stagingPackage, { recursive: false });
   for (const root of packedRootFiles) {

@@ -15,6 +15,7 @@ import { tmpdir } from 'node:os';
 import { candidateDirectories, candidatePackageNames, frozenSource } from './constants.ts';
 import { auditProductionDependencies, type DependencyAuditEvidence } from './dependency-audit.ts';
 import { serializeEvidence } from './evidence.ts';
+import { offlineEnvironment } from './environment.ts';
 import { fail } from './error.ts';
 import { stagePackage } from './filesystem.ts';
 import { projectCandidateInventory } from './manifest.ts';
@@ -39,6 +40,7 @@ import type {
   CandidateSource,
   CommandRunner,
   PackedCandidate,
+  PackableManifest,
   ProjectedManifest,
 } from './types.ts';
 
@@ -158,7 +160,7 @@ async function runAssemblyPass(
   repositoryRoot: string,
   source: string,
   store: string,
-  manifests: readonly ProjectedManifest[],
+  manifests: readonly PackableManifest[],
   runner: CommandRunner,
   environment: Readonly<Record<string, string>>,
 ): Promise<AssemblyPass> {
@@ -247,7 +249,9 @@ async function runAssemblyPass(
       if (observedFiles === undefined) {
         fail('WG_RC_PACKAGE_AUDIT', `${manifests[index]!.name} packed bytes were not observed.`);
       }
-      auditInputs.push({ directory, manifest: manifests[index]!, files: observedFiles });
+      const manifest = manifests[index]!;
+      // The existing private audit format must not silently admit public-review artifacts.
+      if (manifest.private) auditInputs.push({ directory, manifest, files: observedFiles });
     }
     return Object.freeze({
       root,
@@ -298,6 +302,7 @@ async function buildCandidateInternal(
   runner: CommandRunner,
   environment: Readonly<Record<string, string>>,
   collectAudits: boolean,
+  artifactKind: 'private' | 'publication-review' = 'private',
 ): Promise<{
   readonly evidencePath: string;
   readonly packageAudit?: PackageAuditEvidence;
@@ -307,7 +312,11 @@ async function buildCandidateInternal(
   const output = validateNewOutputPath(outputArgument, repository.root);
   await assertCleanTooling(repository, runner);
   await authenticateFrozenSource(repository.root, source, runner);
-  const manifests = await manifestsFromGit(repository.root, source, runner);
+  const privateManifests = await manifestsFromGit(repository.root, source, runner);
+  const manifests: readonly PackableManifest[] =
+    artifactKind === 'private'
+      ? privateManifests
+      : privateManifests.map((manifest) => Object.freeze({ ...manifest, private: false as const }));
   const store = resolve(repository.root, '.pnpm-store');
   const first = await runAssemblyPass(
     repository.root,
@@ -327,6 +336,8 @@ async function buildCandidateInternal(
     second = await runAssemblyPass(repository.root, source, store, manifests, runner, environment);
     assertReproducibleCandidates(first.packages, second.packages);
     if (collectAudits) {
+      if (artifactKind !== 'private')
+        fail('WG_RC_PRIVACY', 'Private audits require private candidates.');
       packageAudit = auditPackedPackages(first.auditInputs);
       dependencyAudit = auditProductionDependencies(
         packageAudit,
@@ -357,6 +368,13 @@ async function buildCandidateInternal(
       },
       reproducibility: { runs: 2 as const, byteIdentical: true as const },
       packages: first.packages,
+      ...(artifactKind === 'private'
+        ? {}
+        : {
+            artifactKind: 'publication-review' as const,
+            publicationAuthorized: false as const,
+            distTag: null,
+          }),
     });
     mkdirSync(output);
     outputCreated = true;
@@ -371,7 +389,10 @@ async function buildCandidateInternal(
         },
       );
     }
-    evidencePath = resolve(output, 'evidence.json');
+    evidencePath = resolve(
+      output,
+      artifactKind === 'private' ? 'evidence.json' : 'publication-evidence.json',
+    );
     writeFileSync(evidencePath, serializeEvidence(evidence), { encoding: 'utf8', flag: 'wx' });
   } catch (error) {
     failure = error;
@@ -429,4 +450,27 @@ export async function buildCandidate(
 ): Promise<string> {
   return (await buildCandidateInternal(cwd, source, outputArgument, runner, environment, false))
     .evidencePath;
+}
+
+// This explicit entry point builds review artifacts only. It never reclassifies accepted private
+// candidates, selects a dist-tag, creates tags, or supplies publishing credentials.
+export async function buildPublicationArtifacts(
+  cwd: string,
+  source: string,
+  outputArgument: string,
+  runner: CommandRunner,
+  inputEnvironment: NodeJS.ProcessEnv,
+): Promise<string> {
+  const environment = offlineEnvironment(inputEnvironment);
+  return (
+    await buildCandidateInternal(
+      cwd,
+      source,
+      outputArgument,
+      runner,
+      environment,
+      false,
+      'publication-review',
+    )
+  ).evidencePath;
 }
