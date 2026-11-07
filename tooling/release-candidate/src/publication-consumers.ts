@@ -20,6 +20,8 @@ import { verifyPublicationArtifacts } from './publication-artifacts.ts';
 import { assertCleanTooling, identifyRepository } from './repository.ts';
 import type {
   CommandRunner,
+  CandidateEvidence,
+  ConsumerBrowserEngine,
   ConsumerBuildStage,
   ConsumerProjectContext,
   RetainedEvidenceFile,
@@ -36,6 +38,34 @@ export interface ConsumerGraphSnapshot {
   readonly scenarioId: string;
   readonly stage: ConsumerBuildStage;
   readonly files: readonly RetainedEvidenceFile[];
+}
+
+export interface PublicationConsumerProof {
+  readonly schemaVersion: 1;
+  readonly artifactKind: 'publication-consumer-review';
+  readonly publicationAuthorized: false;
+  readonly distTag: null;
+  readonly source: CandidateEvidence['source'];
+  readonly assemblyTooling: CandidateEvidence['tooling'];
+  readonly tooling: CandidateEvidence['tooling'];
+  readonly candidateEvidence: {
+    readonly path: 'candidate/publication-evidence.json';
+    readonly sha256: string;
+  };
+  readonly environment: {
+    readonly platform: string;
+    readonly architecture: string;
+    readonly node: string;
+    readonly pnpm: string;
+    readonly browsers: Readonly<Record<ConsumerBrowserEngine, string>>;
+  };
+  readonly limitations: {
+    readonly hostedRunAuthenticated: false;
+    readonly humanAssistiveTechnology: false;
+    readonly windowsNvdaObserved: false;
+  };
+  readonly matrix: BrowserConsumerMatrixResult;
+  readonly graphs: readonly ConsumerGraphSnapshot[];
 }
 
 export function retainConsumerGraph(
@@ -250,7 +280,7 @@ export async function provePublicationConsumers(
           },
           matrix,
           graphs,
-        },
+        } satisfies PublicationConsumerProof,
         null,
         2,
       )}\n`,

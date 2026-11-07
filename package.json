@@ -55,6 +55,7 @@
     "release-candidate:rehearse": "node --disable-warning=ExperimentalWarning --experimental-strip-types tooling/release-candidate/src/cli.ts rehearse",
     "release-candidate:verify": "node --disable-warning=ExperimentalWarning --experimental-strip-types tooling/release-candidate/src/cli.ts verify",
     "release-candidate:verify-publication": "node --disable-warning=ExperimentalWarning --experimental-strip-types tooling/release-candidate/src/cli.ts verify-publication",
+    "release-candidate:verify-publication-consumers": "node --disable-warning=ExperimentalWarning --experimental-strip-types tooling/release-candidate/src/cli.ts verify-publication-consumers",
     "release-candidate:verify-integrated": "node --disable-warning=ExperimentalWarning --experimental-strip-types tooling/release-candidate/src/cli.ts verify-integrated",
     "site-composer:core:check": "pnpm site-composer:core:typecheck && pnpm site-composer:core:test",
     "site-composer:core:test": "vitest run --root tooling/site-composer --config vitest.config.ts",
