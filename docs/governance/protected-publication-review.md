@@ -193,9 +193,10 @@ dist-tag/recovery decisions, credentials/provenance, and registry publication re
 
 1. Review the new public archive assembly tooling and its exact two-pass hashes and inventories,
    without mutating the private candidate evidence.
-2. Review the local public-consumer proof above and implement a separately reviewed, owner-gated
-   hosted public-archive/consumer rehearsal with retained artifacts and graph evidence. Local
-   success does not authenticate hosted execution or final release artifact acceptance.
+2. Review the local public-consumer proof above and the separate
+   [owner-gated hosted rehearsal](./hosted-publication-rehearsal.md) with retained artifacts and
+   graph evidence. Local success does not authenticate hosted execution or final release artifact
+   acceptance.
 3. Approve the initial dist-tag, release notes, support limitations, recovery contacts, and exact
    source/tooling/package hashes. No default npm `latest` movement is inferred.
 4. Recheck advisory freshness at final approval; November 7 acceptance does not extend its expiry.

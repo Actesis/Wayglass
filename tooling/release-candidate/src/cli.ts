@@ -9,6 +9,7 @@ import { probeReactConsumers } from './react-probe.ts';
 import { probeVanillaConsumers } from './vanilla-probe.ts';
 
 const usage = `Usage:
+  pnpm release-candidate:verify-publication-consumers -- --evidence <absolute-consumer-proof-path>
   pnpm release-candidate:probe-publication -- --evidence <absolute-path> --store <existing-absolute-directory> --output <new-absolute-temporary-directory>
   pnpm release-candidate:build-publication -- --source <accepted-full-sha> --output <new-absolute-temporary-directory>
   pnpm release-candidate:verify-publication -- --evidence <absolute-path>
@@ -45,6 +46,22 @@ export async function main(arguments_: readonly string[]): Promise<void> {
   }
   assertSupportedNode(process.version);
   const environment = offlineEnvironment(process.env);
+  if (command === 'verify-publication-consumers') {
+    const path =
+      option(options, '--evidence') ?? invalid('verify-publication-consumers requires --evidence.');
+    if (options.length !== 2) invalid('verify-publication-consumers accepts only --evidence.');
+    const { verifyPublicationConsumerProof } = await import('./publication-proof.ts');
+    const result = await verifyPublicationConsumerProof(
+      process.cwd(),
+      path,
+      runCommand,
+      process.env,
+    );
+    console.log(
+      `Verified public consumer proof ${result.proofSha256}; candidate evidence ${result.candidateEvidenceSha256}. No publication authorized.`,
+    );
+    return;
+  }
   if (command === 'probe-publication') {
     const evidence =
       option(options, '--evidence') ?? invalid('probe-publication requires --evidence.');

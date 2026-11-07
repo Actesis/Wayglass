@@ -18,6 +18,7 @@ import { consumerScenarios } from '../src/consumer.ts';
 import { candidateDirectories, frozenSource } from '../src/constants.ts';
 import { sha256 } from '../src/hash.ts';
 import * as publicationArtifacts from '../src/publication-artifacts.ts';
+import { verifyPublicationConsumerProof } from '../src/publication-proof.ts';
 import {
   provePublicationConsumers,
   retainConsumerGraph,
@@ -229,6 +230,29 @@ describe('retained public consumer proof', () => {
       candidateEvidence: { sha256: sha256(readFileSync(evidencePath)) },
     });
     expect(proof.graphs).toHaveLength(12);
+    const originalProof = readFileSync(proofPath);
+    await expect(
+      verifyPublicationConsumerProof(repositoryRoot, proofPath, runner, {}),
+    ).resolves.toEqual({
+      proofSha256: sha256(originalProof),
+      candidateEvidenceSha256: sha256(readFileSync(evidencePath)),
+    });
+    for (const change of [
+      { publicationAuthorized: true },
+      { distTag: 'latest' },
+      { candidateEvidence: { ...proof.candidateEvidence, path: '../escape.json' } },
+      { candidateEvidence: { ...proof.candidateEvidence, sha256: '0'.repeat(64) } },
+      { source: { ...proof.source, commit: '0'.repeat(40) } },
+      { assemblyTooling: { ...proof.assemblyTooling, commit: '0'.repeat(40) } },
+      { limitations: { ...proof.limitations, hostedRunAuthenticated: true } },
+      { environment: { ...proof.environment, pnpm: '11.25.0' } },
+    ]) {
+      writeFileSync(proofPath, JSON.stringify({ ...proof, ...change }));
+      await expect(
+        verifyPublicationConsumerProof(repositoryRoot, proofPath, runner, {}),
+      ).rejects.toThrow(/WG_RC_PUBLICATION_PROOF/);
+    }
+    writeFileSync(proofPath, originalProof);
     await expect(
       provePublicationConsumers(repositoryRoot, evidencePath, input, output, runner, {
         npm_execpath: process.execPath,
@@ -261,6 +285,16 @@ describe('retained public consumer proof', () => {
     expect(existsSync(evidencePath)).toBe(true);
   });
   it('rejects release credentials before any effect', async () => {
+    await expect(
+      verifyPublicationConsumerProof(
+        '/absent',
+        '/absent',
+        async () => {
+          throw new Error('must not run');
+        },
+        { NPM_TOKEN: 'test' },
+      ),
+    ).rejects.toThrow(/WG_RC_CREDENTIAL_EXPOSURE/);
     await expect(
       provePublicationConsumers(
         '/absent',
