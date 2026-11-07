@@ -26,6 +26,7 @@ import {
 } from '../src/environment.ts';
 import { stagePackage } from '../src/filesystem.ts';
 import { projectPackageManifest } from '../src/manifest.ts';
+import { projectPublicationManifest } from '../src/publication-plan.ts';
 import { packAndInspect } from '../src/packing.ts';
 import { validateNewOutputPath } from '../src/path-safety.ts';
 import { runCommand } from '../src/process.ts';
@@ -154,28 +155,37 @@ describe('release-candidate effect boundary', () => {
     ).rejects.toThrowError(/WG_RC_SOURCE_COMMIT/);
   });
 
-  it('stages, locally packs, unpacks, and re-inspects a private package', async () => {
-    const root = temp('wayglass-rc-pack-');
-    const staged = resolve(root, 'staged');
-    const tarballs = resolve(root, 'tarballs');
-    const manifest = projectPackageManifest('core', sourceManifest('core'));
-    const inspection = stagePackage(resolve(repositoryRoot, 'packages/core'), staged, manifest);
-    const packed = await packAndInspect(
-      'core',
-      staged,
-      tarballs,
-      manifest,
-      inspection,
-      runCommand,
-      offlineEnvironment({ PATH: process.env.PATH ?? '' }),
-    );
-    expect(packed).toMatchObject({
-      name: '@wayglass/core',
-      version: '0.1.0',
-      inventorySha256: inspection.inventorySha256,
-    });
-    expect(packed.sha256).toMatch(/^[a-f0-9]{64}$/);
-    expect(existsSync(resolve(tarballs, packed.file))).toBe(true);
-    expect(readFileSync(resolve(staged, 'package.json'), 'utf8')).toContain('"private": true');
-  });
+  it.each(['private', 'publication-review'] as const)(
+    'stages, packs, and re-inspects a %s package',
+    async (kind) => {
+      const root = temp('wayglass-rc-pack-');
+      const staged = resolve(root, 'staged');
+      const tarballs = resolve(root, 'tarballs');
+      const manifest =
+        kind === 'private'
+          ? projectPackageManifest('core', sourceManifest('core'))
+          : projectPublicationManifest('core', sourceManifest('core'));
+      const inspection = stagePackage(resolve(repositoryRoot, 'packages/core'), staged, manifest);
+      const packed = await packAndInspect(
+        'core',
+        staged,
+        tarballs,
+        manifest,
+        inspection,
+        runCommand,
+        offlineEnvironment({ PATH: process.env.PATH ?? '' }),
+      );
+      expect(packed).toMatchObject({
+        name: '@wayglass/core',
+        version: '0.1.0',
+        inventorySha256: inspection.inventorySha256,
+      });
+      expect(packed.sha256).toMatch(/^[a-f0-9]{64}$/);
+      expect(existsSync(resolve(tarballs, packed.file))).toBe(true);
+      expect(JSON.parse(readFileSync(resolve(staged, 'package.json'), 'utf8')).private).toBe(
+        kind === 'private',
+      );
+      expect(sourceManifest('core').private).toBe(true);
+    },
+  );
 });

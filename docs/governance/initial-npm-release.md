@@ -66,7 +66,11 @@ resolved graph explicitly before it can support final publication approval.
 - [x] Hosted workflow run completed and its exact artifacts reviewed; see the
       [hosted rehearsal result](./initial-npm-hosted-rehearsal.md).
 - [ ] Fresh independent Vanilla/React and three-engine consumer matrix completed for the release
-      artifacts, with minimum/current supported compiler and framework lines.
+      artifacts, with minimum/current supported compiler and framework lines. The exact local
+      public-review archives now pass all six consumers / 36 browser cases with retained resolved
+      and installed lockfiles; see the [public consumer result](./protected-publication-review.md).
+      Authenticated hosted public-archive/consumer evidence and final artifact acceptance remain
+      open.
 - [x] November 7 advisory capture reviewed and explicitly approved, including its media-type
       warning; see the [exact approval and expiry](./initial-npm-advisory-approval.md). Freshness
       must be rechecked before release; this checkbox does not extend validity.
@@ -83,8 +87,10 @@ resolved graph explicitly before it can support final publication approval.
 - [ ] Review protected main/release tags, pinned publishing actions, and human approval controls.
       [Main and release-tag protections](./release-protections.md) are applied; publishing-specific
       controls and approved-source tag validation remain open. The main-only owner-reviewed
-      `npm-release` environment is now configured without secrets; its first human approval
-      rehearsal and actual publishing implementation remain open.
+      `npm-release` environment is configured without secrets; its owner-operated metadata-only
+      approval rehearsal passed in
+      [run 42393786644](https://github.com/Actesis/Wayglass/actions/runs/42393786644). Actual
+      publishing implementation remains open.
 - [ ] Approve the exact public manifests and publishable tarballs in a subsequent release change.
       This rehearsal deliberately leaves source and projected package privacy unchanged.
 - [ ] Recheck npm's first-package bootstrap requirements and prefer tokenless publishing if

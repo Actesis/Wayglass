@@ -9,6 +9,9 @@ import { probeReactConsumers } from './react-probe.ts';
 import { probeVanillaConsumers } from './vanilla-probe.ts';
 
 const usage = `Usage:
+  pnpm release-candidate:probe-publication -- --evidence <absolute-path> --store <existing-absolute-directory> --output <new-absolute-temporary-directory>
+  pnpm release-candidate:build-publication -- --source <accepted-full-sha> --output <new-absolute-temporary-directory>
+  pnpm release-candidate:verify-publication -- --evidence <absolute-path>
   pnpm release-candidate:publication-plan -- --source <accepted-full-sha> --output <new-absolute-temporary-directory>
   pnpm release-candidate:provision-consumers -- --store <existing-absolute-directory> --output <new-absolute-temporary-directory>
   pnpm release-candidate:check -- --source <full-sha>
@@ -42,6 +45,53 @@ export async function main(arguments_: readonly string[]): Promise<void> {
   }
   assertSupportedNode(process.version);
   const environment = offlineEnvironment(process.env);
+  if (command === 'probe-publication') {
+    const evidence =
+      option(options, '--evidence') ?? invalid('probe-publication requires --evidence.');
+    const store = option(options, '--store') ?? invalid('probe-publication requires --store.');
+    const output = option(options, '--output') ?? invalid('probe-publication requires --output.');
+    if (options.length !== 6)
+      invalid('probe-publication accepts only --evidence, --store, and --output.');
+    const { provePublicationConsumers } = await import('./publication-consumers.ts');
+    const path = await provePublicationConsumers(
+      process.cwd(),
+      evidence,
+      store,
+      output,
+      runCommand,
+      process.env,
+    );
+    console.log(
+      `Passed six public-review consumers and 36 browser cases; retained graphs and proof: ${path}`,
+    );
+    return;
+  }
+  if (command === 'build-publication') {
+    const source = option(options, '--source') ?? invalid('build-publication requires --source.');
+    const output = option(options, '--output') ?? invalid('build-publication requires --output.');
+    if (options.length !== 4) invalid('build-publication accepts only --source and --output.');
+    const { buildPublicationArtifacts } = await import('./assembler.ts');
+    const evidence = await buildPublicationArtifacts(
+      process.cwd(),
+      source,
+      output,
+      runCommand,
+      process.env,
+    );
+    console.log(
+      `Built six reproducible public-review tarballs; no publication authorized: ${evidence}`,
+    );
+    return;
+  }
+  if (command === 'verify-publication') {
+    const path =
+      option(options, '--evidence') ?? invalid('verify-publication requires --evidence.');
+    if (options.length !== 2) invalid('verify-publication accepts only --evidence.');
+    const { verifyPublicationArtifacts } = await import('./publication-artifacts.ts');
+    await verifyPublicationArtifacts(process.cwd(), path, runCommand, process.env);
+    console.log(`Verified public-review tarball hashes and frozen manifest projections: ${path}`);
+    return;
+  }
   if (command === 'check') {
     const source = option(options, '--source') ?? invalid('check requires --source.');
     if (options.length !== 2) invalid('check accepts only --source.');

@@ -12,7 +12,7 @@ import type {
   PackageInspection,
   PackedCandidate,
   PackageFile,
-  ProjectedManifest,
+  PackableManifest,
 } from './types.ts';
 
 interface NpmPackResult {
@@ -24,7 +24,7 @@ export async function packAndInspect(
   directory: CandidateDirectory,
   stagedPackage: string,
   tarballDirectory: string,
-  manifest: ProjectedManifest,
+  manifest: PackableManifest,
   stagedInspection: PackageInspection,
   runner: CommandRunner,
   environment: Readonly<Record<string, string>>,

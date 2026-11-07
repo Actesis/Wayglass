@@ -7,9 +7,9 @@ import { sha256 } from './hash.ts';
 import { projectPackageManifest } from './manifest.ts';
 import { validateNewOutputPath } from './path-safety.ts';
 import { assertCleanTooling, authenticateFrozenSource, identifyRepository } from './repository.ts';
-import type { CandidateDirectory, CommandRunner, ProjectedManifest } from './types.ts';
+import type { CandidateDirectory, CommandRunner, PublicationManifest } from './types.ts';
 
-export type PublicationManifest = Omit<ProjectedManifest, 'private'> & { readonly private: false };
+export type { PublicationManifest } from './types.ts';
 
 // Keep the private-candidate projection unchanged. This separate review-only projection changes
 // exactly the publication guard in isolated output, never the frozen source or accepted tarballs.

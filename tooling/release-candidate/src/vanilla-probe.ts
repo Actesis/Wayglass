@@ -17,6 +17,7 @@ import {
 } from './vanilla.ts';
 
 export interface VanillaProbeRequest {
+  readonly publicationReview?: true;
   readonly evidencePath: string;
   readonly storePath: string;
   readonly runner: CommandRunner;

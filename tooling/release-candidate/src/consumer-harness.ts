@@ -5,11 +5,15 @@ import {
   mkdirSync,
   mkdtempSync,
   realpathSync,
+  readFileSync,
   rmSync,
   writeFileSync,
 } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { dirname, isAbsolute, resolve } from 'node:path';
+import { delimiter, dirname, isAbsolute, resolve } from 'node:path';
+
+import { createPackageManagerShim } from './assembler.ts';
+import { verifyPublicationArtifacts } from './publication-artifacts.ts';
 
 import {
   consumerPackageNames,
@@ -20,6 +24,7 @@ import {
 import { offlineEnvironment } from './environment.ts';
 import { readEvidence, verifyEvidenceFiles } from './evidence.ts';
 import { fail } from './error.ts';
+import { sha256 } from './hash.ts';
 import type {
   CommandRunner,
   ConsumerProjectContext,
@@ -28,6 +33,7 @@ import type {
 } from './types.ts';
 
 export interface ConsumerHarnessRequest {
+  readonly publicationReview?: true;
   readonly evidencePath: string;
   readonly storePath: string;
   readonly template: ConsumerTemplate;
@@ -57,8 +63,16 @@ export async function withConsumerProject<T>(
   const environment = offlineEnvironment(request.environment);
   const store = validateConsumerStore(request.storePath);
   validateConsumerTemplate(request.template);
-  const evidence = readEvidence(request.evidencePath);
-  verifyEvidenceFiles(request.evidencePath, evidence);
+  const evidence =
+    request.publicationReview === true
+      ? await verifyPublicationArtifacts(
+          process.cwd(),
+          request.evidencePath,
+          request.runner,
+          environment,
+        )
+      : readEvidence(request.evidencePath);
+  if (request.publicationReview !== true) verifyEvidenceFiles(request.evidencePath, evidence);
 
   const root = mkdtempSync(resolve(tmpdir(), `wayglass-rc-${request.template.scenario.kind}-`));
   try {
@@ -75,6 +89,9 @@ export async function withConsumerProject<T>(
         fail('WG_RC_CONSUMER_TARBALL', `${name} candidate must be a regular file.`);
       }
       cpSync(source, resolve(vendor, candidate.file), { errorOnExist: true });
+      if (sha256(readFileSync(resolve(vendor, candidate.file))) !== candidate.sha256) {
+        fail('WG_RC_CONSUMER_TARBALL', `${name} changed while copying into the consumer.`);
+      }
       tarballs[name] = `file:./vendor/${candidate.file}`;
     }
 
@@ -97,8 +114,14 @@ export async function withConsumerProject<T>(
     writeFileSync(userConfig, '', { encoding: 'utf8', flag: 'wx' });
     const isolatedEnvironment = Object.freeze({
       ...environment,
+      ...(request.publicationReview === true
+        ? {
+            PATH: `${createPackageManagerShim(root, environment)}${delimiter}${environment.PATH ?? ''}`,
+          }
+        : {}),
       npm_config_cache: resolve(root, '.npm-cache'),
       pnpm_config_store_dir: store,
+      npm_config_store_dir: store,
       npm_config_userconfig: userConfig,
     });
     const sharedArguments = ['--offline', '--ignore-scripts', '--store-dir', store] as const;

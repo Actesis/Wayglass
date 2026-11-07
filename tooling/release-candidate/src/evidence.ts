@@ -22,6 +22,9 @@ export function readEvidence(path: string): CandidateEvidence {
 }
 
 export function verifyEvidenceFiles(path: string, evidence: CandidateEvidence): void {
+  if ('artifactKind' in evidence || 'publicationAuthorized' in evidence || 'distTag' in evidence) {
+    fail('WG_RC_EVIDENCE_KIND', 'Public-review evidence requires its separate verifier.');
+  }
   if (
     evidence.schemaVersion !== 1 ||
     evidence.source?.commit !== frozenSource.commit ||
