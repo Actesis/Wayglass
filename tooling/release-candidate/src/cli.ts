@@ -9,6 +9,7 @@ import { probeReactConsumers } from './react-probe.ts';
 import { probeVanillaConsumers } from './vanilla-probe.ts';
 
 const usage = `Usage:
+  pnpm release-candidate:publication-plan -- --source <accepted-full-sha> --output <new-absolute-temporary-directory>
   pnpm release-candidate:provision-consumers -- --store <existing-absolute-directory> --output <new-absolute-temporary-directory>
   pnpm release-candidate:check -- --source <full-sha>
   pnpm release-candidate:build -- --source <full-sha> --output <absolute-new-directory>
@@ -46,6 +47,17 @@ export async function main(arguments_: readonly string[]): Promise<void> {
     if (options.length !== 2) invalid('check accepts only --source.');
     await checkCandidateSource(process.cwd(), source, runCommand);
     console.log(`Validated frozen candidate source ${source}.`);
+    return;
+  }
+  if (command === 'publication-plan') {
+    const source = option(options, '--source') ?? invalid('publication-plan requires --source.');
+    const output = option(options, '--output') ?? invalid('publication-plan requires --output.');
+    if (options.length !== 4) invalid('publication-plan accepts only --source and --output.');
+    const { preparePublicationPlan } = await import('./publication-plan.ts');
+    await preparePublicationPlan(process.cwd(), source, output, runCommand, process.env);
+    console.log(
+      `Prepared six public manifest projections for review only: ${output}. No publication authorized.`,
+    );
     return;
   }
   if (command === 'provision-consumers') {

@@ -77,10 +77,14 @@ resolved graph explicitly before it can support final publication approval.
 - [ ] Preserve automated-browser-only and Windows/NVDA-unobserved limitations; no broader human
       assistive-technology support claim is created by the release.
 - [ ] Verify npm organization ownership, account 2FA, maintainer access, and recovery contacts.
+      Owner access and `auth-and-writes` 2FA are verified; recovery readiness remains an owner
+      confirmation. See the [protected metadata review](./protected-publication-review.md).
 - [ ] Select the explicit initial npm dist-tag and approve release notes and support boundaries.
 - [ ] Review protected main/release tags, pinned publishing actions, and human approval controls.
       [Main and release-tag protections](./release-protections.md) are applied; publishing-specific
-      controls and approved-source tag validation remain open.
+      controls and approved-source tag validation remain open. The main-only owner-reviewed
+      `npm-release` environment is now configured without secrets; its first human approval
+      rehearsal and actual publishing implementation remain open.
 - [ ] Approve the exact public manifests and publishable tarballs in a subsequent release change.
       This rehearsal deliberately leaves source and projected package privacy unchanged.
 - [ ] Recheck npm's first-package bootstrap requirements and prefer tokenless publishing if
