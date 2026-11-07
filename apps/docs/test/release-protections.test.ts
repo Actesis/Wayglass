@@ -23,6 +23,7 @@ describe('release protections', () => {
     expect(workflow).toContain('name: Wayglass quality');
     expect(workflow).toContain('pull_request:');
     expect(workflow).toContain('persist-credentials: false');
+    expect(workflow).toContain('fetch-depth: 0');
     for (const forbidden of [
       'pull_request_target',
       'secrets.',
