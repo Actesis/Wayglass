@@ -82,3 +82,14 @@ authorization false and the final release commit/approver null. Owner `next` con
 artifact acceptance, reviewed writer code, stage-only credential setup, truthful provenance, live
 registry collision checks, fresh advisory input, final execution authorization, and owner 2FA
 promotion remain required. No npm trust configuration or bootstrap credential is created here.
+
+## Local verification observation
+
+The full uncached `TURBO_FORCE=true pnpm check` passed before implementation commit
+`de1beb7b294040250bf9524f27710f41db9c2a13`. At `2026-11-07T21:39:30.595Z`, the actual CLI on that
+clean commit verified the retained archive end-to-end: `structuralValidationPassed: true`,
+`readyToStage: false`, and seven outstanding release gates. The advisory was current at observation
+with zero findings and the retained `WG_RC_ADVISORY_MEDIA_TYPE` warning; it still expires at
+`2026-11-08T16:04:23Z`. This local observation neither extends that expiry nor substitutes for the
+future owner-gated hosted run, final artifact acceptance, live registry checks, or publication
+authority.
