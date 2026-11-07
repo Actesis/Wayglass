@@ -26,3 +26,16 @@ overwrite unrelated protection or duplicate existing rulesets. After application
 setting and retain its ID. No settings at the organization level are changed. No release tags are
 created by this work. Reversing these settings requires an explicit recorded owner decision; do not
 silently bypass them to merge or publish.
+
+## Applied state on November 7, 2026
+
+The corrected [hosted quality run](https://github.com/Actesis/Wayglass/actions/runs/42391469907)
+passed on PR #297. The initial run failed because shallow checkout omitted the frozen historical
+source required by a test; `fetch-depth: 0` corrected the setup, with a regression assertion. The
+observed check provider was `github-actions`, application ID `15368`.
+
+Main protection was then applied and read back with the settings above. Release-tag creation ruleset
+`26763551` and immutable-tag ruleset `26763552` are active and were independently read back. The
+server normalizes the tag-update rule by omitting its false fetch/merge parameter. No release tag,
+publishing environment, npm credential, or package was created. PR #297 remains subject to the newly
+required quality check; no administrator bypass is used to merge it.
