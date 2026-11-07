@@ -65,12 +65,12 @@ resolved graph explicitly before it can support final publication approval.
 
 - [x] Hosted workflow run completed and its exact artifacts reviewed; see the
       [hosted rehearsal result](./initial-npm-hosted-rehearsal.md).
-- [ ] Fresh independent Vanilla/React and three-engine consumer matrix completed for the release
-      artifacts, with minimum/current supported compiler and framework lines. The exact local
-      public-review archives now pass all six consumers / 36 browser cases with retained resolved
-      and installed lockfiles; see the [public consumer result](./protected-publication-review.md).
-      Authenticated hosted public-archive/consumer evidence and final artifact acceptance remain
-      open.
+- [x] Fresh independent Vanilla/React and three-engine consumer matrix completed for the exact
+      public-review archives, with minimum/current supported compiler and framework lines. The
+      owner-approved hosted run passed all six consumers / 36 browser cases with independently
+      verified archives and 48 retained resolved/installed graph files; see the
+      [exact hosted result](./hosted-publication-rehearsal-result.md). Final artifact acceptance and
+      durable retention remain separate release gates below.
 - [x] November 7 advisory capture reviewed and explicitly approved, including its media-type
       warning; see the [exact approval and expiry](./initial-npm-advisory-approval.md). Freshness
       must be rechecked before release; this checkbox does not extend validity.
@@ -92,7 +92,8 @@ resolved graph explicitly before it can support final publication approval.
       [run 42393786644](https://github.com/Actesis/Wayglass/actions/runs/42393786644). Actual
       publishing implementation remains open.
 - [ ] Approve the exact public manifests and publishable tarballs in a subsequent release change.
-      This rehearsal deliberately leaves source and projected package privacy unchanged.
+      Private rehearsal artifacts remain private; the separately assembled public-review archives
+      require exact owner acceptance. Source workspace privacy remains unchanged.
 - [ ] Recheck npm's first-package bootstrap requirements and prefer tokenless publishing if
       supported; otherwise use a short-expiry, minimally scoped bootstrap credential in a protected
       workflow, never in chat or during package builds, and revoke it immediately afterward.
