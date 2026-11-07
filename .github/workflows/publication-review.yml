@@ -1,0 +1,46 @@
+name: Publication metadata review (no publication)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publication-review
+  cancel-in-progress: false
+
+jobs:
+  review:
+    if: github.repository == 'Actesis/Wayglass' && github.ref == 'refs/heads/main'
+    environment: npm-release
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      TURBO_FORCE: 'true'
+      WRANGLER_SEND_METRICS: 'false'
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '26.8.1'
+          package-manager-cache: false
+      - run: npm install --global pnpm@11.9.0 --ignore-scripts
+      - run: pnpm install --frozen-lockfile --ignore-scripts
+      - run: pnpm check
+      - name: Prepare isolated public manifests, not release tarballs
+        shell: bash
+        run: |
+          set -euo pipefail
+          review_root=$(mktemp -d)
+          pnpm release-candidate:publication-plan -- --source ce400e89930a047c6af1c6992c64cfe422a1eeee --output "$review_root/metadata"
+          echo "REVIEW_PATH=$review_root/metadata" >> "$GITHUB_ENV"
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: publication-metadata-${{ github.sha }}-${{ github.run_attempt }}
+          path: ${{ env.REVIEW_PATH }}/
+          if-no-files-found: error
+          retention-days: 7
