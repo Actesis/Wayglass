@@ -1,0 +1,24 @@
+{
+  "findings": [],
+  "notices": [
+    {
+      "claim": "dependency-security",
+      "code": "WG_RC_ADVISORY_MEDIA_TYPE",
+      "kind": "warning",
+      "summary": "Provider response did not advertise a JSON media type; exact JSON bytes were validated."
+    }
+  ],
+  "schemaVersion": 1,
+  "scope": {
+    "dependencyAuditSha256": "45178532da0e24286d7e4fa9a4ed4cd6cef630d31e7341c3e6817d705ce3178f",
+    "lockfileSha256": "bdb6b4e916bd5fa2330fc3dd3f272814c6940ec04dab78b437b7007be386a525",
+    "productionOnly": true
+  },
+  "source": {
+    "captureMethod": "approved-read-only-snapshot",
+    "capturedAt": "2026-11-07T16:04:23Z",
+    "provider": "npm-security-advisories",
+    "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "validThrough": "2026-11-08T16:04:23Z"
+  }
+}

@@ -67,7 +67,9 @@ resolved graph explicitly before it can support final publication approval.
       [hosted rehearsal result](./initial-npm-hosted-rehearsal.md).
 - [ ] Fresh independent Vanilla/React and three-engine consumer matrix completed for the release
       artifacts, with minimum/current supported compiler and framework lines.
-- [ ] Fresh advisory capture reviewed; historical zero findings are not current security evidence.
+- [x] November 7 advisory capture reviewed and explicitly approved, including its media-type
+      warning; see the [exact approval and expiry](./initial-npm-advisory-approval.md). Freshness
+      must be rechecked before release; this checkbox does not extend validity.
 - [ ] Resolve the recorded `@lit-labs/ssr-dom-shim@1.6.0` missing package-root license/notice-file
       limitation with an explicit legal/compliance disposition; do not fabricate license files.
 - [ ] Preserve automated-browser-only and Windows/NVDA-unobserved limitations; no broader human
