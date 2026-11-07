@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "status": "draft-for-owner-review",
+  "publicationAuthorized": false,
+  "registryActionsAuthorized": false,
+  "artifactAcceptance": "pending",
+  "releaseCommit": null,
+  "finalApprover": null,
+  "distTag": "next",
+  "distTagStatus": "proposed-confirm-at-final-approval",
+  "registry": "https://registry.npmjs.org/",
+  "access": "public",
+  "license": "Apache-2.0",
+  "source": {
+    "commit": "ce400e89930a047c6af1c6992c64cfe422a1eeee",
+    "tree": "da2550b5aa2636d0896ae61e08c340f405fe1412",
+    "lockfileSha256": "bdb6b4e916bd5fa2330fc3dd3f272814c6940ec04dab78b437b7007be386a525"
+  },
+  "hostedReview": {
+    "runId": "42412111878",
+    "attempt": 1,
+    "toolingCommit": "7e48e4800405ff0d9f6103ba4021e62b2f89a28b",
+    "artifactId": "13589981847",
+    "archiveSha256": "4e4420000766bd883b87f3e38c0cfef637988475922dd8d0d18c8e4fe1e98dc9",
+    "expiresAt": "2026-11-14T20:46:51Z",
+    "candidateEvidenceSha256": "17a5a59f5b12d90f8582f8c946055feabf17757addd09cd546bf4062db3d5b9a",
+    "consumerProofSha256": "5729d7b4378bb60df98dce1766e3b11399e3f77b054ed098a17030a5bd4024e6"
+  },
+  "packages": [
+    {
+      "name": "@wayglass/core",
+      "version": "0.1.0",
+      "bytes": 7815,
+      "sha256": "a04bc68be7e7503eaa0be77845dd933762b4b522d1bb2c9f97d6fdc13ad709c3"
+    },
+    {
+      "name": "@wayglass/tokens",
+      "version": "0.1.0",
+      "bytes": 46510,
+      "sha256": "3aa088c67b9585eee8dffca83dd5a9985846f4e2f7892dc765e0f67db1b123e6"
+    },
+    {
+      "name": "@wayglass/themes",
+      "version": "0.1.0",
+      "bytes": 18140,
+      "sha256": "8b56c019e791a9a499dc2f4424e8a9b1651818e12b58f6fea9d54a63b47f7288"
+    },
+    {
+      "name": "@wayglass/elements",
+      "version": "0.1.0",
+      "bytes": 139017,
+      "sha256": "eb4b48a8c9457562765c7e121a5a1c60d52b2013cc9c9b4418e9446756dbd278"
+    },
+    {
+      "name": "@wayglass/icons",
+      "version": "0.1.0",
+      "bytes": 11086,
+      "sha256": "1adab11ea9f60142e74b7067438c9f23e5922981910547342a9bc93f9ddcd862"
+    },
+    {
+      "name": "@wayglass/react",
+      "version": "0.1.0",
+      "bytes": 26010,
+      "sha256": "d3a88664ab7a48b9ce8f88f36e531beb27dc8c180c55b748ad5adfbb31243c31"
+    }
+  ],
+  "bootstrap": {
+    "method": "stage-first-with-scoped-stage-only-token",
+    "planSelectedByOwner": true,
+    "executionAuthorized": false,
+    "placeholderVersion": "0.0.0-stage",
+    "placeholderPolicyException": "proposed-narrow-amendment",
+    "placeholderCreationAuthorized": false,
+    "credentialCreationAuthorized": false,
+    "publisherNpmVersion": "11.21.2",
+    "publisherNpmVersionStatus": "proposed-publisher-only-no-upgrade-performed",
+    "workflowFilename": "npm-initial-release.yml",
+    "workflowImplemented": false,
+    "environment": "npm-release"
+  },
+  "ownerRecoveryReadinessConfirmed": true,
+  "durableRetention": {
+    "status": "proposed-not-performed",
+    "path": "docs/governance/evidence/initial-npm-public-0.1.0.zip",
+    "sha256": "4e4420000766bd883b87f3e38c0cfef637988475922dd8d0d18c8e4fe1e98dc9"
+  },
+  "releaseTags": ["foundation-v0.1.0", "icons-v0.1.0", "react-v0.1.0"],
+  "releaseTagsCreated": false,
+  "advisory": {
+    "snapshotSha256": "85541ecda62c2eec096bef4d60b13dceddab71c8f70fe8264a9361922c47df6f",
+    "validThrough": "2026-11-08T16:04:23Z",
+    "recheckAtExecution": true,
+    "newCaptureAuthorized": false
+  }
+}

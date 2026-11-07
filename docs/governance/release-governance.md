@@ -182,27 +182,39 @@ Before any publish:
 
 ### 3. Bootstrap a brand-new npm package deliberately
 
-npm staged publishing requires an existing registry package, so the first version of each package
-uses a one-time bootstrap path. The approved initial-release workflow:
+**November 7, 2026 proposed amendment:** the original existing-package prerequisite is obsolete. npm
+now supports staging a new package, with a public registry-generated `0.0.0-stage` placeholder. The
+owner selected this path for the initial release **plan**, not registry execution. Review the
+[exact proposal and narrow exception](https://github.com/Actesis/Wayglass/blob/main/docs/governance/initial-npm-release-proposal.md).
+This amendment and a planning PR merge grant no credential, placeholder, stage, promotion, or
+publication authority.
 
-1. runs on a GitHub-hosted runner from the protected release commit;
-2. receives one short-expiry granular npm token through a protected release environment;
-3. has the minimum organization scope needed to create the named public packages;
-4. builds without caches, repeats candidate validation, and directly publishes with explicit public
-   access and provenance;
-5. publishes the foundation family in dependency order from one precomputed artifact set;
-6. verifies registry metadata, tarball hashes, provenance, and clean installation; and
-7. immediately revokes the bootstrap token.
+The proposed approved initial-release workflow must:
 
-The bootstrap credential is never written to a file, echoed, exposed to package lifecycle scripts,
-or retained for normal releases. If npm supports pre-publication trusted-publisher configuration for
-new packages at implementation time, the release proposal must re-evaluate and prefer that tokenless
-path.
+1. Verify durable, exact precomputed artifacts and the final approved release commit without
+   credentials. Never build, install dependencies, or run lifecycle scripts under publishing access.
+2. Run on a GitHub-hosted runner behind fresh owner environment approval, with only the scoped,
+   short-expiry stage-only bootstrap credential needed for the six accepted package names. Keep 2FA
+   bypass disabled and organization-management permissions absent.
+3. Stage those exact archives with explicit public access, approved immutable stage tag, disabled
+   scripts, and truthful reviewed provenance. Only explicitly approved registry-generated
+   placeholders for these real versions are within the proposed exception; manually publishing empty
+   or reserved packages remains forbidden.
+4. Revoke the bootstrap token promptly. The owner independently reviews/downloads every stage and
+   promotes accepted versions with interactive 2FA. Neither the agent nor OIDC substitutes for human
+   promotion. A stage-only token still has other write capabilities and must not be treated as a
+   general-purpose security boundary.
+5. Verify registry metadata, exact bytes, provenance, dependency availability, and clean consumers
+   before any release announcement. Report partial stages/placeholders without automatic cleanup.
 
-After each package exists, configure its trusted publisher to the exact GitHub organization,
-repository, workflow filename, and release environment. Allow `npm stage publish` but not direct
-`npm publish`, require 2FA and disallow traditional publish tokens at the package level, then verify
-and record the configuration.
+The credential is never written to a file, echoed, passed in arguments, or retained for normal
+releases. Direct bootstrap publishing is no longer an automatic fallback; it requires its own
+reviewed proposal if the selected staging path cannot be used. No execution path is enabled here.
+
+Trust configuration still requires an existing package. Set up the exact stage-only publisher
+binding when its next approved operation is ready, with 2FA and traditional-token restrictions
+reviewed and read back. Respect the platform's first-use expiry instead of publishing a dummy
+version to validate a connection. No trust connection is created by this amendment.
 
 ### 4. Stage subsequent releases with OIDC
 
@@ -298,14 +310,19 @@ This contract does not authorize:
 Each action belongs to a reviewed implementation or release proposal with a reversible dry run where
 the platform permits one.
 
+The proposed November 7 bootstrap exception above is limited to npm-generated placeholders caused by
+separately authorized real-release staging under six exact names. It is not an authorization to
+perform that staging and does not relax the prohibition for any other placeholder or empty package.
+
 ## External basis
 
 This contract was verified on August 15, 2026 against primary platform guidance:
 
 - [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/), including OIDC, stage-only
   permissions, token restrictions, hosted-runner limits, and automatic provenance;
-- [npm staged publishing](https://docs.npmjs.com/staged-publishing/), including the existing-package
-  prerequisite, downloadable staged tarballs, and interactive 2FA approval;
+- [npm staged publishing](https://docs.npmjs.com/staged-publishing/), including downloadable staged
+  tarballs and interactive 2FA approval. The November 7 recheck supersedes the historical
+  existing-package assumption; new-package staging creates a public placeholder;
 - [npm provenance statements](https://docs.npmjs.com/generating-provenance-statements/), including
   public repository and supported hosted-CI requirements;
 - [npm scoped public packages](https://docs.npmjs.com/creating-and-publishing-scoped-public-packages/),

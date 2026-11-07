@@ -10,6 +10,11 @@ versions follow Semantic Versioning under the accepted release-governance contra
 
 - Established the six-package v1 candidate: `@wayglass/core`, `@wayglass/tokens`,
   `@wayglass/themes`, `@wayglass/elements`, `@wayglass/icons`, and `@wayglass/react`.
+- Prepared
+  [draft initial `0.1.0` release notes](https://github.com/Actesis/Wayglass/blob/main/docs/governance/initial-0.1.0-release-notes.md)
+  and an
+  [execution-disabled release proposal](https://github.com/Actesis/Wayglass/blob/main/docs/governance/initial-npm-release-proposal.md).
+  These are not a release entry or publication announcement.
 
 No Wayglass package has been published. The first release entry will separate the synchronized
 foundation family from independently versioned icons and React artifacts, name exact versions and

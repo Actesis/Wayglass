@@ -1,8 +1,9 @@
 # Owner-gated hosted public archive and consumer rehearsal
 
-Status: implementation for review; no hosted execution claimed. No npm publication, package
-creation, credential configuration, tags, dist-tag change, provenance, or release acceptance is
-authorized by this workflow. The earlier metadata-only review remains unchanged.
+Status: hosted attempt 1 succeeded and was independently verified; see the
+[exact result](./hosted-publication-rehearsal-result.md). No npm publication, package creation,
+credential configuration, tags, dist-tag change, provenance, or release acceptance is authorized by
+this workflow. The earlier metadata-only review remains unchanged.
 
 This follows the [local archive and consumer proof](./protected-publication-review.md) accepted
 through PR #299. It preserves the source freeze at `ce400e89930a047c6af1c6992c64cfe422a1eeee` and
