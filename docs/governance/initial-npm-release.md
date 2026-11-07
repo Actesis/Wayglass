@@ -70,10 +70,10 @@ resolved graph explicitly before it can support final publication approval.
 - [x] November 7 advisory capture reviewed and explicitly approved, including its media-type
       warning; see the [exact approval and expiry](./initial-npm-advisory-approval.md). Freshness
       must be rechecked before release; this checkbox does not extend validity.
-- [ ] Resolve the recorded `@lit-labs/ssr-dom-shim@1.6.0` missing package-root license/notice-file
+- [x] Resolve the recorded `@lit-labs/ssr-dom-shim@1.6.0` missing package-root license/notice-file
       limitation with an explicit legal/compliance disposition; do not fabricate license files.
-      [Exact-source evidence and proposed owner disposition](./ssr-dom-shim-license-review.md) are
-      prepared; owner acceptance remains required.
+      [Exact-source evidence and bounded owner disposition](./ssr-dom-shim-license-review.md) were
+      explicitly accepted November 7; future bundling/redistribution requires a separate review.
 - [ ] Preserve automated-browser-only and Windows/NVDA-unobserved limitations; no broader human
       assistive-technology support claim is created by the release.
 - [ ] Verify npm organization ownership, account 2FA, maintainer access, and recovery contacts.

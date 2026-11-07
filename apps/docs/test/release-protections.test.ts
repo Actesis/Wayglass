@@ -8,6 +8,14 @@ const read = (path: string) => readFileSync(resolve(root, path), 'utf8');
 const config = (name: string) => JSON.parse(read(`.github/release-protection/${name}.json`));
 
 describe('release protections', () => {
+  it('records explicit bounded compliance acceptance without publication authority', () => {
+    const record = read('docs/governance/ssr-dom-shim-license-review.md');
+    expect(record).toContain('explicitly accepted by the project owner');
+    expect(record).toContain('not legal certification');
+    expect(record).toContain('licenseFiles: []');
+    expect(record).toContain('separately');
+    expect(record).toContain('npm publication authority');
+  });
   it('requires an up-to-date named Actions check and PR, including for administrators', () => {
     const main = config('main');
     expect(main.required_status_checks).toEqual({
