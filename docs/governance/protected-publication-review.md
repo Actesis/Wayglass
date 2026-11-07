@@ -163,12 +163,39 @@ renewal, or publication acceptance. The hosted metadata workflow remains unchang
 added: existing pnpm, TypeScript, Vite, Playwright, axe, and Node filesystem/hash operations cover
 this proof.
 
+### Local consumer rehearsal result
+
+On November 7, 2026, clean consumer tooling `5d5dda60169652de28c7e584e7ec3a6e3bdbd18a` (tree
+`f8a51254dcccb72e367c77877573956180d7a3d6`) passed the complete local public-consumer proof against
+the unchanged archive evidence `de1dcc09e36934541e7df74e9293a067514ae02b599ecb4f2e5e45bb245344ea`.
+Both Vanilla scenarios, all four React scenarios, and all 36 initial/removal Chromium/Firefox/WebKit
+cases passed, including zero axe violations and zero page errors in each browser case. Actual
+browser versions were Chromium `151.0.7922.34`, Firefox `153.0`, and WebKit `26.5`; the host was
+macOS arm64 with Node `v26.8.1` and pnpm `11.9.0`.
+
+The proof bundle remains under temporary run `wayglass-publication-review.nYiSoOGO/consumer-proof`.
+It retains an exact copy of the six archives, candidate evidence, all twelve graph snapshots / 48
+files, and `consumer-proof.json` with SHA-256
+`5928b937bfd24441b24c1a5fe3421f280f2eee958d6ee7d48a7f849a00c8764d`. The graph-file inventory, sorted
+by portable relative path and hashed with the existing `hashFileInventory` format, is
+`f6882125b0c4e14af2fddd1ea830c043c399cdc6cb6e118939b7f65005d572b5`. Independent post-run
+verification rehashed every graph file and candidate archive, compared all public manifests against
+frozen Git source, and checked complete matrix coverage. All passed. None of the retained graph
+files contains an absolute repository or temporary-project path.
+
+The new tooling passed cache-disabled `pnpm check` (including 26 release-tooling test files / 144
+tests), plus final targeted typecheck/tests/lint. This local success does not claim authenticated
+hosted execution or durable artifact storage. The next step is a separately reviewed, owner-gated
+hosted public-archive and consumer rehearsal. Final artifact approval, advisory freshness,
+dist-tag/recovery decisions, credentials/provenance, and registry publication remain open.
+
 ## Next implementation and approval gates
 
 1. Review the new public archive assembly tooling and its exact two-pass hashes and inventories,
    without mutating the private candidate evidence.
-2. Exercise those exact public tarballs in fresh independent consumers and retain resolved-graph,
-   browser, and environment evidence. A manifest projection is not a substitute for that proof.
+2. Review the local public-consumer proof above and implement a separately reviewed, owner-gated
+   hosted public-archive/consumer rehearsal with retained artifacts and graph evidence. Local
+   success does not authenticate hosted execution or final release artifact acceptance.
 3. Approve the initial dist-tag, release notes, support limitations, recovery contacts, and exact
    source/tooling/package hashes. No default npm `latest` movement is inferred.
 4. Recheck advisory freshness at final approval; November 7 acceptance does not extend its expiry.

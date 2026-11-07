@@ -66,7 +66,11 @@ resolved graph explicitly before it can support final publication approval.
 - [x] Hosted workflow run completed and its exact artifacts reviewed; see the
       [hosted rehearsal result](./initial-npm-hosted-rehearsal.md).
 - [ ] Fresh independent Vanilla/React and three-engine consumer matrix completed for the release
-      artifacts, with minimum/current supported compiler and framework lines.
+      artifacts, with minimum/current supported compiler and framework lines. The exact local
+      public-review archives now pass all six consumers / 36 browser cases with retained resolved
+      and installed lockfiles; see the [public consumer result](./protected-publication-review.md).
+      Authenticated hosted public-archive/consumer evidence and final artifact acceptance remain
+      open.
 - [x] November 7 advisory capture reviewed and explicitly approved, including its media-type
       warning; see the [exact approval and expiry](./initial-npm-advisory-approval.md). Freshness
       must be rechecked before release; this checkbox does not extend validity.
