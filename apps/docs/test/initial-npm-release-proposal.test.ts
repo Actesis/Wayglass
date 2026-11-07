@@ -82,8 +82,9 @@ describe('execution-disabled initial npm release proposal', () => {
       expect(text.replaceAll('**', '').toLowerCase()).toContain(required.toLowerCase());
     }
   });
-  it('keeps retention, advisory freshness, and final tag targets unexecuted', () => {
-    expect(proposal.durableRetention.status).toBe('proposed-not-performed');
+  it('retains exact review bytes without granting registry, advisory capture, or tag authority', () => {
+    expect(proposal.durableRetention.status).toBe('retained-for-review');
+    expect(proposal.bootstrap.preflightWorkflowImplemented).toBe(true);
     expect(proposal.durableRetention.sha256).toBe(proposal.hostedReview.archiveSha256);
     expect(proposal.releaseTags).toEqual(['foundation-v0.1.0', 'icons-v0.1.0', 'react-v0.1.0']);
     expect(proposal.advisory).toMatchObject({

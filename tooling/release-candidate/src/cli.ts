@@ -9,6 +9,7 @@ import { probeReactConsumers } from './react-probe.ts';
 import { probeVanillaConsumers } from './vanilla-probe.ts';
 
 const usage = `Usage:
+  pnpm release-candidate:publication-preflight -- --output <new-absolute-temporary-directory>
   pnpm release-candidate:verify-publication-consumers -- --evidence <absolute-consumer-proof-path>
   pnpm release-candidate:probe-publication -- --evidence <absolute-path> --store <existing-absolute-directory> --output <new-absolute-temporary-directory>
   pnpm release-candidate:build-publication -- --source <accepted-full-sha> --output <new-absolute-temporary-directory>
@@ -46,6 +47,22 @@ export async function main(arguments_: readonly string[]): Promise<void> {
   }
   assertSupportedNode(process.version);
   const environment = offlineEnvironment(process.env);
+  if (command === 'publication-preflight') {
+    const output =
+      option(options, '--output') ?? invalid('publication-preflight requires --output.');
+    if (options.length !== 2) invalid('publication-preflight accepts only --output.');
+    const { initialPublicationPreflight } = await import('./publication-preflight.ts');
+    const report = await initialPublicationPreflight(
+      process.cwd(),
+      output,
+      runCommand,
+      process.env,
+    );
+    console.log(
+      `Verified retained initial review evidence; no registry actions authorized. Outstanding release gates: ${report}`,
+    );
+    return;
+  }
   if (command === 'verify-publication-consumers') {
     const path =
       option(options, '--evidence') ?? invalid('verify-publication-consumers requires --evidence.');
