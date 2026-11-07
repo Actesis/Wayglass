@@ -1,0 +1,16 @@
+{
+  "name": "Wayglass immutable release tags",
+  "target": "tag",
+  "enforcement": "active",
+  "bypass_actors": [],
+  "conditions": {
+    "ref_name": {
+      "include": ["refs/tags/foundation-v*", "refs/tags/icons-v*", "refs/tags/react-v*"],
+      "exclude": []
+    }
+  },
+  "rules": [
+    { "type": "update", "parameters": { "update_allows_fetch_and_merge": false } },
+    { "type": "deletion" }
+  ]
+}

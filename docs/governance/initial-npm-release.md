@@ -70,13 +70,17 @@ resolved graph explicitly before it can support final publication approval.
 - [x] November 7 advisory capture reviewed and explicitly approved, including its media-type
       warning; see the [exact approval and expiry](./initial-npm-advisory-approval.md). Freshness
       must be rechecked before release; this checkbox does not extend validity.
-- [ ] Resolve the recorded `@lit-labs/ssr-dom-shim@1.6.0` missing package-root license/notice-file
+- [x] Resolve the recorded `@lit-labs/ssr-dom-shim@1.6.0` missing package-root license/notice-file
       limitation with an explicit legal/compliance disposition; do not fabricate license files.
+      [Exact-source evidence and bounded owner disposition](./ssr-dom-shim-license-review.md) were
+      explicitly accepted November 7; future bundling/redistribution requires a separate review.
 - [ ] Preserve automated-browser-only and Windows/NVDA-unobserved limitations; no broader human
       assistive-technology support claim is created by the release.
 - [ ] Verify npm organization ownership, account 2FA, maintainer access, and recovery contacts.
 - [ ] Select the explicit initial npm dist-tag and approve release notes and support boundaries.
 - [ ] Review protected main/release tags, pinned publishing actions, and human approval controls.
+      [Main and release-tag protections](./release-protections.md) are applied; publishing-specific
+      controls and approved-source tag validation remain open.
 - [ ] Approve the exact public manifests and publishable tarballs in a subsequent release change.
       This rehearsal deliberately leaves source and projected package privacy unchanged.
 - [ ] Recheck npm's first-package bootstrap requirements and prefer tokenless publishing if
