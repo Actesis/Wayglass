@@ -28,14 +28,16 @@ project.
 
 ## Durable bytes before credentials
 
-Proposed bounded retention step: preserve the **existing** 772966-byte hosted review ZIP at
-`docs/governance/evidence/initial-npm-public-0.1.0.zip`, without unpack/repack or rebuilding. Its
-SHA-256 must remain `4e4420000766bd883b87f3e38c0cfef637988475922dd8d0d18c8e4fe1e98dc9`. This adds
-approximately 0.77 MB once to public Git history; it is not a scalable policy for every future
+Implemented for review under the merged plan: preserve the **existing** 772966-byte hosted review
+ZIP at `docs/governance/evidence/initial-npm-public-0.1.0.zip`, without unpack/repack or rebuilding.
+Its SHA-256 must remain `4e4420000766bd883b87f3e38c0cfef637988475922dd8d0d18c8e4fe1e98dc9`. This
+adds approximately 0.77 MB once to public Git history; it is not a scalable policy for every future
 release. The ZIP already consists of public review artifacts, with no credentials, stores, or
-browser binaries. This PR does not copy it. Owner approval of this retention step and a later
-verified commit are required before credential setup; the seven-day artifact expires
-`2026-11-14T20:46:51Z`. Do not replace an expired/missing archive with a rebuild under old approval.
+browser binaries. The exact ZIP is now copied byte-for-byte into the retention/preflight review
+change; source and destination hashes match. This becomes protected-main retention after that change
+merges, not final artifact acceptance. Merge and verified retention are required before credential
+setup; the original seven-day artifact expires `2026-11-14T20:46:51Z`. Do not replace an
+expired/missing archive with a rebuild under old approval.
 
 A future credential-free preflight must verify the retained ZIP digest, exact assembly/tested
 archive equality, frozen manifests, complete consumer coverage and 48 graph-file hashes, and all
@@ -80,7 +82,10 @@ automatically fall back to the historical direct-publish path.
 
 Proposed new workflow filename: `npm-initial-release.yml`, manual and main-only on a GitHub-hosted
 runner, protected by `npm-release`. Existing rehearsal workflows remain publication-disabled. This
-is a contract for separately reviewed implementation, not a workflow added by this PR.
+is a contract for separately reviewed registry-writing implementation. The separately reviewed
+[retention/preflight implementation](./initial-npm-retention-preflight.md) supplies only a
+credential-free verification workflow at that filename. `workflowImplemented: false` continues to
+mean that the registry-writing publisher does not exist; preflight readiness is a separate flag.
 
 1. Run credential-free verification of the retained exact artifacts and approved release record. No
    credentials may be present for installs, builds, tests, or candidate tools. Do not rebuild after

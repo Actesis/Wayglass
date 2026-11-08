@@ -76,11 +76,12 @@
     "publisherNpmVersionStatus": "proposed-publisher-only-no-upgrade-performed",
     "workflowFilename": "npm-initial-release.yml",
     "workflowImplemented": false,
+    "preflightWorkflowImplemented": true,
     "environment": "npm-release"
   },
   "ownerRecoveryReadinessConfirmed": true,
   "durableRetention": {
-    "status": "proposed-not-performed",
+    "status": "retained-for-review",
     "path": "docs/governance/evidence/initial-npm-public-0.1.0.zip",
     "sha256": "4e4420000766bd883b87f3e38c0cfef637988475922dd8d0d18c8e4fe1e98dc9"
   },
