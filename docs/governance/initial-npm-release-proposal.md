@@ -87,6 +87,11 @@ is a contract for separately reviewed registry-writing implementation. The separ
 credential-free verification workflow at that filename. `workflowImplemented: false` continues to
 mean that the registry-writing publisher does not exist; preflight readiness is a separate flag.
 
+The first [transport-free staging protocol](./initial-npm-staging-protocol.md) implementation slice
+validates fixed upload intents and simulated receipts without subprocess/network access. It is not a
+live publisher or an execution path for this planning record; credential isolation, final approval,
+live state checks, provenance verification, and workflow wiring remain separate reviewed work.
+
 1. Run credential-free verification of the retained exact artifacts and approved release record. No
    credentials may be present for installs, builds, tests, or candidate tools. Do not rebuild after
    approval or reproject manifests during publication.
