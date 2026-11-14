@@ -103,3 +103,7 @@ Only the owner may promote accepted stages with interactive 2FA, after independe
 whole set. The [initial release proposal](./initial-npm-release-proposal.md) remains the governing
 plan; this transport-free slice does not make its planning JSON executable. The repository still
 contains no registry-writing publisher, and the hosted verification workflow is unchanged.
+
+The next [guarded adapter core and approval-format slice](./initial-npm-guarded-adapter.md) adds
+scope validation, gate rechecks, owned files, and journal/checkpoint sequencing with simulated
+ports. It does not connect this protocol to npm, credentials, or a workflow.
