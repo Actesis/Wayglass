@@ -111,6 +111,9 @@ core nor these tests claim to have revoked one.
 
 ## Remaining live work
 
+The [read-only GitHub verifier](./initial-npm-github-gates.md) implements the GitHub portion of
+observation for review. It is not wired and does not supply registry or advisory decisions.
+
 The [restricted npm transport](./initial-npm-restricted-transport.md) supplies the isolated
 subprocess implementation for review, but is not wired to this core. It expects provenance from a
 separate verified signing step rather than inheriting an OIDC credential in the upload child.
