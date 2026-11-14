@@ -12,7 +12,7 @@ is no storage provider to provision, and npm consumers are unaffected.
 2. Review provenance separately. The local session must not impersonate the historical build or
    silently omit required provenance. Before execution, approve a supported signing-only process for
    the exact retained bytes and verify the resulting bundles and their signer.
-   [npm provenance requirements](https://docs.npmjs.com/generating-provenance-statements/)
+   [Signing-only design proposal](./initial-npm-signing-only-proposal.md)
 3. Use a dedicated owner-operated npm session with the reviewed CLI, not a hosted staging token. npm
    documents that
    [session tokens support staging](https://docs.npmjs.com/cli/v11/commands/npm-stage/#token-behavior).
