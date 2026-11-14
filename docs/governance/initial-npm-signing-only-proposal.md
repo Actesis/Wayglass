@@ -81,6 +81,13 @@ metadata's workflow run object does not expose it. The wrapper must obtain those
 actual successful build job, fetch metadata independently, bound the download, and validate the
 extracted inventory before preparing subjects. No signer identity is verified by this helper.
 
+The unwired statement policy prepares one unsigned SLSA statement per tarball, with the workflow
+commit and frozen source as separate materials. It compares an independently verified payload and
+normalized certificate claims against the expected issuer, workflow identity, commit, and run
+attempt. It does not verify a signature or log inclusion itself. The pinned signer, cryptographic
+verifier, certificate claim extraction, and npm compatibility for this statement remain to be
+demonstrated before enabling the signing job.
+
 The original compressed bytes may not reproduce on a newer runner image. If so, bring the evidence
 back for an explicit decision: separately requalify new artifacts or reconsider the provenance
 requirement. No silent fallback is authorized. Refresh the expired advisory only under separate

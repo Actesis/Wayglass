@@ -7,6 +7,10 @@ import { describe, expect, it } from 'vitest';
 import { candidateDirectories } from '../src/constants.ts';
 import { retainedPublicationArchive } from '../src/publication-preflight.ts';
 import { prepareSigningInputs } from '../src/signing-inputs.ts';
+import {
+  assertSigningStatementPolicy,
+  prepareUnsignedStatements,
+} from '../src/signing-statement.ts';
 import type { PublicationEvidence } from '../src/types.ts';
 import { repositoryRoot } from './fixtures.ts';
 
@@ -34,6 +38,39 @@ const environment = {
   GITHUB_RUN_ATTEMPT: '1',
 };
 const input = { archives, evidence, environment, buildRun: { id: '99', attempt: '1' } };
+
+it('binds each unsigned statement to the exact subject, frozen source and workflow invocation', () => {
+  const inputs = prepareSigningInputs(input);
+  const statements = prepareUnsignedStatements(inputs);
+  expect(statements).toHaveLength(6);
+  for (const [index, expected] of statements.entries()) {
+    expect(expected.statement.subject).toEqual([inputs.packages[index]!.subject]);
+    expect(
+      expected.statement.predicate.buildDefinition.resolvedDependencies.map(
+        ({ digest }) => digest.gitCommit,
+      ),
+    ).toEqual([inputs.build.commit, inputs.source.commit]);
+    expect(expected.certificatePolicy.invocationId).toBe(
+      'https://github.com/Actesis/Wayglass/actions/runs/99/attempts/1',
+    );
+    const verified = { statement: expected.statement, certificate: expected.certificatePolicy };
+    expect(() => assertSigningStatementPolicy(expected, verified)).not.toThrow();
+    for (const field of ['issuer', 'identity', 'commit', 'invocationId'] as const) {
+      expect(() =>
+        assertSigningStatementPolicy(expected, {
+          ...verified,
+          certificate: { ...verified.certificate, [field]: 'wrong' },
+        }),
+      ).toThrow(/WG_SIGNING_POLICY/);
+    }
+    expect(() =>
+      assertSigningStatementPolicy(expected, {
+        ...verified,
+        statement: { ...verified.statement, subject: [] },
+      }),
+    ).toThrow(/WG_SIGNING_POLICY/);
+  }
+});
 
 describe('unsigned signing input preparation (fictional run context)', () => {
   it('binds six exact bytes to single-subject identities without granting signing authority', () => {
