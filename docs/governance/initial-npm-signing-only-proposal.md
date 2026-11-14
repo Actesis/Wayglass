@@ -93,8 +93,8 @@ Sigstore supplies DSSE, trust-root, certificate and transparency-log validation 
 primitives alone do not provide. No workspace dependency is added; the eventual wrapper must
 independently verify the npm distribution before loading its bundled verifier. The adapter requires
 workflow SAN, issuer, commit digests, and invocation URI using Sigstore policy, then compares the
-authenticated payload. Tests simulate the cryptographic call; a positive end-to-end policy check and
-workflow wiring remain open.
+authenticated payload. Automated unit tests simulate the cryptographic call; workflow wiring remains
+open.
 
 A read-only compatibility check used the
 [published `sigstore@4.1.1` SLSA bundle](https://registry.npmjs.org/-/npm/v1/attestations/sigstore@4.1.1)
@@ -104,12 +104,18 @@ threshold of one, and a certificate-transparency threshold of one. The stricter 
 rejected the bundle. Its Fulcio certificate has extension `.10` (build signer digest), but not
 `.13`, `.19`, or `.21` (the required source digest, build configuration digest, and run invocation
 URI). A separate probe rejected `.10` as plain text and accepted it with a DER UTF8String wrapper.
-The adapter currently supplies plain UTF-8 bytes to the OID verifier. This is compatibility
-evidence, not qualification of the npm installation or of a Wayglass signer. Do not drop the
-run-attempt check or infer it from the payload to make this fixture pass. Before wiring, verify the
-exact extension encoding and availability for the intended signer, then require a genuine positive
-fixture that satisfies the complete policy. No signing, logging, or npm writes were needed for this
-check.
+The adapter now uses that
+[documented Fulcio encoding](https://github.com/sigstore/fulcio/blob/main/docs/oid-info.md) for all
+three required claims.
+
+The corrected adapter accepted the existing
+[npm `sigstore@4.0.0` SLSA bundle](https://registry.npmjs.org/-/npm/v1/attestations/sigstore@4.0.0)
+from `sigstore/sigstore-js` run `16609504990`, attempt `1`, with the corresponding public workflow,
+commit, run URI and expected statement. It rejected the same bundle when the expected attempt,
+commit, or subject was changed. This demonstrates compatibility with a genuine npm bundle whose
+certificate contains the required claims. It does not qualify the installed npm distribution or show
+that the intended Wayglass signer will receive the same claims. Keep the full policy and fail closed
+if any claim is absent. No signing, log submission, or npm writes were needed.
 
 The original compressed bytes may not reproduce on a newer runner image. If so, bring the evidence
 back for an explicit decision: separately requalify new artifacts or reconsider the provenance

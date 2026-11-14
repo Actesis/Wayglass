@@ -7,7 +7,7 @@ import { describe, expect, it } from 'vitest';
 import { candidateDirectories } from '../src/constants.ts';
 import { retainedPublicationArchive } from '../src/publication-preflight.ts';
 import { prepareSigningInputs } from '../src/signing-inputs.ts';
-import { verifySigningBundle } from '../src/signing-bundle-verifier.ts';
+import { signingVerificationOptions, verifySigningBundle } from '../src/signing-bundle-verifier.ts';
 import {
   assertSigningStatementPolicy,
   prepareUnsignedStatements,
@@ -62,12 +62,18 @@ it('requires verification of the exact bundle and rejects a mismatched subject',
     expect(
       matcher.test(expected.certificatePolicy.identity.replace('github.com', 'githubXcom')),
     ).toBe(false);
-    expect(options.certificateOIDs['1.3.6.1.4.1.57264.1.21']).toBe(
-      expected.certificatePolicy.invocationId,
+    const commit = Buffer.from(
+      `0c28${Buffer.from(expected.certificatePolicy.commit).toString('hex')}`,
+      'hex',
     );
-    expect(options.certificateOIDs['1.3.6.1.4.1.57264.1.19']).toBe(
-      expected.certificatePolicy.commit,
-    );
+    expect(options.certificateOIDs).toEqual({
+      '1.3.6.1.4.1.57264.1.13': commit,
+      '1.3.6.1.4.1.57264.1.19': commit,
+      '1.3.6.1.4.1.57264.1.21': Buffer.concat([
+        Buffer.from([0x0c, 62]),
+        Buffer.from('https://github.com/Actesis/Wayglass/actions/runs/99/attempts/1'),
+      ]),
+    });
     expect(options.tlogThreshold).toBe(1);
   };
   await verifySigningBundle(expected, bytes(expected.statement), simulate);
@@ -83,6 +89,18 @@ it('requires verification of the exact bundle and rejects a mismatched subject',
       throw new Error('invalid signature');
     }),
   ).rejects.toThrow(/WG_SIGNING_VERIFIER/);
+});
+
+it('encodes long certificate claims using DER byte lengths', () => {
+  const expected = prepareUnsignedStatements(prepareSigningInputs(input))[0]!;
+  const invocationId = 'é'.repeat(64);
+  const { certificateOIDs } = signingVerificationOptions({
+    ...expected,
+    certificatePolicy: { ...expected.certificatePolicy, invocationId },
+  });
+  expect(certificateOIDs['1.3.6.1.4.1.57264.1.21'].toString('hex')).toBe(
+    `0c8180${'c3a9'.repeat(64)}`,
+  );
 });
 
 it('binds each unsigned statement to the exact subject, frozen source and workflow invocation', () => {

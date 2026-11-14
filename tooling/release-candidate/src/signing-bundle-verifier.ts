@@ -7,6 +7,20 @@ import type { prepareUnsignedStatements } from './signing-statement.ts';
 
 type Expected = ReturnType<typeof prepareUnsignedStatements>[number];
 
+function fulcioUtf8String(value: string): Buffer {
+  const bytes = Buffer.from(value, 'utf8');
+  let length = [bytes.length];
+  if (bytes.length >= 128) {
+    const octets: number[] = [];
+    for (let remaining = bytes.length; remaining > 0; remaining = Math.floor(remaining / 256)) {
+      octets.unshift(remaining % 256);
+    }
+    length = [0x80 | octets.length, ...octets];
+  }
+  // Sigstore compares the raw extension value, including its ASN.1 UTF8String tag and length.
+  return Buffer.concat([Buffer.from([0x0c, ...length]), bytes]);
+}
+
 /** The caller must integrity-check and isolate the npm installation before loading code from it. */
 export function loadPinnedBundleVerifier(npmRoot: string) {
   if (!isAbsolute(npmRoot))
@@ -31,9 +45,9 @@ export function signingVerificationOptions(expected: Expected) {
     certificateIssuer: issuer,
     certificateIdentityURI: `^${escaped}$`,
     certificateOIDs: {
-      '1.3.6.1.4.1.57264.1.13': commit,
-      '1.3.6.1.4.1.57264.1.19': commit,
-      '1.3.6.1.4.1.57264.1.21': invocationId,
+      '1.3.6.1.4.1.57264.1.13': fulcioUtf8String(commit),
+      '1.3.6.1.4.1.57264.1.19': fulcioUtf8String(commit),
+      '1.3.6.1.4.1.57264.1.21': fulcioUtf8String(invocationId),
     },
     tlogThreshold: 1,
     ctlogThreshold: 1,
