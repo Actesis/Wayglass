@@ -111,6 +111,9 @@ core nor these tests claim to have revoked one.
 
 ## Remaining live work
 
+The [create-only journal checkpoint port](./initial-npm-journal-retention.md) implements snapshot
+binding, replay claims, and exact readback. A reviewed durable provider is still required.
+
 The [read-only npm collision probe](./initial-npm-registry-probe.md) gathers visibility evidence for
 review. It does not infer namespace creation permission and is not wired into observation.
 
