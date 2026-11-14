@@ -1,0 +1,117 @@
+name: Initial release signing handoff (unsigned)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publication-review
+  cancel-in-progress: false
+
+jobs:
+  reproduce:
+    if: github.repository == 'Actesis/Wayglass' && github.ref == 'refs/heads/main'
+    environment: npm-release
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      CI: '1'
+      TURBO_FORCE: 'true'
+      WRANGLER_SEND_METRICS: 'false'
+      SOURCE_COMMIT: ce400e89930a047c6af1c6992c64cfe422a1eeee
+    outputs:
+      artifact-id: ${{ steps.handoff.outputs.artifact-id }}
+      artifact-digest: ${{ steps.handoff.outputs.artifact-digest }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '26.8.1'
+          package-manager-cache: false
+      - name: Install exact package manager and fresh tooling dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(npm --version)" = 11.19.0
+          npm install --global pnpm@11.9.0 --ignore-scripts
+          pnpm install --frozen-lockfile --ignore-scripts --store-dir .pnpm-store
+      - name: Validate tooling without restored caches
+        run: pnpm check
+      - name: Authenticate source and establish new review output
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm release-candidate:check -- --source "$SOURCE_COMMIT"
+          review_root=$(mktemp -d)
+          echo "REVIEW_PATH=$review_root" >> "$GITHUB_ENV"
+      - name: Provision frozen source dependencies (not an offline proof)
+        shell: bash
+        run: |
+          set -euo pipefail
+          provisioning_root=$(mktemp -d)
+          frozen_checkout="$provisioning_root/source"
+          git worktree add --detach "$frozen_checkout" "$SOURCE_COMMIT"
+          trap 'git worktree remove --force "$frozen_checkout"' EXIT
+          pnpm --dir "$frozen_checkout" install --frozen-lockfile --ignore-scripts --store-dir "$GITHUB_WORKSPACE/.pnpm-store"
+      - name: Rebuild and compare the six exact retained archives
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm release-candidate:build-publication -- --source "$SOURCE_COMMIT" --output "$REVIEW_PATH/assembly"
+          pnpm release-candidate:verify-publication -- --evidence "$REVIEW_PATH/assembly/publication-evidence.json"
+          archive=docs/governance/evidence/initial-npm-public-0.1.0.zip
+          echo "4e4420000766bd883b87f3e38c0cfef637988475922dd8d0d18c8e4fe1e98dc9  $archive" | sha256sum --check
+          for package in core tokens themes elements icons react; do
+            file="wayglass-$package-0.1.0.tgz"
+            unzip -p "$archive" "assembly/packages/$file" > "$REVIEW_PATH/expected.tgz"
+            cmp "$REVIEW_PATH/expected.tgz" "$REVIEW_PATH/assembly/packages/$file"
+          done
+          printf 'All six compressed archives match. No signing or registry writes ran.\n'
+      - name: Retain exact build inputs
+        id: handoff
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: signing-inputs-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            ${{ env.REVIEW_PATH }}/assembly/publication-evidence.json
+            ${{ env.REVIEW_PATH }}/assembly/packages/*.tgz
+          if-no-files-found: error
+          retention-days: 7
+  verify-handoff:
+    needs: reproduce
+    if: github.repository == 'Actesis/Wayglass' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '26.8.1'
+          package-manager-cache: false
+      - name: Verify artifact and prepare unsigned subjects
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ARTIFACT_ID: ${{ needs.reproduce.outputs.artifact-id }}
+          ARTIFACT_DIGEST: ${{ needs.reproduce.outputs.artifact-digest }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          output=$(mktemp -d)/unsigned-subjects.json
+          node --experimental-strip-types tooling/release-candidate/src/signing-handoff-cli.ts "$ARTIFACT_ID" "$ARTIFACT_DIGEST" "$output"
+          echo "UNSIGNED_SUBJECTS=$output" >> "$GITHUB_ENV"
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: unsigned-subjects-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ env.UNSIGNED_SUBJECTS }}
+          if-no-files-found: error
+          retention-days: 7
