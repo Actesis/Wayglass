@@ -111,6 +111,9 @@ core nor these tests claim to have revoked one.
 
 ## Remaining live work
 
+The [read-only npm collision probe](./initial-npm-registry-probe.md) gathers visibility evidence for
+review. It does not infer namespace creation permission and is not wired into observation.
+
 The [read-only GitHub verifier](./initial-npm-github-gates.md) implements the GitHub portion of
 observation for review. It is not wired and does not supply registry or advisory decisions.
 
