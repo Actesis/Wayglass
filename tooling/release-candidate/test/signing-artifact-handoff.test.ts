@@ -1,6 +1,28 @@
 import { describe, expect, it } from 'vitest';
 import { sha256 } from '../src/hash.ts';
 import { verifySigningArtifactHandoff } from '../src/signing-artifact-handoff.ts';
+import { readSigningArtifactEntries } from '../src/signing-handoff-cli.ts';
+
+it('rejects extra, duplicate or missing entries before streaming any member', () => {
+  const entries = [
+    'publication-evidence.json',
+    ...['core', 'tokens', 'themes', 'elements', 'icons', 'react'].map(
+      (name) => `packages/wayglass-${name}-0.1.0.tgz`,
+    ),
+  ];
+  for (const listing of [
+    entries.slice(1),
+    [...entries, entries[0]],
+    [...entries, '../unexpected'],
+  ]) {
+    expect(() =>
+      readSigningArtifactEntries((entry) => {
+        expect(entry).toBeUndefined();
+        return Buffer.from(listing.join('\n') + '\n');
+      }),
+    ).toThrow('Unexpected signing artifact inventory.');
+  }
+});
 
 const bytes = Buffer.from('fictional archive bytes');
 const expected = { id: 2, runId: 3, attempt: 1, commit: 'a'.repeat(40), sha256: sha256(bytes) };

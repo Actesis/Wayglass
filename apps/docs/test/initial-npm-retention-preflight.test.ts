@@ -9,6 +9,16 @@ const root = resolve(import.meta.dirname, '../../..');
 const read = (path: string) => readFileSync(resolve(root, path), 'utf8');
 
 describe('initial retained archive/preflight boundary', () => {
+  it('keeps the two-job signing handoff unsigned and binds outputs from the build job', () => {
+    const workflow = read('.github/workflows/initial-release-signing.yml');
+    expect(workflow).toContain('needs: reproduce');
+    expect(workflow).toContain('needs.reproduce.outputs.artifact-id');
+    expect(workflow).toContain('needs.reproduce.outputs.artifact-digest');
+    expect(workflow).toContain('actions: read');
+    expect(workflow).toContain('signing-handoff-cli.ts');
+    for (const forbidden of ['id-token:', 'secrets.', ': write', 'npm stage', 'npm publish'])
+      expect(workflow).not.toContain(forbidden);
+  });
   it('keeps the unsigned reproduction run manual and requires exact compressed bytes', () => {
     const workflow = read('.github/workflows/initial-release-reproduction.yml');
     for (const required of [

@@ -16,6 +16,11 @@ evidence, not a signed attestation.
 
 ## Recommended route
 
+The manual `initial-release-signing.yml` workflow currently exercises only the unsigned handoff. It
+compares the rebuilt bytes, passes the immutable artifact ID and digest between jobs, verifies
+GitHub metadata and ZIP bytes, and streams the seven expected entries without extracting archive
+paths. It has no signing job, OIDC permission, or npm credentials.
+
 1. Separately authorize an exact-source reproducibility run with the recorded Linux assembly
    toolchain. Compare all six compressed tarballs byte-for-byte against the retained set. Stop on
    any difference; do not sign a substitute, amend the accepted hashes, or fall back to an unsigned
