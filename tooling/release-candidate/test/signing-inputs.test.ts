@@ -7,6 +7,7 @@ import { describe, expect, it } from 'vitest';
 import { candidateDirectories } from '../src/constants.ts';
 import { retainedPublicationArchive } from '../src/publication-preflight.ts';
 import { prepareSigningInputs } from '../src/signing-inputs.ts';
+import { verifySigningBundle } from '../src/signing-bundle-verifier.ts';
 import {
   assertSigningStatementPolicy,
   prepareUnsignedStatements,
@@ -38,6 +39,51 @@ const environment = {
   GITHUB_RUN_ATTEMPT: '1',
 };
 const input = { archives, evidence, environment, buildRun: { id: '99', attempt: '1' } };
+
+it('requires verification of the exact bundle and rejects a mismatched subject', async () => {
+  const expected = prepareUnsignedStatements(prepareSigningInputs(input))[0]!;
+  const bytes = (statement: unknown, proof: object | null = {}) =>
+    Buffer.from(
+      JSON.stringify({
+        dsseEnvelope: {
+          payloadType: 'application/vnd.in-toto+json',
+          payload: Buffer.from(JSON.stringify(statement)).toString('base64'),
+          signatures: [{}],
+        },
+        verificationMaterial: { tlogEntries: [{ inclusionProof: proof }] },
+      }),
+    );
+  let checked = 0;
+  const simulate: Parameters<typeof verifySigningBundle>[2] = async (_bundle, options) => {
+    checked++;
+    expect(options.certificateIssuer).toBe(expected.certificatePolicy.issuer);
+    const matcher = new RegExp(options.certificateIdentityURI);
+    expect(matcher.test(expected.certificatePolicy.identity)).toBe(true);
+    expect(
+      matcher.test(expected.certificatePolicy.identity.replace('github.com', 'githubXcom')),
+    ).toBe(false);
+    expect(options.certificateOIDs['1.3.6.1.4.1.57264.1.21']).toBe(
+      expected.certificatePolicy.invocationId,
+    );
+    expect(options.certificateOIDs['1.3.6.1.4.1.57264.1.19']).toBe(
+      expected.certificatePolicy.commit,
+    );
+    expect(options.tlogThreshold).toBe(1);
+  };
+  await verifySigningBundle(expected, bytes(expected.statement), simulate);
+  await expect(
+    verifySigningBundle(expected, bytes({ ...expected.statement, subject: [] }), simulate),
+  ).rejects.toThrow(/WG_SIGNING_VERIFIER/);
+  await expect(
+    verifySigningBundle(expected, bytes(expected.statement, null), simulate),
+  ).rejects.toThrow(/WG_SIGNING_VERIFIER/);
+  expect(checked).toBe(2);
+  await expect(
+    verifySigningBundle(expected, bytes(expected.statement), async () => {
+      throw new Error('invalid signature');
+    }),
+  ).rejects.toThrow(/WG_SIGNING_VERIFIER/);
+});
 
 it('binds each unsigned statement to the exact subject, frozen source and workflow invocation', () => {
   const inputs = prepareSigningInputs(input);

@@ -88,6 +88,14 @@ attempt. It does not verify a signature or log inclusion itself. The pinned sign
 verifier, certificate claim extraction, and npm compatibility for this statement remain to be
 demonstrated before enabling the signing job.
 
+The verifier adapter loads only Sigstore `4.1.1` from an explicitly supplied npm installation.
+Sigstore supplies DSSE, trust-root, certificate and transparency-log validation that Node's crypto
+primitives alone do not provide. No workspace dependency is added; the eventual wrapper must
+independently verify the npm distribution before loading its bundled verifier. The adapter requires
+workflow SAN, issuer, commit digests, and invocation URI using Sigstore policy, then compares the
+authenticated payload. Tests simulate the cryptographic call; genuine bundle verification and
+workflow wiring remain open.
+
 The original compressed bytes may not reproduce on a newer runner image. If so, bring the evidence
 back for an explicit decision: separately requalify new artifacts or reconsider the provenance
 requirement. No silent fallback is authorized. Refresh the expired advisory only under separate
