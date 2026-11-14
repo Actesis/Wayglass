@@ -93,8 +93,23 @@ Sigstore supplies DSSE, trust-root, certificate and transparency-log validation 
 primitives alone do not provide. No workspace dependency is added; the eventual wrapper must
 independently verify the npm distribution before loading its bundled verifier. The adapter requires
 workflow SAN, issuer, commit digests, and invocation URI using Sigstore policy, then compares the
-authenticated payload. Tests simulate the cryptographic call; genuine bundle verification and
+authenticated payload. Tests simulate the cryptographic call; a positive end-to-end policy check and
 workflow wiring remain open.
+
+A read-only compatibility check used the
+[published `sigstore@4.1.1` SLSA bundle](https://registry.npmjs.org/-/npm/v1/attestations/sigstore@4.1.1)
+from `sigstore/sigstore-js` run `26312671957`, attempt `1`. The installed npm-bundled Sigstore
+`4.1.1` verified the signature with the expected issuer and workflow SAN, a transparency-log
+threshold of one, and a certificate-transparency threshold of one. The stricter Wayglass options
+rejected the bundle. Its Fulcio certificate has extension `.10` (build signer digest), but not
+`.13`, `.19`, or `.21` (the required source digest, build configuration digest, and run invocation
+URI). A separate probe rejected `.10` as plain text and accepted it with a DER UTF8String wrapper.
+The adapter currently supplies plain UTF-8 bytes to the OID verifier. This is compatibility
+evidence, not qualification of the npm installation or of a Wayglass signer. Do not drop the
+run-attempt check or infer it from the payload to make this fixture pass. Before wiring, verify the
+exact extension encoding and availability for the intended signer, then require a genuine positive
+fixture that satisfies the complete policy. No signing, logging, or npm writes were needed for this
+check.
 
 The original compressed bytes may not reproduce on a newer runner image. If so, bring the evidence
 back for an explicit decision: separately requalify new artifacts or reconsider the provenance
