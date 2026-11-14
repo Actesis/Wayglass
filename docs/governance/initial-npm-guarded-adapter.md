@@ -111,6 +111,9 @@ core nor these tests claim to have revoked one.
 
 ## Remaining live work
 
+Hosted staging is [deferred for the first release](./initial-npm-journal-provider-proposal.md). The
+following requirements still apply if automation is resumed.
+
 The [create-only journal checkpoint port](./initial-npm-journal-retention.md) implements snapshot
 binding, replay claims, and exact readback. A reviewed durable provider is still required.
 
