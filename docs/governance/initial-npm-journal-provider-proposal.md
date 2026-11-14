@@ -1,39 +1,36 @@
-# Durable staging journal provider proposal
+# Defer hosted staging journal storage
 
-Status: proposed for owner review. No provider is configured or verified live.
+Decision: defer hosted journal storage and automated staging for the first Wayglass release. The
+owner will operate npm staging and promotion interactively and retain a local release record. There
+is no storage provider to provision, and npm consumers are unaffected.
 
-Recommend a dedicated private Amazon S3 bucket. The journal requires an atomic claim shared across
-workflow runs, independent exact readback, and retention after the runner disappears.
+## Owner-operated first release
 
-- [S3 conditional writes](https://docs.aws.amazon.com/AmazonS3/latest/userguide/conditional-writes.html)
-  provide create-if-absent with `If-None-Match: *`. Conflicts and uncertain outcomes stop execution.
-- [Actions artifacts](https://github.com/actions/toolkit/blob/main/packages/artifact/README.md) can
-  retain supplemental evidence, but run-scoped name conflicts are not a global claim.
-- [Git references](https://docs.github.com/en/rest/git/refs#create-a-reference) could anchor a
-  shared claim, but would introduce repository write authority into the release job.
+1. Before any upload, approve the exact retained tarballs, current advisory, release commit, release
+   notes, public placeholder exception, and explicit `next` tag. Verify npm account, namespace
+   authority, 2FA readiness, and package/stage collisions separately.
+2. Review provenance separately. The local session must not impersonate the historical build or
+   silently omit required provenance. Before execution, approve a supported signing-only process for
+   the exact retained bytes and verify the resulting bundles and their signer.
+   [npm provenance requirements](https://docs.npmjs.com/generating-provenance-statements/)
+3. Use a dedicated owner-operated npm session with the reviewed CLI, not a hosted staging token. npm
+   documents that
+   [session tokens support staging](https://docs.npmjs.com/cli/v11/commands/npm-stage/#token-behavior).
+   Retain a local record outside temporary storage: archive hashes, intended tag, each upload intent
+   before sending, and the returned stage ID and observed registry effects afterward. Keep
+   credentials and raw authentication output out of that record.
+4. If a response is missing or an operation is interrupted, stop. Inspect the staging queue and
+   registry using the authenticated owner account before considering any retry. If state cannot be
+   reconciled, do not retry or promote. Review the complete set of exact downloaded stages,
+   metadata, tags, and attestations before separate interactive 2FA promotion.
+5. Verify public bytes and clean registry installs before announcing the release.
 
-## Proposed controls
+This decision does not authorize execution, advisory capture, signing, credential changes, public
+placeholders, or publication. The hosted preflight stays verification-only.
 
-Use a dedicated role limited to the journal prefix, with only conditional object creation and
-exact-key readback. Enforce the condition in bucket policy; grant no delete, listing, lifecycle,
-policy, or retention override access. Block public access and verify the expected account, bucket,
-and region. Keep storage credentials out of the npm child. Preserve the same claim namespace across
-attempts and runner replacements.
+## Revisit when automating
 
-Propose no automatic expiry until an owner-reviewed disposition. The policy must prevent delete
-markers from making a claim appear absent.
-[Object Lock](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock-managing.html)
-protects versions but does not itself prevent delete markers. If administrator-proof retention is
-required, choose a mode and term explicitly before provisioning.
-
-## Verification before wiring
-
-After separate approval of account, region, cost boundary, and retention policy, test with fictional
-bytes and isolated keys: verify independent exact readback, exactly one winner for concurrent
-creates, and rejection of unconditional overwrites and deletes. A fresh process must reject an
-already claimed ID. An uncertain acknowledgment stops execution without a retry. Record the retained
-test objects and evidence; use no npm credentials.
-
-This proposal authorizes no provisioning and verifies no live storage. Provider implementation and
-acceptance, namespace authority, signing, and current advisory evidence remain separate from owner
-execution approval.
+The existing automated adapter still requires create-only durable checkpoints before upload. Do not
+replace them with a no-op or a local temporary file. Revisit a durable provider when unattended
+staging or multiple release operators need shared coordination. S3 was evaluated, not selected; no
+account, bucket, policy, or credential was created.

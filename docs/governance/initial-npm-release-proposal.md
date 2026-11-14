@@ -62,13 +62,13 @@ approval must explicitly cover placeholder creation and the chosen tag. Record t
 actual versions/tags/content as a registry side effect, not a usable Wayglass release; do not assume
 it is invisible or automatically cleaned up.
 
-Use a short-expiry **stage-only** granular token for initial bootstrap, with 2FA bypass disabled,
-only the `@wayglass` package/scope permissions needed to create these six packages, and no
-organization-settings permissions. Organization-management access alone is not package access.
-Choose the shortest supported expiry (the documented minimum is one day), and revoke the token
-immediately once the intended staging operations finish, including failure cleanup. Do not select
-all-account package access. The owner creates/inserts it directly into the protected environment;
-never pass it in chat, command arguments, logs, artifact files, or source.
+For the deferred hosted bootstrap only, use a short-expiry **stage-only** granular token, with 2FA
+bypass disabled, only the `@wayglass` package/scope permissions needed to create these six packages,
+and no organization-settings permissions. Organization-management access alone is not package
+access. Choose the shortest supported expiry (the documented minimum is one day), and revoke the
+token immediately once the intended staging operations finish, including failure cleanup. Do not
+select all-account package access. The owner creates/inserts it directly into the protected
+environment; never pass it in chat, command arguments, logs, artifact files, or source.
 [Token configuration](https://docs.npmjs.com/creating-and-viewing-access-tokens/)
 
 Stage-only is **not a general-purpose security boundary**: such tokens retain other writes such as
@@ -78,7 +78,14 @@ a permanent automation credential. Direct token publishing is also scheduled for
 automatically fall back to the historical direct-publish path.
 [Token capabilities](https://docs.npmjs.com/about-access-tokens/)
 
-## Publisher architecture to implement next
+## First release: owner-operated staging
+
+The owner deferred hosted journal storage and automated staging for the initial release. Follow the
+[owner-operated path](./initial-npm-journal-provider-proposal.md) instead of wiring the hosted
+publisher or creating its bootstrap token. Exact artifact retention, fresh advisory evidence,
+reviewed provenance, and separate execution approval still apply.
+
+## Deferred hosted publisher design
 
 Proposed new workflow filename: `npm-initial-release.yml`, manual and main-only on a GitHub-hosted
 runner, protected by `npm-release`. Existing rehearsal workflows remain publication-disabled. This
@@ -158,10 +165,10 @@ opting into its immutable public records.
 
 Require exact artifact acceptance and durable retained bytes; the final release commit and tag
 targets; confirmed `next`; this narrow placeholder exception; approved release notes/support and
-partial-failure policy; fresh npm ownership/2FA and recovery readiness; reviewed/pinned publisher
-code and least-privilege credential setup; stage/registry absence/collision checks; truthful
-provenance; and a current approved advisory snapshot. Current snapshot validity ends
-`2026-11-08T16:04:23Z` (November 8 at 10:04:23 AM CST). Recheck immediately before authorized
-execution; a new capture requires separate authorization and review. No capture or expiry extension
-is made here. A planning PR merge, checked checkbox, or successful rehearsal cannot substitute for
-this final approval or the owner's later npm 2FA promotion.
+partial-failure policy; fresh npm ownership/2FA and recovery readiness; reviewed npm CLI and
+owner-operated session; stage/registry absence/collision checks; truthful provenance; and a current
+approved advisory snapshot. The historical snapshot expired at `2026-11-08T16:04:23Z` (November 8 at
+10:04:23 AM CST). Recheck immediately before authorized execution; a new capture requires separate
+authorization and review. No capture or expiry extension is made here. A planning PR merge, checked
+checkbox, or successful rehearsal cannot substitute for this final approval or the owner's later npm
+2FA promotion.
