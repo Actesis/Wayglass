@@ -111,6 +111,10 @@ core nor these tests claim to have revoked one.
 
 ## Remaining live work
 
+The [restricted npm transport](./initial-npm-restricted-transport.md) supplies the isolated
+subprocess implementation for review, but is not wired to this core. It expects provenance from a
+separate verified signing step rather than inheriting an OIDC credential in the upload child.
+
 Implement and review the three live ports and credential-isolated hosted wrapper, including exact
 owner-record admission and native approvals, clean retained-evidence preflight, pinned npm
 installation/identity, authenticated registry collision/ownership checks, remote checkpoint

@@ -42,7 +42,28 @@ interface ConfirmedStage extends UploadIdentity {
 }
 
 // Resource bound for untrusted CLI output, not a package-content or public API limit.
-const maximumReceiptBytes = 2 * 1024 * 1024;
+export const maximumReceiptBytes = 2 * 1024 * 1024;
+
+export function reviewedStageIdentity(archive: StagingArchive): Readonly<UploadIdentity> {
+  const index = candidateDirectories.findIndex(
+    (directory) => archive.file === `wayglass-${directory}-0.1.0.tgz`,
+  );
+  const expected = reviewedArchives[index];
+  if (!expected) fail('WG_STAGE_ARCHIVES', 'Archive basename is outside the reviewed set.');
+  const [size, digest] = expected;
+  const bytes = Buffer.from(archive.bytes);
+  if (bytes.byteLength !== size || sha256(bytes) !== digest)
+    fail('WG_STAGE_ARCHIVES', 'Archive size or reviewed SHA-256 differs.');
+  return Object.freeze({
+    name: `@wayglass/${candidateDirectories[index]}`,
+    version: '0.1.0',
+    file: archive.file,
+    size,
+    sha256: digest,
+    shasum: createHash('sha1').update(bytes).digest('hex'),
+    integrity: `sha512-${createHash('sha512').update(bytes).digest('base64')}`,
+  });
+}
 
 function object(value: unknown): Record<string, unknown> {
   if (value === null || typeof value !== 'object' || Array.isArray(value))
@@ -91,21 +112,9 @@ export function createInitialStagingProtocol(archives: readonly StagingArchive[]
     fail('WG_STAGE_ARCHIVES', 'The initial protocol requires exactly six reviewed archives.');
   const identities = archives.map((archive, index): Readonly<UploadIdentity> => {
     const directory = candidateDirectories[index]!;
-    const [size, digest] = reviewedArchives[index]!;
     const file = `wayglass-${directory}-0.1.0.tgz`;
-    // Snapshot before hashing: later caller mutations cannot change the recorded identity.
-    const bytes = Buffer.from(archive.bytes);
-    if (archive.file !== file || bytes.byteLength !== size || sha256(bytes) !== digest)
-      fail('WG_STAGE_ARCHIVES', 'Archive order, basename, size, or reviewed SHA-256 differs.');
-    return Object.freeze({
-      name: `@wayglass/${directory}`,
-      version: '0.1.0',
-      file,
-      size,
-      sha256: digest,
-      shasum: createHash('sha1').update(bytes).digest('hex'),
-      integrity: `sha512-${createHash('sha512').update(bytes).digest('base64')}`,
-    });
+    if (archive.file !== file) fail('WG_STAGE_ARCHIVES', 'Archive order or basename differs.');
+    return reviewedStageIdentity(archive);
   });
   const confirmed: ConfirmedStage[] = [];
   let pending: Readonly<UploadIdentity> | null = null;
