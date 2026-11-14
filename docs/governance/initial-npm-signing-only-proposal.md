@@ -48,6 +48,14 @@ subjects. Its tests use fictional run context. It authenticates neither runtime 
 artifact origin, so the future wrapper must independently verify the build-job handoff and signer.
 It does not construct a signed statement, request OIDC, or call any service.
 
+The unwired artifact handoff verifier compares the successful build job's expected artifact ID and
+digest with GitHub's
+[artifact metadata](https://docs.github.com/en/rest/actions/artifacts#get-an-artifact) and verifies
+the downloaded ZIP bytes before extraction. The artifact name binds the attempt because the
+metadata's workflow run object does not expose it. The wrapper must obtain those outputs from the
+actual successful build job, fetch metadata independently, bound the download, and validate the
+extracted inventory before preparing subjects. No signer identity is verified by this helper.
+
 The original compressed bytes may not reproduce on a newer runner image. If so, bring the evidence
 back for an explicit decision: separately requalify new artifacts or reconsider the provenance
 requirement. No silent fallback is authorized. Refresh the expired advisory only under separate
