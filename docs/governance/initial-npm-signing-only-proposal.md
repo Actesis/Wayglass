@@ -16,6 +16,26 @@ evidence, not a signed attestation.
 
 ## Recommended route
 
+### Unsigned hosted handoff result
+
+[Run 43615735437](https://github.com/Actesis/Wayglass/actions/runs/43615735437), attempt 1, passed
+after Actesis approved the environment. The two jobs ran at
+`6e6b153c0c21a443ed64c5116718b95983920f05`. All six compressed rebuilds matched; the second job
+verified the handoff and emitted unsigned subjects only.
+
+- Build inputs artifact `14121849241`, ZIP SHA-256
+  `b23e10964831b3e04c16049a4f3e4cb278da715c86851d5fb2b56f2397055a58`.
+- Unsigned subjects artifact `14122661788`, independently downloaded and verified ZIP SHA-256
+  `0a0ac96cf91e571978539e4284b128259205661210d09a0634a38ed7fa87d681`.
+- Parsed assembly evidence JSON SHA-256
+  `2cbdced3b78b798331611f04ec25bc91554265b513de34d41ad21cd5f6c2ffaf`.
+
+Independent readback checked all six subject names, byte counts, SHA-256 and SHA-512 values against
+the retained tarballs. Both authorization flags remained false. This result verifies the unsigned
+boundary; it is not reusable as the build invocation for a later signing run.
+
+### Implementation plan
+
 The manual `initial-release-signing.yml` workflow currently exercises only the unsigned handoff. It
 compares the rebuilt bytes, passes the immutable artifact ID and digest between jobs, verifies
 GitHub metadata and ZIP bytes, and streams the seven expected entries without extracting archive
