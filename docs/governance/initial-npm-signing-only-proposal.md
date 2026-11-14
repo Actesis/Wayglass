@@ -42,6 +42,12 @@ inferred from a generic GitHub artifact attestation.
 
 ## Stop conditions
 
+The unsigned input helper under `tooling/release-candidate/src/signing-inputs.ts` binds exact
+reviewed bytes and assembly metadata to the same declared run and attempt and prepares SHA-512
+subjects. Its tests use fictional run context. It authenticates neither runtime identity nor
+artifact origin, so the future wrapper must independently verify the build-job handoff and signer.
+It does not construct a signed statement, request OIDC, or call any service.
+
 The original compressed bytes may not reproduce on a newer runner image. If so, bring the evidence
 back for an explicit decision: separately requalify new artifacts or reconsider the provenance
 requirement. No silent fallback is authorized. Refresh the expired advisory only under separate
