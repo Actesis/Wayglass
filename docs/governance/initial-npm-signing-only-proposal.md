@@ -1,6 +1,13 @@
 # Signing-only release proposal
 
-Status: design for review. No workflow is added, signing performed, or registry write authorized.
+Status: signing remains a design only. The separate unsigned reproducibility workflow is implemented
+for review. No signing or registry write is authorized.
+
+The manual `initial-release-reproduction.yml` check uses the pinned toolchain on hosted Ubuntu,
+verifies the retained ZIP digest, and compares all six compressed archives with `cmp`. A difference
+stops the job before its evidence upload. The job retains only assembly metadata, not replacement
+tarballs or signed provenance. It is not the eventual build-and-sign invocation and does not
+substitute for that invocation. Dispatch requires separate approval.
 
 Keep the owner-operated first release and retain npm provenance. Use a separately approved hosted
 build-and-sign run with no npm write credential. A later signing-only run that merely downloads the

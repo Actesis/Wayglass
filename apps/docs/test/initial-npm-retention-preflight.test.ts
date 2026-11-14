@@ -9,6 +9,30 @@ const root = resolve(import.meta.dirname, '../../..');
 const read = (path: string) => readFileSync(resolve(root, path), 'utf8');
 
 describe('initial retained archive/preflight boundary', () => {
+  it('keeps the unsigned reproduction run manual and requires exact compressed bytes', () => {
+    const workflow = read('.github/workflows/initial-release-reproduction.yml');
+    for (const required of [
+      'workflow_dispatch:',
+      'contents: read',
+      'environment: npm-release',
+      "github.ref == 'refs/heads/main'",
+      'ce400e89930a047c6af1c6992c64cfe422a1eeee',
+      'release-candidate:verify-publication',
+      retainedPublicationArchive.sha256,
+      'for package in core tokens themes elements icons react',
+      'cmp "$REVIEW_PATH/expected.tgz" "$REVIEW_PATH/assembly/packages/$file"',
+    ])
+      expect(workflow).toContain(required);
+    for (const forbidden of [
+      'id-token:',
+      'secrets.',
+      'npm stage',
+      'npm publish',
+      'continue-on-error:',
+      'always()',
+    ])
+      expect(workflow).not.toContain(forbidden);
+  });
   it('retains exactly the reviewed binary ZIP rather than a pointer or new assembly', () => {
     const path = resolve(root, retainedPublicationArchive.path);
     expect(lstatSync(path).isFile()).toBe(true);
