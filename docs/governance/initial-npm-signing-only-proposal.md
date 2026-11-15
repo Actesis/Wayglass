@@ -92,6 +92,13 @@ off by default. When selected, the protected `npm-release` job checks the direct
 response and the unsigned rebuild and handoff are skipped. The default run still does not request a
 token. Do not dispatch the probe without explicit approval.
 
+[Attempt 1](https://github.com/Actesis/Wayglass/actions/runs/43727050895) passed 15 of 16 token
+assertions, including workflow identity, both commits, and the run and attempt. It failed closed on
+`server_url`, which is not advertised in
+[GitHub's OIDC discovery metadata](https://token.actions.githubusercontent.com/.well-known/openid-configuration).
+The probe now requires `GITHUB_SERVER_URL=https://github.com` in the runner before requesting a
+token. This correction does not change the certificate policy or authorize a second run.
+
 A passing OIDC-only probe is necessary evidence, not a certificate test. A separate approval must
 cover any Fulcio issuance (which can create a public certificate-transparency record), and any
 Sigstore signing or Rekor submission. The pinned npm CLI's automatic generator also emits only one

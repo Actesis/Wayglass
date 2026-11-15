@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { claimResults, requestUrl } from '../src/oidc-claim-probe.ts';
+import { assertRunnerContext, claimResults, requestUrl } from '../src/oidc-claim-probe.ts';
 
 const commit = 'a'.repeat(40);
 const env = { GITHUB_SHA: commit, GITHUB_RUN_ID: '99', GITHUB_RUN_ATTEMPT: '1' };
@@ -8,7 +8,6 @@ const workflow = 'Actesis/Wayglass/.github/workflows/initial-release-signing.yml
 const claims = {
   iss: 'https://token.actions.githubusercontent.com',
   aud: 'sigstore',
-  server_url: 'https://github.com',
   repository: 'Actesis/Wayglass',
   repository_id: '1314007333',
   repository_owner_id: '27646205',
@@ -27,6 +26,24 @@ const token = (value: unknown) =>
   `header.${Buffer.from(JSON.stringify(value)).toString('base64url')}.signature`;
 
 describe('OIDC claim probe', () => {
+  it('requires the GitHub.com server in runner context, not in the token', () => {
+    const context = {
+      GITHUB_ACTIONS: 'true',
+      GITHUB_SERVER_URL: 'https://github.com',
+      GITHUB_REPOSITORY: 'Actesis/Wayglass',
+      GITHUB_REF: 'refs/heads/main',
+      GITHUB_WORKFLOW_REF: workflow,
+      GITHUB_EVENT_NAME: 'workflow_dispatch',
+      RUNNER_ENVIRONMENT: 'github-hosted',
+    };
+    expect(() => assertRunnerContext(context)).not.toThrow();
+    for (const server of [undefined, 'https://example.com'])
+      expect(() => assertRunnerContext({ ...context, GITHUB_SERVER_URL: server })).toThrow(
+        'Unexpected execution context.',
+      );
+    expect(claimResults(token(claims), env).every(({ matches }) => matches)).toBe(true);
+  });
+
   it('reports only names and matches for the fixed claim set', () => {
     expect(claimResults(token({ ...claims, extra: 'not printed' }), env)).toEqual(
       Object.keys(claims).map((name) => ({ name, matches: true })),
