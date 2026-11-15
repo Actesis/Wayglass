@@ -58,8 +58,13 @@ export function fulcioCertificateVerificationOptions({
 }
 
 export function signingVerificationOptions(expected: Expected) {
+  const { ctlogThreshold, ...certificate } = fulcioCertificateVerificationOptions(
+    expected.certificatePolicy,
+  );
   return {
-    ...fulcioCertificateVerificationOptions(expected.certificatePolicy),
+    ...certificate,
+    // sigstore.verify uses a different option spelling than the lower-level Verifier.
+    ctLogThreshold: ctlogThreshold,
     tlogThreshold: 1,
     retry: 0,
     timeout: 10_000,

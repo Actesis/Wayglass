@@ -75,6 +75,8 @@ it('requires verification of the exact bundle and rejects a mismatched subject',
       ]),
     });
     expect(options.tlogThreshold).toBe(1);
+    expect(options).toHaveProperty('ctLogThreshold', 1);
+    expect(options).not.toHaveProperty('ctlogThreshold');
   };
   await verifySigningBundle(expected, bytes(expected.statement), simulate);
   await expect(

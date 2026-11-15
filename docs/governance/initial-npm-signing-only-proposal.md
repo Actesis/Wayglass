@@ -81,10 +81,9 @@ timestamp behavior, and payload format before wiring the workflow: the high-leve
 call can combine issuance and log submission, so do not assume it provides a certificate-policy gate
 before the public log write.
 
-The inspected Sigstore `4.1.1` wrapper reads `ctLogThreshold`, while Wayglass currently supplies
-`ctlogThreshold` at that boundary. The underlying verifier defaults to one SCT, so the spelling
-mismatch is not evidence that SCT checks were skipped. Correct the wrapper option and test its
-forwarding before relying on the signing workflow.
+Wayglass explicitly forwards `ctLogThreshold: 1` at the Sigstore `4.1.1` bundle boundary. The
+lower-level certificate-only verifier still uses `ctlogThreshold: 1`. Before the correction the
+bundle verifier relied on Sigstore's default of one SCT; the correction does not relax policy.
 
 Authorize at most one submission per reviewed package. The review must disclose the workflow,
 commit, run/attempt, package name and version, artifact and statement digests, certificate and
