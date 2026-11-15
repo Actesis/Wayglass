@@ -1,13 +1,15 @@
 import { execFileSync } from 'node:child_process';
-import { createHash, generateKeyPairSync, verify } from 'node:crypto';
+import { createHash, generateKeyPairSync, verify, X509Certificate } from 'node:crypto';
 import { resolve } from 'node:path';
+import { getCACertificates } from 'node:tls';
 
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import { candidateDirectories } from '../src/constants.ts';
 import { prepareCertificateGatedEnvelopes } from '../src/certificate-gated-dsse.ts';
 import { retainedPublicationArchive } from '../src/publication-preflight.ts';
 import { prepareSigningInputs } from '../src/signing-inputs.ts';
+import { signAndVerifyReleaseBatch } from '../src/signing-batch.ts';
 import { signingVerificationOptions, verifySigningBundle } from '../src/signing-bundle-verifier.ts';
 import {
   assertSigningStatementPolicy,
@@ -40,6 +42,78 @@ const environment = {
   GITHUB_RUN_ATTEMPT: '1',
 };
 const input = { archives, evidence, environment, buildRun: { id: '99', attempt: '1' } };
+
+function batchFixture() {
+  const leaf = new X509Certificate(getCACertificates('bundled')[0]!).raw;
+  const { privateKey } = generateKeyPairSync('ec', { namedCurve: 'P-256' });
+  const transport = vi.fn<typeof fetch>().mockImplementation(async (_url, options) => {
+    const proposal = JSON.parse(String(options?.body));
+    const { verifiers } = proposal.spec.proposedContent;
+    const body = Buffer.from(
+      JSON.stringify({
+        kind: 'dsse',
+        apiVersion: '0.0.1',
+        spec: { signatures: [{ verifier: verifiers[0] }] },
+      }),
+    ).toString('base64');
+    return Response.json(
+      {
+        ['a'.repeat(80)]: {
+          body,
+          logID: 'ab'.repeat(32),
+          logIndex: 500,
+          integratedTime: 1770000000,
+          verification: {
+            signedEntryTimestamp: 'AQ==',
+            inclusionProof: {
+              logIndex: 0,
+              treeSize: 1,
+              rootHash: 'ab'.repeat(32),
+              hashes: [],
+              checkpoint: 'synthetic',
+            },
+          },
+        },
+      },
+      { status: 201 },
+    );
+  });
+  const verifyCertificate = vi.fn();
+  const verifyBundle = vi
+    .fn<Parameters<typeof signAndVerifyReleaseBatch>[0]['verifyBundle']>()
+    .mockResolvedValue();
+  const report = vi.fn();
+  return { input, leaf, privateKey, transport, verifyCertificate, verifyBundle, report };
+}
+
+it('returns the ordered six-bundle set only after each receipt is verified', async () => {
+  const fixture = batchFixture();
+  const bundles = await signAndVerifyReleaseBatch(fixture);
+  expect(bundles.map(({ file }) => file)).toEqual(archives.map(({ file }) => file));
+  expect(fixture.transport).toHaveBeenCalledTimes(6);
+  expect(fixture.verifyCertificate).toHaveBeenCalledTimes(1);
+  for (const { bundle, sha256 } of bundles)
+    expect(sha256).toBe(createHash('sha256').update(bundle).digest('hex'));
+  expect(fixture.report).toHaveBeenCalledTimes(12);
+});
+
+it('does not submit after certificate rejection or after the first unverified receipt', async () => {
+  const fixture = batchFixture();
+  fixture.verifyCertificate.mockImplementationOnce(() => {
+    throw new Error('certificate rejected');
+  });
+  await expect(signAndVerifyReleaseBatch(fixture)).rejects.toThrow('certificate rejected');
+  expect(fixture.transport).not.toHaveBeenCalled();
+  fixture.verifyBundle.mockResolvedValueOnce().mockRejectedValueOnce(new Error('proof rejected'));
+  await expect(signAndVerifyReleaseBatch(fixture)).rejects.toThrow(/WG_REKOR_SUBMISSION/);
+  expect(fixture.transport).toHaveBeenCalledTimes(2);
+  expect(fixture.report.mock.calls.map(([progress]) => progress.status)).toEqual([
+    'attempting',
+    'verified',
+    'attempting',
+    'unverified-stop',
+  ]);
+});
 
 it('creates six local DSSE envelopes only after the certificate gate accepts the matching key', async () => {
   const { privateKey, publicKey } = generateKeyPairSync('ec', { namedCurve: 'P-256' });

@@ -28,7 +28,8 @@ export async function prepareCertificateGatedEnvelopes(
   // Node accepts private KeyObjects here; the current declaration omits that overload.
   const publicKey = createPublicKey(privateKey as unknown as Parameters<typeof createPublicKey>[0]);
   await verifyCertificate(policy, Buffer.from(leaf), publicKey);
-  return expected.map(({ file, statement }) => {
+  return expected.map((policyAndStatement) => {
+    const { file, statement } = policyAndStatement;
     const payload = Buffer.from(JSON.stringify(statement));
     // DSSE pre-authentication encoding binds the byte lengths, media type and exact payload.
     const prefix = Buffer.from(
@@ -37,6 +38,7 @@ export async function prepareCertificateGatedEnvelopes(
     const signature = sign('sha256', Buffer.concat([prefix, payload]), privateKey);
     return {
       file,
+      expected: policyAndStatement,
       envelope: {
         payloadType,
         payload: payload.toString('base64'),
