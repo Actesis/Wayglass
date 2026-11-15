@@ -1,10 +1,11 @@
 import { execFileSync } from 'node:child_process';
-import { createHash } from 'node:crypto';
+import { createHash, generateKeyPairSync, verify } from 'node:crypto';
 import { resolve } from 'node:path';
 
 import { describe, expect, it } from 'vitest';
 
 import { candidateDirectories } from '../src/constants.ts';
+import { prepareCertificateGatedEnvelopes } from '../src/certificate-gated-dsse.ts';
 import { retainedPublicationArchive } from '../src/publication-preflight.ts';
 import { prepareSigningInputs } from '../src/signing-inputs.ts';
 import { signingVerificationOptions, verifySigningBundle } from '../src/signing-bundle-verifier.ts';
@@ -39,6 +40,44 @@ const environment = {
   GITHUB_RUN_ATTEMPT: '1',
 };
 const input = { archives, evidence, environment, buildRun: { id: '99', attempt: '1' } };
+
+it('creates six local DSSE envelopes only after the certificate gate accepts the matching key', async () => {
+  const { privateKey, publicKey } = generateKeyPairSync('ec', { namedCurve: 'P-256' });
+  const leaf = Buffer.from('synthetic leaf');
+  const expected = prepareUnsignedStatements(prepareSigningInputs(input));
+  await expect(
+    prepareCertificateGatedEnvelopes(input, leaf, privateKey, async () => {
+      throw new Error('certificate rejected');
+    }),
+  ).rejects.toThrow('certificate rejected');
+  let verified = 0;
+  const envelopes = await prepareCertificateGatedEnvelopes(
+    input,
+    leaf,
+    privateKey,
+    (policy, der, key) => {
+      expect(policy).toEqual(expected[0]!.certificatePolicy);
+      expect(der).toEqual(leaf);
+      expect(key.equals(publicKey)).toBe(true);
+      verified++;
+    },
+  );
+  expect(verified).toBe(1);
+  expect(envelopes).toHaveLength(6);
+  for (const [index, { file, envelope }] of envelopes.entries()) {
+    expect(file).toBe(expected[index]!.file);
+    expect(envelope.payloadType).toBe('application/vnd.in-toto+json');
+    const payload = Buffer.from(envelope.payload, 'base64');
+    expect(JSON.parse(payload.toString())).toEqual(expected[index]!.statement);
+    const pae = Buffer.concat([
+      Buffer.from(`DSSEv1 28 application/vnd.in-toto+json ${payload.length} `),
+      payload,
+    ]);
+    expect(
+      verify('sha256', pae, publicKey, Buffer.from(envelope.signatures[0]!.sig, 'base64')),
+    ).toBe(true);
+  }
+});
 
 it('requires verification of the exact bundle and rejects a mismatched subject', async () => {
   const expected = prepareUnsignedStatements(prepareSigningInputs(input))[0]!;

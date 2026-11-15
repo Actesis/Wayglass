@@ -81,6 +81,13 @@ timestamp behavior, and payload format before wiring the workflow: the high-leve
 call can combine issuance and log submission, so do not assume it provides a certificate-policy gate
 before the public log write.
 
+The unwired local signing helper rechecks the six package inputs, derives the statements, and
+requires the pinned Fulcio certificate gate to accept the key and run identity before creating any
+envelopes. It implements the fixed in-toto media type and
+[DSSE pre-authentication encoding](https://github.com/dsse-lf/dsse/blob/master/protocol.md) with
+Node's built-in crypto. Its output is not a Sigstore bundle: there is no issuance, log, timestamp,
+or workflow wiring in the helper.
+
 Wayglass explicitly forwards `ctLogThreshold: 1` at the Sigstore `4.1.1` bundle boundary. The
 lower-level certificate-only verifier still uses `ctlogThreshold: 1`. Before the correction the
 bundle verifier relied on Sigstore's default of one SCT; the correction does not relax policy.
