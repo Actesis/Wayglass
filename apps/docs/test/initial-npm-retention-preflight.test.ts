@@ -16,7 +16,28 @@ describe('initial retained archive/preflight boundary', () => {
     expect(workflow).toContain('needs.reproduce.outputs.artifact-digest');
     expect(workflow).toContain('actions: read');
     expect(workflow).toContain('signing-handoff-cli.ts');
-    for (const forbidden of ['id-token:', 'secrets.', ': write', 'npm stage', 'npm publish'])
+    const [unsignedBuild, rest] = workflow.split(/^ {2}oidc-claims:\n/m);
+    expect(rest).toBeDefined();
+    const [probe, unsignedHandoff] = rest!.split(/^ {2}verify-handoff:\n/m);
+    expect(unsignedHandoff).toBeDefined();
+    expect(unsignedBuild).toContain('!inputs.oidc-claims-only');
+    for (const unsigned of [unsignedBuild, unsignedHandoff]) {
+      expect(unsigned).not.toContain('id-token:');
+      expect(unsigned).not.toMatch(/:\s*write\b/);
+    }
+    expect(workflow.match(/:\s*write\b/g)).toEqual([': write']);
+    for (const required of [
+      "github.repository == 'Actesis/Wayglass'",
+      "github.ref == 'refs/heads/main'",
+      'environment: npm-release',
+      'id-token: write',
+      'run: node tooling/release-candidate/src/oidc-claim-probe.ts',
+    ])
+      expect(probe).toContain(required);
+    expect(probe).toMatch(/&&\s+inputs\.oidc-claims-only\s/);
+    expect(workflow).toMatch(/^ {6}oidc-claims-only:\n(?:^ {8}[^\n]*\n)*?^ {8}default: false$/m);
+    expect(probe!.match(/^\s+run:/gm)).toHaveLength(1);
+    for (const forbidden of ['secrets.', 'npm stage', 'npm publish'])
       expect(workflow).not.toContain(forbidden);
   });
   it('keeps the unsigned reproduction run manual and requires exact compressed bytes', () => {

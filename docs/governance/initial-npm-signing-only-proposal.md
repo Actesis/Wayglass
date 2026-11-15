@@ -87,8 +87,10 @@ compare the GitHub-issued token's issuer, audience, repository and workflow iden
 claims, and run/attempt with the independently derived values for the protected job. Retain only
 pass/fail results by claim; never upload or print the token. A mismatch or missing claim fails
 closed. Limit `id-token: write` to that job; give it no npm credential or npm trust and no code path
-that contacts Fulcio, Rekor, or npm. The existing unsigned workflow is unchanged and does not
-request an OIDC token.
+that contacts Fulcio, Rekor, or npm. The manual workflow has a separate `oidc-claims-only` input,
+off by default. When selected, the protected `npm-release` job checks the direct GitHub HTTPS
+response and the unsigned rebuild and handoff are skipped. The default run still does not request a
+token. Do not dispatch the probe without explicit approval.
 
 A passing OIDC-only probe is necessary evidence, not a certificate test. A separate approval must
 cover any Fulcio issuance (which can create a public certificate-transparency record), and any
