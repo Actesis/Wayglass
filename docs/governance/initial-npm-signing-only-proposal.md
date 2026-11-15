@@ -88,6 +88,20 @@ envelopes. It implements the fixed in-toto media type and
 Node's built-in crypto. Its output is not a Sigstore bundle: there is no issuance, log, timestamp,
 or workflow wiring in the helper.
 
+The offline Rekor adapter targets the
+[v1 DSSE 0.0.1 schema](https://github.com/sigstore/rekor/blob/main/pkg/types/dsse/v0.0.1/dsse_v0_0_1_schema.json)
+at `https://rekor.sigstore.dev/api/v1/log/entries`. The request includes the full signed statement
+inside the DSSE envelope and one PEM leaf, not artifact bytes. The canonical body in the existing
+npm `sigstore@4.0.0` bundle contains envelope and payload hashes, a signature, and the verifier
+certificate rather than the raw statement. This is not a confidentiality promise: the service
+receives the whole statement. No fallback to an `intoto` or v2 entry is authorized.
+
+The assembled v0.3 bundle must match the exact submitted envelope and leaf, including the
+certificate in the canonicalized log body, and contain one DSSE proof with a signed checkpoint. The
+pinned verifier then authenticates the proof, entry, signature, and expected statement. The existing
+public bundle passed this check. Transport, raw receipt normalization, and workflow wiring are not
+implemented by this adapter; it cannot submit entries.
+
 Wayglass explicitly forwards `ctLogThreshold: 1` at the Sigstore `4.1.1` bundle boundary. The
 lower-level certificate-only verifier still uses `ctlogThreshold: 1`. Before the correction the
 bundle verifier relied on Sigstore's default of one SCT; the correction does not relax policy.
