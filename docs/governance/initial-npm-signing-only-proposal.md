@@ -67,6 +67,37 @@ inferred from a generic GitHub artifact attestation.
 
 ## Stop conditions
 
+### Signer claim preflight
+
+The intended job is a direct, GitHub-hosted job in the manual `initial-release-signing.yml` workflow
+on `main`, in the same run and attempt as the build. Do not move signing into a reusable workflow
+without reviewing the SAN and workflow-digest policy.
+[GitHub's OIDC reference](https://docs.github.com/en/actions/reference/security/oidc) describes the
+workflow and invocation claims, and
+[Fulcio's claim mapping](https://github.com/sigstore/fulcio/blob/main/docs/oid-info.md) maps the
+trigger commit to `.13`, the initiating workflow commit to `.19`, and the run and attempt to `.21`.
+Both digests must match the reviewed workflow invocation commit, not the separately frozen package
+source. Fulcio's [live issuer configuration](https://fulcio.sigstore.dev/api/v2/configuration)
+advertises the GitHub issuer with the `sigstore` audience. It does not attest which extensions a
+particular request will receive, and the existing public npm examples demonstrate that those
+extensions must not be assumed.
+
+The proposed next preflight is an **OIDC-only** probe, separately reviewed and authorized. It would
+compare the GitHub-issued token's issuer, audience, repository and workflow identity, both commit
+claims, and run/attempt with the independently derived values for the protected job. Retain only
+pass/fail results by claim; never upload or print the token. A mismatch or missing claim fails
+closed. Limit `id-token: write` to that job; give it no npm credential or npm trust and no code path
+that contacts Fulcio, Rekor, or npm. The existing unsigned workflow is unchanged and does not
+request an OIDC token.
+
+A passing OIDC-only probe is necessary evidence, not a certificate test. A separate approval must
+cover any Fulcio issuance (which can create a public certificate-transparency record), and any
+Sigstore signing or Rekor submission. The pinned npm CLI's automatic generator also emits only one
+resolved dependency; it cannot replace the reviewed two-material statement. Neither automatic
+provenance generation nor a signing call is appropriate as a claim-only check.
+
+### Existing verification evidence
+
 The unsigned input helper under `tooling/release-candidate/src/signing-inputs.ts` binds exact
 reviewed bytes and assembly metadata to the same declared run and attempt and prepares SHA-512
 subjects. Its tests use fictional run context. It authenticates neither runtime identity nor
