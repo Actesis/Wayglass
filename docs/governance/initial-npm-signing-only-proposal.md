@@ -139,9 +139,18 @@ reviewed two-material statement or serve as a certificate-only test.
 The offline policy preparation derives certificate expectations from the protected runner context,
 independently of a returned token or certificate. The certificate-only check can reuse the bundle
 verifier's SAN, issuer, DER extension, and CT threshold settings without inheriting its artifact-log
-requirement. This preparation does not authenticate a certificate or implement an issuance path.
-Trusted chain, SCT and ephemeral-key checks still need a wired verifier and offline fixtures before
-enabling a workflow mode.
+requirement. The unwired offline adapter compares the DER leaf with the expected public key and uses
+the pinned npm distribution's `@sigstore/core` 3.2.1 and `@sigstore/verify` 3.1.1 to check the chain
+at the supplied clock time, an embedded SCT, and the exact certificate policy. The wrapper must
+independently authenticate the npm distribution and obtain the trust root through Sigstore TUF;
+never take CA or CT keys from the issuance response. The live wrapper must use the runner clock, not
+a timestamp supplied by the certificate.
+
+An offline check used the public npm `sigstore@4.0.0` fixture's leaf at a time within its original
+validity window, with public TUF trust material and the fixture's published public key. It rejected
+a different key, an expired leaf, a different run attempt, and trust material lacking either a CA or
+a CT log key. This does not prove possession of the fixture's private key or authorize Wayglass
+issuance.
 
 ### Existing verification evidence
 
