@@ -3,12 +3,30 @@ const ref = 'refs/heads/main';
 const workflow = `${repository}/.github/workflows/initial-release-signing.yml@${ref}`;
 const audience = 'sigstore';
 
-export function claimResults(token: string, env: NodeJS.ProcessEnv) {
+function invocationContext(env: NodeJS.ProcessEnv) {
   const commit = env.GITHUB_SHA ?? '';
   const run = env.GITHUB_RUN_ID ?? '';
   const attempt = env.GITHUB_RUN_ATTEMPT ?? '';
   if (!/^[a-f0-9]{40}$/.test(commit) || !/^[1-9]\d*$/.test(run) || !/^[1-9]\d*$/.test(attempt))
     throw new Error('Invalid expected workflow context.');
+  return { commit, run, attempt };
+}
+
+/** Derive certificate expectations from the runner, never from the token or certificate. */
+export function expectedProbeCertificate(env: NodeJS.ProcessEnv) {
+  assertRunnerContext(env);
+  const { commit, run, attempt } = invocationContext(env);
+  if (env.GITHUB_WORKFLOW_SHA !== commit) throw new Error('Unexpected workflow commit.');
+  return {
+    issuer: 'https://token.actions.githubusercontent.com',
+    identity: `https://github.com/${workflow}`,
+    commit,
+    invocationId: `https://github.com/${repository}/actions/runs/${run}/attempts/${attempt}`,
+  };
+}
+
+export function claimResults(token: string, env: NodeJS.ProcessEnv) {
+  const { commit, run, attempt } = invocationContext(env);
 
   if (token.length > 32768 || !/^[\w-]+\.[\w-]+\.[\w-]+$/.test(token))
     throw new Error('Invalid token format.');

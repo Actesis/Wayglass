@@ -38,8 +38,12 @@ export function loadPinnedBundleVerifier(npmRoot: string) {
   return (expected: Expected, bytes: Uint8Array) => verifySigningBundle(expected, bytes, verify);
 }
 
-export function signingVerificationOptions(expected: Expected) {
-  const { issuer, identity, commit, invocationId } = expected.certificatePolicy;
+export function fulcioCertificateVerificationOptions({
+  issuer,
+  identity,
+  commit,
+  invocationId,
+}: Expected['certificatePolicy']) {
   const escaped = identity.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   return {
     certificateIssuer: issuer,
@@ -49,8 +53,14 @@ export function signingVerificationOptions(expected: Expected) {
       '1.3.6.1.4.1.57264.1.19': fulcioUtf8String(commit),
       '1.3.6.1.4.1.57264.1.21': fulcioUtf8String(invocationId),
     },
-    tlogThreshold: 1,
     ctlogThreshold: 1,
+  };
+}
+
+export function signingVerificationOptions(expected: Expected) {
+  return {
+    ...fulcioCertificateVerificationOptions(expected.certificatePolicy),
+    tlogThreshold: 1,
     retry: 0,
     timeout: 10_000,
   };
