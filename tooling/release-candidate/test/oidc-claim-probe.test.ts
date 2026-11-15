@@ -1,0 +1,68 @@
+import { describe, expect, it } from 'vitest';
+
+import { claimResults, requestUrl } from '../src/oidc-claim-probe.ts';
+
+const commit = 'a'.repeat(40);
+const env = { GITHUB_SHA: commit, GITHUB_RUN_ID: '99', GITHUB_RUN_ATTEMPT: '1' };
+const workflow = 'Actesis/Wayglass/.github/workflows/initial-release-signing.yml@refs/heads/main';
+const claims = {
+  iss: 'https://token.actions.githubusercontent.com',
+  aud: 'sigstore',
+  server_url: 'https://github.com',
+  repository: 'Actesis/Wayglass',
+  repository_id: '1314007333',
+  repository_owner_id: '27646205',
+  ref: 'refs/heads/main',
+  event_name: 'workflow_dispatch',
+  runner_environment: 'github-hosted',
+  environment: 'npm-release',
+  workflow_ref: workflow,
+  job_workflow_ref: workflow,
+  sha: commit,
+  workflow_sha: commit,
+  run_id: '99',
+  run_attempt: '1',
+};
+const token = (value: unknown) =>
+  `header.${Buffer.from(JSON.stringify(value)).toString('base64url')}.signature`;
+
+describe('OIDC claim probe', () => {
+  it('reports only names and matches for the fixed claim set', () => {
+    expect(claimResults(token({ ...claims, extra: 'not printed' }), env)).toEqual(
+      Object.keys(claims).map((name) => ({ name, matches: true })),
+    );
+  });
+
+  it.each([
+    ['run_attempt', '2'],
+    ['workflow_sha', 'b'.repeat(40)],
+    ['job_workflow_ref', undefined],
+    ['aud', ['sigstore', 'other']],
+  ])('rejects an absent or different %s', (name, value) => {
+    const results = claimResults(token({ ...claims, [name]: value }), env);
+    expect(results.filter(({ matches }) => !matches)).toEqual([{ name, matches: false }]);
+  });
+
+  it('rejects malformed input and missing expected context', () => {
+    expect(() => claimResults('not a token', env)).toThrow();
+    expect(() => claimResults(token([]), env)).toThrow();
+    expect(() => claimResults(token(claims), { ...env, GITHUB_RUN_ID: '' })).toThrow();
+  });
+
+  it('sets a single Sigstore audience on the GitHub HTTPS endpoint', () => {
+    const url = requestUrl(
+      'https://pipelines.actions.githubusercontent.com/token?audience=old&x=1',
+    );
+    expect(url.searchParams.getAll('audience')).toEqual(['sigstore']);
+    expect(url.searchParams.get('x')).toBe('1');
+  });
+
+  it.each([
+    'http://pipelines.actions.githubusercontent.com/token',
+    'https://fakeactions.githubusercontent.com/token',
+    'https://pipelines.actions.githubusercontent.com.example.com/token',
+    'https://user@pipelines.actions.githubusercontent.com/token',
+  ])('rejects a credential destination outside the approved HTTPS endpoint: %s', (url) => {
+    expect(() => requestUrl(url)).toThrow();
+  });
+});

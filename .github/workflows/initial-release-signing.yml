@@ -2,6 +2,11 @@ name: Initial release signing handoff (unsigned)
 
 on:
   workflow_dispatch:
+    inputs:
+      oidc-claims-only:
+        description: Check GitHub OIDC claims only (requires separate approval; does not sign)
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -12,7 +17,9 @@ concurrency:
 
 jobs:
   reproduce:
-    if: github.repository == 'Actesis/Wayglass' && github.ref == 'refs/heads/main'
+    if:
+      github.repository == 'Actesis/Wayglass' && github.ref == 'refs/heads/main' &&
+      !inputs.oidc-claims-only
     environment: npm-release
     runs-on: ubuntu-24.04
     timeout-minutes: 60
@@ -82,6 +89,26 @@ jobs:
             ${{ env.REVIEW_PATH }}/assembly/packages/*.tgz
           if-no-files-found: error
           retention-days: 7
+  oidc-claims:
+    if:
+      github.repository == 'Actesis/Wayglass' && github.ref == 'refs/heads/main' &&
+      inputs.oidc-claims-only
+    environment: npm-release
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '26.8.1'
+          package-manager-cache: false
+      - name: Check GitHub-issued claims
+        run: node tooling/release-candidate/src/oidc-claim-probe.ts
   verify-handoff:
     needs: reproduce
     if: github.repository == 'Actesis/Wayglass' && github.ref == 'refs/heads/main'
