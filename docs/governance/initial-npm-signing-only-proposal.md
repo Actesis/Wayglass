@@ -99,11 +99,42 @@ assertions, including workflow identity, both commits, and the run and attempt. 
 The probe now requires `GITHUB_SERVER_URL=https://github.com` in the runner before requesting a
 token. This correction does not change the certificate policy or authorize a second run.
 
-A passing OIDC-only probe is necessary evidence, not a certificate test. A separate approval must
-cover any Fulcio issuance (which can create a public certificate-transparency record), and any
-Sigstore signing or Rekor submission. The pinned npm CLI's automatic generator also emits only one
-resolved dependency; it cannot replace the reviewed two-material statement. Neither automatic
-provenance generation nor a signing call is appropriate as a claim-only check.
+[The second OIDC-only probe](https://github.com/Actesis/Wayglass/actions/runs/43728109425), GitHub
+run attempt 1 at `ab7d092ece20d8688765af0e4c5f4ca9e90444d5`, passed all 15 claims after the runner
+context check. Both unsigned jobs were skipped. This proves what the GitHub job received, not what
+Fulcio will put into a certificate. Do not reuse the probe token or treat this run as a release
+build.
+
+### Proposed Fulcio certificate-only test
+
+Review a separate, default-off mode in the same manual workflow. Restrict it to the protected
+`npm-release` environment on `main`, with job-scoped OIDC permission. It must be mutually exclusive
+with the claims-only and unsigned build modes. No certificate request is permitted until the exact
+workflow revision and one issuance attempt are explicitly authorized.
+
+1. Repeat the live OIDC checks for the new run and attempt before contacting Fulcio. Generate an
+   ephemeral key in the job and use it only for
+   [Fulcio's proof-of-possession challenge](https://github.com/sigstore/fulcio/blob/main/docs/how-certificate-issuing-works.md).
+   Make one issuance request to public Fulcio, with no retry or redirect. Never log or persist the
+   token or private key.
+2. Check that the returned leaf matches the ephemeral public key, chains to an independently trusted
+   Fulcio root, is currently valid, and has valid certificate-transparency evidence. Check the exact
+   workflow SAN, GitHub issuer, both required commit extensions and the invocation URI for this run
+   and attempt using the same DER expectations as the bundle verifier. Fail on a missing or
+   mismatched claim. Retain only the run reference and pass/fail results.
+3. Do not build, read, or sign release artifacts, construct DSSE provenance, submit to Rekor, or
+   contact npm. A pass would qualify certificate claim availability only, not release provenance or
+   npm compatibility. An ambiguous request outcome is not permission to retry.
+
+**Public effect:**
+[Fulcio's certificate-transparency log](https://github.com/sigstore/fulcio/blob/main/docs/ctlog.md)
+can retain an immutable public record of the test certificate, including the GitHub workflow
+identity and any commit or run metadata Fulcio embeds. This is distinct from an artifact entry in
+Rekor. Approval must explicitly cover the certificate record; a later signing run, Rekor submission,
+and npm execution remain separate decisions.
+
+The pinned npm CLI's automatic generator emits only one resolved dependency; it cannot replace the
+reviewed two-material statement or serve as a certificate-only test.
 
 ### Existing verification evidence
 
