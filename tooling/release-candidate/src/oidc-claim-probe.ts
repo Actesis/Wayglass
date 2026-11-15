@@ -84,22 +84,26 @@ export function assertRunnerContext(env: NodeJS.ProcessEnv) {
     throw new Error('Unexpected execution context.');
 }
 
+export async function requestProbeToken(env: NodeJS.ProcessEnv) {
+  assertRunnerContext(env);
+  const requestToken = env.ACTIONS_ID_TOKEN_REQUEST_TOKEN;
+  if (!requestToken) throw new Error('Missing GitHub request credential.');
+  const response = await fetch(requestUrl(env.ACTIONS_ID_TOKEN_REQUEST_URL ?? ''), {
+    headers: { Authorization: `Bearer ${requestToken}` },
+    redirect: 'error',
+    signal: AbortSignal.timeout(10_000),
+  });
+  if (!response.ok) throw new Error('GitHub token request failed.');
+  const body: unknown = await response.json();
+  if (typeof body !== 'object' || !body || !('value' in body) || typeof body.value !== 'string')
+    throw new Error('Invalid GitHub response.');
+  return body.value;
+}
+
 async function main(env: NodeJS.ProcessEnv) {
   try {
-    assertRunnerContext(env);
-    const requestToken = env.ACTIONS_ID_TOKEN_REQUEST_TOKEN;
-    if (!requestToken) throw new Error('Missing GitHub request credential.');
-    const response = await fetch(requestUrl(env.ACTIONS_ID_TOKEN_REQUEST_URL ?? ''), {
-      headers: { Authorization: `Bearer ${requestToken}` },
-      redirect: 'error',
-      signal: AbortSignal.timeout(10_000),
-    });
-    if (!response.ok) throw new Error('GitHub token request failed.');
-    const body: unknown = await response.json();
-    if (typeof body !== 'object' || !body || !('value' in body) || typeof body.value !== 'string')
-      throw new Error('Invalid GitHub response.');
     // Observe GitHub's direct TLS response only, not arbitrary JWTs as authentication evidence.
-    const results = claimResults(body.value, env);
+    const results = claimResults(await requestProbeToken(env), env);
     for (const { name, matches } of results) console.log(`${name}: ${matches ? 'PASS' : 'FAIL'}`);
     if (results.some(({ matches }) => !matches)) process.exitCode = 1;
   } catch {

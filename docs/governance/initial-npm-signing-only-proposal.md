@@ -107,10 +107,16 @@ build.
 
 ### Proposed Fulcio certificate-only test
 
-Review a separate, default-off mode in the same manual workflow. Restrict it to the protected
-`npm-release` environment on `main`, with job-scoped OIDC permission. It must be mutually exclusive
-with the claims-only and unsigned build modes. No certificate request is permitted until the exact
-workflow revision and one issuance attempt are explicitly authorized.
+The separate `certificate-probe-commit` dispatch input defaults to empty. The protected job requires
+the input to equal the exact `main` commit and rejects GitHub reruns. It verifies the official Linux
+Node distribution archive against a reviewed SHA-256 before using its bundled npm libraries; it does
+not run npm. Trust metadata is fetched via pinned Sigstore TUF in an empty temporary cache before
+requesting the OIDC token.
+
+The default-off mode is restricted to the protected `npm-release` environment on `main`, with
+job-scoped OIDC permission. It must be mutually exclusive with the claims-only and unsigned build
+modes. No certificate request is permitted until the exact workflow revision and one issuance
+attempt are explicitly authorized.
 
 1. Repeat the live OIDC checks for the new run and attempt before contacting Fulcio. Generate an
    ephemeral key in the job and use it only for

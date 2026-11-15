@@ -7,6 +7,10 @@ on:
         description: Check GitHub OIDC claims only (requires separate approval; does not sign)
         type: boolean
         default: false
+      certificate-probe-commit:
+        description: Exact main commit for one approved Fulcio issuance (empty disables)
+        type: string
+        default: ''
 
 permissions:
   contents: read
@@ -19,7 +23,7 @@ jobs:
   reproduce:
     if:
       github.repository == 'Actesis/Wayglass' && github.ref == 'refs/heads/main' &&
-      !inputs.oidc-claims-only
+      !inputs.oidc-claims-only && inputs.certificate-probe-commit == ''
     environment: npm-release
     runs-on: ubuntu-24.04
     timeout-minutes: 60
@@ -92,7 +96,7 @@ jobs:
   oidc-claims:
     if:
       github.repository == 'Actesis/Wayglass' && github.ref == 'refs/heads/main' &&
-      inputs.oidc-claims-only
+      inputs.oidc-claims-only && inputs.certificate-probe-commit == ''
     environment: npm-release
     runs-on: ubuntu-24.04
     timeout-minutes: 5
@@ -109,6 +113,35 @@ jobs:
           package-manager-cache: false
       - name: Check GitHub-issued claims
         run: node tooling/release-candidate/src/oidc-claim-probe.ts
+  fulcio-certificate:
+    if:
+      github.repository == 'Actesis/Wayglass' && github.ref == 'refs/heads/main' &&
+      !inputs.oidc-claims-only && inputs.certificate-probe-commit == github.sha &&
+      github.run_attempt == 1
+    environment: npm-release
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Verify runtime distribution and check Fulcio certificate
+        env:
+          CERTIFICATE_PROBE_COMMIT: ${{ inputs.certificate-probe-commit }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          probe_root=$(mktemp -d)
+          archive=node-v26.8.1-linux-x64.tar.xz
+          cd "$probe_root"
+          curl --disable --fail --silent --show-error --max-time 45 --proto '=https' --output "$archive" "https://nodejs.org/dist/v26.8.1/$archive"
+          echo "3e301118d7df53d563b7e96c1617545f26e2f76f9724be668d6cab65c15dda5d  $archive" | sha256sum --check
+          tar -xJf "$archive"
+          runtime="$probe_root/node-v26.8.1-linux-x64"
+          "$runtime/bin/node" "$GITHUB_WORKSPACE/tooling/release-candidate/src/fulcio-certificate-probe.ts" "$runtime/lib/node_modules/npm"
   verify-handoff:
     needs: reproduce
     if: github.repository == 'Actesis/Wayglass' && github.ref == 'refs/heads/main'
