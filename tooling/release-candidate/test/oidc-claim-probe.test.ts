@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest';
 
-import { assertRunnerContext, claimResults, requestUrl } from '../src/oidc-claim-probe.ts';
+import {
+  assertRunnerContext,
+  claimResults,
+  expectedProbeCertificate,
+  requestUrl,
+} from '../src/oidc-claim-probe.ts';
+import { fulcioCertificateVerificationOptions } from '../src/signing-bundle-verifier.ts';
 
 const commit = 'a'.repeat(40);
 const env = { GITHUB_SHA: commit, GITHUB_RUN_ID: '99', GITHUB_RUN_ATTEMPT: '1' };
@@ -42,6 +48,23 @@ describe('OIDC claim probe', () => {
         'Unexpected execution context.',
       );
     expect(claimResults(token(claims), env).every(({ matches }) => matches)).toBe(true);
+    const invocation = { ...context, ...env, GITHUB_WORKFLOW_SHA: commit, GITHUB_RUN_ATTEMPT: '2' };
+    const expected = expectedProbeCertificate(invocation);
+    expect(expected).toEqual({
+      issuer: claims.iss,
+      identity: `https://github.com/${workflow}`,
+      commit,
+      invocationId: 'https://github.com/Actesis/Wayglass/actions/runs/99/attempts/2',
+    });
+    const options = fulcioCertificateVerificationOptions(expected);
+    expect(options.ctlogThreshold).toBe(1);
+    expect(options.certificateOIDs['1.3.6.1.4.1.57264.1.21'].subarray(2).toString()).toBe(
+      expected.invocationId,
+    );
+    expect(() => expectedProbeCertificate({ ...invocation, GITHUB_RUN_ATTEMPT: '0' })).toThrow();
+    expect(() =>
+      expectedProbeCertificate({ ...invocation, GITHUB_WORKFLOW_SHA: 'b'.repeat(40) }),
+    ).toThrow('Unexpected workflow commit.');
   });
 
   it('reports only names and matches for the fixed claim set', () => {

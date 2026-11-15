@@ -136,6 +136,13 @@ and npm execution remain separate decisions.
 The pinned npm CLI's automatic generator emits only one resolved dependency; it cannot replace the
 reviewed two-material statement or serve as a certificate-only test.
 
+The offline policy preparation derives certificate expectations from the protected runner context,
+independently of a returned token or certificate. The certificate-only check can reuse the bundle
+verifier's SAN, issuer, DER extension, and CT threshold settings without inheriting its artifact-log
+requirement. This preparation does not authenticate a certificate or implement an issuance path.
+Trusted chain, SCT and ephemeral-key checks still need a wired verifier and offline fixtures before
+enabling a workflow mode.
+
 ### Existing verification evidence
 
 The unsigned input helper under `tooling/release-candidate/src/signing-inputs.ts` binds exact
