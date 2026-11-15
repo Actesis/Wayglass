@@ -18,7 +18,6 @@ export function claimResults(token: string, env: NodeJS.ProcessEnv) {
   const expected = {
     iss: 'https://token.actions.githubusercontent.com',
     aud: audience,
-    server_url: 'https://github.com',
     repository,
     repository_id: '1314007333',
     repository_owner_id: '27646205',
@@ -54,20 +53,26 @@ export function requestUrl(raw: string) {
   return url;
 }
 
+export function assertRunnerContext(env: NodeJS.ProcessEnv) {
+  if (
+    env.GITHUB_ACTIONS !== 'true' ||
+    env.GITHUB_SERVER_URL !== 'https://github.com' ||
+    env.GITHUB_REPOSITORY !== repository ||
+    env.GITHUB_REF !== ref ||
+    env.GITHUB_WORKFLOW_REF !== workflow ||
+    env.GITHUB_EVENT_NAME !== 'workflow_dispatch' ||
+    env.RUNNER_ENVIRONMENT !== 'github-hosted'
+  )
+    throw new Error('Unexpected execution context.');
+}
+
 async function main(env: NodeJS.ProcessEnv) {
   try {
-    if (
-      env.GITHUB_ACTIONS !== 'true' ||
-      env.GITHUB_REPOSITORY !== repository ||
-      env.GITHUB_REF !== ref ||
-      env.GITHUB_WORKFLOW_REF !== workflow ||
-      env.GITHUB_EVENT_NAME !== 'workflow_dispatch' ||
-      env.RUNNER_ENVIRONMENT !== 'github-hosted' ||
-      !env.ACTIONS_ID_TOKEN_REQUEST_TOKEN
-    )
-      throw new Error('Unexpected execution context.');
+    assertRunnerContext(env);
+    const requestToken = env.ACTIONS_ID_TOKEN_REQUEST_TOKEN;
+    if (!requestToken) throw new Error('Missing GitHub request credential.');
     const response = await fetch(requestUrl(env.ACTIONS_ID_TOKEN_REQUEST_URL ?? ''), {
-      headers: { Authorization: `Bearer ${env.ACTIONS_ID_TOKEN_REQUEST_TOKEN}` },
+      headers: { Authorization: `Bearer ${requestToken}` },
       redirect: 'error',
       signal: AbortSignal.timeout(10_000),
     });
