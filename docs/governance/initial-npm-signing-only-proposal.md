@@ -110,6 +110,13 @@ required. An existing public receipt read by GET normalized into a bundle that p
 verifier. POST behavior was exercised only with mocks. No workflow can invoke this transport yet,
 and any failure after POST begins requires reconciliation, not retry.
 
+The unwired batch adapter composes the certificate gate with that transport. It prepares all six
+envelopes before any POST, then submits and verifies them in order. It reports only the package
+filename and attempt outcome, stops on the first unverified response, and returns the six bundles
+and their SHA-256 digests only after full success. This avoids a partial bundle handoff, but cannot
+undo entries accepted by Rekor. The workflow still needs to reauthenticate the same-run artifact,
+gate live issuance and submission, and retain the verified output for independent readback.
+
 Wayglass explicitly forwards `ctLogThreshold: 1` at the Sigstore `4.1.1` bundle boundary. The
 lower-level certificate-only verifier still uses `ctlogThreshold: 1`. Before the correction the
 bundle verifier relied on Sigstore's default of one SCT; the correction does not relax policy.
