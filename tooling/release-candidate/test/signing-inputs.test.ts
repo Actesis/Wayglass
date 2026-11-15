@@ -8,6 +8,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { candidateDirectories } from '../src/constants.ts';
 import { prepareCertificateGatedEnvelopes } from '../src/certificate-gated-dsse.ts';
 import { retainedPublicationArchive } from '../src/publication-preflight.ts';
+import { assertSigningDispatch } from '../src/release-signing-cli.ts';
 import { prepareSigningInputs } from '../src/signing-inputs.ts';
 import { signAndVerifyReleaseBatch } from '../src/signing-batch.ts';
 import { signingVerificationOptions, verifySigningBundle } from '../src/signing-bundle-verifier.ts';
@@ -42,6 +43,16 @@ const environment = {
   GITHUB_RUN_ATTEMPT: '1',
 };
 const input = { archives, evidence, environment, buildRun: { id: '99', attempt: '1' } };
+
+it('requires the exact signing revision, fresh attempt and no release credentials', () => {
+  const env = { ...environment, SIGNING_COMMIT: environment.GITHUB_SHA };
+  expect(assertSigningDispatch(env).commit).toBe(environment.GITHUB_SHA);
+  expect(() => assertSigningDispatch({ ...env, SIGNING_COMMIT: '' })).toThrow();
+  expect(() => assertSigningDispatch({ ...env, GITHUB_RUN_ATTEMPT: '2' })).toThrow();
+  expect(() => assertSigningDispatch({ ...env, NODE_AUTH_TOKEN: 'synthetic' })).toThrow(
+    /WG_RC_CREDENTIAL_EXPOSURE/,
+  );
+});
 
 function batchFixture() {
   const leaf = new X509Certificate(getCACertificates('bundled')[0]!).raw;

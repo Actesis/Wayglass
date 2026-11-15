@@ -20,14 +20,16 @@ describe('initial retained archive/preflight boundary', () => {
     expect(rest).toBeDefined();
     const [probe, certificateAndHandoff] = rest!.split(/^ {2}fulcio-certificate:\n/m);
     expect(certificateAndHandoff).toBeDefined();
-    const [certificate, unsignedHandoff] = certificateAndHandoff!.split(/^ {2}verify-handoff:\n/m);
+    const [certificate, handoffAndSigning] =
+      certificateAndHandoff!.split(/^ {2}verify-handoff:\n/m);
+    const [unsignedHandoff, signing] = handoffAndSigning!.split(/^ {2}sign-release:\n/m);
     expect(unsignedHandoff).toBeDefined();
     expect(unsignedBuild).toContain('!inputs.oidc-claims-only');
     for (const unsigned of [unsignedBuild, unsignedHandoff]) {
       expect(unsigned).not.toContain('id-token:');
       expect(unsigned).not.toMatch(/:\s*write\b/);
     }
-    expect(workflow.match(/:\s*write\b/g)).toEqual([': write', ': write']);
+    expect(workflow.match(/:\s*write\b/g)).toEqual([': write', ': write', ': write']);
     for (const required of [
       "github.repository == 'Actesis/Wayglass'",
       "github.ref == 'refs/heads/main'",
@@ -54,6 +56,23 @@ describe('initial retained archive/preflight boundary', () => {
     ])
       expect(certificate).toContain(required);
     expect(certificate).not.toContain('upload-artifact');
+    expect(probe).toMatch(/inputs\.signing-commit\s+==\s+''/);
+    expect(certificate).toMatch(/inputs\.signing-commit\s+==\s+''/);
+    expect(workflow).toMatch(/^ {6}signing-commit:\n(?:^ {8}[^\n]*\n)*?^ {8}default: ''$/m);
+    for (const required of [
+      'needs: [reproduce, verify-handoff]',
+      "github.ref == 'refs/heads/main'",
+      'inputs.signing-commit == github.sha',
+      'github.run_attempt == 1',
+      'environment: npm-release',
+      'id-token: write',
+      'needs.reproduce.outputs.artifact-id',
+      'needs.reproduce.outputs.artifact-digest',
+      'sha256sum --check',
+      'release-signing-cli.ts',
+      'verified-provenance-',
+    ])
+      expect(signing?.replace(/\s+/g, ' ')).toContain(required);
     for (const forbidden of ['secrets.', 'npm stage', 'npm publish'])
       expect(workflow).not.toContain(forbidden);
   });

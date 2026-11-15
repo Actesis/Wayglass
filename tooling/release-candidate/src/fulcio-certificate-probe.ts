@@ -14,7 +14,11 @@ export function assertCertificateDispatch(env: NodeJS.ProcessEnv) {
   return expected;
 }
 
-export async function issueProbeLeaf(token: string, transport: typeof fetch = fetch) {
+export async function issueProbeLeaf(
+  token: string,
+  transport: typeof fetch = fetch,
+  keys = generateKeyPairSync('ec', { namedCurve: 'P-256' }),
+) {
   const payload: unknown = JSON.parse(Buffer.from(token.split('.')[1]!, 'base64url').toString());
   if (
     typeof payload !== 'object' ||
@@ -25,8 +29,8 @@ export async function issueProbeLeaf(token: string, transport: typeof fetch = fe
     payload.sub.length > 4096
   )
     throw new Error('Expected a GitHub subject for proof of possession.');
-  const { publicKey, privateKey } = generateKeyPairSync('ec', { namedCurve: 'P-256' });
-  // The key signs only Fulcio's identity challenge, never an artifact or statement.
+  const { publicKey, privateKey } = keys;
+  // This request signs only Fulcio's identity challenge.
   const proof = sign('sha256', Buffer.from(payload.sub), privateKey);
   const response = await transport('https://fulcio.sigstore.dev/api/v2/signingCert', {
     method: 'POST',
@@ -58,9 +62,7 @@ export async function issueProbeLeaf(token: string, transport: typeof fetch = fe
   return { certificate: new X509Certificate(leaf).raw, publicKey };
 }
 
-async function main(env: NodeJS.ProcessEnv) {
-  const expected = assertCertificateDispatch(env);
-  const npmRoot = process.argv[2] ?? '';
+export async function loadProbeCertificateVerifier(npmRoot: string) {
   if (!isAbsolute(npmRoot)) throw new Error('Expected the verified npm distribution.');
   const require = createRequire(resolve(npmRoot, 'package.json'));
   if (require(resolve(npmRoot, 'package.json')).version !== '11.19.0')
@@ -78,18 +80,23 @@ async function main(env: NodeJS.ProcessEnv) {
   const cachePath = await mkdtemp(join(tmpdir(), 'wayglass-fulcio-tuf-'));
   try {
     const trustedRoot = await getTrustedRoot({ cachePath, retry: 0, timeout: 10_000 });
-    const verify = loadPinnedCertificateVerifier(npmRoot, trustedRoot);
-    const token = await requestProbeToken(env);
-    if (claimResults(token, env).some(({ matches }) => !matches))
-      throw new Error('GitHub claim verification failed.');
-    console.log('OIDC claim policy: PASS');
-    console.log('Fulcio request: STARTED');
-    const { certificate, publicKey } = await issueProbeLeaf(token);
-    verify(expected, certificate, publicKey);
-    console.log('Fulcio key, chain, SCT and certificate policy: PASS');
+    return loadPinnedCertificateVerifier(npmRoot, trustedRoot);
   } finally {
     await rm(cachePath, { recursive: true, force: true });
   }
+}
+
+async function main(env: NodeJS.ProcessEnv) {
+  const expected = assertCertificateDispatch(env);
+  const verify = await loadProbeCertificateVerifier(process.argv[2] ?? '');
+  const token = await requestProbeToken(env);
+  if (claimResults(token, env).some(({ matches }) => !matches))
+    throw new Error('GitHub claim verification failed.');
+  console.log('OIDC claim policy: PASS');
+  console.log('Fulcio request: STARTED');
+  const { certificate, publicKey } = await issueProbeLeaf(token);
+  verify(expected, certificate, publicKey);
+  console.log('Fulcio key, chain, SCT and certificate policy: PASS');
 }
 
 if (import.meta.main) {

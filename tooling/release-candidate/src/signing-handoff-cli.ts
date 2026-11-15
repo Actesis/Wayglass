@@ -23,21 +23,21 @@ export function readSigningArtifactEntries(read: (entry?: string) => Buffer) {
   };
 }
 
-function main() {
-  const [id, sha256, output] = process.argv.slice(2);
-  const { GH_TOKEN, ...environment } = process.env;
+export function readCurrentSigningHandoff(
+  id: string | undefined,
+  sha256: string | undefined,
+  GH_TOKEN: string | undefined,
+  environment: NodeJS.ProcessEnv,
+) {
   if (
-    process.argv.length !== 5 ||
     !GH_TOKEN ||
     !id ||
     !/^[1-9][0-9]*$/.test(id) ||
     !Number.isSafeInteger(Number(id)) ||
     !sha256 ||
     !/^[a-f0-9]{64}$/.test(sha256) ||
-    !output ||
     environment.GITHUB_REPOSITORY !== 'Actesis/Wayglass' ||
-    environment.GITHUB_REF !== 'refs/heads/main' ||
-    environment.ACTIONS_ID_TOKEN_REQUEST_TOKEN !== undefined
+    environment.GITHUB_REF !== 'refs/heads/main'
   )
     throw new Error('Invalid unsigned handoff context.');
   const bounds: ExecFileSyncOptionsWithBufferEncoding = {
@@ -49,7 +49,7 @@ function main() {
   const gh = (path: string) =>
     execFileSync('gh', ['api', '--hostname', 'github.com', path], {
       ...bounds,
-      env: { PATH: process.env.PATH, GH_TOKEN, GH_PROMPT_DISABLED: '1' },
+      env: { PATH: environment.PATH, GH_TOKEN, GH_PROMPT_DISABLED: '1' },
     });
   const metadata: unknown = JSON.parse(gh(endpoint).toString('utf8'));
   const buildRun = {
@@ -77,11 +77,23 @@ function main() {
         env: { PATH: process.env.PATH },
       }),
     );
-    const result = prepareSigningInputs({ ...entries, environment, buildRun });
-    writeFileSync(output, `${JSON.stringify(result, null, 2)}\n`, { flag: 'wx', mode: 0o600 });
+    return { ...entries, environment, buildRun };
   } finally {
     rmSync(temporary, { recursive: true, force: true });
   }
+}
+
+function main() {
+  const [id, sha256, output] = process.argv.slice(2);
+  const { GH_TOKEN, ...environment } = process.env;
+  if (
+    process.argv.length !== 5 ||
+    !output ||
+    environment.ACTIONS_ID_TOKEN_REQUEST_TOKEN !== undefined
+  )
+    throw new Error('Invalid unsigned handoff context.');
+  const result = prepareSigningInputs(readCurrentSigningHandoff(id, sha256, GH_TOKEN, environment));
+  writeFileSync(output, `${JSON.stringify(result, null, 2)}\n`, { flag: 'wx', mode: 0o600 });
 }
 
 if (process.argv[1] && pathToFileURL(process.argv[1]).href === import.meta.url) {
