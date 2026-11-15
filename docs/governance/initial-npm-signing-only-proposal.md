@@ -36,10 +36,11 @@ boundary; it is not reusable as the build invocation for a later signing run.
 
 ### Implementation plan
 
-The manual `initial-release-signing.yml` workflow currently exercises only the unsigned handoff. It
-compares the rebuilt bytes, passes the immutable artifact ID and digest between jobs, verifies
-GitHub metadata and ZIP bytes, and streams the seven expected entries without extracting archive
-paths. It has no signing job, OIDC permission, or npm credentials.
+The manual `initial-release-signing.yml` workflow supports the unsigned handoff and two isolated,
+opt-in probes. The unsigned jobs compare the rebuilt bytes, pass the immutable artifact ID and
+digest between jobs, verify GitHub metadata and ZIP bytes, and stream the seven expected entries
+without extracting archive paths. Only the probe jobs currently have OIDC permission. There is no
+artifact-signing job or npm write credential.
 
 1. Separately authorize an exact-source reproducibility run with the recorded Linux assembly
    toolchain. Compare all six compressed tarballs byte-for-byte against the retained set. Stop on
@@ -64,6 +65,39 @@ hosted build requirement and public transparency ledger. The
 checks the supplied bundle and subject; that alone does not replace independent signer-policy
 verification. Compatibility of the eventual signer and approved predicate must be demonstrated, not
 inferred from a generic GitHub artifact attestation.
+
+### Signing-run review boundary
+
+The proposed mode is off by default and mutually exclusive with both probe modes. Bind dispatch to
+one exact reviewed `main` SHA and GitHub attempt 1, with separate owner approval of the signing job
+after the successful current-run build and verified handoff. The signing job must revalidate the
+artifact ID, ZIP digest and contents; the prior unsigned run and the certificate probe are not
+inputs to the signing job.
+
+Before any outbound signing request, derive and validate all six statements and recheck the live
+OIDC identity. Require a signer that can expose its Fulcio certificate for verification before
+submitting artifact signatures. Review the exact bundled signer, Rekor endpoint and entry type,
+timestamp behavior, and payload format before wiring the workflow: the high-level Sigstore `attest`
+call can combine issuance and log submission, so do not assume it provides a certificate-policy gate
+before the public log write.
+
+The inspected Sigstore `4.1.1` wrapper reads `ctLogThreshold`, while Wayglass currently supplies
+`ctlogThreshold` at that boundary. The underlying verifier defaults to one SCT, so the spelling
+mismatch is not evidence that SCT checks were skipped. Correct the wrapper option and test its
+forwarding before relying on the signing workflow.
+
+Authorize at most one submission per reviewed package. The review must disclose the workflow,
+commit, run/attempt, package name and version, artifact and statement digests, certificate and
+signature metadata, and whether the selected entry type stores the statement itself. Do not submit
+tarball bytes, tokens, or private keys. Any error, timeout, duplicate, or unverified response stops
+remaining submissions; earlier public log entries cannot be undone. Record the known outcome per
+package and reconcile ambiguous writes before considering a new authorization. No automatic retry or
+GitHub rerun.
+
+Before releasing any bundle for owner review, independently verify its signature, certificate
+claims, inclusion proof and exact statement. Require all six verified bundles and a digest manifest
+for the handoff; a partial set is not stageable. Verify compatibility with the pinned npm provenance
+reader locally. This is neither a staging nor publishing approval.
 
 ## Stop conditions
 
@@ -105,7 +139,14 @@ context check. Both unsigned jobs were skipped. This proves what the GitHub job 
 Fulcio will put into a certificate. Do not reuse the probe token or treat this run as a release
 build.
 
-### Proposed Fulcio certificate-only test
+### Fulcio certificate-only evidence
+
+[The certificate-only probe](https://github.com/Actesis/Wayglass/actions/runs/43729683163) passed on
+GitHub attempt 1 at `9a91b1f7b8a8c07115b6f96d37b7c49c94301073`. The job passed the OIDC policy,
+requested one certificate, and passed ephemeral-key, chain, SCT and exact claim verification.
+Rebuild, handoff, and the standalone OIDC job were skipped. No release artifact, Rekor entry, or npm
+operation was part of the run. The result confirms claim availability for that invocation, not
+approval or proof for a future signing run.
 
 The separate `certificate-probe-commit` dispatch input defaults to empty. The protected job requires
 the input to equal the exact `main` commit and rejects GitHub reruns. It verifies the official Linux
