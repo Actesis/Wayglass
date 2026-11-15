@@ -1,7 +1,7 @@
 # Signing-only release proposal
 
-Status: signing remains a design only. The separate unsigned reproducibility workflow is implemented
-for review. No signing or registry write is authorized.
+Status: a default-off signing mode is implemented for review. No live signing, log submission,
+staging, or registry write is authorized.
 
 The manual `initial-release-reproduction.yml` check uses the pinned toolchain on hosted Ubuntu,
 verifies the retained ZIP digest, and compares all six compressed archives with `cmp`. A difference
@@ -39,8 +39,8 @@ boundary; it is not reusable as the build invocation for a later signing run.
 The manual `initial-release-signing.yml` workflow supports the unsigned handoff and two isolated,
 opt-in probes. The unsigned jobs compare the rebuilt bytes, pass the immutable artifact ID and
 digest between jobs, verify GitHub metadata and ZIP bytes, and stream the seven expected entries
-without extracting archive paths. Only the probe jobs currently have OIDC permission. There is no
-artifact-signing job or npm write credential.
+without extracting archive paths. The opt-in signing job and the isolated probes have job-scoped
+OIDC permission. The workflow has no npm write credential.
 
 1. Separately authorize an exact-source reproducibility run with the recorded Linux assembly
    toolchain. Compare all six compressed tarballs byte-for-byte against the retained set. Stop on
@@ -68,11 +68,11 @@ inferred from a generic GitHub artifact attestation.
 
 ### Signing-run review boundary
 
-The proposed mode is off by default and mutually exclusive with both probe modes. Bind dispatch to
-one exact reviewed `main` SHA and GitHub attempt 1, with separate owner approval of the signing job
-after the successful current-run build and verified handoff. The signing job must revalidate the
-artifact ID, ZIP digest and contents; the prior unsigned run and the certificate probe are not
-inputs to the signing job.
+The `signing-commit` mode is off by default and mutually exclusive with both probe modes. It binds
+dispatch to one exact reviewed `main` SHA and GitHub attempt 1, with separate owner approval of the
+signing job after the successful current-run build and verified handoff. The signing job must
+revalidate the artifact ID, ZIP digest and contents; the prior unsigned run and the certificate
+probe are not inputs to the signing job.
 
 Before any outbound signing request, derive and validate all six statements and recheck the live
 OIDC identity. Require a signer that can expose its Fulcio certificate for verification before
@@ -107,15 +107,18 @@ response before normalizing exactly one
 log index separately from the shard-local proof index. The receipt map key is an untrusted
 reconciliation hint, not signed bundle metadata. A signed entry timestamp and checkpoint are both
 required. An existing public receipt read by GET normalized into a bundle that passed the pinned
-verifier. POST behavior was exercised only with mocks. No workflow can invoke this transport yet,
-and any failure after POST begins requires reconciliation, not retry.
+verifier. POST behavior was exercised only with mocks. Any failure after POST begins requires
+reconciliation, not retry.
 
-The unwired batch adapter composes the certificate gate with that transport. It prepares all six
-envelopes before any POST, then submits and verifies them in order. It reports only the package
-filename and attempt outcome, stops on the first unverified response, and returns the six bundles
-and their SHA-256 digests only after full success. This avoids a partial bundle handoff, but cannot
-undo entries accepted by Rekor. The workflow still needs to reauthenticate the same-run artifact,
-gate live issuance and submission, and retain the verified output for independent readback.
+The batch adapter composes the certificate gate with that transport. It prepares all six envelopes
+before any POST, then submits and verifies them in order. It reports only the package filename and
+attempt outcome, stops on the first unverified response, and returns the six bundles and their
+SHA-256 digests only after full success. This avoids a partial bundle handoff, but cannot undo
+entries accepted by Rekor. The signing job downloads the current build artifact again via a
+read-only GitHub token, verifies metadata and ZIP digest, and rederives the exact six subjects
+before OIDC. It uses checksum-verified runtime tooling and a fresh key. It uploads the six verified
+bundles and digest manifest only after full success. Independent readback and a pinned npm
+provenance-reader compatibility check remain required before any staging decision.
 
 Wayglass explicitly forwards `ctLogThreshold: 1` at the Sigstore `4.1.1` bundle boundary. The
 lower-level certificate-only verifier still uses `ctlogThreshold: 1`. Before the correction the

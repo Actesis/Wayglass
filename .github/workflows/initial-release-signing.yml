@@ -1,4 +1,4 @@
-name: Initial release signing handoff (unsigned)
+name: Initial release provenance
 
 on:
   workflow_dispatch:
@@ -9,6 +9,10 @@ on:
         default: false
       certificate-probe-commit:
         description: Exact main commit for one approved Fulcio issuance (empty disables)
+        type: string
+        default: ''
+      signing-commit:
+        description: Exact main commit for one approved release signing run (empty disables)
         type: string
         default: ''
 
@@ -23,7 +27,8 @@ jobs:
   reproduce:
     if:
       github.repository == 'Actesis/Wayglass' && github.ref == 'refs/heads/main' &&
-      !inputs.oidc-claims-only && inputs.certificate-probe-commit == ''
+      !inputs.oidc-claims-only && inputs.certificate-probe-commit == '' && (inputs.signing-commit ==
+      '' || (inputs.signing-commit == github.sha && github.run_attempt == 1))
     environment: npm-release
     runs-on: ubuntu-24.04
     timeout-minutes: 60
@@ -96,7 +101,8 @@ jobs:
   oidc-claims:
     if:
       github.repository == 'Actesis/Wayglass' && github.ref == 'refs/heads/main' &&
-      inputs.oidc-claims-only && inputs.certificate-probe-commit == ''
+      inputs.oidc-claims-only && inputs.certificate-probe-commit == '' && inputs.signing-commit ==
+      ''
     environment: npm-release
     runs-on: ubuntu-24.04
     timeout-minutes: 5
@@ -117,7 +123,7 @@ jobs:
     if:
       github.repository == 'Actesis/Wayglass' && github.ref == 'refs/heads/main' &&
       !inputs.oidc-claims-only && inputs.certificate-probe-commit == github.sha &&
-      github.run_attempt == 1
+      github.run_attempt == 1 && inputs.signing-commit == ''
     environment: npm-release
     runs-on: ubuntu-24.04
     timeout-minutes: 5
@@ -173,5 +179,51 @@ jobs:
         with:
           name: unsigned-subjects-${{ github.run_id }}-${{ github.run_attempt }}
           path: ${{ env.UNSIGNED_SUBJECTS }}
+          if-no-files-found: error
+          retention-days: 7
+  sign-release:
+    needs: [reproduce, verify-handoff]
+    if:
+      github.repository == 'Actesis/Wayglass' && github.ref == 'refs/heads/main' &&
+      !inputs.oidc-claims-only && inputs.certificate-probe-commit == '' && inputs.signing-commit ==
+      github.sha && github.run_attempt == 1
+    environment: npm-release
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      actions: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Prepare checksum-verified signing runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          runtime_root=$(mktemp -d)
+          cd "$runtime_root"
+          archive=node-v26.8.1-linux-x64.tar.xz
+          curl --disable --fail --silent --show-error --max-time 45 --proto '=https' --output "$archive" "https://nodejs.org/dist/v26.8.1/$archive"
+          echo "3e301118d7df53d563b7e96c1617545f26e2f76f9724be668d6cab65c15dda5d  $archive" | sha256sum --check
+          tar -xJf "$archive"
+          echo "SIGNING_RUNTIME=$runtime_root/node-v26.8.1-linux-x64" >> "$GITHUB_ENV"
+      - name: Recheck handoff and sign exact six subjects
+        env:
+          SIGNING_COMMIT: ${{ inputs.signing-commit }}
+          GH_TOKEN: ${{ github.token }}
+          ARTIFACT_ID: ${{ needs.reproduce.outputs.artifact-id }}
+          ARTIFACT_DIGEST: ${{ needs.reproduce.outputs.artifact-digest }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          output=$(mktemp -d)
+          "$SIGNING_RUNTIME/bin/node" tooling/release-candidate/src/release-signing-cli.ts "$SIGNING_RUNTIME/lib/node_modules/npm" "$output"
+          echo "VERIFIED_BUNDLES=$output" >> "$GITHUB_ENV"
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: verified-provenance-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ env.VERIFIED_BUNDLES }}
           if-no-files-found: error
           retention-days: 7
