@@ -7,12 +7,14 @@ hero:
   tagline: A design language for turning complex systems into known states.
   actions:
     - theme: brand
-      text: Explore the foundations
-      link: /foundations/
+      text: Install Wayglass
+      link: /guides/installation
     - theme: alt
-      text: Review the Phase 5 outcome
-      link: /phase-5-roadmap-disposition
+      text: Read the 0.1.0 release notes
+      link: /maintenance/release-0.1.0
 ---
+
+Wayglass 0.1.0 is available on npm as the first public feedback release.
 
 Phases 0 through 5 are complete. Cedar House, Northline Cold Storage, and Harbor Lab prove the
 design language across three isolated application contexts, while Phase 5 records the ecosystem's
