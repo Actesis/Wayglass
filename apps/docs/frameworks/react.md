@@ -6,8 +6,13 @@ application state.
 
 ## Installation boundary
 
-The package remains private until release governance is approved. Applications in this workspace
-consume it as a workspace dependency alongside `react` and `@wayglass/elements`.
+Install the published 0.1.0 bindings in a React 19 application:
+
+```sh
+npm install --save-exact @wayglass/react@0.1.0 @wayglass/elements@0.1.0 @wayglass/tokens@0.1.0 @wayglass/themes@0.1.0
+```
+
+See [installation](/guides/installation) for stylesheet imports and compatibility.
 
 Every wrapper module registers its element when `customElements` is available. Importing a wrapper
 in a server environment is safe: registration is skipped, markup can render, and the element

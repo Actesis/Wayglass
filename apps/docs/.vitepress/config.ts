@@ -18,7 +18,7 @@ export default defineConfig({
       { text: 'Foundations', link: '/foundations/' },
       { text: 'Components', link: '/components/' },
       { text: 'Patterns', link: '/patterns/function-deck' },
-      { text: 'Guides', link: '/guides/application-authoring' },
+      { text: 'Guides', link: '/guides/installation' },
       { text: 'Examples', link: '/examples/framework-examples' },
       { text: 'Storybook', link: '/storybook/', target: '_self' },
       {
@@ -411,6 +411,7 @@ export default defineConfig({
           { text: 'Support', link: '/maintenance/support' },
           { text: 'Security', link: '/maintenance/security' },
           { text: 'Changelog', link: '/maintenance/changelog' },
+          { text: '0.1.0 release notes', link: '/maintenance/release-0.1.0' },
           { text: 'Migration', link: '/maintenance/migration' },
           { text: 'Deprecations', link: '/maintenance/deprecations' },
           { text: 'Release-note template', link: '/maintenance/release-note-template' },
@@ -420,6 +421,7 @@ export default defineConfig({
         text: 'Guides',
         collapsed: true,
         items: [
+          { text: 'Installation', link: '/guides/installation' },
           {
             text: 'Building a Wayglass application',
             link: '/guides/application-authoring',
