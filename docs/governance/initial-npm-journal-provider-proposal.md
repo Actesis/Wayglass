@@ -28,6 +28,24 @@ is no storage provider to provision, and npm consumers are unaffected.
 This decision does not authorize execution, advisory capture, signing, credential changes, public
 placeholders, or publication. The hosted preflight stays verification-only.
 
+## First staging handoff: outstanding owner checks
+
+The retained release tarball ZIP, signed provenance ZIP, and refreshed advisory snapshot matched
+their recorded SHA-256 values at readback. The approved advisory expires at `2026-11-17T02:27:17Z`
+(November 16 at 8:27 p.m. Central). Recheck freshness and all digests at execution. Do not point the
+hosted preflight at the old advisory and treat its outcome as approval.
+
+An unauthenticated npm read on November 15 Central returned HTTP 404 for the six scoped names: core,
+tokens, themes, elements, icons, and react. This only establishes that those package names were not
+publicly visible to the check. The maintainer must still check authenticated scope access, 2FA,
+private versions, and pending stages in the dedicated npm session before any upload.
+
+Final approval must cover these exact six `0.1.0` tarballs and matching provenance, the explicit
+`next` dist-tag, the public `0.0.0-stage` placeholder effect for new packages, release notes and
+support boundaries, the release commit and tag target, and the partial-failure policy above. Staging
+and later interactive promotion are separate approvals. This handoff records no new execution
+authority.
+
 ## Revisit when automating
 
 The existing automated adapter still requires create-only durable checkpoints before upload. Do not
