@@ -1,5 +1,26 @@
 # Initial npm advisory snapshot approval
 
+## November 15 refresh (Central time)
+
+The owner explicitly approved the fresh snapshot, including its zero findings and
+`WG_RC_ADVISORY_MEDIA_TYPE` warning. This approves advisory evidence only, not staging, publication,
+a retry, or any extension of freshness.
+
+- Frozen source: `ce400e89930a047c6af1c6992c64cfe422a1eeee`.
+- Capture tooling: `b046ce78b36c0aaa4d335bed6de2aa48841bb17b`.
+- Snapshot SHA-256: `3bb612a88f1c1f651998b422e70785c4ebd119e7722c07e2bd038e04ab6bceda`.
+- Captured `2026-11-16T02:27:17Z`; valid through `2026-11-17T02:27:17Z` (November 16 at 8:27 p.m.
+  Central).
+- Local retained copy: `.wayglass-local/initial-npm-advisory-2026-11-16-022717Z.json`.
+
+The capture matched the dependency audit and frozen lockfile hashes below. The provider did not
+advertise a JSON media type; the response still passed strict JSON and schema validation. No
+registry write or owner credentials were used. This record does not change the historical snapshot
+pin in the hosted preflight. Any execution preflight must verify the newly approved snapshot, its
+exact graph binding, and its validity at execution time.
+
+## Historical November 7 snapshot
+
 Status: explicitly approved by the project owner on November 7, 2026, including zero findings and
 the `WG_RC_ADVISORY_MEDIA_TYPE` warning. This is advisory-input approval, not publication approval.
 
