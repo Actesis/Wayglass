@@ -1,7 +1,7 @@
 # Signing-only release proposal
 
-Status: a default-off signing mode is implemented for review. No live signing, log submission,
-staging, or registry write is authorized.
+Status: the one authorized signing run completed and its six bundles passed independent readback. No
+further signing, log submission, staging, or registry write is authorized.
 
 The manual `initial-release-reproduction.yml` check uses the pinned toolchain on hosted Ubuntu,
 verifies the retained ZIP digest, and compares all six compressed archives with `cmp`. A difference
@@ -15,6 +15,25 @@ old tarballs must not describe itself as having built them. The earlier rehearsa
 evidence, not a signed attestation.
 
 ## Recommended route
+
+### Signed bundle readback
+
+[Run 43736006728](https://github.com/Actesis/Wayglass/actions/runs/43736006728), attempt 1, signed
+all six byte-identical rebuilds at `c8b6b2be480263bb124b49972bdc4b5ad63d09ac`. The
+[signed artifact](https://github.com/Actesis/Wayglass/actions/runs/43736006728/artifacts/14171220607)
+expires November 22, 2026, at 16:48 UTC. Preserve the verified ZIP before that deadline.
+
+- Downloaded ZIP SHA-256: `bdee94a1432aab7477e8072df4631a24c5842ddec9db6c39394643ce7667dd8a`.
+- Manifest SHA-256: `277939aa05593630cd0e90f3223d1919c9896d3b54b302a6ab54925e7ab534c6`.
+- Verified Rekor indices in core, tokens, themes, elements, icons, React order: `3906192456`,
+  `3906192688`, `3906192871`, `3906193030`, `3906193174`, and `3906193471`.
+
+Local readback matched the ZIP to GitHub's digest, checked the exact seven-entry inventory and all
+six bundle digests, and regenerated each expected subject from the retained tarball bytes. The
+pinned Sigstore verifier independently checked the signatures, inclusion proofs, certificate claims,
+and full statements. The npm 11.19.0 provenance reader from a checksum-verified Node 26.8.1
+distribution accepted all six bundles and their recomputed package URLs and SHA-512 digests. This
+was a local reader check, not registry acceptance; neither npm staging nor publishing was attempted.
 
 ### Unsigned hosted handoff result
 
