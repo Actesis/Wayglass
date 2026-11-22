@@ -1,6 +1,6 @@
 {
   "name": "@wayglass/tokens",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Semantic design tokens and generated web artifacts for Wayglass.",
   "license": "Apache-2.0",

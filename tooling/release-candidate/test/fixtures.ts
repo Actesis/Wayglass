@@ -1,16 +1,24 @@
-import { readFileSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { frozenSource } from '../src/constants.ts';
 import type { CandidateDirectory, CandidateSource, PackageFile } from '../src/types.ts';
 
 const testDirectory = dirname(fileURLToPath(import.meta.url));
 export const repositoryRoot = resolve(testDirectory, '../../..');
 const encoder = new TextEncoder();
 
+/**
+ * Reads a manifest from the frozen 0.1.0 source this tooling proves, not from the working tree,
+ * whose versions move on with later releases.
+ */
 export function sourceManifest(directory: CandidateDirectory): Record<string, unknown> {
   return JSON.parse(
-    readFileSync(resolve(repositoryRoot, `packages/${directory}/package.json`), 'utf8'),
+    execFileSync('git', ['show', `${frozenSource.commit}:packages/${directory}/package.json`], {
+      cwd: repositoryRoot,
+      encoding: 'utf8',
+    }),
   );
 }
 

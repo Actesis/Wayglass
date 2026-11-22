@@ -342,6 +342,7 @@ export default defineConfig({
             link: '/governance/token-tooling-implementation-contract',
           },
           { text: 'Release governance', link: '/governance/release-governance' },
+          { text: 'Foundation 0.1.1 proposal', link: '/governance/release-0.1.1-proposal' },
           {
             text: 'Ecosystem exploration record',
             link: '/governance/ecosystem-exploration-record',

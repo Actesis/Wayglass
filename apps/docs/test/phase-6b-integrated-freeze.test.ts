@@ -1,3 +1,4 @@
+import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -7,6 +8,16 @@ import { describe, expect, it } from 'vitest';
 const testDirectory = dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = resolve(testDirectory, '../../..');
 const read = (path: string): string => readFileSync(resolve(repositoryRoot, path), 'utf8');
+// The Phase 6B record describes the frozen 0.1.0 source, so read its manifests from that commit,
+// not from the working tree, whose versions move on with later releases.
+const frozenManifest = (name: string): Record<string, unknown> =>
+  JSON.parse(
+    execFileSync(
+      'git',
+      ['show', `ce400e89930a047c6af1c6992c64cfe422a1eeee:packages/${name}/package.json`],
+      { cwd: repositoryRoot, encoding: 'utf8' },
+    ),
+  );
 const freeze = read('docs/governance/phase-6b-integrated-freeze.md');
 const audit = read('docs/governance/phase-6b-completion-audit.md');
 const packageNames = ['core', 'tokens', 'themes', 'elements', 'icons', 'react'] as const;
@@ -23,7 +34,7 @@ describe('Phase 6B integrated v1 freeze proposal', () => {
 
   it('retains exactly six private 0.1.0 candidates and their release units', () => {
     for (const name of packageNames) {
-      const manifest = JSON.parse(read(`packages/${name}/package.json`));
+      const manifest = frozenManifest(name);
       expect(manifest).toMatchObject({
         name: `@wayglass/${name}`,
         version: '0.1.0',
