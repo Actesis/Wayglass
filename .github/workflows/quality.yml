@@ -35,9 +35,12 @@ jobs:
       - run: pnpm install --frozen-lockfile --ignore-scripts
       - run: pnpm check
 
+  # The browser suite's reference environment is macOS on arm64 (see the validation records); its
+  # layout checks at 320 pixels and 200 percent text depend on the token font stack, which falls
+  # back to wider fonts on Linux.
   browser:
     name: Browser tests (${{ matrix.project }})
-    runs-on: ubuntu-24.04
+    runs-on: macos-15
     timeout-minutes: 30
     strategy:
       fail-fast: false
@@ -57,7 +60,7 @@ jobs:
       - run: npm install --global pnpm@11.9.0 --ignore-scripts
       - run: pnpm install --frozen-lockfile --ignore-scripts
       - run: pnpm build
-      - run: pnpm exec playwright install --with-deps ${{ matrix.project }}
+      - run: pnpm exec playwright install ${{ matrix.project }}
       - run: pnpm exec playwright test --project=${{ matrix.project }}
       - name: Retain the browser report for a failed run
         if: failure()

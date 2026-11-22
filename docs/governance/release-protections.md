@@ -6,12 +6,13 @@ OIDC, credential persistence, restored caches, or publishing commands. Its uniqu
 check run before protection is applied.
 
 `Wayglass quality` aggregates the workflow's jobs: `Repository checks` runs `pnpm check`, and
-`Browser tests` runs the Playwright suite once per engine (Chromium, Firefox, WebKit). The aggregate
-job runs even when another job fails and passes only when every job passed, because GitHub treats a
-skipped required check as passing. Branch protection and the release staging gate therefore keep
-exactly one required check while it covers the browser suite. Add new quality jobs to that aggregate
-rather than as separate required checks, which the staging gate would reject. In CI, Playwright
-retries a failed test once and reports it as flaky; local runs do not retry.
+`Browser tests` runs the Playwright suite once per engine (Chromium, Firefox, WebKit) on a macOS
+runner, the suite's recorded reference environment. The aggregate job runs even when another job
+fails and passes only when every job passed, because GitHub treats a skipped required check as
+passing. Branch protection and the release staging gate therefore keep exactly one required check
+while it covers the browser suite. Add new quality jobs to that aggregate rather than as separate
+required checks, which the staging gate would reject. In CI, Playwright retries a failed test once
+and reports it as flaky; local runs do not retry.
 
 The reproducible desired API payloads live under `.github/release-protection/`:
 
@@ -21,6 +22,12 @@ The reproducible desired API payloads live under `.github/release-protection/`:
   React release tags. This permission is not publication approval.
 - `tag-immutability.json`: prohibit updating/deleting those tags without an explicit ruleset change;
   no bypass actor is configured, including for administrators.
+
+Repository auto-merge was enabled on November 22, 2026. It is a per-pull-request choice that only
+someone with write access can make, and GitHub cancels it if someone without write access pushes to
+the pull request. The same day, fork pull-request workflows were set to require approval for all
+external contributors (`all_external_contributors`), so no outside code runs in Actions without the
+owner's approval. Fork workflows receive a read-only token and no secrets.
 
 Zero mandatory GitHub approving reviews is deliberate for the initial single-maintainer workflow:
 the author cannot approve their own PR. Owner review/merge authorization remains explicit in the
