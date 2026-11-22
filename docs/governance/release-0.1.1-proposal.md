@@ -2,8 +2,8 @@
 
 Status: proposed. Merging this proposal sets the foundation manifests to 0.1.1 and accepts the
 release plan below. Publishing still needs the owner's approval at each staged step, as the
-[npm release workflow](https://github.com/Actesis/Wayglass/blob/main/docs/governance/npm-release-workflow.md)
-describes. Nothing here is on npm until those approvals happen.
+[npm release workflow](./npm-release-workflow.md) describes. Nothing here is on npm until those
+approvals happen.
 
 ## Identity
 
