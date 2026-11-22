@@ -205,6 +205,10 @@ test('meets the recorded Chromium construction and mutation envelope', async ({
   browserName,
 }) => {
   test.skip(browserName !== 'chromium', 'Timing evidence is recorded in Chromium only.');
+  test.skip(
+    process.env.CI !== undefined,
+    'Timing envelopes are recorded on the reference machine; shared CI runners are not comparable.',
+  );
   const constructionDurations: number[] = [];
   for (let iteration = 0; iteration < 18; iteration += 1) {
     await openMaximumNorthline(page);
