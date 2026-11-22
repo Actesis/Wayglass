@@ -17,7 +17,9 @@ interaction pattern.
 3. Add tests for behavior changes and documentation for public API changes.
 4. Run `pnpm check`.
 5. Run `pnpm test:browser` for changes affecting browser behavior or accessibility.
-6. Submit the change for review before merging.
+6. Submit the change for review before merging. The required `Wayglass quality` check runs both
+   `pnpm check` and the browser suite in Chromium, Firefox, and WebKit on every pull request and
+   every push to `main`. A pull request may use auto-merge to merge once that check passes.
 
 ## Commit style
 
