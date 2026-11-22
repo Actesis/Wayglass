@@ -16,7 +16,7 @@
   },
   "scripts": {
     "build": "pnpm token-tooling:generate:web && turbo run build",
-    "check": "pnpm format:check && pnpm lint && pnpm build && pnpm icon-tooling:check && pnpm icon-tooling:core:check && pnpm token-tooling:check && pnpm token-tooling:core:check && pnpm release-candidate:core:check && pnpm site-composer:core:check && pnpm cloudflare-delivery:core:check && pnpm experiment:phase5c:check && pnpm typecheck && pnpm test",
+    "check": "pnpm format:check && pnpm lint && pnpm build && pnpm icon-tooling:check && pnpm icon-tooling:core:check && pnpm token-tooling:check && pnpm token-tooling:core:check && pnpm release-candidate:core:check && pnpm site-composer:core:check && pnpm npm-release:core:check && pnpm cloudflare-delivery:core:check && pnpm experiment:phase5c:check && pnpm typecheck && pnpm test",
     "cloudflare-delivery:core:check": "pnpm cloudflare-delivery:core:typecheck && pnpm cloudflare-delivery:core:test",
     "cloudflare-delivery:core:test": "vitest run --root tooling/cloudflare-delivery --config vitest.config.ts",
     "cloudflare-delivery:core:typecheck": "tsc --noEmit -p tooling/cloudflare-delivery/tsconfig.json",
@@ -38,6 +38,9 @@
     "icon-tooling:core:typecheck": "tsc --noEmit -p tooling/icon-pipeline/tsconfig.json",
     "icon-tooling:generate": "node --disable-warning=ExperimentalWarning --experimental-strip-types tooling/icon-pipeline/src/cli.ts generate",
     "lint": "eslint .",
+    "npm-release:core:check": "pnpm npm-release:core:typecheck && pnpm npm-release:core:test",
+    "npm-release:core:test": "vitest run --root tooling/npm-release --config vitest.config.ts",
+    "npm-release:core:typecheck": "tsc --noEmit -p tooling/npm-release/tsconfig.json",
     "release-candidate:core:check": "pnpm release-candidate:core:typecheck && pnpm release-candidate:core:test",
     "release-candidate:core:test": "vitest run --root tooling/release-candidate --config vitest.config.ts",
     "release-candidate:core:typecheck": "tsc --noEmit -p tooling/release-candidate/tsconfig.json",

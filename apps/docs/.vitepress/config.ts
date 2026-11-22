@@ -342,6 +342,7 @@ export default defineConfig({
             link: '/governance/token-tooling-implementation-contract',
           },
           { text: 'Release governance', link: '/governance/release-governance' },
+          { text: 'Releasing to npm', link: '/governance/npm-release-workflow' },
           {
             text: 'Ecosystem exploration record',
             link: '/governance/ecosystem-exploration-record',
@@ -685,6 +686,10 @@ export default defineConfig({
           {
             text: 'ADR 0038: Path-independent Storybook output',
             link: '/architecture/adr/0038-path-independent-storybook-manager-normalization',
+          },
+          {
+            text: 'ADR 0039: Staged npm releases',
+            link: '/architecture/adr/0039-reusable-staged-npm-releases',
           },
         ],
       },

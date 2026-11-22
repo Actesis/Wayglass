@@ -1,0 +1,162 @@
+name: npm release (staged, owner-approved)
+
+# Stages one release unit on npm from main. Nothing becomes installable until the owner approves
+# each staged version on npmjs.com with two-factor authentication. See
+# docs/governance/npm-release-workflow.md.
+
+on:
+  workflow_dispatch:
+    inputs:
+      unit:
+        description: Release unit
+        type: choice
+        options: [foundation, icons, react]
+        required: true
+      version:
+        description:
+          Exact version every manifest in the unit already carries on main (such as 0.1.1)
+        type: string
+        required: true
+      dist-tag:
+        description: npm dist-tag the staged versions receive when approved
+        type: choice
+        options: [latest, next]
+        default: latest
+
+permissions:
+  contents: read
+
+concurrency:
+  group: npm-release
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    name: Prepare and verify tarballs
+    if: github.repository == 'Actesis/Wayglass' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      checks: read
+    env:
+      TURBO_FORCE: 'true'
+      WRANGLER_SEND_METRICS: 'false'
+      RELEASE_UNIT: ${{ inputs.unit }}
+      RELEASE_VERSION: ${{ inputs.version }}
+      RELEASE_CLI:
+        node --disable-warning=ExperimentalWarning --experimental-strip-types
+        tooling/npm-release/src/cli.ts
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '26.8.1'
+          package-manager-cache: false
+      - run: npm install --global pnpm@11.9.0 --ignore-scripts
+      - run: pnpm install --frozen-lockfile --ignore-scripts
+      - name: Require the passing quality check on this exact commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          conclusion=$(gh api "repos/$GITHUB_REPOSITORY/commits/$GITHUB_SHA/check-runs?check_name=Wayglass%20quality&filter=latest" \
+            --jq '[.check_runs[] | select(.app.id == 15368)] | if length == 1 then .[0].conclusion else "missing" end')
+          echo "Wayglass quality on $GITHUB_SHA: $conclusion"
+          test "$conclusion" = success
+      - name: Refuse a tag or npm version that already exists
+        run: |
+          tag="$RELEASE_UNIT-v$RELEASE_VERSION"
+          if git rev-parse -q --verify "refs/tags/$tag" >/dev/null; then
+            echo "Tag $tag already exists."; exit 1
+          fi
+          for name in $($RELEASE_CLI packages --unit "$RELEASE_UNIT"); do
+            if npm view "$name@$RELEASE_VERSION" version --registry=https://registry.npmjs.org/ >/dev/null 2>&1; then
+              echo "$name@$RELEASE_VERSION is already on npm; published versions are never reused."; exit 1
+            fi
+          done
+      - run: pnpm build
+      - name: Pack and verify the release unit
+        run:
+          $RELEASE_CLI prepare --unit "$RELEASE_UNIT" --version "$RELEASE_VERSION" --output
+          "$RUNNER_TEMP/release"
+      - name: Install the tarballs in a clean consumer
+        run: $RELEASE_CLI verify-install --plan "$RUNNER_TEMP/release"
+      - name: Summarize the planned release
+        run: |
+          {
+            echo "### $RELEASE_UNIT $RELEASE_VERSION from \`$GITHUB_SHA\`"
+            echo '```'
+            cat "$RUNNER_TEMP/release/SHA256SUMS"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: npm-release-${{ inputs.unit }}-${{ inputs.version }}
+          path: |
+            ${{ runner.temp }}/release/*.tgz
+            ${{ runner.temp }}/release/release-plan.json
+            ${{ runner.temp }}/release/SHA256SUMS
+          if-no-files-found: error
+          retention-days: 30
+
+  # Holds the only OIDC permission. It runs no repository code: it checks the prepared tarballs
+  # against their hashes and hands them to the pinned npm CLI, which authenticates as this
+  # workflow through npm trusted publishing. The npm-release environment requires owner approval
+  # before the job starts.
+  stage:
+    name: Stage on npm
+    needs: prepare
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    environment: npm-release
+    permissions:
+      id-token: write
+    env:
+      RELEASE_UNIT: ${{ inputs.unit }}
+      RELEASE_VERSION: ${{ inputs.version }}
+      RELEASE_DIST_TAG: ${{ inputs.dist-tag }}
+    steps:
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '26.8.1'
+          package-manager-cache: false
+      - run: npm install --global npm@11.21.2 --ignore-scripts
+      - uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6
+        with:
+          name: npm-release-${{ inputs.unit }}-${{ inputs.version }}
+          path: release
+      - name: Verify the tarballs and plan
+        working-directory: release
+        run: |
+          sha256sum --check --strict SHA256SUMS
+          node -e '
+            const plan = require("./release-plan.json");
+            const { RELEASE_UNIT: unit, RELEASE_VERSION: version, GITHUB_SHA: commit } = process.env;
+            if (plan.unit !== unit || plan.version !== version || plan.commit !== commit) {
+              console.error("The release plan does not match this run."); process.exit(1);
+            }'
+      - name: Stage each package in dependency order
+        working-directory: release
+        run: |
+          {
+            echo "### Staged $RELEASE_UNIT $RELEASE_VERSION for dist-tag \`$RELEASE_DIST_TAG\`"
+            echo 'Approve each staged version on npmjs.com with two-factor authentication.'
+          } >> "$GITHUB_STEP_SUMMARY"
+          for file in $(node -p 'require("./release-plan.json").packages.map((entry) => entry.file).join(" ")'); do
+            npm stage publish "./$file" \
+              --registry=https://registry.npmjs.org/ \
+              --access=public \
+              --tag="$RELEASE_DIST_TAG" \
+              --ignore-scripts \
+              --workspaces=false \
+              --provenance \
+              --json \
+              --fetch-retries=0 \
+              --audit=false \
+              --fund=false \
+              --update-notifier=false | tee "$file.stage.json"
+            echo "- \`$file\` staged" >> "$GITHUB_STEP_SUMMARY"
+          done
