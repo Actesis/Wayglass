@@ -1,6 +1,6 @@
 {
   "name": "@wayglass/themes",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Wayglass themes and density modes for operational interfaces.",
   "license": "Apache-2.0",

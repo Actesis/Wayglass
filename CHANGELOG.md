@@ -6,6 +6,18 @@ versions follow Semantic Versioning under the accepted release-governance contra
 
 ## Unreleased
 
+No changes yet.
+
+## Foundation 0.1.1 — pending publication
+
+`@wayglass/core`, `@wayglass/tokens`, `@wayglass/themes`, and `@wayglass/elements` 0.1.1, proposed
+in the
+[0.1.1 release proposal](https://github.com/Actesis/Wayglass/blob/main/docs/governance/release-0.1.1-proposal.md).
+Only `@wayglass/elements` changes materially; the other three move with the synchronized foundation
+family. `@wayglass/icons` and `@wayglass/react` stay at 0.1.0, and React's `@wayglass/elements`
+`^0.1.0` range accepts 0.1.1. This entry is not on npm until its date replaces "pending
+publication".
+
 ### Fixed
 
 - Text in `@wayglass/elements` wraps between words. Components no longer use
@@ -32,16 +44,14 @@ versions follow Semantic Versioning under the accepted release-governance contra
   so the table scrolls inside its scroll region instead of widening the page. Wayglass layout
   primitives already do this.
 
+## 0.1.0 — 2026-11-15
+
+The first public npm release, for integration and feedback, made under the
+[initial release proposal](https://github.com/Actesis/Wayglass/blob/main/docs/governance/initial-npm-release-proposal.md).
+See the [0.1.0 release notes](https://wayglass.hoagsoftworks.com/maintenance/release-0.1.0).
+
 ### Added
 
-- Established the six-package v1 candidate: `@wayglass/core`, `@wayglass/tokens`,
-  `@wayglass/themes`, `@wayglass/elements`, `@wayglass/icons`, and `@wayglass/react`.
-- Prepared
-  [draft initial `0.1.0` release notes](https://github.com/Actesis/Wayglass/blob/main/docs/governance/initial-0.1.0-release-notes.md)
-  and an
-  [execution-disabled release proposal](https://github.com/Actesis/Wayglass/blob/main/docs/governance/initial-npm-release-proposal.md).
-  These are not a release entry or publication announcement.
-
-No Wayglass package has been published. The first release entry will separate the synchronized
-foundation family from independently versioned icons and React artifacts, name exact versions and
-dates, and link its migration, deprecation, support, and evidence records.
+- The foundation family `@wayglass/core`, `@wayglass/tokens`, `@wayglass/themes`, and
+  `@wayglass/elements` at 0.1.0, with the independently versioned `@wayglass/icons` and
+  `@wayglass/react` at 0.1.0. The `latest` and `next` dist-tags both point to 0.1.0.

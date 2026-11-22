@@ -1,20 +1,14 @@
-import { readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
-
 import { describe, expect, it } from 'vitest';
 
 import { candidateDirectories } from '../src/constants.ts';
 import { projectPackageManifest } from '../src/manifest.ts';
 import { projectPublicationManifest, preparePublicationPlan } from '../src/publication-plan.ts';
-
-const root = resolve(import.meta.dirname, '../../..');
+import { sourceManifest } from './fixtures.ts';
 
 describe('publication metadata review', () => {
   it('changes only isolated manifest privacy for exactly the six reviewed packages', () => {
     for (const directory of candidateDirectories) {
-      const source = JSON.parse(
-        readFileSync(resolve(root, `packages/${directory}/package.json`), 'utf8'),
-      );
+      const source = sourceManifest(directory);
       const candidate = projectPackageManifest(directory, source);
       const publication = projectPublicationManifest(directory, source);
       expect(publication).toEqual({ ...candidate, private: false });
@@ -25,7 +19,7 @@ describe('publication metadata review', () => {
     }
   });
   it('rejects drift rather than turning arbitrary manifests into public packages', () => {
-    const source = JSON.parse(readFileSync(resolve(root, 'packages/core/package.json'), 'utf8'));
+    const source = sourceManifest('core');
     expect(() => projectPublicationManifest('core', { ...source, name: '@other/core' })).toThrow();
     expect(() => projectPublicationManifest('core', { ...source, private: false })).toThrow();
   });

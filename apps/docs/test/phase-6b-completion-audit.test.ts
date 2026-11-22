@@ -1,3 +1,4 @@
+import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -7,12 +8,21 @@ import { describe, expect, it } from 'vitest';
 const testDirectory = dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = resolve(testDirectory, '../../..');
 const read = (path: string): string => readFileSync(resolve(repositoryRoot, path), 'utf8');
-const readJson = (path: string): Record<string, unknown> => JSON.parse(read(path));
+// The Phase 6B record describes the frozen 0.1.0 source, so read its manifests from that commit,
+// not from the working tree, whose versions move on with later releases.
+const frozenManifest = (name: string): Record<string, unknown> =>
+  JSON.parse(
+    execFileSync(
+      'git',
+      ['show', `ce400e89930a047c6af1c6992c64cfe422a1eeee:packages/${name}/package.json`],
+      { cwd: repositoryRoot, encoding: 'utf8' },
+    ),
+  );
 
 const audit = read('docs/governance/phase-6b-completion-audit.md');
 const candidatePackages = ['core', 'tokens', 'themes', 'elements', 'icons', 'react'] as const;
 const manifests = Object.fromEntries(
-  candidatePackages.map((name) => [name, readJson(`packages/${name}/package.json`)]),
+  candidatePackages.map((name) => [name, frozenManifest(name)]),
 ) as Record<(typeof candidatePackages)[number], Record<string, unknown>>;
 
 const componentAudits = [

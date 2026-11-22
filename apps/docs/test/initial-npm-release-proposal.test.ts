@@ -108,7 +108,8 @@ describe('execution-disabled initial npm release proposal', () => {
     ]) {
       expect(notes).toContain(required);
     }
-    expect(read('CHANGELOG.md')).toContain('No Wayglass package has been published');
+    // 0.1.0 has been published; the changelog records it as a dated release.
+    expect(read('CHANGELOG.md')).toContain('## 0.1.0 — 2026-11-15');
     // These source documents are included under different site routes. Keep draft review links
     // repository-based instead of inventing site routes or suppressing dead-link validation.
     for (const path of ['CHANGELOG.md', 'docs/governance/release-governance.md']) {
