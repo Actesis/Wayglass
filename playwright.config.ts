@@ -4,7 +4,12 @@ export default defineConfig({
   testDir: './tests/browser',
   fullyParallel: true,
   forbidOnly: true,
-  reporter: [['list'], ['html', { open: 'never' }]],
+  // One retry in CI keeps an intermittent failure from blocking a merge; Playwright still reports
+  // the test as flaky. Local runs never retry.
+  retries: process.env.CI ? 1 : 0,
+  reporter: process.env.CI
+    ? [['github'], ['list'], ['html', { open: 'never' }]]
+    : [['list'], ['html', { open: 'never' }]],
   use: {
     baseURL: 'http://127.0.0.1:4173',
     trace: 'on-first-retry',

@@ -15,8 +15,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  quality:
-    name: Wayglass quality
+  checks:
+    name: Repository checks
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     env:
@@ -34,3 +34,59 @@ jobs:
       - run: npm install --global pnpm@11.9.0 --ignore-scripts
       - run: pnpm install --frozen-lockfile --ignore-scripts
       - run: pnpm check
+
+  browser:
+    name: Browser tests (${{ matrix.project }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [chromium, firefox, webkit]
+    env:
+      TURBO_FORCE: 'true'
+      WRANGLER_SEND_METRICS: 'false'
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '26.8.1'
+          package-manager-cache: false
+      - run: npm install --global pnpm@11.9.0 --ignore-scripts
+      - run: pnpm install --frozen-lockfile --ignore-scripts
+      - run: pnpm build
+      - run: pnpm exec playwright install --with-deps ${{ matrix.project }}
+      - run: pnpm exec playwright test --project=${{ matrix.project }}
+      - name: Retain the browser report for a failed run
+        if: failure()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: playwright-report-${{ matrix.project }}
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
+          if-no-files-found: ignore
+
+  # The single required status check. Branch protection and the release staging gate both expect
+  # exactly one check with this name, so it aggregates every quality job instead of adding more.
+  # It must run even when a needed job fails, because GitHub treats a skipped required check as
+  # passing.
+  quality:
+    name: Wayglass quality
+    needs: [checks, browser]
+    if: always()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Require every quality job to pass
+        env:
+          CHECKS_RESULT: ${{ needs.checks.result }}
+          BROWSER_RESULT: ${{ needs.browser.result }}
+        run: |
+          echo "Repository checks: $CHECKS_RESULT"
+          echo "Browser tests: $BROWSER_RESULT"
+          test "$CHECKS_RESULT" = success
+          test "$BROWSER_RESULT" = success

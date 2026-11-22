@@ -5,6 +5,14 @@ OIDC, credential persistence, restored caches, or publishing commands. Its uniqu
 `Wayglass quality`. GitHub Actions application ID `15368` must be verified against the observed
 check run before protection is applied.
 
+`Wayglass quality` aggregates the workflow's jobs: `Repository checks` runs `pnpm check`, and
+`Browser tests` runs the Playwright suite once per engine (Chromium, Firefox, WebKit). The aggregate
+job runs even when another job fails and passes only when every job passed, because GitHub treats a
+skipped required check as passing. Branch protection and the release staging gate therefore keep
+exactly one required check while it covers the browser suite. Add new quality jobs to that aggregate
+rather than as separate required checks, which the staging gate would reject. In CI, Playwright
+retries a failed test once and reports it as flaky; local runs do not retry.
+
 The reproducible desired API payloads live under `.github/release-protection/`:
 
 - `main.json`: require a pull request, up-to-date passing quality check, and resolved conversations;

@@ -29,6 +29,11 @@ describe('release protections', () => {
     expect(main.required_conversation_resolution).toBe(true);
     const workflow = read('.github/workflows/quality.yml');
     expect(workflow).toContain('name: Wayglass quality');
+    // The single required check aggregates every quality job and must run when one fails.
+    expect(workflow).toContain('needs: [checks, browser]');
+    expect(workflow).toContain('if: always()');
+    expect(workflow).toContain('pnpm exec playwright test --project=${{ matrix.project }}');
+    expect(workflow.match(/name: Wayglass quality/g)).toHaveLength(1);
     expect(workflow).toContain('pull_request:');
     expect(workflow).toContain('persist-credentials: false');
     expect(workflow).toContain('fetch-depth: 0');
