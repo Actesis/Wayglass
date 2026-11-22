@@ -12,7 +12,8 @@ fails and passes only when every job passed, because GitHub treats a skipped req
 passing. Branch protection and the release staging gate therefore keep exactly one required check
 while it covers the browser suite. Add new quality jobs to that aggregate rather than as separate
 required checks, which the staging gate would reject. In CI, Playwright retries a failed test once
-and reports it as flaky; local runs do not retry.
+and reports it as flaky; local runs do not retry. Tests that check recorded timing envelopes skip in
+CI, because shared runners are not comparable with the reference machine; run them locally.
 
 The reproducible desired API payloads live under `.github/release-protection/`:
 
