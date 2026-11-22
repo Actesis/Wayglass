@@ -66,7 +66,7 @@ export class WgKeyValue extends WayglassElement {
       color: var(--wg-key-value-color-label);
       font-size: var(--wg-typography-size-label);
       font-weight: var(--wg-typography-weight-medium);
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
 
     [part='value'] {
@@ -74,7 +74,7 @@ export class WgKeyValue extends WayglassElement {
       color: var(--wg-key-value-color-value);
       font-size: var(--wg-typography-size-body);
       font-weight: var(--wg-typography-weight-emphasis);
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
 
     [part='state'] {

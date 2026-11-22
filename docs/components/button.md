@@ -54,8 +54,22 @@ not supported by this component.
 
 ## Responsive Behavior
 
-The target remains at least 44 by 44 CSS pixels. Labels wrap only when the consumer allows a
-full-width narrow layout.
+The target remains at least 44 by 44 CSS pixels. The button takes its label's natural width and
+never grows past its container. Labels wrap only when the consumer allows a full-width narrow
+layout, and then between words; only a single word longer than the container breaks.
+
+In a table cell or another content-sized layout, the button contributes its longest word to the
+column's minimum width, so a crowded table scrolls inside its `wg-scroll-region` rather than
+breaking the label. To keep a label on one line in such a layout, style the label part:
+
+```css
+wg-button.single-line::part(label) {
+  white-space: nowrap;
+}
+```
+
+The button then contributes its whole label, and the table scrolls sooner. Do not use this in a
+container with a fixed narrow width, where the label cannot fit.
 
 ## Content Guidance
 

@@ -58,7 +58,7 @@ export class WgFieldMessage extends WayglassElement {
 
     [part='text'] {
       min-inline-size: 0;
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
 
     @media (forced-colors: active) {

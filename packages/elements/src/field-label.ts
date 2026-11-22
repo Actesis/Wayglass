@@ -33,7 +33,7 @@ export class WgFieldLabel extends WayglassElement {
     [part='text'],
     [part='detail'] {
       min-inline-size: 0;
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
 
     [part='requirement'] {

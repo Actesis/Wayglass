@@ -112,7 +112,7 @@ export class WgStatusEntry extends WayglassElement {
     [part='metadata'],
     [part='actions'] {
       min-inline-size: 0;
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
 
     [part='heading'] {

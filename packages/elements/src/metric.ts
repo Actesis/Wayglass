@@ -69,6 +69,7 @@ export class WgMetric extends WayglassElement {
 
       display: inline-block;
       min-inline-size: 0;
+      max-inline-size: 100%;
       color: var(--wg-color-semantic-text-primary);
       font-family: var(--wg-typography-family-body);
     }
@@ -93,25 +94,29 @@ export class WgMetric extends WayglassElement {
       --_wg-metric-condition-color: var(--wg-color-semantic-condition-critical);
     }
 
+    /*
+     * The percentage maximum is treated as auto while a table or other content-sized layout measures
+     * this element, so it contributes its longest word. During layout the percentage caps the column,
+     * so a word longer than a narrow container breaks instead of overflowing.
+     */
     [part='base'] {
       display: grid;
+      grid-template-columns: minmax(auto, 100%);
       min-inline-size: 0;
       gap: var(--wg-metric-space);
     }
 
     [part='label'] {
-      min-inline-size: 0;
       color: var(--wg-metric-color-label);
       font-size: var(--wg-typography-size-label);
       font-weight: var(--wg-typography-weight-medium);
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
 
     .reading {
       display: flex;
       flex-wrap: wrap;
       align-items: baseline;
-      min-inline-size: 0;
       gap: var(--wg-space-reference-2);
     }
 
@@ -122,7 +127,7 @@ export class WgMetric extends WayglassElement {
       font-size: var(--_wg-metric-font-size);
       font-variant-numeric: tabular-nums;
       font-weight: var(--wg-typography-weight-emphasis);
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
 
     [part='unit'] {

@@ -113,7 +113,7 @@ export class WgToast extends WayglassElement {
     [part='actions'] {
       grid-column: 2;
       min-inline-size: 0;
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
 
     [part='message'] {

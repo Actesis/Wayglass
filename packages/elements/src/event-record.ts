@@ -122,7 +122,7 @@ export class WgEventRecord extends WayglassElement {
     [part='knowledge'],
     [part='activity'] {
       min-inline-size: 0;
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
 
     [part='time'] {

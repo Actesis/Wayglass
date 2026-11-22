@@ -130,7 +130,7 @@ export class WgConfirmationDialog extends WayglassElement {
       font-size: var(--wg-typography-size-section);
       font-weight: var(--wg-typography-weight-emphasis);
       line-height: var(--wg-typography-line-height-compact);
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
 
     [part='heading']:focus-visible {
@@ -142,7 +142,7 @@ export class WgConfirmationDialog extends WayglassElement {
       color: var(--wg-component-confirmation-color-detail);
       font-size: var(--wg-typography-size-body);
       line-height: var(--wg-typography-line-height-body);
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
 
     [part='actions'] {
@@ -168,7 +168,7 @@ export class WgConfirmationDialog extends WayglassElement {
       font-weight: var(--wg-typography-weight-medium);
       line-height: 1.2;
       text-align: center;
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
       cursor: pointer;
     }
 

@@ -56,7 +56,7 @@ export class WgMetricGroup extends WayglassElement {
       color: var(--wg-metric-group-color-heading);
       font-size: var(--wg-typography-size-section);
       font-weight: var(--wg-typography-weight-emphasis);
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
 
     [part='description'] {

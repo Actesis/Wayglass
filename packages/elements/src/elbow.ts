@@ -73,7 +73,7 @@ export class WgElbow extends WayglassElement {
       background: var(--wg-elbow-color-background);
       font-size: var(--wg-typography-size-section);
       font-weight: var(--wg-typography-weight-emphasis);
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
 
     [part='join'] {

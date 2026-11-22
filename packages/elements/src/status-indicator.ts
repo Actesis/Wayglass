@@ -58,6 +58,7 @@ export class WgStatusIndicator extends WayglassElement {
 
       display: inline-block;
       min-inline-size: 0;
+      max-inline-size: 100%;
       color: var(--wg-color-semantic-text-primary);
       font-family: var(--wg-typography-family-body);
     }
@@ -90,9 +91,20 @@ export class WgStatusIndicator extends WayglassElement {
       --_wg-status-indicator-size: var(--wg-status-indicator-size-prominent);
     }
 
+    /*
+     * The text column's percentage maximum is treated as auto while a table or other content-sized
+     * layout measures this element, so it contributes its longest word. During layout the maximum
+     * caps the column beside the signal, so a word longer than a narrow container breaks instead of
+     * overflowing.
+     */
     [part='base'] {
       display: grid;
-      grid-template-columns: auto minmax(0, 1fr);
+      grid-template-columns:
+        auto
+        minmax(
+          auto,
+          calc(100% - var(--_wg-status-indicator-size) - var(--wg-status-indicator-space))
+        );
       align-items: center;
       min-inline-size: 0;
       gap: var(--wg-status-indicator-space);
@@ -123,15 +135,14 @@ export class WgStatusIndicator extends WayglassElement {
 
     .content {
       display: grid;
-      min-inline-size: 0;
+      grid-template-columns: minmax(auto, 100%);
       gap: var(--wg-status-indicator-space);
     }
 
     [part='label'] {
-      min-inline-size: 0;
       font-size: var(--wg-typography-size-body);
       font-weight: var(--wg-typography-weight-medium);
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
 
     .metadata {

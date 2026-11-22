@@ -103,7 +103,7 @@ export class WgTelemetryStrip extends WayglassElement {
     [part='summary'],
     [part='detail'] {
       min-inline-size: 0;
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
 
     [part='heading'] {
@@ -183,7 +183,7 @@ export class WgTelemetryStrip extends WayglassElement {
     [part='window-start'],
     [part='window-end'] {
       min-inline-size: 0;
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
 
     [part='window-end'] {

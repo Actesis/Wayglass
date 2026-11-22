@@ -168,7 +168,7 @@ export class WgMedia extends WayglassElement {
     }
 
     ::slotted([slot='inspection']) {
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
 
     @media (forced-colors: active) {

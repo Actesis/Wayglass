@@ -43,7 +43,7 @@ export class WgDataTable extends WayglassElement {
       min-inline-size: 0;
       color: var(--wg-data-table-color-context);
       font-size: var(--wg-typography-size-body);
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
 
     [hidden] {
