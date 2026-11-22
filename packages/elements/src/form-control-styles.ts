@@ -143,7 +143,7 @@ export const choiceShellStyles = css`
     box-sizing: border-box;
     align-items: center;
     padding-inline-start: calc(var(--wg-form-choice-size) + var(--wg-form-choice-gap));
-    overflow-wrap: anywhere;
+    overflow-wrap: break-word;
     cursor: pointer;
   }
 

@@ -407,8 +407,9 @@ intended user can recognize or use it.
 ### Responsive behavior
 
 Label and value align for scanning at ordinary widths and stack in narrow containers. Long values
-wrap with `overflow-wrap` rather than forcing page overflow. Consumer-authored code may use a
-labeled scroll region only when breaking the identifier would make it unusable.
+wrap between words, and a single word longer than its line breaks rather than forcing page overflow.
+Consumer-authored code may use a labeled scroll region only when breaking the identifier would make
+it unusable.
 
 ### Content guidance
 

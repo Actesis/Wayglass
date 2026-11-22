@@ -52,7 +52,7 @@ export class WgCommandBar extends WayglassElement {
     [part='overflow'],
     [part='status'] {
       min-inline-size: 0;
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
 
     [part='heading'] {
@@ -116,6 +116,7 @@ export class WgCommandBar extends WayglassElement {
       [part='secondary'],
       [part='overflow'] {
         display: grid;
+        grid-template-columns: minmax(0, 1fr);
         align-items: stretch;
       }
     }

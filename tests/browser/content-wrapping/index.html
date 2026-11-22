@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wayglass content wrapping</title>
+    <link rel="stylesheet" href="/packages/tokens/dist/tokens.css" />
+    <link rel="stylesheet" href="/packages/themes/dist/themes.css" />
+    <link rel="stylesheet" href="/packages/elements/dist/data-table.css" />
+    <style>
+      body {
+        margin: 0;
+        color: var(--wg-color-semantic-text-primary);
+        background: var(--wg-color-semantic-surface-canvas);
+        font-family: var(--wg-typography-family-body);
+      }
+
+      main {
+        display: grid;
+        box-sizing: border-box;
+        inline-size: min(100%, 80rem);
+        /* Like the Wayglass layout primitives, the column may shrink below its content's minimum. */
+        grid-template-columns: minmax(0, 1fr);
+        margin-inline: auto;
+        padding: var(--wg-space-reference-4);
+        gap: var(--wg-space-reference-6);
+      }
+
+      h1 {
+        margin: 0;
+        font-size: var(--wg-typography-size-section);
+      }
+
+      /*
+       * Fixture-only mechanical widths. They model a consumer placing Wayglass content in a column
+       * narrower than its natural width; no width is set on the table itself.
+       */
+      .half-column {
+        inline-size: min(100%, 36rem);
+      }
+
+      .narrow-column {
+        inline-size: min(100%, 9rem);
+      }
+
+      .single-line::part(label) {
+        white-space: nowrap;
+      }
+    </style>
+  </head>
+  <body data-wg-theme="wayglass-dark" data-wg-density="compact">
+    <main>
+      <h1>Wrap</h1>
+
+      <section class="half-column" aria-labelledby="route-heading">
+        <h2 id="route-heading">Routes</h2>
+        <wg-data-table id="route-table">
+          <wg-scroll-region axis="inline" label="Route options table">
+            <table>
+              <caption>
+                Route options from the northern distribution terminal
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Approach</th>
+                  <th scope="col">Destination</th>
+                  <th scope="col">Available services</th>
+                  <th scope="col">Distance</th>
+                  <th scope="col">Dispatch</th>
+                  <th scope="col">More</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Overland transfer</td>
+                  <th scope="row">Westbrook interchange</th>
+                  <td>Refrigerated storage and maintenance</td>
+                  <td>412 kilometers</td>
+                  <td>
+                    <wg-button id="table-button">Dispatch northern courier</wg-button>
+                  </td>
+                  <td>
+                    <wg-menu>
+                      <span slot="trigger">Westbrook actions</span>
+                      <wg-command-item value="reserve">Reserve storage</wg-command-item>
+                    </wg-menu>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Coastal shipping</td>
+                  <th scope="row">Harborview terminal</th>
+                  <td>Customs inspection</td>
+                  <td>1280 kilometers</td>
+                  <td>
+                    <wg-button class="single-line" id="single-line-button"
+                      >Dispatch northern courier</wg-button
+                    >
+                  </td>
+                  <td>
+                    <wg-menu>
+                      <span slot="trigger">Harborview actions</span>
+                      <wg-command-item value="inspect">Request inspection</wg-command-item>
+                    </wg-menu>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </wg-scroll-region>
+        </wg-data-table>
+      </section>
+
+      <section class="half-column" aria-labelledby="state-heading">
+        <h2 id="state-heading">Shipment state</h2>
+        <wg-data-table id="state-table">
+          <wg-scroll-region axis="inline" label="Shipment state table">
+            <table>
+              <caption>
+                Shipment state at the northern distribution terminal
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Shipment</th>
+                  <th scope="col">Condition</th>
+                  <th scope="col">Inspection</th>
+                  <th scope="col">Refrigeration</th>
+                  <th scope="col">Confirmation</th>
+                  <th scope="col">Temperature</th>
+                  <th scope="col">Transit time</th>
+                  <th scope="col">Freshness</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Westbrook consignment</th>
+                  <td>
+                    <wg-status-indicator
+                      label="Delayed departure"
+                      condition="caution"
+                    ></wg-status-indicator>
+                  </td>
+                  <td><wg-badge condition="caution">Requires inspection</wg-badge></td>
+                  <td>
+                    <wg-boolean-value
+                      label="Refrigeration"
+                      asserted
+                      asserted-label="Operating normally"
+                      not-asserted-label="Stopped"
+                    ></wg-boolean-value>
+                  </td>
+                  <td>
+                    <wg-key-value label="Last confirmed" knowledge="stale">
+                      <span slot="value">Yesterday afternoon</span>
+                    </wg-key-value>
+                  </td>
+                  <td>
+                    <wg-trend-indicator
+                      direction="rising"
+                      label="Rising since departure"
+                    ></wg-trend-indicator>
+                  </td>
+                  <td>
+                    <wg-metric label="Elapsed transit" value="38" unit="hours"></wg-metric>
+                  </td>
+                  <td>
+                    <wg-stale-data-marker>Observed eighteen minutes ago</wg-stale-data-marker>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </wg-scroll-region>
+        </wg-data-table>
+      </section>
+
+      <section class="narrow-column" aria-labelledby="narrow-heading">
+        <h2 id="narrow-heading">Narrow</h2>
+        <wg-button id="narrow-button">Restart secondary pumps</wg-button>
+        <div id="unbreakable">
+          <wg-button id="unbreakable-button">Recommissioninginterchangeterminal</wg-button>
+          <wg-status-indicator
+            label="Recommissioninginterchangeterminal"
+            condition="caution"
+          ></wg-status-indicator>
+          <wg-badge>Recommissioninginterchangeterminal</wg-badge>
+          <wg-metric label="Recommissioninginterchangeterminal" value="38"></wg-metric>
+          <wg-stale-data-marker>Recommissioninginterchangeterminal</wg-stale-data-marker>
+          <wg-menu>
+            <span slot="trigger">Recommissioninginterchangeterminal</span>
+            <wg-command-item value="inspect">Request inspection</wg-command-item>
+          </wg-menu>
+        </div>
+      </section>
+    </main>
+
+    <script type="module">
+      const parameters = new URLSearchParams(window.location.search);
+      if (parameters.get('direction') === 'rtl') document.documentElement.dir = 'rtl';
+
+      const modules = await Promise.all([
+        import('/packages/elements/dist/data-table.js'),
+        import('/packages/elements/dist/scroll-region.js'),
+        import('/packages/elements/dist/button.js'),
+        import('/packages/elements/dist/status-indicator.js'),
+        import('/packages/elements/dist/badge.js'),
+        import('/packages/elements/dist/boolean-value.js'),
+        import('/packages/elements/dist/key-value.js'),
+        import('/packages/elements/dist/trend-indicator.js'),
+        import('/packages/elements/dist/metric.js'),
+        import('/packages/elements/dist/stale-data-marker.js'),
+        import('/packages/elements/dist/menu.js'),
+        import('/packages/elements/dist/command-item.js'),
+      ]);
+      const [
+        dataTable,
+        scrollRegion,
+        button,
+        statusIndicator,
+        badge,
+        booleanValue,
+        keyValue,
+        trendIndicator,
+        metric,
+        staleDataMarker,
+        menu,
+        commandItem,
+      ] = modules;
+      dataTable.defineWgDataTable();
+      scrollRegion.defineWgScrollRegion();
+      button.defineWgButton();
+      statusIndicator.defineWgStatusIndicator();
+      badge.defineWgBadge();
+      booleanValue.defineWgBooleanValue();
+      keyValue.defineWgKeyValue();
+      trendIndicator.defineWgTrendIndicator();
+      metric.defineWgMetric();
+      staleDataMarker.defineWgStaleDataMarker();
+      menu.defineWgMenu();
+      commandItem.defineWgCommandItem();
+    </script>
+  </body>
+</html>

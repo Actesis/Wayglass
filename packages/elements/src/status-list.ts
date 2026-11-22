@@ -53,7 +53,7 @@ export class WgStatusList extends WayglassElement {
     [part='status'],
     [part='actions'] {
       min-inline-size: 0;
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
 
     [part='heading'] {

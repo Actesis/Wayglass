@@ -115,7 +115,7 @@ export class WgBooleanValue extends WayglassElement {
       color: var(--wg-color-semantic-text-secondary);
       font-size: var(--wg-typography-size-label);
       font-weight: var(--wg-typography-weight-medium);
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
 
     [part='value'] {
@@ -123,7 +123,7 @@ export class WgBooleanValue extends WayglassElement {
       color: var(--wg-boolean-value-color-text);
       font-size: var(--wg-typography-size-body);
       font-weight: var(--wg-typography-weight-emphasis);
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
 
     [part='knowledge'] {

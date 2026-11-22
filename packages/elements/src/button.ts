@@ -111,16 +111,22 @@ export class WgButton extends WayglassElement {
       opacity: var(--wg-opacity-disabled);
     }
 
+    /*
+     * Label and pending text share one cell so pending preserves the width. The column's percentage
+     * maximum is treated as auto while a table or other content-sized layout measures the button,
+     * which then contributes its longest word. During layout the percentage caps the column at the
+     * button's width, so a single word longer than a narrow container breaks instead of overflowing.
+     */
     [part='core'] {
       display: grid;
+      grid-template-columns: minmax(auto, 100%);
       min-inline-size: 0;
     }
 
     [part='label'],
     [part='pending'] {
       grid-area: 1 / 1;
-      min-inline-size: 0;
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
       transition: opacity var(--wg-motion-duration-fast) var(--wg-motion-easing-standard);
     }
 

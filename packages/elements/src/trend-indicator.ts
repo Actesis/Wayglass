@@ -121,7 +121,7 @@ export class WgTrendIndicator extends WayglassElement {
 
     [part='label'] {
       min-inline-size: 0;
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
 
     [part='state'] {

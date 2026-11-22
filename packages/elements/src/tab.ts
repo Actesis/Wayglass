@@ -103,7 +103,7 @@ export class WgTab extends WayglassElement {
 
     [part='label'] {
       min-inline-size: 0;
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
       font-weight: var(--wg-typography-weight-medium);
       line-height: var(--wg-typography-line-height-compact);
     }
@@ -113,7 +113,7 @@ export class WgTab extends WayglassElement {
       color: var(--wg-color-semantic-text-secondary);
       font-size: var(--wg-typography-size-metadata);
       line-height: var(--wg-typography-line-height-body);
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
 
     @media (prefers-reduced-motion: reduce) {

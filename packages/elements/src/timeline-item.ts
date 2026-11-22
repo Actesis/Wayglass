@@ -147,7 +147,7 @@ export class WgTimelineItem extends WayglassElement {
     [part='details'],
     [part='actions'] {
       min-inline-size: 0;
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
 
     [part='time'],

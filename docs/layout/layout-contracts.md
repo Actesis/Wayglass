@@ -98,6 +98,14 @@ Where alignment is public, values use logical terms:
 - Responsive changes recompose content; they do not shrink text or controls to preserve columns.
 - Narrow arrangements preserve DOM, reading, and focus order.
 - Content may wrap or stack earlier at 200% zoom or with enlarged text.
+- Text wraps between words. A word breaks only when it is longer than its whole line
+  (`overflow-wrap: break-word`), never to make a component narrower.
+- Components contribute their longest word to the minimum size of content-sized layouts such as
+  native tables, `auto` grid tracks, and shrink-to-fit boxes. A table that cannot fit therefore
+  scrolls inside its `wg-scroll-region` instead of breaking words. Wayglass layout primitives let
+  their children shrink below that minimum; a consumer-authored grid or flex container that holds
+  Wayglass content should do the same, with `minmax(0, 1fr)` tracks or `min-inline-size: 0` on its
+  items, so the minimum resolves through wrapping or contained scrolling rather than page overflow.
 - No primitive hides overflow, state, instructions, or actions as a responsive strategy.
 - Phone, desktop, and wall-display fixtures use the same markup and semantic spacing roles.
 

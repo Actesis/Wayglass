@@ -21,10 +21,25 @@ export class WgStaleDataMarker extends WayglassElement {
       display: none !important;
     }
 
+    /*
+     * The text column's percentage maximum is treated as auto while a table or other content-sized
+     * layout measures this element, so it contributes its longest word. During layout the maximum
+     * caps the column beside the marker, so a word longer than a narrow container breaks instead of
+     * overflowing.
+     */
     [part='base'] {
       display: inline-grid;
       max-inline-size: 100%;
-      grid-template-columns: var(--wg-component-feedback-size-marker) minmax(0, 1fr);
+      grid-template-columns:
+        var(--wg-component-feedback-size-marker)
+        minmax(
+          auto,
+          calc(
+            100% - var(--wg-component-feedback-size-marker) - var(
+                --wg-component-feedback-space-related
+              )
+          )
+        );
       align-items: stretch;
       gap: var(--wg-component-feedback-space-related);
       box-sizing: border-box;
@@ -39,8 +54,7 @@ export class WgStaleDataMarker extends WayglassElement {
     }
 
     [part='content'] {
-      min-inline-size: 0;
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
 
     @media (forced-colors: active) {

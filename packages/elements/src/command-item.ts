@@ -67,7 +67,7 @@ export class WgCommandItem extends WayglassElement {
 
     [part='label'] {
       min-inline-size: 0;
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
       font-weight: var(--wg-typography-weight-medium);
     }
 
@@ -75,7 +75,7 @@ export class WgCommandItem extends WayglassElement {
       min-inline-size: 0;
       color: var(--wg-menu-color-detail, var(--wg-component-menu-color-detail));
       font-size: var(--wg-typography-size-metadata);
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
 
     [part='leading'],

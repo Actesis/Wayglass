@@ -45,7 +45,7 @@ export class WgProgress extends WgFormControlShell {
       margin-block: 0;
       color: var(--wg-component-feedback-color-detail);
       font-size: var(--wg-typography-size-metadata);
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
 
     @media (forced-colors: active) {

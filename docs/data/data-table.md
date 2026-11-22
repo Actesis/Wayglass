@@ -107,7 +107,7 @@ Cell content must:
 
 - keep condition, knowledge, activity, and domain value independent;
 - include visible text for state rather than relying on color, shape, or an icon alone;
-- wrap where wrapping does not destroy comparison;
+- wrap where wrapping does not destroy comparison, between words rather than within them;
 - preserve the full value through visible text or deliberate disclosure when truncation is accepted;
 - avoid nested tables unless a separately reviewed information structure requires them; and
 - avoid turning every cell into an interactive stop.
@@ -177,6 +177,12 @@ The table retains one native tabular representation at every width. Narrow layou
 inline scrolling; they do not transform rows into cards, hide columns without an explicit
 application decision, duplicate a second mobile table, or create a visually reordered reading
 sequence.
+
+Cells, the caption, and the accepted components placed in cells wrap between words. A column is
+never narrower than its longest word, so a table that cannot fit its container overflows into the
+scroll region instead of breaking words. The table needs no authored width for this. A word longer
+than any reasonable column, such as an identifier, still breaks rather than widening the column
+without limit.
 
 The consumer-authored `wg-scroll-region` uses `axis="inline"` and owns overflow measurement,
 conditional focusability, region labeling, focus treatment, scrollbar containment, and dynamic

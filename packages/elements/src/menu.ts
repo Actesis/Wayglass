@@ -71,6 +71,7 @@ export class WgMenu extends WayglassElement {
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      max-inline-size: 100%;
       min-inline-size: var(--wg-component-menu-size-trigger-minimum);
       min-block-size: var(--wg-component-menu-size-trigger-minimum);
       box-sizing: border-box;
@@ -99,7 +100,18 @@ export class WgMenu extends WayglassElement {
       opacity: var(--wg-opacity-disabled);
     }
 
+    /*
+     * The trigger label keeps whole words in tables and other content-sized layouts, and breaks only
+     * a word longer than a narrow container. It does not rely on wrapping inherited from where the
+     * menu is placed.
+     */
+    [part='trigger-content'] {
+      min-inline-size: 0;
+      overflow-wrap: break-word;
+    }
+
     [part='indicator'] {
+      flex: none;
       inline-size: 0.45em;
       block-size: 0.45em;
       border-inline-end: var(--wg-border-width-strong) solid currentColor;

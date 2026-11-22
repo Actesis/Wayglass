@@ -51,7 +51,7 @@ export class WgFilterBar extends WayglassElement {
     [part='summary'],
     [part='status'] {
       min-inline-size: 0;
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
 
     [part='heading'] {

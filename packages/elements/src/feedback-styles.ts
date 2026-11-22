@@ -61,13 +61,13 @@ export const feedbackCompositionStyles = css`
     font-size: var(--wg-typography-size-section);
     font-weight: var(--wg-typography-weight-emphasis);
     line-height: var(--wg-typography-line-height-compact);
-    overflow-wrap: anywhere;
+    overflow-wrap: break-word;
   }
 
   [part='content'],
   [part='last-known'] {
     color: var(--wg-feedback-color-detail);
-    overflow-wrap: anywhere;
+    overflow-wrap: break-word;
   }
 
   [part='actions'] {

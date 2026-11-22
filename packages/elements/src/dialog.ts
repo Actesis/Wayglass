@@ -134,7 +134,7 @@ export class WgDialog extends WayglassElement {
       font-size: var(--wg-typography-size-section);
       font-weight: var(--wg-typography-weight-emphasis);
       line-height: var(--wg-typography-line-height-compact);
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
 
     [part='heading']:focus-visible,
@@ -175,7 +175,7 @@ export class WgDialog extends WayglassElement {
       color: var(--wg-component-dialog-color-detail);
       font-size: var(--wg-typography-size-body);
       line-height: var(--wg-typography-line-height-body);
-      overflow-wrap: anywhere;
+      overflow-wrap: break-word;
     }
 
     [part='actions'] {
