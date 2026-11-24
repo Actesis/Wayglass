@@ -43,9 +43,13 @@ test('confirms exact merge scope and restores focus when the decision is cancell
 test('keeps pending approval separate and then records a confirmed merge durably', async ({
   page,
 }) => {
+  // The adapter confirms the merge 350 ms after approval. Hold the clock so the pending state is
+  // observed deterministically instead of racing that timer on a slow runner.
+  await page.clock.install();
   await openWorkflow(page);
   await page.getByRole('button', { name: 'Review merge approval for HL-317' }).click();
   const dialog = page.getByRole('dialog', { name: 'Approve merge for HL-317?' });
+  await page.clock.pauseAt(Date.now() + 60_000);
   await dialog.getByRole('button', { name: 'Approve merge for HL-317' }).click();
   await expect(dialog).toBeHidden();
   await expect(page.locator('wg-button[pending]')).toHaveAttribute('pending', '');
@@ -56,6 +60,7 @@ test('keeps pending approval separate and then records a confirmed merge durably
     'value',
     'Not merged',
   );
+  await page.clock.resume();
   await expect(page.locator('wg-alert[data-approval-outcome="merged"]')).toContainText(
     'Merge confirmed on the target branch',
   );

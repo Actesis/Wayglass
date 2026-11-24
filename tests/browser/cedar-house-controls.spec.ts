@@ -20,6 +20,9 @@ async function openCedarControl(
 test('keeps the confirmed porch-light value while a routine request is pending', async ({
   page,
 }) => {
+  // The adapter confirms a request 350 ms after it starts. Hold the clock so the pending state is
+  // observed deterministically instead of racing that timer on a slow runner.
+  await page.clock.install();
   await openCedarControl(page, 'lighting');
 
   const porch = page.locator('wg-boolean-value[label="Porch light"]');
@@ -28,6 +31,7 @@ test('keeps the confirmed porch-light value while a routine request is pending',
   const actionHost = page.locator('wg-button').filter({ hasText: 'Turn porch light on' });
 
   await expect(porch).not.toHaveAttribute('asserted');
+  await page.clock.pauseAt(Date.now() + 60_000);
   await action.click();
   await expect(request).toHaveAttribute('data-request-state', 'pending');
   await expect(request).toContainText('confirmed value has not changed');
@@ -39,6 +43,7 @@ test('keeps the confirmed porch-light value while a routine request is pending',
       .getByText(/Porch request pending/),
   ).toBeVisible();
 
+  await page.clock.resume();
   await expect(request).toHaveAttribute('data-request-state', 'succeeded');
   await expect(request).toContainText('Porch light confirmed on');
   await expect(porch).toHaveAttribute('asserted', '');

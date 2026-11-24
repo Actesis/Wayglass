@@ -60,6 +60,11 @@ test('exposes one named menu button and focuses the first command on open', asyn
 test('supports wrapping movement, Home, End, disabled discovery, and typeahead', async ({
   page,
 }) => {
+  // Typeahead clears its buffer 500 ms after the last key. Control the clock so the test crosses
+  // that boundary exactly, rather than racing the timer with a real-time wait on a slow runner.
+  await page.clock.install();
+  await page.reload();
+  await page.waitForFunction(() => customElements.get('wg-menu') !== undefined);
   const trigger = page.getByRole('button', { name: 'Report actions' });
   await trigger.focus();
   await page.keyboard.press('ArrowUp');
@@ -76,7 +81,7 @@ test('supports wrapping movement, Home, End, disabled discovery, and typeahead',
     'aria-disabled',
     'true',
   );
-  await page.waitForTimeout(550);
+  await page.clock.runFor(550);
   await page.keyboard.press('e');
   await expect(page.getByRole('menuitem', { name: 'Export report' })).toBeFocused();
 });

@@ -104,14 +104,22 @@ test('closes on Escape, reports presentation lifetime, and returns focus', async
     });
     (element as HTMLElement & { show(): boolean }).show();
   });
+  // Press Escape only once the dialog is open and holds focus, as a person would. Otherwise focus
+  // may never have left the invoker, and the focus assertion below would pass before closing ends.
+  const dialog = page.getByRole('dialog');
+  await expect(dialog).toBeVisible();
+  await expect.poll(() => page.evaluate(() => document.activeElement?.id)).toBe('content-dialog');
   await page.keyboard.press('Escape');
-  await expect(page.getByRole('dialog')).not.toBeVisible();
+  await expect(dialog).not.toBeVisible();
   await expect(page.locator('#invoker')).toBeFocused();
-  expect(
-    await page
-      .locator('#content-dialog')
-      .evaluate((element) => (element as HTMLElement & { records: unknown[] }).records),
-  ).toEqual([{ dialogId: 'maintenance-details', reason: 'escape' }]);
+  // The native close event, and therefore wg-dialog-close, arrives in a later task.
+  await expect
+    .poll(() =>
+      page
+        .locator('#content-dialog')
+        .evaluate((element) => (element as HTMLElement & { records: unknown[] }).records),
+    )
+    .toEqual([{ dialogId: 'maintenance-details', reason: 'escape' }]);
 });
 
 test('reports open, close-control, and programmatic presentation reasons', async ({ page }) => {
