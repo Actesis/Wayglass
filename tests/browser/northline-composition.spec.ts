@@ -246,10 +246,22 @@ test('preserves focus, query context, and reading position through a new excepti
   const inspect = page
     .getByRole('table', { name: 'Outbound load records' })
     .getByRole('link', { name: 'Inspect NL-2048' });
+  // Focusing the link scrolls it into view, which sets the reading position. Engines may finish
+  // that scroll after the focus call returns, so record the position only once it holds steady.
+  // An arbitrary scrollTo that hides the focused link is not a stable state: Firefox may scroll
+  // the focused element back into view on a later frame.
   await inspect.focus();
-  await page.evaluate(() => window.scrollTo({ top: 240 }));
-  await page.evaluate(() => new Promise<void>((resolve) => requestAnimationFrame(() => resolve())));
-  const priorScroll = await page.evaluate(() => window.scrollY);
+  const priorScroll = await page.evaluate(async () => {
+    const frame = () => new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+    let position = window.scrollY;
+    for (let steady = 0; steady < 5;) {
+      await frame();
+      steady = window.scrollY === position ? steady + 1 : 0;
+      position = window.scrollY;
+    }
+    return position;
+  });
+  expect(priorScroll).toBeGreaterThan(0);
 
   await page.evaluate(() => window.__northlineFixture?.receiveMeaningfulUpdate());
   await expect(page.getByLabel('Show')).toHaveValue('needs-attention');

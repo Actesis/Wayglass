@@ -4,6 +4,8 @@ import { expect, test, type Page } from '@playwright/test';
 const proofPath = '/experiments/phase-5c-rich-visualization/';
 
 async function settle(page: Page) {
+  // The proof renders its native adapter asynchronously after load; wait for it before measuring.
+  await page.locator('.p5c-native').waitFor();
   await page.evaluate(
     () =>
       new Promise<void>((resolve) =>
