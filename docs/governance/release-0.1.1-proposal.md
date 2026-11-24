@@ -1,9 +1,7 @@
 # Foundation 0.1.1 release proposal
 
-Status: proposed. Merging this proposal sets the foundation manifests to 0.1.1 and accepts the
-release plan below. Publishing still needs the owner's approval at each staged step, as the
-[npm release workflow](./npm-release-workflow.md) describes. Nothing here is on npm until those
-approvals happen.
+Status: released. The owner accepted this proposal by merging it (#342) and approved the release on
+November 23, 2026. The record of what was published is in [Release record](#release-record) below.
 
 ## Identity
 
@@ -120,3 +118,33 @@ version would overstate it.
   5. Add 0.1.1 release notes to the documentation site, and update the installation guide, the React
      guide, and the home page to 0.1.1.
 - **Announcement:** none beyond the changelog and release notes, unless the owner decides otherwise.
+
+## Release record
+
+- **Release commit:** `66c07ea87d558ced4ad2c3e4989a1d3eb94b9a0c`, the merge of
+  [#343](https://github.com/Actesis/Wayglass/pull/343). That merge followed this proposal's merge
+  (`5a7d569`) and changed only browser-test timing budgets for CI, so the package contents are those
+  this proposal accepted. The proposal's own merge commit could not be released, because its
+  required quality check had failed on a timing test that #343 corrected.
+- **Workflow run:** [45073322263](https://github.com/Actesis/Wayglass/actions/runs/45073322263),
+  dispatched with unit `foundation`, version `0.1.1`, and dist-tag `latest`. The owner approved the
+  `npm-release` environment.
+- **Staged and approved:** in order `tokens`, `core`, `themes`, `elements`, each with npm
+  provenance, and each approved by the owner on npmjs.com with two-factor authentication. npm
+  records publication at 2026-11-24T01:36Z (November 23 local time).
+
+| Tarball                       | SHA-256                                                            |
+| ----------------------------- | ------------------------------------------------------------------ |
+| `wayglass-tokens-0.1.1.tgz`   | `31310ac73f186e9176bd5760236e72482e2e1cc4ccfb5433680f71fdfa6e6270` |
+| `wayglass-core-0.1.1.tgz`     | `863a5c3a5c10c638a1ac38454dbfc999b0fcb6f806480c58329107eecb98fac4` |
+| `wayglass-themes-0.1.1.tgz`   | `8a21fd3ef3183906a0897d5eb864a13428e4cd8e4a893a52d6879a268f203b43` |
+| `wayglass-elements-0.1.1.tgz` | `206eac2b1be3015bf2b4203dc199e4fd8b16b205c0a9b0813fd2fbb390466d89` |
+
+- **Verification after publication:**
+  - The registry tarballs match these hashes byte for byte, and `latest` resolves to 0.1.1.
+  - A clean, unversioned install of `@wayglass/elements` and `@wayglass/react` selects the 0.1.1
+    foundation set, with React 0.1.0 sharing the one `@wayglass/elements` 0.1.1 install.
+  - `npm audit signatures` verified registry signatures and attestations.
+- **Tag:** `foundation-v0.1.1` (annotated) points at the release commit.
+- **Documentation:** the changelog, installation guide, React guide, home page, and 0.1.1 release
+  notes were updated after publication.
