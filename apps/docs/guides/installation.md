@@ -1,14 +1,14 @@
 # Install Wayglass
 
-Wayglass 0.1.0 is the first public feedback release. Pin exact versions for your first integration
-so you can reproduce and report any issues.
+Wayglass 0.1.1 is the current public feedback release: a patch to the foundation family of 0.1.0.
+Pin exact versions for your first integration so you can reproduce and report any issues.
 
 ## Web Components
 
 In an application that can bundle JavaScript and CSS imports:
 
 ```sh
-npm install --save-exact @wayglass/elements@0.1.0 @wayglass/tokens@0.1.0 @wayglass/themes@0.1.0
+npm install --save-exact @wayglass/elements@0.1.1 @wayglass/tokens@0.1.1 @wayglass/themes@0.1.1
 ```
 
 Load the shared styles and explicitly register the elements you use in your browser entry:
@@ -36,4 +36,4 @@ accessibility evidence.
 
 Next: [build an application](/guides/application-authoring), explore
 [Storybook](https://wayglass.hoagsoftworks.com/storybook/), or read the
-[0.1.0 release notes](/maintenance/release-0.1.0).
+[0.1.1 release notes](/maintenance/release-0.1.1).

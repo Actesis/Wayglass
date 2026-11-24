@@ -10,11 +10,11 @@ hero:
       text: Install Wayglass
       link: /guides/installation
     - theme: alt
-      text: Read the 0.1.0 release notes
-      link: /maintenance/release-0.1.0
+      text: Read the 0.1.1 release notes
+      link: /maintenance/release-0.1.1
 ---
 
-Wayglass 0.1.0 is available on npm as the first public feedback release.
+Wayglass 0.1.1 is available on npm. It patches 0.1.0, the first public feedback release.
 
 Phases 0 through 5 are complete. Cedar House, Northline Cold Storage, and Harbor Lab prove the
 design language across three isolated application contexts, while Phase 5 records the ecosystem's
