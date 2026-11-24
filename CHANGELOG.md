@@ -8,15 +8,15 @@ versions follow Semantic Versioning under the accepted release-governance contra
 
 No changes yet.
 
-## Foundation 0.1.1 — pending publication
+## Foundation 0.1.1 — 2026-11-23
 
-`@wayglass/core`, `@wayglass/tokens`, `@wayglass/themes`, and `@wayglass/elements` 0.1.1, proposed
-in the
+`@wayglass/core`, `@wayglass/tokens`, `@wayglass/themes`, and `@wayglass/elements` 0.1.1, released
+under the
 [0.1.1 release proposal](https://github.com/Actesis/Wayglass/blob/main/docs/governance/release-0.1.1-proposal.md).
 Only `@wayglass/elements` changes materially; the other three move with the synchronized foundation
 family. `@wayglass/icons` and `@wayglass/react` stay at 0.1.0, and React's `@wayglass/elements`
-`^0.1.0` range accepts 0.1.1. This entry is not on npm until its date replaces "pending
-publication".
+`^0.1.0` range accepts 0.1.1. See the
+[0.1.1 release notes](https://wayglass.hoagsoftworks.com/maintenance/release-0.1.1).
 
 ### Fixed
 

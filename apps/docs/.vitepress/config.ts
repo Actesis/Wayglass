@@ -413,6 +413,7 @@ export default defineConfig({
           { text: 'Support', link: '/maintenance/support' },
           { text: 'Security', link: '/maintenance/security' },
           { text: 'Changelog', link: '/maintenance/changelog' },
+          { text: '0.1.1 release notes', link: '/maintenance/release-0.1.1' },
           { text: '0.1.0 release notes', link: '/maintenance/release-0.1.0' },
           { text: 'Migration', link: '/maintenance/migration' },
           { text: 'Deprecations', link: '/maintenance/deprecations' },

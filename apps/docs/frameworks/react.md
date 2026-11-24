@@ -6,10 +6,11 @@ application state.
 
 ## Installation boundary
 
-Install the published 0.1.0 bindings in a React 19 application:
+Install the published bindings (`@wayglass/react` 0.1.0 with the 0.1.1 foundation packages) in a
+React 19 application:
 
 ```sh
-npm install --save-exact @wayglass/react@0.1.0 @wayglass/elements@0.1.0 @wayglass/tokens@0.1.0 @wayglass/themes@0.1.0
+npm install --save-exact @wayglass/react@0.1.0 @wayglass/elements@0.1.1 @wayglass/tokens@0.1.1 @wayglass/themes@0.1.1
 ```
 
 See [installation](/guides/installation) for stylesheet imports and compatibility.
